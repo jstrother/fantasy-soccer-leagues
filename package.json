@@ -4,8 +4,22 @@
   "description": "A fantasy soccer league that auto-updates via web scraping",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "scss": "node-sass --output-style compressed scss/styles.scss public/styles.css",
+    "autoprefixer": "postcss -u autoprefixer -r public/styles.css",
+    "cleancss": "cleancss -o public/styles.css public/styles.css",
+    "image": "imagemin img/* -o public/img",
+    "font": "cp font/*.* public/font/",
+    "html": "cp *.html public/",
+    "start": "nodemon --harmony server.js",
+    "build:html": "npm run html && npm run image && npm run font",
+    "build:css": "npm run scss && npm run autoprefixer && npm run cleancss",
+    "build:js": "webpack",
+    "build": "npm run build:html && npm run build:css && npm run build:js",
+    "watch:html": "onchange \"./*.html\" -- npm run build:html",
+    "watch:css": "onchange \"./scss/*.scss\" -- npm run build:css",
+    "watch:js": "onchange \"./components/*.js\" -- npm run build:js",
+    "watch": "parallelshell \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:js\"",
+    "begin": "npm run build && npm run watch"
   },
   "repository": {
     "type": "git",
@@ -20,5 +34,45 @@
   "bugs": {
     "url": "https://github.com/jstrother/fantasy-soccer-leagues/issues"
   },
-  "homepage": "https://github.com/jstrother/fantasy-soccer-leagues#readme"
+  "homepage": "https://github.com/jstrother/fantasy-soccer-leagues#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "clean-css": "^4.0.11",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "imagemin": "^5.2.2",
+    "mocha": "^3.2.0",
+    "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
+    "onchange": "^3.2.1",
+    "parallelshell": "^2.0.0",
+    "postcss-cli": "^3.1.1",
+    "uglify-js": "^2.8.22",
+    "webpack": "^2.3.3"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "jquery": "^3.2.1",
+    "material-ui": "^0.17.2",
+    "normalize-scss": "^6.0.0",
+    "react": "^15.5.3",
+    "react-dom": "^15.5.3",
+    "react-redux": "^5.0.4",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "rethinkdb": "^2.3.3",
+    "socket.io": "^1.7.3"
+  }
 }
