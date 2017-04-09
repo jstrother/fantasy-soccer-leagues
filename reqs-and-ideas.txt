@@ -4,6 +4,3 @@ needed from MLS website:
 	-results
 	-players
 	-player stats
-
-Rethink command:
-	rethinkdb.exe --http-port 8081 --bind all
