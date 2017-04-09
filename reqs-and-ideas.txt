@@ -1,0 +1,9 @@
+needed from MLS website:
+	-teams
+	-schedule
+	-results
+	-players
+	-player stats
+
+Rethink command:
+	rethinkdb.exe --http-port 8081 --bind all

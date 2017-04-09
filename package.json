@@ -1,0 +1,24 @@
+{
+  "name": "fantasy-soccer-leagues",
+  "version": "1.0.0",
+  "description": "A fantasy soccer league that auto-updates via web scraping",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jstrother/fantasy-soccer-leagues.git"
+  },
+  "keywords": [
+    "fantasy",
+    "soccer"
+  ],
+  "author": "Jim Strother",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jstrother/fantasy-soccer-leagues/issues"
+  },
+  "homepage": "https://github.com/jstrother/fantasy-soccer-leagues#readme"
+}
