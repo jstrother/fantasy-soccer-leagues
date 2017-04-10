@@ -1,6 +1,6 @@
 needed from MLS website:
-	-teams
 	-schedule
+		-find .schedule_list then search down via for loop with i = # of total mls games for regular season
 	-results
 	-players
 	-player stats
