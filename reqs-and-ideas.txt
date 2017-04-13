@@ -1,6 +1,11 @@
 needed from MLS website:
 	-schedule
-		-find .schedule_list then search down via for loop with i = # of total mls games for regular season
+		-find .schedule_list then search down via for loop with i = 374 (# of total mls games for regular season)
+		-separate each group of matches by .match-date
+		-each li is searched for .match-item
 	-results
+		-pull from same page as schedule
 	-players
+		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
 	-player stats
+		-can be found at `http://www.mlssoccer.com/players/${players-name}`
