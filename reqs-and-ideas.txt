@@ -9,8 +9,22 @@ needed from MLS website:
 		-same level as .match_status are both .home_club and .vs_club
 			-each has a child .club_name and .match_score
 	-teams
-		-can be found on the standings page, just need team names
+		-can be found on the standings page, just need to pluck team names.  this will help when the league expands, and this function only needs to run once at the start of each season.
 	-players
 		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
 	-player stats
 		-can be found at `http://www.mlssoccer.com/players/${players-name}`
+		-will need name, team, and position from top box area
+		-from player stats, search for current year then take stats from that line
+		-stats will be the following:
+			GP = games played
+			GS = games started
+			G = goals
+			MINS = minutes played
+			A = assists
+			SHTS = shots taken
+			SOG = shots on goal
+			FC = fouls committed
+			OFF = times caught offside
+			Y = yellow cards earned
+			R = red cards earned
