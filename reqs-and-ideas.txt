@@ -9,7 +9,7 @@ needed from MLS website:
 		-same level as .match_status are both .home_club and .vs_club
 			-each has a child .club_name and .match_score
 	-teams
-		-can be found on the standings page, just need to pluck team names.  this will help when the league expands, and this function only needs to run once at the start of each season.
+		-can be found on the standings page, just need to pluck team names.  this will help when the league expands, and this function only needs to run once before the start of each season.
 	-players
 		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
 	-player stats
