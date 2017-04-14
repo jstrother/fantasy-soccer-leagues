@@ -4,8 +4,6 @@ const path = require('path'),
 			express = require('express'),
 			app = express(),
 			server = require('http').Server(app),
-			request = require('request'),
-			cheerio = require('cheerio'),
 			PORT = 8080,
 			scheduleURL = 'http://www.mlssoccer.com/schedule?month=all&year=2017&club=select&club_options=9&op=Update&form_build_id=form-ORn_kjWBAHvfd2ahH5gk9xi5HZpp0OTYpCYHbemGCFs&form_id=mp7_schedule_hub_search_filters_form',
 			playersURL = 'http://www.mlssoccer.com/players?page=',
@@ -20,20 +18,15 @@ app.get('*', (req, res) => {
 
 console.log('Server Started');
 
-let masterListMatchDayIds = []
+let masterListMatches = []  // complete list of match Ids
 
- let player = () => {
- 	playerName,
- 	playerClub,
- 	playerPosition,
- 	matchDayList // this is an array of unique matchDayIDs
- };
-
-let team = () => {
-	clubName,
-	clubRoster, // array of player.playerClub
-	matchDayList // this is an array of unique matchDayIds
-};
+ // let player = {
+ // 	playerName: ,
+ // 	playerClub,
+ // 	playerPosition,
+ //   playerStatistics,
+ // 	matchDayList // this is an array of unique matchDayIDs
+ // };
 
 let scheduleGrabber = scheduleURL => {
 	request(scheduleURL, (error, response, body) => {
@@ -45,7 +38,7 @@ let scheduleGrabber = scheduleURL => {
 			this.schedule = $('schedule_list').html();
 
 			for (i = 0; i <= 374; i++) {
-				masterListMatchDayIds.push() // use newId function to create unique IDs, max length is always 374, when displaying schedule (general, team, and player) 
+				masterListMatches.push() // use newId function to create unique matcheIds, max length is set by the first count, when displaying schedule (general, team, and player) 
 			};
 		}
 	})

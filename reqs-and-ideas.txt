@@ -10,8 +10,8 @@ needed from MLS website:
 			-each has a child .club_name and .match_score
 		-this should be scraped nightly to catch any rescheduled games
 	-teams
-		-can be found on the player page, just need to pluck team names.  this will help when the league expands during the off-season and freeAgent, etc
-		-clubName = $('.club').firstChild.html();  // the html() is from Cheerio module
+		-can be found on the standings page, just need to pluck team names.  this will help when the league expands during the off-season and freeAgent, etc
+		-clubName = $('[data-title = "club"]').firstChild.html();
 		-teams.push(clubName); //add to teams array
 	-players
 		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
