@@ -1,10 +1,15 @@
 needed from MLS website:
 	-schedule
 		-find .schedule_list then search down via for loop with i = 374 (# of total mls games for regular season)
-		-separate each group of matches by .match-date
-		-each li is searched for .match-item
-	-results
-		-pull from same page as schedule
+		-separate each group of matches by .match_date
+			-the match date is attached to the first li of the particular group
+		-each li is searched for .match_item
+		-two children down is .match_status
+			-if this = final, then scrape each team's players stats and add to database
+		-same level as .match_status are both .home_club and .vs_club
+			-each has a child .club_name and .match_score
+	-teams
+		-can be found on the standings page, just need team names
 	-players
 		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
 	-player stats
