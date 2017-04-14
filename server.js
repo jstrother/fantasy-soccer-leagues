@@ -8,7 +8,6 @@ const path = require('path'),
 			cheerio = require('cheerio'),
 			PORT = 8080,
 			scheduleURL = 'http://www.mlssoccer.com/schedule?month=all&year=2017&club=select&club_options=9&op=Update&form_build_id=form-ORn_kjWBAHvfd2ahH5gk9xi5HZpp0OTYpCYHbemGCFs&form_id=mp7_schedule_hub_search_filters_form',
-			standingsURL = 'http://www.mlssoccer.com/standings'
 			playersURL = 'http://www.mlssoccer.com/players?page=',
 			playerStatsURL = 'http://www.mlssoccer.com/players/';
 // playersURL ends as it does so that a for loop from 0-20 can be used via concatenation
@@ -19,14 +18,35 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(`${__dirname}/public/index.html`));
 });
 
-function scheduleGrabber(url) {
-	request(url, (error, response, body) => {
-		if (!error) {
-			// trying to catch the full schedule
-			let $ = cheerio.load(body),
-					schedule = $();
+console.log('Server Started');
+
+let masterListMatchDayIds = []
+
+ let player = () => {
+ 	playerName,
+ 	playerClub,
+ 	playerPosition,
+ 	matchDayList // this is an array of unique matchDayIDs
+ };
+
+let team = () => {
+	clubName,
+	clubRoster, // array of player.playerClub
+	matchDayList // this is an array of unique matchDayIds
+};
+
+let scheduleGrabber = scheduleURL => {
+	request(scheduleURL, (error, response, body) => {
+		if (error) {
+			console.log(`The following error was encountered: ${error}`);
 		} else {
-			console.log(`The following error was encountered: ${error}`)
+			// trying to catch the full schedule
+			let $ = cheerio.load(body);
+			this.schedule = $('schedule_list').html();
+
+			for (i = 0; i <= 374; i++) {
+				masterListMatchDayIds.push() // use newId function to create unique IDs, max length is always 374, when displaying schedule (general, team, and player) 
+			};
 		}
 	})
-}
+};

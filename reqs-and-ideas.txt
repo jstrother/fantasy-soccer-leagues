@@ -8,15 +8,29 @@ needed from MLS website:
 			-if this = final, then scrape each team's players stats and add to database
 		-same level as .match_status are both .home_club and .vs_club
 			-each has a child .club_name and .match_score
+		-this should be scraped nightly to catch any rescheduled games
 	-teams
-		-can be found on the standings page, just need to pluck team names.  this will help when the league expands, and this function only needs to run once before the start of each season.
+		-can be found on the player page, just need to pluck team names.  this will help when the league expands during the off-season and freeAgent, etc
+		-clubName = $('.club').firstChild.html();  // the html() is from Cheerio module
+		-teams.push(clubName); //add to teams array
 	-players
 		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
+		-loop through $('.player_list')
+			-playerName = $('.name_link').html();
+			-playerClub = $('.club');
+			-playerPositioni = $('.')
+			-search teams objects by playerClub, pushing playerName, playerClub, playerPosition to teams.clubName.roster.sameVariable <-- placerHolder!
 	-player stats
-		-can be found at `http://www.mlssoccer.com/players/${players-name}`
-		-will need name, team, and position from top box area
+		-can be found at `http://www.mlssoccer.com/players/${playerName}`
+		-if $(.class).html() = //any on the following list mark as unAvailble:
+			-Loaned OUt
+			-Injured
+			-Suspended
+			-
+			-
+
 		-from player stats, search for current year then take stats from that line
-		-stats will be the following:
+		-definitions:
 			GP = games played
 			GS = games started
 			G = goals
