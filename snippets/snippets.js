@@ -27,22 +27,22 @@ mongoose.connection.once('open', () => {
 					awayClub: {type: String, unique: true},
 					homeScore: Number,
 					awayScore: Number,
-					matchDate: Date,
-					totalPayroll: Number
+					matchDate: Date
 				}),
 				clubSchema = mongoose.Schema({
-					clubName: {type: String, unique: true}, //
-					clubRoster: {type: Array, unique: true}, // sorted out from player.playerClub
+					clubName: {type: String, unique: true}, // taken from an array of player.playerClub
+					clubRoster: {type: Array, unique: true}, // .push(player.playerUniqueID)
 					matchDayList: {type: Function, unique: true}  // sorted out from schedule.masterMatchList
 				}),
 				userSchema = mongoose.Schema({
 					userName: {type: String, unique: true},
 					userPassword: String,
-					fantasyClub: {type: String, unique: true},
+					fantasyClub: {type: Object, unique: true},
 					fantasyLeague: String,
 					fantasyDivision: String,
 					fantasyChampsLeague: Boolean
 				}),
+				fantasyClub
 				fantasyMatch = mongoose.Schema({
 					matchUniqueID: {type: String, unique: true}
 					homeClub: {type: String, unique: true},
