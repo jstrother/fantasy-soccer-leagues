@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+			playerSchema = require('../models/player_model.js'),
+			scheduleSchema = require('../models/schedule_model.js');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/');
@@ -7,20 +9,8 @@ mongoose.connection.on('error', err => {
 	console.error(`Could not connect.  Error: ${err}`);
 });
 
+// moving schema into separate model files
 mongoose.connection.once('open', () => {
-	const scheduleSchema = mongoose.Schema({
-					masterMatchList: {type: Array, uniquie: true},
-					numSeasonMatches: Number // simple .length
-				}),
-				playerSchema = mongoose.Schema ({
-					playerUniqueID: {type: String, unique: true},
-					playerName: {type: String, unique: true},
-					playerClub: String,
-					playerPosition: String,
-					playerStatistics: Array,
-					playerValue: Number, // in millions of $$$'s
-					matchDayList: Function  // based off playerClub.matchDayList
-				}),
 				matchSchema = mongoose.Schema({
 					matchUniqueID: {type: String, unique: true},
 					homeClub: {type: String, unique: true},
