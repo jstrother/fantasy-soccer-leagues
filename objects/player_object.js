@@ -24,7 +24,7 @@ const Player = () => {
 	this.playerValue = this.playerStats => {
 		return null; // for now
 	};
-	this.matchDayList = this.playerClub => {
+	this.playerSchedule = this.playerClub => {
 		return null; // for now
 	};
 	this.playerURL = `http://www.mlssoccer.com/players/${this.playerName}`;
@@ -36,21 +36,9 @@ Player.prototype = () => {
 	},
 
 	updateStats = this.playerStats => {
-		// use to update each stat individually: 
-		// let this.playerStat[i] = (this.playerStat[i] > stat[i]) ? this.playerStat[i] : stat[i]
-		let 
-				gamesPlayed
-				gamesStarted
-				goals
-				minutesPlayed
-				assists
-				shotsTaken
-				shotsOnGoal
-				foulsCommitted
-				timesOffside
-				yellowCards
-				redCards
-	},
+		for (stat in this.playerStats) {
+			return null; // for now
+		};
 
 	updateClub = this.playerClub => {
 		return null; // for now

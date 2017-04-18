@@ -8,9 +8,9 @@ const mongoose = require('mongoose'),
 				playerPosition: String,
 				playerStats: Array,
 				playerValue: Number, // in millions of $$$'s
-				matchDayList: Function  // based off playerClub.matchDayList
+				playerSchedule: Function  // based off playerClub.clubSchedule
 			}),
 
 			Player = mongoose.model('Player', playerSchema);
 
-module.exports = Player;
+export default Player;
