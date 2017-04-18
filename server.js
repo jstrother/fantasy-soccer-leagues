@@ -3,7 +3,6 @@
 const path = require('path'),
 			express = require('express'),
 			bodyParser = require('body-parser'),
-			unirest = require('unirest'),
 			mongoose = require('mongoose'),
 			app = express(),
 			server = require('http').Server(app),
