@@ -1,4 +1,5 @@
 // scraper.js - pulls info from site for processing
+// only needed for player, match, and schedule models
 
 const unirest = require('unirest');
 
