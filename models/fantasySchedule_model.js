@@ -5,9 +5,9 @@ const mongoose = require('mongoose'),
 				masterRegSeasonSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
 				numRegSeasonMatches: Number,
 				masterLeagueCupSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
-				leagueCupRoundTracker: String,
+				leagueCupRound: String,
 				masterChampsSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
-				champsRoundTracker: String,
+				champsRound: String,
 				champsGroupStage: Boolean
 			}),
 
