@@ -80,8 +80,8 @@ mongoose.connection.once('open', () => {
 	    mongoose.disconnect();
     });
 	};
-	const update = (model, field) => {
-	  Type.findOneAndUpdate(model, {fields: field}, (err, model) => {
+	const update = model => {
+	  Type.findOneAndUpdate(model, (err, model) => {
       if (err || !model) {
         console.error(`Could not update: ${model}`);
         console.log(`Error: ${err}`);
@@ -112,16 +112,16 @@ mongoose.connection.once('open', () => {
   	typeSelector(model);
   	read(model);
   };
-  const updating = (model, field) => {
+  const updating = model => {
   	typeSelector(model);
-  	update(model, field);
+  	update(model);
   };
   const deleting = model => {
   	typeSelector(model);
   	del(model);
   };
-  // creating(sampleFantasySchedule);
+  // creating(samplePlayer);
   // reading(samplePlayer);
-  // updating(samplePlayer, samplePlayer.playerValue = 55);
+  // updating(samplePlayer);
   // deleting(samplePlayer);
 });
