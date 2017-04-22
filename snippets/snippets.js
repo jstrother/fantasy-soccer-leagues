@@ -25,33 +25,10 @@ mongoose.connection.on('error', err => {
 	console.error(`Could not connect.  Error: ${err}`);
 });
 
-mongoose.connection.once('open', () => {
-  const creating = model => {
-  	typeSelector(model);
-  	create(model);
-  };
-  const reading = model => {
-  	typeSelector(model);
-  	read(model);
-  };
-  const updating = (model, newData) => {
-  	typeSelector(model);
-  	update(model, newData);
-  };
-  const deleting = model => {
-  	typeSelector(model);
-  	del(model);
-  };
-  // creating(samplePlayer);
-  // reading(samplePlayer);
-  // updating(samplePlayer, {playerValue: 75});
-  deleting(samplePlayer);
-});
-
 // CRUD funtions
 let Type;
 
-function typeSelector(model) {
+const typeSelector = model => {
 	switch (model.schemaType) {
 		case 'Player':
 			Type = Player;
@@ -77,9 +54,9 @@ function typeSelector(model) {
 		case 'FantasyMatch':
 			Type = FantasyMatch;
 	}
-}
+};
 
-function create(model) {
+const create = model => {
   	Type.create(model, (err, model) => {
       if (err || !model) {
         console.error(`Could not create: ${model}`);
@@ -90,9 +67,9 @@ function create(model) {
       console.log(`Created ${model}`);
       mongoose.disconnect();
    });
-  }
+  };
 
-  function read(model) {
+  const read = model => {
     Type.findOne(model, (err, model) => {
       if (err || !model) {
         console.error(`Could not read: ${model}`);
@@ -103,10 +80,10 @@ function create(model) {
       console.log(`Read ${model}`);
 	    mongoose.disconnect();
     });
-	}
+	};
 
-	function update(model, newData) {
-	  Type.findOneAndUpdate(model, newData, (err, model) => {
+	const update = (model, newData) => {
+	  Type.findOneAndUpdate(model, {newData}, (err, model) => {
       if (err || !model) {
         console.error(`Could not update: ${model}`);
         console.log(`Error: ${err}`);
@@ -116,9 +93,9 @@ function create(model) {
       console.log(`Updated ${model}`);
       mongoose.disconnect();
 	    });
-	}
-
-	function del(model) {
+	};
+	
+  const del = model => {
     Type.findOneAndRemove(model, (err, model) => {
       if (err || !model) {
       	console.error(`Could not delete: ${model}`);
@@ -129,4 +106,27 @@ function create(model) {
       console.log(`Deleted ${model}`);
       mongoose.disconnect();
     });
-  }
+  };
+
+mongoose.connection.once('open', () => {
+  const creating = model => {
+  	typeSelector(model);
+  	create(model);
+  };
+  const reading = model => {
+  	typeSelector(model);
+  	read(model);
+  };
+  const updating = (model, newData) => {
+  	typeSelector(model);
+  	update(model, newData);
+  };
+  const deleting = model => {
+  	typeSelector(model);
+  	del(model);
+  };
+  // creating(samplePlayer);
+  // reading(samplePlayer);
+  updating(samplePlayer, {playerValue: 75});
+  // deleting(samplePlayer);
+});
