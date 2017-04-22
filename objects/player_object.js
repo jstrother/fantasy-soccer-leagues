@@ -1,7 +1,8 @@
 // the basic construction for all players
 
 const Player = () => {
-	this.playerName = null;
+	this.playerFirstName = null;
+	this.playerLastName = null;
 	this.playerClub = null;
 	this.playerPosition = null;
 	this.playerStats = {

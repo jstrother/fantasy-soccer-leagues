@@ -1,7 +1,8 @@
 const mongoose = require('mongoose'),
 
 			fantasyMatchSchema = mongoose.Schema({
-				matchUniqueID: {type: String, unique: true}
+				schemaType: String,
+				matchUniqueID: {type: String, unique: true},
 				homeClub: {type: String, unique: true},
 				awayClub: {type: String, unique: true},
 				homeScore: Number,
@@ -10,4 +11,4 @@ const mongoose = require('mongoose'),
 
 			FantasyMatch = mongoose.model('FantasyMatch', fantasyMatchSchema);
 
-export default FantasyMatch;
+module.exports = FantasyMatch;

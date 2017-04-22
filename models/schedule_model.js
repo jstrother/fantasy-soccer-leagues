@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
 
 			scheduleSchema = mongoose.Schema({
+				schemaType: String,
 				masterSchedule: {type: Array, uniquie: true},
 				numSeasonMatches: Number,
 				scheduleURL: {type: String, uniquie: true}
@@ -8,4 +9,4 @@ const mongoose = require('mongoose'),
 
 			Schedule = mongoose.model('Schedule', scheduleSchema);
 
-export default Schedule;
+module.exports = Schedule;

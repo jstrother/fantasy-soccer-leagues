@@ -1,15 +1,16 @@
 const mongoose = require('mongoose'),
 
-			fantasyScheduleSchema = mongoose.schema({
+			fantasyScheduleSchema = mongoose.Schema({
+				schemaType: String,
 				masterRegSeasonSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
 				numRegSeasonMatches: Number,
 				masterLeagueCupSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
-				leagueCupRoundTracker: Function,
+				leagueCupRoundTracker: String,
 				masterChampsSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
-				champsRoundTracker: Function,
+				champsRoundTracker: String,
 				champsGroupStage: Boolean
 			}),
 
 			FantasySchedule = mongoose.model('FantasySchedule', fantasyScheduleSchema);
 
-export default FantasySchedule;
+module.exports = FantasySchedule;

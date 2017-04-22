@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
 
 			userSchema = mongoose.Schema({
+				schemaType: String,
 				userName: {type: String, unique: true},
 				userPassword: String,
 				fantasyClub: {type: Object, unique: true},
@@ -11,4 +12,4 @@ const mongoose = require('mongoose'),
 
 			User = mongoose.model('User', userSchema);
 
-export default User;
+module.exports = User;

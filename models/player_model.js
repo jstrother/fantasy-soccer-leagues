@@ -1,41 +1,32 @@
 const mongoose = require('mongoose'),
 
 			playerSchema = mongoose.Schema ({
-				playerName: String,
-				playerURL: {type: String, unique: true},
+				schemaType: String,
+				playerFirstName: String,
+				playerLastName: String,
+				playerURL: String,
 				playerClub: String,
 				playerPosition: String,
-				gamesPlayed: Number,
-				gamesStarted: Number,
-				minutesPlayed: Number,
-				goals: Number,
-				assists: Number,
-				shotsTaken: Number,
-				shotsOnGoal: Number,
-				foulsCommitted: Number,
-				timesOffside: Number,
-				yellowCards: Number,
-				redCards: Number,
+				playerStats: {
+					gamesPlayed: Number,
+					gamesStarted: Number,
+					minutesPlayed: Number,
+					goals: Number,
+					assists: Number,
+					shotsTaken: Number,
+					shotsOnGoal: Number,
+					foulsCommitted: Number,
+					timesOffside: Number,
+					yellowCards: Number,
+					redCards: Number
+				},
 				playerValue: Number, // in millions of $$$'s
 				playerSchedule: Array  // based off playerClub.clubSchedule
 			}),
 
-			// playerSchema.virtual('playerStats').get(() => {
-			// 	return [
-			// 		this.gamesPlayed,
-			// 		this.gamesStarted,
-			// 		this.minutesPlayed,
-			// 		this.goals,
-			// 		this.assists,
-			// 		this.shotsTaken,
-			// 		this.shotsOnGoal,
-			// 		this.foulsCommitted,
-			// 		this.timesOffside,
-			// 		this.yellowCards,
-			// 		this.redCards
-			// 	];
-			// }),
-
 			Player = mongoose.model('Player', playerSchema);
 
 module.exports = Player;
+
+
+// playersURL = 'http://www.mlssoccer.com/players?page=', // playersURL ends as it does so that a for loop from 0-20 can be used via concatenation, there are 30 players per page max
