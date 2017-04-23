@@ -5,7 +5,10 @@ const mongoose = require('mongoose'),
 				playerFirstName: String,
 				playerLastName: String,
 				playerURL: String,
-				playerClub: String,
+				playerClub: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Club'
+				},
 				playerPosition: String,
 				playerStats: {
 					gamesPlayed: Number,

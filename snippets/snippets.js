@@ -16,13 +16,7 @@ const mongoose = require('mongoose'),
 			sampleUser = require('../sample-user.js'),
 			sampleFantasyClub = require('../sample-fantasy-club.js'),
 			sampleFantasyMatch = require('../sample-fantasy-match.js'),
-			sampleFantasySchedule = require('../sample-fantasy-schedule.js'),
-			// crud functions
-			typeSelector = require('../crud-file.js').typeSelector(),
-			create = require('../crud-file.js').create(),
-			read = require('../crud-file.js').read(),
-			update = require('../crud-file.js').update(),
-			del = require('../crud-file.js').del();
+			sampleFantasySchedule = require('../sample-fantasy-schedule.js');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/fantasy-league');
@@ -31,25 +25,63 @@ mongoose.connection.on('error', err => {
 	console.error(`Could not connect.  Error: ${err}`);
 });
 
+// CRUD functions
+
+const create = (model, data) => {
+  model.create(data, (err, data) => {
+    if (err || !data) {
+      console.error(`Could not create: ${data}`);
+      console.log(`Error: ${err}`);
+      mongoose.disconnect();
+      return;
+    }
+    console.log(`Created ${data}`);
+    mongoose.disconnect();
+ });
+};
+
+const read = (model, query) => {
+  model.findOne(query, (err, query) => {
+    if (err || !query) {
+      console.error(`Could not read: ${query}`);
+      console.log(`Error: ${err}`);
+      mongoose.disconnect();
+      return;
+    }
+    console.log(`Read ${query}`);
+    mongoose.disconnect();
+  });
+};
+
+const update = (model, query, newData) => {
+  model.findOneAndUpdate(query, newData, (err, query) => {
+    if (err || !query) {
+      console.error(`Could not update: ${query}`);
+      console.log(`Error: ${err}`);
+      mongoose.disconnect();
+      return;
+    }
+    console.log(`Updated ${query}`);
+    mongoose.disconnect();
+    });
+};
+
+const del = (model, query) => {
+  model.findOneAndRemove(query, (err, query) => {
+    if (err || !query) {
+      console.error(`Could not delete: ${query}`);
+      console.log(`Error: ${err}`);
+      mongoose.disconnect();
+      return;
+    }
+    console.log(`Deleted ${query}`);
+    mongoose.disconnect();
+  });
+};
+
 mongoose.connection.once('open', () => {
-  const creating = model => {
-  	typeSelector(model.schemaType);
-  	create(model);
-  };
-  const reading = model => {
-  	typeSelector(model.schemaType);
-  	read(model);
-  };
-  const updating = (model, newData) => {
-  	typeSelector(model.schemaType);
-  	update(model, newData);
-  };
-  const deleting = model => {
-  	typeSelector(model.schemaType);
-  	del(model);
-  };
-  // creating(samplePlayer);
-  // reading(samplePlayer);
-  // updating(samplePlayer, {playerValue: 75});
-  // deleting(samplePlayer);
+ // create(Player, samplePlayer);
+ // read(Player, samplePlayer);
+ update(Player, samplePlayer, {playerValue: 75});
+ // del(Player, {playerFirstName: 'Jim'});
 });
