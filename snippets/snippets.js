@@ -16,7 +16,13 @@ const mongoose = require('mongoose'),
 			sampleUser = require('../sample-user.js'),
 			sampleFantasyClub = require('../sample-fantasy-club.js'),
 			sampleFantasyMatch = require('../sample-fantasy-match.js'),
-			sampleFantasySchedule = require('../sample-fantasy-schedule.js');
+			sampleFantasySchedule = require('../sample-fantasy-schedule.js'),
+			// crud functions
+			typeSelector = require('../crud-file.js').typeSelector(),
+			create = require('../crud-file.js').create(),
+			read = require('../crud-file.js').read(),
+			update = require('../crud-file.js').update(),
+			del = require('../crud-file.js').del();
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/fantasy-league');
@@ -25,108 +31,25 @@ mongoose.connection.on('error', err => {
 	console.error(`Could not connect.  Error: ${err}`);
 });
 
-// CRUD funtions
-let Type;
-
-const typeSelector = model => {
-	switch (model.schemaType) {
-		case 'Player':
-			Type = Player;
-			break;
-		case 'Schedule':
-			Type = Schedule;
-			break;
-		case 'Club':
-			Type = Club;
-			break;
-		case 'Match':
-			Type = Match;
-			break;
-		case 'User':
-			Type = User;
-			break;
-		case 'FantasyClub':
-			Type = FantasyClub;
-			break;
-		case 'FantasySchedule':
-			Type = FantasySchedule;
-			break;
-		case 'FantasyMatch':
-			Type = FantasyMatch;
-	}
-};
-
-const create = model => {
-  	Type.create(model, (err, model) => {
-      if (err || !model) {
-        console.error(`Could not create: ${model}`);
-        console.log(`Error: ${err}`);
-        mongoose.disconnect();
-        return;
-      }
-      console.log(`Created ${model}`);
-      mongoose.disconnect();
-   });
-  };
-
-  const read = model => {
-    Type.findOne(model, (err, model) => {
-      if (err || !model) {
-        console.error(`Could not read: ${model}`);
-        console.log(`Error: ${err}`);
-        mongoose.disconnect();
-        return;
-      }
-      console.log(`Read ${model}`);
-	    mongoose.disconnect();
-    });
-	};
-
-	const update = (model, newData) => {
-	  Type.findOneAndUpdate(model, {newData}, (err, model) => {
-      if (err || !model) {
-        console.error(`Could not update: ${model}`);
-        console.log(`Error: ${err}`);
-        mongoose.disconnect();
-        return;
-      }
-      console.log(`Updated ${model}`);
-      mongoose.disconnect();
-	    });
-	};
-	
-  const del = model => {
-    Type.findOneAndRemove(model, (err, model) => {
-      if (err || !model) {
-      	console.error(`Could not delete: ${model}`);
-        console.log(`Error: ${err}`);
-  	    mongoose.disconnect();
-	      return;
-      }
-      console.log(`Deleted ${model}`);
-      mongoose.disconnect();
-    });
-  };
-
 mongoose.connection.once('open', () => {
   const creating = model => {
-  	typeSelector(model);
+  	typeSelector(model.schemaType);
   	create(model);
   };
   const reading = model => {
-  	typeSelector(model);
+  	typeSelector(model.schemaType);
   	read(model);
   };
   const updating = (model, newData) => {
-  	typeSelector(model);
+  	typeSelector(model.schemaType);
   	update(model, newData);
   };
   const deleting = model => {
-  	typeSelector(model);
+  	typeSelector(model.schemaType);
   	del(model);
   };
   // creating(samplePlayer);
   // reading(samplePlayer);
-  updating(samplePlayer, {playerValue: 75});
+  // updating(samplePlayer, {playerValue: 75});
   // deleting(samplePlayer);
 });
