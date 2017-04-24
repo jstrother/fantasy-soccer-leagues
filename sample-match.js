@@ -1,5 +1,4 @@
 let sampleMatch = {
-	schemaType: 'Match',
 	homeClub: 'Portland Timbers',
 	awayClub: 'Seattle Sounders FC',
 	homeScore: 1,

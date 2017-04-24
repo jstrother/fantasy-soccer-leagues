@@ -1,9 +1,6 @@
 let sampleClub = {
-	schemaType: 'Club',
 	clubName: 'Seattle Sounders FC',
-	clubRoster: [
-		'Jim Strother'
-	],
+	clubRoster: [],
 	clubSchedule: [
 		'@ Portland',
 		'Vancouver'

@@ -1,5 +1,4 @@
 let sampleSchedule = {
-	schemaType: 'Schedule',
 	masterSchedule: [
 		'Seattle Sounders FC @ Portland Timbers'
 	],

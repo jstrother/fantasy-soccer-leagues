@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'),
 
 			fantasyMatchSchema = mongoose.Schema({
-				schemaType: String,
 				homeClub: {type: String, unique: true},
 				awayClub: {type: String, unique: true},
 				homeScore: Number,

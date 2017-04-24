@@ -1,5 +1,4 @@
 let sampleFantasySchedule = {
-	schemaType: 'FantasySchedule',
 	masterRegSeasonSchedule: [
 		'another team @ fantasy team'
 	],

@@ -1,14 +1,9 @@
 const mongoose = require('mongoose'),
 
 			playerSchema = mongoose.Schema ({
-				schemaType: String,
-				playerFirstName: String,
-				playerLastName: String,
+				playerName: String,
 				playerURL: String,
-				playerClub: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: 'Club'
-				},
+				playerClub: String,
 				playerPosition: String,
 				playerStats: {
 					gamesPlayed: Number,

@@ -1,7 +1,5 @@
 let samplePlayer = {
-	schemaType: 'Player',
-	playerFirstName: 'Jim',
-	playerLastName: 'Strother',
+	playerName: 'Jim Strother',
 	playerClub: 'Seattle Sounders FC',
 	playerPosition: 'Midfielder',
 	playerStats: {
@@ -24,6 +22,6 @@ let samplePlayer = {
 	]
 };
 
-samplePlayer.playerURL = `http://www.mlssoccer.com/players/${samplePlayer.playerFirstName}-${samplePlayer.playerLastName}`;
+samplePlayer.playerURL = `http://www.mlssoccer.com/players/${samplePlayer.playerName.split(' ').join('-')}`;
 
 module.exports = samplePlayer;

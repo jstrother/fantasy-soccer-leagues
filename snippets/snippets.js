@@ -80,8 +80,10 @@ const del = (model, query) => {
 };
 
 mongoose.connection.once('open', () => {
- // create(Player, samplePlayer);
- // read(Player, samplePlayer);
- update(Player, samplePlayer, {playerValue: 75});
+	// create(Player, samplePlayer);
+ // create(Club, sampleClub);
+ // read(Club, sampleClub);
+ // update(Player, samplePlayer, {playerValue: 75});
  // del(Player, {playerFirstName: 'Jim'});
+ del(Club, sampleClub);
 });

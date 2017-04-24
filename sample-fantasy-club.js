@@ -1,5 +1,4 @@
 let sampleFantasyClub = {
-	schemaType: 'FantasyClub',
 	fantasyClubName: 'fantasy team',
 	fantasyClubManager: 'user1',
 	fantasyClubLeague: 'Super League',

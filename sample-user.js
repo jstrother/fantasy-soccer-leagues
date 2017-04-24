@@ -1,5 +1,4 @@
 let sampleUser = {
-	schemaType: 'User',
 	userName: 'user1',
 	userPassword: 'password',
 	fantasyClub: 'fantasy team',
