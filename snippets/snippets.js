@@ -85,5 +85,7 @@ mongoose.connection.once('open', () => {
  // read(Club, sampleClub);
  // update(Player, samplePlayer, {playerValue: 75});
  // del(Player, {playerFirstName: 'Jim'});
- del(Club, sampleClub);
+ // del(Club, sampleClub);
 });
+
+exports.read = read;
