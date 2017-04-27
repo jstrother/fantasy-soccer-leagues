@@ -10,32 +10,23 @@ const mongoose = require('mongoose'),
 
 mongoose.Promise = global.Promise;
 console.log('Hello!');
-describe('Club Roster', () => {
-	before(() => {
-		return new Promise((resolve, reject) => {
-			mongoose.connect('mongodb://localhost/fantasy-league', err => {
-				if (err) {
-					return reject(err);
-				}
-				resolve();
-			});
-		});
+describe('Club Roster', function() {
+	before(function(done) {
+		mongoose.createConnection('mongodb://localhost/fantasy-league-test');
+		done();
 	});
-	beforeEach(() => {
-		return new Promise((resolve, reject) => {
-			mongoose.connection.dropDatabase()
-			.then(result => resolve(result))
-			.catch(err => reject(err))
-		});
+	beforeEach(function(done) {
+		mongoose.connection.db.dropDatabase();
+		done();
 	});
-	afterEach();
+	// afterEach();
 	after(done => {
 		mongoose.disconnect();
 		done();
 	});
 	describe('Player', () => {
 		it('should add player from ref', (done) => {
-
+			done();
 		});
 	});
 });
