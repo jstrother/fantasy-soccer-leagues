@@ -17,7 +17,6 @@ describe('Club Roster', function() {
 	});
 	beforeEach(function(done) {
 		mongoose.connection.db.dropDatabase();
-		done();
 	});
 	// afterEach();
 	after(done => {
@@ -26,7 +25,16 @@ describe('Club Roster', function() {
 	});
 	describe('Player', () => {
 		it('should add player from ref', (done) => {
-			done();
+			Club.findOne({}, (err, query) => {
+		    if (err || !query) {
+		      console.error(`Could not read: ${query}`);
+		      console.log(`Error: ${err}`);
+		      return;
+		    }
+		    query.should.not.exist;
+		    console.log(`Read ${query}`);
+				done();
+		  });
 		});
 	});
 });
