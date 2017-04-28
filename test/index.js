@@ -9,32 +9,65 @@ const mongoose = require('mongoose'),
 	{read} = require('../snippets/snippets.js');
 
 mongoose.Promise = global.Promise;
-console.log('Hello!');
-describe('Club Roster', function() {
-	before(function(done) {
+console.log('Run Date/Time', Date.now());
+describe('Club Roster', () => {
+	before(done => {
 		mongoose.createConnection('mongodb://localhost/fantasy-league-test');
 		done();
 	});
-	beforeEach(function(done) {
+	beforeEach(done => {
+
+		done();
+	});
+	afterEach(done => {
 		mongoose.connection.db.dropDatabase();
 		done();
 	});
-	// afterEach();
 	after(done => {
 		mongoose.disconnect();
 		done();
 	});
 	describe('Player', () => {
-		it('should add player from ref', (done) => {
-			Club.findOne({}, (err, query) => {
-		    if (err || !query) {
-		      console.error(`Could not read: ${query}`);
+		it('should not exist', done => {
+			Club.findOne(samplePlayer._id, (err, playerQuery) => {
+		    if (err || !playerQuery) {
+		      console.error(`Could not read: ${playerQuery}`);
 		      console.log(`Error: ${err}`);
+		      console.log(`Date: ${Date.now()}`);
 		      return;
 		    }
-		    query.should.not.exist;
-		    console.log(`Read ${query}`);
+		    playerQuery.should.not.exist;
+		    console.log(`Read ${playerQuery}`);
 		  });
+			done();
+		});
+		it('should add to club roster from ref', done => {
+			Club.findOne(samplePlayer._id, sampleClub._id, (err, playerQuery, clubQuery) => {
+				if (err || !playerQuery && !clubQuery) {
+					console.error(`Could not read: ${playerQuery} and/or ${clubQuery}`);
+					console.log(`Error: ${err}`);
+					console.log(`Date: ${Date.now()}`);
+					return;
+				}
+				else if (playerQuery.playerClub === clubQuery.clubName) {
+					console.log('true');
+					clubQuery.clubRoster.push(playerQuery._id);
+					console.log(`Roster ${clubQuery.clubRoster}`);
+				}
+			});
+			done();
+		});
+		it('should now exist', done => {
+			Club.findOne(samplePlayer._id, (err, playerQuery) => {
+				if (err || !playerQuery) {
+					console.error(`Could not read: ${playerQuery}`);
+					console.log(`Error: ${err}`);
+					console.log(`Date: ${Date.now()}`);
+					return;
+				}
+				playerQuery.should.exist;
+				console.log(`Read ${playerQuery}`);
+			});
 			done();
 		});
 	});

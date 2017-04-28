@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
 
 			clubSchema = mongoose.Schema({
+				_id: Number,
 				clubName: {type: String, unique: true}, // taken from an array of player.playerClub
 				clubRoster: [{
 					type: mongoose.Schema.Types.ObjectId,
