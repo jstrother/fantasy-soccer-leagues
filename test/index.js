@@ -17,6 +17,7 @@ describe('Club Roster', function() {
 	});
 	beforeEach(function(done) {
 		mongoose.connection.db.dropDatabase();
+		done();
 	});
 	// afterEach();
 	after(done => {
@@ -33,8 +34,8 @@ describe('Club Roster', function() {
 		    }
 		    query.should.not.exist;
 		    console.log(`Read ${query}`);
-				done();
 		  });
+			done();
 		});
 	});
 });
