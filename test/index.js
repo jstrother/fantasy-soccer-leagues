@@ -15,15 +15,17 @@ console.log('Run Date/Time', Date.now());
 
 describe('User', function() {
 	before(function(done) {
-		mongoose.createConnection('mongodb://jim.strother:password@ds161169.mlab.com:61169/fantasy-soccer-test');
+		console.log('before hook', mongoose.createConnection('mongodb://jim.strother:password@ds161169.mlab.com:61169/fantasy-soccer-test').then);
 		done();
 	});
 	beforeEach(function(done) {
-
+		console.log(mongoose.connection.dropDatabase);
+		mongoose.connection.dropDatabase()
+			.then(done, done);
 		done();
 	});
 	afterEach(function(done) {
-		mongoose.connection.db.dropDatabase();
+		
 		done();
 	});
 	after(function(done) {
