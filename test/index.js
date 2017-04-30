@@ -61,13 +61,13 @@ describe('User', function() {
 
 	// 		done();
 	// 	});
-	// });
+	});
 });
 
-function errorCheck(err, query) {
-	if (err || !query) {
+function errorCheck(error, query) {
+	if (error || !query) {
 		console.error(`Could not read ${query}`);
-		console.log(`Error: ${err}`);
+		console.log(`Error: ${error}`);
 		console.log(`Run Date: ${Date.now()}`);
 	}
 }
