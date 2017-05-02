@@ -29,69 +29,40 @@ describe('User', function() {
 		mongoose.disconnect();
 		done();
 	});
-// trying to write tests as promises
-	function createClub(fantasyClubQuery, User) {
-		User.findOne(sampleFantasyClub._id).exec()
-			.catch(function(error) {
-				errorCheck(error, fantasyClubQuery);
-			});
-	}
 
 	describe('Fantasy Club', function() {
 		it('should not exist', function(done) {
-			createClub(sampleFantasyClub, User);
-			fantasyClubQuery.should.not.exist;
+			checkIfExists(sampleFantasyClub, User);
 			done();
 		});
 		it('should create new fantasy club', function(done) {
-			User.create(sampleFantasyClub, function(err, fantasyClubQuery) {
-				errorCheck(err, fantasyClubQuery);
-				fantasyClubQuery.should.exist;
-			});
+			createNew(sampleFantasyClub, User);
 			done();
 		});
 		it('should update a fantasy club', function(done) {
-			User.findOneAndUpdate(sampleFantasyClub._id, {fantasyClubDivision: 'Division 2'}, function(err, fantasyClubQuery) {
-				errorCheck(err, fantasyClubQuery);
-				fantasyClubQuery.fantasyClubDivision.should.match('Division 2');
-			});
+			updateExisting(sampleFantasyClub, 'fantasyClubDivision', 'Division 2', User);
 			done();
 		});
 		it('should remove a fantasy club', function(done) {
-			User.findOneAndRemove(sampleFantasyClub._id, function(err, fantasyClubQuery) {
-				errorCheck(err, fantasyClubQuery);
-				fantasyClubQuery.should.not.exist;
-			});
+			deleteExisting(sampleFantasyClub, User);
 			done();
 		});
 	});
 	describe('Fantasy League', function() {
 		it('should not exist', function(done) {
-			User.findOne(sampleFantasyLeague._id, function(err, fantasyLeagueQuery) {
-				errorCheck(err, fantasyLeagueQuery),
-				fantasyLeagueQuery.should.not.exist;
-			});
+			checkIfExists(sampleFantasyLeague, User);
 			done();
 		});
 		it('should create a new fantasy league', function(done) {
-			User.create(sampleFantasyLeague, function(err, fantasyLeagueQuery) {
-				errorCheck(err, fantasyLeagueQuery);
-				fantasyLeagueQuery.should.exist;
-			});
+			createNew(sampleFantasyLeague, User);
 			done();
 		});
 		it('should update a fantasy league', function(done) {
-			User.findOneAndUpdate(sampleFantasyLeague._id, {fantasyLeagueName: 'Another Fantasy League'}, function(err, fantasyLeagueQuery) {
-				errorCheck(err, fantasyLeagueQuery);
-				fantasyLeagueQuery.fantasyClubDivision.should.match('Another Fantasy League');
-			});
+			updateExisting(sampleFantasyLeague, 'fantasyLeagueName', 'Another Fantasy League', User);
 			done();
 		});
 		it('should remove a fantasy league', function(done) {
-			User.findOneAndRemove(sampleFantasyLeague._id, function(err, fantasyLeagueQuery) {
-				errorCheck(err, fantasyLeagueQuery);
-				fantasyLeagueQuery.should.not.exist;
-			});
+			deleteExisting(sampleFantasyLeague, User);
 			done();
 		});
 	});
@@ -103,4 +74,44 @@ function errorCheck(error, query) {
 		console.log(`Error: ${error}`);
 		console.log(`Run Date: ${Date.now()}`);
 	}
+}
+
+function checkIfExists(query, model) {
+	model.findOne(query._id).exec()
+	.then(function() {
+		return (query.should.not.exist);
+	})
+	.catch(function(error) {
+		errorCheck(error, query);
+	});
+}
+
+function createNew(query, model) {
+	model.create(query)
+	.then(function() {
+		return (query.should.exist);
+	})
+	.catch(function(error) {
+	errorCheck(error, query);
+	});
+}
+
+function updateExisting(query, updatedKey, updatedValue, model) {
+	model.findOneAndUpdate(query._id, {updatedKey: updatedValue}).exec()
+	.then(function() {
+		return (query.updatedKey.should.match(updatedValue));
+	})
+	.catch(function(error) {
+		errorCheck(error, query);
+	});
+}
+
+function deleteExisting(query, model) {
+	model.findOneAndRemove(sampleFantasyClub._id).exec()
+	.then(function() {
+		return (query.should.not.exist);
+	})
+	.catch(function(error) {
+		errorCheck(error, query);
+	});
 }
