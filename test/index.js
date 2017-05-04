@@ -13,15 +13,15 @@ const mongoose = require('mongoose'),
 	Schedule = require('../models/schedule_model.js'),
 	Player = require('../models/player_model.js'),
 	// all samples
-	sampleFantasyGame = require('../sample-fantasy-game.js'),
-	sampleUser = require('../sample-user.js'),
-	sampleFantasyClub = require('../sample-fantasy-club.js'),
-	sampleFantasyLeague = require('../sample-fantasy-league.js'),
-	sampleFantasyChampsLeague = require('../sample-fantasy-champs-league.js'),
-	sampleFantasyMatch = require('../sample-fantasy-match.js'),
-	sampleFantasySchedule = require('../sample-fantasy-schedule.js'),
-	sampleSchedule = require('../sample-schedule.js')
-	samplePlayer = require('../sample-player.js');
+	sampleFantasyGame = require('../samples/sample-fantasy-game.js'),
+	sampleUser = require('../samples/sample-user.js'),
+	sampleFantasyClub = require('../samples/sample-fantasy-club.js'),
+	sampleFantasyLeague = require('../samples/sample-fantasy-league.js'),
+	sampleFantasyChampsLeague = require('../samples/sample-fantasy-champs-league.js'),
+	sampleFantasyMatch = require('../samples/sample-fantasy-match.js'),
+	sampleFantasySchedule = require('../samples/sample-fantasy-schedule.js'),
+	sampleSchedule = require('../samples/sample-schedule.js')
+	samplePlayer = require('../samples/sample-player.js');
 
 mongoose.Promise = global.Promise;
 
