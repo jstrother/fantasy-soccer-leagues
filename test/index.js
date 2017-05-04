@@ -68,15 +68,15 @@ describe('FantasyGame', function() {
 			checkIfExists(sampleFantasyMatch, FantasyGame);
 			done();
 		});
-		it('should create a new champions league', function(done) {
+		it('should create a new fantasy match', function(done) {
 			createNew(sampleFantasyMatch, FantasyGame);
 			done();
 		});
-		it('should update a champions league', function(done) {
+		it('should update a fantasy match', function(done) {
 			updateExisting(sampleFantasyMatch, 'homeClub', 'a third team', FantasyGame);
 			done();
 		});
-		it('should remove a champions league', function(done) {
+		it('should remove a fantasy match', function(done) {
 			deleteExisting(sampleFantasyMatch, FantasyGame);
 			done();
 		});
@@ -87,15 +87,15 @@ describe('FantasyGame', function() {
 			checkIfExists(FantasySchedule, FantasyGame);
 			done();
 		});
-		it('should create a new champions league', function(done) {
+		it('should create a new fantasy schedule', function(done) {
 			createNew(FantasySchedule, FantasyGame);
 			done();
 		});
-		it('should update a champions league', function(done) {
+		it('should update a fantasy schedule', function(done) {
 			updateExisting(FantasySchedule, 'masterRegSeasonSchedule', 'a third team @ fantasy team', FantasyGame);
 			done();
 		});
-		it('should remove a champions league', function(done) {
+		it('should remove a fantasy schedule', function(done) {
 			deleteExisting(FantasySchedule, FantasyGame);
 			done();
 		});
@@ -106,15 +106,15 @@ describe('FantasyGame', function() {
 			checkIfExists(Player, FantasyGame);
 			done();
 		});
-		it('should create a new champions league', function(done) {
+		it('should create a new r/w player', function(done) {
 			createNew(Player, FantasyGame);
 			done();
 		});
-		it('should update a champions league', function(done) {
+		it('should update a r/w player', function(done) {
 			updateExisting(Player, 'playerPosition', 'Defender', FantasyGame);
 			done();
 		});
-		it('should remove a champions league', function(done) {
+		it('should remove a r/w player', function(done) {
 			deleteExisting(Player, FantasyGame);
 			done();
 		});
@@ -125,15 +125,15 @@ describe('FantasyGame', function() {
 			checkIfExists(Schedule, FantasyGame);
 			done();
 		});
-		it('should create a new champions league', function(done) {
+		it('should create a new master schedule', function(done) {
 			createNew(Schedule, FantasyGame);
 			done();
 		});
-		it('should update a champions league', function(done) {
+		it('should update a master schedule', function(done) {
 			updateExisting(Schedule, 'masterSchedule', 'Vancouver Whitecaps FC @ Seattle Sounders FC', FantasyGame);
 			done();
 		});
-		it('should remove a champions league', function(done) {
+		it('should remove a master schedule', function(done) {
 			deleteExisting(Schedule, FantasyGame);
 			done();
 		});
@@ -197,50 +197,50 @@ describe('FantasyGame', function() {
 	});
 });
 
-function errorCheck(error, query) {
-	if (error || !query) {
-		console.error(`Could not read ${query}`);
+function errorCheck(error, sample) {
+	if (error || !sample) {
+		console.error(`Could not read ${sample}`);
 		console.log(`Error: ${error}`);
 		console.log(`Run Date: ${Date.now()}`);
 	}
 }
 
-function checkIfExists(query, model) {
-	model.findOne(query._id).exec()
+function checkIfExists(sample, model) {
+	model.findOne(sample._id).exec()
 	.then(function() {
-		return (query.should.not.exist);
+		return (sample.should.not.exist);
 	})
 	.catch(function(error) {
-		errorCheck(error, query);
+		errorCheck(error, sample);
 	});
 }
 
-function createNew(query, model) {
-	model.create(query)
+function createNew(sample, model) {
+	model.create(sample)
 	.then(function() {
-		return (query.should.exist);
+		return (sample.should.exist);
 	})
 	.catch(function(error) {
-	errorCheck(error, query);
+	errorCheck(error, sample);
 	});
 }
 
-function updateExisting(query, updatedKey, updatedValue, model) {
-	model.findOneAndUpdate(query._id, {updatedKey: updatedValue}).exec()
+function updateExisting(sample, updatedKey, updatedValue, model) {
+	model.findOneAndUpdate(sample._id, {updatedKey: updatedValue}).exec()
 	.then(function() {
-		return (query.updatedKey.should.match(updatedValue));
+		return (sample.updatedKey.should.match(updatedValue));
 	})
 	.catch(function(error) {
-		errorCheck(error, query);
+		errorCheck(error, sample);
 	});
 }
 
-function deleteExisting(query, model) {
+function deleteExisting(sample, model) {
 	model.findOneAndRemove(sampleFantasyClub._id).exec()
 	.then(function() {
-		return (query.should.not.exist);
+		return (sample.should.not.exist);
 	})
 	.catch(function(error) {
-		errorCheck(error, query);
+		errorCheck(error, sample);
 	});
 }
