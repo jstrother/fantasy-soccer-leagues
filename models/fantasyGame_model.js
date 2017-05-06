@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'),
 
 			fantasyGameSchema = mongoose.Schema({
-				_id: Number,
 				fantasyUsers: Array,
 				fantasyClubs: Array,
 				fantasyLeagues: Array,

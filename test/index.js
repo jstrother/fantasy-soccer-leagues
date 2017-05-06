@@ -29,15 +29,18 @@ console.log('Run Date/Time', Date.now());
 
 describe('FantasyGame', function() {
 	before(function(done) {
-		mongoose.createConnection('mongodb://jim.strother:password@ds161169.mlab.com:61169/fantasy-soccer-test');
-		done();
-	});
-	beforeEach(function(done) {
+		this.timeout(10000);
 		mongoose.connection.on('connected', function() {
-			mongoose.connection.dropDatabase();
+			console.log('connection made');
+			mongoose.connection.db.dropDatabase();
+			done();
 		});
-		done();
+		mongoose.connect('mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test')
+		.then(fu);
 	});
+	// beforeEach(function(done) {
+		
+	// });
 	// afterEach();
 	after(function(done) {
 		mongoose.disconnect();
@@ -46,8 +49,13 @@ describe('FantasyGame', function() {
 
 	describe('Champions League', function() {
 		it('should not exist', function(done) {
-			checkIfExists(sampleFantasyChampsLeague, FantasyGame);
-			done();
+			this.timeout(5000);
+			getFantasyGame(sampleFantasyChampsLeague, FantasyGame)
+			.then(function(model) {
+				console.log(model);
+				model.should.exist;
+				done();
+			});
 		});
 		it('should create a new champions league', function(done) {
 			createNew(sampleFantasyChampsLeague, FantasyGame);
@@ -178,11 +186,19 @@ describe('FantasyGame', function() {
 
 		describe('Fantasy League', function() {
 			it('should not exist', function(done) {
-				checkIfExists(sampleFantasyLeague, User);
+				getModel(sampleFantasyLeague, User)
+				.then(function(model) {
+					model.should.not.exist;
+				});
 				done();
 			});
 			it('should create a new fantasy league', function(done) {
-				createNew(sampleFantasyLeague, User);
+				console.log(createNew(sampleFantasyLeague, User));
+				createNew(sampleFantasyLeague, User)
+				.then(function(model) {
+					model.should.not.exist;
+					console.log(model);
+				});
 				done();
 			});
 			it('should update a fantasy league', function(done) {
@@ -208,18 +224,38 @@ function errorCheck(error, sample) {
 function checkIfExists(sample, model) {
 	model.findOne(sample._id).exec()
 	.then(function() {
-		return (sample.should.not.exist);
+		return (sample.should.exist);
 	})
 	.catch(function(error) {
 		errorCheck(error, sample);
 	});
 }
 
-function createNew(sample, model) {
-	model.create(sample)
-	.then(function() {
-		return (sample.should.exist);
+function getModel(sample, model) {
+	return model.findOne(sample._id).exec()
+	.then(function(model) {
+		console.log(model);
+		return model;
 	})
+	.catch(function(error) {
+		errorCheck(error, sample);
+	});
+}
+
+function getFantasyGame(sample) {
+	return FantasyGame.findOne(sample._id).exec()
+	.then(function(model) {
+		console.log(model);
+		return model;
+	})
+	.catch(function(error) {
+		errorCheck(error, sample);
+	});
+}
+
+
+function createNew(sample, model) {
+	return model.create(sample)
 	.catch(function(error) {
 	errorCheck(error, sample);
 	});

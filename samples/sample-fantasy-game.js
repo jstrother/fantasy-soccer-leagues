@@ -1,5 +1,4 @@
 let sampleFantasyGame = {
-	_id: 3,
 	fantasyUsers: [],
 	fantasyClubs: [],
 	fantasyLeagues: [],
