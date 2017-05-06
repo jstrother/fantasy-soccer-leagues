@@ -36,7 +36,7 @@ describe('FantasyGame', function() {
 			done();
 		});
 		mongoose.connect('mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test')
-		.then(fu);
+		.then();
 	});
 	// beforeEach(function(done) {
 		
@@ -44,18 +44,21 @@ describe('FantasyGame', function() {
 	// afterEach();
 	after(function(done) {
 		mongoose.disconnect();
+		mongoose.connection.on('disconnected', function() {
+			console.log('disconnected');
+		});
 		done();
 	});
 
 	describe('Champions League', function() {
 		it('should not exist', function(done) {
-			this.timeout(5000);
+			this.timeout(15000);
 			getFantasyGame(sampleFantasyChampsLeague, FantasyGame)
 			.then(function(model) {
 				console.log(model);
 				model.should.exist;
-				done();
 			});
+			done();
 		});
 		it('should create a new champions league', function(done) {
 			createNew(sampleFantasyChampsLeague, FantasyGame);

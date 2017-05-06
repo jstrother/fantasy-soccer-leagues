@@ -4,6 +4,7 @@
   "description": "A fantasy soccer league that auto-updates via web scraping",
   "main": "server.js",
   "scripts": {
+    "test": "mocha test/*.js",
     "scss": "node-sass --output-style compressed scss/styles.scss public/styles.css",
     "autoprefixer": "postcss -u autoprefixer -r public/styles.css",
     "cleancss": "cleancss -o public/styles.css public/styles.css",
@@ -14,11 +15,12 @@
     "build:html": "npm run html && npm run image && npm run font",
     "build:css": "npm run scss && npm run autoprefixer && npm run cleancss",
     "build:js": "webpack",
-    "build": "npm run build:html && npm run build:css && npm run build:js",
+    "build": "npm run test && npm run build:html && npm run build:css && npm run build:js",
+    "watch:test": "onchange \"./test/*.js\" -- npm run test",
     "watch:html": "onchange \"./*.html\" -- npm run build:html",
     "watch:css": "onchange \"./scss/*.scss\" -- npm run build:css",
     "watch:js": "onchange \"./components/*.js\" -- npm run build:js",
-    "watch": "parallelshell \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:js\"",
+    "watch": "parallelshell \"npm run watch:test\" \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:js\"",
     "begin": "npm run build && npm run watch"
   },
   "repository": {
