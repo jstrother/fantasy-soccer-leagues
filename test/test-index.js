@@ -195,6 +195,7 @@ describe('FantasyGame', function() {
 				.then(function(model) {
 					model.should.not.exist;
 				});
+				// with the done() moved to here, it no longer times out
 				done();
 			});
 			it('should create a new fantasy league', function(done) {
@@ -217,21 +218,10 @@ describe('FantasyGame', function() {
 	});
 });
 
-function errorCheck(error, sample) {
-	if (error || !sample) {
-		console.error(`Could not read ${sample}`);
-		console.log(`Error: ${error}`);
-		console.log(`Run Date: ${Date.now()}`);
-	}
-}
-
 function checkIfExists(sample, model) {
 	model.findOne(sample._id).exec()
 	.then(function() {
 		return (sample.should.exist);
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
 	});
 }
 
@@ -240,9 +230,6 @@ function getModel(sample, model) {
 	.then(function(model) {
 		console.log(model);
 		return model;
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
 	});
 }
 
@@ -251,27 +238,18 @@ function getFantasyGame(sample) {
 	.then(function(model) {
 		console.log(model);
 		return model;
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
 	});
 }
 
 
 function createNew(sample, model) {
-	return model.create(sample)
-	.catch(function(error) {
-	errorCheck(error, sample);
-	});
+	return model.create(sample);
 }
 
 function updateExisting(sample, updatedKey, updatedValue, model) {
 	model.findOneAndUpdate(sample._id, {updatedKey: updatedValue}).exec()
 	.then(function() {
 		return (sample.updatedKey.should.match(updatedValue));
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
 	});
 }
 
@@ -279,8 +257,5 @@ function deleteExisting(sample, model) {
 	model.findOneAndRemove(sampleFantasyClub._id).exec()
 	.then(function() {
 		return (sample.should.not.exist);
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
 	});
 }
