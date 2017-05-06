@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'),
 			
 			fantasyChampsLeagueSchema = mongoose.Schema({
-				_id: Number,
 				fantasyChampsLeagueName: String,
 				fantasyChampsLeagueRegLeagues: {type: Array, unique: true},
 				fantasyChampsLeagueClubs: {type: Array, unique: true},

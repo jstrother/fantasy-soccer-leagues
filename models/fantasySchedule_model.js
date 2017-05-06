@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'),
 
 			fantasyScheduleSchema = mongoose.Schema({
-				_id: Number,
 				masterRegSeasonSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
 				numRegSeasonMatches: Number,
 				masterLeagueCupSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID

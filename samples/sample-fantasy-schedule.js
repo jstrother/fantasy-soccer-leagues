@@ -1,5 +1,4 @@
 let sampleFantasySchedule = {
-	_id: 6,
 	masterRegSeasonSchedule: [
 		'another team @ fantasy team'
 	],

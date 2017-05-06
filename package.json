@@ -4,7 +4,7 @@
   "description": "A fantasy soccer league that auto-updates via web scraping",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/*.js",
+    "test": "mocha test/test-index.js",
     "scss": "node-sass --output-style compressed scss/styles.scss public/styles.css",
     "autoprefixer": "postcss -u autoprefixer -r public/styles.css",
     "cleancss": "cleancss -o public/styles.css public/styles.css",

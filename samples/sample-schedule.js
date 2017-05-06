@@ -1,5 +1,4 @@
 let sampleSchedule = {
-	_id: 8,
 	masterSchedule: [
 		'Seattle Sounders FC @ Portland Timbers'
 	],

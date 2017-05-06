@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'),
 
 			playerSchema = mongoose.Schema ({
-				_id: Number,
 				playerName: String,
 				playerURL: String,
 				playerClub: String,
