@@ -57,6 +57,7 @@ describe('FantasyGame', function() {
 			.then(function(model) {
 				console.log(model);
 				model.should.exist;
+				// for some reason, this doesn't output here, but in the fantasyLeague 'should not exist' test
 				console.log('from champs league', model);
 			});
 			// moving done() to here makes the test get past the timeout error that's been throwing me off
