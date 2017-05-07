@@ -3,8 +3,7 @@
 
 const scrape = require('scrape-it'),
 	scheduleURL = 'https://www.mlssoccer.com/schedule?month=all&year=2017&club=select&club_options=9&op=Update&form_build_id=form-9Aex6ESUxF6RgJMLqz_Mfhbfd1R-np53jgjQfvkaujU&form_id=mp7_schedule_hub_search_filters_form',
-	playersURL = '',
-	playerStatsURL = 'https://www.mlssoccer.com/players/';
+	playerName = 'osvaldo-alonso'; //temporary until i can build the loop to iterate over player names in db
 
 // scrape(scheduleURL, {
 // 	matches: {
@@ -23,16 +22,31 @@ const scrape = require('scrape-it'),
 // 	console.log(schedule);
 // });
 
-for (i = 0; i < 21; i++) {
-	scrape(`https://www.mlssoccer.com/players?page=${i}`, {
-		players: {
-			listItem: '.row',
-			data: {
-				playerName: '.name_link'
-			}
+// for (i = 0; i < 21; i++) {
+// 	scrape(`https://www.mlssoccer.com/players?page=${i}`, {
+// 		players: {
+// 			listItem: '.row',
+// 			data: {
+// 				playerName: '.name_link',
+// 				playerTeam: '.club',
+// 			  playerPosition: '.position'
+// 			}
+// 		}
+// 	})
+// 	.then(players => {
+// 		console.log(players);
+// 	});
+// };
+
+// need a loop that iterates over player list in db then uses the following scraper
+scrape(`https://www.mlssoccer.com/players/${playerName}`, {
+	playerStats: {
+		listItem: 'div.stats_tables.expanded',
+		data: {
+			gamesPlayed: 'td.odd [data-title="GP"]'
 		}
-	})
-	.then(schedule => {
-		console.log(schedule);
-	});
-};
+	}
+})
+.then(playerStats => {
+	console.log(playerStats);
+});
