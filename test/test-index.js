@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
 	chai = require('chai'),
 	chaiHTTP = require('chai-http'),
+	chaiAsPromised = require('chai-as-promised'),
 	should = chai.should(),
 	// all models
 	FantasyGame = require('../models/fantasyGame_model.js'),
@@ -24,6 +25,7 @@ const mongoose = require('mongoose'),
 	samplePlayer = require('../samples/sample-player.js');
 
 mongoose.Promise = global.Promise;
+chai.use(chaiAsPromised);
 
 console.log('Run Date/Time', Date.now());
 
@@ -51,17 +53,9 @@ describe('FantasyGame', function() {
 	});
 
 	describe('Champions League', function() {
-		it('should not exist', function(done) {
-			// this.timeout(5000);
-			getFantasyGame(sampleFantasyChampsLeague, FantasyGame)
-			.then(function(model) {
-				console.log(model);
-				model.should.exist;
-				// for some reason, this doesn't output here, but in the fantasyLeague 'should not exist' test
-				console.log('from champs league', model);
-			});
-			// moving done() to here makes the test get past the timeout error that's been throwing me off
-			done();
+		it('should not exist', function() {
+			console.log(getModel(sampleFantasyChampsLeague, FantasyGame));
+			return getModel(sampleFantasyChampsLeague, FantasyGame).should.equal({});
 		});
 		it('should create a new champions league', function(done) {
 			createNew(sampleFantasyChampsLeague, FantasyGame);
@@ -219,6 +213,14 @@ describe('FantasyGame', function() {
 	});
 });
 
+function errorCheck(error, sample) {
+ 	if (error || !sample) {
+ 		console.error(`Could not read ${sample}`);
+ 		console.log(`Error: ${error}`);
+ 		console.log(`Run Date: ${Date.now()}`);
+ 	}
+ }
+
 function checkIfExists(sample, model) {
 	model.findOne(sample._id).exec()
 	.then(function() {
@@ -231,17 +233,11 @@ function getModel(sample, model) {
 	.then(function(model) {
 		console.log(model);
 		return model;
+	})
+	.catch(function(error) {
+		errorCheck(error, sample);
 	});
 }
-
-function getFantasyGame(sample) {
-	return FantasyGame.findOne(sample._id).exec()
-	.then(function(model) {
-		console.log(model);
-		return model;
-	});
-}
-
 
 function createNew(sample, model) {
 	return model.create(sample);
