@@ -107,6 +107,6 @@ function playerStatsScraper(url) {
 	});
 }
 
-module.exports = mlsScheduleScraper;
-module.exports = playerListScraper;
-module.exports = playerStatsScraper;
+exports.mlsScheduleScraper = mlsScheduleScraper;
+exports.playerListScraper = playerListScraper;
+exports.playerStatsScraper = playerStatsScraper;
