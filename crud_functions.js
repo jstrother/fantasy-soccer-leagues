@@ -1,47 +1,24 @@
 // CRUD functions
 
-const create = (model, data) => {
-  model.create(data, (err, data) => {
-    errorCheck(err, query);
-    console.log(`Created ${data}`);
-    mongoose.disconnect();
- });
+const mongoose = require('mongoose');
+
+const createData = (data, model) => {
+  return model.create(data);
 };
 
-const read = (model, query) => {
-  model.findOne(query, (err, query) => {
-    errorCheck(err, query);
-    console.log(`Read ${query}`);
-    mongoose.disconnect();
-  });
+const readData = (data, model) => {
+  return model.findOne(data);
 };
 
-const update = (model, query, newData) => {
-  model.findOneAndUpdate(query, newData, (err, query) => {
-    errorCheck(err, query);
-    console.log(`Updated ${query}`);
-    mongoose.disconnect();
-    });
+const updateData = (data, updatedKey, updatedValue, model) => {
+  return model.findOneAndUpdate(data, {$set: {updatedKey: updatedValue}}, {new: true});
 };
 
-const del = (model, query) => {
-  model.findOneAndRemove(query, (err, query) => {
-    errorCheck(err, query);
-    console.log(`Deleted ${query}`);
-    mongoose.disconnect();
-  });
+const deleteData = (data, model) => {
+  return model.findOneAndRemove(data._id);
 };
 
-const errorCheck = (err, query) => {
-  if (err || !query) {
-    console.error(`Could not delete: ${query}`);
-    console.log(`Error: ${err}`);
-    mongoose.disconnect();
-    return;
-  }
-};
-
-exports.create = create;
-exports.read = read;
-exports.update = update;
-exports.del = del;
+exports.createData = createData;
+exports.readData = readData;
+exports.updateData = updateData;
+exports.deleteData = deleteData;

@@ -22,212 +22,157 @@ const mongoose = require('mongoose'),
 	sampleFantasyMatch = require('../samples/sample-fantasy-match.js'),
 	sampleFantasySchedule = require('../samples/sample-fantasy-schedule.js'),
 	sampleSchedule = require('../samples/sample-schedule.js')
-	samplePlayer = require('../samples/sample-player.js');
+	samplePlayer = require('../samples/sample-player.js'),
+	// import crud functions
+	{ createData, readData, updateData, deleteData } = require('../crud_functions.js');
 
 mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);
 
 console.log('Run Date/Time', Date.now());
 
-describe('Fantasy Game', function() {
-	before(function(done) {
-		mongoose.connection.on('connected', function() {
-			console.log('connection made');
-			done();
-		});
+describe('Fantasy Game', () => {
+	before(done => {
 		mongoose.connect('mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test');
+		mongoose.connection.on('connected', () => {
+			console.log('connection made');
+			mongoose.connection.db.dropDatabase();
+			done();
+		});
 	});
 
-	afterEach(function(done) {
-		// console.log('db dropped');
-		mongoose.connection.db.dropDatabase();
-		done();
-	});
-
-	after(function(done) {
+	after(done => {
 		mongoose.disconnect();
-		mongoose.connection.on('disconnected', function() {
+		mongoose.connection.on('disconnected', () => {
 			console.log('disconnected');
+			mongoose.connection.db.dropDatabase();
 		});
 		done();
 	});
 
-	describe('Champions League', function() {
-		it('should not exist', function() {
-			return getModel(sampleFantasyChampsLeague, FantasyGame).should.eventually.equal(null);
+	describe('Champions League', () => {
+		it('should not exist', () => {
+			return readData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
 		});
-		it('should create a new champions league', function() {
-			return createNew(sampleFantasyChampsLeague, FantasyGame).should.eventually.exist;
+		it('should create a new champions league', () => {
+			return createData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.exist;
 		});
-		it('should update a champions league', function() {
-			return updateExisting(sampleFantasyChampsLeague, 'fantasyChampsLeagueName', 'Champions 2', FantasyGame);
-		});
-		// it('should remove a champions league', function(done) {
-		// 	deleteExisting(sampleFantasyChampsLeague, FantasyGame);
-		// 	done();
+		// it('should update a champions league', () => {
+		// 	return updateData(sampleFantasyChampsLeague, 'fantasyChampsLeagueName', 'Champions 2', FantasyChampsLeague).should.eventually.equal('Champions 2');
+		// });
+		// it('should remove a champions league', function() {
+		// 	return deleteData(sampleFantasyChampsLeague, FantasyGame).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy Match', function() {
-		it('should not exist', function() {
-			return getModel(sampleFantasyMatch, FantasyGame).should.eventually.equal(null);
+	describe('Fantasy Match', () => {
+		it('should not exist', () => {
+			return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
 		});
-		it('should create a new fantasy match', function() {
-			return createNew(sampleFantasyMatch, FantasyGame).should.eventually.exist;
+		it('should create a new fantasy match', () => {
+			return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
 		});
-		it('should update a fantasy match', function() {
-			return updateExisting(sampleFantasyMatch, 'homeClub', 'a third team', FantasyGame);
-		});
-		// it('should remove a fantasy match', function(done) {
-		// 	deleteExisting(sampleFantasyMatch, FantasyGame);
-		// 	done();
+		// it('should update a fantasy match', function() {
+		// 	return updateExisting(sampleFantasyMatch, 'homeClub', 'a third team', FantasyMatch);
+		// });
+		// it('should remove a fantasy match', function() {
+		// 	return deleteData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy Schedule', function() {
-		it('should not exist', function() {
-			return getModel(sampleFantasySchedule, FantasyGame).should.eventually.equal(null);
+	describe('Fantasy Schedule', () => {
+		it('should not exist', () => {
+			return readData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
 		});
-		it('should create a new fantasy schedule', function() {
-			return createNew(sampleFantasySchedule, FantasyGame).should.eventually.exist;
+		it('should create a new fantasy schedule', () => {
+			return createData(sampleFantasySchedule, FantasySchedule).should.eventually.exist;
 		});
-		it('should update a fantasy schedule', function(done) {
-			updateExisting(sampleFantasySchedule, 'masterRegSeasonSchedule', 'a third team @ fantasy team', FantasyGame);
-			done();
-		});
-		// it('should remove a fantasy schedule', function(done) {
-		// 	deleteExisting(sampleFantasySchedule, FantasyGame);
+		// it('should update a fantasy schedule', function(done) {
+		// 	updateExisting(sampleFantasySchedule, 'masterRegSeasonSchedule', 'a third team @ fantasy team', FantasySchedule);
 		// 	done();
+		// });
+		// it('should remove a fantasy schedule', function() {
+		// 	return deleteData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Player', function() {
-		it('should not exist', function() {
-			return getModel(samplePlayer, FantasyGame).should.eventually.equal(null);
+	describe('Player', () => {
+		it('should not exist', () => {
+			return readData(samplePlayer, Player).should.eventually.not.exist;
 		});
-		it('should create a new r/w player', function() {
-			return createNew(samplePlayer, FantasyGame).should.eventually.exist;
+		it('should create a new r/w player', () => {
+			return createData(samplePlayer, Player).should.eventually.exist;
 		});
-		it('should update a r/w player', function(done) {
-			updateExisting(samplePlayer, 'playerPosition', 'Defender', FantasyGame);
-			done();
-		});
-		// it('should remove a r/w player', function(done) {
-		// 	deleteExisting(samplePlayer, FantasyGame);
+		// it('should update a r/w player', function(done) {
+		// 	updateExisting(samplePlayer, 'playerPosition', 'Defender', Player);
 		// 	done();
+		// });
+		// it('should remove a r/w player', function() {
+		// 	return deleteData(samplePlayer, Player).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Schedule', function() {
-		it('should not exist', function() {
-			return getModel(sampleSchedule, FantasyGame).should.eventually.equal(null);
+	describe('Schedule', () => {
+		it('should not exist', () => {
+			return readData(sampleSchedule, Schedule).should.eventually.not.exist;
 		});
-		it('should create a new master schedule', function() {
-			return createNew(sampleSchedule, FantasyGame).should.eventually.exist;
+		it('should create a new master schedule', () => {
+			return createData(sampleSchedule, Schedule).should.eventually.exist;
 		});
-		it('should update a master schedule', function(done) {
-			updateExisting(sampleSchedule, 'masterSchedule', 'Vancouver Whitecaps FC @ Seattle Sounders FC', FantasyGame);
-			done();
-		});
-		// it('should remove a master schedule', function(done) {
-		// 	deleteExisting(sampleSchedule, FantasyGame);
+		// it('should update a master schedule', function(done) {
+		// 	updateExisting(sampleSchedule, 'masterSchedule', 'Vancouver Whitecaps FC @ Seattle Sounders FC', Schedule);
 		// 	done();
+		// });
+		// it('should remove a master schedule', function() {
+		// 	return deleteData(sampleSchedule, Schedule).should.eventually.not.exist;
 		// });
 	});
 
-	describe('User', function() {
-		it('should not exist', function() {
-			return getModel(sampleUser, FantasyGame).should.eventually.equal(null);
+	describe('User', () => {
+		it('should not exist', () => {
+			return readData(sampleUser, User).should.eventually.not.exist;
 		});
-		it('should create a new user', function() {
-			return createNew(sampleUser, FantasyGame).should.eventually.exist;
+		it('should create a new user', () => {
+			return createData(sampleUser, User).should.eventually.exist;
 		});
-		it('should update a user', function(done) {
-			updateExisting(sampleUser, 'userName', 'user2', FantasyGame);
-			done();
-		});
-		// it('should delete a user', function(done) {
-		// 	deleteExisting(sampleUser, FantasyGame);
+		// it('should update a user', function(done) {
+		// 	updateExisting(sampleUser, 'userName', 'user2', User);
 		// 	done();
+		// });
+		// it('should delete a user', function() {
+		// 	return deleteData(sampleUser, User).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy League', function() {
-		it('should not exist', function() {
-			return getModel(sampleFantasyLeague, FantasyGame).should.eventually.equal(null);
+	describe('Fantasy League', () => {
+		it('should not exist', () => {
+			return readData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
 		});
-		it('should create a new fantasy league', function() {
-			return createNew(sampleFantasyLeague, FantasyGame).should.eventually.exist;
+		it('should create a new fantasy league', () => {
+			return createData(sampleFantasyLeague, FantasyLeague).should.eventually.exist;
 		});
-		it('should update a fantasy league', function(done) {
-			updateExisting(sampleFantasyLeague, 'fantasyLeagueName', 'Another Fantasy League', User);
-			done();
-		});
-		// it('should remove a fantasy league', function(done) {
-		// 	deleteExisting(sampleFantasyLeague, User);
+		// it('should update a fantasy league', function(done) {
+		// 	updateExisting(sampleFantasyLeague, 'fantasyLeagueName', 'Another Fantasy League', FantasyLeague);
 		// 	done();
+		// });
+		// it('should remove a fantasy league', function() {
+		// 	return deleteData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy Club', function() {
-		it('should not exist', function() {
-			return getModel(sampleFantasyClub, FantasyGame).should.eventually.equal(null);
+	describe('Fantasy Club', () => {
+		it('should not exist', () => {
+			return readData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
 		});
-		it('should create new fantasy club', function() {
-			return createNew(sampleFantasyClub, FantasyGame).should.eventually.exist;
+		it('should create new fantasy club', () => {
+			return createData(sampleFantasyClub, FantasyClub).should.eventually.exist;
 		});
-		it('should update a fantasy club', function(done) {
-			updateExisting(sampleFantasyClub, 'fantasyClubDivision', 'Division 2', User);
-			done();
-		});
-		// it('should remove a fantasy club', function(done) {
-		// 	deleteExisting(sampleFantasyClub, User);
+		// it('should update a fantasy club', function(done) {
+		// 	updateExisting(sampleFantasyClub, 'fantasyClubDivision', 'Division 2', FantasyClub);
 		// 	done();
+		// });
+		// it('should remove a fantasy club', function() {
+		// 	return deleteData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
 		// });
 	});
 });
-
-function errorCheck(error, sample) {
- 	if (error || !sample) {
- 		console.error(`Could not read ${sample}`);
- 		console.log(`Error: ${error}`);
- 		console.log(`Run Date: ${Date.now()}`);
- 	}
- }
-
-function getModel(sample, model) {
-	return model.findOne(sample._id).exec()
-	.then(function(model) {
-		return model;
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
-	});
-}
-
-function createNew(sample, model) {
-	return model.create(sample)
-	.catch(function(error) {
-		errorCheck(error, sample);
-	});
-}
-
-function updateExisting(sample, updatedKey, updatedValue, model) {
-	model.findOneAndUpdate(sample._id, {updatedKey: updatedValue}).exec()
-	.then(function() {
-		return (sample.updatedKey.should.match(updatedValue));
-	})	
-	.catch(function(error) {
-		errorCheck(error, sample);
-	});
-}
-
-function deleteExisting(sample, model) {
-	model.findOneAndRemove(sampleFantasyClub._id).exec()
-	.then(function() {
-		return (sample.should.not.exist);
-	})
-	.catch(function(error) {
-		errorCheck(error, sample);
-	});
-}
