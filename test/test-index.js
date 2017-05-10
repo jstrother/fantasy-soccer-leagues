@@ -21,7 +21,7 @@ const mongoose = require('mongoose'),
 	sampleFantasyChampsLeague = require('../samples/sample-fantasy-champs-league.js'),
 	sampleFantasyMatch = require('../samples/sample-fantasy-match.js'),
 	sampleFantasySchedule = require('../samples/sample-fantasy-schedule.js'),
-	sampleSchedule = require('../samples/sample-schedule.js')
+	sampleSchedule = require('../samples/sample-schedule.js'),
 	samplePlayer = require('../samples/sample-player.js'),
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../crud_functions.js');
@@ -52,7 +52,6 @@ describe('Fantasy Game', function() {
 	});
 
 	describe('Champions League', function() {
-		this.timeout(3000);
 		it('should not exist', function() {
 			return readData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
 		});
@@ -65,9 +64,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 2');
 			});
 		});
-		// it('should remove a champions league', function() {
-		// 	return deleteData(sampleFantasyChampsLeague, FantasyGame).should.eventually.not.exist;
-		// });
+		it('should remove a champions league', function() {
+			return deleteData(sampleFantasyChampsLeague, FantasyGame).should.eventually.not.exist;
+		});
 	});
 
 	describe('Fantasy Match', function() {
@@ -83,9 +82,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('homeClub', 'a third team');
 			});
 		});
-		// it('should remove a fantasy match', function() {
-		// 	return deleteData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
-		// });
+		it('should remove a fantasy match', function() {
+			return deleteData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
+		});
 	});
 
 	describe('Fantasy Schedule', function() {
@@ -96,10 +95,9 @@ describe('Fantasy Game', function() {
 			return createData(sampleFantasySchedule, FantasySchedule).should.eventually.exist;
 		});
 		it('should update a fantasy schedule', function() {
-			return updateData(sampleFantasySchedule, {masterRegSeasonSchedule: ['third team \@ fantasy team']}, FantasySchedule)
+			return updateData(sampleFantasySchedule, {champsGroupStage: true}, FantasySchedule)
 			.then(function(updatedItem) {
-				console.log(updatedItem);
-				updatedItem.should.have.property('masterRegSeasonSchedule', ['third team \@ fantasy team']);
+				updatedItem.should.have.property('champsGroupStage', true);
 			});
 		});
 		// it('should remove a fantasy schedule', function() {
@@ -133,9 +131,9 @@ describe('Fantasy Game', function() {
 			return createData(sampleSchedule, Schedule).should.eventually.exist;
 		});
 		it('should update a master schedule', function() {
-			return updateData(sampleSchedule, {masterSchedule: 'Vancouver Whitecaps FC @ Seattle Sounders FC'}, Player)
+			return updateData(sampleSchedule, {numSeasonMatches: 375}, Schedule)
 			.then(function(updatedItem) {
-				updatedItem.should.have.property('masterSchedule', 'Vancouver Whitecaps FC @ Seattle Sounders FC');
+				updatedItem.should.have.property('numSeasonMatches', 375);
 			});
 		});
 		// it('should remove a master schedule', function() {
@@ -151,7 +149,7 @@ describe('Fantasy Game', function() {
 			return createData(sampleUser, User).should.eventually.exist;
 		});
 		it('should update a user', function() {
-			return updateData(sampleUser, {userName: 'user2'}, Player)
+			return updateData(sampleUser, {userName: 'user2'}, User)
 			.then(function(updatedItem) {
 				updatedItem.should.have.property('userName', 'user2');
 			});
@@ -169,7 +167,7 @@ describe('Fantasy Game', function() {
 			return createData(sampleFantasyLeague, FantasyLeague).should.eventually.exist;
 		});
 		it('should update a user', function() {
-			return updateData(sampleFantasyLeague, {fantasyLeagueName: 'Another Fantasy League'}, Player)
+			return updateData(sampleFantasyLeague, {fantasyLeagueName: 'Another Fantasy League'}, FantasyLeague)
 			.then(function(updatedItem) {
 				updatedItem.should.have.property('fantasyLeagueName', 'Another Fantasy League');
 			});
@@ -187,7 +185,7 @@ describe('Fantasy Game', function() {
 			return createData(sampleFantasyClub, FantasyClub).should.eventually.exist;
 		});
 		it('should update a fantasy club', function() {
-			return updateData(sampleFantasyClub, {fantasyClubDivision: 'Division 2'}, Player)
+			return updateData(sampleFantasyClub, {fantasyClubDivision: 'Division 2'}, FantasyClub)
 			.then(function(updatedItem) {
 				updatedItem.should.have.property('fantasyClubDivision', 'Division 2');
 			});
