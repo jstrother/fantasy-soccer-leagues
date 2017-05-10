@@ -31,10 +31,11 @@ chai.use(chaiAsPromised);
 
 console.log('Run Date/Time', Date.now());
 
-describe('Fantasy Game', () => {
+describe('Fantasy Game', function() {
+	this.timeout(3000);
 	before(done => {
 		mongoose.connect('mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test');
-		mongoose.connection.on('connected', () => {
+		mongoose.connection.on('connected', function() {
 			console.log('connection made');
 			mongoose.connection.db.dropDatabase();
 			done();
@@ -43,134 +44,154 @@ describe('Fantasy Game', () => {
 
 	after(done => {
 		mongoose.disconnect();
-		mongoose.connection.on('disconnected', () => {
+		mongoose.connection.on('disconnected', function() {
 			console.log('disconnected');
 			mongoose.connection.db.dropDatabase();
 		});
 		done();
 	});
 
-	describe('Champions League', () => {
-		it('should not exist', () => {
+	describe('Champions League', function() {
+		this.timeout(3000);
+		it('should not exist', function() {
 			return readData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
 		});
-		it('should create a new champions league', () => {
+		it('should create a new champions league', function() {
 			return createData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.exist;
 		});
-		// it('should update a champions league', () => {
-		// 	return updateData(sampleFantasyChampsLeague, 'fantasyChampsLeagueName', 'Champions 2', FantasyChampsLeague).should.eventually.equal('Champions 2');
-		// });
+		it('should update a champions league', function() {
+			return updateData(sampleFantasyChampsLeague, {fantasyChampsLeagueName: 'Champions 2'}, FantasyChampsLeague)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 2');
+			});
+		});
 		// it('should remove a champions league', function() {
 		// 	return deleteData(sampleFantasyChampsLeague, FantasyGame).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy Match', () => {
-		it('should not exist', () => {
+	describe('Fantasy Match', function() {
+		it('should not exist', function() {
 			return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
 		});
-		it('should create a new fantasy match', () => {
+		it('should create a new fantasy match', function() {
 			return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
 		});
-		// it('should update a fantasy match', function() {
-		// 	return updateExisting(sampleFantasyMatch, 'homeClub', 'a third team', FantasyMatch);
-		// });
+		it('should update a fantasy match', function() {
+			return updateData(sampleFantasyMatch, {homeClub: 'a third team'}, FantasyMatch)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('homeClub', 'a third team');
+			});
+		});
 		// it('should remove a fantasy match', function() {
 		// 	return deleteData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy Schedule', () => {
-		it('should not exist', () => {
+	describe('Fantasy Schedule', function() {
+		it('should not exist', function() {
 			return readData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
 		});
-		it('should create a new fantasy schedule', () => {
+		it('should create a new fantasy schedule', function() {
 			return createData(sampleFantasySchedule, FantasySchedule).should.eventually.exist;
 		});
-		// it('should update a fantasy schedule', function(done) {
-		// 	updateExisting(sampleFantasySchedule, 'masterRegSeasonSchedule', 'a third team @ fantasy team', FantasySchedule);
-		// 	done();
-		// });
+		it('should update a fantasy schedule', function() {
+			return updateData(sampleFantasySchedule, {masterRegSeasonSchedule: ['third team \@ fantasy team']}, FantasySchedule)
+			.then(function(updatedItem) {
+				console.log(updatedItem);
+				updatedItem.should.have.property('masterRegSeasonSchedule', ['third team \@ fantasy team']);
+			});
+		});
 		// it('should remove a fantasy schedule', function() {
 		// 	return deleteData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Player', () => {
-		it('should not exist', () => {
+	describe('Player', function() {
+		it('should not exist', function() {
 			return readData(samplePlayer, Player).should.eventually.not.exist;
 		});
-		it('should create a new r/w player', () => {
+		it('should create a new r/w player', function() {
 			return createData(samplePlayer, Player).should.eventually.exist;
 		});
-		// it('should update a r/w player', function(done) {
-		// 	updateExisting(samplePlayer, 'playerPosition', 'Defender', Player);
-		// 	done();
-		// });
+		it('should update a r/w player', function() {
+			return updateData(samplePlayer, {playerPosition: 'Defender'}, Player)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('playerPosition', 'Defender');
+			});
+		});
 		// it('should remove a r/w player', function() {
 		// 	return deleteData(samplePlayer, Player).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Schedule', () => {
-		it('should not exist', () => {
+	describe('Schedule', function() {
+		it('should not exist', function() {
 			return readData(sampleSchedule, Schedule).should.eventually.not.exist;
 		});
-		it('should create a new master schedule', () => {
+		it('should create a new master schedule', function() {
 			return createData(sampleSchedule, Schedule).should.eventually.exist;
 		});
-		// it('should update a master schedule', function(done) {
-		// 	updateExisting(sampleSchedule, 'masterSchedule', 'Vancouver Whitecaps FC @ Seattle Sounders FC', Schedule);
-		// 	done();
-		// });
+		it('should update a master schedule', function() {
+			return updateData(sampleSchedule, {masterSchedule: 'Vancouver Whitecaps FC @ Seattle Sounders FC'}, Player)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('masterSchedule', 'Vancouver Whitecaps FC @ Seattle Sounders FC');
+			});
+		});
 		// it('should remove a master schedule', function() {
 		// 	return deleteData(sampleSchedule, Schedule).should.eventually.not.exist;
 		// });
 	});
 
-	describe('User', () => {
-		it('should not exist', () => {
+	describe('User', function() {
+		it('should not exist', function() {
 			return readData(sampleUser, User).should.eventually.not.exist;
 		});
-		it('should create a new user', () => {
+		it('should create a new user', function() {
 			return createData(sampleUser, User).should.eventually.exist;
 		});
-		// it('should update a user', function(done) {
-		// 	updateExisting(sampleUser, 'userName', 'user2', User);
-		// 	done();
-		// });
+		it('should update a user', function() {
+			return updateData(sampleUser, {userName: 'user2'}, Player)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('userName', 'user2');
+			});
+		});
 		// it('should delete a user', function() {
 		// 	return deleteData(sampleUser, User).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy League', () => {
-		it('should not exist', () => {
+	describe('Fantasy League', function() {
+		it('should not exist', function() {
 			return readData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
 		});
-		it('should create a new fantasy league', () => {
+		it('should create a new fantasy league', function() {
 			return createData(sampleFantasyLeague, FantasyLeague).should.eventually.exist;
 		});
-		// it('should update a fantasy league', function(done) {
-		// 	updateExisting(sampleFantasyLeague, 'fantasyLeagueName', 'Another Fantasy League', FantasyLeague);
-		// 	done();
-		// });
+		it('should update a user', function() {
+			return updateData(sampleFantasyLeague, {fantasyLeagueName: 'Another Fantasy League'}, Player)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('fantasyLeagueName', 'Another Fantasy League');
+			});
+		});
 		// it('should remove a fantasy league', function() {
 		// 	return deleteData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
 		// });
 	});
 
-	describe('Fantasy Club', () => {
-		it('should not exist', () => {
+	describe('Fantasy Club', function() {
+		it('should not exist', function() {
 			return readData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
 		});
-		it('should create new fantasy club', () => {
+		it('should create new fantasy club', function() {
 			return createData(sampleFantasyClub, FantasyClub).should.eventually.exist;
 		});
-		// it('should update a fantasy club', function(done) {
-		// 	updateExisting(sampleFantasyClub, 'fantasyClubDivision', 'Division 2', FantasyClub);
-		// 	done();
-		// });
+		it('should update a fantasy club', function() {
+			return updateData(sampleFantasyClub, {fantasyClubDivision: 'Division 2'}, Player)
+			.then(function(updatedItem) {
+				updatedItem.should.have.property('fantasyClubDivision', 'Division 2');
+			});
+		});
 		// it('should remove a fantasy club', function() {
 		// 	return deleteData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
 		// });

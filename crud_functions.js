@@ -10,8 +10,8 @@ const readData = (data, model) => {
   return model.findOne(data);
 };
 
-const updateData = (data, updatedKey, updatedValue, model) => {
-  return model.findOneAndUpdate(data, {$set: {updatedKey: updatedValue}}, {new: true});
+const updateData = (data, newData, model) => {
+  return model.findOneAndUpdate(data, newData, {new: true});
 };
 
 const deleteData = (data, model) => {
