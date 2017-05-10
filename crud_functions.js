@@ -15,7 +15,7 @@ const updateData = (data, newData, model) => {
 };
 
 const deleteData = (data, model) => {
-  return model.findOneAndRemove(data._id);
+  return model.findOneAndRemove(data);
 };
 
 exports.createData = createData;

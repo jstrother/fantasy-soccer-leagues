@@ -32,7 +32,6 @@ chai.use(chaiAsPromised);
 console.log('Run Date/Time', Date.now());
 
 describe('Fantasy Game', function() {
-	this.timeout(3000);
 	before(done => {
 		mongoose.connect('mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test');
 		mongoose.connection.on('connected', function() {
@@ -65,7 +64,7 @@ describe('Fantasy Game', function() {
 			});
 		});
 		it('should remove a champions league', function() {
-			return deleteData(sampleFantasyChampsLeague, FantasyGame).should.eventually.not.exist;
+			return deleteData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
 		});
 	});
 
@@ -100,9 +99,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('champsGroupStage', true);
 			});
 		});
-		// it('should remove a fantasy schedule', function() {
-		// 	return deleteData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
-		// });
+		it('should remove a fantasy schedule', function() {
+			return deleteData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
+		});
 	});
 
 	describe('Player', function() {
@@ -118,9 +117,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('playerPosition', 'Defender');
 			});
 		});
-		// it('should remove a r/w player', function() {
-		// 	return deleteData(samplePlayer, Player).should.eventually.not.exist;
-		// });
+		it('should remove a r/w player', function() {
+			return deleteData(samplePlayer, Player).should.eventually.not.exist;
+		});
 	});
 
 	describe('Schedule', function() {
@@ -136,9 +135,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('numSeasonMatches', 375);
 			});
 		});
-		// it('should remove a master schedule', function() {
-		// 	return deleteData(sampleSchedule, Schedule).should.eventually.not.exist;
-		// });
+		it('should remove a master schedule', function() {
+			return deleteData(sampleSchedule, Schedule).should.eventually.not.exist;
+		});
 	});
 
 	describe('User', function() {
@@ -154,9 +153,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('userName', 'user2');
 			});
 		});
-		// it('should delete a user', function() {
-		// 	return deleteData(sampleUser, User).should.eventually.not.exist;
-		// });
+		it('should delete a user', function() {
+			return deleteData(sampleUser, User).should.eventually.not.exist;
+		});
 	});
 
 	describe('Fantasy League', function() {
@@ -172,9 +171,9 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('fantasyLeagueName', 'Another Fantasy League');
 			});
 		});
-		// it('should remove a fantasy league', function() {
-		// 	return deleteData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
-		// });
+		it('should remove a fantasy league', function() {
+			return deleteData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
+		});
 	});
 
 	describe('Fantasy Club', function() {
@@ -190,8 +189,8 @@ describe('Fantasy Game', function() {
 				updatedItem.should.have.property('fantasyClubDivision', 'Division 2');
 			});
 		});
-		// it('should remove a fantasy club', function() {
-		// 	return deleteData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
-		// });
+		it('should remove a fantasy club', function() {
+			return deleteData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
+		});
 	});
 });
