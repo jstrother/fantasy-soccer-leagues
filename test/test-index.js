@@ -49,7 +49,7 @@ describe('Fantasy Game', function() {
 		});
 		done();
 	});
-
+	
 	describe('Champions League', function() {
 		it('should not exist', function() {
 			return readData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
