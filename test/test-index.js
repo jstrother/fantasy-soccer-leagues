@@ -24,7 +24,8 @@ const mongoose = require('mongoose'),
 	sampleSchedule = require('../samples/sample-schedule.js'),
 	samplePlayer = require('../samples/sample-player.js'),
 	// import crud functions
-	{ createData, readData, updateData, deleteData } = require('../crud_functions.js');
+	{ createData, readData, updateData, deleteData } = require('../crud_functions.js'),
+	dbTestConnection = 'mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test';
 
 mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);
@@ -33,7 +34,7 @@ console.log('Run Date/Time', Date.now());
 
 describe('Fantasy Game', function() {
 	before(done => {
-		mongoose.connect('mongodb://gameUser:gamePassword@ds161169.mlab.com:61169/fantasy-soccer-test');
+		mongoose.connect(dbTestConnection);
 		mongoose.connection.on('connected', function() {
 			console.log('connection made');
 			mongoose.connection.db.dropDatabase();
@@ -58,9 +59,9 @@ describe('Fantasy Game', function() {
 			return createData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.exist;
 		});
 		it('should update a champions league', function() {
-			return updateData(sampleFantasyChampsLeague, {fantasyChampsLeagueName: 'Champions 2'}, FantasyChampsLeague)
+			return updateData(sampleFantasyChampsLeague, {fantasyChampsLeagueName: 'Champions 3'}, FantasyChampsLeague)
 			.then(function(updatedItem) {
-				updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 2');
+				updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 3');
 			});
 		});
 		it('should remove a champions league', function() {
