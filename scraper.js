@@ -23,6 +23,7 @@ function mlsScheduleScraper(url) {
 		}
 	})
 	.then(schedule => {
+		console.log(schedule);
 		return (schedule);
 	});
 }
@@ -30,7 +31,7 @@ function mlsScheduleScraper(url) {
 
 // player list scraper
 function playerListScraper(url) {
-	for (i = 0; i < 21; i++) {
+	for (let i = 0; i < 21; i++) {
 		scrape(`${url}${i}`, {
 			players: {
 				listItem: '.row',
@@ -42,6 +43,7 @@ function playerListScraper(url) {
 			}
 		})
 		.then(players => {
+			console.log(players);
 			return (players);
 		});
 	};
@@ -103,9 +105,14 @@ function playerStatsScraper(url) {
 		}
 	})
 	.then(playerStats => {
+		console.log(playerStats);
 		return (playerStats);
 	});
 }
+
+// mlsScheduleScraper(scheduleURL);
+// playerListScraper(playersURL);
+// playerStatsScraper(playerStatsURL + playerName);
 
 exports.mlsScheduleScraper = mlsScheduleScraper;
 exports.playerListScraper = playerListScraper;

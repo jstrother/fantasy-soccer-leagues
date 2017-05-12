@@ -1,7 +1,12 @@
 const mongoose = require('mongoose'),
 
 			scheduleSchema = mongoose.Schema({
-				masterSchedule: {type: Array, unique: true},
+				masterSchedule: {
+					homeClub: String,
+					homeScore: Number,
+					awayClub: String,
+					awayScore: Number
+				},
 				numSeasonMatches: Number
 			}),
 

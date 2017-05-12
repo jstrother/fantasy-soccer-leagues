@@ -1,11 +1,26 @@
 const mongoose = require('mongoose'),
 
 			fantasyScheduleSchema = mongoose.Schema({
-				masterRegSeasonSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
+				masterRegSeasonSchedule: {
+					homeClub: String,
+					homeScore: Number,
+					awayClub: String,
+					awayScore: Number
+				},
 				numRegSeasonMatches: Number,
-				masterLeagueCupSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
+				masterLeagueCupSchedule: {
+					homeClub: String,
+					homeScore: Number,
+					awayClub: String,
+					awayScore: Number
+				},
 				leagueCupRound: String,
-				masterChampsSchedule: {type: Array, unique: true}, // listed by fantasyMatch.matchUniqueID
+				masterChampsSchedule: {
+					homeClub: String,
+					homeScore: Number,
+					awayClub: String,
+					awayScore: Number
+				},
 				champsRound: String,
 				champsGroupStage: Boolean
 			}),

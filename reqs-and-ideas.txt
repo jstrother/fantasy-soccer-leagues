@@ -1,3 +1,41 @@
+needed for Server
+	incoming data:
+		playerStats: {
+			gamesPlayed,
+			gamesStarted,
+			goals,
+			minutesPlayed,
+			assists,
+			shotsTaken,
+			shotsOnGoal,
+			foulsCommitted,
+			timesOffside,
+			yellowCards,
+			redCards
+		}
+		
+		playerList: [
+			//iterate over incoming data
+			
+			
+			//use this to weed out empty objects
+			if (playerName) {
+				this.push (
+					{
+						playerName,
+						playerClub,
+						playerPosition
+					}
+				);
+			}
+		]
+	
+	outgoing data:
+	
+	
+
+compteted list:]
+
 needed from MLS website:
 	-schedule
 		-find .schedule_list then search down via for loop with i = 374 (# of total mls games for regular season)

@@ -13,7 +13,7 @@ const updateData = (data, newData, model) => {
 };
 
 const deleteData = (data, model) => {
-  return model.findByIdAndRemove(data._id);
+  return model.findOneAndRemove(data);
 };
 
 exports.createData = createData;
