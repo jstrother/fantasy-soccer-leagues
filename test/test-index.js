@@ -65,10 +65,7 @@ describe('Fantasy Game', function() {
 			});
 		});
 		it('should remove a champions league', function() {
-			return deleteData(sampleFantasyChampsLeague, FantasyChampsLeague)
-			.then(function(deletedItem) {
-				deletedItem.should.eventually.not.exist;
-			});
+			return deleteData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
 		});
 	});
 
