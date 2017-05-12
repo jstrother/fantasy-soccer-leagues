@@ -59,13 +59,16 @@ describe('Fantasy Game', function() {
 			return createData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.exist;
 		});
 		it('should update a champions league', function() {
-			return updateData(sampleFantasyChampsLeague, {fantasyChampsLeagueName: 'Champions 3'}, FantasyChampsLeague)
+			return updateData(sampleFantasyChampsLeague, {fantasyChampsLeagueName: 'Champions 2'}, FantasyChampsLeague)
 			.then(function(updatedItem) {
-				updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 3');
+				updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 2');
 			});
 		});
 		it('should remove a champions league', function() {
-			return deleteData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
+			return deleteData(sampleFantasyChampsLeague, FantasyChampsLeague)
+			.then(function(deletedItem) {
+				deletedItem.should.eventually.not.exist;
+			});
 		});
 	});
 

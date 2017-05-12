@@ -1,7 +1,5 @@
 // CRUD functions
 
-const mongoose = require('mongoose');
-
 const createData = (data, model) => {
   return model.create(data);
 };
