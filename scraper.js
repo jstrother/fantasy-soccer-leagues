@@ -110,8 +110,8 @@ function playerStatsScraper(url) {
 	});
 }
 
-// mlsScheduleScraper(scheduleURL);
-// playerListScraper(playersURL);
+mlsScheduleScraper(scheduleURL);
+// playerListScraper(playerStatsURL);
 // playerStatsScraper(playerStatsURL + playerName);
 
 exports.mlsScheduleScraper = mlsScheduleScraper;

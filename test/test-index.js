@@ -1,24 +1,11 @@
-const { mongoose, chai, chaiHTTP, chaiAsPromised, should, dbTestConnection } = require('./common.js');
+const { mongoose, chai, chaiHTTP, chaiAsPromised, should, dbTestConnection, serverTestConnection } = require('./common.js');
+
+mongoose.Promise = global.Promise;
+chai.use(chaiAsPromised);
 
 describe('All Tests', function() {
-		before(done => {
-			mongoose.connect(dbTestConnection);
-			mongoose.connection.on('connected', function() {
-				console.log('connection made');
-				mongoose.connection.db.dropDatabase();
-				done();
-			});
-		});
-	
-		after(done => {
-			mongoose.disconnect();
-			mongoose.connection.on('disconnected', function() {
-				console.log('disconnected');
-				mongoose.connection.db.dropDatabase();
-			});
-			done();
-		});
     importTest('Fantasy Game', './db-test.js');
+    importTest('Server Test', './server-test.js');
 });
 	
 function importTest(name, path) {

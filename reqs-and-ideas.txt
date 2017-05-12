@@ -15,9 +15,6 @@ needed for Server
 		}
 		
 		playerList: [
-			//iterate over incoming data
-			
-			
 			//use this to weed out empty objects
 			if (playerName) {
 				this.push (
