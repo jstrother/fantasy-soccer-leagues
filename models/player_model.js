@@ -19,7 +19,8 @@ const mongoose = require('mongoose'),
 					redCards: Number
 				},
 				playerValue: Number, // in millions of $$$'s
-				playerSchedule: Array  // based off playerClub.clubSchedule
+				playerSchedule: Array,  // based off playerClub.clubSchedule
+				playerFantasyPoints: Number
 			}),
 
 			Player = mongoose.model('Player', playerSchema);

@@ -21,7 +21,20 @@ needed for Server
 					{
 						playerName,
 						playerClub,
-						playerPosition
+						playerPosition,
+						playerStats: { //this is determined from playerStatsScraper(this.playerURL)
+							gamesPlayed,
+							gamesStarted,
+							goals,
+							minutesPlayed,
+							assists,
+							shotsTaken,
+							shotsOnGoal,
+							foulsCommitted,
+							timesOffside,
+							yellowCards,
+							redCards
+						}
 					}
 				);
 			}
