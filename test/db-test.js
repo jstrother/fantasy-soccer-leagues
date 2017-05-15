@@ -1,8 +1,7 @@
 const
 	// import common modules
-	{ mongoose, chai, chaiHTTP, chaiAsPromised, should, dbTestConnection } = require('./common.js'),
+	{ mongoose, dbTestConnection } = require('./common.js'),
 	// all models
-	FantasyGame = require('../models/fantasyGame_model.js'),
 	User = require('../models/user_model.js'),
 	FantasyClub = require('../models/fantasyClub_model.js'),
 	FantasyLeague = require('../models/fantasyLeague_model.js'),
@@ -16,16 +15,16 @@ const
 
 before(done => {
 	mongoose.connect(dbTestConnection);
-	mongoose.connection.on('connected', function() {
+	mongoose.connection.on('connected', () => {
 		console.log('connection made');
 		mongoose.connection.db.dropDatabase();
-		done();
 	});
+	done();
 });
 
 after(done => {
 	mongoose.disconnect();
-	mongoose.connection.on('disconnected', function() {
+	mongoose.connection.on('disconnected', () => {
 		console.log('disconnected');
 		mongoose.connection.db.dropDatabase();
 	});

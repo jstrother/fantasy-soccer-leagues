@@ -23,7 +23,6 @@ function mlsScheduleScraper(url) {
 		}
 	})
 	.then(schedule => {
-		console.log(schedule);
 		return (schedule);
 	});
 }
@@ -43,7 +42,6 @@ function playerListScraper(url) {
 			}
 		})
 		.then(players => {
-			console.log(players);
 			return (players);
 		});
 	};
@@ -105,7 +103,6 @@ function playerStatsScraper(url) {
 		}
 	})
 	.then(playerStats => {
-		console.log(playerStats);
 		return (playerStats);
 	});
 }
