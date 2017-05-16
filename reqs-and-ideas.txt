@@ -7,6 +7,13 @@ needed for Server
 		stats
 		fantasy points
 	
+	-search competitions for each league i want
+	-get list of players in each league by iterating through rosters (see competitions endpoint)
+	-once players by league is sorted, fetch stats and fantasy points
+	-update database
+	-push changes through to each fantasy club based upon selected players
+	-update league/divisional standings
+	
 	create/login User
 		userName  //created during sign-up
 		userPassword  //created during sign-up

@@ -24,13 +24,13 @@ after(done => {
 	
 describe('MLS Schedule', () => {
     it('should retrieve current MLS schedule', () => {
-    	const roundId = 117;
-    	return scheduleGrabber(roundId)
-    	.then((schedule) => {
-	        schedule.should.be.an.object;
-	    })
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
+	    const roundId = 117;
+	    return scheduleGrabber(roundId)
+	    .then((schedule) => {
+		  	schedule.should.be.an.object;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
+			});
     });
 });

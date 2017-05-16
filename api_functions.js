@@ -5,12 +5,11 @@ const rp = require('request-promise'),
 
 function scheduleGrabber(roundId) {
     let options = {
-        uri: `https://api.fantasydata.net/soccer/v2/json/Schedule/${roundId}`,
-        headers: {
-            'Ocp-Apim-Subscription-Key': config.API_KEY
-        },
-        json: true
-        
+      uri: `https://api.fantasydata.net/soccer/v2/json/Schedule/${roundId}`,
+      headers: {
+        'Ocp-Apim-Subscription-Key': config.API_KEY
+      },
+      json: true
     };
     
     return rp(options)

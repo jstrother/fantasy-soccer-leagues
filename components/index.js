@@ -11,7 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from './app.js';
 import store from '../flow/store.js';
 
-InventorySocketListener(store);
+// FantasyListener(store);
 injectTapEventPlugin();
 
 ReactDOM.render(

@@ -20,15 +20,15 @@ mapStateToProps focuses on users for now
 */
 
 class Main extends React.Component {
-    render() {
-        return (
-            <div>
-                <AppBar title="The Fantasy Soccer-Football Super League"
-                        showMenuIconButton={false}
-                        className="mainTitle" />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <AppBar title="The Fantasy Soccer-Football Super League"
+                showMenuIconButton={false}
+                className="mainTitle" />
+      </div>
+    );
+  }
 }
 
 

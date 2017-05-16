@@ -1,4 +1,6 @@
 {
-    "presets": ["latest",
-                "react"]
+    "presets": [
+      "latest",
+      "react"
+    ]
 }
