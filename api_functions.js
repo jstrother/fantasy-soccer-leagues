@@ -19,4 +19,9 @@ function scheduleGrabber(roundId) {
   });
 }
 
+function playerGrabber() {
+    
+}
+
 exports.scheduleGrabber = scheduleGrabber;
+exports.playerGrabber = playerGrabber;
