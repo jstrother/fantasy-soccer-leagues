@@ -1,12 +1,12 @@
 // server.js
 
 const path = require('path'),
-			express = require('express'),
-			bodyParser = require('body-parser'),
-			mongoose = require('mongoose'),
-			app = express(),
-			server = require('http').Server(app),
-			config = require('./config.js');
+	express = require('express'),
+	bodyParser = require('body-parser'),
+	mongoose = require('mongoose'),
+	app = express(),
+	server = require('http').Server(app),
+	config = require('./config.js');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));

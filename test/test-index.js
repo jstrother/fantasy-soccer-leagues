@@ -1,4 +1,4 @@
-const { mongoose, chai, chaiAsPromised } = require('./common.js');
+const { mongoose, chai, chaiAsPromised, chaiHTTP, should } = require('./common.js');
 
 mongoose.Promise = global.Promise;
 chai.use(chaiAsPromised);

@@ -1,10 +1,13 @@
 // api-interaction functions for fantasydata.com
 
-const $ = require('jquery')(require('node-jsdom').jsdom().parentWindow),
+const jsdom = require('jsdom'),
+    { JSDOM } = jsdom,
+    { window } = new JSDOM(`<!DOCTYPE html>`),
+    $ = require('jquery')(window),
     config = require('./config.js');
 
 function scheduleGrabber(roundId) {
-    let url = `https://api.fantasydata.net/soccer/v2/json/Schedule/{$roundid}`;
+    let url = `https://api.fantasydata.net/soccer/v2/json/Schedule/${roundId}`;
     
     $(() => {
         $.ajax({
@@ -16,7 +19,7 @@ function scheduleGrabber(roundId) {
             data: '{body}'
         })
         .done(data => {
-            console.log('success');
+            console.log('success', data);
         })
         .fail(error => {
             console.log('fail');

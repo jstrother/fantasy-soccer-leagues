@@ -1,7 +1,10 @@
 const 
-	$ = require('jquery')(require('node-jsdom').jsdom().parentWindow),
+	jsdom = require('jsdom'),
+    { JSDOM } = jsdom,
+    { window } = new JSDOM(`<!DOCTYPE html>`),
+    $ = require('jquery')(window),
     // import common modules
-    { mongoose, serverTestConnection } = require('./common.js'),
+    { mongoose, apiTestConnection } = require('./common.js'),
     // import server
     server = require('../server.js'),
     // import api functions
@@ -17,7 +20,7 @@ const
 	Player = require('../models/player_model.js');
 	
 before(done => {
-	mongoose.connect(serverTestConnection);
+	mongoose.connect(apiTestConnection);
 	mongoose.connection.on('connected', () => {
 		console.log('connection made');
 		mongoose.connection.db.dropDatabase();
@@ -36,6 +39,7 @@ after(done => {
 	
 describe('MLS Schedule', () => {
     it('should retrieve current MLS schedule', () => {
-    	return scheduleGrabber(117);
+    	console.log(`scheduleGrabber:`, scheduleGrabber(117));
+    	return scheduleGrabber(117).should.not.be.undefined;
     });
 });
