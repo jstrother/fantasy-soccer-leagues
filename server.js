@@ -36,7 +36,7 @@ if (require.main === module) {
 			console.error(err);
 		}
 	});
-};
+}
 
 exports.app = app;
 exports.runServer = runServer;

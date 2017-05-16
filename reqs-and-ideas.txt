@@ -1,47 +1,19 @@
 needed for Server
-	incoming data:
-		MLS Schedule:
-			match_date,
-			match_status,
-			home_club,
-			home_score,
-			away_club,
-			away_score 
-		
-		
-		playerList: [
-			//use this to weed out empty objects
-			if (playerName) {
-				this.push (
-					{
-						playerName,
-						playerClub,
-						playerPosition,
-						playerStats: { //this is determined from playerStatsScraper(this.playerURL)
-							gamesPlayed,
-							gamesStarted,
-							goals,
-							minutesPlayed,
-							assists,
-							shotsTaken,
-							shotsOnGoal,
-							foulsCommitted,
-							timesOffside,
-							yellowCards,
-							redCards
-						}
-					}
-				);
-			}
-		]
-		
-		create/login User
-			userName  //created during sign-up
-			userPassword  //created during sign-up
-			fantasyClub  //created during sign-.js
-			fantasyLeague  //created or joined just after sign-up
-			fantasyDivision  //determined after fantasyLeague is joined, league is divided in half and first come first serve as far as D1
-			fantasyChampsLeague  //determined after a full season played, top 3 go to champions league
+	incoming data taken from FantasyData.com
+		league
+		schedule
+		teams
+		players
+		stats
+		fantasy points
+	
+	create/login User
+		userName  //created during sign-up
+		userPassword  //created during sign-up
+		fantasyClub  //created during sign-.js
+		fantasyLeague  //created or joined just after sign-up
+		fantasyDivision  //determined after fantasyLeague is joined, league is divided in half and first come first serve as far as D1
+		fantasyChampsLeague  //determined after a full season played, top 3 go to champions league
 	
 	outgoing data:
 		these are created from the incoming data, and some functions, using the schema in the models folder

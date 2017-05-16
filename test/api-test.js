@@ -1,8 +1,11 @@
 const 
+	$ = require('jquery')(require('node-jsdom').jsdom().parentWindow),
     // import common modules
     { mongoose, serverTestConnection } = require('./common.js'),
     // import server
     server = require('../server.js'),
+    // import api functions
+    { scheduleGrabber } = require('../api_functions.js'),
 	// all models
 	User = require('../models/user_model.js'),
 	FantasyClub = require('../models/fantasyClub_model.js'),
@@ -33,6 +36,6 @@ after(done => {
 	
 describe('MLS Schedule', () => {
     it('should retrieve current MLS schedule', () => {
-    	return null;
+    	return scheduleGrabber(117);
     });
 });

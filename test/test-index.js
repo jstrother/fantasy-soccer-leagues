@@ -5,7 +5,7 @@ chai.use(chaiAsPromised);
 
 describe('All Tests', function() {
     importTest('Fantasy Game', './db-test.js');
-    importTest('Server Test', './server-test.js');
+    importTest('API Test', './api-test.js');
 });
 	
 function importTest(name, path) {
