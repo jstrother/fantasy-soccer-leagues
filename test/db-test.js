@@ -16,7 +16,7 @@ const
 before(done => {
 	mongoose.connect(dbTestConnection);
 	mongoose.connection.on('connected', () => {
-		console.log('connection made');
+		console.log('connection made to dbTestConnection');
 		mongoose.connection.db.dropDatabase();
 	});
 	done();
@@ -25,7 +25,7 @@ before(done => {
 after(done => {
 	mongoose.disconnect();
 	mongoose.connection.on('disconnected', () => {
-		console.log('disconnected');
+		console.log('disconnected from dbTestConnection');
 		mongoose.connection.db.dropDatabase();
 	});
 	done();
@@ -54,6 +54,9 @@ describe('Champions League', () => {
 		return updateData(sampleFantasyChampsLeague, {fantasyChampsLeagueName: 'Champions 2'}, FantasyChampsLeague)
 		.then(updatedItem => {
 			updatedItem.should.have.property('fantasyChampsLeagueName', 'Champions 2');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a champions league', () => {
@@ -63,10 +66,16 @@ describe('Champions League', () => {
 		
 		return deleteData(sampleFantasyChampsLeague2, FantasyChampsLeague)
 		.then(deletedItem => {
-			readData(sampleFantasyChampsLeague2, FantasyChampsLeague).exec()
+			readData(sampleFantasyChampsLeague2, FantasyChampsLeague)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -94,6 +103,9 @@ describe('Fantasy Match', () => {
 		return updateData(sampleFantasyMatch, {homeClub: 'a third team'}, FantasyMatch)
 		.then(updatedItem => {
 			updatedItem.should.have.property('homeClub', 'a third team');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a fantasy match', () => {
@@ -103,10 +115,16 @@ describe('Fantasy Match', () => {
 		
 		return deleteData(sampleFantasyMatch2, FantasyMatch)
 		.then(deletedItem => {
-			readData(sampleFantasyMatch2, FantasyMatch).exec()
+			readData(sampleFantasyMatch2, FantasyMatch)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -144,6 +162,9 @@ describe('Fantasy Schedule', () => {
 		}, FantasySchedule)
 		.then(updatedItem => {
 			updatedItem.masterRegSeasonSchedule.should.have.property('homeClub', 'another team');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a fantasy schedule', () => {
@@ -155,10 +176,16 @@ describe('Fantasy Schedule', () => {
 		
 		return deleteData(sampleFantasySchedule2, FantasySchedule)
 		.then(deletedItem => {
-			readData(sampleFantasySchedule2, FantasySchedule).exec()
+			readData(sampleFantasySchedule2, FantasySchedule)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -186,6 +213,9 @@ describe('Player', () => {
 		return updateData(samplePlayer, {playerPosition: 'Midfield'}, Player)
 		.then(updatedItem => {
 			updatedItem.should.have.property('playerPosition', 'Midfield');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a r/w player', () => {
@@ -195,10 +225,16 @@ describe('Player', () => {
 		
 		return deleteData(samplePlayer2, Player)
 		.then(deletedItem => {
-			readData(samplePlayer2, Player).exec()
+			readData(samplePlayer2, Player)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -236,6 +272,9 @@ describe('Schedule', () => {
 		}, Schedule)
 		.then(updatedItem => {
 			updatedItem.masterSchedule.should.have.property('homeClub', 'another team');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a master schedule', () => {
@@ -247,10 +286,16 @@ describe('Schedule', () => {
 		
 		return deleteData(sampleSchedule2, Schedule)
 		.then(deletedItem => {
-			readData(sampleSchedule2, Schedule).exec()
+			readData(sampleSchedule2, Schedule)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -278,6 +323,9 @@ describe('User', () => {
 		return updateData(sampleUser, {userName: 'user2'}, User)
 		.then(updatedItem => {
 			updatedItem.should.have.property('userName', 'user2');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should delete a user', () => {
@@ -287,10 +335,16 @@ describe('User', () => {
 		
 		return deleteData(sampleUser2, User)
 		.then(deletedItem => {
-			readData(sampleUser2, User).exec()
+			readData(sampleUser2, User)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -318,6 +372,9 @@ describe('Fantasy League', () => {
 		return updateData(sampleFantasyLeague, {fantasyLeagueName: 'Another Fantasy League'}, FantasyLeague)
 		.then(updatedItem => {
 			updatedItem.should.have.property('fantasyLeagueName', 'Another Fantasy League');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a fantasy league', () => {
@@ -327,10 +384,16 @@ describe('Fantasy League', () => {
 		
 		return deleteData(sampleFantasyLeague2, FantasyLeague)
 		.then(deletedItem => {
-			readData(sampleFantasyLeague2, FantasyLeague).exec()
+			readData(sampleFantasyLeague2, FantasyLeague)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });
@@ -358,6 +421,9 @@ describe('Fantasy Club', () => {
 		return updateData(sampleFantasyClub, {fantasyClubName: 'Changed Name'}, FantasyClub)
 		.then(updatedItem => {
 			updatedItem.should.have.property('fantasyClubName', 'Changed Name');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 	it('should remove a fantasy club', () => {
@@ -367,10 +433,16 @@ describe('Fantasy Club', () => {
 		
 		return deleteData(sampleFantasyClub2, FantasyClub)
 		.then(deletedItem => {
-			readData(sampleFantasyClub2, FantasyClub).exec()
+			readData(sampleFantasyClub2, FantasyClub)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
 			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
 		});
 	});
 });

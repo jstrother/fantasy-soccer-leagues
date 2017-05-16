@@ -1,30 +1,22 @@
 // api-interaction functions for fantasydata.com
 
-const jsdom = require('jsdom'),
-    { JSDOM } = jsdom,
-    { window } = new JSDOM(`<!DOCTYPE html>`),
-    $ = require('jquery')(window),
+const rp = require('request-promise'),
     config = require('./config.js');
 
 function scheduleGrabber(roundId) {
-    let url = `https://api.fantasydata.net/soccer/v2/json/Schedule/${roundId}`;
+    let options = {
+        uri: `https://api.fantasydata.net/soccer/v2/json/Schedule/${roundId}`,
+        headers: {
+            'Ocp-Apim-Subscription-Key': config.API_KEY
+        },
+        json: true
+        
+    };
     
-    $(() => {
-        $.ajax({
-            url,
-            beforeSend: xhrObj => {
-                xhrObj.setRequestHeader('Ocp-Apim-Subscription-Key', config.API_KEY);
-            },
-            type: 'GET',
-            data: '{body}'
-        })
-        .done(data => {
-            console.log('success', data);
-        })
-        .fail(error => {
-            console.log('fail');
-        });
-    });
+    return rp(options)
+  .catch(error => {
+    console.log(`error: ${error}`);
+  });
 }
 
 exports.scheduleGrabber = scheduleGrabber;
