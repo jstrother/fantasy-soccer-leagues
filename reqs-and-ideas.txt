@@ -9,7 +9,7 @@ needed for Server
 	
 	-search competitions for each league i want
 	-get list of players in each league by iterating through rosters (see competitions endpoint)
-	-once players by league is sorted, fetch stats and fantasy points each night around midnight
+	-once players by league is sorted, fetch stats and fantasy points about every hour or so
 	-update database
 	-push changes through to each fantasy club based upon selected players
 	-update league/divisional standings
@@ -33,45 +33,52 @@ needed for Server
 				PlayerId  //also add which league each player is in for database purposes
 			}]
 			
-			Search each player for:
+			Search each player for:  // * denotes stat used in fantasy points calculations
 				name
 				short name
+				team
+				team id
+				suspension
+				suspension reason
+				injury status
+				injury body part
+				injury notes
+				injury start date
 				fantasy points
 				position
-				stats
-					minutes
-					goals
-					assists
-					shots
-					shots on goal
-					yellow cards
-					red cards
-					yellow/red cards
-					crosses
-					tackles won
-					interceptions
-					own goals
-					fouls
-					fouled
-					offsides
-					passes
-					passes completed
-					last man tackles
-					corners won
-					blocked shots
-					touches
-					defender clean sheets
-					gk saves
-					gk goals against
-					gk clean sheets
-					gk wins
-					pk goals
-					pk misses
-					pk saves
-					penalties won
-					penalties conceded
-					score
-					opponents score
+				minutes
+				*goals
+				*assists
+				*shots
+				*shots on goal
+				*yellow cards
+				*red cards
+				yellow/red cards
+				*crosses
+				*tackles won
+				*interceptions
+				own goals
+				*fouls
+				*fouled
+				offsides
+				passes
+				passes completed
+				last man tackles
+				corners won
+				blocked shots
+				touches
+				*defender clean sheets //defenders only
+				*gk saves //goalkeepers only
+				*gk goals against //goalkeepers only
+				*gk clean sheets //goalkeepers only
+				*gk wins //goalkeepers only
+				pk goals
+				*pk misses
+				*pk saves //goalkeepers only
+				penalties won
+				penalties conceded
+				score
+				opponents score
 	
 	create/login User
 		userName  //created during sign-up
