@@ -13462,7 +13462,7 @@ module.exports = function(module) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13501,32 +13501,32 @@ mapStateToProps focuses on users for now
 */
 
 var Main = function (_React$Component) {
-    _inherits(Main, _React$Component);
+  _inherits(Main, _React$Component);
 
-    function Main() {
-        _classCallCheck(this, Main);
+  function Main() {
+    _classCallCheck(this, Main);
 
-        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+  }
+
+  _createClass(Main, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_AppBar2.default, { title: 'The Fantasy Soccer-Football Super League',
+          showMenuIconButton: false,
+          className: 'mainTitle' })
+      );
     }
+  }]);
 
-    _createClass(Main, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_AppBar2.default, { title: 'The Fantasy Soccer-Football Super League',
-                    showMenuIconButton: false,
-                    className: 'mainTitle' })
-            );
-        }
-    }]);
-
-    return Main;
+  return Main;
 }(_react2.default.Component);
 
 function mapStateToProps(users) {
-    return { users: users };
+  return { users: users };
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Main);
@@ -13683,10 +13683,9 @@ var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-InventorySocketListener(_store2.default); // components/index.js
+// FantasyListener(store);
+(0, _reactTapEventPlugin2.default)(); // components/index.js
 // top-level react component
-
-(0, _reactTapEventPlugin2.default)();
 
 _reactDom2.default.render(_react2.default.createElement(
 	_reactRedux.Provider,
