@@ -13,13 +13,34 @@ function scheduleGrabber(roundId) {
   };
   
   return rp(options)
-  .then(() => {
-    
+  .then((options) => {
+    console.log(`options: ${options}`);
+    let gameId = options.GameId,
+		  dateTime = options.DateTime,
+		  status = options.Status,
+		  winner = options.Winner,
+		  awayTeamName = options.AwayTeamName,
+		  awayTeamScore = options.AwayTeamScore,
+		  homeTeamName = options.HomeTeamName,
+		  homeTeamScore = options.HomeTeamScore;
+		// loop through all objects in resulting array
+		console.log ({
+		  gameId,
+		  dateTime,
+		  status,
+		  winner,
+		  awayTeamName,
+		  awayTeamScore,
+		  homeTeamName,
+		  homeTeamScore
+		});
   })
   .catch(error => {
     console.log(`error: ${error}`);
   });
 }
+
+scheduleGrabber(117);
 
 function playerGameStatsGrabber(date, playerId) {
   let options = {
