@@ -71,8 +71,8 @@ describe('Competition Grabber', () => {
 		const competitionId = 8;
 		
 		return competitionFixturesGrabber(competitionId)
-		.then((player) => {
-			player.should.be.an.object;
+		.then((competition) => {
+			competition.should.be.an.object;
 		})
 		.catch(error => {
 			console.log(`error: ${error}`);
