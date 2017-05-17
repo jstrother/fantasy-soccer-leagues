@@ -1,18 +1,17 @@
 needed for Server
-	incoming data taken from FantasyData.com
-		league
-		schedule
-		teams
-		players
-		stats
-		fantasy points
+	(R/W = real world)
+
+	fantasy users would want to know:
+		how each of their R/W players did in each game
+		what the schedule is for the R/W league to determine who to start on fantasy squad (some players might have a week off)
+		player stats, injuries, suspensions, other facts that would determine who would be started
 	
-	-search competitions for each league i want
-	-get list of players in each league by iterating through rosters (see competitions endpoint)
-	-once players by league is sorted, fetch stats and fantasy points about every hour or so
-	-update database
-	-push changes through to each fantasy club based upon selected players
-	-update league/divisional standings
+	get schedule for each league for fantasy play
+	get list of game dates (player stats depend upon this to search by game)
+	get list of players in each league and player IDs
+	get game stats and fantasy points for each player after each game
+	update database and update each fantasy squad
+	update league/divisional standings
 	
 	CompetitionId:
 		Premiere League (ENG): 1
@@ -28,57 +27,84 @@ needed for Server
 		Seria A (BRZ): 15
 		A League (AUS): 19
 		
-		Competition Fixtures (League Details) endpoint (using CompetitionId)
-			Players: [{
-				PlayerId  //also add which league each player is in for database purposes
-			}]
+		competitionFixturesGrabber(competitionId) // Competition Fixtures (League Details) endpoint
+			if CurrentSeason.CurrentSeason = true
+				if CurrentSeason.Rounds.CurrentRound = true && CurrentSeason.Rounds.SeasonType = 1
+					roundId = this.RoundId // don't want anything other than regular seasons
+			leaguePlayers = new Array
+			leaguePlayers.push(PlayerId) // for each playerId found
+		// feed roundId into the following
+			scheduleGrabber(roundId)
+				// need to fetch info from each object in resulting array
+				[
+					{
+						GameId
+						DateTime
+						Status
+						Winner
+						AwayTeamName
+						AwayTeamScore
+						HomeTeamName
+						HomeTeamScore
+					},
+					{
+						...
+					}
+				]
+			// now take playerId's from leaguePlayers array and DateTime (which itself gets split at the 'T' and taking the first half to place into date variable) and feed into the following
+				playerGameStatsGrabber(date, playerId) // taken from Player Game Stats By Player endpoint
+					// fetch the following info from each player so Fantasy Users can know how their players did the previous game
+					// * denotes stat used in fantasy points calculations
+					name
+					short name
+					team
+					team id
+					suspension
+					suspension reason
+					injury status
+					injury body part
+					injury notes
+					injury start date
+					fantasy points
+					position
+					minutes
+					*goals
+					*assists
+					*shots
+					*shots on goal
+					*yellow cards
+					*red cards
+					yellow/red cards
+					*crosses
+					*tackles won
+					*interceptions
+					own goals
+					*fouls
+					*fouled
+					offsides
+					passes
+					passes completed
+					last man tackles
+					corners won
+					blocked shots
+					touches
+					*defender clean sheets //defenders only
+					*gk saves //goalkeepers only
+					*gk goals against //goalkeepers only
+					*gk clean sheets //goalkeepers only
+					*gk wins //goalkeepers only
+					pk goals
+					*pk misses
+					*pk saves //goalkeepers only
+					penalties won
+					penalties conceded
+					score
+					opponents score
+					
+				playerSeasonStatsGrabber(roundId, playerId)  // uses Player Season Stats By Player endpoint
+				// this fetches the same info as playerGameStatsGrabber, yet is used in the database to keep track of overall stats
 			
-			Search each player for:  // * denotes stat used in fantasy points calculations
-				name
-				short name
-				team
-				team id
-				suspension
-				suspension reason
-				injury status
-				injury body part
-				injury notes
-				injury start date
-				fantasy points
-				position
-				minutes
-				*goals
-				*assists
-				*shots
-				*shots on goal
-				*yellow cards
-				*red cards
-				yellow/red cards
-				*crosses
-				*tackles won
-				*interceptions
-				own goals
-				*fouls
-				*fouled
-				offsides
-				passes
-				passes completed
-				last man tackles
-				corners won
-				blocked shots
-				touches
-				*defender clean sheets //defenders only
-				*gk saves //goalkeepers only
-				*gk goals against //goalkeepers only
-				*gk clean sheets //goalkeepers only
-				*gk wins //goalkeepers only
-				pk goals
-				*pk misses
-				*pk saves //goalkeepers only
-				penalties won
-				penalties conceded
-				score
-				opponents score
+			90032467 (Osvaldo Alonso)
 	
 	create/login User
 		userName  //created during sign-up
@@ -99,53 +125,3 @@ needed for Server
 			new Fantasy Match
 			new Fantasy League
 			new Fantasy Champions League
-		
-	
-	
-
-compteted list:
-
-needed from MLS website:
-	-schedule
-		-find .schedule_list then search down via for loop with i = 374 (# of total mls games for regular season)
-		-separate each group of matches by .match_date
-			-the match date is attached to the first li of the particular group
-		-each li is searched for .match_item
-		-two children down is .match_status
-			-if this = final, then scrape each team's players stats and add to database
-		-same level as .match_status are both .home_club and .vs_club
-			-each has a child .club_name and .match_score
-		-this should be scraped nightly to catch any rescheduled games
-	-teams
-		-can be found on the standings page, just need to pluck team names.  this will help when the league expands during the off-season and freeAgent, etc
-		-clubName = $('[data-title = "club"]').firstChild.html();
-		-teams.push(clubName); //add to teams array
-	-players
-		-the player pages start at 'page=0' in the url, easy to do with a for loop 0 - 20
-		-loop through $('.player_list')
-			-playerName = $('.name_link').html();
-			-playerClub = $('.club');
-			-playerPositioni = $('.')
-			-search teams objects by playerClub, pushing playerName, playerClub, playerPosition to teams.clubName.roster.sameVariable <-- placerHolder!
-	-player stats
-		-can be found at `http://www.mlssoccer.com/players/${playerName}`
-		-if $(.class).html() = //any on the following list mark as unAvailble:
-			-Loaned OUt
-			-Injured
-			-Suspended
-			-
-			-
-
-		-from player stats, search for current year then take stats from that line
-		-definitions:
-			GP = games played
-			GS = games started
-			G = goals
-			MINS = minutes played
-			A = assists
-			SHTS = shots taken
-			SOG = shots on goal
-			FC = fouls committed
-			OFF = times caught offside
-			Y = yellow cards earned
-			R = red cards earned
