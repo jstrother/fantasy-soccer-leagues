@@ -78,5 +78,5 @@ describe('Competition Grabber', () => {
 			console.log(`error: ${error}`);
 		});
 	})
-	.timeout(5000);
+	.timeout(7000);
 });
