@@ -1,5 +1,7 @@
 needed for Server
 	(R/W = real world)
+	
+	subs can be made, but they earn 2/3 of the points that would have otherwise been made
 
 	fantasy users would want to know:
 		how each of their R/W players did in each game
@@ -18,21 +20,25 @@ needed for Server
 		Bundesliga (GER): 2
 		Primera Division (SPA): 4
 		Primera División (ARG): 5
-		Seria A (ITA): 6
+		Serie A (ITA): 6
 		Eredivise (NED): 7
 		MLS (USA): 8
-		Liga MX (MEX): 12
+		*Liga MX (MEX): 12
 		Ligue Un (FRA): 13
 		RFPL (RUS): 14
-		Seria A (BRZ): 15
+		Serie A (BRZ): 15
 		A League (AUS): 19
 		
 		competitionFixturesGrabber(competitionId) // Competition Fixtures (League Details) endpoint
+			
 			if CurrentSeason.CurrentSeason = true
 				if CurrentSeason.Rounds.CurrentRound = true && CurrentSeason.Rounds.SeasonType = 1
 					roundId = this.RoundId // don't want anything other than regular seasons
-			leaguePlayers = new Array
+		
+			leaguePlayers = []
 			leaguePlayers.push(PlayerId) // for each playerId found
+	
+	
 		// feed roundId into the following
 			scheduleGrabber(roundId)
 				// need to fetch info from each object in resulting array

@@ -15,7 +15,7 @@ function scheduleGrabber(roundId) {
   return rp(schedule)
   .then((schedule) => {
     let gameId = schedule[0].GameId,
-		  dateTime = schedule[0].DateTime,
+		  dateTime = schedule[0].DateTime.split('T', 1)[0],
 		  status = schedule[0].Status,
 		  winner = schedule[0].Winner,
 		  awayTeamId = schedule[0].awayTeamId,
@@ -42,8 +42,6 @@ function scheduleGrabber(roundId) {
     console.log(`error: ${error}`);
   });
 }
-
-// scheduleGrabber(117);
 
 function playerGameStatsGrabber(date, playerId) {
   let playerGameStats = {
@@ -140,8 +138,6 @@ function playerGameStatsGrabber(date, playerId) {
   });
 }
 
-// playerGameStatsGrabber('2017-05-06', 90032467);
-
 function playerSeasonStatsGrabber(roundId, playerId) {
   let playerSeasonStats = {
     uri: `https://api.fantasydata.net/soccer/v2/json/PlayerSeasonStatsByPlayer/${roundId}/${playerId}`,
@@ -237,8 +233,6 @@ function playerSeasonStatsGrabber(roundId, playerId) {
   });
 }
 
-playerSeasonStatsGrabber(117, 90032467);
-
 function competitionFixturesGrabber(competitionId) {
   let competition = {
     uri: `https://api.fantasydata.net/soccer/v2/json/CompetitionDetails/${competitionId}`,
@@ -249,13 +243,40 @@ function competitionFixturesGrabber(competitionId) {
   };
   
   return rp(competition)
-  .then(() => {
-    
+  .then((competition) => {
+    let roundId,
+      leaguePlayers = [];
+    if (competition.CurrentSeason.CurrentSeason === true) {
+      console.log(`${competition.Name} is active`);
+      if (competition.CurrentSeason.Rounds[0].CurrentRound === true && competition.CurrentSeason.Rounds[0].SeasonType === 1) {
+        roundId = competition.CurrentSeason.Rounds[0].RoundId;
+        console.log(`roundId: ${roundId}`);
+        scheduleGrabber(roundId);
+        
+        for (let i = 0; i < competition.Teams.length; i++) {
+          for (let j = 0; j < competition.Teams[i].Players.length; j++) {
+            leaguePlayers.push(competition.Teams[i].Players[j].PlayerId);
+          }
+        }
+        console.log(`number of leaguePlayers: ${leaguePlayers.length}`);
+      }
+      // the following else-if block is to catch the clausura if the league in question is Liga MX
+      else if (competition.CurrentSeason.Rounds[4].CurrentRound === true && competition.CurrentSeason.Rounds[4].SeasonType === 1) {
+        roundId = competition.CurrentSeason.Rounds[4].RoundId;
+        console.log(`roundId: ${roundId}`);
+        scheduleGrabber(roundId);
+      }
+    }
+    else {
+      console.log(`${competition.Name} has finished`);
+    }
   })
   .catch(error => {
     console.log(`error: ${error}`);
   });
 }
+
+competitionFixturesGrabber(12);
 
 exports.scheduleGrabber = scheduleGrabber;
 exports.playerGameStatsGrabber = playerGameStatsGrabber;
