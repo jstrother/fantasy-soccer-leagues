@@ -4,7 +4,7 @@ const rp = require('request-promise'),
     key = require('./config.js').API_KEY;
 
 function scheduleGrabber(roundId) {
-  let options = {
+  let schedule = {
     uri: `https://api.fantasydata.net/soccer/v2/json/Schedule/${roundId}`,
     headers: {
       'Ocp-Apim-Subscription-Key': key
@@ -12,25 +12,28 @@ function scheduleGrabber(roundId) {
     json: true
   };
   
-  return rp(options)
-  .then((options) => {
-    console.log(`options: ${options}`);
-    let gameId = options.GameId,
-		  dateTime = options.DateTime,
-		  status = options.Status,
-		  winner = options.Winner,
-		  awayTeamName = options.AwayTeamName,
-		  awayTeamScore = options.AwayTeamScore,
-		  homeTeamName = options.HomeTeamName,
-		  homeTeamScore = options.HomeTeamScore;
+  return rp(schedule)
+  .then((schedule) => {
+    let gameId = schedule[0].GameId,
+		  dateTime = schedule[0].DateTime,
+		  status = schedule[0].Status,
+		  winner = schedule[0].Winner,
+		  awayTeamId = schedule[0].awayTeamId,
+		  awayTeamName = schedule[0].AwayTeamName,
+		  awayTeamScore = schedule[0].AwayTeamScore,
+		  homeTeamId = schedule[0].homeTeamId,
+		  homeTeamName = schedule[0].HomeTeamName,
+		  homeTeamScore = schedule[0].HomeTeamScore;
 		// loop through all objects in resulting array
 		console.log ({
 		  gameId,
 		  dateTime,
 		  status,
 		  winner,
+		  awayTeamId,
 		  awayTeamName,
 		  awayTeamScore,
+		  homeTeamId,
 		  homeTeamName,
 		  homeTeamScore
 		});
@@ -40,10 +43,10 @@ function scheduleGrabber(roundId) {
   });
 }
 
-scheduleGrabber(117);
+// scheduleGrabber(117);
 
 function playerGameStatsGrabber(date, playerId) {
-  let options = {
+  let playerGameStats = {
     uri: `https://api.fantasydata.net/soccer/v2/json/PlayerGameStatsByPlayer/${date}/${playerId}`,
     headers: {
       'Ocp-Apim-Subscription-Key': key
@@ -51,9 +54,45 @@ function playerGameStatsGrabber(date, playerId) {
     json: true
   };
   
-  return rp(options)
-  .then(() => {
-    
+  return rp(playerGameStats)
+  .then((playerGameStats) => {
+    let name = playerGameStats.Name,
+			shortName = playerGameStats.ShortName,
+			team = playerGameStats.Team,
+			teamId = playerGameStats.TeamId,
+			suspension = playerGameStats.Suspension,
+			suspensionReason = playerGameStats.SuspensionReason,
+			injuryStatus = playerGameStats.InjuryStatus,
+			injuryBodyPart = playerGameStats.InjuryBodyPart,
+			injuryNotes = playerGameStats.InjuryNotes,
+			injuryStartDate = playerGameStats.InjuryStartDate,
+			fantasyPoints = playerGameStats.FantasyPoints,
+			position = playerGameStats.Position,
+			minutes = playerGameStats.Minutes,
+			goals = playerGameStats.Goals, // required for fantasy points calculations
+			assists = playerGameStats.Assists, // required for fantasy points calculations
+			shots = playerGameStats.Shots, // required for fantasy points calculations
+			shotsOnGoal = playerGameStats.ShotsOnGoal, // required for fantasy points calculations
+			yellowCards = playerGameStats.YellowCards, // required for fantasy points calculations
+			redCards = playerGameStats.RedCards, // required for fantasy points calculations
+			yellowRedCards = playerGameStats.YellowRedCards,
+			crosses = playerGameStats.Crosses, // required for fantasy points calculations
+			tacklesWon = playerGameStats.TacklesWon, // required for fantasy points calculations
+			interceptions = playerGameStats.Interceptions, // required for fantasy points calculations
+			ownGoals = playerGameStats.OwnGoals,
+			fouls = playerGameStats.Fouls, // required for fantasy points calculations
+			fouled = playerGameStats.Fouled, // required for fantasy points calculations
+			offsides = playerGameStats.Offsides,
+			passes = playerGameStats.Passes,
+			passesCompleted = playerGameStats.PassesCompleted,
+			defenderCleanSheets = playerGameStats.DefenderCleanSheets, //defenders only; required for fantasy points calculations
+			gkSaves = playerGameStats.GoalkeeperSaves, //goalkeepers only; required for fantasy points calculations
+			gkGoalsAgainst = playerGameStats.GoalkeeperGoalsAgainst, //goalkeepers only; required for fantasy points calculations
+			gkCleanSheets = playerGameStats.GoalkeeperCleanSheets, //goalkeepers only; required for fantasy points calculations
+			gkWins = playerGameStats.GoalkeeperWins, //goalkeepers only; required for fantasy points calculations
+			pkGoals = playerGameStats.PenaltyKickGoals,
+			pkMisses = playerGameStats.PenaltyKickMisses, // required for fantasy points calculations
+			pkSaves = playerGameStats.PenaltyKickSaves; //goalkeepers only; required for fantasy points calculations
   })
   .catch(error => {
     console.log(`error: ${error}`);
@@ -61,7 +100,7 @@ function playerGameStatsGrabber(date, playerId) {
 }
 
 function playerSeasonStatsGrabber(roundId, playerId) {
-  let options = {
+  let playerSeasonStats = {
     uri: `https://api.fantasydata.net/soccer/v2/{format}/PlayerSeasonStatsByPlayer/${roundId}/${playerId}`,
     headers: {
       'Ocp-Apim-Subscription-Key': key
@@ -69,7 +108,7 @@ function playerSeasonStatsGrabber(roundId, playerId) {
     json: true
   };
   
-  return rp(options)
+  return rp(playerSeasonStats)
   .then(() => {
     
   })
@@ -79,7 +118,7 @@ function playerSeasonStatsGrabber(roundId, playerId) {
 }
 
 function competitionFixturesGrabber(competitionId) {
-  let options = {
+  let competition = {
     uri: `https://api.fantasydata.net/soccer/v2/json/CompetitionDetails/${competitionId}`,
     headers: {
       'Ocp-Apim-Subscription-Key': key
@@ -87,7 +126,7 @@ function competitionFixturesGrabber(competitionId) {
     json: true
   };
   
-  return rp(options)
+  return rp(competition)
   .then(() => {
     
   })

@@ -84,10 +84,6 @@ needed for Server
 					offsides
 					passes
 					passes completed
-					last man tackles
-					corners won
-					blocked shots
-					touches
 					*defender clean sheets //defenders only
 					*gk saves //goalkeepers only
 					*gk goals against //goalkeepers only
@@ -96,10 +92,6 @@ needed for Server
 					pk goals
 					*pk misses
 					*pk saves //goalkeepers only
-					penalties won
-					penalties conceded
-					score
-					opponents score
 					
 				playerSeasonStatsGrabber(roundId, playerId)  // uses Player Season Stats By Player endpoint
 				// this fetches the same info as playerGameStatsGrabber, yet is used in the database to keep track of overall stats
