@@ -1,6 +1,9 @@
 # the following is an alias for refreshing .bash_profile
 alias source="source .bash_profile"
 
+# the following is an alias for moving up one directory
+alias up="cd .."
+
 # the following is an alias for npm init
 alias init="npm init"
 

@@ -1,24 +1,44 @@
 // ./flow/actions.js
 // imported into ./flow/reducers.js
 
-/*
-  actions
-    login
-    sign_up
-    main_menu
-    home_page
-    fantasy_team_page
-    fantasy_league_sub_menu
-      fantasy_league_season_page
-      fantasy_league_cup_page
-      fantasy_champions_league_page
-      fantasy_contenders_league_page
-      fantasy_club_world_championship_page
-      fantasy_super_cup_sub_menu
-        fantasy_national_super_cup_page
-        fantasy_international_super_cup_page
-    see_all_fantasy_leagues_page
-    see_all_champions_leagues_page
-    see_all_contenders_leagues_page
-    see_all_super_cups_page
-*/
+export const login = (userName, userPassword) => {
+  return {
+    type: 'login',
+    userName,
+    userPassword
+  };
+};
+
+export const signUp = (name, email, userName, userPassword) => {
+  return {
+    type: 'sign_up',
+    name,
+    email,
+    userName,
+    userPassword
+  };
+};
+
+export const updateRoster = (fantasyTeam, player) => {
+  return {
+    type: 'update_roster_22_players',
+    fantasyTeam,
+    player
+  };
+};
+
+export const setMatchLineup = (fantasyTeam, player) => {
+  return {
+    type: 'set_lineup_18_players',
+    fantasyTeam,
+    player
+  };
+};
+
+export const subPlayer = (fantasyTeam, player) => {
+  return {
+    type: 'substitue_player',
+    fantasyTeam,
+    player
+  };
+};
