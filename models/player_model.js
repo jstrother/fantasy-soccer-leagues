@@ -26,6 +26,3 @@ const mongoose = require('mongoose'),
 			Player = mongoose.model('Player', playerSchema);
 
 module.exports = Player;
-
-
-// playersURL = 'http://www.mlssoccer.com/players?page=', // playersURL ends as it does so that a for loop from 0-20 can be used via concatenation, there are 30 players per page max

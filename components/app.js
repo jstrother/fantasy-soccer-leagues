@@ -5,16 +5,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 
+import User from './user.js';
+
 /*
-fantasyGame.js
-user.js
-fantasyClub.js
-fantasyLeague.js
-fantasyChampsLeague.js
-fantasyMatch.js
-fantasySchedule.js
-player.js
-schedule.js
+User
+  userName
+  FantasyTeam
+  FantasyLeague
+  FantasySchedule
+  
 
 mapStateToProps focuses on users for now
 */
@@ -26,6 +25,8 @@ class Main extends React.Component {
         <AppBar title="The Fantasy Soccer-Football Super League"
                 showMenuIconButton={false}
                 className="mainTitle" />
+        <User />
+        
       </div>
     );
   }

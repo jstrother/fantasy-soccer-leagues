@@ -1,3 +1,5 @@
+don't forget to update mongoose models for new api, left off with player_model
+
 needed for Server
 	(R/W = real world)
 	
