@@ -2,7 +2,7 @@ const
     // import common modules
     { mongoose, apiTestConnection } = require('./common.js'),
     // import api functions
-    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber } = require('../api_functions.js');
+    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber } = require('../api_functions.js');
 
 before(done => {
 	mongoose.connect(apiTestConnection);
@@ -35,7 +35,7 @@ describe('Competition Grabber', () => {
 			console.log(`error: ${error}`);
 		});
 	})
-	.timeout(7000);
+	.timeout(5000);
 });
 
 describe('Season Grabber', () => {
@@ -50,13 +50,13 @@ describe('Season Grabber', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Teams Grabber', () => {
 	it('should return teams in a given season', () => {
 		const seasonId = 741;
-		// if Celtic gets relegated somehow, change this test
+		
 		return teamsGrabber(seasonId)
 		.then(teams => {
 			teams.data[0].id.should.equal(152);
@@ -65,14 +65,14 @@ describe('Teams Grabber', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Roster Grabber', () => {
 	it('should return a roster for a given team in a given season', () => {
 		const seasonId = 741,
 			teamId = 152;
-		// this test should be changed every off-season at the least to reflect any roster changes
+			
 		return rosterGrabber(teamId, seasonId)
 		.then(roster => {
 			roster.players.data[0].id.should.equal(217);
@@ -81,5 +81,38 @@ describe('Roster Grabber', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
+});
+
+describe('Player Grabber', () => {
+	it('should return info for a given player', () => {
+		const playerId = 217;
+		
+		return playersGrabber(playerId)
+		.then(player => {
+			player.id.should.equal(217);
+			player.name.should.equal('S. Armstrong');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
+		});
+	}).timeout(5000);
+});
+
+describe('Match Grabber', () => {
+	it('should info for a given match', () => {
+		const matchId = 687992;
+		
+		return matchGrabber(matchId)
+		.then(match => {
+			match.id.should.equal(687992);
+			match.home_team_id.should.equal(701);
+			match.away_team_id.should.equal(152);
+			match.homeTeam.name.should.equal('Hearts');
+			match.awayTeam.name.should.equal('Celtic');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
+		});
+	}).timeout(5000);
 });

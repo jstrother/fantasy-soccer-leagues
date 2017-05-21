@@ -4,7 +4,7 @@ const rp = require('request-promise'),
     toInclude = '&include=';
 
 function competitionGrabber(competitionId) {
-  let endpoint = `${baseURL}/competitions/`,
+  const endpoint = `${baseURL}/competitions/`,
     included = `${toInclude}currentSeason`,
     competition = {
       uri: `${endpoint}${competitionId}${key}${included}`,
@@ -23,7 +23,7 @@ function competitionGrabber(competitionId) {
 // competitionGrabber(66);
 
 function seasonGrabber(seasonId) {
-  let endpoint = `${baseURL}/seasons/`,
+  const endpoint = `${baseURL}/seasons/`,
     included = `${toInclude}matches`,
     season = {
       uri: `${endpoint}${seasonId}${key}${included}`,
@@ -42,7 +42,7 @@ function seasonGrabber(seasonId) {
 // seasonGrabber(741);
 
 function teamsGrabber(seasonId) {
-  let endpoint = `${baseURL}/teams/season/`,
+  const endpoint = `${baseURL}/teams/season/`,
     included = `${toInclude}players`,
     teams = {
       uri: `${endpoint}${seasonId}${key}${included}`,
@@ -61,7 +61,7 @@ function teamsGrabber(seasonId) {
 // teamsGrabber(741);
 
 function rosterGrabber(teamId, seasonId) {
-  let endpoint1 = `${baseURL}/players/team/`,
+  const endpoint1 = `${baseURL}/players/team/`,
     endpoint2 = '/season/',
     included = `${toInclude}players`,
     roster = {
@@ -71,7 +71,7 @@ function rosterGrabber(teamId, seasonId) {
   
   return rp(roster)
   .then(roster => {
-    console.log(roster.players.data[0]);
+    return roster;
   })
   .catch(error => {
     console.log(`error: ${error}`);
@@ -80,7 +80,47 @@ function rosterGrabber(teamId, seasonId) {
 
 // rosterGrabber(152, 741);
 
+function playersGrabber(playerId) {
+  const endpoint = `${baseURL}/players/`,
+    included = `${toInclude}team`,
+    player = {
+        uri: `${endpoint}${playerId}${key}${included}`,
+        json: true
+    };
+  
+  return rp(player)
+  .then(player => {
+    return player;
+  })
+  .catch(error => {
+    console.log(`error: ${error}`);
+  });
+}
+
+// playersGrabber(217);
+
+function matchGrabber(matchId) {
+  const endpoint = `${baseURL}/matches/`,
+    included = `${toInclude}competition,season,homeTeam,awayTeam,events,lineup,homeStats,awayStats`,
+    match = {
+      uri: `${endpoint}${matchId}${key}${included}`,
+      json: true
+    };
+  
+  return rp(match)
+  .then(match => {
+    return match;
+  })
+  .catch(error => {
+    console.log(`error: ${error}`);
+  });
+}
+
+// matchGrabber(687992);
+
 exports.competitionGrabber = competitionGrabber;
 exports.seasonGrabber = seasonGrabber;
 exports.teamsGrabber = teamsGrabber;
 exports.rosterGrabber = rosterGrabber;
+exports.playersGrabber = playersGrabber;
+exports.matchGrabber = matchGrabber;
