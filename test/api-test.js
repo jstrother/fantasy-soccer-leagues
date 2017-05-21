@@ -2,7 +2,7 @@ const
     // import common modules
     { mongoose, apiTestConnection } = require('./common.js'),
     // import api functions
-    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber } = require('../api_functions.js');
+    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../api_functions.js');
 
 before(done => {
 	mongoose.connect(apiTestConnection);
@@ -110,6 +110,23 @@ describe('Match Grabber', () => {
 			match.away_team_id.should.equal(152);
 			match.homeTeam.name.should.equal('Hearts');
 			match.awayTeam.name.should.equal('Celtic');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
+		});
+	}).timeout(5000);
+});
+
+describe('Match Stats Grabber', () => {
+	it('should return stats for a given match', () => {
+		const matchId = 687993;
+		
+		return matchStatsGrabber(matchId)
+		.then(matchStats => {
+			matchStats.home.id.should.equal(28422);
+			matchStats.home.team_id.should.equal(696);
+			matchStats.away.id.should.equal(28423);
+			matchStats.away.team_id.should.equal(700);
 		})
 		.catch(error => {
 			console.log(`error: ${error}`);
