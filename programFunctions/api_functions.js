@@ -1,5 +1,5 @@
 const rp = require('request-promise'),
-    key = require('./config.js').API_KEY,
+    key = require('../config.js').API_KEY,
     baseURL = 'https://api.soccerama.pro/v1.2',
     toInclude = '&include=';
 

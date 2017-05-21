@@ -11,7 +11,7 @@ const
 	Schedule = require('../models/schedule_model.js'),
 	Player = require('../models/player_model.js'),
 	// import crud functions
-	{ createData, readData, updateData, deleteData } = require('../crud_functions.js');
+	{ createData, readData, updateData, deleteData } = require('../programFunctions/crud_functions.js');
 
 before(done => {
 	mongoose.connect(dbTestConnection);

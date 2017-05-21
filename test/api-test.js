@@ -2,7 +2,7 @@ const
     // import common modules
     { mongoose, apiTestConnection } = require('./common.js'),
     // import api functions
-    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../api_functions.js');
+    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js');
 
 before(done => {
 	mongoose.connect(apiTestConnection);
