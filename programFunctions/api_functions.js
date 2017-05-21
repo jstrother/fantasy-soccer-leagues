@@ -56,25 +56,6 @@ function teamsGrabber(seasonId) {
     console.log(`error: ${error}`);
   });
 }
-teamsGrabber(741);
-
-function rosterGrabber(teamId, seasonId) {
-  const endpoint1 = `${baseURL}/players/team/`,
-    endpoint2 = '/season/',
-    included = `${toInclude}players`,
-    roster = {
-      uri: `${endpoint1}${teamId}${endpoint2}${seasonId}${key}${included}`,
-      json: true
-    };
-  
-  return rp(roster)
-  .then(roster => {
-    return roster;
-  })
-  .catch(error => {
-    console.log(`error: ${error}`);
-  });
-}
 
 function playersGrabber(playerId) {
   const endpoint = `${baseURL}/players/`,
@@ -130,7 +111,6 @@ function matchStatsGrabber(matchId) {
 exports.competitionGrabber = competitionGrabber;
 exports.seasonGrabber = seasonGrabber;
 exports.teamsGrabber = teamsGrabber;
-exports.rosterGrabber = rosterGrabber;
 exports.playersGrabber = playersGrabber;
 exports.matchGrabber = matchGrabber;
 exports.matchStatsGrabber = matchStatsGrabber;

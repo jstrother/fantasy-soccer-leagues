@@ -1,7 +1,7 @@
 const { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js'),
   { createData, readData, updateData, deleteData } = require('../programFunctions/crud_functions.js');
 
-function realWorldClub(competitionId) {
+function createPlayer(competitionId) {
   return competitionGrabber(competitionId)
   .then(competition => {
     return seasonGrabber(competition.currentSeason.id);
@@ -10,9 +10,13 @@ function realWorldClub(competitionId) {
     return teamsGrabber(season.id);
   })
   .then(teams => {
-    console.log(teams.data[0]);
-    for (let i = 0; i < teams.length; i++) {
-      console.log(teams.data[i]);
+    // console.log(teams.data[0].players.data[0]);
+    for (let i = 0; i < teams.data.length; i++) {
+      for (let j = 0; j < teams.data[i].players.data.length; j++) {
+        let player = playersGrabber(teams.data[i].players.data[j]);
+        console.log(player.name);
+        // return createData(player, 'Player');
+      }
     }
   })
   .catch(error => {
@@ -20,6 +24,6 @@ function realWorldClub(competitionId) {
   });
 }
 
-realWorldClub(66);
+createPlayer(66);
 
-exports.realWorldClub = realWorldClub;
+exports.createPlayer = createPlayer;

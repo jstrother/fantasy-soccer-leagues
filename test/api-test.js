@@ -2,7 +2,7 @@ const
     // import common modules
     { mongoose, dbTestConnection } = require('./common.js'),
     // import api functions
-    { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js');
+    { competitionGrabber, seasonGrabber, teamsGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js');
 	
 describe('Competition Grabber', () => {
 	it('should return the competition searched for', () => {
@@ -43,22 +43,6 @@ describe('Teams Grabber', () => {
 		.then(teams => {
 			teams.data[0].id.should.equal(152);
 			teams.data[0].name.should.equal('Celtic');
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-});
-
-describe('Roster Grabber', () => {
-	it('should return a roster for a given team in a given season', () => {
-		const seasonId = 741,
-			teamId = 152;
-			
-		return rosterGrabber(teamId, seasonId)
-		.then(roster => {
-			roster.players.data[0].id.should.equal(217);
-			roster.players.data[0].name.should.equal('S. Armstrong');
 		})
 		.catch(error => {
 			console.log(`error: ${error}`);
