@@ -101,7 +101,7 @@ function playersGrabber(playerId) {
 
 function matchGrabber(matchId) {
   const endpoint = `${baseURL}/matches/`,
-    included = `${toInclude}competition,season,homeTeam,awayTeam,events,lineup,homeStats,awayStats`,
+    included = `${toInclude}competition,season,homeTeam,awayTeam,events,lineup`,
     match = {
       uri: `${endpoint}${matchId}${key}${included}`,
       json: true
@@ -118,9 +118,29 @@ function matchGrabber(matchId) {
 
 // matchGrabber(687992);
 
+function matchStatsGrabber(matchId) {
+  const endpoint = `${baseURL}/statistics/match/`,
+    included = `${toInclude}team`,
+    matchStats = {
+      uri: `${endpoint}${matchId}${key}${included}`,
+      json: true
+    };
+  
+  return rp(matchStats)
+  .then(matchStats => {
+    console.log(matchStats);
+  })
+  .catch(error => {
+    console.log(`error: ${error}`);
+  });
+}
+
+matchStatsGrabber(687992);
+
 exports.competitionGrabber = competitionGrabber;
 exports.seasonGrabber = seasonGrabber;
 exports.teamsGrabber = teamsGrabber;
 exports.rosterGrabber = rosterGrabber;
 exports.playersGrabber = playersGrabber;
 exports.matchGrabber = matchGrabber;
+exports.matchStatsGrabber = matchStatsGrabber;
