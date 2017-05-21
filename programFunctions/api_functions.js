@@ -13,14 +13,13 @@ function competitionGrabber(competitionId) {
   
   return rp(competition)
   .then(competition => {
+    // console.log(competition);
     return competition;
   })
   .catch(error => {
     console.log(`error: ${error}`);
   });
 }
-
-// competitionGrabber(66);
 
 function seasonGrabber(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
@@ -32,14 +31,13 @@ function seasonGrabber(seasonId) {
   
   return rp(season)
   .then(season => {
+    // console.log(season);
     return season;
   })
   .catch(error => {
     console.log(`error: ${error}`);
   });
 }
-
-// seasonGrabber(741);
 
 function teamsGrabber(seasonId) {
   const endpoint = `${baseURL}/teams/season/`,
@@ -51,14 +49,14 @@ function teamsGrabber(seasonId) {
   
   return rp(teams)
   .then(teams => {
+    // console.log(teams);
     return teams;
   })
   .catch(error => {
     console.log(`error: ${error}`);
   });
 }
-
-// teamsGrabber(741);
+teamsGrabber(741);
 
 function rosterGrabber(teamId, seasonId) {
   const endpoint1 = `${baseURL}/players/team/`,
@@ -78,8 +76,6 @@ function rosterGrabber(teamId, seasonId) {
   });
 }
 
-// rosterGrabber(152, 741);
-
 function playersGrabber(playerId) {
   const endpoint = `${baseURL}/players/`,
     included = `${toInclude}team`,
@@ -96,8 +92,6 @@ function playersGrabber(playerId) {
     console.log(`error: ${error}`);
   });
 }
-
-// playersGrabber(217);
 
 function matchGrabber(matchId) {
   const endpoint = `${baseURL}/matches/`,
@@ -116,8 +110,6 @@ function matchGrabber(matchId) {
   });
 }
 
-// matchGrabber(687992);
-
 function matchStatsGrabber(matchId) {
   const endpoint = `${baseURL}/statistics/match/`,
     included = `${toInclude}team`,
@@ -128,14 +120,12 @@ function matchStatsGrabber(matchId) {
   
   return rp(matchStats)
   .then(matchStats => {
-    console.log(matchStats);
+    return matchStats;
   })
   .catch(error => {
     console.log(`error: ${error}`);
   });
 }
-
-// matchStatsGrabber(687993);
 
 exports.competitionGrabber = competitionGrabber;
 exports.seasonGrabber = seasonGrabber;

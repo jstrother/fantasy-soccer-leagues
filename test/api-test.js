@@ -1,26 +1,8 @@
 const 
     // import common modules
-    { mongoose, apiTestConnection } = require('./common.js'),
+    { mongoose, dbTestConnection } = require('./common.js'),
     // import api functions
     { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js');
-
-before(done => {
-	mongoose.connect(apiTestConnection);
-	mongoose.connection.on('connected', () => {
-		console.log('connection made to apiTestConnection');
-		mongoose.connection.db.dropDatabase();
-	});
-	done();
-});
-
-after(done => {
-	mongoose.disconnect();
-	mongoose.connection.on('disconnected', () => {
-		console.log('disconnected from apiTestConnection');
-		mongoose.connection.db.dropDatabase();
-	});
-	done();
-});
 	
 describe('Competition Grabber', () => {
 	it('should return the competition searched for', () => {

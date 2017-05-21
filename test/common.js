@@ -5,8 +5,7 @@ const mongoose = require('mongoose'),
 	should = chai.should(),
 	dbUser = 'gameUser',
 	dbPassword = 'gamePassword',
-	dbTestConnection = `mongodb://${dbUser}:${dbPassword}@ds137271.mlab.com:37271/fantasy-soccer-db-test`,
-	apiTestConnection = `mongodb://${dbUser}:${dbPassword}@ds143071.mlab.com:43071/fantasy-soccer-api-test`;
+	dbTestConnection = `mongodb://${dbUser}:${dbPassword}@ds137271.mlab.com:37271/fantasy-soccer-db-test`;
 
 exports.mongoose = mongoose;	
 exports.chai = chai;
@@ -14,4 +13,3 @@ exports.chaiHTTP = chaiHTTP;
 exports.chaiAsPromised = chaiAsPromised;
 exports.should = should;
 exports.dbTestConnection = dbTestConnection;
-exports.apiTestConnection = apiTestConnection;
