@@ -38,7 +38,7 @@ describe('Champions League', () => {
 		};
 		
 		return readData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new champions league', () => {
 		const sampleFantasyChampsLeague = {
 			fantasyChampsLeagueName: 'Champions 1'
