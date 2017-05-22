@@ -1,4 +1,4 @@
-const { competitionGrabber, seasonGrabber, teamsGrabber, rosterGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js'),
+const { competitionGrabber, seasonGrabber, teamsGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js'),
   { createData, readData, updateData, deleteData } = require('../programFunctions/crud_functions.js');
 
 function createPlayer(competitionId) {
@@ -13,9 +13,17 @@ function createPlayer(competitionId) {
     // console.log(teams.data[0].players.data[0]);
     for (let i = 0; i < teams.data.length; i++) {
       for (let j = 0; j < teams.data[i].players.data.length; j++) {
-        let player = playersGrabber(teams.data[i].players.data[j]);
-        console.log(player.name);
-        // return createData(player, 'Player');
+        playersGrabber(teams.data[i].players.data[j].id)
+        .then(player => {
+          let thisPlayer = {
+            playerName: player.fullname,
+            playerClub: player.team.name,
+            playerPosition: player.position.name
+          };
+        })
+        .catch(error => {
+          console.log(`error: ${error}`);
+        });
       }
     }
   })

@@ -13,7 +13,6 @@ function competitionGrabber(competitionId) {
   
   return rp(competition)
   .then(competition => {
-    // console.log(competition);
     return competition;
   })
   .catch(error => {
@@ -31,7 +30,6 @@ function seasonGrabber(seasonId) {
   
   return rp(season)
   .then(season => {
-    // console.log(season);
     return season;
   })
   .catch(error => {
@@ -49,7 +47,6 @@ function teamsGrabber(seasonId) {
   
   return rp(teams)
   .then(teams => {
-    // console.log(teams);
     return teams;
   })
   .catch(error => {
@@ -59,7 +56,7 @@ function teamsGrabber(seasonId) {
 
 function playersGrabber(playerId) {
   const endpoint = `${baseURL}/players/`,
-    included = `${toInclude}team`,
+    included = `${toInclude}team,events,lineups,position`,
     player = {
         uri: `${endpoint}${playerId}${key}${included}`,
         json: true
