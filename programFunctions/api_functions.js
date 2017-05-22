@@ -16,7 +16,7 @@ function competitionGrabber(competitionId) {
     return competition;
   })
   .catch(error => {
-    console.log(`error: ${error}`);
+    console.log(`competitionGrabber error: ${error}`);
   });
 }
 
@@ -33,7 +33,7 @@ function seasonGrabber(seasonId) {
     return season;
   })
   .catch(error => {
-    console.log(`error: ${error}`);
+    console.log(`seasonGrabber error: ${error}`);
   });
 }
 
@@ -50,7 +50,7 @@ function teamsGrabber(seasonId) {
     return teams;
   })
   .catch(error => {
-    console.log(`error: ${error}`);
+    console.log(`teamsGrabber error: ${error}`);
   });
 }
 
@@ -67,7 +67,7 @@ function playersGrabber(playerId) {
     return player;
   })
   .catch(error => {
-    console.log(`error: ${error}`);
+    console.log(`playersGrabber error: ${error}`);
   });
 }
 
@@ -84,7 +84,7 @@ function matchGrabber(matchId) {
     return match;
   })
   .catch(error => {
-    console.log(`error: ${error}`);
+    console.log(`matchGrabber error: ${error}`);
   });
 }
 
@@ -101,7 +101,7 @@ function matchStatsGrabber(matchId) {
     return matchStats;
   })
   .catch(error => {
-    console.log(`error: ${error}`);
+    console.log(`matchStatsGrabber error: ${error}`);
   });
 }
 

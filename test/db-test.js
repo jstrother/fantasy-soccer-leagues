@@ -45,7 +45,7 @@ describe('Champions League', () => {
 		};
 		
 		return createData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a champions league', () => {
 		const sampleFantasyChampsLeague = {
 			fantasyChampsLeagueName: 'Champions 1'
@@ -58,7 +58,7 @@ describe('Champions League', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a champions league', () => {
 		const sampleFantasyChampsLeague2 = {
 			fantasyChampsLeagueName: 'Champions 2'
@@ -77,7 +77,7 @@ describe('Champions League', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Fantasy Match', () => {
@@ -87,14 +87,14 @@ describe('Fantasy Match', () => {
 		};
 		
 		return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new fantasy match', () => {
 		const sampleFantasyMatch = {
 			homeClub: 'another team'
 		};
 		
 		return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a fantasy match', () => {
 		const sampleFantasyMatch = {
 			homeClub: 'another team'
@@ -107,7 +107,7 @@ describe('Fantasy Match', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a fantasy match', () => {
 		const sampleFantasyMatch2 = {
 			homeClub: 'a third team'
@@ -126,7 +126,7 @@ describe('Fantasy Match', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Fantasy Schedule', () => {
@@ -138,7 +138,7 @@ describe('Fantasy Schedule', () => {
 		};
 		
 		return readData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new fantasy schedule', () => {
 		const sampleFantasySchedule = {
 			masterRegSeasonSchedule: {
@@ -147,7 +147,7 @@ describe('Fantasy Schedule', () => {
 		};
 		
 		return createData(sampleFantasySchedule, FantasySchedule).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a fantasy schedule', () => {
 		const sampleFantasySchedule = {
 			masterRegSeasonSchedule: {
@@ -166,7 +166,7 @@ describe('Fantasy Schedule', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a fantasy schedule', () => {
 		const sampleFantasySchedule2 = {
 			masterRegSeasonSchedule: {
@@ -187,7 +187,7 @@ describe('Fantasy Schedule', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Player', () => {
@@ -197,14 +197,14 @@ describe('Player', () => {
 		};
 		
 		return readData(samplePlayer, Player).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new r/w player', () => {
 		const samplePlayer = {
 			playerPosition: 'Defender'
 		};
 		
 		return createData(samplePlayer, Player).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a r/w player', () => {
 		const samplePlayer = {
 			playerPosition: 'Defender'
@@ -217,7 +217,7 @@ describe('Player', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a r/w player', () => {
 		const samplePlayer2 = {
 			playerPosition: 'Midfield'
@@ -236,7 +236,7 @@ describe('Player', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Schedule', () => {
@@ -248,7 +248,7 @@ describe('Schedule', () => {
 		};
 		
 		return readData(sampleSchedule, Schedule).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new master schedule', () => {
 		const sampleSchedule = {
 			masterSchedule: {
@@ -257,7 +257,7 @@ describe('Schedule', () => {
 		};
 		
 		return createData(sampleSchedule, Schedule).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a master schedule', () => {
 		const sampleSchedule = {
 			masterSchedule: {
@@ -276,7 +276,7 @@ describe('Schedule', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a master schedule', () => {
 		const sampleSchedule2 = {
 			masterSchedule: {
@@ -297,7 +297,7 @@ describe('Schedule', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('User', () => {
@@ -307,14 +307,14 @@ describe('User', () => {
 		};
 		
 		return readData(sampleUser, User).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new user', () => {
 		const sampleUser = {
 			userName: 'user1'
 		};
 		
 		return createData(sampleUser, User).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a user', () => {
 		const sampleUser = {
 			userName: 'user1'
@@ -327,7 +327,7 @@ describe('User', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should delete a user', () => {
 		const sampleUser2 = {
 			userName: 'user2'
@@ -346,7 +346,7 @@ describe('User', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Fantasy League', () => {
@@ -356,14 +356,14 @@ describe('Fantasy League', () => {
 		};
 		
 		return readData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create a new fantasy league', () => {
 		const sampleFantasyLeague = {
 			fantasyLeagueName: 'Super Fantasy League'
 		};
 		
 		return createData(sampleFantasyLeague, FantasyLeague).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a user', () => {
 		const sampleFantasyLeague = {
 			fantasyLeagueName: 'Super Fantasy League'
@@ -376,7 +376,7 @@ describe('Fantasy League', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a fantasy league', () => {
 		const sampleFantasyLeague2 = {
 			fantasyLeagueName: 'Another Fantasy League'
@@ -395,7 +395,7 @@ describe('Fantasy League', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
 
 describe('Fantasy Club', () => {
@@ -405,14 +405,14 @@ describe('Fantasy Club', () => {
 		};
 		
 		return readData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
-	});
+	}).timeout(5000);
 	it('should create new fantasy club', () => {
 		const sampleFantasyClub = {
 			fantasyClubName: 'Strikers \'87'
 		};
 		
 		return createData(sampleFantasyClub, FantasyClub).should.eventually.exist;
-	});
+	}).timeout(5000);
 	it('should update a fantasy club', () => {
 		const sampleFantasyClub = {
 			fantasyClubName: 'Strikers \'87'
@@ -425,7 +425,7 @@ describe('Fantasy Club', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 	it('should remove a fantasy club', () => {
 		const sampleFantasyClub2 = {
 			fantasyClubName: 'Changed Name'
@@ -444,5 +444,5 @@ describe('Fantasy Club', () => {
 		.catch(error => {
 			console.log(`error: ${error}`);
 		});
-	});
+	}).timeout(5000);
 });
