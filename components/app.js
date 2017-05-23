@@ -11,10 +11,11 @@ class Main extends React.Component {
     return (
       <div>
         <AppBar title="The Fantasy Soccer-Football Super League"
-                showMenuIconButton={true}
-                className="mainTitle" />
-        'Hello World!'
-        
+          showMenuIconButton={true}
+          className="mainTitle" />
+        <div>
+          Welcome to the Fantasy Soccer-Football Super League!
+        </div>
       </div>
     );
   }

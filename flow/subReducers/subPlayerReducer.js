@@ -2,5 +2,5 @@
 // imported into ./flow/reducers.js
 
 export const subPlayerReducer = (state = [], action) => {
-  
+  return state;
 };

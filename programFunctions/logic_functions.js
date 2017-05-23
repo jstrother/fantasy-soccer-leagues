@@ -10,22 +10,21 @@ function createPlayer(competitionId) {
     return teamsGrabber(season.id);
   })
   .then(teams => {
-    // console.log(teams.data[0].players.data[0].name);
-    for (let i = 0; i < 10; i++) { //teams.data.length
-      for (let j = 0; j < 10; j++) { //teams.data[i].players.data.length
-        console.log(`player: ${teams.data[i].players.data[j]}`);
-        playersGrabber(teams.data[i].players.data[j])
+    for (let i = 0; i < 2; i++) { //teams.data.length
+      for (let j = 0; j < 2; j++) { //teams.data[i].players.data.length
+        console.log(teams.data[i].players.data[1]);
+        playersGrabber(teams.data[i].players.data[j].id)
         .then(player => {
-          console.log(`player: ${player}`);
-          // let thisPlayer = {
-          //   playerName: player.name,
-          //   playerClub: player.team.name,
-          //   playerPosition: player.position.name
-          // };
-          // console.log(`thisPlayer: ${thisPlayer}`);
+          // console.log(`player from then: ${player.position.name}`);
+          let thisPlayer = {
+            playerName: player.name || player.fullname,
+            playerClub: player.team.name,
+            playerPosition: player.position.name
+          };
+          // console.log(`thisPlayer: ${thisPlayer.playerName}`);
         })
         .catch(error => {
-          console.log(`createPlayer for-loop error: ${error}`);
+          console.log(`error: ${error}`);
         });
       }
     }
