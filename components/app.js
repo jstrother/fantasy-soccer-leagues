@@ -4,15 +4,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 class Main extends React.Component {
   render() {
     return (
       <div>
         <AppBar title="The Fantasy Soccer-Football Super League"
-                showMenuIconButton={false}
+                showMenuIconButton={true}
                 className="mainTitle" />
-        Hello World!
+        'Hello World!'
         
       </div>
     );
