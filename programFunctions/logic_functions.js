@@ -13,8 +13,8 @@ function createPlayer(competitionId) {
     // console.log(teams.data[0].players.data[0].name);
     for (let i = 0; i < 10; i++) { //teams.data.length
       for (let j = 0; j < 10; j++) { //teams.data[i].players.data.length
-        // console.log(teams.data[i].players.data[j].name);
-        return playersGrabber(teams.data[i].players.data[j])
+        console.log(`player: ${teams.data[i].players.data[j]}`);
+        playersGrabber(teams.data[i].players.data[j])
         .then(player => {
           console.log(`player: ${player}`);
           // let thisPlayer = {
