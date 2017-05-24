@@ -14369,11 +14369,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _reactTapEventPlugin2.default)();
 
-var routes = _react2.default.createElement(
+var Routes = _react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.hashHistory },
-  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/user/', component: _app2.default })
+  _react2.default.createElement(
+    _reactRouter.Switch,
+    null,
+    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/user', component: _app2.default })
+  )
 );
 
 _reactDom2.default.render(_react2.default.createElement(

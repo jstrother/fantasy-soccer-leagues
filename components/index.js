@@ -15,14 +15,13 @@ import store from '../flow/store.js';
 // FantasyListener(store);
 injectTapEventPlugin();
 
-const routes = (
-    <Router history={hashHistory}>
-    {/*
-    	don't forget to create your container for Route's component attribute
-    */}
-      <Route path="/" component={App} />
-      <Route path="/user/" component={App} />
-    </Router>
+const Routes = (
+  <Router history={hashHistory}>
+    <Switch>
+    	<Route path="/" component={App} />
+    	<Route path="/user" component={App} />
+    </Switch>
+  </Router>
 );
 
 ReactDOM.render(
