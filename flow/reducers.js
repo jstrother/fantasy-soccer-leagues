@@ -8,8 +8,6 @@ import { signUpReducer } from './subReducers/signUpReducer.js';
 import { subPlayerReducer } from './subReducers/subPlayerReducer.js';
 import { updateRosterReducer } from './subReducers/updateRosterReducer.js';
 
-console.log(`loginReducer: ${loginReducer}`);
-
 export const reducers = combineReducers({
   loginReducer,
   setMatchLineupReducer,

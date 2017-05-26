@@ -21,7 +21,7 @@
     "watch:html": "onchange \"./*.html\" -- npm run build:html",
     "watch:css": "onchange \"./scss/*.scss\" -- npm run build:css",
     "watch:js": "onchange \"./components/*.js\" -- npm run build:js",
-    "watch:flow": "onchange \"./flow/*.js\" -- npme run build:js",
+    "watch:flow": "onchange \"./flow/*.js\" -- npm run build:js",
     "watch": "parallelshell \"npm run watch:test\"  \"npm run watch:model\" \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:js\" \"npm run watch:flow\"",
     "begin": "npm run build && npm run watch"
   },
@@ -84,6 +84,7 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",

@@ -4,10 +4,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Router, Switch, hashHistory } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import App from './app.js';
 import store from '../flow/store.js';
@@ -16,19 +15,17 @@ import store from '../flow/store.js';
 injectTapEventPlugin();
 
 const Routes = (
-  <Router history={hashHistory}>
-    <Switch>
-    	<Route path="/" component={App} />
-    	<Route path="/user" component={App} />
-    </Switch>
+  <Router>
+  	<ul>
+  		<li><Link to='/'>Home</Link></li>
+  	</ul>
+    <Route path="/" component={App} />
   </Router>
 );
 
 ReactDOM.render(
 	<Provider store={store}>
-		<MuiThemeProvider>
-			<Routes />
-		</MuiThemeProvider>
+		<Routes />
 	</Provider>,
 	document.getElementById('app')
 );

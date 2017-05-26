@@ -3,18 +3,16 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import AppBar from 'material-ui/AppBar';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
-class Main extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <div>
-        <AppBar title="The Fantasy Soccer-Football Super League"
-          showMenuIconButton={true}
-          className="mainTitle" />
+        <header>The Fantasy Soccer-Football Super League</header>
         <div>
           Welcome to the Fantasy Soccer-Football Super League!
+          <br />
+          Create a your own team and compete against others to prove you are the best at fantasy footy!
         </div>
       </div>
     );
@@ -26,4 +24,4 @@ function mapStateToProps(users) {
     return { users };
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps)(App);
