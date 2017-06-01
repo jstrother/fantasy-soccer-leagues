@@ -11,15 +11,21 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './app.js';
 import store from '../flow/store.js';
 
+// <ul>
+//   		<li><Link to='/'>Home</Link></li>
+//   	</ul>
+//     <Route path="/" component={App} />
+
 // FantasyListener(store);
 injectTapEventPlugin();
 
+// the issue lies in Routes (which is setup just like the example from documentation)
 const Routes = (
   <Router>
-  	<ul>
-  		<li><Link to='/'>Home</Link></li>
-  	</ul>
-    <Route path="/" component={App} />
+  <div>
+			hello
+		</div>
+  	
   </Router>
 );
 
