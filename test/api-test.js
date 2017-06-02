@@ -2,16 +2,21 @@ const
     // import common modules
     { mongoose, dbTestConnection } = require('./common.js'),
     // import api functions
-    { leagueGrabber, seasonGrabber, teamsGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js');
+    { seasonGrabber, teamsGrabber, playersGrabber, matchGrabber, matchStatsGrabber } = require('../programFunctions/api_functions.js');
 	
 describe('League Grabber', () => {
 	it('should return the league searched for', () => {
 		const leagueId = 501;
 		
-		return leagueGrabber(leagueId)
+		return seasonGrabber(leagueId)
 		.then(league => {
 			league.id.should.equal(501);
 			league.name.should.equal('Premiership');
+			return league.data.season;
+		})
+		.then(season => {
+			season.id.should.equal(825);
+			season.name.should.equal('2016/2017');
 		})
 		.catch(error => {
 			console.log(`error: ${error}`);
