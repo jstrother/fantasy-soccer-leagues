@@ -2,5 +2,7 @@
 // imported into ./flow/reducers.js
 
 export const signUpReducer = (state = [], action) => {
-  return state;
+  // state.findIndex(thisUser => {
+    return state;
+  // });
 };
