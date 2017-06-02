@@ -8,12 +8,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <header>The Fantasy Soccer-Football Super League</header>
-        <div>
-          Welcome to the Fantasy Soccer-Football Super League!
-          <br />
-          Create a your own team and compete against others to prove you are the best at fantasy footy!
-        </div>
+        Welcome to the Fantasy Soccer-Football Super League!
+        <br />
+        Create your own team and compete against others to prove you are the best at fantasy footy!
       </div>
     );
   }

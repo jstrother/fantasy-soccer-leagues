@@ -23,10 +23,12 @@ function mlsScheduleScraper(url) {
 		}
 	})
 	.then(schedule => {
+		console.log(schedule);
 		return (schedule);
 	});
 }
 
+mlsScheduleScraper(scheduleURL);
 
 // player list scraper
 function playerListScraper(url) {
