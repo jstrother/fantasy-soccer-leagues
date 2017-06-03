@@ -18,9 +18,9 @@ function leagueGrabber() {
 }
 
 //this function is to get the current season or most recent season of a league
-function seasonGrabber(leagueId) {
+function playersByLeagueGrabber(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
-    included = `${toInclude}seasons,season`,
+    included = `${toInclude}season,seasons`,
     league = {
       uri: `${endpoint}${leagueId}${key}${included}`,
       json: true
@@ -28,18 +28,31 @@ function seasonGrabber(leagueId) {
   
   return rp(league)
   .then(league => {
-    return league.data.season;
+    // console.log(league.data.seasons.data[0].id);
+    return league.data.seasons.data[0].id;
   })
-  .then((season) => {
-    // console.log(season);
-    return season;
+  .then(seasonId => {
+    const endpoint = `${baseURL}/teams/season/`,
+      included = `${toInclude}squad,stats,transfers`,
+      teams = {
+        uri: `${endpoint}${seasonId}${key}${included}`,
+        json: true
+      };
+    
+    return rp(teams)
+    .then(teams => {
+      console.log(teams.data[0]);
+    })
+    .catch(error => {
+      console.log(`error from teams in seasonGrabber: ${error}`);
+    });
   })
   .catch(error => {
-    console.log(`leagueGrabber error: ${error}`);
+    console.log(`playersByLeagueGrabber error: ${error}`);
   });
 }
 
-leagueGrabber();
+playersByLeagueGrabber(501);
 
 exports.leagueGrabber = leagueGrabber;
-exports.seasonGrabber = seasonGrabber;
+exports.playersByLeagueGrabber = playersByLeagueGrabber;
