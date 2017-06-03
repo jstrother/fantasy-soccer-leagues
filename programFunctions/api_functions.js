@@ -13,7 +13,8 @@ function leagueGrabber() {
   
   return rp(leagues)
   .then(leagues => {
-    console.log(leagues);
+    // console.log(leagues);
+    return leagues;
   });
 }
 
@@ -41,7 +42,10 @@ function playersByLeagueGrabber(leagueId) {
     
     return rp(teams)
     .then(teams => {
-      console.log(teams.data[0]);
+      // writing another function to retrieve players until i can get access to an active league
+      // will come back to this once i can, but i need to get to working on players
+      // console.log(teams.data[0].squad.data);
+      return teams.data[0].squad.data;
     })
     .catch(error => {
       console.log(`error from teams in seasonGrabber: ${error}`);
@@ -52,7 +56,47 @@ function playersByLeagueGrabber(leagueId) {
   });
 }
 
-playersByLeagueGrabber(501);
+// playersByLeagueGrabber(501);
+
+// the following code block is only to get players while i'm waiting for access to an active league
+// i would rather get players by team than by fixture lineup, which this block is doing
+function playersByFixtureGrabber(seasonId) {
+  const endpoint = `${baseURL}/seasons/`,
+    included = `${toInclude}fixtures`,
+    season = {
+      uri: `${endpoint}${seasonId}${key}${included}`,
+      json: true
+    };
+  
+  return rp(season)
+  .then(season => {
+    // console.log(season.data.fixtures.data[0]);
+    console.log(season.data.fixtures.data.length);
+    for (let i = 0; i < season.data.fixtures.data.length; i++) {
+      // console.log(season.data.fixtures.data[i].id);
+      let fixtureId = season.data.fixtures.data[i].id;
+      const endpoint = `${baseURL}/fixtures/`,
+        included = `${toInclude}lineup,bench,stats,goals,cards,events,other`,
+        fixture = {
+          uri: `${endpoint}${fixtureId}${key}${included}`,
+          json: true
+        };
+      
+      rp(fixture)
+      .then(fixture => {
+        // console.log(fixture);
+      })
+      .catch(error => {
+        console.log(`playersByFixtureGrabber for loop error: ${error}`);
+      });
+    }
+  })
+  .catch(error => {
+    console.log(`playersByFixtureGrabber error: ${error}`);
+  });
+}
+
+playersByFixtureGrabber(825);
 
 exports.leagueGrabber = leagueGrabber;
 exports.playersByLeagueGrabber = playersByLeagueGrabber;
