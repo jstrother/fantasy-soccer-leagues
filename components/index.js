@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
@@ -34,7 +34,8 @@ class Routes extends React.Component{
 			value
 		});
 	}
-	
+	// trying to get the Links to be part of dropdown in a header(toolbar)
+	// so far, no luck getting clicked Link to affect displayed Route
 	render() {
 		return(
 			<Router>
@@ -61,8 +62,10 @@ class Routes extends React.Component{
 		    	<div>
 		    		<br />
 		    		<br />
-				    <Route exact path='/' component={Home} />
-				    <Route path='/login' component={LogIn} />
+				    <Switch>
+				    	<Route exact path='/' component={Home} />
+				    	<Route path='/login' component={LogIn} />
+				    </Switch>
 					</div>
 				</div>
 		  </Router>
