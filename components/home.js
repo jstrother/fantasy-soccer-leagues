@@ -1,12 +1,9 @@
-// components/app.js
-// imported into ./index.js
+// components/home.js
+// imported into ./app.js
 
 import React from 'react';
-import { connect } from 'react-redux';
 
-import SignUp from './signUp.js';
-
-class Home extends React.Component {
+export default class Home extends React.Component {
   render() {
     return (
       <div>
@@ -15,15 +12,7 @@ class Home extends React.Component {
           <br />
           Create your own team and compete against others to prove you are the best at fantasy footy!
         </div>
-        <SignUp users={this.props.users} />
       </div>
     );
   }
 }
-
-
-function mapStateToProps(users) {
-    return { users };
-}
-
-export default connect(mapStateToProps)(Home);

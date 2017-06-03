@@ -31,35 +31,34 @@ function playersByLeagueGrabber(leagueId) {
   
   return rp(league)
   .then(league => {
-    console.log(league);
+    // console.log(league);
     // console.log(league.data.seasons.data[0].id);
-    return league.data.seasons.data[0].id;
+    return league.data.season.data.id;
   })
-  // .then(seasonId => {
-  //   const endpoint = `${baseURL}/teams/season/`,
-  //     included = `${toInclude}squad,stats,transfers`,
-  //     teams = {
-  //       uri: `${endpoint}${seasonId}${key}${included}`,
-  //       json: true
-  //     };
+  .then(seasonId => {
+    const endpoint = `${baseURL}/teams/season/`,
+      included = `${toInclude}squad,stats,transfers`,
+      teams = {
+        uri: `${endpoint}${seasonId}${key}${included}`,
+        json: true
+      };
     
-  //   return rp(teams)
-  //   .then(teams => {
-  //     // writing another function to retrieve players until i can get access to an active league
-  //     // will come back to this once i can, but i need to get to working on players
-  //     // console.log(teams.data[0].squad.data);
-  //     return teams.data[0].squad.data;
-  //   })
-  //   .catch(error => {
-  //     console.log(`error from teams in seasonGrabber: ${error}`);
-  //   });
-  // })
+    return rp(teams)
+    .then(teams => {
+      for (let i = 0; i < teams.data.length; i++) {
+        console.log(teams.data[i]);
+      }
+    })
+    .catch(error => {
+      console.log(`playersByLeagueGrabber error: ${error}`);
+    });
+  })
   .catch(error => {
     console.log(`playersByLeagueGrabber error: ${error}`);
   });
 }
 
-// playersByLeagueGrabber(779);
+playersByLeagueGrabber(779);
 
 exports.leagueGrabber = leagueGrabber;
 exports.playersByLeagueGrabber = playersByLeagueGrabber;
