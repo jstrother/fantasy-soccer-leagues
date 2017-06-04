@@ -28,7 +28,7 @@ function mlsScheduleScraper(url) {
 	});
 }
 
-mlsScheduleScraper(scheduleURL);
+// mlsScheduleScraper(scheduleURL);
 
 // player list scraper
 function playerListScraper(url) {
@@ -46,7 +46,7 @@ function playerListScraper(url) {
 		.then(players => {
 			return (players);
 		});
-	};
+	}
 }
 
 
