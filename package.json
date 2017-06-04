@@ -72,32 +72,26 @@
     "postcss-cli": "^4.0.0",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
-    "uglify-js": "^3.0.14",
     "webpack": "^2.6.1"
   },
   "dependencies": {
-    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "jsdom": "^10.1.0",
-    "jsonwebtoken": "^7.4.1",
     "material-ui": "^0.17.4",
     "mongodb": "^2.2.26",
     "mongoose": "^4.10.4",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-http-bearer": "^1.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "scrape-it": "^3.3.2",
-    "socket.io": "^1.7.4",
-    "validator": "^7.0.0"
+    "scrape-it": "^3.3.2"
   }
 }
