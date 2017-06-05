@@ -47,10 +47,6 @@ function playersByLeague(leagueId) {
     .then(teams => {
       let squads = [];
       for (let i = 0; i < teams.data.length; i++) {
-        // if (teams.data[i].squad.data.length === 0) {
-        //   console.log(teams.data[i].name);
-        //   console.log(teams.data[i].id);
-        // }
         squads.push(teams.data[i].squad.data);
       }
       return squads;
@@ -59,10 +55,26 @@ function playersByLeague(leagueId) {
       let players = [];
       for (let i = 0; i < squads.length; i++) {
         for (let j = 0; j < squads[i].length; j++) {
-          players.push(squads[i].data[j]);  // can't seem to get individual player ids listed
+          let playerId = squads[i][j].player_id;
+          const endpoint = `${baseURL}/players/`,
+            included = `${toInclude}stats,team`,
+            player = {
+              uri: `${endpoint}${playerId}${key}${included}`,
+              json: true
+            };
+          // console.log(playerId);
+          rp(player)
+          .then(player => {
+            console.log(player);
+            // players.push(player);
+          })
+          .catch(error => {
+            console.log(`squads double for-loop error: ${error}`);
+          });
         }
       }
-      console.log(players);
+      // console.log(`players list: ${players}`);
+      return players;
     })
     .catch(error => {
       console.log(`playerByLeague teams error: ${error}`);
