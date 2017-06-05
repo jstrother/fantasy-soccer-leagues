@@ -16,26 +16,19 @@ app.get('*', (req, res) => {
 
 console.log('Server Started');
 
-let runServer = callback => {
-	mongoose.connect(config.DATABASE_URL, err => {
-		if (err && callback) {
-			return callback(err);
-		}
+let runServer = () => {
+	mongoose.connect(config.DATABASE_URL, () => {
 		app.listen(config.PORT, () => {
-			console.log(`Listening on localhost: ${config.PORT}`);
-			if (callback) {
-				callback();
-			}
+			console.log(`Listening on port: ${config.PORT}`);
 		});
+	})
+	.catch(error => {
+		console.error(`mongoose connect error: ${error.name}, code: ${error.code}, message: ${error.errmsg}`);
 	});
 };
 
 if (require.main === module) {
-	runServer(err => {
-		if (err) {
-			console.error(err);
-		}
-	});
+	runServer();
 }
 
 exports.app = app;

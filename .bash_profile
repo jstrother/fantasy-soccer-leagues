@@ -4,6 +4,9 @@ alias source="source .bash_profile"
 # the following is an alias for moving up one directory
 alias up="cd .."
 
+# the following is an alias to run mongod
+alias mongod="~/workspace/run_mongod"
+
 # the following is an alias for npm init
 alias init="npm init"
 

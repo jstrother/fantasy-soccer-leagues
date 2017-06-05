@@ -8,7 +8,7 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-export default class Header extends React.Component{
+export default class Header extends React.Component {
   constructor(props) {
 		super(props);
 		this.state={

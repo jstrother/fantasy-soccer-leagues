@@ -1,1 +1,1 @@
-mongod --bind_ip=$IP --dbpath=/c/Users/Jim/Projects/fantasy-soccer-leagues/mongo_data --nojournal --rest \"$@\"
+mongod --bind_ip=$IP --dbpath=/home/ubuntu/workspace/mongo_data --nojournal --rest "$@"
