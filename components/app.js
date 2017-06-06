@@ -16,11 +16,11 @@ class App extends React.Component {
 	    	<Main />
 			</div>
 		);
-	}	
+	}
 }
 
-function mapStateToProps(users) {
-    return { users };
+function mapStateToProps(user) {
+    return { user };
 }
 
 function mapDispatchToProps(location) {

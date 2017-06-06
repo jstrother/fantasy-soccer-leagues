@@ -12,6 +12,7 @@ export default class User extends React.component {
 	render() {
 		return(
 			<div>
+				<div>User Page</div>
 				<FantasyClub />
 				<FantasySchedule />
 				<FantasyLeague />

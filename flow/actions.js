@@ -9,13 +9,14 @@ export const login = (userName, userPassword) => {
   };
 };
 
-export const signUp = (name, email, userName, userPassword) => {
+export const signUp = (name, email, userName, userPassword, teamName) => {
   return {
     type: 'sign_up',
     name,
     email,
     userName,
-    userPassword
+    userPassword,
+    teamName
   };
 };
 

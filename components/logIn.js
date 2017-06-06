@@ -8,13 +8,17 @@ export default class LogIn extends React.Component {
   render() {
     return (
       <div>
+        <div>Log in to your team</div>
         <TextField
           hintText='User Name' />
+        <br />
         <TextField
           hintText='Password' />
+        <br />
         <FlatButton
           label='Submit' />
       </div>
     );
   }
 }
+//uses login action
