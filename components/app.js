@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Header from './header.js';
 import Main from './main.js';
@@ -22,4 +23,8 @@ function mapStateToProps(users) {
     return { users };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(location) {
+	return { location };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
