@@ -52,29 +52,46 @@ function playersByLeague(leagueId) {
       return squads;
     })
     .then(squads => {
-      let players = [];
-      for (let i = 0; i < squads.length; i++) {
-        for (let j = 0; j < squads[i].length; j++) {
-          let playerId = squads[i][j].player_id;
-          const endpoint = `${baseURL}/players/`,
-            included = `${toInclude}stats,team`,
-            player = {
-              uri: `${endpoint}${playerId}${key}${included}`,
-              json: true
-            };
-          // console.log(playerId);
-          rp(player)
-          .then(player => {
-            console.log(player);
-            // players.push(player);
-          })
-          .catch(error => {
-            console.log(`squads double for-loop error: ${error}`);
-          });
-        }
-      }
-      // console.log(`players list: ${players}`);
-      return players;
+      let playerId = 918;
+      const endpoint = `${baseURL}/players/`,
+        included = `${toInclude}stats,team`,
+        player = {
+          uri: `${endpoint}${playerId}${key}${included}`,
+          json: true
+        };
+        
+      rp(player)
+      .then(player => {
+        console.log(`player: ${player.data}`);
+        let players = [];
+        players.push(player);
+        console.log(`players list: ${players}`);
+        return players;
+      })
+      .catch(error => {
+        console.log(`player test error: ${error}`);
+      });
+      // for (let i = 0; i < squads.length; i++) {
+      //   for (let j = 0; j < squads[i].length; j++) {
+      //     let playerId = squads[i][j].player_id;
+      //     // console.log(`playerId: ${playerId}`);
+      //     const endpoint = `${baseURL}/players/`,
+      //       included = `${toInclude}stats,team`,
+      //       player = {
+      //         uri: `${endpoint}${playerId}${key}${included}`,
+      //         json: true
+      //       };
+          
+      //     rp(player)
+      //     .then(player => {
+      //       // console.log(`player: ${player}`);
+      //       // players.push(player);
+      //     })
+      //     .catch(error => {
+      //       console.log(`squads double for-loop error: ${error}`);
+      //     });
+      //   }
+      // }
     })
     .catch(error => {
       console.log(`playerByLeague teams error: ${error}`);
