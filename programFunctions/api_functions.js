@@ -13,7 +13,7 @@ function allLeagues() {
   
   return rp(leagues)
   .then(leagues => {
-    console.log(leagues);
+    // console.log(leagues);
     return leagues;
   })
   .catch(error => {
@@ -30,7 +30,7 @@ function playersByLeague(leagueId) {
       uri: `${endpoint}${leagueId}${key}`,
       json: true
     };
-    console.log(`league: ${league}`);
+    // console.log(`league: ${league}`);
   return rp(league)
   .then(league => {
     return league.data.current_season_id;
@@ -62,10 +62,10 @@ function playersByLeague(leagueId) {
         
       rp(player)
       .then(player => {
-        // console.log(`player: ${player}`);
+        console.log('player:', player);
         let players = [];
         players.push(player);
-        // console.log(`players list: ${players}`);
+        console.log('players:', players);
         return players;
       })
       .catch(error => {

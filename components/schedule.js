@@ -3,10 +3,12 @@
 
 import React from 'react';
 
-export default class Schedule extends React.component {
+export default class Schedule extends React.Component {
 	render() {
 		return(
-			null
+			<div>
+			
+			</div>
 		);
 	}
 }

@@ -43,3 +43,18 @@ export const subPlayer = (fantasyTeam, player) => {
     player
   };
 };
+
+export const fetchPlayerSuccess = (player) => {
+  return {
+    type: 'FETCH_PLAYER_SUCCESS',
+    player
+  };
+};
+
+export const fetchPlayerError = (player, error) => {
+  return {
+    type: 'FETCH_PLAYER_ERROR',
+    player,
+    error
+  };
+};

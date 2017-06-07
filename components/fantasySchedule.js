@@ -4,7 +4,7 @@
 import React from 'react';
 import FantasyMatch from './fantasyMatch.js';
 
-export default class FantasySchedule extends React.component {
+export default class FantasySchedule extends React.Component {
 	render() {
 		return(
 			<FantasyMatch />
