@@ -19,7 +19,7 @@ export default class Main extends React.Component {
           <Route exact path='/' component={Home} />
           <Route exact path='/login' component={LogIn} />
           <Route exact path='/signup' component={SignUp} />
-          <Route path='/user/:user' component={User} />
+          <Route path='/user/:user' component={User} /> {/* to be displayed upon successful login/sign-up */}
         </Switch>
       </div>
     );

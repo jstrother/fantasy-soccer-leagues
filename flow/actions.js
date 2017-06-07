@@ -3,7 +3,7 @@
 
 export const login = (userName, userPassword) => {
   return {
-    type: 'login',
+    type: 'LOGIN',
     userName,
     userPassword
   };
@@ -11,7 +11,7 @@ export const login = (userName, userPassword) => {
 
 export const signUp = (name, email, userName, userPassword, teamName) => {
   return {
-    type: 'sign_up',
+    type: 'SIGN_UP',
     name,
     email,
     userName,
@@ -20,26 +20,26 @@ export const signUp = (name, email, userName, userPassword, teamName) => {
   };
 };
 
-export const updateRoster = (fantasyTeam, player) => {
+export const updateRoster = (fantasyClub, player) => {
   return {
-    type: 'update_roster_22_players',
-    fantasyTeam,
+    type: 'UPDATE_ROSTER_22_PLAYERS',
+    fantasyClub,
     player
   };
 };
 
-export const setMatchLineup = (fantasyTeam, player) => {
+export const setMatchLineup = (fantasyClub, player) => {
   return {
-    type: 'set_lineup_18_players',
-    fantasyTeam,
+    type: 'SET_LINEUP_18_PLAYERS',
+    fantasyClub,
     player
   };
 };
 
-export const subPlayer = (fantasyTeam, player) => {
+export const subPlayer = (fantasyClub, player) => {
   return {
-    type: 'substitue_player',
-    fantasyTeam,
+    type: 'SUBSTITUTE_PLAYER',
+    fantasyClub,
     player
   };
 };
@@ -55,6 +55,111 @@ export const fetchPlayerError = (player, error) => {
   return {
     type: 'FETCH_PLAYER_ERROR',
     player,
+    error
+  };
+};
+
+export const fetchUserSuccess = (user) => {
+  return {
+    type: 'FETCH_USER_SUCCESS',
+    user
+  };
+};
+
+export const fetchUserError = (user, error) => {
+  return {
+    type: 'FETCH_USER_ERROR',
+    user,
+    error
+  };
+};
+
+export const fetchScheduleSuccess = (schedule) => {
+  return {
+    type: 'FETCH_SCHEDULE_SUCCESS',
+    schedule
+  };
+};
+
+export const fetchScheduleError = (schedule, error) => {
+  return {
+    type: 'FETCH_SCHEDULE_ERROR',
+    schedule,
+    error
+  };
+};
+
+export const fetchFantasyClubSuccess = (fantasyClub) => {
+  return {
+    type: 'FETCH_FANTASY_CLUB_SUCCESS',
+    fantasyClub
+  };
+};
+
+export const fetchFantasyClubError = (fantasyClub, error) => {
+  return {
+    type: 'FETCH_FANTASY_CLUB_ERROR',
+    fantasyClub,
+    error
+  };
+};
+
+export const fetchFantasyChampsLeagueSuccess = (fantasyChampsLeague) => {
+  return {
+    type: 'FETCH_FANTASY_CHAMPS_LEAGUE_SUCCESS',
+    fantasyChampsLeague
+  };
+};
+
+export const fetchFantasyChampsLeagueError = (fantasyClub, error) => {
+  return {
+    type: 'FETCH_FANTASY_CHAMPS_LEAGUE_ERROR',
+    fantasyClub,
+    error
+  };
+};
+
+export const fetchFantasyLeagueSuccess = (fantasyLeague) => {
+  return {
+    type: 'FETCH_FANTASY_LEAGUE_SUCCESS',
+    fantasyLeague
+  };
+};
+
+export const fetchFantasyLeagueError = (fantasyLeague, error) => {
+  return {
+    type: 'FETCH_FANTASY_LEAGUE_ERROR',
+    fantasyLeague,
+    error
+  };
+};
+
+export const fetchFantasyMatchSuccess = (fantasyMatch) => {
+  return {
+    type: 'FETCH_FANTASY_MATCH_SUCCESS',
+    fantasyMatch
+  };
+};
+
+export const fetchFantasyMatchError = (fantasyMatch, error) => {
+  return {
+    type: 'FETCH_FANTASY_MATCH_ERROR',
+    fantasyMatch,
+    error
+  };
+};
+
+export const fetchFantasyScheduleSuccess = (fantasySchedule) => {
+  return {
+    type: 'FETCH_FANTASY_SCHEDULE_SUCCESS',
+    fantasySchedule
+  };
+};
+
+export const fetchFantasyScheduleError = (fantasySchedule, error) => {
+  return {
+    type: 'FETCH_FANTASY_SCHEDULE_ERROR',
+    fantasySchedule,
     error
   };
 };
