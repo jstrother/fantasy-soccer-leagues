@@ -1,17 +1,30 @@
 // ./flow/actions.js
 // imported into ./flow/reducers.js
 
+import createData from '../../programFunctions/crud_functions.js';
+import User from '../../models/user_model.js';
+
 require('isomorphic-fetch');
 
-export const signUp = (name, email, userName, userPassword, teamName) => {
+export const signUp = (name, userEmail, userName, userPassword, teamName) => {
   return {
     type: 'SIGN_UP',
     name,
-    email,
+    userEmail,
     userName,
     userPassword,
     teamName
   };
+};
+
+export const signUpActionCreator = (name, userEmail, userName, userPassword, teamName) => {
+  createData({
+      name,
+      userName,
+      userPassword,
+      userEmail,
+      fantasyClub: teamName
+    }, User);
 };
 
 export const updateRoster = (fantasyClub, player) => {
