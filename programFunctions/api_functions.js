@@ -23,20 +23,29 @@ function allLeagues() {
 
 // allLeagues();
 
-// this function is to fetch league info by id
-function playersByLeague(leagueId) {
+// this function returns the 
+function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
     league = {
       uri: `${endpoint}${leagueId}${key}`,
       json: true
     };
-    // console.log(`league: ${league}`);
+    
   return rp(league)
   .then(league => {
+    // console.log(`seasonId: ${league.data.current_season_id}`);
     return league.data.current_season_id;
   })
-  .then(seasonId => {
-    const endpoint = `${baseURL}/teams/season/`,
+  .catch(error => {
+    console.log(`seasonByLeague error: ${error}`);
+  });
+}
+
+// seasonByLeague(779);
+
+// this function is to retrieve all players in particular season
+function playersBySeason(seasonId) {
+  const endpoint = `${baseURL}/teams/season/`,
       included = `${toInclude}squad`,
       teams = {
         uri: `${endpoint}${seasonId}${key}${included}`,
@@ -45,66 +54,23 @@ function playersByLeague(leagueId) {
       
     return rp(teams)
     .then(teams => {
-      let squads = [];
+      let playerList = [];
       for (let i = 0; i < teams.data.length; i++) {
-        squads.push(teams.data[i].squad.data);
+        for (let j = 0; j < teams.data[i].squad.data.length; j++) {
+          playerList.push(teams.data[i].squad.data[j].player_id);
+        }
       }
-      return squads;
-    })
-    .then(squads => {
-      let playerId = 918;
-      const endpoint = `${baseURL}/players/`,
-        included = `${toInclude}stats,team`,
-        player = {
-          uri: `${endpoint}${playerId}${key}${included}`,
-          json: true
-        };
-        
-      rp(player)
-      .then(player => {
-        console.log('player:', player);
-        let players = [];
-        players.push(player);
-        console.log('players:', players);
-        return players;
-      })
-      .catch(error => {
-        console.log(`player test error: ${error}`);
-      });
-      // for (let i = 0; i < squads.length; i++) {
-      //   for (let j = 0; j < squads[i].length; j++) {
-      //     let playerId = squads[i][j].player_id;
-      //     // console.log(`playerId: ${playerId}`);
-      //     const endpoint = `${baseURL}/players/`,
-      //       included = `${toInclude}stats,team`,
-      //       player = {
-      //         uri: `${endpoint}${playerId}${key}${included}`,
-      //         json: true
-      //       };
-          
-      //     rp(player)
-      //     .then(player => {
-      //       let players = [];
-      //       // console.log(`player: ${player}`);
-      //       // players.push(player);
-      //       // return players;
-      //     })
-      //     .catch(error => {
-      //       console.log(`squads double for-loop error: ${error}`);
-      //     });
-      //   }
-      // }
+      console.log('playerList:', playerList);
+      return playerList;
     })
     .catch(error => {
-      console.log(`playerByLeague teams error: ${error}`);
+      console.log(`playersBySeason error: ${error}`);
     });
-  })
-  .catch(error => {
-    console.log(`playerByLeague error: ${error}`);
-  });
 }
 
-playersByLeague(779);
+// playersBySeason(914);
 
-exports.playersByLeague = playersByLeague;
+
 exports.allLeagues = allLeagues;
+exports.seasonByLeague = seasonByLeague;
+exports.playersBySeason = playersBySeason;
