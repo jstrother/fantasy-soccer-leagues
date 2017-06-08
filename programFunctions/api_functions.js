@@ -97,7 +97,28 @@ function playerStatsBySeason(playerId, seasonId) {
 
 // playerStatsBySeason(918, 914);
 
+// this function is to retrieve fixtures in a league
+function fixturesByLeague(leagueId) {
+  const endpoint = `${baseURL}/leagues/`,
+    included = `${toInclude}fixtures`,
+    fixtures = {
+      uri: `${endpoint}${leagueId}${key}${included}`,
+      json: true
+    };
+  
+  rp(fixtures)
+  .then(fixtures => {
+    console.log('fixtures:', fixtures);
+  })
+  .catch(error => {
+    console.log(`fixturesByLeague error: ${error}`);
+  });
+}
+
+// fixturesByLeague(779);
+
 exports.allLeagues = allLeagues;
 exports.seasonByLeague = seasonByLeague;
 exports.playersBySeason = playersBySeason;
 exports.playerStatsBySeason = playerStatsBySeason;
+exports.fixturesByLeague = fixturesByLeague;
