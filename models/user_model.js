@@ -1,9 +1,11 @@
 const mongoose = require('mongoose'),
 
 			userSchema = mongoose.Schema({
+				name: String,
 				userName: {type: String, unique: true},
 				userPassword: String,
-				fantasyClub: {type: Object, unique: true},
+				userEmail: String,
+				fantasyClub: String,
 				fantasyLeague: String,
 				fantasyDivision: String,
 				fantasyChampsLeague: Boolean

@@ -1,13 +1,7 @@
 // ./flow/actions.js
 // imported into ./flow/reducers.js
 
-export const login = (userName, userPassword) => {
-  return {
-    type: 'LOGIN',
-    userName,
-    userPassword
-  };
-};
+require('isomorphic-fetch');
 
 export const signUp = (name, email, userName, userPassword, teamName) => {
   return {
