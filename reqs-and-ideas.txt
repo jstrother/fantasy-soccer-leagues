@@ -1,5 +1,3 @@
-don't forget to update mongoose models for new api, left off with player_model
-
 needed for Server
 	(R/W = real world)
 	
@@ -16,95 +14,6 @@ needed for Server
 	get game stats and fantasy points for each player after each game
 	update database and update each fantasy squad
 	update league/divisional standings
-	
-	CompetitionId:
-		Premiere League (ENG): 1
-		Bundesliga (GER): 2
-		Primera Division (SPA): 4
-		Primera División (ARG): 5
-		Serie A (ITA): 6
-		Eredivise (NED): 7
-		MLS (USA): 8
-		*Liga MX (MEX): 12
-		Ligue Un (FRA): 13
-		RFPL (RUS): 14
-		Serie A (BRZ): 15
-		A League (AUS): 19
-		
-		competitionFixturesGrabber(competitionId) // Competition Fixtures (League Details) endpoint
-			
-			if CurrentSeason.CurrentSeason = true
-				if CurrentSeason.Rounds.CurrentRound = true && CurrentSeason.Rounds.SeasonType = 1
-					roundId = this.RoundId // don't want anything other than regular seasons
-		
-			leaguePlayers = []
-			leaguePlayers.push(PlayerId) // for each playerId found
-	
-	
-		// feed roundId into the following
-			scheduleGrabber(roundId)
-				// need to fetch info from each object in resulting array
-				[
-					{
-						GameId
-						DateTime
-						Status
-						Winner
-						AwayTeamName
-						AwayTeamScore
-						HomeTeamName
-						HomeTeamScore
-					},
-					{
-						...
-					}
-				]
-			// now take playerId's from leaguePlayers array and DateTime (which itself gets split at the 'T' and taking the first half to place into date variable) and feed into the following
-				playerGameStatsGrabber(date, playerId) // taken from Player Game Stats By Player endpoint
-					// fetch the following info from each player so Fantasy Users can know how their players did the previous game
-					// * denotes stat used in fantasy points calculations
-					name
-					short name
-					team
-					team id
-					suspension
-					suspension reason
-					injury status
-					injury body part
-					injury notes
-					injury start date
-					fantasy points
-					position
-					minutes
-					*goals
-					*assists
-					*shots
-					*shots on goal
-					*yellow cards
-					*red cards
-					yellow/red cards
-					*crosses
-					*tackles won
-					*interceptions
-					own goals
-					*fouls
-					*fouled
-					offsides
-					passes
-					passes completed
-					*defender clean sheets //defenders only
-					*gk saves //goalkeepers only
-					*gk goals against //goalkeepers only
-					*gk clean sheets //goalkeepers only
-					*gk wins //goalkeepers only
-					pk goals
-					*pk misses
-					*pk saves //goalkeepers only
-					
-				playerSeasonStatsGrabber(roundId, playerId)  // uses Player Season Stats By Player endpoint
-				// this fetches the same info as playerGameStatsGrabber, yet is used in the database to keep track of overall stats
-			
-			90032467 (Osvaldo Alonso)
 	
 	create/login User
 		userName  //created during sign-up
