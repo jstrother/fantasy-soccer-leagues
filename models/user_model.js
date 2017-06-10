@@ -1,11 +1,11 @@
 const mongoose = require('mongoose'),
 
 			userSchema = mongoose.Schema({
-				name: String,
-				userName: {type: String, unique: true},
-				userPassword: String,
-				userEmail: String,
-				fantasyClub: String,
+				name: {type: String, required: true},
+				userName: {type: String, unique: true, required: true},
+				userPassword: {type: String, required: true},
+				userEmail: {type: String, required: true},
+				fantasyClub: {type: String, required: true},
 				fantasyLeague: String,
 				fantasyDivision: String,
 				fantasyChampsLeague: Boolean

@@ -5,10 +5,12 @@ const path = require('path'),
 	bodyParser = require('body-parser'),
 	jsonParser = bodyParser.json(),
 	mongoose = require('mongoose'),
+	bcrypt = require('bcrypt'),
 	app = express(),
 	server = require('http').Server(app),
 	config = require('./config.js'),
-	User = require('./models/user_model.js');
+	User = require('./models/user_model.js'),
+	createData = require('./programFunctions/crud_functions.js').createData;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -63,6 +65,7 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field length: Name'
 		});
 	}
+	
 	if (typeof userName !== 'string') {
 		return res.status(422).json({
 			message: 'Incorrect field type: User Name'
@@ -73,6 +76,7 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field length: User Name'
 		});
 	}
+	
 	if (typeof userPassword !== 'string') {
 		return res.status(422).json({
 			message: 'Incorrect field type: User Password'
@@ -83,6 +87,7 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field length: User Password'
 		});
 	}
+	
 	if (typeof userEmail !== 'string') {
 		return res.status(422).json({
 			message: 'Incorrect field type: User Email'
@@ -93,6 +98,7 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field length: User Email'
 		});
 	}
+	
 	if (typeof teamName !== 'string') {
 		return res.status(422).json({
 			message: 'Incorrect field type: Team Name'
@@ -104,25 +110,25 @@ app.post('/user', jsonParser, (req, res) => {
 		});
 	}
 	
-	let user = new User({
+	let user = {
 		name,
 		userName,
 		userPassword,
 		userEmail,
 		teamName
-	});
+	};
 	
-	user.save(error => {
-		if (error) {
-			return res.status(500).json({
-				message: 'Internal Server Error'
-			});
-		}
-		else {
-			return res.status(201).json({
-				message: 'User Created'
-			});
-		}
+	createData(user, User);
+	
+	user.save(() => {
+		return res.status(201).json({
+			message: 'User Create'
+		});
+	})
+	.catch(error => {
+		return res.status(500).json({
+			message: 'Internal Server Error'
+		});
 	});
 });
 
