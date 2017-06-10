@@ -310,7 +310,11 @@ describe('User', () => {
 	}).timeout(5000);
 	it('should create a new user', () => {
 		const sampleUser = {
-			userName: 'user1'
+			name: 'Jim',
+			userName: 'user1',
+			userPassword: 'password',
+			userEmail: 'user@email.com',
+			fantasyClub: 'team'
 		};
 		
 		return createData(sampleUser, User).should.eventually.exist;

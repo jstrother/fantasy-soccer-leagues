@@ -1,24 +1,70 @@
 // server.js
 
 const path = require('path'),
+	fs = require('fs'),
 	express = require('express'),
 	bodyParser = require('body-parser'),
 	jsonParser = bodyParser.json(),
 	mongoose = require('mongoose'),
 	bcrypt = require('bcrypt'),
+	passport = require('passport'),
+	gStrategy = require('passport-google-oauth20').Strategy,
+	bStrategy = require('passport-http-bearer').Strategy,
 	app = express(),
 	server = require('http').Server(app),
 	config = require('./config.js'),
 	User = require('./models/user_model.js'),
-	createData = require('./programFunctions/crud_functions.js').createData;
+	createData = require('./programFunctions/crud_functions.js').createData,
+	database = `${config.DATABASE_URL}/collections/users`;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(passport.initialize());
 app.get('*', (req, res) => {
 	res.sendFile(path.join(`${__dirname}/public/index.html`));
 });
 
 console.log('Server Started');
+
+passport.use(new gStrategy({
+	clientID: '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com',
+	clientSecret: config.SECRET,
+	callbackURL: `${process.env.IP}${config.PORT}/auth/google/callback`
+},
+	(accessToken, refreshToken, profile) => {
+		let user = database[accessToken] = {
+			googleId: profile.id,
+			accessToken
+		};
+		return user;
+	}	
+));
+
+passport.use(new bStrategy((token, done) => {
+	return (token in database) ? done(null, database[token]) : done(null, false);
+}));
+
+app.get('/auth/google', passport.authenticate('google', {scope: 'profile'}));
+
+app.get('auth/google/callback', passport.authenticate('google', {
+	failureRedirect: '/login',
+	session: false
+}),(req, res) => {
+	fs.readFile('/user/logged-in.html', html => {
+		html = html.toString();
+		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/logged-in.html';</script>`);
+		res.send(html);
+	})
+	.catch(error => {
+		res.status(500).json({
+			message: 'Internal Server Error'
+		});
+	});
+});
+
+app.get('/restricted', passport.authenticate('bearer', {session: false}), (req, res) => {
+	return res.send('Restricted Zone');
+});
 
 // creates a new user
 app.post('/user', jsonParser, (req, res) => {
@@ -27,23 +73,23 @@ app.post('/user', jsonParser, (req, res) => {
 			return res.status(400).json({
 				message: 'No request body'
 			});
-		case (!('name' in req.body)):
+		case (!req.body.name):
 			return res.status(422).json({
 				message: 'Missing field: Name'
 			});
-		case (!('userName' in req.body)):
+		case (!req.body.userName):
 			return res.status(422).json({
 				message: 'Missing field: User Name'
 			});
-		case (!('userPassword' in req.body)):
+		case (!req.body.userPassword):
 			return res.status(422).json({
 				message: 'Missing field: User Password'
 			});
-		case (!('userEmail' in req.body)):
+		case (!req.body.userEmail):
 			return res.status(422).json({
 				message: 'Missing field: User Email'
 			});
-		case (!('teamName' in req.body)):
+		case (!req.body.teamName):
 			return res.status(422).json({
 				message: 'Missing field: Team Name'
 			});
@@ -110,19 +156,33 @@ app.post('/user', jsonParser, (req, res) => {
 		});
 	}
 	
-	let user = {
-		name,
-		userName,
-		userPassword,
-		userEmail,
-		teamName
-	};
-	
-	createData(user, User);
-	
-	user.save(() => {
-		return res.status(201).json({
-			message: 'User Create'
+	bcrypt.genSalt(10, salt => {
+		bcrypt.hash(userPassword, salt, hash => {
+			let user = {
+				name,
+				userName,
+				userPassword: hash,
+				userEmail,
+				teamName
+			};
+			
+			createData(user, User);
+			
+			user.save(() => {
+				return res.status(201).json({
+					message: 'User Create'
+				});
+			})
+			.catch(error => {
+				return res.status(500).json({
+					message: 'Internal Server Error'
+				});
+			});
+		})
+		.catch(error => {
+			return res.status(500).json({
+				message: 'Internal Server Error'
+			});
 		});
 	})
 	.catch(error => {
