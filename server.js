@@ -7,7 +7,8 @@ const path = require('path'),
 	mongoose = require('mongoose'),
 	app = express(),
 	server = require('http').Server(app),
-	config = require('./config.js');
+	config = require('./config.js'),
+	User = require('./models/user_model.js');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -17,6 +18,7 @@ app.get('*', (req, res) => {
 
 console.log('Server Started');
 
+// creates a new user
 app.post('/user', jsonParser, (req, res) => {
 	switch (req.body) {
 		case (!req.body):
@@ -44,6 +46,84 @@ app.post('/user', jsonParser, (req, res) => {
 				message: 'Missing field: Team Name'
 			});
 	}
+	
+	let name = req.body.name,
+		userName = req.body.userName,
+		userPassword = req.body.userPassword,
+		userEmail = req.body.userEmail,
+		teamName = req.body.teamName;
+		
+	if (typeof name !== 'string') {
+		return res.status(422).json({
+			message: 'Incorrect field type: Name'
+		});
+	}
+	else if (name === '') {
+		return res.status(422).json({
+			message: 'Incorrect field length: Name'
+		});
+	}
+	if (typeof userName !== 'string') {
+		return res.status(422).json({
+			message: 'Incorrect field type: User Name'
+		});
+	}
+	else if (userName === '') {
+		return res.status(422).json({
+			message: 'Incorrect field length: User Name'
+		});
+	}
+	if (typeof userPassword !== 'string') {
+		return res.status(422).json({
+			message: 'Incorrect field type: User Password'
+		});
+	}
+	else if (userPassword === '') {
+		return res.status(422).json({
+			message: 'Incorrect field length: User Password'
+		});
+	}
+	if (typeof userEmail !== 'string') {
+		return res.status(422).json({
+			message: 'Incorrect field type: User Email'
+		});
+	}
+	else if (userEmail === '') {
+		return res.status(422).json({
+			message: 'Incorrect field length: User Email'
+		});
+	}
+	if (typeof teamName !== 'string') {
+		return res.status(422).json({
+			message: 'Incorrect field type: Team Name'
+		});
+	}
+	else if (teamName === '') {
+		return res.status(422).json({
+			message: 'Incorrect field length: Team Name'
+		});
+	}
+	
+	let user = new User({
+		name,
+		userName,
+		userPassword,
+		userEmail,
+		teamName
+	});
+	
+	user.save(error => {
+		if (error) {
+			return res.status(500).json({
+				message: 'Internal Server Error'
+			});
+		}
+		else {
+			return res.status(201).json({
+				message: 'User Created'
+			});
+		}
+	});
 });
 
 let runServer = () => {
