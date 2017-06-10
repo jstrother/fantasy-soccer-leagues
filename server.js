@@ -15,6 +15,9 @@ const path = require('path'),
 	config = require('./config.js'),
 	User = require('./models/user_model.js'),
 	createData = require('./programFunctions/crud_functions.js').createData,
+	readData = require('./programFunctions/crud_functions.js').readData,
+	updateData = require('./programFunctions/crud_functions.js').updateData,
+	deleteData = require('./programFunctions/crud_functions.js').deleteData,
 	database = `${config.DATABASE_URL}/collections/users`;
 
 app.use(bodyParser.json());
@@ -26,6 +29,7 @@ app.get('*', (req, res) => {
 
 console.log('Server Started');
 
+// the following 2 passport.use and then the first 3 app.get for secure login
 passport.use(new gStrategy({
 	clientID: '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com',
 	clientSecret: config.SECRET,
@@ -64,6 +68,17 @@ app.get('auth/google/callback', passport.authenticate('google', {
 
 app.get('/restricted', passport.authenticate('bearer', {session: false}), (req, res) => {
 	return res.send('Restricted Zone');
+});
+
+// logs in a user
+app.get('/user', (req, res) => {
+	let userName = req.body.userName,
+		userPassword = req.body.userPassword,
+		user = {
+			userName,
+			userPassword
+		};
+	readData(user, User);
 });
 
 // creates a new user
