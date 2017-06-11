@@ -66,12 +66,7 @@ app.get('auth/google/callback', passport.authenticate('google', {
 	});
 });
 
-app.get('/restricted', passport.authenticate('bearer', {session: false}), (req, res) => {
-	return res.send('Restricted Zone');
-});
-
-// logs in a user
-app.get('/user', (req, res) => {
+app.get('/user', passport.authenticate('bearer', {session: false}), (req, res) => {
 	let userName = req.body.userName,
 		userPassword = req.body.userPassword,
 		user = {

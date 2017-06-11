@@ -3,25 +3,45 @@ const rp = require('request-promise'),
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 
-//this function is to get a list of leagues available to the player
-function allLeagues() {
+//this function is to get a list of leagues available to the player [returns array]
+function allLeagueIds() {
   const endpoint = `${baseURL}/leagues`,
     leagues = {
       uri: `${endpoint}${key}`,
       json: true
     };
+  let leagueIds = [];
   
   return rp(leagues)
   .then(leagues => {
-    // console.log(leagues);
-    return leagues;
+    // console.log(persistentLeagues);
+    for (let i = 1; i <= leagues.meta.pagination.total_pages; i++) {
+      let leaguePages = {
+          uri: `${endpoint}${key}&page=${i}`,
+          json: true
+        };
+      
+      rp(leaguePages)
+      .then(leaguePages => {
+        // console.log(leagues.data.length);
+        for (let j = 0; j < leaguePages.data.length; j++) {
+          console.log(leaguePages.data[j].id);
+          leagueIds.push(leaguePages.data[j].id);
+        }
+      })
+      .catch(error => {
+        console.log(`allLeagues for loop error: ${error}`);
+      });
+    }
+    console.log(leagueIds.length);
+    return leagueIds;
   })
   .catch(error => {
     console.log(`allLeagues error: ${error}`);
   });
 }
 
-// allLeagues();
+allLeagueIds();
 
 // this function returns the 
 function seasonByLeague(leagueId) {
@@ -43,82 +63,57 @@ function seasonByLeague(leagueId) {
 
 // seasonByLeague(779);
 
-// this function is to retrieve all players in particular season
-function playersBySeason(seasonId) {
-  const endpoint = `${baseURL}/teams/season/`,
-    included = `${toInclude}squad`,
-    teams = {
-      uri: `${endpoint}${seasonId}${key}${included}`,
-      json: true
-    };
-    
-  return rp(teams)
-  .then(teams => {
-    let playerList = [];
-    for (let i = 0; i < teams.data.length; i++) {
-      for (let j = 0; j < teams.data[i].squad.data.length; j++) {
-        playerList.push(teams.data[i].squad.data[j].player_id);
-      }
-    }
-    // console.log('playerList:', playerList);
-    return playerList;
-  })
-  .catch(error => {
-    console.log(`playersBySeason error: ${error}`);
-  });
-}
-
-// playersBySeason(914);
-
-// this function is to retrieve player stats
-function playerStatsBySeason(playerId, seasonId) {
-  const endpoint = `${baseURL}/players/`,
-    included = `${toInclude}stats,team`,
-    player = {
-      uri: `${endpoint}${playerId}${key}${included}`,
-      json: true
-    };
-  
-  rp(player)
-  .then(player => {
-    let playerSeasonStats =[];
-    for (let i = 0; i < player.data.stats.data.length; i++) {
-      if (player.data.stats.data[i].season_id === seasonId) {
-        playerSeasonStats.push(player.data.stats.data[i]);
-      }
-    }
-    console.log('player:', playerSeasonStats);
-    return playerSeasonStats;
-  })
-  .catch(error => {
-    console.log(`playerStats error: ${error}`);
-  });
-}
-
-// playerStatsBySeason(918, 914);
-
-// this function is to retrieve fixtures in a league
-function fixturesByLeague(leagueId) {
-  const endpoint = `${baseURL}/leagues/`,
+// this function is to retrieve fixtures in a league's season [returns array]
+function fixturesByLeagueSeason(seasonId) {
+  const endpoint = `${baseURL}/seasons/`,
     included = `${toInclude}fixtures`,
     fixtures = {
-      uri: `${endpoint}${leagueId}${key}${included}`,
+      uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
     };
   
   rp(fixtures)
   .then(fixtures => {
-    console.log('fixtures:', fixtures);
+    let fixtureIdList = [];
+    for (let i = 0; i < fixtures.data.fixtures.data.length; i++) {
+      fixtureIdList.push(fixtures.data.fixtures.data[i].id);
+    }
+    return fixtureIdList;
   })
   .catch(error => {
     console.log(`fixturesByLeague error: ${error}`);
   });
 }
 
-// fixturesByLeague(779);
+// fixturesByLeagueSeason(914);
 
-exports.allLeagues = allLeagues;
+// this function retrieves information about a particular fixture by its ID
+function playerStatsByFixture(fixtureId) {
+  const endpoint = `${baseURL}/fixtures/`,
+    included = `${toInclude}substitutions,lineup`,
+    fixture = {
+      uri: `${endpoint}${fixtureId}${key}${included}`,
+      json: true
+    };
+  
+  return rp(fixture)
+  .then(fixture => {
+    let lineup = fixture.data.lineup.data,
+      substitutions = fixture.data.substitutions.data,
+      fixtureData = {
+        lineup,
+        substitutions,
+      };
+    console.log(fixtureData.lineup[21]);
+  })
+  .catch(error => {
+    console.log(`fixtureById error: ${error}`);
+  });
+}
+
+// playerStatsByFixture(237282);
+
+exports.allLeagueIds = allLeagueIds;
 exports.seasonByLeague = seasonByLeague;
-exports.playersBySeason = playersBySeason;
-exports.playerStatsBySeason = playerStatsBySeason;
-exports.fixturesByLeague = fixturesByLeague;
+exports.fixturesByLeagueSeason = fixturesByLeagueSeason;
+exports.playerStatsByFixture = playerStatsByFixture;
