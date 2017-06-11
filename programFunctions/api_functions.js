@@ -3,38 +3,41 @@ const rp = require('request-promise'),
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 
-//this function is to get a list of leagues available to the player [returns array]
+// this function is to get a list of leagues available to the player [returns array]
+// split this into two separate functions, one to return endpoints for all pages, the other to finally return league IDs
 function allLeagueIds() {
   const endpoint = `${baseURL}/leagues`,
     leagues = {
       uri: `${endpoint}${key}`,
       json: true
     };
+  let leagueIdArray;
   
   return rp(leagues)
   .then(leagues => {
-    let leagueIds = [];
+    leagueIdArray = [];
     for (let i = 1; i <= leagues.meta.pagination.total_pages; i++) {
       let leaguePages = {
           uri: `${endpoint}${key}&page=${i}`,
           json: true
-        };
+        },
+        tempArray;
       
       rp(leaguePages)
       .then(leaguePages => {
+        tempArray = [];
         for (let j = 0; j < leaguePages.data.length; j++) {
-          leagueIds.push(leaguePages.data[j].id);
-          // console.log(leagueIds);
+          tempArray.push(leaguePages.data[j].id);
         }
-        console.log('innermost for loop', leagueIds.length);
-        return leagueIds;
+        leagueIdArray.push(tempArray); // leagueIdArray is an array of arrays
+        console.log(`leagueIdArray.length: ${leagueIdArray.length}`);
+        return leagueIdArray;
       })
       .catch(error => {
         console.log(`allLeagues for loop error: ${error}`);
       });
-      console.log('outer for loop', leagueIds);
+      console.log(`leagueIdArray: ${leagueIdArray}`); // leagueIdArray is empty
     }
-    console.log('outside all for loops', leagueIds);
   })
   .catch(error => {
     console.log(`allLeagues error: ${error}`);
@@ -43,7 +46,7 @@ function allLeagueIds() {
 
 allLeagueIds();
 
-// this function returns the 
+// this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
     league = {
