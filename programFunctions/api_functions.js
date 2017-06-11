@@ -10,11 +10,10 @@ function allLeagueIds() {
       uri: `${endpoint}${key}`,
       json: true
     };
-  let leagueIds = [];
   
   return rp(leagues)
   .then(leagues => {
-    // console.log(persistentLeagues);
+    let leagueIds = [];
     for (let i = 1; i <= leagues.meta.pagination.total_pages; i++) {
       let leaguePages = {
           uri: `${endpoint}${key}&page=${i}`,
@@ -23,18 +22,19 @@ function allLeagueIds() {
       
       rp(leaguePages)
       .then(leaguePages => {
-        // console.log(leagues.data.length);
         for (let j = 0; j < leaguePages.data.length; j++) {
-          console.log(leaguePages.data[j].id);
           leagueIds.push(leaguePages.data[j].id);
+          // console.log(leagueIds);
         }
+        console.log('innermost for loop', leagueIds.length);
+        return leagueIds;
       })
       .catch(error => {
         console.log(`allLeagues for loop error: ${error}`);
       });
+      console.log('outer for loop', leagueIds);
     }
-    console.log(leagueIds.length);
-    return leagueIds;
+    console.log('outside all for loops', leagueIds);
   })
   .catch(error => {
     console.log(`allLeagues error: ${error}`);
