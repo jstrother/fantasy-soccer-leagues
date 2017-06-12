@@ -10,12 +10,15 @@ export default class LogIn extends React.Component {
       <div>
         <div>Log in to your team</div>
         <TextField
+          className='log-in-username'
           hintText='User Name' />
         <br />
         <TextField
+          className='log-in-password'
           hintText='Password' />
         <br />
         <FlatButton
+          className='log-in-submit'
           label='Submit' />
       </div>
     );
