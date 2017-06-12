@@ -4,7 +4,7 @@ const rp = require('request-promise'),
     toInclude = '&include=';
 
 // this function is to get a list of leagues available to the player [returns array]
-// split this into two separate functions, one to return endpoints for all pages, the other to finally return league IDs
+// having issues getting league IDs to actually be returned
 function allLeagueIds() {
   const endpoint = `${baseURL}/leagues`,
     leagues = {
