@@ -4,7 +4,7 @@ const rp = require('request-promise'),
     toInclude = '&include=';
 
 // this function is to get a list of leagues available to the player [returns array]
-// having issues getting league IDs to actually be returned
+// split this into two separate functions, one to return endpoints for all pages, the other to finally return league IDs
 function allLeagueIds() {
   const endpoint = `${baseURL}/leagues`,
     leagues = {
@@ -12,39 +12,40 @@ function allLeagueIds() {
       json: true
     };
   let leagueIdArray;
-  
   return rp(leagues)
   .then(leagues => {
     leagueIdArray = [];
+    let leagueUriArray = [];
+    
     for (let i = 1; i <= leagues.meta.pagination.total_pages; i++) {
-      let leaguePages = {
-          uri: `${endpoint}${key}&page=${i}`,
-          json: true
-        },
-        tempArray;
-      
-      rp(leaguePages)
+      leagueUriArray.push(`${endpoint}${key}&page=${i}`);
+    }
+    
+    return Promise.all(leagueUriArray.map(uri => {
+      return rp({
+        uri,
+        json: true
+      })
       .then(leaguePages => {
-        tempArray = [];
         for (let j = 0; j < leaguePages.data.length; j++) {
-          tempArray.push(leaguePages.data[j].id);
+          leagueIdArray.push(leaguePages.data[j].id); // leagueIdArray is an array of arrays
         }
-        leagueIdArray.push(tempArray); // leagueIdArray is an array of arrays
-        console.log(`leagueIdArray.length: ${leagueIdArray.length}`);
         return leagueIdArray;
       })
       .catch(error => {
         console.log(`allLeagues for loop error: ${error}`);
       });
-      console.log(`leagueIdArray: ${leagueIdArray}`); // leagueIdArray is empty
-    }
+    }));
   })
   .catch(error => {
     console.log(`allLeagues error: ${error}`);
   });
 }
 
-allLeagueIds();
+// allLeagueIds()
+// .then(answer => {
+//   console.log(answer);
+// });
 
 // this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
@@ -56,7 +57,6 @@ function seasonByLeague(leagueId) {
     
   return rp(league)
   .then(league => {
-    // console.log(`seasonId: ${league.data.current_season_id}`);
     return league.data.current_season_id;
   })
   .catch(error => {
@@ -93,7 +93,7 @@ function fixturesByLeagueSeason(seasonId) {
 // this function retrieves information about a particular fixture by its ID
 function playerStatsByFixture(fixtureId) {
   const endpoint = `${baseURL}/fixtures/`,
-    included = `${toInclude}substitutions,lineup`,
+    included = `${toInclude}substitutions,lineup,localTeam,visitorTeam,goals,cards,other,stats,events`,
     fixture = {
       uri: `${endpoint}${fixtureId}${key}${included}`,
       json: true
@@ -103,11 +103,25 @@ function playerStatsByFixture(fixtureId) {
   .then(fixture => {
     let lineup = fixture.data.lineup.data,
       substitutions = fixture.data.substitutions.data,
+      homeClub = fixture.data.localTeam.data,
+      awayClub = fixture.data.visitorTeam.data,
+      goals = fixture.data.goals.data,
+      cards = fixture.data.cards.data,
+      events = fixture.data.events.data,
+      otherEvents = fixture.data.other.data,
+      stats = fixture.data.stats.data,
       fixtureData = {
         lineup,
         substitutions,
+        homeClub,
+        awayClub,
+        goals,
+        cards,
+        events,
+        otherEvents,
+        stats
       };
-    console.log(fixtureData.lineup[21]);
+    console.log(fixtureData.events);
   })
   .catch(error => {
     console.log(`fixtureById error: ${error}`);
@@ -115,6 +129,10 @@ function playerStatsByFixture(fixtureId) {
 }
 
 // playerStatsByFixture(237282);
+
+function playerById(playerId) {
+  // fetch general player info
+}
 
 exports.allLeagueIds = allLeagueIds;
 exports.seasonByLeague = seasonByLeague;
