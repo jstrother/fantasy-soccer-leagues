@@ -93,7 +93,7 @@ function fixturesByLeagueSeason(seasonId) {
 // this function retrieves information about a particular fixture by its ID
 function playerStatsByFixture(fixtureId) {
   const endpoint = `${baseURL}/fixtures/`,
-    included = `${toInclude}substitutions,lineup,localTeam,visitorTeam,goals,cards,other,stats,events`,
+    included = `${toInclude}substitutions,lineup`,
     fixture = {
       uri: `${endpoint}${fixtureId}${key}${included}`,
       json: true
@@ -101,27 +101,14 @@ function playerStatsByFixture(fixtureId) {
   
   return rp(fixture)
   .then(fixture => {
-    let lineup = fixture.data.lineup.data,
-      substitutions = fixture.data.substitutions.data,
-      homeClub = fixture.data.localTeam.data,
-      awayClub = fixture.data.visitorTeam.data,
-      goals = fixture.data.goals.data,
-      cards = fixture.data.cards.data,
-      events = fixture.data.events.data,
-      otherEvents = fixture.data.other.data,
-      stats = fixture.data.stats.data,
+    let lineup = fixture.data.lineup.data, // playerStats comes from this endpoint
+      substitutions = fixture.data.substitutions.data, // this is to 
       fixtureData = {
         lineup,
-        substitutions,
-        homeClub,
-        awayClub,
-        goals,
-        cards,
-        events,
-        otherEvents,
-        stats
+        substitutions
       };
-    console.log(fixtureData.events);
+    // console.log(fixtureData);
+    return fixtureData;
   })
   .catch(error => {
     console.log(`fixtureById error: ${error}`);
@@ -129,10 +116,6 @@ function playerStatsByFixture(fixtureId) {
 }
 
 // playerStatsByFixture(237282);
-
-function playerById(playerId) {
-  // fetch general player info
-}
 
 exports.allLeagueIds = allLeagueIds;
 exports.seasonByLeague = seasonByLeague;

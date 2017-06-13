@@ -23,6 +23,33 @@ needed for Server
 		fantasyDivision  //determined after fantasyLeague is joined, league is divided in half and first come first serve as far as D1 for first year of operation, then pro/rel, any new fantasy clubs get added to D2 with older D2 teams moving up to D1 as needed (one less team gets relegated for each new sign-up, or if more than 3, a fourth team gets moved up).  divisions should be as balanced as possible with D1 getting an extra team if necessary
 		fantasyChampsLeague  //determined after a full season played, top 3 go to champions league
 	
+	to create a player in db, create based off of data pulled from playerStatsByFixture
+	playerStats:
+		gamesPlayed: add one if in fixtureData.lineup or .substitutions
+		gamesStarted: add one if in fixtureData.lineup
+		minutesPlayed: fixtureData.lineup[i].stats.other.minutes_played
+		goalsScored: fixtureData.lineup[i].stats.goals.scored
+		goalsConceded: fixtureData.lineup[i].stats.goals.conceded
+		assists: fixtureData.lineup[i].stats.other.assists
+		shotsTaken: fixtureData.lineup[i].stats.shots.shots_taken
+		shotsOnGoal: fixtureData.lineup[i].stats.shots.shots_on_goal
+		foulsDrawn: fixtureData.lineup[i].stats.fouls.drawn
+		foulsCommitted: fixtureData.lineup[i].stats.fouls.committed
+		yellowCards: fixtureData.lineup[i].stats.cards.yellowcards
+		redCards: fixtureData.lineup[i].stats.cards.redcards
+		passes: fixtureData.lineup[i].stats.passing.passes
+		passingAccuracy: fixtureData.lineup[i].stats.passing.passes_accuracy
+		crosses: fixtureData.lineup[i].stats.passing.total_crosses
+		crossingAccuracy: fixtureData.lineup[i].stats.passing.crosses_accuracy
+		timesOffside: fixtureData.lineup[i].stats.other.offsides
+		saves: fixtureData.lineup[i].stats.other.saves
+		penaltiesScored: fixtureData.lineup[i].stats.other.pen_scored
+		penaltiesMissed: fixtureData.lineup[i].stats.other.pen_missed
+		tackles: fixtureData.lineup[i].stats.other.tackles
+		blocks: fixtureData.lineup[i].stats.other.blocks
+		interceptions: fixtureData.lineup[i].stats.other.interceptions
+		clearances: fixtureData.lineup[i].stats.other.clearances
+	
 	outgoing data:
 		these are created from the incoming data, and some functions, using the schema in the models folder
 			new Player
