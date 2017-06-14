@@ -6,7 +6,6 @@ const path = require('path'),
 	bodyParser = require('body-parser'),
 	jsonParser = bodyParser.json(),
 	mongoose = require('mongoose'),
-	bcrypt = require('bcrypt'),
 	passport = require('passport'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
@@ -66,6 +65,7 @@ app.get('auth/google/callback', passport.authenticate('google', {
 	});
 });
 
+// returns user's own page
 app.get('/user', passport.authenticate('bearer', {session: false}), (req, res) => {
 	let userName = req.body.userName,
 		userPassword = req.body.userPassword,
@@ -116,7 +116,8 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field type: Name'
 		});
 	}
-	else if (name === '') {
+	
+	if (name === '') {
 		return res.status(422).json({
 			message: 'Incorrect field length: Name'
 		});
@@ -127,7 +128,8 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field type: User Name'
 		});
 	}
-	else if (userName === '') {
+	
+	if (userName === '') {
 		return res.status(422).json({
 			message: 'Incorrect field length: User Name'
 		});
@@ -138,7 +140,8 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field type: User Password'
 		});
 	}
-	else if (userPassword === '') {
+	
+	if (userPassword === '') {
 		return res.status(422).json({
 			message: 'Incorrect field length: User Password'
 		});
@@ -149,7 +152,8 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field type: User Email'
 		});
 	}
-	else if (userEmail === '') {
+	
+	if (userEmail === '') {
 		return res.status(422).json({
 			message: 'Incorrect field length: User Email'
 		});
@@ -160,46 +164,12 @@ app.post('/user', jsonParser, (req, res) => {
 			message: 'Incorrect field type: Team Name'
 		});
 	}
-	else if (teamName === '') {
+	
+	if (teamName === '') {
 		return res.status(422).json({
 			message: 'Incorrect field length: Team Name'
 		});
 	}
-	
-	bcrypt.genSalt(10, salt => {
-		bcrypt.hash(userPassword, salt, hash => {
-			let user = {
-				name,
-				userName,
-				userPassword: hash,
-				userEmail,
-				teamName
-			};
-			
-			createData(user, User);
-			
-			user.save(() => {
-				return res.status(201).json({
-					message: 'User Create'
-				});
-			})
-			.catch(error => {
-				return res.status(500).json({
-					message: 'Internal Server Error'
-				});
-			});
-		})
-		.catch(error => {
-			return res.status(500).json({
-				message: 'Internal Server Error'
-			});
-		});
-	})
-	.catch(error => {
-		return res.status(500).json({
-			message: 'Internal Server Error'
-		});
-	});
 });
 
 let runServer = () => {

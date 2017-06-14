@@ -66,62 +66,67 @@ function seasonByLeague(leagueId) {
 
 // seasonByLeague(779);
 
-// this function is to retrieve fixtures in a league's season [returns array]
-function fixturesByLeagueSeason(seasonId) {
+// this function is to retrieve matches in a league's season [returns array]
+// match and fixture are interchangeable
+function matchesByLeagueSeason(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
-    included = `${toInclude}fixtures`,
-    fixtures = {
+    included = `${toInclude}fixtures`, // fixture must be left here as it is a part of the api json return
+    matches = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
     };
   
-  rp(fixtures)
-  .then(fixtures => {
-    let fixtureIdList = [];
-    for (let i = 0; i < fixtures.data.fixtures.data.length; i++) {
-      fixtureIdList.push(fixtures.data.fixtures.data[i].id);
+  return rp(matches)
+  .then(matches => {
+    let matchIdList = [];
+    for (let i = 0; i < matches.data.fixtures.data.length; i++) { // fixture must be left here as it is a part of the api json return
+      matchIdList.push(matches.data.fixtures.data[i].id); // fixture must be left here as it is a part of the api json return
     }
-    return fixtureIdList;
+    return matchIdList;
   })
   .catch(error => {
-    console.log(`fixturesByLeague error: ${error}`);
+    console.log(`matchesByLeague error: ${error}`);
   });
 }
 
-// fixturesByLeagueSeason(914);
+// matchesByLeagueSeasonmatchesByLeagueSeason(914);
 
-// this function retrieves information about a particular fixture by its ID
-function playerStatsByFixture(fixtureId) {
-  const endpoint = `${baseURL}/fixtures/`,
+// this function retrieves information about a particular match by its ID
+function playerStatsByMatch(matchId) {
+  const endpoint = `${baseURL}/fixtures/`, // fixture must be left here as it is a part of the api json return
     included = `${toInclude}substitutions,lineup,localTeam,visitorTeam`,
-    fixture = {
-      uri: `${endpoint}${fixtureId}${key}${included}`,
+    match = {
+      uri: `${endpoint}${matchId}${key}${included}`,
       json: true
     };
   
-  return rp(fixture)
-  .then(fixture => {
-    let lineup = fixture.data.lineup.data, // playerStats comes from this endpoint
-      substitutions = fixture.data.substitutions.data,
-      homeClub = fixture.data.localTeam,
-      awayClub = fixture.data.visitorTeam,
-      fixtureData = {
+  return rp(match)
+  .then(match => {
+    let lineup = match.data.lineup.data,
+      substitutions = match.data.substitutions.data,
+      homeClub = match.data.localTeam.data,
+      awayClub = match.data.visitorTeam.data,
+      matchData = {
         lineup,
         substitutions,
         homeClub,
         awayClub
       };
-    // console.log(fixtureData.homeClub);
-    return fixtureData;
+    console.log(matchData.lineup[0]);
+    return matchData;
   })
   .catch(error => {
-    console.log(`playerStatsByFixture error: ${error}`);
+    console.log(`playerStatsByMatch error: ${error}`);
   });
 }
 
-playerStatsByFixture(237282);
+playerStatsByMatch(237282);
+
+function playerById(playerId) {
+  // fetch general player info
+}
 
 exports.allLeagueIds = allLeagueIds;
 exports.seasonByLeague = seasonByLeague;
-exports.fixturesByLeagueSeason = fixturesByLeagueSeason;
-exports.playerStatsByFixture = playerStatsByFixture;
+exports.matchesByLeagueSeason = matchesByLeagueSeason;
+exports.playerStatsByMatch = playerStatsByMatch;
