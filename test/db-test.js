@@ -8,7 +8,6 @@ const
 	FantasyChampsLeague = require('../models/fantasyChampsLeague_model.js'),
 	FantasyMatch = require('../models/fantasyMatch_model.js'),
 	FantasySchedule = require('../models/fantasySchedule_model.js'),
-	Schedule = require('../models/schedule_model.js'),
 	Player = require('../models/player_model.js'),
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../programFunctions/crud_functions.js');
@@ -226,67 +225,6 @@ describe('Player', () => {
 		return deleteData(samplePlayer2, Player)
 		.then(deletedItem => {
 			readData(samplePlayer2, Player)
-			.then(deletedItem => {
-				deletedItem.should.not.exist;
-			})
-			.catch(error => {
-				console.log(`error: ${error}`);
-			});
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-});
-
-describe('Schedule', () => {
-	it('should not exist', () => {
-		const sampleSchedule = {
-			masterSchedule: {
-				homeClub: 'fantasy team'
-			}
-		};
-		
-		return readData(sampleSchedule, Schedule).should.eventually.not.exist;
-	}).timeout(5000);
-	it('should create a new master schedule', () => {
-		const sampleSchedule = {
-			masterSchedule: {
-				homeClub: 'fantasy team'
-			}
-		};
-		
-		return createData(sampleSchedule, Schedule).should.eventually.exist;
-	}).timeout(5000);
-	it('should update a master schedule', () => {
-		const sampleSchedule = {
-			masterSchedule: {
-				homeClub: 'fantasy team'
-			}
-		};
-		
-		return updateData(sampleSchedule, {
-			masterSchedule: {
-				homeClub: 'another team'
-			}
-		}, Schedule)
-		.then(updatedItem => {
-			updatedItem.masterSchedule.should.have.property('homeClub', 'another team');
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-	it('should remove a master schedule', () => {
-		const sampleSchedule2 = {
-			masterSchedule: {
-				homeClub: 'another team'
-			}
-		};
-		
-		return deleteData(sampleSchedule2, Schedule)
-		.then(deletedItem => {
-			readData(sampleSchedule2, Schedule)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})

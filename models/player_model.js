@@ -33,7 +33,8 @@ const mongoose = require('mongoose'),
 				},
 				playerValue: Number, // in millions of $$$'s
 				playerSchedule: Array,
-				playerFantasyPoints: Number
+				playerFantasyPointsWeek: Number,
+				playerFantasyPointsTotal: Number
 			}),
 
 			Player = mongoose.model('Player', playerSchema);

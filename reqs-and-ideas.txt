@@ -24,6 +24,10 @@ needed for Server
 		fantasyChampsLeague  //determined after a full season played, top 3 go to champions league
 	
 	to create a player in db, create based off of data pulled from playerStatsByFixture
+	playerName: fixtureData.lineup[i].player_name
+	playerIdFromAPI: fixtureData.lineup[i].player_id
+	playerClub: fixtureData.lineup[i].team_id THEN match vs fixtureData.homeClub.data.id THEN return fixtureData.homeClub.data.name
+	playerPosition: fixtureData.lineup[i].position
 	playerStats:
 		gamesPlayed: add one if in fixtureData.lineup or .substitutions
 		gamesStarted: add one if in fixtureData.lineup
@@ -49,6 +53,10 @@ needed for Server
 		blocks: fixtureData.lineup[i].stats.other.blocks
 		interceptions: fixtureData.lineup[i].stats.other.interceptions
 		clearances: fixtureData.lineup[i].stats.other.clearances
+	playerSchedule: uses fixturesByLeagueSeason() and then sorts out based off of playerClub
+	playerValue: based off of playerFantasyPoints (season start: base of $400,000 plus $100,000 per 3 fantasy points from last season; during season: price increases $200k per 3 points above position average, or $400k per 6 points above position average each week, will drop by same per 3 or 6 points below position average each week)
+	playerFantasyPointsWeek: total earned in most recent week
+	playerFantasyPointsTotal: total earned in season to date
 	
 	outgoing data:
 		these are created from the incoming data, and some functions, using the schema in the models folder

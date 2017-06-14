@@ -93,7 +93,7 @@ function fixturesByLeagueSeason(seasonId) {
 // this function retrieves information about a particular fixture by its ID
 function playerStatsByFixture(fixtureId) {
   const endpoint = `${baseURL}/fixtures/`,
-    included = `${toInclude}substitutions,lineup`,
+    included = `${toInclude}substitutions,lineup,localTeam,visitorTeam`,
     fixture = {
       uri: `${endpoint}${fixtureId}${key}${included}`,
       json: true
@@ -102,20 +102,24 @@ function playerStatsByFixture(fixtureId) {
   return rp(fixture)
   .then(fixture => {
     let lineup = fixture.data.lineup.data, // playerStats comes from this endpoint
-      substitutions = fixture.data.substitutions.data, // this is to 
+      substitutions = fixture.data.substitutions.data,
+      homeClub = fixture.data.localTeam,
+      awayClub = fixture.data.visitorTeam,
       fixtureData = {
         lineup,
-        substitutions
+        substitutions,
+        homeClub,
+        awayClub
       };
-    // console.log(fixtureData);
+    // console.log(fixtureData.homeClub);
     return fixtureData;
   })
   .catch(error => {
-    console.log(`fixtureById error: ${error}`);
+    console.log(`playerStatsByFixture error: ${error}`);
   });
 }
 
-// playerStatsByFixture(237282);
+playerStatsByFixture(237282);
 
 exports.allLeagueIds = allLeagueIds;
 exports.seasonByLeague = seasonByLeague;
