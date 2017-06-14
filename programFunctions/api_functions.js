@@ -4,17 +4,17 @@ const rp = require('request-promise'),
     toInclude = '&include=';
 
 // this function is to get a list of leagues available to the player [returns array]
-// split this into two separate functions, one to return endpoints for all pages, the other to finally return league IDs
-function allLeagueIds() {
+// rewrite this to get list of leagues by country using all countries endpoint (paginated)
+function allLeaguesInfo() {
   const endpoint = `${baseURL}/leagues`,
     leagues = {
       uri: `${endpoint}${key}`,
       json: true
     };
-  let leagueIdArray;
+  let leagueInfoArray;
   return rp(leagues)
   .then(leagues => {
-    leagueIdArray = [];
+    leagueInfoArray = [];
     let leagueUriArray = [];
     
     for (let i = 1; i <= leagues.meta.pagination.total_pages; i++) {
@@ -28,9 +28,15 @@ function allLeagueIds() {
       })
       .then(leaguePages => {
         for (let j = 0; j < leaguePages.data.length; j++) {
-          leagueIdArray.push(leaguePages.data[j].id); // leagueIdArray is an array of arrays
+          let leagueInfo = {
+            id: leaguePages.data[j].id,
+            name: leaguePages.data[j].name,
+            countryId: leaguePages.data[j].country_id
+          };
+          leagueInfoArray.push(leagueInfo); // leagueInfoArray is an array of arrays
         }
-        return leagueIdArray;
+        // console.log(leagueInfoArray[0]);
+        return leagueInfoArray;
       })
       .catch(error => {
         console.log(`allLeagues for loop error: ${error}`);
@@ -42,7 +48,7 @@ function allLeagueIds() {
   });
 }
 
-// allLeagueIds()
+// allLeaguesInfo()
 // .then(answer => {
 //   console.log(answer);
 // });
@@ -112,7 +118,7 @@ function playerStatsByMatch(matchId) {
         homeClub,
         awayClub
       };
-    console.log(matchData.lineup[0]);
+    console.log(matchData.homeClub);
     return matchData;
   })
   .catch(error => {
@@ -126,7 +132,7 @@ function playerById(playerId) {
   // fetch general player info
 }
 
-exports.allLeagueIds = allLeagueIds;
+exports.allLeaguesInfo = allLeaguesInfo;
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;

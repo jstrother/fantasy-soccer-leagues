@@ -17,7 +17,7 @@ const path = require('path'),
 	readData = require('./programFunctions/crud_functions.js').readData,
 	updateData = require('./programFunctions/crud_functions.js').updateData,
 	deleteData = require('./programFunctions/crud_functions.js').deleteData,
-	database = `${config.DATABASE_URL}/collections/users`;
+	database = `${config.DATABASE_URL}`;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -27,6 +27,8 @@ app.get('*', (req, res) => {
 });
 
 console.log('Server Started');
+
+mongoose.connect(database);
 
 // the following 2 passport.use and then the first 3 app.get for secure login
 passport.use(new gStrategy({

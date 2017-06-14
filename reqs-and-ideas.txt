@@ -24,35 +24,35 @@ needed for Server
 		fantasyChampsLeague  //determined after a full season played, top 3 go to champions league
 	
 	to create a player in db, create based off of data pulled from playerStatsByFixture
-	playerName: fixtureData.lineup[i].player_name
-	playerIdFromAPI: fixtureData.lineup[i].player_id
-	playerClub: fixtureData.lineup[i].team_id THEN match vs fixtureData.homeClub.data.id THEN return fixtureData.homeClub.data.name
-	playerPosition: fixtureData.lineup[i].position
+	playerName: matchData.lineup[i].player_name
+	playerIdFromAPI: matchData.lineup[i].player_id
+	playerClub: matchData.lineup[i].team_id THEN match vs matchData.homeClub.data.id THEN return matchData.homeClub.data.name
+	playerPosition: matchData.lineup[i].position
 	playerStats:
-		gamesPlayed: add one if in fixtureData.lineup or .substitutions
-		gamesStarted: add one if in fixtureData.lineup
-		minutesPlayed: fixtureData.lineup[i].stats.other.minutes_played
-		goalsScored: fixtureData.lineup[i].stats.goals.scored
-		goalsConceded: fixtureData.lineup[i].stats.goals.conceded
-		assists: fixtureData.lineup[i].stats.other.assists
-		shotsTaken: fixtureData.lineup[i].stats.shots.shots_taken
-		shotsOnGoal: fixtureData.lineup[i].stats.shots.shots_on_goal
-		foulsDrawn: fixtureData.lineup[i].stats.fouls.drawn
-		foulsCommitted: fixtureData.lineup[i].stats.fouls.committed
-		yellowCards: fixtureData.lineup[i].stats.cards.yellowcards
-		redCards: fixtureData.lineup[i].stats.cards.redcards
-		passes: fixtureData.lineup[i].stats.passing.passes
-		passingAccuracy: fixtureData.lineup[i].stats.passing.passes_accuracy
-		crosses: fixtureData.lineup[i].stats.passing.total_crosses
-		crossingAccuracy: fixtureData.lineup[i].stats.passing.crosses_accuracy
-		timesOffside: fixtureData.lineup[i].stats.other.offsides
-		saves: fixtureData.lineup[i].stats.other.saves
-		penaltiesScored: fixtureData.lineup[i].stats.other.pen_scored
-		penaltiesMissed: fixtureData.lineup[i].stats.other.pen_missed
-		tackles: fixtureData.lineup[i].stats.other.tackles
-		blocks: fixtureData.lineup[i].stats.other.blocks
-		interceptions: fixtureData.lineup[i].stats.other.interceptions
-		clearances: fixtureData.lineup[i].stats.other.clearances
+		gamesPlayed: add one if in matchData.lineup or .substitutions
+		gamesStarted: add one if in matchData.lineup
+		minutesPlayed: matchData.lineup[i].stats.other.minutes_played
+		goalsScored: matchData.lineup[i].stats.goals.scored
+		goalsConceded: matchData.lineup[i].stats.goals.conceded
+		assists: matchData.lineup[i].stats.other.assists
+		shotsTaken: matchData.lineup[i].stats.shots.shots_taken
+		shotsOnGoal: matchData.lineup[i].stats.shots.shots_on_goal
+		foulsDrawn: matchData.lineup[i].stats.fouls.drawn
+		foulsCommitted: matchData.lineup[i].stats.fouls.committed
+		yellowCards: matchData.lineup[i].stats.cards.yellowcards
+		redCards: matchData.lineup[i].stats.cards.redcards
+		passes: matchData.lineup[i].stats.passing.passes
+		passingAccuracy: matchData.lineup[i].stats.passing.passes_accuracy
+		crosses: matchData.lineup[i].stats.passing.total_crosses
+		crossingAccuracy: matchData.lineup[i].stats.passing.crosses_accuracy
+		timesOffside: matchData.lineup[i].stats.other.offsides
+		saves: matchData.lineup[i].stats.other.saves
+		penaltiesScored: matchData.lineup[i].stats.other.pen_scored
+		penaltiesMissed: matchData.lineup[i].stats.other.pen_missed
+		tackles: matchData.lineup[i].stats.other.tackles
+		blocks: matchData.lineup[i].stats.other.blocks
+		interceptions: matchData.lineup[i].stats.other.interceptions
+		clearances: matchData.lineup[i].stats.other.clearances
 	playerSchedule: uses fixturesByLeagueSeason() and then sorts out based off of playerClub
 	playerValue: based off of playerFantasyPoints (season start: base of $400,000 plus $100,000 per 3 fantasy points from last season; during season: price increases $200k per 3 points above position average, or $400k per 6 points above position average each week, will drop by same per 3 or 6 points below position average each week)
 	playerFantasyPointsWeek: total earned in most recent week
