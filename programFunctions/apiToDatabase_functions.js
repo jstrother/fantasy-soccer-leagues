@@ -26,6 +26,7 @@ function playerInfo(leagueId) {
                 playerName: matchData.lineup[i].player_name,
                 playerIdFromAPI: matchData.lineup[i].player_id,
                 playerPosition: matchData.lineup[i].position,
+                playerClubIdFromAPI: matchData.lineup[i].team_id,
                 playerClub: matchData.lineup[i].team_id === matchData.homeClub.id ? matchData.homeClub.name : matchData.awayClub.name,
                 playerStats: {
                   minutesPlayed: matchData.lineup[i].stats.other.minutes_played,
@@ -56,7 +57,7 @@ function playerInfo(leagueId) {
                 playerFantasyPointsWeek: null,
                 playerFantasyPointsTotal: null
               };
-              // console.log(player);
+              console.log(seasonId);
             }
           })
           .catch(error => {

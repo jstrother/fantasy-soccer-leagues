@@ -34,7 +34,7 @@ mongoose.connect(database);
 passport.use(new gStrategy({
 	clientID: '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com',
 	clientSecret: config.SECRET,
-	callbackURL: `${process.env.IP}${config.PORT}/auth/google/callback`
+	callbackURL: `https://${process.env.C9_HOSTNAME}/auth/google/callback` //`${process.env.IP}${config.PORT}/auth/google/callback`
 },
 	(accessToken, refreshToken, profile) => {
 		let user = database[accessToken] = {

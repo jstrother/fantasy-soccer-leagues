@@ -91,7 +91,7 @@ function matchesByLeagueSeason(seasonId) {
     return matchIdList;
   })
   .catch(error => {
-    console.log(`matchesByLeague error: ${error}`);
+    console.log(`matchesByLeagueSeason error: ${error}`);
   });
 }
 
@@ -118,7 +118,7 @@ function playerStatsByMatch(matchId) {
         homeClub,
         awayClub
       };
-    console.log(matchData.homeClub);
+    // console.log(matchData.homeClub);
     return matchData;
   })
   .catch(error => {
@@ -126,7 +126,7 @@ function playerStatsByMatch(matchId) {
   });
 }
 
-playerStatsByMatch(237282);
+// playerStatsByMatch(237282);
 
 function playerById(playerId) {
   // fetch general player info

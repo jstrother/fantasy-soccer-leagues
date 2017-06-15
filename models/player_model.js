@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
 				playerName: String,
 				playerIdFromAPI: Number,
 				playerClub: String,
+				playerClubIdFromAPI: Number,
 				playerPosition: String,
 				playerStats: {
 					gamesPlayed: Number,
