@@ -53,7 +53,7 @@ needed for Server
 		blocks: matchData.lineup[i].stats.other.blocks
 		interceptions: matchData.lineup[i].stats.other.interceptions
 		clearances: matchData.lineup[i].stats.other.clearances
-	playerSchedule: uses fixturesByLeagueSeason() and then sorts out based off of playerClub
+	playerSchedule: uses matchesByLeagueSeason() and then sorts out based off of playerClub
 	playerValue: based off of playerFantasyPoints (season start: base of $400,000 plus $100,000 per 3 fantasy points from last season; during season: price increases $200k per 3 points above position average, or $400k per 6 points above position average each week, will drop by same per 3 or 6 points below position average each week)
 	playerFantasyPointsWeek: total earned in most recent week
 	playerFantasyPointsTotal: total earned in season to date
