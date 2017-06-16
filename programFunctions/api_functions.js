@@ -3,56 +3,6 @@ const rp = require('request-promise'),
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 
-// this function is to get a list of leagues available to the player [returns array]
-// rewrite this to get list of leagues by country using all countries endpoint (paginated)
-function allLeaguesInfo() {
-  const endpoint = `${baseURL}/leagues`,
-    leagues = {
-      uri: `${endpoint}${key}`,
-      json: true
-    };
-  let leagueInfoArray;
-  return rp(leagues)
-  .then(leagues => {
-    leagueInfoArray = [];
-    let leagueUriArray = [];
-    
-    for (let i = 1; i <= leagues.meta.pagination.total_pages; i++) {
-      leagueUriArray.push(`${endpoint}${key}&page=${i}`);
-    }
-    
-    return Promise.all(leagueUriArray.map(uri => {
-      return rp({
-        uri,
-        json: true
-      })
-      .then(leaguePages => {
-        for (let j = 0; j < leaguePages.data.length; j++) {
-          let leagueInfo = {
-            id: leaguePages.data[j].id,
-            name: leaguePages.data[j].name,
-            countryId: leaguePages.data[j].country_id
-          };
-          leagueInfoArray.push(leagueInfo); // leagueInfoArray is an array of arrays
-        }
-        // console.log(leagueInfoArray[0]);
-        return leagueInfoArray;
-      })
-      .catch(error => {
-        console.log(`allLeagues for loop error: ${error}`);
-      });
-    }));
-  })
-  .catch(error => {
-    console.log(`allLeagues error: ${error}`);
-  });
-}
-
-// allLeaguesInfo()
-// .then(answer => {
-//   console.log(answer);
-// });
-
 // this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
@@ -128,21 +78,103 @@ function playerStatsByMatch(matchId) {
 
 // playerStatsByMatch(237282);
 
+function teamNameById(teamId) {
+  const endpoint = `${baseURL}/teams/`,
+    team = {
+      uri: `${endpoint}${teamId}${key}`,
+      json: true
+    };
+  
+  return rp(team)
+  .then(team => {
+    return team.data.name;
+  })
+  .catch(error => {
+    console.log(`teamById error: ${error}`);
+  });
+}
+
+// teamNameById(75);
+
+function teamSquadBySeason(seasonId) {
+  const endpoint = `${baseURL}/teams/season/`,
+    included = `${toInclude}squad`,
+    team = {
+      uri: `${endpoint}${seasonId}${key}${included}`,
+      json: true
+    };
+  
+  return rp(team)
+  .then(team => {
+    console.log(team.data[0].squad.data.length);
+  })
+  .catch(error => {
+    console.log(`teamSquadBySeason error: ${error}`);
+  });
+}
+
+teamSquadBySeason(914);
+
 function playerByIdBySeason(playerId, seasonId) {
   const endpoint = `${baseURL}/players/`,
-    included = `${toInclude}stats`,
-    player = {
+    included = `${toInclude}stats,position`,
+    playerInfo = {
       uri: `${endpoint}${playerId}${key}${included}`,
       json: true
     };
   
-  return rp(player)
-  .then(player => {
-    player.data.stats.data.forEach(stat => {
+  return rp(playerInfo)
+  .then(playerInfo => {
+    // console.log(playerInfo);
+    let player = {};
+    playerInfo.data.stats.data.forEach(stat => {
       if (stat.season_id === seasonId) {
-        console.log(stat);
+        // console.log(stat);
+        player = {
+          playerCommonName: playerInfo.data.common_name,
+          playerFirstName: playerInfo.data.firstname,
+          playerLastName: playerInfo.data.lastname,
+          playerPictureLink: playerInfo.data.image_path,
+          playerIdFromAPI: playerInfo.data.player_id,
+          playerClubIdFromAPI: playerInfo.data.stats.data.team_id,
+          playerClub: null,
+          playerPositionId: playerInfo.data.position.data.id,
+          playerPosition: playerInfo.data.position.data.name,
+  				playerStats: {
+  				  gamesPlayed: stat.appearences,
+  					minutesPlayed: null,
+  	        goalsScored: null,
+  	        goalsConceded: null,
+  	        assists: null,
+  	    		shotsTaken: null,
+  	    		shotsOnGoal: null,
+  	    		foulsDrawn: null,
+  	    		foulsCommitted: null,
+  	    		yellowCards: null,
+  	    		yellowRedCards: null,
+  	    		redCards: null,
+  	    		passes: null,
+  	    		passingAccuracy: null,
+  	    		crosses: null,
+  	    		crossingAccuracy: null,
+  	    		timesOffside: null,
+  	    		saves: null,
+  	    		penaltiesScored: null,
+  	    		penaltiesMissed: null,
+  	    		tackles: null,
+  	    		blocks: null,
+  	    		interceptions: null,
+  	    		clearances: null
+  				},
+  				playerValue: null, // in millions of $$$'s
+  				playerSchedule: null,
+  				playerFantasyPointsWeek: null,
+          playerFantasyPointsTotal: null
+        };
       }
     });
+    // console.log(player);
+    return player;
   })
   .catch(error => {
     console.log(`playerById error: ${error}`);
@@ -151,7 +183,8 @@ function playerByIdBySeason(playerId, seasonId) {
 
 playerByIdBySeason(918, 914);
 
-exports.allLeaguesInfo = allLeaguesInfo;
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;
+exports.playerByIdBySeason = playerByIdBySeason;
+exports.teamNameById = teamNameById;

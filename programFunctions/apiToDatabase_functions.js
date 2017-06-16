@@ -29,6 +29,7 @@ function playerInfo(leagueId) {
                 playerClubIdFromAPI: matchData.lineup[i].team_id,
                 playerClub: matchData.lineup[i].team_id === matchData.homeClub.id ? matchData.homeClub.name : matchData.awayClub.name,
                 playerStats: {
+                  gamesPlayed: null,
                   minutesPlayed: matchData.lineup[i].stats.other.minutes_played,
                   goalsScored: matchData.lineup[i].stats.goals.scored,
                   goalsConceded: matchData.lineup[i].stats.goals.conceded,
@@ -38,6 +39,7 @@ function playerInfo(leagueId) {
               		foulsDrawn: matchData.lineup[i].stats.fouls.drawn,
               		foulsCommitted: matchData.lineup[i].stats.fouls.committed,
               		yellowCards: matchData.lineup[i].stats.cards.yellowcards,
+              		yellowRedCards: matchData.lineup[i].stats.cards.yellowredcards,
               		redCards: matchData.lineup[i].stats.cards.redcards,
               		passes: matchData.lineup[i].stats.passing.passes,
               		passingAccuracy: matchData.lineup[i].stats.passing.passes_accuracy,
@@ -58,7 +60,7 @@ function playerInfo(leagueId) {
                 playerFantasyPointsTotal: null
               };
               // console.log(player);
-              createData(player, Player);
+              // createData(player, Player);
             }
           })
           .catch(error => {
