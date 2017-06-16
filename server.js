@@ -56,7 +56,7 @@ app.get('auth/google/callback', passport.authenticate('google', {
 	failureRedirect: '/login',
 	session: false
 }),(req, res) => {
-	fs.readFile('/user/logged-in.html', html => {
+	fs.readFile('/user/', html => {
 		html = html.toString();
 		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/logged-in.html';</script>`);
 		res.send(html);

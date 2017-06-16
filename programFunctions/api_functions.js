@@ -35,9 +35,10 @@ function matchesByLeagueSeason(seasonId) {
   return rp(matches)
   .then(matches => {
     let matchIdList = [];
-    for (let i = 0; i < matches.data.fixtures.data.length; i++) { // fixture must be left here as it is a part of the api json return
-      matchIdList.push(matches.data.fixtures.data[i].id); // fixture must be left here as it is a part of the api json return
-    }
+    matches.data.fixtures.data.forEach(fixture => { // fixtures must be left here as it is a part of the api json return
+      matchIdList.push(fixture.id);
+    });
+    console.log(matchIdList);
     return matchIdList;
   })
   .catch(error => {
@@ -78,46 +79,36 @@ function playerStatsByMatch(matchId) {
 
 // playerStatsByMatch(237282);
 
-function teamNameById(teamId) {
-  const endpoint = `${baseURL}/teams/`,
-    team = {
-      uri: `${endpoint}${teamId}${key}`,
-      json: true
-    };
-  
-  return rp(team)
-  .then(team => {
-    return team.data.name;
-  })
-  .catch(error => {
-    console.log(`teamById error: ${error}`);
-  });
-}
-
-// teamNameById(75);
-
-function teamSquadBySeason(seasonId) {
+function teamPlayerIdsBySeason(seasonId) {
   const endpoint = `${baseURL}/teams/season/`,
     included = `${toInclude}squad`,
-    team = {
+    teams = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
     };
   
-  return rp(team)
-  .then(team => {
-    console.log(team.data[0].squad.data.length);
+  return rp(teams)
+  .then(teams => {
+    let playerIdList = [];
+    teams.data.forEach(team => {
+      if(team.squad.data.length > 0) {
+        team.squad.data.forEach(player => {
+          playerIdList.push(player.player_id);
+        });
+      }
+    });
+    return playerIdList;
   })
   .catch(error => {
-    console.log(`teamSquadBySeason error: ${error}`);
+    console.log(`teamPlayerIdsBySeason error: ${error}`);
   });
 }
 
-teamSquadBySeason(914);
+// teamPlayerIdsBySeason(914);
 
 function playerByIdBySeason(playerId, seasonId) {
   const endpoint = `${baseURL}/players/`,
-    included = `${toInclude}stats,position`,
+    included = `${toInclude}stats,position,team`,
     playerInfo = {
       uri: `${endpoint}${playerId}${key}${included}`,
       json: true
@@ -125,19 +116,18 @@ function playerByIdBySeason(playerId, seasonId) {
   
   return rp(playerInfo)
   .then(playerInfo => {
-    // console.log(playerInfo);
+    // console.log(playerInfo.data.team.data);
     let player = {};
     playerInfo.data.stats.data.forEach(stat => {
       if (stat.season_id === seasonId) {
-        // console.log(stat);
         player = {
           playerCommonName: playerInfo.data.common_name,
           playerFirstName: playerInfo.data.firstname,
           playerLastName: playerInfo.data.lastname,
           playerPictureLink: playerInfo.data.image_path,
           playerIdFromAPI: playerInfo.data.player_id,
-          playerClubIdFromAPI: playerInfo.data.stats.data.team_id,
-          playerClub: null,
+          playerClubIdFromAPI: playerInfo.data.team.data.id,
+          playerClub: playerInfo.data.team.data.name,
           playerPositionId: playerInfo.data.position.data.id,
           playerPosition: playerInfo.data.position.data.name,
   				playerStats: {
@@ -181,10 +171,10 @@ function playerByIdBySeason(playerId, seasonId) {
   });
 }
 
-playerByIdBySeason(918, 914);
+// playerByIdBySeason(918, 914);
 
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;
 exports.playerByIdBySeason = playerByIdBySeason;
-exports.teamNameById = teamNameById;
+exports.teamPlayerIdsBySeason = teamPlayerIdsBySeason;
