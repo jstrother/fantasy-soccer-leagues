@@ -95,7 +95,7 @@ function matchesByLeagueSeason(seasonId) {
   });
 }
 
-// matchesByLeagueSeasonmatchesByLeagueSeason(914);
+// matchesByLeagueSeason(914);
 
 // this function retrieves information about a particular match by its ID
 function playerStatsByMatch(matchId) {
@@ -128,9 +128,28 @@ function playerStatsByMatch(matchId) {
 
 // playerStatsByMatch(237282);
 
-function playerById(playerId) {
-  // fetch general player info
+function playerByIdBySeason(playerId, seasonId) {
+  const endpoint = `${baseURL}/players/`,
+    included = `${toInclude}stats`,
+    player = {
+      uri: `${endpoint}${playerId}${key}${included}`,
+      json: true
+    };
+  
+  return rp(player)
+  .then(player => {
+    player.data.stats.data.forEach(stat => {
+      if (stat.season_id === seasonId) {
+        console.log(stat);
+      }
+    });
+  })
+  .catch(error => {
+    console.log(`playerById error: ${error}`);
+  });
 }
+
+playerByIdBySeason(918, 914);
 
 exports.allLeaguesInfo = allLeaguesInfo;
 exports.seasonByLeague = seasonByLeague;

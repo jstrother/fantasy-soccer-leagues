@@ -20,7 +20,7 @@ function playerInfo(leagueId) {
         matchIdList.forEach(matchId => {
           return playerStatsByMatch(matchId)
           .then(matchData => {
-            console.log(matchData.lineup);
+            console.log(matchData.length);
             for (let i = 0; i < matchData.lineup.length; i++) {
               let player = {
                 playerName: matchData.lineup[i].player_name,
@@ -57,7 +57,8 @@ function playerInfo(leagueId) {
                 playerFantasyPointsWeek: null,
                 playerFantasyPointsTotal: null
               };
-              console.log(seasonId);
+              // console.log(player);
+              createData(player, Player);
             }
           })
           .catch(error => {
@@ -75,3 +76,5 @@ function playerInfo(leagueId) {
 }
 
 playerInfo(779);
+
+exports.playerInfo = playerInfo;

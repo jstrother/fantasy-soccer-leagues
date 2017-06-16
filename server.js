@@ -17,7 +17,8 @@ const path = require('path'),
 	readData = require('./programFunctions/crud_functions.js').readData,
 	updateData = require('./programFunctions/crud_functions.js').updateData,
 	deleteData = require('./programFunctions/crud_functions.js').deleteData,
-	database = `${config.DATABASE_URL}`;
+	database = `${config.DATABASE_URL}`,
+	playerInfo = require('./programFunctions/apiToDatabase_functions.js').playerInfo;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
