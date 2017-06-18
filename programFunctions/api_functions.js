@@ -67,7 +67,6 @@ function playerStatsByMatch(matchId) {
   
   return rp(match)
   .then(match => {
-    console.log(match.data.goals.data);
     let lineup = match.data.lineup.data,
       substitutions = [],
       homeClub = {
@@ -97,6 +96,7 @@ function playerStatsByMatch(matchId) {
         };
         substitutions.push(sub);
       });
+    // console.log(matchData);
     return matchData;
   })
   .catch(error => {
@@ -124,6 +124,7 @@ function teamPlayerIdsBySeason(seasonId) {
         });
       }
     });
+    // console.log(playerIdList);
     return playerIdList;
   })
   .catch(error => {
@@ -147,7 +148,7 @@ function playerByIdBySeason(playerId, seasonId) {
     let player = {};
     playerInfo.data.stats.data.forEach(stat => {
       if (stat.season_id === seasonId) {
-        // console.log(stat);
+        console.log(stat);
         player = {
           playerCommonName: playerInfo.data.common_name,
           playerFirstName: playerInfo.data.firstname,
@@ -193,7 +194,7 @@ function playerByIdBySeason(playerId, seasonId) {
         };
       }
     });
-    console.log(player);
+    // console.log(player);
     return player;
   })
   .catch(error => {
@@ -201,7 +202,7 @@ function playerByIdBySeason(playerId, seasonId) {
   });
 }
 
-// playerByIdBySeason(918, 914);
+playerByIdBySeason(918, 914);
 
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
