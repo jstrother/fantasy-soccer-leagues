@@ -17,16 +17,23 @@ function playerInfo(leagueId) {
   .then(seasonId => {
     return teamPlayerIdsBySeason(seasonId)
     .then(playerIdList => {
-      console.log(playerIdList.length);
-      playerIdList.forEach(playerId => {
-        return playerByIdBySeason(playerId, seasonId)
-        .then(player => {
-          // console.log(player);
-        })
-        .catch(error => {
-          console.log(`playerInfo playerByIdBySeason error: ${error}`);
-        });
+      // console.log(playerIdList[0]);
+      return playerByIdBySeason(playerIdList[0], seasonId)
+      .then(player => {
+        console.log(player);
+      })
+      .catch(error => {
+        console.log(`playerInfo playerByIdBySeason error: ${error}`);
       });
+      // playerIdList.forEach(playerId => {
+      //   return playerByIdBySeason(playerId, seasonId)
+      //   .then(player => {
+      //     console.log(player);
+      //   })
+      //   .catch(error => {
+      //     console.log(`playerInfo playerByIdBySeason error: ${error}`);
+      //   });
+      // });
     })
     .catch(error => {
       console.log(`playerInfo teamPlayerIdsBySeason error: ${error}`);
@@ -37,6 +44,6 @@ function playerInfo(leagueId) {
   });
 }
 
-// playerInfo(779);
+playerInfo(779);
 
 exports.playerInfo = playerInfo;

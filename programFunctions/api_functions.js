@@ -37,7 +37,6 @@ function matchesByLeagueSeason(seasonId) {
     let matchList = [],
       match = {};
     matches.data.fixtures.data.forEach(fixture => { // fixtures must be left here as it is a part of the api json return
-      // console.log(fixture);
       match = {
         matchId: fixture.id,
         homeClubId: fixture.localteam_id,
@@ -46,7 +45,6 @@ function matchesByLeagueSeason(seasonId) {
       };
       matchList.push(match);
     });
-    // console.log(matchList);
     return matchList;
   })
   .catch(error => {
@@ -96,7 +94,6 @@ function playerStatsByMatch(matchId) {
         };
         substitutions.push(sub);
       });
-    // console.log(matchData);
     return matchData;
   })
   .catch(error => {
@@ -124,7 +121,6 @@ function teamPlayerIdsBySeason(seasonId) {
         });
       }
     });
-    // console.log(playerIdList);
     return playerIdList;
   })
   .catch(error => {
@@ -148,7 +144,7 @@ function playerByIdBySeason(playerId, seasonId) {
     let player = {};
     playerInfo.data.stats.data.forEach(stat => {
       if (stat.season_id === seasonId) {
-        console.log(stat);
+        // console.log(stat);
         player = {
           playerCommonName: playerInfo.data.common_name,
           playerFirstName: playerInfo.data.firstname,
@@ -198,11 +194,11 @@ function playerByIdBySeason(playerId, seasonId) {
     return player;
   })
   .catch(error => {
-    console.log(`playerById error: ${error}`);
+    console.log(`playerByIdBySeason error: ${error}`);
   });
 }
 
-playerByIdBySeason(918, 914);
+// playerByIdBySeason(918, 914);
 
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
