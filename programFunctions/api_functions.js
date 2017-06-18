@@ -193,10 +193,11 @@ function playerByIdBySeason(playerId, seasonId) {
   });
 }
 
-playerByIdBySeason(918, 914);
+// playerByIdBySeason(918, 914);
 
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;
 exports.playerByIdBySeason = playerByIdBySeason;
 exports.teamPlayerIdsBySeason = teamPlayerIdsBySeason;
+exports.playerByIdBySeason = playerByIdBySeason;
