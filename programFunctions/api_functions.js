@@ -34,12 +34,20 @@ function matchesByLeagueSeason(seasonId) {
   
   return rp(matches)
   .then(matches => {
-    let matchIdList = [];
+    let matchList = [],
+      match = {};
     matches.data.fixtures.data.forEach(fixture => { // fixtures must be left here as it is a part of the api json return
-      matchIdList.push(fixture.id);
+      // console.log(fixture);
+      match = {
+        matchId: fixture.id,
+        homeClubId: fixture.localteam_id,
+        awayClubId: fixture.visitorteam_id,
+        matchStatus: fixture.time.status
+      };
+      matchList.push(match);
     });
-    console.log(matchIdList);
-    return matchIdList;
+    // console.log(matchList);
+    return matchList;
   })
   .catch(error => {
     console.log(`matchesByLeagueSeason error: ${error}`);
