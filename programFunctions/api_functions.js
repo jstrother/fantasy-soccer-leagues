@@ -200,4 +200,3 @@ exports.matchesByLeagueSeason = matchesByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;
 exports.playerByIdBySeason = playerByIdBySeason;
 exports.teamPlayerIdsBySeason = teamPlayerIdsBySeason;
-exports.playerByIdBySeason = playerByIdBySeason;
