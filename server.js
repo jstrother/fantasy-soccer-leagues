@@ -58,7 +58,7 @@ app.get('auth/google/callback', passport.authenticate('google', {
 }),(req, res) => {
 	fs.readFile('/user/', html => {
 		html = html.toString();
-		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/logged-in.html';</script>`);
+		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/user/';</script>`);
 		res.send(html);
 	})
 	.catch(error => {
@@ -69,18 +69,19 @@ app.get('auth/google/callback', passport.authenticate('google', {
 });
 
 // returns user's own page
-app.get('/user', passport.authenticate('bearer', {session: false}), (req, res) => {
-	let userName = req.body.userName,
-		userPassword = req.body.userPassword,
-		user = {
-			userName,
-			userPassword
-		};
-	readData(user, User);
+app.get('/user/', passport.authenticate('bearer', {session: false}), (req, res) => {
+	// not at all sure what to put here
+	// let userName = req.body.userName,
+	// 	userPassword = req.body.userPassword,
+	// 	user = {
+	// 		userName,
+	// 		userPassword
+	// 	};
+	// readData(user, User);
 });
 
 // creates a new user
-app.post('/user', jsonParser, (req, res) => {
+app.post('/user/', jsonParser, (req, res) => {
 	switch (req.body) {
 		case (!req.body):
 			return res.status(400).json({

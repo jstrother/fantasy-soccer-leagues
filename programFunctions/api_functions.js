@@ -48,10 +48,10 @@ function matchesByLeagueSeason(seasonId) {
 
 // matchesByLeagueSeason(914);
 
-// this function retrieves information about a particular match by its ID
+// this function retrieves player stats from a particular match by its ID
 function playerStatsByMatch(matchId) {
   const endpoint = `${baseURL}/fixtures/`, // fixture must be left here as it is a part of the api json return
-    included = `${toInclude}substitutions,lineup,localTeam,visitorTeam`,
+    included = `${toInclude}substitutions,lineup,localTeam,visitorTeam,goals`,
     match = {
       uri: `${endpoint}${matchId}${key}${included}`,
       json: true
@@ -59,17 +59,36 @@ function playerStatsByMatch(matchId) {
   
   return rp(match)
   .then(match => {
+    console.log(match.data.goals.data);
     let lineup = match.data.lineup.data,
-      substitutions = match.data.substitutions.data,
-      homeClub = match.data.localTeam.data,
-      awayClub = match.data.visitorTeam.data,
+      substitutions = [],
+      homeClub = {
+        id: match.data.localTeam.data.id,
+        name: match.data.localTeam.data.name,
+        logo: match.data.localTeam.data.logo_path,
+        score: match.data.scores.localteam_score
+      },
+      awayClub = {
+        id: match.data.visitorTeam.data.id,
+        name: match.data.visitorTeam.data.name,
+        logo: match.data.visitorTeam.data.logo_path,
+        score: match.data.scores.visitorteam_score
+      },
       matchData = {
         lineup,
         substitutions,
         homeClub,
         awayClub
       };
-    // console.log(matchData.homeClub);
+      match.data.substitutions.data.forEach(substitution => {
+        let sub = {
+          playerOut: substitution.player_out_name,
+          playerOutId: substitution.player_out_id,
+          playerIn: substitution.player_in_name,
+          playerInId: substitution.player_in_id
+        };
+        substitutions.push(sub);
+      });
     return matchData;
   })
   .catch(error => {
@@ -77,7 +96,7 @@ function playerStatsByMatch(matchId) {
   });
 }
 
-// playerStatsByMatch(237282);
+// playerStatsByMatch(237283);
 
 function teamPlayerIdsBySeason(seasonId) {
   const endpoint = `${baseURL}/teams/season/`,
@@ -116,10 +135,11 @@ function playerByIdBySeason(playerId, seasonId) {
   
   return rp(playerInfo)
   .then(playerInfo => {
-    // console.log(playerInfo.data.team.data);
+    // console.log(playerInfo.data.stats.data);
     let player = {};
     playerInfo.data.stats.data.forEach(stat => {
       if (stat.season_id === seasonId) {
+        // console.log(stat);
         player = {
           playerCommonName: playerInfo.data.common_name,
           playerFirstName: playerInfo.data.firstname,
@@ -128,10 +148,12 @@ function playerByIdBySeason(playerId, seasonId) {
           playerIdFromAPI: playerInfo.data.player_id,
           playerClubIdFromAPI: playerInfo.data.team.data.id,
           playerClub: playerInfo.data.team.data.name,
+          playerClubLogo: playerInfo.data.team.data.logo_path,
           playerPositionId: playerInfo.data.position.data.id,
           playerPosition: playerInfo.data.position.data.name,
   				playerStats: {
   				  gamesPlayed: stat.appearences,
+  				  gamesStarted: stat.lineups,
   					minutesPlayed: null,
   	        goalsScored: null,
   	        goalsConceded: null,
@@ -163,7 +185,7 @@ function playerByIdBySeason(playerId, seasonId) {
         };
       }
     });
-    // console.log(player);
+    console.log(player);
     return player;
   })
   .catch(error => {
@@ -171,7 +193,7 @@ function playerByIdBySeason(playerId, seasonId) {
   });
 }
 
-// playerByIdBySeason(918, 914);
+playerByIdBySeason(918, 914);
 
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
