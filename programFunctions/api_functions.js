@@ -98,6 +98,8 @@ function leagueSelector(leagueName) {
       return 989;
     case 'Indian Super League (India)':
       return 1007;
+    case 'Liga de Futbol Profesional (Bolivia)':
+      return 1098;
     case 'A-League (Australia)':
       return 1356;
   }
