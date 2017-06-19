@@ -20,7 +20,7 @@ function playerInfo(leagueId) {
       // console.log(playerIdList[0]);
       return playerByIdBySeason(playerIdList[0], seasonId)
       .then(player => {
-        console.log(player);
+        // console.log(player);
       })
       .catch(error => {
         console.log(`playerInfo playerByIdBySeason error: ${error}`);

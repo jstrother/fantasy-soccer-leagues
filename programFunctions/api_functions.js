@@ -3,6 +3,105 @@ const rp = require('request-promise'),
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 
+function leagueSelector(leagueName) {
+  switch(leagueName) {
+    case 'Premiere League (England)':
+      return 8;
+    case 'Championship (England)':
+      return 9;
+    case 'League One (England)':
+      return 12;
+    case 'League Two (England)':
+      return 14;
+    case 'Eredivise (Netherlands)':
+      return 72;
+    case 'Eerste Divisie (Netherlands)':
+      return 74;
+    case 'Bundesliga (Germany)':
+      return 82;
+    case '2.Bundesliga (Germany)':
+      return 85;
+    case 'Bundesliga (Austria)':
+      return 181;
+    case 'Jupiler Pro League (Belgium)':
+      return 208;
+    case 'Superliga (Denmark)':
+      return 271;
+    case 'Ligue 1 (France)':
+      return 301;
+    case 'Ligue 2 (France)':
+      return 304;
+    case 'Super League (Greece)':
+      return 325;
+    case 'Urvalsdeild (Iceland)':
+      return 345;
+    case 'Premiere Division (Ireland)':
+      return 360;
+    case 'Serie A (Italy)':
+      return 384;
+    case 'Serie B (Italy)':
+      return 387;
+    case 'Premiership (Northern Ireland)':
+      return 438;
+    case 'Tippeligaen (Norway)':
+      return 444;
+    case 'Ekstraklasa (Poland)':
+      return 453;
+    case 'Primeira Liga (Portugal)':
+      return 462;
+    case 'Premiere League (Russia)':
+      return 486;
+    case 'Premiership (Scotland)':
+      return 501;
+    case 'Championship (Scotland)':
+      return 504;
+    case 'La Liga (Spain)':
+      return 564;
+    case 'Segunda Division (Spain)':
+      return 567;
+    case 'Allsvenskan (Sweden)':
+      return 573;
+    case 'Superettan (Sweden)':
+      return 579;
+    case 'Super League (Switzerland)':
+      return 591;
+    case 'Super Lig (Turkey)':
+      return 600;
+    case 'Premiere League (Wales)':
+      return 624;
+    case 'Primera Division (Argentina)':
+      return 636;
+    case 'Primera B (Argentina)':
+      return 639;
+    case 'Serie A (Brazil)':
+      return 648;
+    case 'Serie B (Brazil)':
+      return 651;
+    case 'Primera Division (Chile)':
+      return 663;
+    case 'Primera A: Apertura (Colombia)':
+      return 672;
+    case 'Primera A: Clausura (Colombia)':
+      return 675;
+    case 'Primera A: Apertura (Ecuador)':
+      return 693;
+    case 'Primera A: Clausura (Ecuador)':
+      return 696;
+    case 'Liga MX (Mexico)':
+      return 743;
+    case 'Major League Soccer (USA)':
+      return 779;
+    case 'J-League (Japan)':
+      return 968;
+    case 'Super League (China)':
+      return 989;
+    case 'Indian Super League (India)':
+      return 1007;
+    case 'A-League (Australia)':
+      return 1356;
+  }
+}
+
 // this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
@@ -200,6 +299,7 @@ function playerByIdBySeason(playerId, seasonId) {
 
 // playerByIdBySeason(918, 914);
 
+exports.leagueSelector = leagueSelector;
 exports.seasonByLeague = seasonByLeague;
 exports.matchesByLeagueSeason = matchesByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;

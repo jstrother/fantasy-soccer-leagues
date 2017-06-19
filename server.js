@@ -18,7 +18,8 @@ const path = require('path'),
 	updateData = require('./programFunctions/crud_functions.js').updateData,
 	deleteData = require('./programFunctions/crud_functions.js').deleteData,
 	database = `${config.DATABASE_URL}`,
-	playerInfo = require('./programFunctions/apiToDatabase_functions.js').playerInfo;
+	playerInfo = require('./programFunctions/apiToDatabase_functions.js').playerInfo,
+	routes = require('./routes.js').router;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -31,150 +32,7 @@ console.log('Server Started');
 
 mongoose.connect(database);
 
-// the following 2 passport.use and then the first 3 app.get for secure login
-passport.use(new gStrategy({
-	clientID: '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com',
-	clientSecret: config.SECRET,
-	callbackURL: `https://${process.env.C9_HOSTNAME}/auth/google/callback` //`${process.env.IP}${config.PORT}/auth/google/callback`
-},
-	(accessToken, refreshToken, profile) => {
-		let user = database[accessToken] = {
-			googleId: profile.id,
-			accessToken
-		};
-		return user;
-	}	
-));
-
-passport.use(new bStrategy((token, done) => {
-	return (token in database) ? done(null, database[token]) : done(null, false);
-}));
-
-app.get('/auth/google', passport.authenticate('google', {scope: 'profile'}));
-
-app.get('auth/google/callback', passport.authenticate('google', {
-	failureRedirect: '/login',
-	session: false
-}),(req, res) => {
-	fs.readFile('/user/', html => {
-		html = html.toString();
-		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/user/';</script>`);
-		res.send(html);
-	})
-	.catch(error => {
-		res.status(500).json({
-			message: 'Internal Server Error'
-		});
-	});
-});
-
-// returns user's own page
-app.get('/user/', passport.authenticate('bearer', {session: false}), (req, res) => {
-	// not at all sure what to put here
-	// let userName = req.body.userName,
-	// 	userPassword = req.body.userPassword,
-	// 	user = {
-	// 		userName,
-	// 		userPassword
-	// 	};
-	// readData(user, User);
-});
-
-// creates a new user
-app.post('/user/', jsonParser, (req, res) => {
-	switch (req.body) {
-		case (!req.body):
-			return res.status(400).json({
-				message: 'No request body'
-			});
-		case (!req.body.name):
-			return res.status(422).json({
-				message: 'Missing field: Name'
-			});
-		case (!req.body.userName):
-			return res.status(422).json({
-				message: 'Missing field: User Name'
-			});
-		case (!req.body.userPassword):
-			return res.status(422).json({
-				message: 'Missing field: User Password'
-			});
-		case (!req.body.userEmail):
-			return res.status(422).json({
-				message: 'Missing field: User Email'
-			});
-		case (!req.body.teamName):
-			return res.status(422).json({
-				message: 'Missing field: Team Name'
-			});
-	}
-	
-	let name = req.body.name,
-		userName = req.body.userName,
-		userPassword = req.body.userPassword,
-		userEmail = req.body.userEmail,
-		teamName = req.body.teamName;
-		
-	if (typeof name !== 'string') {
-		return res.status(422).json({
-			message: 'Incorrect field type: Name'
-		});
-	}
-	
-	if (name === '') {
-		return res.status(422).json({
-			message: 'Incorrect field length: Name'
-		});
-	}
-	
-	if (typeof userName !== 'string') {
-		return res.status(422).json({
-			message: 'Incorrect field type: User Name'
-		});
-	}
-	
-	if (userName === '') {
-		return res.status(422).json({
-			message: 'Incorrect field length: User Name'
-		});
-	}
-	
-	if (typeof userPassword !== 'string') {
-		return res.status(422).json({
-			message: 'Incorrect field type: User Password'
-		});
-	}
-	
-	if (userPassword === '') {
-		return res.status(422).json({
-			message: 'Incorrect field length: User Password'
-		});
-	}
-	
-	if (typeof userEmail !== 'string') {
-		return res.status(422).json({
-			message: 'Incorrect field type: User Email'
-		});
-	}
-	
-	if (userEmail === '') {
-		return res.status(422).json({
-			message: 'Incorrect field length: User Email'
-		});
-	}
-	
-	if (typeof teamName !== 'string') {
-		return res.status(422).json({
-			message: 'Incorrect field type: Team Name'
-		});
-	}
-	
-	if (teamName === '') {
-		return res.status(422).json({
-			message: 'Incorrect field length: Team Name'
-		});
-	}
-});
+app.use('/user', routes);
 
 let runServer = () => {
 	mongoose.connect(config.DATABASE_URL, () => {

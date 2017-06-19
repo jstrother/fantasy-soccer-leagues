@@ -13,13 +13,12 @@ export default class Main extends React.Component {
   render() {
     return(
       <div>
+        <div dangerouslySetInnerHTML={{ __html: '<!--{script}-->' }} /> {/* according to the google oauth (routes.js:46), it needs to replace the commented {script} with an actual line of inline js in the html file being used */}
         <br />
         <br />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/login' component={LogIn} />
-          <Route exact path='/signup' component={SignUp} />
-          <Route path='/user/:user' component={User} /> {/* to be displayed upon successful login/sign-up */}
+          <Route path='/user' component={User} /> {/* to be displayed upon successful login/sign-up */}
         </Switch>
       </div>
     );

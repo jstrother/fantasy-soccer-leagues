@@ -241,30 +241,28 @@ describe('Player', () => {
 describe('User', () => {
 	it('should not exist', () => {
 		const sampleUser = {
-			userName: 'user1'
+			name: 'user1'
 		};
 		
 		return readData(sampleUser, User).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create a new user', () => {
 		const sampleUser = {
-			name: 'Jim',
-			userName: 'user1',
-			userPassword: 'password',
-			userEmail: 'user@email.com',
-			fantasyClub: 'team'
+			name: 'user1',
+			accessToken: '42',
+			googleId: '1974'
 		};
 		
 		return createData(sampleUser, User).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a user', () => {
 		const sampleUser = {
-			userName: 'user1'
+			name: 'user1'
 		};
 		
-		return updateData(sampleUser, {userName: 'user2'}, User)
+		return updateData(sampleUser, {name: 'user2'}, User)
 		.then(updatedItem => {
-			updatedItem.should.have.property('userName', 'user2');
+			updatedItem.should.have.property('name', 'user2');
 		})
 		.catch(error => {
 			console.log(`error: ${error}`);
@@ -272,7 +270,7 @@ describe('User', () => {
 	}).timeout(5000);
 	it('should delete a user', () => {
 		const sampleUser2 = {
-			userName: 'user2'
+			name: 'user2'
 		};
 		
 		return deleteData(sampleUser2, User)
