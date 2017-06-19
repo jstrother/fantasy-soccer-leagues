@@ -17,23 +17,26 @@ function playerInfo(leagueId) {
   .then(seasonId => {
     return teamPlayerIdsBySeason(seasonId)
     .then(playerIdList => {
-      // console.log(playerIdList[0]);
-      return playerByIdBySeason(playerIdList[0], seasonId)
-      .then(player => {
-        // console.log(player);
-      })
-      .catch(error => {
-        console.log(`playerInfo playerByIdBySeason error: ${error}`);
-      });
-      // playerIdList.forEach(playerId => {
-      //   return playerByIdBySeason(playerId, seasonId)
-      //   .then(player => {
-      //     console.log(player);
-      //   })
-      //   .catch(error => {
-      //     console.log(`playerInfo playerByIdBySeason error: ${error}`);
-      //   });
+      console.log('playerIdList length', playerIdList.length);
+      // return playerByIdBySeason(playerIdList[0], seasonId)
+      // .then(player => {
+      //   // console.log(player);
+      // })
+      // .catch(error => {
+      //   console.log(`playerInfo playerByIdBySeason error: ${error}`);
       // });
+      let playerList = [];
+      playerIdList.forEach(playerId => {
+        return playerByIdBySeason(playerId, seasonId)
+        .then(player => {
+          // console.log(player);
+          playerList.push(player);
+          console.log('playerList length', playerList.length);
+        })
+        .catch(error => {
+          console.log(`playerInfo playerByIdBySeason error: ${error}`);
+        });
+      });
     })
     .catch(error => {
       console.log(`playerInfo teamPlayerIdsBySeason error: ${error}`);
