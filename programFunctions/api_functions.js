@@ -3,6 +3,7 @@ const rp = require('request-promise'),
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 
+// this function returns the api leagueId for the selected leagueName, to be used when user selects type of fantasy league to play in
 function leagueSelector(leagueName) {
   switch(leagueName) {
     case 'Premiere League (England)':
@@ -102,6 +103,8 @@ function leagueSelector(leagueName) {
   }
 }
 
+// leagueSelector();
+
 // this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
@@ -193,6 +196,7 @@ function playerStatsByMatch(matchId) {
         };
         substitutions.push(sub);
       });
+    console.log(matchData.lineup);
     return matchData;
   })
   .catch(error => {
