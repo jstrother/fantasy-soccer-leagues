@@ -47,6 +47,6 @@ function playerInfo(leagueId) {
   });
 }
 
-playerInfo(779);
+// playerInfo(779);
 
 exports.playerInfo = playerInfo;
