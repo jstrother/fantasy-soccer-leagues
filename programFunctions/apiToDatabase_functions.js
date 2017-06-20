@@ -17,10 +17,10 @@ function playerInfo(leagueId) {
   .then(seasonId => {
     return teamPlayerIdsBySeason(seasonId)
     .then(playerIdList => {
-      console.log('playerIdList length', playerIdList.length);
+      // console.log('playerIdList length', playerIdList.length);
       // return playerByIdBySeason(playerIdList[0], seasonId)
       // .then(player => {
-      //   // console.log(player);
+      //   console.log(player);
       // })
       // .catch(error => {
       //   console.log(`playerInfo playerByIdBySeason error: ${error}`);
