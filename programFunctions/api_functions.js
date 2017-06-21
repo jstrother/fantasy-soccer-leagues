@@ -138,18 +138,12 @@ function matchesByLeagueSeason(seasonId) {
   
   return rp(matches)
   .then(matches => {
-    let matchList = [],
-      match = {};
+    let matchIdList = [];
     matches.data.fixtures.data.forEach(fixture => { // fixtures must be left here as it is a part of the api json return
-      match = {
-        matchId: fixture.id,
-        homeClubId: fixture.localteam_id,
-        awayClubId: fixture.visitorteam_id,
-        matchStatus: fixture.time.status
-      };
-      matchList.push(match);
+      matchIdList.push(fixture.id);
     });
-    return matchList;
+    console.log(matchIdList);
+    return matchIdList;
   })
   .catch(error => {
     console.log(`matchesByLeagueSeason error: ${error}`);
@@ -161,7 +155,7 @@ function matchesByLeagueSeason(seasonId) {
 // this function retrieves player stats from a particular match by its ID
 function playerStatsByMatch(matchId) {
   const endpoint = `${baseURL}/fixtures/`, // fixture must be left here as it is a part of the api json return
-    included = `${toInclude}substitutions,lineup,localTeam,visitorTeam,goals`,
+    included = `${toInclude}substitutions,lineup,goals,cards`,
     match = {
       uri: `${endpoint}${matchId}${key}${included}`,
       json: true
@@ -171,23 +165,13 @@ function playerStatsByMatch(matchId) {
   .then(match => {
     let lineup = match.data.lineup.data,
       substitutions = [],
-      homeClub = {
-        id: match.data.localTeam.data.id,
-        name: match.data.localTeam.data.name,
-        logo: match.data.localTeam.data.logo_path,
-        score: match.data.scores.localteam_score
-      },
-      awayClub = {
-        id: match.data.visitorTeam.data.id,
-        name: match.data.visitorTeam.data.name,
-        logo: match.data.visitorTeam.data.logo_path,
-        score: match.data.scores.visitorteam_score
-      },
+      goals = [],
+      cards = [],
       matchData = {
         lineup,
         substitutions,
-        homeClub,
-        awayClub
+        goals,
+        cards
       };
       match.data.substitutions.data.forEach(substitution => {
         let sub = {
@@ -198,7 +182,24 @@ function playerStatsByMatch(matchId) {
         };
         substitutions.push(sub);
       });
-    console.log(matchData.lineup);
+      match.data.goals.data.forEach(goal => {
+        let goalScored = {
+          playerScoredName: goal.player_name,
+          playerScoredId: goal.player_id,
+          playerAssistName: goal.player_assist_name,
+          playerAssistId: goal.player_assist_id
+        };
+        goals.push(goalScored);
+      });
+      match.data.cards.data.forEach(card => {
+        let cardEarned = {
+          type: card.type,
+          playerName: card.player_name,
+          playerId: card.player_id
+        };
+        cards.push(cardEarned);
+      });
+    console.log(matchData);
     return matchData;
   })
   .catch(error => {
@@ -206,7 +207,7 @@ function playerStatsByMatch(matchId) {
   });
 }
 
-// playerStatsByMatch(237283);
+playerStatsByMatch(237282);
 
 function teamPlayerIdsBySeason(seasonId) {
   const endpoint = `${baseURL}/teams/season/`,
@@ -264,34 +265,34 @@ function playerByIdBySeason(playerId, seasonId) {
   				playerStats: {
   				  gamesPlayed: stat.appearences,
   				  gamesStarted: stat.lineups,
-  					minutesPlayed: null,
-  	        goalsScored: null,
-  	        goalsConceded: null,
-  	        assists: null,
-  	    		shotsTaken: null,
-  	    		shotsOnGoal: null,
-  	    		foulsDrawn: null,
-  	    		foulsCommitted: null,
-  	    		yellowCards: null,
-  	    		yellowRedCards: null,
-  	    		redCards: null,
-  	    		passes: null,
-  	    		passingAccuracy: null,
-  	    		crosses: null,
-  	    		crossingAccuracy: null,
-  	    		timesOffside: null,
-  	    		saves: null,
-  	    		penaltiesScored: null,
-  	    		penaltiesMissed: null,
-  	    		tackles: null,
-  	    		blocks: null,
-  	    		interceptions: null,
-  	    		clearances: null
+  					minutesPlayed: 0,
+  	        goalsScored: 0,
+  	        goalsConceded: 0,
+  	        assists: 0,
+  	    		shotsTaken: 0,
+  	    		shotsOnGoal: 0,
+  	    		foulsDrawn: 0,
+  	    		foulsCommitted: 0,
+  	    		yellowCards: 0,
+  	    		yellowRedCards: 0,
+  	    		redCards: 0,
+  	    		passes: 0,
+  	    		passingAccuracy: 0,
+  	    		crosses: 0,
+  	    		crossingAccuracy: 0,
+  	    		timesOffside: 0,
+  	    		saves: 0,
+  	    		penaltiesScored: 0,
+  	    		penaltiesMissed: 0,
+  	    		tackles: 0,
+  	    		blocks: 0,
+  	    		interceptions: 0,
+  	    		clearances: 0
   				},
-  				playerValue: null, // in millions of $$$'s
-  				playerSchedule: null,
-  				playerFantasyPointsWeek: null,
-          playerFantasyPointsTotal: null
+  				playerValue: 0, // in millions of $$$'s
+  				playerSchedule: [],
+  				playerFantasyPointsWeek: 0,
+          playerFantasyPointsTotal: 0
         };
       }
     });

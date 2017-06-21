@@ -17,26 +17,38 @@ function playerInfo(leagueId) {
   .then(seasonId => {
     return teamPlayerIdsBySeason(seasonId)
     .then(playerIdList => {
-      // console.log('playerIdList length', playerIdList.length);
-      // return playerByIdBySeason(playerIdList[0], seasonId)
-      // .then(player => {
-      //   console.log(player);
-      // })
-      // .catch(error => {
-      //   console.log(`playerInfo playerByIdBySeason error: ${error}`);
-      // });
-      let playerList = [];
-      playerIdList.forEach(playerId => {
-        return playerByIdBySeason(playerId, seasonId)
-        .then(player => {
-          // console.log(player);
-          playerList.push(player);
-          console.log('playerList length', playerList.length);
+      return playerByIdBySeason(playerIdList[0], seasonId)
+      .then(player => {
+        // console.log(player);
+        return player;
+      })
+      .then(player => {
+        matchesByLeagueSeason(leagueId)
+        .then(matchIdList => {
+          matchIdList.forEach(matchId => {
+            playerStatsByMatch(matchId)
+            .then();
+          });
         })
         .catch(error => {
-          console.log(`playerInfo playerByIdBySeason error: ${error}`);
+          console.log(`playerInfo matchesByLeagueSeason error: ${error}`);
         });
+      })
+      .catch(error => {
+        console.log(`playerInfo playerByIdBySeason error: ${error}`);
       });
+      // let playerList = [];
+      // playerIdList.forEach(playerId => {
+      //   return playerByIdBySeason(playerId, seasonId)
+      //   .then(player => {
+      //     // console.log(player);
+      //     playerList.push(player);
+      //     console.log('playerList length', playerList.length);
+      //   })
+      //   .catch(error => {
+      //     console.log(`playerInfo playerByIdBySeason error: ${error}`);
+      //   });
+      // });
     })
     .catch(error => {
       console.log(`playerInfo teamPlayerIdsBySeason error: ${error}`);
