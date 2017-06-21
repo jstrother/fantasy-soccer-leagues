@@ -13,7 +13,7 @@ export default class Home extends React.Component {
           Create your own team and compete against others to prove you are the best at fantasy footy!
         </div>
         <br /><br />
-        <a href="/auth/google">Log In</a>
+        <a href="user/auth/google">Log In</a>
       </div>
     );
   }

@@ -155,7 +155,7 @@ function matchesByLeagueSeason(seasonId) {
 // this function retrieves player stats from a particular match by its ID
 function playerStatsByMatch(matchId) {
   const endpoint = `${baseURL}/fixtures/`, // fixture must be left here as it is a part of the api json return
-    included = `${toInclude}substitutions,lineup,goals,cards`,
+    included = `${toInclude}substitutions,lineup,goals,cards,localTeam,visitorTeam`,
     match = {
       uri: `${endpoint}${matchId}${key}${included}`,
       json: true
@@ -164,10 +164,22 @@ function playerStatsByMatch(matchId) {
   return rp(match)
   .then(match => {
     let lineup = match.data.lineup.data,
+      homeClub = {
+        name: match.data.localTeam.data.name,
+        id: match.data.localTeam.data.id,
+        logo: match.data.localTeam.data.logo_path
+      },
+      awayClub = {
+        name: match.data.visitorTeam.data.name,
+        id: match.data.visitorTeam.data.id,
+        logo: match.data.visitorTeam.data.logo_path
+      },
       substitutions = [],
       goals = [],
       cards = [],
       matchData = {
+        homeClub,
+        awayClub,
         lineup,
         substitutions,
         goals,
@@ -199,7 +211,7 @@ function playerStatsByMatch(matchId) {
         };
         cards.push(cardEarned);
       });
-    console.log(matchData);
+    // console.log(matchData);
     return matchData;
   })
   .catch(error => {

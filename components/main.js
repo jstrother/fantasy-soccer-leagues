@@ -13,7 +13,6 @@ export default class Main extends React.Component {
   render() {
     return(
       <div>
-        <div dangerouslySetInnerHTML={{ __html: '<!--{script}-->' }} /> {/* according to the google oauth (routes.js:46), it needs to replace the commented {script} with an actual line of inline js in the html file being used */}
         <br />
         <br />
         <Switch>

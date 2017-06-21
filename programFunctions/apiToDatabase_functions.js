@@ -8,9 +8,7 @@ const createData = require('./crud_functions.js').createData,
 	teamPlayerIdsBySeason = require('./api_functions.js').teamPlayerIdsBySeason,
 	playerByIdBySeason = require('./api_functions.js').playerByIdBySeason,
 	playerStatsByMatch = require('./api_functions.js').playerStatsByMatch,
-	Player = require('../models/player_model.js'),
-	config = require('../config.js'),
-	database = `${config.DATABASE_URL}/collections/players`;
+	Player = require('../models/player_model.js');
 	
 function playerInfo(leagueId) {
   return seasonByLeague(leagueId)
@@ -19,20 +17,9 @@ function playerInfo(leagueId) {
     .then(playerIdList => {
       return playerByIdBySeason(playerIdList[0], seasonId)
       .then(player => {
-        // console.log(player);
-        return player;
-      })
-      .then(player => {
-        matchesByLeagueSeason(leagueId)
-        .then(matchIdList => {
-          matchIdList.forEach(matchId => {
-            playerStatsByMatch(matchId)
-            .then();
-          });
-        })
-        .catch(error => {
-          console.log(`playerInfo matchesByLeagueSeason error: ${error}`);
-        });
+        if (!(Player.where('playerIdFromAPI', player.playerIdFromAPI))) {
+          createData(player, Player);
+        }
       })
       .catch(error => {
         console.log(`playerInfo playerByIdBySeason error: ${error}`);
@@ -41,9 +28,7 @@ function playerInfo(leagueId) {
       // playerIdList.forEach(playerId => {
       //   return playerByIdBySeason(playerId, seasonId)
       //   .then(player => {
-      //     // console.log(player);
-      //     playerList.push(player);
-      //     console.log('playerList length', playerList.length);
+      //     console.log(player);
       //   })
       //   .catch(error => {
       //     console.log(`playerInfo playerByIdBySeason error: ${error}`);
@@ -59,6 +44,6 @@ function playerInfo(leagueId) {
   });
 }
 
-// playerInfo(779);
+playerInfo(779);
 
 exports.playerInfo = playerInfo;
