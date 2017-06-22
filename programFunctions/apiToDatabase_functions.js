@@ -18,8 +18,10 @@ function playerInfo(leagueId) {
       playerIdList.forEach(playerId => {
         return playerByIdBySeason(playerId, seasonId)
         .then(player => {
-          if (player.playerIdFromAPI && Player.find().exists({playerIdFromAPI: player.playerIdFromAPI}, false)) {
-            createData(player, Player);
+          if (player.playerIdFromAPI) {
+            if (Player.find().exists({playerIdFromAPI: player.playerIdFromAPI}, false)) {
+              createData(player, Player);
+            }
           }
         })
         .catch(error => {
@@ -36,6 +38,6 @@ function playerInfo(leagueId) {
   });
 }
 
-playerInfo(779);
+// playerInfo(779);
 
 exports.playerInfo = playerInfo;

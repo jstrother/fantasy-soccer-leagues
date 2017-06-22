@@ -239,6 +239,7 @@ function teamPlayerIdsBySeason(seasonId) {
         });
       }
     });
+    console.log(playerIdList.length);
     return playerIdList;
   })
   .catch(error => {
@@ -246,7 +247,7 @@ function teamPlayerIdsBySeason(seasonId) {
   });
 }
 
-// teamPlayerIdsBySeason(914);
+teamPlayerIdsBySeason(914);
 
 function playerByIdBySeason(playerId, seasonId) {
   const endpoint = `${baseURL}/players/`,
