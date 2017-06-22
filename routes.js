@@ -18,7 +18,7 @@ passport.use(new gStrategy({
 		}, {accessToken}, {new: true, upsert: true})
 		.then(user => {
 			console.log(`user: ${user}`);
-			// callback(null, user);
+			callback(null, user);
 		})
 		.catch(error => {
 			console.log(`accessToken error: ${error}`);
@@ -27,7 +27,7 @@ passport.use(new gStrategy({
 ));
 
 passport.use(new bStrategy((token, done) => {
-	console.log('yes');
+	console.log('line 30');
     User.findOne({accessToken: token})
     .then(user => {
       return done(null, user);
@@ -44,7 +44,7 @@ router.get('/auth/google/callback', passport.authenticate('google', {
 	failureRedirect: '/',
 	session: false
 }),(req, res) => {
-	console.log('another yes');
+	console.log('line 47');
 	fs.readFile('/public/index.html', html => {
 		html = html.toString();
 		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/user';</script>`);
