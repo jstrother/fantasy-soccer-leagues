@@ -7,7 +7,6 @@ const express = require('express'),
   router = express.Router(),
   User = require("./models/user_model.js");
 
-// the following 2 passport.use and then the first 3 app.get for secure login
 passport.use(new gStrategy({
 	clientID: '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com',
 	clientSecret: config.SECRET,
@@ -16,7 +15,7 @@ passport.use(new gStrategy({
 	(accessToken, refreshToken, profile, callback) => {
 		User.findOneAndUpdate({
 			googleId: profile.id
-		}, {accessToken}, {new: true})
+		}, {accessToken}, {new: true, upsert: true})
 		.then(user => {
 			console.log(`user: ${user}`);
 			// callback(null, user);
