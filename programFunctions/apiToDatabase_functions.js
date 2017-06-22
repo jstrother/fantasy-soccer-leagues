@@ -15,25 +15,17 @@ function playerInfo(leagueId) {
   .then(seasonId => {
     return teamPlayerIdsBySeason(seasonId)
     .then(playerIdList => {
-      return playerByIdBySeason(playerIdList[0], seasonId)
-      .then(player => {
-        if (!(Player.where('playerIdFromAPI', player.playerIdFromAPI))) {
-          createData(player, Player);
-        }
-      })
-      .catch(error => {
-        console.log(`playerInfo playerByIdBySeason error: ${error}`);
+      playerIdList.forEach(playerId => {
+        return playerByIdBySeason(playerId, seasonId)
+        .then(player => {
+          if (player.playerIdFromAPI && Player.find().exists({playerIdFromAPI: player.playerIdFromAPI}, false)) {
+            createData(player, Player);
+          }
+        })
+        .catch(error => {
+          console.log(`playerInfo playerByIdBySeason error: ${error}`);
+        });
       });
-      // let playerList = [];
-      // playerIdList.forEach(playerId => {
-      //   return playerByIdBySeason(playerId, seasonId)
-      //   .then(player => {
-      //     console.log(player);
-      //   })
-      //   .catch(error => {
-      //     console.log(`playerInfo playerByIdBySeason error: ${error}`);
-      //   });
-      // });
     })
     .catch(error => {
       console.log(`playerInfo teamPlayerIdsBySeason error: ${error}`);
