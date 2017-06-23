@@ -219,7 +219,7 @@ function playerStatsByMatch(matchId) {
   });
 }
 
-playerStatsByMatch(237282);
+// playerStatsByMatch(237282);
 
 function teamPlayerIdsBySeason(seasonId) {
   const endpoint = `${baseURL}/teams/season/`,
@@ -239,7 +239,6 @@ function teamPlayerIdsBySeason(seasonId) {
         });
       }
     });
-    console.log(playerIdList.length);
     return playerIdList;
   })
   .catch(error => {
@@ -247,7 +246,7 @@ function teamPlayerIdsBySeason(seasonId) {
   });
 }
 
-teamPlayerIdsBySeason(914);
+// teamPlayerIdsBySeason(914);
 
 function playerByIdBySeason(playerId, seasonId) {
   const endpoint = `${baseURL}/players/`,

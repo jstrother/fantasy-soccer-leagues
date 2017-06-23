@@ -19,13 +19,17 @@ function playerInfo(leagueId) {
         return playerByIdBySeason(playerId, seasonId)
         .then(player => {
           if (player.playerIdFromAPI) {
-            if (Player.find().exists({playerIdFromAPI: player.playerIdFromAPI}, false)) {
+            Player.where('playerIdFromAPI', player.playerIdFromAPI)
+            .then(playerFromDB => {
               createData(player, Player);
-            }
+            })
+            .catch(error => {
+              console.log(`player where error: ${error}`);
+            });
           }
         })
         .catch(error => {
-          console.log(`playerInfo playerByIdBySeason error: ${error}`);
+          console.log(`playerByIdBySeason error: ${error}`);
         });
       });
     })
@@ -38,6 +42,6 @@ function playerInfo(leagueId) {
   });
 }
 
-// playerInfo(779);
+playerInfo(779);
 
 exports.playerInfo = playerInfo;

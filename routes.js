@@ -45,7 +45,8 @@ router.get('/auth/google/callback', passport.authenticate('google', {
 	session: false
 }),(req, res) => {
 	console.log('line 47');
-	fs.readFile('/public/index.html', html => {
+	fs.readFile('public/index.html', html => {
+		console.log(`html: ${html}`);
 		html = html.toString();
 		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/user';</script>`);
 		res.send(html);

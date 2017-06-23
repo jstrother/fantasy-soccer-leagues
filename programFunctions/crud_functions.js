@@ -16,7 +16,7 @@ const readData = (data, model) => {
 };
 
 const updateData = (data, newData, model) => {
-  return model.findOneAndUpdate(data, newData, {new: true})
+  return model.findOneAndUpdate(data, newData, {new: true, upsert: true})
   .catch(error => {
     console.log(`updateData error: ${error}`);
   });
