@@ -1,5 +1,6 @@
 const express = require('express'),
 	fs = require('fs'),
+	path = require('path'),
 	config = require('./config.js'),
 	passport = require('passport'),
 	gStrategy = require('passport-google-oauth20').Strategy,
@@ -27,7 +28,7 @@ passport.use(new gStrategy({
 ));
 
 passport.use(new bStrategy((token, done) => {
-	console.log('line 30');
+	console.log('line 31');
     User.findOne({accessToken: token})
     .then(user => {
       return done(null, user);
@@ -45,16 +46,11 @@ router.get('/auth/google/callback', passport.authenticate('google', {
 	session: false
 }),(req, res) => {
 	console.log('line 47');
-	fs.readFile('public/index.html', html => {
-		console.log(`html: ${html}`);
+	fs.readFile(path.join(__dirname, 'public/index.html'), (error, html) => {
+		if (error) console.log(`readFile error: ${error}`);
 		html = html.toString();
-		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN=${req.user.accessToken}; history.replaceState(null, null, '/user';</script>`);
+		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN="${req.user.accessToken}"; history.replaceState(null, null, '/user');</script>`);
 		res.send(html);
-	})
-	.catch(error => {
-		res.status(500).json({
-			message: 'Internal Server Error'
-		});
 	});
 });
 

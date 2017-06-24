@@ -18,15 +18,14 @@ const config = require('./config.js'),
 	readData = require('./programFunctions/crud_functions.js').readData,
 	updateData = require('./programFunctions/crud_functions.js').updateData,
 	deleteData = require('./programFunctions/crud_functions.js').deleteData,
-	routes = require('./routes.js').router,
-	playerInfo = require('./programFunctions/apiToDatabase_functions.js').playerInfo;
+	routes = require('./routes.js').router;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(passport.initialize());
-// app.use('/user', routes);
+app.use('/user', routes);
 app.get('*', (req, res) => {
-	res.sendFile(path.join(`${__dirname}/public/index.html`));
+	res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 console.log('Server Started');

@@ -108,6 +108,7 @@ function leagueSelector(leagueName) {
 // leagueSelector();
 
 // combine the following two functions into one beautiful beast
+
 // this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
