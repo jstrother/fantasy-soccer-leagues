@@ -107,16 +107,19 @@ function leagueSelector(leagueName) {
 
 // leagueSelector();
 
+// combine the following two functions into one beautiful beast
 // this function returns the current season in a particular league
 function seasonByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
+    included = `${toInclude}season.fixtures.lineup,season.fixtures.localTeam,season.fixtures.visitorTeam`,
     league = {
-      uri: `${endpoint}${leagueId}${key}`,
+      uri: `${endpoint}${leagueId}${key}${included}`,
       json: true
     };
     
   return rp(league)
   .then(league => {
+    console.log(league.data.season.data.fixtures.data[0]);
     return league.data.current_season_id;
   })
   .catch(error => {
@@ -130,7 +133,7 @@ function seasonByLeague(leagueId) {
 // game, match, and fixture are same thing
 function playersStatsByLeagueSeason(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
-    included = `${toInclude}rounds.fixtures.lineup,rounds.fixtures.substitutions,rounds.fixtures.goals,rounds.fixtures.cards,rounds.fixtures.localTeam,rounds.fixtures.visitorTeam,stages`, // fixtures must be left here as it is a part of the api json return
+    included = `${toInclude}rounds.fixtures.lineup,rounds.fixtures.localTeam,rounds.fixtures.visitorTeam,stages`, // fixtures must be left here as it is a part of the api json return
     result = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
@@ -138,7 +141,7 @@ function playersStatsByLeagueSeason(seasonId) {
   
   return rp(result)
   .then(result => {
-    console.log(result.data.rounds.data[0].fixtures.data[0].lineup.data[0].stats);
+    // console.log(result.data.rounds.data[0].fixtures.data[0].lineup.data[0].stats);
     let stageId,
       rounds = [];
     result.data.stages.data.forEach(stage => {
@@ -166,10 +169,7 @@ function playersStatsByLeagueSeason(seasonId) {
             awayClubLogo: fixture.visitorTeam.data.logo_path,
             awayClubScore: fixture.scores.visitorteam_score,
             status: fixture.time.status,
-            lineup: [],
-            substitutions: [],
-            goals: [],
-            cards: []
+            lineup: []
           };
           fixture.lineup.data.forEach(player => {
             let playerInfo = {
@@ -194,16 +194,29 @@ function playersStatsByLeagueSeason(seasonId) {
                   redCards: player.stats.cards.redCards === null ? 0 : player.stats.cards.redCards
                 },
                 passing: {
-                  // the two accuracy stats here return a number, but it is to be treated as a percentage
+                  // the two accuracy stats here return numbers, but are to be treated as percentages
                   totalCrosses: player.stats.passing.total_crosses === null ? 0 : player.stats.passing.total_crosses,
                   crossesAccuracy: player.stats.passing.crosses_accuracy === null ? 0 : player.stats.passing.crosses_accuracy,
                   passes: player.stats.passing.passes === null ? 0 : player.stats.passing.passes,
                   passingAccuracy: player.stats.passing.passes_accuracy === null ? 0 : player.stats.passing.passes_accuracy
                 },
                 other: {
-                  assists: player.stats.other.assists === null ? 0 : player.stats.other.assists
+                  assists: player.stats.other.assists === null ? 0 : player.stats.other.assists,
+                  offsides: player.stats.other.offsides === null ? 0 : player.stats.other.offsides,
+                  saves: player.stats.other.saves === null ? 0 : player.stats.other.saves,
+                  penaltiesScored: player.stats.other.pen_scored === null ? 0 : player.stats.other.pen_scored,
+                  penaltiesMissed: player.stats.other.pen_missed === null ? 0 : player.stats.other.pen_missed,
+                  penaltiesSaved: player.stats.other.pen_saved === null ? 0 : player.stats.other.pen_saved,
+                  tackles: player.stats.other.tackles === null ? 0 : player.stats.other.tackles,
+                  blocks: player.stats.other.blocks === null ? 0 : player.stats.other.blocks,
+                  interceptions: player.stats.other.interceptions === null ? 0 : player.stats.other.interceptions,
+                  clearances: player.stats.other.clearances === null ? 0 : player.stats.other.clearances,
+                  minutesPlayed: player.stats.other.minutes_played === null ? 0 : player.stats.other.minutes_played
                 }
-              }
+              },
+              fantasyPoints: 2,  // player earns 2 points just for being in lineup (aka starting the match)
+              // fantasy points calculated below
+              
             };
             fixtureInfo.lineup.push(playerInfo);
           });
@@ -212,14 +225,14 @@ function playersStatsByLeagueSeason(seasonId) {
         rounds.push(roundInfo);
       }
     });
-    // console.log(rounds);
+    console.log(rounds[0].fixtures[0].lineup[0]);
   })
   .catch(error => {
-    console.log(`matchesByLeagueSeason error: ${error}`);
+    console.log(`playersStatsByLeagueSeason error: ${error}`);
   });
 }
 
-playersStatsByLeagueSeason(914);
+// playersStatsByLeagueSeason(914);
 
 // function playerByIdBySeason(playerId, seasonId) {
 //   const endpoint = `${baseURL}/players/`,
