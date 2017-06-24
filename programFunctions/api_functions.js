@@ -126,11 +126,11 @@ function seasonByLeague(leagueId) {
 
 // seasonByLeague(779);
 
-// this function is to retrieve matches in a league's season [returns array]
+// retrieves player stats for each match in league season
 // match and fixture are interchangeable
 function playersStatsByLeagueSeason(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
-    included = `${toInclude}fixtures.lineup`, // fixture must be left here as it is a part of the api json return
+    included = `${toInclude}fixtures.lineup,fixtures.substitutions,fixtures.goals,fixtures.cards,fixtures.other,fixtures.events,`, // fixture must be left here as it is a part of the api json return
     result = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
@@ -138,8 +138,13 @@ function playersStatsByLeagueSeason(seasonId) {
   
   return rp(result)
   .then(result => {
-    console.log(result.data.fixtures.data[0].lineup.data[0]);
-    
+    console.log(result.data.fixtures.data[0].lineup.data[5]);
+    result.data.fixtures.data.forEach(fixture => {
+      // create player object here & populate with data available from this level
+      fixture.lineup.data.forEach(lineup => {
+        // continue to populate with data, do this with each of the subIncludes above
+      })
+    })
   })
   .catch(error => {
     console.log(`matchesByLeagueSeason error: ${error}`);
