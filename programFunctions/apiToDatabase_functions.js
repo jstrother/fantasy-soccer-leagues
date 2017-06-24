@@ -34,7 +34,7 @@ function playerInfo(leagueId) {
       });
     })
     .catch(error => {
-      console.log(`playerInfo teamPlayerIdsBySeason error: ${error}`);
+      console.log(`teamPlayerIdsBySeason error: ${error}`);
     });
   })
   .catch(error => {
@@ -42,6 +42,6 @@ function playerInfo(leagueId) {
   });
 }
 
-playerInfo(779);
+// playerInfo(779);
 
 exports.playerInfo = playerInfo;

@@ -128,29 +128,25 @@ function seasonByLeague(leagueId) {
 
 // this function is to retrieve matches in a league's season [returns array]
 // match and fixture are interchangeable
-function matchesByLeagueSeason(seasonId) {
+function playersStatsByLeagueSeason(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
-    included = `${toInclude}fixtures`, // fixture must be left here as it is a part of the api json return
-    matches = {
+    included = `${toInclude}fixtures.lineup`, // fixture must be left here as it is a part of the api json return
+    result = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
     };
   
-  return rp(matches)
-  .then(matches => {
-    let matchIdList = [];
-    matches.data.fixtures.data.forEach(fixture => { // fixtures must be left here as it is a part of the api json return
-      matchIdList.push(fixture.id);
-    });
-    console.log(matchIdList);
-    return matchIdList;
+  return rp(result)
+  .then(result => {
+    console.log(result.data.fixtures.data[0].lineup.data[0]);
+    
   })
   .catch(error => {
     console.log(`matchesByLeagueSeason error: ${error}`);
   });
 }
 
-// matchesByLeagueSeason(914);
+playersStatsByLeagueSeason(914);
 
 // this function retrieves player stats from a particular match by its ID
 function playerStatsByMatch(matchId) {
@@ -220,33 +216,6 @@ function playerStatsByMatch(matchId) {
 }
 
 // playerStatsByMatch(237282);
-
-function teamPlayerIdsBySeason(seasonId) {
-  const endpoint = `${baseURL}/teams/season/`,
-    included = `${toInclude}squad`,
-    teams = {
-      uri: `${endpoint}${seasonId}${key}${included}`,
-      json: true
-    };
-  
-  return rp(teams)
-  .then(teams => {
-    let playerIdList = [];
-    teams.data.forEach(team => {
-      if(team.squad.data.length > 0) {
-        team.squad.data.forEach(player => {
-          playerIdList.push(player.player_id);
-        });
-      }
-    });
-    return playerIdList;
-  })
-  .catch(error => {
-    console.log(`teamPlayerIdsBySeason error: ${error}`);
-  });
-}
-
-// teamPlayerIdsBySeason(914);
 
 function playerByIdBySeason(playerId, seasonId) {
   const endpoint = `${baseURL}/players/`,
@@ -320,7 +289,6 @@ function playerByIdBySeason(playerId, seasonId) {
 
 exports.leagueSelector = leagueSelector;
 exports.seasonByLeague = seasonByLeague;
-exports.matchesByLeagueSeason = matchesByLeagueSeason;
+exports.playersStatsByLeagueSeason = playersStatsByLeagueSeason;
 exports.playerStatsByMatch = playerStatsByMatch;
 exports.playerByIdBySeason = playerByIdBySeason;
-exports.teamPlayerIdsBySeason = teamPlayerIdsBySeason;
