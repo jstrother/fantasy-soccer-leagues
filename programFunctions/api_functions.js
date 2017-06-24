@@ -130,7 +130,7 @@ function seasonByLeague(leagueId) {
 // match and fixture are interchangeable
 function playersStatsByLeagueSeason(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
-    included = `${toInclude}fixtures.lineup,fixtures.substitutions,fixtures.goals,fixtures.cards,fixtures.other,fixtures.events,`, // fixture must be left here as it is a part of the api json return
+    included = `${toInclude}fixtures.lineup,fixtures.substitutions,fixtures.goals,fixtures.cards,fixtures.other,fixtures.localTeam,fixtures.visitorTeam`, // fixture must be left here as it is a part of the api json return
     result = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
@@ -138,13 +138,28 @@ function playersStatsByLeagueSeason(seasonId) {
   
   return rp(result)
   .then(result => {
-    console.log(result.data.fixtures.data[0].lineup.data[5]);
+    // console.log(result.data.fixtures.data[0].lineup.data[5]);
+    let playerData = {},
+      homeClub = {},
+      awayClub = {};
     result.data.fixtures.data.forEach(fixture => {
-      // create player object here & populate with data available from this level
-      fixture.lineup.data.forEach(lineup => {
-        // continue to populate with data, do this with each of the subIncludes above
-      })
-    })
+      homeClub.clubIdFromApi = fixture.localTeam.data.id;
+      homeClub.clubName = fixture.localTeam.data.name;
+      homeClub.clubLogo = fixture.localTeam.data.logo_path;
+      
+      awayClub.clubIdFromApi = fixture.visitorTeam.data.id;
+      awayClub.clubName = fixture.visitorTeam.data.name;
+      awayClub.clubLogo = fixture.visitorTeam.data.logo_path;
+      
+      fixture.lineup.data.forEach(lineupMember => {
+        return playerByIdBySeason(lineupMember.player_id, seasonId)
+        .then(player => {
+          playerData.playerCommonName = lineupMember.data.common_name;
+          playerData.playerClubName = homeClub.clubName;
+          console.log(playerData);
+        });
+      });
+    });
   })
   .catch(error => {
     console.log(`matchesByLeagueSeason error: ${error}`);
@@ -152,75 +167,6 @@ function playersStatsByLeagueSeason(seasonId) {
 }
 
 playersStatsByLeagueSeason(914);
-
-// this function retrieves player stats from a particular match by its ID
-function playerStatsByMatch(matchId) {
-  const endpoint = `${baseURL}/fixtures/`, // fixture must be left here as it is a part of the api json return
-    included = `${toInclude}substitutions,lineup,goals,cards,localTeam,visitorTeam`,
-    match = {
-      uri: `${endpoint}${matchId}${key}${included}`,
-      json: true
-    };
-  
-  return rp(match)
-  .then(match => {
-    let lineup = match.data.lineup.data,
-      homeClub = {
-        name: match.data.localTeam.data.name,
-        id: match.data.localTeam.data.id,
-        logo: match.data.localTeam.data.logo_path
-      },
-      awayClub = {
-        name: match.data.visitorTeam.data.name,
-        id: match.data.visitorTeam.data.id,
-        logo: match.data.visitorTeam.data.logo_path
-      },
-      substitutions = [],
-      goals = [],
-      cards = [],
-      matchData = {
-        homeClub,
-        awayClub,
-        lineup,
-        substitutions,
-        goals,
-        cards
-      };
-      match.data.substitutions.data.forEach(substitution => {
-        let sub = {
-          playerOut: substitution.player_out_name,
-          playerOutId: substitution.player_out_id,
-          playerIn: substitution.player_in_name,
-          playerInId: substitution.player_in_id
-        };
-        substitutions.push(sub);
-      });
-      match.data.goals.data.forEach(goal => {
-        let goalScored = {
-          playerScoredName: goal.player_name,
-          playerScoredId: goal.player_id,
-          playerAssistName: goal.player_assist_name,
-          playerAssistId: goal.player_assist_id
-        };
-        goals.push(goalScored);
-      });
-      match.data.cards.data.forEach(card => {
-        let cardEarned = {
-          type: card.type,
-          playerName: card.player_name,
-          playerId: card.player_id
-        };
-        cards.push(cardEarned);
-      });
-    // console.log(matchData);
-    return matchData;
-  })
-  .catch(error => {
-    console.log(`playerStatsByMatch error: ${error}`);
-  });
-}
-
-// playerStatsByMatch(237282);
 
 function playerByIdBySeason(playerId, seasonId) {
   const endpoint = `${baseURL}/players/`,
@@ -295,5 +241,4 @@ function playerByIdBySeason(playerId, seasonId) {
 exports.leagueSelector = leagueSelector;
 exports.seasonByLeague = seasonByLeague;
 exports.playersStatsByLeagueSeason = playersStatsByLeagueSeason;
-exports.playerStatsByMatch = playerStatsByMatch;
 exports.playerByIdBySeason = playerByIdBySeason;
