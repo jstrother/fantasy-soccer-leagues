@@ -127,10 +127,10 @@ function seasonByLeague(leagueId) {
 // seasonByLeague(779);
 
 // retrieves player stats for each match in league season
-// match and fixture are interchangeable
+// game, match, and fixture are same thing
 function playersStatsByLeagueSeason(seasonId) {
   const endpoint = `${baseURL}/seasons/`,
-    included = `${toInclude}fixtures.lineup,fixtures.substitutions,fixtures.goals,fixtures.cards,fixtures.other,fixtures.localTeam,fixtures.visitorTeam`, // fixture must be left here as it is a part of the api json return
+    included = `${toInclude}rounds.fixtures.lineup,rounds.fixtures.substitutions,rounds.fixtures.goals,rounds.fixtures.cards,rounds.fixtures.localTeam,rounds.fixtures.visitorTeam,stages`, // fixtures must be left here as it is a part of the api json return
     result = {
       uri: `${endpoint}${seasonId}${key}${included}`,
       json: true
@@ -138,28 +138,81 @@ function playersStatsByLeagueSeason(seasonId) {
   
   return rp(result)
   .then(result => {
-    // console.log(result.data.fixtures.data[0].lineup.data[5]);
-    let playerData = {},
-      homeClub = {},
-      awayClub = {};
-    result.data.fixtures.data.forEach(fixture => {
-      homeClub.clubIdFromApi = fixture.localTeam.data.id;
-      homeClub.clubName = fixture.localTeam.data.name;
-      homeClub.clubLogo = fixture.localTeam.data.logo_path;
-      
-      awayClub.clubIdFromApi = fixture.visitorTeam.data.id;
-      awayClub.clubName = fixture.visitorTeam.data.name;
-      awayClub.clubLogo = fixture.visitorTeam.data.logo_path;
-      
-      fixture.lineup.data.forEach(lineupMember => {
-        return playerByIdBySeason(lineupMember.player_id, seasonId)
-        .then(player => {
-          playerData.playerCommonName = lineupMember.data.common_name;
-          playerData.playerClubName = homeClub.clubName;
-          console.log(playerData);
-        });
-      });
+    console.log(result.data.rounds.data[0].fixtures.data[0].lineup.data[0].stats);
+    let stageId,
+      rounds = [];
+    result.data.stages.data.forEach(stage => {
+      if (stage.name === 'Regular Season') {
+        stageId = stage.id;
+      }
     });
+    result.data.rounds.data.forEach(round => {
+      let roundInfo = {};
+      if (round.stage_id === stageId && round.fixtures.data.length > 0) {
+        roundInfo.name = round.name;
+        roundInfo.id = round.id;
+        roundInfo.start = round.start;
+        roundInfo.end = round.end;
+        roundInfo.fixtures = [];
+        round.fixtures.data.forEach(fixture => {
+          let fixtureInfo = {
+            id: fixture.id,
+            homeClubName: fixture.localTeam.data.name,
+            homeClubId: fixture.localTeam.data.id,
+            homeClubLogo: fixture.localTeam.data.logo_path,
+            homeClubScore: fixture.scores.localteam_score,
+            awayClubName: fixture.visitorTeam.data.name,
+            awayClubId: fixture.visitorTeam.data.id,
+            awayClubLogo: fixture.visitorTeam.data.logo_path,
+            awayClubScore: fixture.scores.visitorteam_score,
+            status: fixture.time.status,
+            lineup: [],
+            substitutions: [],
+            goals: [],
+            cards: []
+          };
+          fixture.lineup.data.forEach(player => {
+            let playerInfo = {
+              id: player.player_id,
+              name: player.player_name,
+              position: player.position,
+              stats: {
+                shots: {
+                  shotsTotal: player.stats.shots.shots_total === null ? 0 : player.stats.shots.shots_total,
+                  shotsOnGoal: player.stats.shots.shots_on_goal === null ? 0 : player.stats.shots.shots_on_goal
+                },
+                goals: {
+                  scored: player.stats.goals.scored === null ? 0 : player.stats.goals.scored,
+                  conceded: player.stats.goals.conceded === null ? 0 : player.stats.goals.conceded
+                },
+                fouls: {
+                  drawn: player.stats.fouls.drawn === null ? 0 : player.stats.fouls.drawn,
+                  committed: player.stats.fouls.committed === null ? 0 : player.stats.fouls.committed
+                },
+                cards: {
+                  yellowCards: player.stats.cards.yellowCards === null ? 0 : player.stats.cards.yellowCards,
+                  redCards: player.stats.cards.redCards === null ? 0 : player.stats.cards.redCards
+                },
+                passing: {
+                  // the two accuracy stats here return a number, but it is to be treated as a percentage
+                  totalCrosses: player.stats.passing.total_crosses === null ? 0 : player.stats.passing.total_crosses,
+                  crossesAccuracy: player.stats.passing.crosses_accuracy === null ? 0 : player.stats.passing.crosses_accuracy,
+                  passes: player.stats.passing.passes === null ? 0 : player.stats.passing.passes,
+                  passingAccuracy: player.stats.passing.passes_accuracy === null ? 0 : player.stats.passing.passes_accuracy
+                },
+                other: {
+                  assists: player.stats.other.assists === null ? 0 : player.stats.other.assists
+                }
+              }
+            };
+            fixtureInfo.lineup.push(playerInfo);
+          });
+          roundInfo.fixtures.push(fixtureInfo);
+        });
+        rounds.push(roundInfo);
+      }
+    });
+    // console.log(rounds);
   })
   .catch(error => {
     console.log(`matchesByLeagueSeason error: ${error}`);
@@ -168,77 +221,77 @@ function playersStatsByLeagueSeason(seasonId) {
 
 playersStatsByLeagueSeason(914);
 
-function playerByIdBySeason(playerId, seasonId) {
-  const endpoint = `${baseURL}/players/`,
-    included = `${toInclude}stats,position,team`,
-    playerInfo = {
-      uri: `${endpoint}${playerId}${key}${included}`,
-      json: true
-    };
+// function playerByIdBySeason(playerId, seasonId) {
+//   const endpoint = `${baseURL}/players/`,
+//     included = `${toInclude}stats,position,team`,
+//     playerInfo = {
+//       uri: `${endpoint}${playerId}${key}${included}`,
+//       json: true
+//     };
   
-  return rp(playerInfo)
-  .then(playerInfo => {
-    // console.log(playerInfo.data.stats.data);
-    let player = {};
-    playerInfo.data.stats.data.forEach(stat => {
-      if (stat.season_id === seasonId) {
-        // console.log(stat);
-        player = {
-          playerCommonName: playerInfo.data.common_name,
-          playerFirstName: playerInfo.data.firstname,
-          playerLastName: playerInfo.data.lastname,
-          playerPictureLink: playerInfo.data.image_path,
-          playerIdFromAPI: playerInfo.data.player_id,
-          playerClubIdFromAPI: playerInfo.data.team.data.id,
-          playerClub: playerInfo.data.team.data.name,
-          playerClubLogo: playerInfo.data.team.data.logo_path,
-          playerPositionId: playerInfo.data.position.data.id,
-          playerPosition: playerInfo.data.position.data.name,
-  				playerStats: {
-  				  gamesPlayed: stat.appearences,
-  				  gamesStarted: stat.lineups,
-  					minutesPlayed: 0,
-  	        goalsScored: 0,
-  	        goalsConceded: 0,
-  	        assists: 0,
-  	    		shotsTaken: 0,
-  	    		shotsOnGoal: 0,
-  	    		foulsDrawn: 0,
-  	    		foulsCommitted: 0,
-  	    		yellowCards: 0,
-  	    		yellowRedCards: 0,
-  	    		redCards: 0,
-  	    		passes: 0,
-  	    		passingAccuracy: 0,
-  	    		crosses: 0,
-  	    		crossingAccuracy: 0,
-  	    		timesOffside: 0,
-  	    		saves: 0,
-  	    		penaltiesScored: 0,
-  	    		penaltiesMissed: 0,
-  	    		tackles: 0,
-  	    		blocks: 0,
-  	    		interceptions: 0,
-  	    		clearances: 0
-  				},
-  				playerValue: 0, // in millions of $$$'s
-  				playerSchedule: [],
-  				playerFantasyPointsWeek: 0,
-          playerFantasyPointsTotal: 0
-        };
-      }
-    });
-    // console.log(player);
-    return player;
-  })
-  .catch(error => {
-    console.log(`playerByIdBySeason error: ${error}`);
-  });
-}
+//   return rp(playerInfo)
+//   .then(playerInfo => {
+//     // console.log(playerInfo.data.stats.data);
+//     let player = {};
+//     playerInfo.data.stats.data.forEach(stat => {
+//       if (stat.season_id === seasonId) {
+//         // console.log(stat);
+//         player = {
+//           playerCommonName: playerInfo.data.common_name,
+//           playerFirstName: playerInfo.data.firstname,
+//           playerLastName: playerInfo.data.lastname,
+//           playerPictureLink: playerInfo.data.image_path,
+//           playerIdFromAPI: playerInfo.data.player_id,
+//           playerClubIdFromAPI: playerInfo.data.team.data.id,
+//           playerClub: playerInfo.data.team.data.name,
+//           playerClubLogo: playerInfo.data.team.data.logo_path,
+//           playerPositionId: playerInfo.data.position.data.id,
+//           playerPosition: playerInfo.data.position.data.name,
+//   				playerStats: {
+//   				  gamesPlayed: stat.appearences,
+//   				  gamesStarted: stat.lineups,
+//   					minutesPlayed: 0,
+//   	        goalsScored: 0,
+//   	        goalsConceded: 0,
+//   	        assists: 0,
+//   	    		shotsTaken: 0,
+//   	    		shotsOnGoal: 0,
+//   	    		foulsDrawn: 0,
+//   	    		foulsCommitted: 0,
+//   	    		yellowCards: 0,
+//   	    		yellowRedCards: 0,
+//   	    		redCards: 0,
+//   	    		passes: 0,
+//   	    		passingAccuracy: 0,
+//   	    		crosses: 0,
+//   	    		crossingAccuracy: 0,
+//   	    		timesOffside: 0,
+//   	    		saves: 0,
+//   	    		penaltiesScored: 0,
+//   	    		penaltiesMissed: 0,
+//   	    		tackles: 0,
+//   	    		blocks: 0,
+//   	    		interceptions: 0,
+//   	    		clearances: 0
+//   				},
+//   				playerValue: 0, // in millions of $$$'s
+//   				playerSchedule: [],
+//   				playerFantasyPointsWeek: 0,
+//           playerFantasyPointsTotal: 0
+//         };
+//       }
+//     });
+//     // console.log(player);
+//     return player;
+//   })
+//   .catch(error => {
+//     console.log(`playerByIdBySeason error: ${error}`);
+//   });
+// }
 
 // playerByIdBySeason(918, 914);
 
 exports.leagueSelector = leagueSelector;
 exports.seasonByLeague = seasonByLeague;
 exports.playersStatsByLeagueSeason = playersStatsByLeagueSeason;
-exports.playerByIdBySeason = playerByIdBySeason;
+// exports.playerByIdBySeason = playerByIdBySeason;
