@@ -113,7 +113,7 @@ function leagueSelector(leagueName) {
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
-    included = `${toInclude}season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam,season.stages.rounds.fixtures.visitorTeam,season.stages.rounds.fixtures.goals,season.stages.rounds.fixtures.substitutions`,
+    included = `${toInclude}season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam.squad,season.stages.rounds.fixtures.visitorTeam.squad,season.stages.rounds.fixtures.goals,season.stages.rounds.fixtures.substitutions`,
     results = {
       uri: `${endpoint}${leagueId}${key}${included}`,
       json: true
@@ -121,7 +121,7 @@ function playerStatsByLeague(leagueId) {
     
   return rp(results)
   .then(results => {
-    console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].bench.data[0]);
+    // console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].localTeam.data.squad);
     let allData = {
       playerMasterList: [],
       roundsData: []
@@ -131,26 +131,20 @@ function playerStatsByLeague(leagueId) {
       if (stage.name === 'Regular Season') {
         allData.stageId = stage.id;
         // this part is to make a master list of all players in the league
-        // but it's not working as expected
-        // stage.rounds.data.forEach(round => {
-        //   round.fixtures.data.forEach(fixture => {
-        //     fixture.lineup.data.forEach(player => {
-        //       let starterInfo = {
-        //         id: player.player_id,
-        //         name: player.player_name,
-        //         position: player.position,
-        //         playerClubId: player.team_id
-        //       };
-        //       if (!allData.playerMasterList.includes(starterInfo.id)) {
-        //         allData.playerMasterList.push(starterInfo);
-        //       }
-        //     });
-        //   });
-        // });
+        let playerIdList = [];
+        stage.rounds.data.forEach(round => {
+          round.fixtures.data.forEach(fixture => {
+            fixture.localTeam.data.squad.data.forEach(player => {
+              playerIdList.push(player.player_id);
+            });
+          });
+        });
+        playerIdList = [... new Set(playerIdList)];
+        console.log(playerIdList.length);
         
         stage.rounds.data.forEach(round => {
           let roundInfo = {};
-          if (round.stage_id === allData.stageId && round.fixtures.data.length > 0) { // double-conditional if statement
+          if (round.stage_id === allData.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement
             roundInfo.name = round.name;
             roundInfo.id = round.id;
             roundInfo.start = round.start;
@@ -470,7 +464,7 @@ function playerStatsByLeague(leagueId) {
               roundInfo.fixtures.push(fixtureInfo);
             }); // close of round.fixtures.data.forEach
             allData.roundsData.push(roundInfo);
-          } // close of double-conditional if statement
+          } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
       }
     });
