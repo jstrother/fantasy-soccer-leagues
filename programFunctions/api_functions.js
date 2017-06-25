@@ -140,7 +140,31 @@ function playerStatsByLeague(leagueId) {
           });
         });
         playerIdList = [... new Set(playerIdList)];
-        console.log(playerIdList.length);
+        
+        playerIdList.forEach(playerId => {
+          // const endpoint2 = `${baseURL}/players/`,
+          //   included2 = `${toInclude}team,position`,
+          //   results2 = {
+          //     uri: `${endpoint2}${playerId}${key}${included2}`,
+          //     json: true
+          //   };
+          
+          // return rp(results2)
+          // .then(results2 => {
+          //   let playerInfo = {
+          //     id: results2.data.player_id,
+          //     commonName: results2.data.player_name,
+          //     fullName: results2.data.fullname,
+          //     firstName: results2.data.firstname,
+          //     lastName: results2.data.lastname,
+          //     playerPicture: results2.data.image_path,
+              
+          //   };
+          // })
+          // .catch(error => {
+          //   console.log(`playerIdList search error: ${error}`);
+          // });
+        });
         
         stage.rounds.data.forEach(round => {
           let roundInfo = {};
@@ -480,3 +504,27 @@ playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;
+
+const endpoint2 = `${baseURL}/players/`,
+  included2 = `${toInclude}team,position`,
+  results2 = {
+    uri: `${endpoint2}918${key}${included2}`,
+    json: true
+  };
+
+return rp(results2)
+.then(results2 => {
+  console.log(results2.data.team);
+  let playerInfo = {
+    id: results2.data.player_id,
+    commonName: results2.data.player_name,
+    fullName: results2.data.fullname,
+    firstName: results2.data.firstname,
+    lastName: results2.data.lastname,
+    playerPicture: results2.data.image_path,
+    
+  };
+})
+.catch(error => {
+  console.log(`playerIdList2 search error: ${error}`);
+});

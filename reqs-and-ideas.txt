@@ -2,16 +2,14 @@ needed for Server
 	(R/W = real world)
 	
 	subs can be made, but they earn 2/3 of the points that would have otherwise been made
+	
+	api_functions.js only needs to run once an hour
 
 	fantasy users would want to know:
 		how each of their R/W players did in each game
 		what the schedule is for the R/W league to determine who to start on fantasy squad (some players might have a week off)
 		player stats, injuries, suspensions, other facts that would determine who would be started
 	
-	get schedule for each league for fantasy play
-	get list of game dates (player stats depend upon this to search by game)
-	get list of players in each league and player IDs
-	get game stats and fantasy points for each player after each game
 	update database and update each fantasy squad
 	update league/divisional standings
 	
@@ -19,9 +17,7 @@ needed for Server
 	
 	outgoing data:
 		these are created from the incoming data, and some functions, using the schema in the models folder
-			new Player
 			new User
-			new Schedule
 			new Fantasy Club
 			new Fantasy League
 			new Fantasy Schedule
