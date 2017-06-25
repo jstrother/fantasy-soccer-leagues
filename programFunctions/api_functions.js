@@ -113,7 +113,7 @@ function leagueSelector(leagueName) {
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
-    included = `${toInclude}season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam,season.stages.rounds.fixtures.visitorTeam,season.stages.rounds.fixtures.goals`,
+    included = `${toInclude}season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam,season.stages.rounds.fixtures.visitorTeam,season.stages.rounds.fixtures.goals,season.stages.rounds.fixtures.substitutions`,
     results = {
       uri: `${endpoint}${leagueId}${key}${included}`,
       json: true
@@ -121,7 +121,7 @@ function playerStatsByLeague(leagueId) {
     
   return rp(results)
   .then(results => {
-    console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].goals.data);
+    console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].bench.data[0]);
     let allData = {
       playerMasterList: [],
       roundsData: []
@@ -168,7 +168,8 @@ function playerStatsByLeague(leagueId) {
                 awayClubLogo: fixture.visitorTeam.data.logo_path,
                 awayClubScore: fixture.scores.visitorTeam_score,
                 status: fixture.time.status,
-                lineup: []
+                lineup: [],
+                bench: []
               };
               fixture.lineup.data.forEach(starter => {
                 let starterInfo = {
@@ -318,6 +319,154 @@ function playerStatsByLeague(leagueId) {
                 
                 fixtureInfo.lineup.push(starterInfo);
               }); // close of fixture.lineup.data.forEach
+              fixture.bench.data.forEach(bencher => {
+                let bencherInfo = {
+                  id: bencher.player_id,
+                  name: bencher.player_name,
+                  position: bencher.position,
+                  clubId: bencher.team_id,
+                  stats: {
+                    shots: {
+                      shotsTotal: bencher.stats.shots.shots_total === null ? 0 : bencher.stats.shots.shots_total,
+                      shotsOnGoal: bencher.stats.shots.shots_on_goal === null ? 0 : bencher.stats.shots.shots_on_goal
+                    },
+                    goals: {
+                      scored: bencher.stats.goals.scored === null ? 0 : bencher.stats.goals.scored,
+                      conceded: bencher.stats.goals.conceded === null ? 0 : bencher.stats.goals.conceded
+                    },
+                    fouls: {
+                      drawn: bencher.stats.fouls.drawn === null ? 0 : bencher.stats.fouls.drawn,
+                      committed: bencher.stats.fouls.committed === null ? 0 : bencher.stats.fouls.committed
+                    },
+                    cards: {
+                      yellowCards: bencher.stats.cards.yellowcards === null ? 0 : bencher.stats.cards.yellowcards,
+                      redCards: bencher.stats.cards.redcards === null ? 0 : bencher.stats.cards.redcards
+                    },
+                    passing: {
+                      // the two accuracy stats here return numbers, but are to be treated as percentages
+                      totalCrosses: bencher.stats.passing.total_crosses === null ? 0 : bencher.stats.passing.total_crosses,
+                      crossesAccuracy: bencher.stats.passing.crosses_accuracy === null ? 0 : bencher.stats.passing.crosses_accuracy,
+                      passes: bencher.stats.passing.passes === null ? 0 : bencher.stats.passing.passes,
+                      passingAccuracy: bencher.stats.passing.passes_accuracy === null ? 0 : bencher.stats.passing.passes_accuracy
+                    },
+                    other: {
+                      assists: bencher.stats.other.assists === null ? 0 : bencher.stats.other.assists,
+                      offsides: bencher.stats.other.offsides === null ? 0 : bencher.stats.other.offsides,
+                      saves: bencher.stats.other.saves === null ? 0 : bencher.stats.other.saves,
+                      penaltiesScored: bencher.stats.other.pen_scored === null ? 0 : bencher.stats.other.pen_scored,
+                      penaltiesMissed: bencher.stats.other.pen_missed === null ? 0 : bencher.stats.other.pen_missed,
+                      penaltiesSaved: bencher.stats.other.pen_saved === null ? 0 : bencher.stats.other.pen_saved,
+                      tackles: bencher.stats.other.tackles === null ? 0 : bencher.stats.other.tackles,
+                      blocks: bencher.stats.other.blocks === null ? 0 : bencher.stats.other.blocks,
+                      interceptions: bencher.stats.other.interceptions === null ? 0 : bencher.stats.other.interceptions,
+                      clearances: bencher.stats.other.clearances === null ? 0 : bencher.stats.other.clearances,
+                      minutesPlayed: bencher.stats.other.minutes_played === null ? 0 : bencher.stats.other.minutes_played
+                    }
+                  },
+                  fantasyPoints: 0 // gets 0 points for being a bencher, players who start the game have this begin at 2
+                }; // close of bencherInfo object
+                // fantasy points calculated 
+                
+                // minutes played
+                if (bencherInfo.stats.other.minutesPlayed >= 60) {
+                  bencherInfo.fantasyPoints += 2;
+                }
+                
+                // goal scored: 5pts for midfielders and forwards, 6 points for goalkeepers and defenders
+                if (bencherInfo.stats.other.minutesPlayed >= 60) {
+                  if (bencherInfo.position === 'G' || bencherInfo.position === 'D') {
+                    bencherInfo.fantasyPoints += bencherInfo.stats.goals.scored * 6;
+                  }
+                  else {
+                    bencherInfo.fantasyPoints += bencherInfo.stats.goals.scored * 5;
+                  }
+                }
+                
+                // goal conceded: -1pt for every 2 - goalkeepers and defenders only
+                if (bencherInfo.position === 'G' || bencherInfo.position === 'D') {
+                  if (bencherInfo.stats.goals.conceded > 0) {
+                    bencherInfo.fantasyPoints += -(Math.floor((bencherInfo.stats.goals.conceded / 2)));
+                  }
+                }
+                
+                // assists: 3pts for each assist
+                bencherInfo.fantasyPoints += bencherInfo.stats.other.assists * 3;
+                
+                // clean sheets: 5pts for goalkeepers and defenders, 1pt for midfielders
+                if (bencherInfo.position === 'G' || bencherInfo.position === 'D') {
+                  if (bencherInfo.clubId === fixture.localTeam.data.id && fixture.scores.visitorTeam_score === 0) {
+                    bencherInfo.fantasyPoints += 5;
+                  }
+                  else if (bencherInfo.clubId === fixture.visitorTeam.data.id && fixture.scores.localTeam_score === 0) {
+                    bencherInfo.fantasyPoints += 5;
+                  }
+                }
+                else if (bencherInfo.position === 'M') {
+                  if (bencherInfo.clubId === fixture.localTeam.data.id && fixture.scores.visitorTeam_score === 0) {
+                    bencherInfo.fantasyPoints += 1;
+                  }
+                  else if (bencherInfo.clubId === fixture.visitorTeam.data.id && fixture.scores.localTeam_score === 0) {
+                    bencherInfo.fantasyPoints += 1;
+                  }
+                }
+                
+                // penalty missed: -3pts
+                bencherInfo.fantasyPoints += -(bencherInfo.stats.other.penaltiesMissed * 3);
+                
+                // penalty scored: 6pts
+                bencherInfo.fantasyPoints += (bencherInfo.stats.other.penaltiesScored * 6);
+                
+                // penalty saved: 5pts
+                bencherInfo.fantasyPoints += (bencherInfo.stats.other.penaltiesSaved * 5);
+                
+                // own goal: -2pts (waiting to see if api can give this data)
+                // bencherInfo.fantasyPoints -= ()
+                
+                // yellow cards: -1pt
+                bencherInfo.fantasyPoints += -bencherInfo.stats.cards.yellowCards;
+                
+                // red cards: -3pts
+                bencherInfo.fantasyPoints += -(bencherInfo.stats.cards.redCards * 3);
+                
+                // saves: 1pt - goalkeepers only
+                if (bencherInfo.position === 'G') {
+                  bencherInfo.fantasyPoints += bencherInfo.stats.other.saves;
+                }
+                
+                // passing accuracy: 1 pt for every 35 passes AND accuracy >= 85
+                if (bencherInfo.stats.passing.passes > 0 && bencherInfo.stats.passing.passingAccuracy >= 85) {
+                  bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.passing.passes / 35);
+                }
+                
+                // shots taken: 1pt for every 4
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.shots.shotsTotal / 4);
+                
+                // shots on goal: 2pts for every 4
+                bencherInfo.fantasyPoints += (Math.floor(bencherInfo.stats.shots.shotsOnGoal / 4) * 2);
+                
+                // fouls committed: -1pt for every 4
+                bencherInfo.fantasyPoints += -(Math.floor(bencherInfo.stats.fouls.committed / 4));
+                
+                // fouls received: 1pt for every 4
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.fouls.committed / 4);
+                
+                // crosses: 1pt for every 3
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.passing.totalCrosses / 3);
+                
+                // clearances: 1pt for every 4
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.other.clearances / 4);
+                
+                // blocks: 1pt for every 2
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.other.blocks / 2);
+                
+                // interceptions: 1pt for every 4
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.other.interceptions / 4);
+                
+                // tackles: 1pt for every 4
+                bencherInfo.fantasyPoints += Math.floor(bencherInfo.stats.other.tackles / 4);
+                
+                fixtureInfo.bench.push(bencherInfo);
+              }); // close of fixture.bench.data.forEach
               roundInfo.fixtures.push(fixtureInfo);
             }); // close of round.fixtures.data.forEach
             allData.roundsData.push(roundInfo);
@@ -325,7 +474,7 @@ function playerStatsByLeague(leagueId) {
         }); // close of stage.rounds.data.forEach
       }
     });
-    // console.log(allData.roundsData[0].fixtures[0].lineup[0]);
+    // console.log(allData.roundsData[0].fixtures[0].bench[0]);
     return allData;
   })
   .catch(error => {
