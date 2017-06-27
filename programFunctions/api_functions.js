@@ -163,14 +163,13 @@ function playerStatsByLeague(leagueId) {
               playerClubName: results2.data.team.data.name,
               playerClubLogo: results2.data.team.data.logo_path
             };
-            allData.playerMasterList.push(playerInfo);
+            console.log(allData.playerMasterList);
+            return allData.playerMasterList.push(playerInfo);
           })
           .catch(error => {
             console.log(`playerIdList search error: ${error}`);
           });
         });
-        
-        console.log(allData.playerMasterList);
         
         stage.rounds.data.forEach(round => {
           let roundInfo = {};
@@ -203,40 +202,86 @@ function playerStatsByLeague(leagueId) {
                   clubId: starter.team_id,
                   stats: {
                     shots: {
-                      shotsTotal: starter.stats.shots.shots_total === null ? 0 : starter.stats.shots.shots_total,
-                      shotsOnGoal: starter.stats.shots.shots_on_goal === null ? 0 : starter.stats.shots.shots_on_goal
+                      shotsTotal: starter.stats.shots.shots_total === null 
+                        ? 0 
+                        : starter.stats.shots.shots_total,
+                      shotsOnGoal: starter.stats.shots.shots_on_goal === null 
+                        ? 0 
+                        : starter.stats.shots.shots_on_goal
                     },
                     goals: {
-                      scored: starter.stats.goals.scored === null ? 0 : starter.stats.goals.scored,
-                      conceded: starter.stats.goals.conceded === null ? 0 : starter.stats.goals.conceded
+                      scored: starter.stats.goals.scored === null 
+                        ? 0 
+                        : starter.stats.goals.scored,
+                      conceded: starter.stats.goals.conceded === null 
+                        ? 0 
+                        : starter.stats.goals.conceded
                     },
                     fouls: {
-                      drawn: starter.stats.fouls.drawn === null ? 0 : starter.stats.fouls.drawn,
-                      committed: starter.stats.fouls.committed === null ? 0 : starter.stats.fouls.committed
+                      drawn: starter.stats.fouls.drawn === null 
+                        ? 0 
+                        : starter.stats.fouls.drawn,
+                      committed: starter.stats.fouls.committed === null 
+                        ? 0 
+                        : starter.stats.fouls.committed
                     },
                     cards: {
-                      yellowCards: starter.stats.cards.yellowcards === null ? 0 : starter.stats.cards.yellowcards,
-                      redCards: starter.stats.cards.redcards === null ? 0 : starter.stats.cards.redcards
+                      yellowCards: starter.stats.cards.yellowcards === null 
+                        ? 0 
+                        : starter.stats.cards.yellowcards,
+                      redCards: starter.stats.cards.redcards === null 
+                        ? 0 
+                        : starter.stats.cards.redcards
                     },
                     passing: {
                       // the two accuracy stats here return numbers, but are to be treated as percentages
-                      totalCrosses: starter.stats.passing.total_crosses === null ? 0 : starter.stats.passing.total_crosses,
-                      crossesAccuracy: starter.stats.passing.crosses_accuracy === null ? 0 : starter.stats.passing.crosses_accuracy,
-                      passes: starter.stats.passing.passes === null ? 0 : starter.stats.passing.passes,
-                      passingAccuracy: starter.stats.passing.passes_accuracy === null ? 0 : starter.stats.passing.passes_accuracy
+                      totalCrosses: starter.stats.passing.total_crosses === null 
+                        ? 0 
+                        : starter.stats.passing.total_crosses,
+                      crossesAccuracy: starter.stats.passing.crosses_accuracy === null 
+                        ? 0 
+                        : starter.stats.passing.crosses_accuracy,
+                      passes: starter.stats.passing.passes === null 
+                        ? 0 
+                        : starter.stats.passing.passes,
+                      passingAccuracy: starter.stats.passing.passes_accuracy === null 
+                        ? 0 
+                        : starter.stats.passing.passes_accuracy
                     },
                     other: {
-                      assists: starter.stats.other.assists === null ? 0 : starter.stats.other.assists,
-                      offsides: starter.stats.other.offsides === null ? 0 : starter.stats.other.offsides,
-                      saves: starter.stats.other.saves === null ? 0 : starter.stats.other.saves,
-                      penaltiesScored: starter.stats.other.pen_scored === null ? 0 : starter.stats.other.pen_scored,
-                      penaltiesMissed: starter.stats.other.pen_missed === null ? 0 : starter.stats.other.pen_missed,
-                      penaltiesSaved: starter.stats.other.pen_saved === null ? 0 : starter.stats.other.pen_saved,
-                      tackles: starter.stats.other.tackles === null ? 0 : starter.stats.other.tackles,
-                      blocks: starter.stats.other.blocks === null ? 0 : starter.stats.other.blocks,
-                      interceptions: starter.stats.other.interceptions === null ? 0 : starter.stats.other.interceptions,
-                      clearances: starter.stats.other.clearances === null ? 0 : starter.stats.other.clearances,
-                      minutesPlayed: starter.stats.other.minutes_played === null ? 0 : starter.stats.other.minutes_played
+                      assists: starter.stats.other.assists === null 
+                        ? 0 
+                        : starter.stats.other.assists,
+                      offsides: starter.stats.other.offsides === null 
+                        ? 0 
+                        : starter.stats.other.offsides,
+                      saves: starter.stats.other.saves === null 
+                        ? 0 
+                        : starter.stats.other.saves,
+                      penaltiesScored: starter.stats.other.pen_scored === null 
+                        ? 0 
+                        : starter.stats.other.pen_scored,
+                      penaltiesMissed: starter.stats.other.pen_missed === null 
+                        ? 0 
+                        : starter.stats.other.pen_missed,
+                      penaltiesSaved: starter.stats.other.pen_saved === null 
+                        ? 0 
+                        : starter.stats.other.pen_saved,
+                      tackles: starter.stats.other.tackles === null 
+                        ? 0 
+                        : starter.stats.other.tackles,
+                      blocks: starter.stats.other.blocks === null 
+                        ? 0 
+                        : starter.stats.other.blocks,
+                      interceptions: starter.stats.other.interceptions === null 
+                        ? 0 
+                        : starter.stats.other.interceptions,
+                      clearances: starter.stats.other.clearances === null 
+                        ? 0 
+                        : starter.stats.other.clearances,
+                      minutesPlayed: starter.stats.other.minutes_played === null 
+                        ? 0 
+                        : starter.stats.other.minutes_played
                     }
                   },
                   fantasyPoints: 2 // gets 2 points for being a starter, players off of the bench have this start at 0
@@ -351,40 +396,86 @@ function playerStatsByLeague(leagueId) {
                   clubId: bencher.team_id,
                   stats: {
                     shots: {
-                      shotsTotal: bencher.stats.shots.shots_total === null ? 0 : bencher.stats.shots.shots_total,
-                      shotsOnGoal: bencher.stats.shots.shots_on_goal === null ? 0 : bencher.stats.shots.shots_on_goal
+                      shotsTotal: bencher.stats.shots.shots_total === null 
+                        ? 0 
+                        : bencher.stats.shots.shots_total,
+                      shotsOnGoal: bencher.stats.shots.shots_on_goal === null 
+                        ? 0 
+                        : bencher.stats.shots.shots_on_goal
                     },
                     goals: {
-                      scored: bencher.stats.goals.scored === null ? 0 : bencher.stats.goals.scored,
-                      conceded: bencher.stats.goals.conceded === null ? 0 : bencher.stats.goals.conceded
+                      scored: bencher.stats.goals.scored === null 
+                        ? 0 
+                        : bencher.stats.goals.scored,
+                      conceded: bencher.stats.goals.conceded === null 
+                        ? 0 
+                        : bencher.stats.goals.conceded
                     },
                     fouls: {
-                      drawn: bencher.stats.fouls.drawn === null ? 0 : bencher.stats.fouls.drawn,
-                      committed: bencher.stats.fouls.committed === null ? 0 : bencher.stats.fouls.committed
+                      drawn: bencher.stats.fouls.drawn === null 
+                        ? 0 
+                        : bencher.stats.fouls.drawn,
+                      committed: bencher.stats.fouls.committed === null 
+                        ? 0 
+                        : bencher.stats.fouls.committed
                     },
                     cards: {
-                      yellowCards: bencher.stats.cards.yellowcards === null ? 0 : bencher.stats.cards.yellowcards,
-                      redCards: bencher.stats.cards.redcards === null ? 0 : bencher.stats.cards.redcards
+                      yellowCards: bencher.stats.cards.yellowcards === null 
+                        ? 0 
+                        : bencher.stats.cards.yellowcards,
+                      redCards: bencher.stats.cards.redcards === null 
+                        ? 0 
+                        : bencher.stats.cards.redcards
                     },
                     passing: {
-                      // the two accuracy stats here return numbers, but are to be treated as percentages
-                      totalCrosses: bencher.stats.passing.total_crosses === null ? 0 : bencher.stats.passing.total_crosses,
-                      crossesAccuracy: bencher.stats.passing.crosses_accuracy === null ? 0 : bencher.stats.passing.crosses_accuracy,
-                      passes: bencher.stats.passing.passes === null ? 0 : bencher.stats.passing.passes,
-                      passingAccuracy: bencher.stats.passing.passes_accuracy === null ? 0 : bencher.stats.passing.passes_accuracy
+                      // the two accuracy stats here return numbers, but are to be treated as percentages in your head
+                      totalCrosses: bencher.stats.passing.total_crosses === null 
+                        ? 0 
+                        : bencher.stats.passing.total_crosses,
+                      crossesAccuracy: bencher.stats.passing.crosses_accuracy === null 
+                        ? 0 
+                        : bencher.stats.passing.crosses_accuracy,
+                      passes: bencher.stats.passing.passes === null 
+                        ? 0 
+                        : bencher.stats.passing.passes,
+                      passingAccuracy: bencher.stats.passing.passes_accuracy === null 
+                        ? 0 
+                        : bencher.stats.passing.passes_accuracy
                     },
                     other: {
-                      assists: bencher.stats.other.assists === null ? 0 : bencher.stats.other.assists,
-                      offsides: bencher.stats.other.offsides === null ? 0 : bencher.stats.other.offsides,
-                      saves: bencher.stats.other.saves === null ? 0 : bencher.stats.other.saves,
-                      penaltiesScored: bencher.stats.other.pen_scored === null ? 0 : bencher.stats.other.pen_scored,
-                      penaltiesMissed: bencher.stats.other.pen_missed === null ? 0 : bencher.stats.other.pen_missed,
-                      penaltiesSaved: bencher.stats.other.pen_saved === null ? 0 : bencher.stats.other.pen_saved,
-                      tackles: bencher.stats.other.tackles === null ? 0 : bencher.stats.other.tackles,
-                      blocks: bencher.stats.other.blocks === null ? 0 : bencher.stats.other.blocks,
-                      interceptions: bencher.stats.other.interceptions === null ? 0 : bencher.stats.other.interceptions,
-                      clearances: bencher.stats.other.clearances === null ? 0 : bencher.stats.other.clearances,
-                      minutesPlayed: bencher.stats.other.minutes_played === null ? 0 : bencher.stats.other.minutes_played
+                      assists: bencher.stats.other.assists === null 
+                        ? 0 
+                        : bencher.stats.other.assists,
+                      offsides: bencher.stats.other.offsides === null 
+                        ? 0 
+                        : bencher.stats.other.offsides,
+                      saves: bencher.stats.other.saves === null 
+                        ? 0 
+                        : bencher.stats.other.saves,
+                      penaltiesScored: bencher.stats.other.pen_scored === null 
+                        ? 0 
+                        : bencher.stats.other.pen_scored,
+                      penaltiesMissed: bencher.stats.other.pen_missed === null 
+                        ? 0 
+                        : bencher.stats.other.pen_missed,
+                      penaltiesSaved: bencher.stats.other.pen_saved === null 
+                        ? 0 
+                        : bencher.stats.other.pen_saved,
+                      tackles: bencher.stats.other.tackles === null 
+                        ? 0 
+                        : bencher.stats.other.tackles,
+                      blocks: bencher.stats.other.blocks === null 
+                        ? 0 
+                        : bencher.stats.other.blocks,
+                      interceptions: bencher.stats.other.interceptions === null 
+                        ? 0 
+                        : bencher.stats.other.interceptions,
+                      clearances: bencher.stats.other.clearances === null 
+                        ? 0 
+                        : bencher.stats.other.clearances,
+                      minutesPlayed: bencher.stats.other.minutes_played === null 
+                        ? 0 
+                        : bencher.stats.other.minutes_played
                     }
                   },
                   fantasyPoints: 0 // gets 0 points for being a bencher, players who start the game have this begin at 2
@@ -506,7 +597,7 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-// playerStatsByLeague(779);
+playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;

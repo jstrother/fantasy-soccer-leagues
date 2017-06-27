@@ -1,5 +1,4 @@
 // components/user.js
-// imported into fantasyGame.js
 
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
@@ -8,22 +7,24 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import FantasyClub from './fantasyClub.js';
-import Schedule from './schedule.js';
 import FantasySchedule from './fantasySchedule.js';
 import FantasyLeague from './fantasyLeague.js';
 import FantasyChampsLeague from './fantasyChampsLeague.js';
 
 export default class User extends React.Component {
-	initialSetup = state => {if (!state.user.name) {
-		state = {
-	    open: true,
-	  };
+	constructor(props){
+		super(props);
+		if (!this.state.user.name) {
+			this.state = {
+		    open: true,
+		  };
+		}
+		else {
+			this.state = {
+		    open: false,
+		  };
+		}
 	}
-	else {
-		state = {
-	    open: false,
-	  };
-	}}
 
   handleOpen = () => {
     this.setState({open: true});
@@ -48,7 +49,7 @@ export default class User extends React.Component {
         onTouchTap={this.handleClose}
       />,
     ];
-		
+		console.log(this);
 		return(
 			<div>
 				<div>User Page</div>
@@ -76,7 +77,6 @@ export default class User extends React.Component {
 				<FantasySchedule />
 				<FantasyLeague />
 				<FantasyChampsLeague />
-				<Schedule />
 			</div>
 		);
 	}
