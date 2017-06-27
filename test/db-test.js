@@ -6,9 +6,7 @@ const
 	FantasyClub = require('../models/fantasyClub_model.js'),
 	FantasyLeague = require('../models/fantasyLeague_model.js'),
 	FantasyChampsLeague = require('../models/fantasyChampsLeague_model.js'),
-	FantasyMatch = require('../models/fantasyMatch_model.js'),
 	FantasySchedule = require('../models/fantasySchedule_model.js'),
-	Player = require('../models/player_model.js'),
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../programFunctions/crud_functions.js');
 
@@ -79,55 +77,6 @@ describe('Champions League', () => {
 	}).timeout(5000);
 });
 
-describe('Fantasy Match', () => {
-	it('should not exist', () => {
-		const sampleFantasyMatch = {
-			homeClub: 'another team'
-		};
-		
-		return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
-	}).timeout(5000);
-	it('should create a new fantasy match', () => {
-		const sampleFantasyMatch = {
-			homeClub: 'another team'
-		};
-		
-		return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
-	}).timeout(5000);
-	it('should update a fantasy match', () => {
-		const sampleFantasyMatch = {
-			homeClub: 'another team'
-		};
-		
-		return updateData(sampleFantasyMatch, {homeClub: 'a third team'}, FantasyMatch)
-		.then(updatedItem => {
-			updatedItem.should.have.property('homeClub', 'a third team');
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-	it('should remove a fantasy match', () => {
-		const sampleFantasyMatch2 = {
-			homeClub: 'a third team'
-		};
-		
-		return deleteData(sampleFantasyMatch2, FantasyMatch)
-		.then(deletedItem => {
-			readData(sampleFantasyMatch2, FantasyMatch)
-			.then(deletedItem => {
-				deletedItem.should.not.exist;
-			})
-			.catch(error => {
-				console.log(`error: ${error}`);
-			});
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-});
-
 describe('Fantasy Schedule', () => {
 	it('should not exist', () => {
 		const sampleFantasySchedule = {
@@ -176,55 +125,6 @@ describe('Fantasy Schedule', () => {
 		return deleteData(sampleFantasySchedule2, FantasySchedule)
 		.then(deletedItem => {
 			readData(sampleFantasySchedule2, FantasySchedule)
-			.then(deletedItem => {
-				deletedItem.should.not.exist;
-			})
-			.catch(error => {
-				console.log(`error: ${error}`);
-			});
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-});
-
-describe('Player', () => {
-	it('should not exist', () => {
-		const samplePlayer = {
-			playerPosition: 'Defender'
-		};
-		
-		return readData(samplePlayer, Player).should.eventually.not.exist;
-	}).timeout(5000);
-	it('should create a new r/w player', () => {
-		const samplePlayer = {
-			playerPosition: 'Defender'
-		};
-		
-		return createData(samplePlayer, Player).should.eventually.exist;
-	}).timeout(5000);
-	it('should update a r/w player', () => {
-		const samplePlayer = {
-			playerPosition: 'Defender'
-		};
-		
-		return updateData(samplePlayer, {playerPosition: 'Midfield'}, Player)
-		.then(updatedItem => {
-			updatedItem.should.have.property('playerPosition', 'Midfield');
-		})
-		.catch(error => {
-			console.log(`error: ${error}`);
-		});
-	}).timeout(5000);
-	it('should remove a r/w player', () => {
-		const samplePlayer2 = {
-			playerPosition: 'Midfield'
-		};
-		
-		return deleteData(samplePlayer2, Player)
-		.then(deletedItem => {
-			readData(samplePlayer2, Player)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})

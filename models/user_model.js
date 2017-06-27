@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 		name: {type: String, required: true},
 		accessToken: {type: String, required: true},
 		googleId: {type: String, required: true},
-		fantasyClub: String,
+		fantasyClubName: String,
 		fantasyLeague: String,
 		fantasyDivision: String,
 		fantasyChampsLeague: Boolean
