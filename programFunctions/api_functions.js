@@ -597,7 +597,7 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-playerStatsByLeague(779);
+// playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;

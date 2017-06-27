@@ -14,7 +14,7 @@ import FantasyChampsLeague from './fantasyChampsLeague.js';
 export default class User extends React.Component {
 	constructor(props){
 		super(props);
-		if (!this.state.user.name) {
+		if (!this.props.user.name) {
 			this.state = {
 		    open: true,
 		  };
