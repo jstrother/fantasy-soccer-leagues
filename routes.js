@@ -29,6 +29,7 @@ passport.use(new gStrategy({
 passport.use(new bStrategy((token, done) => {
     User.findOne({accessToken: token})
     .then(user => {
+    	console.log('line 32');
       return done(null, user);
     })
     .catch(error => {

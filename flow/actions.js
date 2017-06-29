@@ -4,11 +4,15 @@
 require('isomorphic-fetch');
 
 export const logIn = (googleId, accessToken) => {
-  return {
-    type: 'LOG_IN',
-    googleId,
-    accessToken
-  };
+  fetch('/user')
+  .then(response => {
+    console.log(response);
+    // return {
+    //   type: 'LOG_IN',
+    //   googleId,
+    //   accessToken
+    // };
+  });
 };
 
 export const updateRoster = (fantasyClub, player) => {
