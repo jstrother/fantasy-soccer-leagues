@@ -1,10 +1,12 @@
 // ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
 
-import {logIn} from '../actions.js';
-
-export const loginReducer = (state = [], action) => {
-  return state;
+let initialState = [];
+export const loginReducer = (state, action) => {
+  state = state || initialState;
+  if (action.type === 'LOG_IN') {
+    return state.user;
+  }
 };
 
 /*
