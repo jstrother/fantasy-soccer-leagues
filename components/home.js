@@ -2,12 +2,9 @@
 // imported into ./app.js
 
 import React from 'react';
-import store from '../flow/store.js';
+import { connect } from 'react-redux'
 
-export default class Home extends React.Component {
-  linkClick = () => {
-    store.dispatch('LOG_IN');
-  };
+class Home extends React.Component {
   
   render() {
     return (
@@ -19,9 +16,23 @@ export default class Home extends React.Component {
         </div>
         <br /><br />
         <a 
-          onClick={this.linkClick}
+          onClick={this.logIn}
           href="user/auth/google">Log In</a>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  // return {
+  //   onLinkClick: id => {
+  //     dispatch(logIn(googleId))
+  //   }
+  // };
+};
+
+const userHome = connect(
+  mapDispatchToProps
+)(Home);
+
+export default userHome;
