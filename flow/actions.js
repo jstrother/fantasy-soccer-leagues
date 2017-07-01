@@ -56,10 +56,10 @@ export const fetchUser = accessToken => dispatch => {
     dispatch(setUserSuccess(currentUser, 200));
     return;
   })
-  .catch(err => {
-    throw new Error(err);
+  .catch(error => {
+    throw new Error(error);
   });
-}
+};
 
 export const updateRoster = (fantasyClub, player) => {
   return {

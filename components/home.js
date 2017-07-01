@@ -11,6 +11,7 @@ import FantasyClub from './fantasyClub.js';
 import FantasySchedule from './fantasySchedule.js';
 import FantasyLeague from './fantasyLeague.js';
 import FantasyChampsLeague from './fantasyChampsLeague.js';
+import LoginPage from './loginPage.js';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -52,9 +53,9 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.app.currentUser,
-  loading: state.app.loading,
-  statusCode: state.app.statusCode
+  currentUser: state.currentUser,
+  loading: state.loading,
+  statusCode: state.statusCode
 });
 
 const LogIn = connect(
