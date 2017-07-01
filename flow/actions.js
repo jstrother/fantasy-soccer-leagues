@@ -1,28 +1,65 @@
 // ./flow/actions.js
-// imported into ./flow/reducers.js
+// imported into reducer files
 
 require('isomorphic-fetch');
 
-export const logIn = (googleId, accessToken) => {
-  fetch('/user')
-  .then(response => {
-    console.log(response);
-    if (response.status >= 400) {
-      throw new Error("Bad response from server");
+export const LOG_IN = 'LOG_IN';
+export const userRequest = () => ({
+  type: LOG_IN,
+  loading: true
+});
+
+export const SET_USER = 'SET_USER';
+export const setUser = (currentUser, statusCode) => ({
+  type: SET_USER,
+  currentUser,
+  loading: false,
+  statusCode
+});
+
+export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
+export const setUserSuccess = (currentUser, statusCode) => ({
+  type: SET_USER_SUCCESS,
+  currentUser,
+  loading: false,
+  statusCode
+});
+
+export const SET_USER_FAIL = 'SET_USER_FAIL';
+export const setUserFail = (currentUser, statusCode) => ({
+  type: SET_USER_FAIL,
+  currentUser,
+  loading: false,
+  statusCode
+});
+
+export const fetchUser = accessToken => dispatch => {
+  dispatch(userRequest());
+  return fetch('/user', {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
     }
-    return response.json;
   })
-  .then(response => {
-    return {
-      type: 'LOG_IN',
-      googleId,
-      accessToken
-    };
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 401) {
+        dispatch(setUser(null, res.status));
+        return;
+      } else {
+        dispatch(setUserFail(null, 500));
+      }
+      throw new Error(res.statusText);
+    }
+    return res.json();
   })
-  .catch(error => {
-    throw new Error("Log-in error");
+  .then(currentUser => {
+    dispatch(setUserSuccess(currentUser, 200));
+    return;
+  })
+  .catch(err => {
+    throw new Error(err);
   });
-};
+}
 
 export const updateRoster = (fantasyClub, player) => {
   return {

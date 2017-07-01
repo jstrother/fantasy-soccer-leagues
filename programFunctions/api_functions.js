@@ -1,5 +1,5 @@
 const rp = require('request-promise'),
-    key = require('../config.js').API_KEY,
+    key = require('../server/config.js').API_KEY,
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 

@@ -5,17 +5,17 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Header from './header.js';
-import Main from './main.js';
+import Login from './home.js';
 
-class App extends React.Component {
+export default class App extends React.Component {
 	render() {
 		return(
 			<div>
 	    	<Header />
-	    	<Main />
+	    	<Login />
 			</div>
 		);
 	}
 }
 
-export default withRouter(App);
+// export default withRouter(App);

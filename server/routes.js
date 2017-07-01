@@ -6,7 +6,7 @@ const express = require('express'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
   router = express.Router(),
-  User = require("./models/user_model.js");
+  User = require("../models/user_model.js");
 
 passport.use(new gStrategy({
 	clientID: config.CLIENT_ID,
@@ -83,9 +83,9 @@ router.get('/user',
 	(req, res) => res.json({
 		googleId: req.user.googleId,
 		displayName: req.user.displayName,
-		firstName: req.user.name.givenName,
-		lastName: req.user.name.familyName,
-		userPhoto: req.user.photos[0].value
+		firstName: req.user.givenName,
+		lastName: req.user.familyName,
+		userPhoto: req.user.userPhoto
 	})
 );
 
