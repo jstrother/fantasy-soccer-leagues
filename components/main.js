@@ -4,7 +4,7 @@
 import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import Home from './home.js';
+import LogIn from './home.js';
 import User from './user.js';
 
 export default class Main extends React.Component {
@@ -14,7 +14,7 @@ export default class Main extends React.Component {
         <br />
         <br />
         <Switch>
-          <Route exact path='/' component={Home} />
+          <Route exact path='/' component={LogIn} />
           <Route path='/user' component={User} />
         </Switch>
       </div>

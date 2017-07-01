@@ -1,7 +1,11 @@
 const mongoose = require('mongoose'),
 
 	userSchema = mongoose.Schema({
-		name: {type: String, required: true},
+		displayName: String,
+		firstName: String,
+		lastName: String,
+		userPhoto: String,
+		userEmail: String,
 		accessToken: {type: String, required: true},
 		googleId: {type: String, required: true},
 		fantasyClubName: String,

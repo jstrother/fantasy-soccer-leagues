@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import SignUpDialog from './signUpDialog.js';
 import FantasyClub from './fantasyClub.js';
 import FantasySchedule from './fantasySchedule.js';
 import FantasyLeague from './fantasyLeague.js';
@@ -14,7 +13,6 @@ export default class User extends React.Component {
 		return(
 			<div>
 				<div>User Page</div>
-        <SignUpDialog />
 				<FantasyClub />
 				<FantasySchedule />
 				<FantasyLeague />

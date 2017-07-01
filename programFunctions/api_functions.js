@@ -121,7 +121,7 @@ function playerStatsByLeague(leagueId) {
     
   return rp(results)
   .then(results => {
-    console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].bench.data[0]);
+    // console.log(results.data.season.data.stages.data[0].rounds.data[1].fixtures.data[3].goals);
     let allData = {
       playerMasterList: [],
       roundsData: []
@@ -194,12 +194,24 @@ function playerStatsByLeague(leagueId) {
                 lineup: [],
                 bench: []
               };
+              let ownGoalList = [];
+              fixture.goals.data.forEach(goal => {
+                if (goal.type === 'own-goal') {
+                  let ownGoal = {
+                    fixtureId: goal.fixture_id,
+                    playerId: goal.player_id
+                  };
+                  ownGoalList.push(ownGoal);
+                }
+              });
+              console.log(ownGoalList);
               fixture.lineup.data.forEach(starter => {
                 let starterInfo = {
                   id: starter.player_id,
                   name: starter.player_name,
                   position: starter.position,
                   clubId: starter.team_id,
+                  fixtureId: starter.fixture_id,
                   stats: {
                     shots: {
                       shotsTotal: starter.stats.shots.shots_total === null 
@@ -215,7 +227,14 @@ function playerStatsByLeague(leagueId) {
                         : starter.stats.goals.scored,
                       conceded: starter.stats.goals.conceded === null 
                         ? 0 
-                        : starter.stats.goals.conceded
+                        : starter.stats.goals.conceded,
+                      ownGoals: ownGoalList.forEach(ownGoal => {
+                        let numOwnGoals = 0;
+                        if (ownGoal.fixtureId === starter.fixtureId && ownGoal.playerId === starter.playerId) {
+                          numOwnGoals += 1;  
+                        }
+                        return numOwnGoals;
+                      })
                     },
                     fouls: {
                       drawn: starter.stats.fouls.drawn === null 
@@ -340,8 +359,8 @@ function playerStatsByLeague(leagueId) {
                 // penalty saved: 5pts
                 starterInfo.fantasyPoints += (starterInfo.stats.other.penaltiesSaved * 5);
                 
-                // own goal: -2pts (waiting to see if api can give this data)
-                // starterInfo.fantasyPoints -= ()
+                // own goal: -2pts
+                starterInfo.fantasyPoints += -(starterInfo.stats.goals.ownGoals * 2);
                 
                 // yellow cards: -1pt
                 starterInfo.fantasyPoints += -starterInfo.stats.cards.yellowCards;
@@ -394,6 +413,7 @@ function playerStatsByLeague(leagueId) {
                   name: bencher.player_name,
                   position: bencher.position,
                   clubId: bencher.team_id,
+                  fixtureId: bencher.fixture_id,
                   stats: {
                     shots: {
                       shotsTotal: bencher.stats.shots.shots_total === null 
@@ -409,7 +429,14 @@ function playerStatsByLeague(leagueId) {
                         : bencher.stats.goals.scored,
                       conceded: bencher.stats.goals.conceded === null 
                         ? 0 
-                        : bencher.stats.goals.conceded
+                        : bencher.stats.goals.conceded,
+                      ownGoals: ownGoalList.forEach(ownGoal => {
+                        let numOwnGoals = 0;
+                        if (ownGoal.fixtureId === bencher.fixtureId && ownGoal.playerId === bencher.playerId) {
+                          numOwnGoals += 1;  
+                        }
+                        return numOwnGoals;
+                      })
                     },
                     fouls: {
                       drawn: bencher.stats.fouls.drawn === null 
@@ -534,8 +561,8 @@ function playerStatsByLeague(leagueId) {
                 // penalty saved: 5pts
                 bencherInfo.fantasyPoints += (bencherInfo.stats.other.penaltiesSaved * 5);
                 
-                // own goal: -2pts (waiting to see if api can give this data)
-                // bencherInfo.fantasyPoints -= ()
+                // own goal: -2pts
+                bencherInfo.fantasyPoints += -(bencherInfo.stats.goals.ownGoals * 2);
                 
                 // yellow cards: -1pt
                 bencherInfo.fantasyPoints += -bencherInfo.stats.cards.yellowCards;
@@ -589,7 +616,7 @@ function playerStatsByLeague(leagueId) {
         }); // close of stage.rounds.data.forEach
       }
     });
-    // console.log(allData.roundsData[0].fixtures[0].bench[0]);
+    console.log(allData.roundsData[1].fixtures[3].lineup[2]);
     return allData;
   })
   .catch(error => {
@@ -597,7 +624,7 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-playerStatsByLeague(779);
+// playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;

@@ -4,6 +4,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import { logIn } from '../flow/actions.js';
+
 class Home extends React.Component {
   
   render() {
@@ -16,28 +18,24 @@ class Home extends React.Component {
         </div>
         <br /><br />
         <a 
-          onClick={this.logIn}
+          onClick={this.props.onLogInClick}
           href="user/auth/google">Log In</a>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onLinkClick: (googleId, accessToken) => {
-      dispatch({
-        type: 'LOG_IN',
-        googleId,
-        accessToken
-      });
+    onLogInClick: (googleId, accessToken) => {
+      dispatch(logIn(googleId, accessToken));
     }
   };
 };
 
-const userHome = connect(
+const LogIn = connect(
   null,
   mapDispatchToProps
 )(Home);
 
-export default userHome;
+export default LogIn;

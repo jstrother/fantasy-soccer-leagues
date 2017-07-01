@@ -9,15 +9,31 @@ const express = require('express'),
   User = require("./models/user_model.js");
 
 passport.use(new gStrategy({
-	clientID: '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com',
-	clientSecret: config.SECRET,
+	clientID: config.CLIENT_ID,
+	clientSecret: config.CLIENT_SECRET,
 	callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback` //`${process.env.IP}${config.PORT}/user/auth/google/callback`
 },
 	(accessToken, refreshToken, profile, callback) => {
+		// console.log(profile);
 		User.findOneAndUpdate({
-			googleId: profile.id
-		}, {accessToken}, {new: true, upsert: true})
+			googleId: profile.id,
+			displayName: profile.displayName,
+			firstName: profile.name.givenName,
+			lastName: profile.name.familyName,
+			userPhoto: profile.photos[0].value
+		},
+    {
+      $set: {
+        accessToken: accessToken,
+        googleId: profile.id
+      }
+    },
+    {
+    	new: true, 
+    	upsert: true
+    })
 		.then(user => {
+			console.log('user',user);
 			callback(null, user);
 		})
 		.catch(error => {
