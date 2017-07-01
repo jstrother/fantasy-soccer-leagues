@@ -33,7 +33,6 @@ passport.use(new gStrategy({
     	upsert: true
     })
 		.then(user => {
-			console.log('user',user);
 			callback(null, user);
 		})
 		.catch(error => {
@@ -46,7 +45,9 @@ passport.use(new bStrategy((token, done) => {
     User.findOne({accessToken: token})
     .then(user => {
     	console.log('line 32');
-      return done(null, user);
+      if (user) {
+      	return done(null, user);
+      }
     })
     .catch(error => {
       console.log(`passport accessToken error: ${error}`);
@@ -54,23 +55,38 @@ passport.use(new bStrategy((token, done) => {
   }
 ));
 
-router.get('/auth/google', passport.authenticate('google', {scope: 'profile'}));
+router.get('/auth/google', 
+	passport.authenticate('google', {
+		scope: ['profile']
+	}));
 
-router.get('/auth/google/callback', passport.authenticate('google', {
-	failureRedirect: '/',
-	session: false
-}),(req, res) => {
-	fs.readFile(path.join(__dirname, 'public/index.html'), (error, html) => {
-		if (error) console.log(`readFile error: ${error}`);
-		html = html.toString();
-		html = html.replace('<!--{script}-->', `<script>let AUTH_TOKEN="${req.user.accessToken}"; history.replaceState(null, null, '/user');</script>`);
-		res.send(html);
-	});
+router.get('/auth/google/callback', 
+	passport.authenticate('google', {
+		failureRedirect: '/',
+		session: false
+	}),
+	(req, res) => {
+	res.cookie('accessToken', req.user.accessToken, { expires: 0 });
+	res.redirect('/');
+	}
+);
+
+router.get('/auth/logout', (req, res) => {
+	req.logout();
+	res.clearCookie('accessToken');
+	res.redirect('/');
 });
 
 // returns user's own page
-router.get('/user', passport.authenticate('bearer', {session: false}), (req, res) => {
-	return res.send(`https://${process.env.C9_HOSTNAME}/user`);
-});
+router.get('/user', 
+	passport.authenticate('bearer', {session: false}), 
+	(req, res) => res.json({
+		googleId: req.user.googleId,
+		displayName: req.user.displayName,
+		firstName: req.user.name.givenName,
+		lastName: req.user.name.familyName,
+		userPhoto: req.user.photos[0].value
+	})
+);
 
 exports.router = router;
