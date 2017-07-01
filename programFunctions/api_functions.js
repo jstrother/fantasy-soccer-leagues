@@ -121,7 +121,7 @@ function playerStatsByLeague(leagueId) {
     
   return rp(results)
   .then(results => {
-    // console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].localTeam.data.squad);
+    console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0].bench.data[0]);
     let allData = {
       playerMasterList: [],
       roundsData: []
@@ -141,35 +141,35 @@ function playerStatsByLeague(leagueId) {
         });
         playerIdList = [... new Set(playerIdList)];
         
-        playerIdList.forEach(playerId => {
-          const endpoint2 = `${baseURL}/players/`,
-            included2 = `${toInclude}team,position`,
-            results2 = {
-              uri: `${endpoint2}${playerId}${key}${included2}`,
-              json: true
-            };
+        // playerIdList.forEach(playerId => {
+        //   const endpoint2 = `${baseURL}/players/`,
+        //     included2 = `${toInclude}team,position`,
+        //     results2 = {
+        //       uri: `${endpoint2}${playerId}${key}${included2}`,
+        //       json: true
+        //     };
           
-          return rp(results2)
-          .then(results2 => {
-            let playerInfo = {
-              id: results2.data.player_id,
-              commonName: results2.data.player_name,
-              fullName: results2.data.fullname,
-              firstName: results2.data.firstname,
-              lastName: results2.data.lastname,
-              playerPosition: results2.data.position.data.name,
-              playerPicture: results2.data.image_path,
-              playerClubId: results2.data.team.data.id,
-              playerClubName: results2.data.team.data.name,
-              playerClubLogo: results2.data.team.data.logo_path
-            };
-            console.log(allData.playerMasterList);
-            return allData.playerMasterList.push(playerInfo);
-          })
-          .catch(error => {
-            console.log(`playerIdList search error: ${error}`);
-          });
-        });
+        //   return rp(results2)
+        //   .then(results2 => {
+        //     let playerInfo = {
+        //       id: results2.data.player_id,
+        //       commonName: results2.data.player_name,
+        //       fullName: results2.data.fullname,
+        //       firstName: results2.data.firstname,
+        //       lastName: results2.data.lastname,
+        //       playerPosition: results2.data.position.data.name,
+        //       playerPicture: results2.data.image_path,
+        //       playerClubId: results2.data.team.data.id,
+        //       playerClubName: results2.data.team.data.name,
+        //       playerClubLogo: results2.data.team.data.logo_path
+        //     };
+        //     // console.log(allData.playerMasterList.length);
+        //     return allData.playerMasterList.push(playerInfo);
+        //   })
+        //   .catch(error => {
+        //     console.log(`playerIdList search error: ${error}`);
+        //   });
+        // });
         
         stage.rounds.data.forEach(round => {
           let roundInfo = {};
@@ -597,7 +597,7 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-// playerStatsByLeague(779);
+playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;

@@ -2,7 +2,6 @@
 // imported into ./index.js
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Header from './header.js';
@@ -19,12 +18,4 @@ class App extends React.Component {
 	}
 }
 
-function mapStateToProps(user) {
-    return { user };
-}
-
-function mapDispatchToProps(location) {
-	return { location };
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(App);

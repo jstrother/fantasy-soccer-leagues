@@ -24,14 +24,19 @@ class Home extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  // return {
-  //   onLinkClick: id => {
-  //     dispatch(logIn(googleId))
-  //   }
-  // };
+  return {
+    onLinkClick: (googleId, accessToken) => {
+      dispatch({
+        type: 'LOG_IN',
+        googleId,
+        accessToken
+      });
+    }
+  };
 };
 
 const userHome = connect(
+  null,
   mapDispatchToProps
 )(Home);
 

@@ -15,7 +15,7 @@ export default class Main extends React.Component {
         <br />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/user' component={User} /> {/* to be displayed upon successful login/sign-up */}
+          <Route path='/user' component={User} />
         </Switch>
       </div>
     );

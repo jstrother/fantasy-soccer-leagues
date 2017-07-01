@@ -7,11 +7,20 @@ export const logIn = (googleId, accessToken) => {
   fetch('/user')
   .then(response => {
     console.log(response);
-    // return {
-    //   type: 'LOG_IN',
-    //   googleId,
-    //   accessToken
-    // };
+    if (response.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return response.json;
+  })
+  .then(response => {
+    return {
+      type: 'LOG_IN',
+      googleId,
+      accessToken
+    };
+  })
+  .catch(error => {
+    throw new Error("Log-in error");
   });
 };
 
