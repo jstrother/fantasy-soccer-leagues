@@ -8,7 +8,7 @@ const
 	FantasyChampsLeague = require('../models/fantasyChampsLeague_model.js'),
 	FantasySchedule = require('../models/fantasySchedule_model.js'),
 	// import crud functions
-	{ createData, readData, updateData, deleteData } = require('../programFunctions/crud_functions.js');
+	{ createData, readData, updateData, deleteData } = require('../server/programFunctions/crud_functions.js');
 
 before(done => {
 	mongoose.connect(dbTestConnection);

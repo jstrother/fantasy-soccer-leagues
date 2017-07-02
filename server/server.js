@@ -9,17 +9,14 @@ const config = require('./config.js'),
 	jsonParser = bodyParser.json(),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	gStrategy = require('passport-google-oauth20').Strategy,
-	bStrategy = require('passport-http-bearer').Strategy,
 	app = express(),
 	server = require('http').Server(app),
-	User = require('../models/user_model.js'),
-	createData = require('../programFunctions/crud_functions.js').createData,
-	readData = require('../programFunctions/crud_functions.js').readData,
-	updateData = require('../programFunctions/crud_functions.js').updateData,
-	deleteData = require('../programFunctions/crud_functions.js').deleteData,
+	createData = require('./programFunctions/crud_functions.js').createData,
+	readData = require('./programFunctions/crud_functions.js').readData,
+	updateData = require('./programFunctions/crud_functions.js').updateData,
+	deleteData = require('./programFunctions/crud_functions.js').deleteData,
 	routes = require('./routes.js').router,
-	playerStatsByLeague = require('../programFunctions/api_functions.js').playerStatsByLeague;
+	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));

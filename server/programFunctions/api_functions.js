@@ -1,5 +1,5 @@
 const rp = require('request-promise'),
-    key = require('../server/config.js').API_KEY,
+    key = require('../config.js').API_KEY,
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=';
 
@@ -204,13 +204,15 @@ function playerStatsByLeague(leagueId) {
                   ownGoalList.push(ownGoal);
                 }
               });
-              console.log(ownGoalList);
               fixture.lineup.data.forEach(starter => {
                 let starterInfo = {
                   id: starter.player_id,
                   name: starter.player_name,
                   position: starter.position,
                   clubId: starter.team_id,
+                  clubName: fixture.localTeam.data.id === starter.team_id 
+                    ? fixture.localTeam.data.name 
+                    : fixture.visitorTeam.data.name,
                   fixtureId: starter.fixture_id,
                   stats: {
                     shots: {
@@ -228,13 +230,7 @@ function playerStatsByLeague(leagueId) {
                       conceded: starter.stats.goals.conceded === null 
                         ? 0 
                         : starter.stats.goals.conceded,
-                      ownGoals: ownGoalList.forEach(ownGoal => {
-                        let numOwnGoals = 0;
-                        if (ownGoal.fixtureId === starter.fixtureId && ownGoal.playerId === starter.playerId) {
-                          numOwnGoals += 1;  
-                        }
-                        return numOwnGoals;
-                      })
+                      ownGoals: 0
                     },
                     fouls: {
                       drawn: starter.stats.fouls.drawn === null 
@@ -305,6 +301,15 @@ function playerStatsByLeague(leagueId) {
                   },
                   fantasyPoints: 2 // gets 2 points for being a starter, players off of the bench have this start at 0
                 }; // close of starterInfo object
+                
+                ownGoalList.forEach(ownGoal => {
+                  if (ownGoal !== undefined) {
+                    if (ownGoal.fixtureId === starterInfo.fixtureId && ownGoal.playerId === starterInfo.id) {
+                      starterInfo.stats.goals.ownGoals += 1;
+                    }
+                  }
+                });
+                
                 // fantasy points calculated 
                 
                 // minutes played
@@ -407,12 +412,16 @@ function playerStatsByLeague(leagueId) {
                 
                 fixtureInfo.lineup.push(starterInfo);
               }); // close of fixture.lineup.data.forEach
+              
               fixture.bench.data.forEach(bencher => {
                 let bencherInfo = {
                   id: bencher.player_id,
                   name: bencher.player_name,
                   position: bencher.position,
                   clubId: bencher.team_id,
+                  clubName: fixture.localTeam.data.id === bencher.team_id 
+                    ? fixture.localTeam.data.name 
+                    : fixture.visitorTeam.data.name,
                   fixtureId: bencher.fixture_id,
                   stats: {
                     shots: {
@@ -430,13 +439,7 @@ function playerStatsByLeague(leagueId) {
                       conceded: bencher.stats.goals.conceded === null 
                         ? 0 
                         : bencher.stats.goals.conceded,
-                      ownGoals: ownGoalList.forEach(ownGoal => {
-                        let numOwnGoals = 0;
-                        if (ownGoal.fixtureId === bencher.fixtureId && ownGoal.playerId === bencher.playerId) {
-                          numOwnGoals += 1;  
-                        }
-                        return numOwnGoals;
-                      })
+                      ownGoals: 0
                     },
                     fouls: {
                       drawn: bencher.stats.fouls.drawn === null 
@@ -507,6 +510,15 @@ function playerStatsByLeague(leagueId) {
                   },
                   fantasyPoints: 0 // gets 0 points for being a bencher, players who start the game have this begin at 2
                 }; // close of bencherInfo object
+                
+                ownGoalList.forEach(ownGoal => {
+                  if (ownGoal !== undefined) {
+                    if (ownGoal.fixtureId === bencherInfo.fixtureId && ownGoal.playerId === bencherInfo.id) {
+                      bencherInfo.stats.goals.ownGoals += 1;
+                    }
+                  }
+                });
+                
                 // fantasy points calculated 
                 
                 // minutes played
@@ -624,7 +636,7 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-// playerStatsByLeague(779);
+playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;
