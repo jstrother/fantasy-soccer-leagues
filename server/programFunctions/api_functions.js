@@ -194,6 +194,7 @@ function playerStatsByLeague(leagueId) {
                 lineup: [],
                 bench: []
               };
+              // 
               let ownGoalList = [];
               fixture.goals.data.forEach(goal => {
                 if (goal.type === 'own-goal') {
@@ -628,7 +629,7 @@ function playerStatsByLeague(leagueId) {
         }); // close of stage.rounds.data.forEach
       }
     });
-    console.log(allData.roundsData[1].fixtures[3].lineup[2]);
+    // console.log(allData.roundsData[1].fixtures[3].lineup[2]);
     return allData;
   })
   .catch(error => {
@@ -636,7 +637,7 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-playerStatsByLeague(779);
+// playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;
