@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 class LoginPage extends React.Component {
   render() {
-    return <a href={'/auth/google'} className='login-button' >Log In</a>;
+    return <a href={'/user/auth/google'} className='login-button' >Log In</a>;
   }
 }
 

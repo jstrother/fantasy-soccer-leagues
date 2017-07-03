@@ -3,7 +3,6 @@
 const config = require('./config.js'),
 	database = `${config.DATABASE_URL}`,
 	path = require('path'),
-	fs = require('fs'),
 	express = require('express'),
 	bodyParser = require('body-parser'),
 	jsonParser = bodyParser.json(),
@@ -11,6 +10,7 @@ const config = require('./config.js'),
 	passport = require('passport'),
 	app = express(),
 	server = require('http').Server(app),
+	User = require('../models/user_model.js'),
 	createData = require('./programFunctions/crud_functions.js').createData,
 	readData = require('./programFunctions/crud_functions.js').readData,
 	updateData = require('./programFunctions/crud_functions.js').updateData,
@@ -18,7 +18,7 @@ const config = require('./config.js'),
 	routes = require('./routes.js').router,
 	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague;
 
-app.use(bodyParser.json());
+app.use(jsonParser);
 app.use(express.static('public'));
 app.use(passport.initialize());
 app.use('/user', routes);

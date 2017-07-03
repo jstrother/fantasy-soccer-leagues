@@ -17,6 +17,8 @@ class Home extends React.Component {
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
     if (accessToken) {
+      console.log('fetchUser home.js', fetchUser(accessToken));
+      console.log('accessToken', accessToken);
       this.props.dispatch(fetchUser(accessToken));
     }
   }
@@ -25,10 +27,11 @@ class Home extends React.Component {
     if (!this.props.currentUser) {
       return (
         <div>
+          <br /><br />
           <div>
             Welcome to the Fantasy Soccer-Football Super League!
             <br />
-            Create your own team and compete against others to prove you are the best at fantasy footy!
+            Create your own team and compete against others to prove you're the best at fantasy footy!
           </div>
           <br /><br />
           <section className="login-section"><LoginPage /></section>
@@ -37,15 +40,18 @@ class Home extends React.Component {
     } else {
       return (
         <div>
+          <br /><br />
           <div>
             Welcome to the Fantasy Soccer-Football Super League!
           </div>
           <br /><br />
-          Hello, Coach {this.props.currentUser.familyName}!
+          <div>
+            Hello, Coach {this.props.currentUser.familyName}!
+          </div>
           <FantasyClub />
-  				<FantasySchedule />
-  				<FantasyLeague />
-  				<FantasyChampsLeague />
+          <FantasySchedule />
+          <FantasyLeague />
+          <FantasyChampsLeague />
         </div>
       );
     }
@@ -53,9 +59,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser,
-  loading: state.loading,
-  statusCode: state.statusCode
+  currentUser: state.loginReducer.currentUser
 });
 
 const LogIn = connect(

@@ -141,36 +141,37 @@ function playerStatsByLeague(leagueId) {
         });
         playerIdList = [... new Set(playerIdList)];
         
-        // playerIdList.forEach(playerId => {
-        //   const endpoint2 = `${baseURL}/players/`,
-        //     included2 = `${toInclude}team,position`,
-        //     results2 = {
-        //       uri: `${endpoint2}${playerId}${key}${included2}`,
-        //       json: true
-        //     };
+        playerIdList.forEach(playerId => {
+          const endpoint2 = `${baseURL}/players/`,
+            included2 = `${toInclude}team,position`,
+            results2 = {
+              uri: `${endpoint2}${playerId}${key}${included2}`,
+              json: true
+            };
           
-        //   return rp(results2)
-        //   .then(results2 => {
-        //     let playerInfo = {
-        //       id: results2.data.player_id,
-        //       commonName: results2.data.player_name,
-        //       fullName: results2.data.fullname,
-        //       firstName: results2.data.firstname,
-        //       lastName: results2.data.lastname,
-        //       playerPosition: results2.data.position.data.name,
-        //       playerPicture: results2.data.image_path,
-        //       playerClubId: results2.data.team.data.id,
-        //       playerClubName: results2.data.team.data.name,
-        //       playerClubLogo: results2.data.team.data.logo_path
-        //     };
-        //     // console.log(allData.playerMasterList.length);
-        //     return allData.playerMasterList.push(playerInfo);
-        //   })
-        //   .catch(error => {
-        //     console.log(`playerIdList search error: ${error}`);
-        //   });
-        // });
+          return rp(results2)
+          .then(results2 => {
+            let playerInfo = {
+              id: results2.data.player_id,
+              commonName: results2.data.player_name,
+              fullName: results2.data.fullname,
+              firstName: results2.data.firstname,
+              lastName: results2.data.lastname,
+              playerPosition: results2.data.position.data.name,
+              playerPicture: results2.data.image_path,
+              playerClubId: results2.data.team.data.id,
+              playerClubName: results2.data.team.data.name,
+              playerClubLogo: results2.data.team.data.logo_path
+            };
+            // console.log(allData.playerMasterList.length);
+            return allData.playerMasterList.push(playerInfo);
+          })
+          .catch(error => {
+            console.log(`playerIdList search error: ${error}`);
+          });
+        });
         
+        // this information will be placed into the schedule portion of the database
         stage.rounds.data.forEach(round => {
           let roundInfo = {};
           if (round.stage_id === allData.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement
@@ -194,7 +195,8 @@ function playerStatsByLeague(leagueId) {
                 lineup: [],
                 bench: []
               };
-              // 
+              // due to the api not currently tracking own goals, this code is to track them.
+              // all following own goal code blocks are based off of this one
               let ownGoalList = [];
               fixture.goals.data.forEach(goal => {
                 if (goal.type === 'own-goal') {

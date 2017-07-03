@@ -1,6 +1,4 @@
 const express = require('express'),
-	fs = require('fs'),
-	path = require('path'),
 	config = require('./config.js'),
 	passport = require('passport'),
 	gStrategy = require('passport-google-oauth20').Strategy,
@@ -18,8 +16,8 @@ passport.use(new gStrategy({
 		User.findOneAndUpdate({
 			googleId: profile.id,
 			displayName: profile.displayName,
-			firstName: profile.name.givenName,
-			lastName: profile.name.familyName,
+			givenName: profile.name.givenName,
+			familyName: profile.name.familyName,
 			userPhoto: profile.photos[0].value
 		},
     {
@@ -44,7 +42,6 @@ passport.use(new gStrategy({
 passport.use(new bStrategy((token, done) => {
     User.findOne({accessToken: token})
     .then(user => {
-    	console.log('line 32');
       if (user) {
       	return done(null, user);
       }
@@ -52,13 +49,14 @@ passport.use(new bStrategy((token, done) => {
     .catch(error => {
       console.log(`passport accessToken error: ${error}`);
     });
-  }
-));
+  })
+);
 
 router.get('/auth/google', 
 	passport.authenticate('google', {
 		scope: ['profile']
-	}));
+	})
+);
 
 router.get('/auth/google/callback', 
 	passport.authenticate('google', {
@@ -78,13 +76,13 @@ router.get('/auth/logout', (req, res) => {
 });
 
 // returns user's own page
-router.get('/user', 
+router.get('/', 
 	passport.authenticate('bearer', {session: false}), 
 	(req, res) => res.json({
 		googleId: req.user.googleId,
 		displayName: req.user.displayName,
-		firstName: req.user.givenName,
-		lastName: req.user.familyName,
+		givenName: req.user.givenName,
+		familyName: req.user.familyName,
 		userPhoto: req.user.userPhoto
 	})
 );
