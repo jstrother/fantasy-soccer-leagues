@@ -8,7 +8,6 @@ import * as Cookies from 'js-cookie';
 import { fetchUser } from '../flow/actions.js';
 
 import FantasyClub from './fantasyClub.js';
-import FantasySchedule from './fantasySchedule.js';
 import FantasyLeague from './fantasyLeague.js';
 import FantasyChampsLeague from './fantasyChampsLeague.js';
 import LoginPage from './loginPage.js';
@@ -49,7 +48,6 @@ class Home extends React.Component {
             Hello, Coach {this.props.currentUser.familyName}!
           </div>
           <FantasyClub />
-          <FantasySchedule />
           <FantasyLeague />
           <FantasyChampsLeague />
         </div>

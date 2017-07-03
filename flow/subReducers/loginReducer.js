@@ -10,12 +10,15 @@ export const loginReducer = (state = [], action) => {
         {
           currentUser: {
             googleId: action.currentUser.googleId,
-      			displayName: action.currentUser.displayName,
-      			givenName: action.currentUser.givenName,
-      			familyName: action.currentUser.familyName,
-      			userPhoto: action.currentUser.userPhoto
+            displayName: action.currentUser.displayName,
+            givenName: action.currentUser.givenName,
+            familyName: action.currentUser.familyName,
+            userPhoto: action.currentUser.userPhoto
           }
-        });
+        }
+      );
+    case SET_USER_FAIL:
+      return Object.assign({}, state, { currentUser: null });
     default:
       return state;
   }

@@ -4,18 +4,16 @@
 require('isomorphic-fetch');
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
-export const setUserSuccess = (currentUser, statusCode) => ({
+export const setUserSuccess = (currentUser)  => ({
   type: SET_USER_SUCCESS,
-  currentUser,
-  statusCode
-});
+  currentUser
+  });
 
 export const SET_USER_FAIL = 'SET_USER_FAIL';
-export const setUserFail = (currentUser, statusCode) => ({
+export const setUserFail = (currentUser)  => ({
   type: SET_USER_FAIL,
-  currentUser,
-  statusCode
-});
+  currentUser
+  });
 
 export const fetchUser = accessToken => dispatch => {
   return fetch('/user', {
@@ -45,19 +43,19 @@ export const fetchUser = accessToken => dispatch => {
   });
 };
 
-export const updateRoster = (fantasyClub, player) => {
+export const updateRoster = (fantasyClub, roster) => {
   return {
     type: 'UPDATE_ROSTER_22_PLAYERS',
     fantasyClub,
-    player
+    roster
   };
 };
 
-export const setMatchLineup = (fantasyClub, player) => {
+export const setMatchLineup = (fantasyClub, lineup) => {
   return {
     type: 'SET_LINEUP_18_PLAYERS',
     fantasyClub,
-    player
+    lineup
   };
 };
 
