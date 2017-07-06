@@ -15,7 +15,7 @@ export default class FantasyClub extends React.Component {
 				</div>
 				<div>
 					Set your lineup for upcoming matches.
-					<FantasySchedule />
+					<FantasySchedule /> {/* covers league matches within a division and the cup matches between all teams in all divisions */}
 				</div>
 			</div>
 		);

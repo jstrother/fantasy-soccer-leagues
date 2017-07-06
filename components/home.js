@@ -49,7 +49,6 @@ class Home extends React.Component {
           </div>
           <FantasyClub />
           <FantasyLeague />
-          <FantasyChampsLeague />
         </div>
       );
     }

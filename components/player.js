@@ -1,5 +1,5 @@
 // components/player.js
-// imported into roster.js
+// imported into starter-list.js, bench-players.js, reserve-players.js
 
 import React from 'react';
 
