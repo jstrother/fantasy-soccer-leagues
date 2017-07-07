@@ -43,30 +43,30 @@ export const fetchUser = accessToken => dispatch => {
   });
 };
 
-export const UPDATE_ROSTER = 'UPDATE_ROSTER';
-export const updateRoster = (fantasyClub, roster) => {
+export const SELECT_RESERVES = 'SELECT_RESERVES';
+export const selectReserves = (fantasyClub, players) => {
   return {
-    type: UPDATE_ROSTER,
+    type: SELECT_RESERVES,
     fantasyClub,
-    roster
+    players
   };
 };
 
-export const SET_LINEUP = 'SET_LINEUP';
-export const setMatchLineup = (fantasyClub, lineup) => {
+export const SELECT_BENCHERS = 'SELECT_BENCHERS';
+export const selectBenchers = (fantasyClub, players) => {
   return {
-    type: SET_LINEUP,
+    type: SELECT_BENCHERS,
     fantasyClub,
-    lineup
+    players
   };
 };
 
 export const SELECT_STARTERS = 'SELECT_STARTERS';
-export const selectStarters = (fantasyClub, starters) => {
+export const selectStarters = (fantasyClub, players) => {
   return {
     type: SELECT_STARTERS,
     fantasyClub,
-    starters
+    players
   };
 };
 

@@ -55,12 +55,12 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapHomeStateToProps = state => ({
   currentUser: state.loginReducer.currentUser
 });
 
 const LogIn = connect(
-  mapStateToProps
+  mapHomeStateToProps
 )(Home);
 
 export default LogIn;
