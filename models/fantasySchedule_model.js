@@ -21,4 +21,3 @@ module.exports = FantasySchedule;
 
 // schedule should reference league season model AND league cup model AND champions league model
 // each sub-model should then in turn reference fantasy match model
-// isLeagueMatch AND isCupMatch must be opposite one another

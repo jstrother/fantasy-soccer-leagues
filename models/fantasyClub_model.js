@@ -1,13 +1,12 @@
 const mongoose = require('mongoose'),
 
 			fantasyClubSchema = mongoose.Schema({
-				fantasyClubName: {type: String, unique: true},
-				fantasyClubManager: {type: String, unique: true},
-				fantasyClubLeague: String,
-				fantasyClubDivision: String,
-				fantasyLeagueSchedule: {type: Array, unique: true},
-				fantasyClubChampsLeague: Boolean,
-				fantasyChampsLeagueSchedule: {type: Array, unique: true}
+				Name: { type: String, required: true },
+				Manager: { type: String, required: true },
+				League: { type: String, required: true},
+				Division: { type: String, required: true},
+				ChampsLeague: String,
+				Schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FantasyMatch' }]
 			}),
 
 			FantasyClub = mongoose.model('FantasyClub', fantasyClubSchema);
