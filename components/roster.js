@@ -7,12 +7,19 @@ import BenchPlayerList from './bench-players.js';
 import ReservePlayerList from './reserve-players.js';
 
 export default class Roster extends React.Component {
+	
 	render() {
 		return(
 			<div>
-				<StarterList />
-				<BenchPlayerList />
-				<ReservePlayerList />
+				<StarterList>
+					
+				</StarterList>
+				<BenchPlayerList>
+				
+				</BenchPlayerList>
+				<ReservePlayerList>
+				
+				</ReservePlayerList>
 			</div>
 		);
 	}
