@@ -2,7 +2,12 @@ const rp = require('request-promise'),
     key = require('../config.js').API_KEY,
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=',
-    playerInfo = require('./playerInfo_function.js');
+    playerInfo = require('./playerInfo_function.js'),
+    Player = require('../components/player_model.js'),
+    createData = require('./programFunctions/crud_functions.js').createData,
+  	readData = require('./programFunctions/crud_functions.js').readData,
+  	updateData = require('./programFunctions/crud_functions.js').updateData,
+  	deleteData = require('./programFunctions/crud_functions.js').deleteData;
 
 // this function returns the api leagueId for the selected leagueName, to be used when user selects type of fantasy league to play in
 function leagueSelector(leagueName) {
@@ -125,53 +130,12 @@ function playerStatsByLeague(leagueId) {
     let allData = {
       playerMasterList: [],
       roundsData: []
-    };
-    console.log(results);
+    },
+    playerIdList = [];  // this is to help make a master list of all players in league
     results.data.season.data.stages.data.forEach(stage => {
       //because we only want regular seasons, not playoffs or cup matches
       if (stage.name === 'Regular Season') {
         allData.stageId = stage.id;
-        // this part is to make a master list of all players in the league
-        let playerIdList = [];
-        stage.rounds.data.forEach(round => {
-          round.fixtures.data.forEach(fixture => {
-            fixture.localTeam.data.squad.data.forEach(player => {
-              console.log('player');
-              console.log(player.player_id);
-              playerIdList.push(player.player_id);
-            });
-          });
-        });
-        playerIdList = [... new Set(playerIdList)];
-        playerIdList.forEach(playerId => {
-          const endpoint2 = `${baseURL}/players/`,
-            included2 = `${toInclude}team,position`,
-            results2 = {
-              uri: `${endpoint2}${playerId}${key}${included2}`,
-              json: true
-            };
-          
-          return rp(results2)
-          .then(results2 => {
-            let playerInfo2 = {
-              id: results2.data.player_id,
-              commonName: results2.data.player_name,
-              fullName: results2.data.fullname,
-              firstName: results2.data.firstname,
-              lastName: results2.data.lastname,
-              playerPosition: results2.data.position.data.name,
-              playerPicture: results2.data.image_path,
-              playerClubId: results2.data.team.data.id,
-              playerClubName: results2.data.team.data.name,
-              playerClubLogo: results2.data.team.data.logo_path
-            };
-            console.log('playerMasterList', allData.playerMasterList);
-            return allData.playerMasterList.push(playerInfo2);
-          })
-          .catch(error => {
-            console.log(`playerIdList search error: ${error}`);
-          });
-        });
         
         stage.rounds.data.forEach(round => {
           if (round.stage_id === allData.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement
@@ -208,15 +172,20 @@ function playerStatsByLeague(leagueId) {
                   ownGoalList.push(ownGoal);
                 }
               });
+              
               fixture.lineup.data.forEach(starter => {
                 let starterInfo = playerInfo(starter, fixture, ownGoalList);
                 starterInfo.fantasyPointsCalc();
+                playerIdList.push(starterInfo.id);
+                updateData(starterInfo, Player);
                 fixtureInfo.lineup.push(starterInfo);
               });
               
               fixture.bench.data.forEach(bencher => {
                 let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
                 bencherInfo.fantasyPointsCalc();
+                playerIdList.push(bencherInfo.id);
+                updateData(bencherInfo, Player);
                 fixtureInfo.bench.push(bencherInfo);
               });
               roundInfo.fixtures.push(fixtureInfo);
@@ -226,6 +195,39 @@ function playerStatsByLeague(leagueId) {
         }); // close of stage.rounds.data.forEach
       }
     });
+    playerIdList = [... new Set(playerIdList)];
+    // console.log(playerIdList.length);
+    playerIdList.forEach(playerId => {
+      const endpoint2 = `${baseURL}/players/`,
+        included2 = `${toInclude}team,position`,
+        results2 = {
+          uri: `${endpoint2}${playerId}${key}${included2}`,
+          json: true
+        };
+      
+      return rp(results2)
+      .then(results2 => {
+        let playerInfo2 = {
+          id: results2.data.player_id,
+          commonName: results2.data.player_name,
+          fullName: results2.data.fullname,
+          firstName: results2.data.firstname,
+          lastName: results2.data.lastname,
+          position: results2.data.position.data.name,
+          picture: results2.data.image_path,
+          clubId: results2.data.team.data.id,
+          clubName: results2.data.team.data.name,
+          clubLogo: results2.data.team.data.logo_path
+        };
+        // console.log('playerMasterList', allData.playerMasterList);
+        updateData(playerInfo2, Player);
+        allData.playerMasterList.push(playerInfo2);
+      })
+      .catch(error => {
+        console.log(`playerIdList search error: ${error}`);
+      });
+    });
+    console.log(allData.playerMasterList.length);
     return allData;
   })
   .catch(error => {
