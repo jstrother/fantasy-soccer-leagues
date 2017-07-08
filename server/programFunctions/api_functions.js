@@ -3,11 +3,11 @@ const rp = require('request-promise'),
     baseURL = 'https://soccer.sportmonks.com/api/v2.0',
     toInclude = '&include=',
     playerInfo = require('./playerInfo_function.js'),
-    Player = require('../components/player_model.js'),
-    createData = require('./programFunctions/crud_functions.js').createData,
-  	readData = require('./programFunctions/crud_functions.js').readData,
-  	updateData = require('./programFunctions/crud_functions.js').updateData,
-  	deleteData = require('./programFunctions/crud_functions.js').deleteData;
+    Player = require('../../models/player_model.js'),
+    createData = require('./crud_functions.js').createData,
+  	readData = require('./crud_functions.js').readData,
+  	updateData = require('./crud_functions.js').updateData,
+  	deleteData = require('./crud_functions.js').deleteData;
 
 // this function returns the api leagueId for the selected leagueName, to be used when user selects type of fantasy league to play in
 function leagueSelector(leagueName) {
