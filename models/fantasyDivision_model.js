@@ -1,9 +1,9 @@
 const mongoose = require('mongoose'),
 			
 			fantasyDivisionSchema = mongoose.Schema({
-			  Name: { type: String, required: true },
-				Clubs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FantasyClub' }],
-				Schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FantasyMatch' }]
+			  name: { type: String, required: true },
+				clubs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FantasyClub' }],
+				schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FantasyMatch' }]
 			}),
 
 			FantasyDivision = mongoose.model('FantasyDivision', fantasyDivisionSchema);

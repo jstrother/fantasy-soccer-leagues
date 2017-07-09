@@ -177,7 +177,7 @@ function playerStatsByLeague(leagueId) {
                 let starterInfo = playerInfo(starter, fixture, ownGoalList);
                 starterInfo.fantasyPointsCalc();
                 playerIdList.push(starterInfo.id);
-                updateData(starterInfo, Player);
+                // updateData(starterInfo, Player);
                 fixtureInfo.lineup.push(starterInfo);
               });
               
@@ -185,7 +185,7 @@ function playerStatsByLeague(leagueId) {
                 let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
                 bencherInfo.fantasyPointsCalc();
                 playerIdList.push(bencherInfo.id);
-                updateData(bencherInfo, Player);
+                // updateData(bencherInfo, Player);
                 fixtureInfo.bench.push(bencherInfo);
               });
               roundInfo.fixtures.push(fixtureInfo);
@@ -196,7 +196,7 @@ function playerStatsByLeague(leagueId) {
       }
     });
     playerIdList = [... new Set(playerIdList)];
-    // console.log(playerIdList.length);
+    console.log(playerIdList.length);
     playerIdList.forEach(playerId => {
       const endpoint2 = `${baseURL}/players/`,
         included2 = `${toInclude}team,position`,

@@ -8,6 +8,8 @@ const
 	FantasyChampsLeague = require('../models/fantasyChampsLeague_model.js'),
 	FantasySchedule = require('../models/fantasySchedule_model.js'),
 	FantasyMatch = require('../models/fantasyMatch_model.js'),
+	FantasyDivision = require('../models/fantasyDivision_model.js'),
+	Player = require('../models/player_model.js'),
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../server/programFunctions/crud_functions.js');
 
@@ -311,16 +313,26 @@ describe('Fantasy Match', () => {
 			league: 'Test League',
 			division: 'Test Division 1'
 		};
-		
-		const sampleFantasyMatch = {
-			matchType: 'Regular Season',
-			homeClub,
-			homeScore: 0,
-			awayClub,
-			awayScore: 0
-		};
-		
-		return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
+		return createData(homeClub, FantasyClub)
+		.then((homeClub) => {
+			return createData(awayClub, FantasyClub)
+			.then((awayClub) => {
+				const sampleFantasyMatch = {
+					matchType: 'Regular Season',
+					homeClub,
+					homeScore: 0,
+					awayClub,
+					awayScore: 0
+				};
+				return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
+				})
+				.catch((error) => {
+					console.log(`Fantasy Match should not exist inner then error: ${error}`);
+				});
+		})
+		.catch(error => {
+			console.log(`Fantasy Match should not exist outer then error: ${error}`);
+		});
 	}).timeout(5000);
 	it('should create new fantasy match', () => {
 		const homeClub = {
@@ -330,11 +342,6 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		createData(homeClub, FantasyClub)
-		.then((homeClub) => {
-			
-		});
-		
 		const awayClub = {
 			name: 'Away',
 			manager: 'Boss',
@@ -342,17 +349,26 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		createData(awayClub, FantasyClub);
-		
-		const sampleFantasyMatch = {
-			matchType: 'Regular Season',
-			homeClub,
-			homeScore: 0,
-			awayClub,
-			awayScore: 0
-		};
-		
-		return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
+		return createData(homeClub, FantasyClub)
+		.then((homeClub) => {
+			return createData(awayClub, FantasyClub)
+			.then((awayClub) => {
+				const sampleFantasyMatch = {
+					matchType: 'Regular Season',
+					homeClub,
+					homeScore: 0,
+					awayClub,
+					awayScore: 0
+				};
+				return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
+			})
+			.catch((error) => {
+				console.log(`Fantasy Match should create new inner then error: ${error}`);
+			});
+		})
+		.catch((error) => {
+			console.log(`Fantasy Match should create new outer then error: ${error}`);
+		});
 	}).timeout(5000);
 	it('should update a fantasy match', () => {
 		const homeClub = {
@@ -369,21 +385,32 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		const sampleFantasyMatch = {
-			matchType: 'Regular Season',
-			homeClub,
-			homeScore: 0,
-			awayClub,
-			awayScore: 0
-		};
-		
-		return updateData(sampleFantasyMatch, {homeScore: 2, awayScore: 1}, FantasyMatch)
-		.then(updatedItem => {
-			updatedItem.should.have.property('homeScore', 2);
-			updatedItem.should.have.property('awayScore', 1);
+		return createData(homeClub, FantasyClub)
+		.then((homeClub) => {
+			return createData(awayClub, FantasyClub)
+			.then((awayClub) => {
+				const sampleFantasyMatch = {
+					matchType: 'Regular Season',
+					homeClub,
+					homeScore: 0,
+					awayClub,
+					awayScore: 0
+				};
+				return updateData(sampleFantasyMatch, {homeScore: 2, awayScore: 1}, FantasyMatch)
+				.then(updatedItem => {
+					updatedItem.should.have.property('homeScore', 2);
+					updatedItem.should.have.property('awayScore', 1);
+				})
+				.catch(error => {
+				console.log(`Fantasy Match update error: ${error}`);
+				});
+			})
+			.catch((error) => {
+				console.log(`Fantasy Match should update inner then error: ${error}`);
+			});
 		})
-		.catch(error => {
-			console.log(`error: ${error}`);
+		.catch((error) => {
+			console.log(`Fantasy Match should update outer then error: ${error}`);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy match', () => {
@@ -401,17 +428,126 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		const sampleFantasyMatch = {
-			matchType: 'Regular Season',
-			homeClub,
-			homeScore: 2,
-			awayClub,
-			awayScore: 1
+		return createData(homeClub, FantasyClub)
+		.then((homeClub) => {
+			return createData(awayClub, FantasyClub)
+			.then((awayClub) => {
+				const sampleFantasyMatch = {
+					matchType: 'Regular Season',
+					homeClub,
+					homeScore: 0,
+					awayClub,
+					awayScore: 0
+				};
+				return deleteData(sampleFantasyMatch, FantasyMatch)
+				.then(deletedItem => {
+					readData(sampleFantasyMatch, FantasyMatch)
+					.then(deletedItem => {
+						deletedItem.should.not.exist;
+					})
+					.catch(error => {
+						console.log(`error: ${error}`);
+					});
+				})
+				.catch(error => {
+					console.log(`error: ${error}`);
+				});
+			})
+			.catch((error) => {
+				console.log(`Fantasy Match should delete inner then error: ${error}`);
+			});
+		})
+		.catch((error) => {
+			console.log(`Fantasy Match should delete outer then error: ${error}`);
+		});
+	}).timeout(5000);
+});
+
+describe('Fantasy Division', () => {
+	it('should not exist', () => {
+		const sampleFantasyDivision = {
+			name: 'Team Division 1'
 		};
 		
-		return deleteData(sampleFantasyMatch, FantasyMatch)
+		return readData(sampleFantasyDivision, FantasyDivision).should.eventually.not.exist;
+	}).timeout(5000);
+	it('should create new fantasy division', () => {
+		const sampleFantasyDivision = {
+			name: 'Team Division 1'
+		};
+		
+		return createData(sampleFantasyDivision, FantasyDivision).should.eventually.exist;
+	}).timeout(5000);
+	it('should update a fantasy division', () => {
+		const sampleFantasyDivision = {
+			name: 'Team Division 1'
+		};
+		
+		return updateData(sampleFantasyDivision, {name: 'Test Division 2'}, FantasyDivision)
+		.then(updatedItem => {
+			updatedItem.should.have.property('name', 'Test Division 2');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
+		});
+	}).timeout(5000);
+	it('should remove a fantasy division', () => {
+		const sampleFantasyDivision = {
+			name: 'Team Division 2'
+		};
+		
+		return deleteData(sampleFantasyDivision, FantasyDivision)
 		.then(deletedItem => {
-			readData(sampleFantasyMatch, FantasyMatch)
+			readData(sampleFantasyDivision, FantasyDivision)
+			.then(deletedItem => {
+				deletedItem.should.not.exist;
+			})
+			.catch(error => {
+				console.log(`error: ${error}`);
+			});
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
+		});
+	}).timeout(5000);
+});
+
+describe('Player', () => {
+	it('should not exist', () => {
+		const samplePlayer = {
+			firstName: 'Bob'
+		};
+		
+		return readData(samplePlayer, Player).should.eventually.not.exist;
+	}).timeout(5000);
+	it('should create new fantasy division', () => {
+		const samplePlayer = {
+			firstName: 'Bob'
+		};
+		
+		return createData(samplePlayer, Player).should.eventually.exist;
+	}).timeout(5000);
+	it('should update a fantasy division', () => {
+		const samplePlayer = {
+			firstName: 'Bob'
+		};
+		
+		return updateData(samplePlayer, {firstName: 'Joe'}, Player)
+		.then(updatedItem => {
+			updatedItem.should.have.property('firstName', 'Joe');
+		})
+		.catch(error => {
+			console.log(`error: ${error}`);
+		});
+	}).timeout(5000);
+	it('should remove a fantasy division', () => {
+		const samplePlayer = {
+			firstName: 'Joe'
+		};
+		
+		return deleteData(samplePlayer, Player)
+		.then(deletedItem => {
+			readData(samplePlayer, Player)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
