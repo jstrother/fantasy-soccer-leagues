@@ -1,13 +1,12 @@
 function playerInfo(playerType, fixture, ownGoalList) {
   return {
     id: playerType.player_id,
-    name: playerType.player_name,
+    commonName: playerType.player_name,
     position: playerType.position,
     clubId: playerType.team_id,
     clubName: fixture.localTeam.data.id === playerType.team_id 
       ? fixture.localTeam.data.name 
       : fixture.visitorTeam.data.name,
-    fixtureId: playerType.fixture_id,
     stats: {
       shots: {
         shotsTotal: playerType.stats.shots.shots_total === null 

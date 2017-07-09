@@ -177,7 +177,7 @@ function playerStatsByLeague(leagueId) {
                 let starterInfo = playerInfo(starter, fixture, ownGoalList);
                 starterInfo.fantasyPointsCalc();
                 playerIdList.push(starterInfo.id);
-                // updateData(starterInfo, Player);
+                // updateData(starterInfo.id, starterInfo, Player);
                 fixtureInfo.lineup.push(starterInfo);
               });
               
@@ -185,7 +185,7 @@ function playerStatsByLeague(leagueId) {
                 let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
                 bencherInfo.fantasyPointsCalc();
                 playerIdList.push(bencherInfo.id);
-                // updateData(bencherInfo, Player);
+                // updateData(bencherInfo.id, bencherInfo, Player);
                 fixtureInfo.bench.push(bencherInfo);
               });
               roundInfo.fixtures.push(fixtureInfo);
@@ -199,7 +199,7 @@ function playerStatsByLeague(leagueId) {
     console.log(playerIdList.length);
     playerIdList.forEach(playerId => {
       const endpoint2 = `${baseURL}/players/`,
-        included2 = `${toInclude}team,position`,
+        included2 = `${toInclude}team,position,sidelined,stats.season`,
         results2 = {
           uri: `${endpoint2}${playerId}${key}${included2}`,
           json: true
@@ -215,19 +215,18 @@ function playerStatsByLeague(leagueId) {
           lastName: results2.data.lastname,
           position: results2.data.position.data.name,
           picture: results2.data.image_path,
-          clubId: results2.data.team.data.id,
           clubName: results2.data.team.data.name,
+          clubId: results2.data.team.data.id,
           clubLogo: results2.data.team.data.logo_path
         };
-        // console.log('playerMasterList', allData.playerMasterList);
-        updateData(playerInfo2, Player);
+        // updateData(playerInfo2, playerInfo2, Player);
+        console.log(playerInfo2);
         allData.playerMasterList.push(playerInfo2);
       })
       .catch(error => {
         console.log(`playerIdList search error: ${error}`);
       });
     });
-    console.log(allData.playerMasterList.length);
     return allData;
   })
   .catch(error => {
