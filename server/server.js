@@ -10,13 +10,9 @@ const config = require('./config.js'),
 	passport = require('passport'),
 	app = express(),
 	server = require('http').Server(app),
-	User = require('../models/user_model.js'),
-	createData = require('./programFunctions/crud_functions.js').createData,
-	readData = require('./programFunctions/crud_functions.js').readData,
-	updateData = require('./programFunctions/crud_functions.js').updateData,
-	deleteData = require('./programFunctions/crud_functions.js').deleteData,
 	routes = require('./routes.js').router,
-	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague;
+	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague,
+	leagueSelector = require('./programFunctions/api_functions.js').leagueSelector;
 
 app.use(jsonParser);
 app.use(express.static('public'));
@@ -32,6 +28,7 @@ let runServer = () => {
 	mongoose.connect(database, () => {
 		app.listen(config.PORT, () => {
 			console.log(`Listening on port: ${config.PORT}`);
+			playerStatsByLeague(779);
 		});
 	})
 	.catch(error => {

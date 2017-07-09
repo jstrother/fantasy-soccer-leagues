@@ -1,125 +1,171 @@
 const rp = require('request-promise'),
-    key = require('../config.js').API_KEY,
-    baseURL = 'https://soccer.sportmonks.com/api/v2.0',
-    toInclude = '&include=',
-    playerInfo = require('./playerInfo_function.js'),
-    Player = require('../../models/player_model.js'),
-    createData = require('./crud_functions.js').createData,
-  	readData = require('./crud_functions.js').readData,
-  	updateData = require('./crud_functions.js').updateData,
-  	deleteData = require('./crud_functions.js').deleteData;
+  key = require('../config.js').API_KEY,
+  baseURL = 'https://soccer.sportmonks.com/api/v2.0',
+  toInclude = '&include=',
+  playerInfo = require('./playerInfo_function.js'),
+  Player = require('../../models/player_model.js'),
+  createData = require('./crud_functions.js').createData,
+	readData = require('./crud_functions.js').readData,
+	updateData = require('./crud_functions.js').updateData,
+	deleteData = require('./crud_functions.js').deleteData;
 
 // this function returns the api leagueId for the selected leagueName, to be used when user selects type of fantasy league to play in
 function leagueSelector(leagueName) {
+  let leagueId;
   switch(leagueName) {
     case 'Premiere League (England)':
-      return 8;
+      leagueId = 8;
+      break;
     case 'Championship (England)':
-      return 9;
+      leagueId = 9;
+      break;
     case 'League One (England)':
-      return 12;
+      leagueId = 12;
+      break;
     case 'League Two (England)':
-      return 14;
+      leagueId = 14;
+      break;
     case 'Eredivise (Netherlands)':
-      return 72;
+      leagueId = 72;
+      break;
     case 'Eerste Divisie (Netherlands)':
-      return 74;
+      leagueId = 74;
+      break;
     case 'Bundesliga (Germany)':
-      return 82;
+      leagueId = 82;
+      break;
     case '2.Bundesliga (Germany)':
-      return 85;
+      leagueId = 85;
+      break;
     case 'Bundesliga (Austria)':
-      return 181;
+      leagueId = 181;
+      break;
     case 'Jupiler Pro League (Belgium)':
-      return 208;
+      leagueId = 208;
+      break;
     case 'Superliga (Denmark)':
-      return 271;
+      leagueId = 271;
+      break;
     case 'Ligue 1 (France)':
-      return 301;
+      leagueId = 301;
+      break;
     case 'Ligue 2 (France)':
-      return 304;
+      leagueId = 304;
+      break;
     case 'Super League (Greece)':
-      return 325;
+      leagueId = 325;
+      break;
     case 'Urvalsdeild (Iceland)':
-      return 345;
+      leagueId = 345;
+      break;
     case 'Premiere Division (Ireland)':
-      return 360;
+      leagueId = 360;
+      break;
     case 'Serie A (Italy)':
-      return 384;
+      leagueId = 384;
+      break;
     case 'Serie B (Italy)':
-      return 387;
+      leagueId = 387;
+      break;
     case 'Premiership (Northern Ireland)':
-      return 438;
+      leagueId = 438;
+      break;
     case 'Tippeligaen (Norway)':
-      return 444;
+      leagueId = 444;
+      break;
     case 'Ekstraklasa (Poland)':
-      return 453;
+      leagueId = 453;
+      break;
     case 'Primeira Liga (Portugal)':
-      return 462;
+      leagueId = 462;
+      break;
     case 'Premiere League (Russia)':
-      return 486;
+      leagueId = 486;
+      break;
     case 'Premiership (Scotland)':
-      return 501;
+      leagueId = 501;
+      break;
     case 'Championship (Scotland)':
-      return 504;
+      leagueId = 504;
+      break;
     case 'La Liga (Spain)':
-      return 564;
+      leagueId = 564;
+      break;
     case 'Segunda Division (Spain)':
-      return 567;
+      leagueId = 567;
+      break;
     case 'Allsvenskan (Sweden)':
-      return 573;
+      leagueId = 573;
+      break;
     case 'Superettan (Sweden)':
-      return 579;
+      leagueId = 579;
+      break;
     case 'Super League (Switzerland)':
-      return 591;
+      leagueId = 591;
+      break;
     case 'Super Lig (Turkey)':
-      return 600;
+      leagueId = 600;
+      break;
     case 'Premiere League (Wales)':
-      return 624;
+      leagueId = 624;
+      break;
     case 'Primera Division (Argentina)':
-      return 636;
+      leagueId = 636;
+      break;
     case 'Primera B (Argentina)':
-      return 639;
+      leagueId = 639;
+      break;
     case 'Serie A (Brazil)':
-      return 648;
+      leagueId = 648;
+      break;
     case 'Serie B (Brazil)':
-      return 651;
+      leagueId = 651;
+      break;
     case 'Primera Division (Chile)':
-      return 663;
+      leagueId = 663;
+      break;
     case 'Primera A: Apertura (Colombia)':
-      return 672;
+      leagueId = 672;
+      break;
     case 'Primera A: Clausura (Colombia)':
-      return 675;
+      leagueId = 675;
+      break;
     case 'Primera A: Apertura (Ecuador)':
-      return 693;
+      leagueId = 693;
+      break;
     case 'Primera A: Clausura (Ecuador)':
-      return 696;
+      leagueId = 696;
+      break;
     case 'Liga MX (Mexico)':
-      return 743;
+      leagueId = 743;
+      break;
     case 'Major League Soccer (USA)':
-      return 779;
+      leagueId = 779;
+      break;
     case 'J-League (Japan)':
-      return 968;
+      leagueId = 968;
+      break;
     case 'Super League (China)':
-      return 989;
+      leagueId = 989;
+      break;
     case 'Indian Super League (India)':
-      return 1007;
+      leagueId = 1007;
+      break;
     case 'Liga de Futbol Profesional (Bolivia)':
-      return 1098;
+      leagueId = 1098;
+      break;
     case 'A-League (Australia)':
-      return 1356;
+      leagueId = 1356;
+      break;
   }
+  return leagueId;
 }
-
-// leagueSelector();
-
-// combine the following two functions into one beautiful beast
 
 // this function returns all players and their stats for a league's current regular season
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
-    included = `${toInclude}fixtures,season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam.squad,season.stages.rounds.fixtures.visitorTeam.squad,season.stages.rounds.fixtures.goals`,
+    included = `${toInclude}season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam.squad,season.stages.rounds.fixtures.visitorTeam.squad,season.stages.rounds.fixtures.goals`,
     results = {
       uri: `${endpoint}${leagueId}${key}${included}`,
       json: true
@@ -127,40 +173,32 @@ function playerStatsByLeague(leagueId) {
     
   return rp(results)
   .then(results => {
-    let allData = {
-      playerMasterList: [],
-      roundsData: []
+    let seasonInfo = {
+      startDate: results.data.season.data.stages.data[0].rounds.data[0].start
     },
     playerIdList = [];  // this is to help make a master list of all players in league
+    
+    // the following little bit helps to find the end date of a season. the start and end are important
+    const seasonLength = results.data.season.data.stages.data[0].rounds.data.length;
+    for (let i = 0; i < seasonLength; i++) {
+      if (results.data.season.data.stages.data[0].rounds.data[i].name === seasonLength) {
+        seasonInfo.endDate = results.data.season.data.stages.data[0].rounds.data[i].end;
+      }
+    }
+    
     results.data.season.data.stages.data.forEach(stage => {
       //because we only want regular seasons, not playoffs or cup matches
       if (stage.name === 'Regular Season') {
-        allData.stageId = stage.id;
+        seasonInfo.stageId = stage.id;
+        
+        let starterInfo = {},
+          bencherInfo = {};
+        starterInfo.fantasyPointsSeason = 0;
+        bencherInfo.fantasyPointsSeason = 0;
         
         stage.rounds.data.forEach(round => {
-          if (round.stage_id === allData.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement
-            let roundInfo = {
-              name: round.name,
-              id: round.id,
-              start: round.start,
-              end: round.end,
-              fixtures: []
-            };
+          if (round.stage_id === seasonInfo.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement to confirm only rounds of the right stage with actual fixtures are dealt with
             round.fixtures.data.forEach(fixture => {
-              let fixtureInfo = {
-                id: fixture.id,
-                homeClubName: fixture.localTeam.data.name,
-                homeClubId: fixture.localTeam.data.id,
-                homeClubLogo: fixture.localTeam.data.logo_path,
-                homeClubScore: fixture.scores.localteam_score,
-                awayClubName: fixture.visitorTeam.data.name,
-                awayClubId: fixture.visitorTeam.data.id,
-                awayClubLogo: fixture.visitorTeam.data.logo_path,
-                awayClubScore: fixture.scores.visitorTeam_score,
-                status: fixture.time.status,
-                lineup: [],
-                bench: []
-              };
               // all calculated own goals come from this list
               let ownGoalList = [];
               fixture.goals.data.forEach(goal => {
@@ -174,67 +212,79 @@ function playerStatsByLeague(leagueId) {
               });
               
               fixture.lineup.data.forEach(starter => {
-                let starterInfo = playerInfo(starter, fixture, ownGoalList);
+                starterInfo = playerInfo(starter, fixture, ownGoalList);
+                starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
-                playerIdList.push(starterInfo.id);
-                // updateData(starterInfo.id, starterInfo, Player);
-                fixtureInfo.lineup.push(starterInfo);
+                // if (starterInfo.fantasyPointsRound !== null && starterInfo.fantasyPointsRound !== undefined) {
+                //   starterInfo.fantasyPointsSeason += starterInfo.fantasyPointsRound;
+                // }
+                // else {
+                //   starterInfo.fantasyPointsSeason += 0;
+                // }
+                updateData(starterInfo.idFromAPI, starterInfo, Player);
+                console.log(`updated ${starterInfo.idFromAPI}`);
+                playerIdList.push(starterInfo.idFromAPI);
               });
               
-              fixture.bench.data.forEach(bencher => {
-                let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
-                bencherInfo.fantasyPointsCalc();
-                playerIdList.push(bencherInfo.id);
-                // updateData(bencherInfo.id, bencherInfo, Player);
-                fixtureInfo.bench.push(bencherInfo);
-              });
-              roundInfo.fixtures.push(fixtureInfo);
+              // fixture.bench.data.forEach(bencher => {
+              //   bencherInfo = playerInfo(bencher, fixture, ownGoalList);
+              //   bencherInfo.ownGoalCalc();
+              //   bencherInfo.fantasyPointsCalc();
+              //   if (bencherInfo.fantasyPointsRound !== null) {
+              //     bencherInfo.fantasyPointsSeason += bencherInfo.fantasyPointsRound;
+              //   }
+              //   updateData(bencherInfo.idFromAPI, bencherInfo, Player);
+              //   console.log(`updated ${bencherInfo.idFromAPI}`);
+              //   playerIdList.push(bencherInfo.idFromAPI);
+              // });
             }); // close of round.fixtures.data.forEach
-            allData.roundsData.push(roundInfo);
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
       }
     });
     playerIdList = [... new Set(playerIdList)];
-    console.log(playerIdList.length);
-    playerIdList.forEach(playerId => {
-      const endpoint2 = `${baseURL}/players/`,
-        included2 = `${toInclude}team,position,sidelined,stats.season`,
-        results2 = {
-          uri: `${endpoint2}${playerId}${key}${included2}`,
-          json: true
-        };
+    // playerIdList.forEach(playerId => {
+    //   const endpoint2 = `${baseURL}/players/`,
+    //     included2 = `${toInclude}team,position,sidelined`,
+    //     results2 = {
+    //       uri: `${endpoint2}${playerId}${key}${included2}`,
+    //       json: true
+    //     };
       
-      return rp(results2)
-      .then(results2 => {
-        let playerInfo2 = {
-          id: results2.data.player_id,
-          commonName: results2.data.player_name,
-          fullName: results2.data.fullname,
-          firstName: results2.data.firstname,
-          lastName: results2.data.lastname,
-          position: results2.data.position.data.name,
-          picture: results2.data.image_path,
-          clubName: results2.data.team.data.name,
-          clubId: results2.data.team.data.id,
-          clubLogo: results2.data.team.data.logo_path
-        };
-        // updateData(playerInfo2, playerInfo2, Player);
-        console.log(playerInfo2);
-        allData.playerMasterList.push(playerInfo2);
-      })
-      .catch(error => {
-        console.log(`playerIdList search error: ${error}`);
-      });
-    });
-    return allData;
+    //   return rp(results2)
+    //   .then(results2 => {
+    //     let playerInfo2 = {
+    //       idFromAPI: results2.data.player_id,
+    //       commonName: results2.data.player_name,
+    //       fullName: results2.data.fullname,
+    //       firstName: results2.data.firstname,
+    //       lastName: results2.data.lastname,
+    //       position: results2.data.position.data.name,
+    //       picture: results2.data.image_path,
+    //       clubName: results2.data.team.data.name,
+    //       clubId: results2.data.team.data.id,
+    //       clubLogo: results2.data.team.data.logo_path
+    //     };
+    //     // if(results2.data.sidelined.data !== []) {
+    //     //   results2.data.sidelined.data.forEach(sidelined => {
+    //     //     if (sidelined.start_date >= seasonInfo.startDate && sidelined.end_date <= seasonInfo.endDate) {
+              
+    //     //     }
+    //     //   })
+    //     // }
+        
+    //     updateData(playerInfo2, playerInfo2, Player);
+    //   })
+    //   .catch(error => {
+    //     console.log(`playerIdList search error: ${error}`);
+    //   });
+    // });
+    return seasonInfo;
   })
   .catch(error => {
     console.log(`playerStatsByLeague error: ${error}`);
   });
 }
-
-playerStatsByLeague(779);
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
 
   playerSchema = mongoose.Schema({
-    id: Number,
+    idFromAPI: Number,
     commonName: String,
     fullName: String,
     firstName: String,
@@ -49,7 +49,8 @@ const mongoose = require('mongoose'),
         minutesPlayed: Number
       }
     },
-    fantasyPoints: Number
+    fantasyPointsRound: Number,
+    fantasyPointsSeason: Number
   }),
   
   Player = mongoose.model('Player', playerSchema);
