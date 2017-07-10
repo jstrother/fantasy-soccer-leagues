@@ -193,8 +193,6 @@ function playerStatsByLeague(leagueId) {
         
         let starterInfo = {},
           bencherInfo = {};
-        starterInfo.fantasyPointsSeason = 0;
-        bencherInfo.fantasyPointsSeason = 0;
         
         stage.rounds.data.forEach(round => {
           if (round.stage_id === seasonInfo.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement to confirm only rounds of the right stage with actual fixtures are dealt with
@@ -238,6 +236,8 @@ function playerStatsByLeague(leagueId) {
               //   playerIdList.push(bencherInfo.idFromAPI);
               // });
             }); // close of round.fixtures.data.forEach
+            starterInfo.fantasyPointsSeason += starterInfo.fantasyPointsRound;
+            bencherInfo.fantasyPointsSeason = 0;
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
       }
