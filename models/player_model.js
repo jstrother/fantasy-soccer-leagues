@@ -49,8 +49,8 @@ const mongoose = require('mongoose'),
         minutesPlayed: Number
       }
     },
-    fantasyPointsRound: Number,
-    fantasyPointsSeason: Number
+    fantasyPointsRound: 0 || Number,
+    fantasyPointsSeason: 0 || Number
   }),
   
   Player = mongoose.model('Player', playerSchema);
