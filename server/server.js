@@ -12,7 +12,8 @@ const config = require('./config.js'),
 	server = require('http').Server(app),
 	routes = require('./routes.js').router,
 	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague,
-	leagueSelector = require('./programFunctions/api_functions.js').leagueSelector;
+	leagueSelector = require('./programFunctions/api_functions.js').leagueSelector,
+	testPlayer = require('./programFunctions/api_functions.js').testPlayer;
 
 app.use(jsonParser);
 app.use(express.static('public'));
@@ -29,6 +30,7 @@ let runServer = () => {
 		app.listen(config.PORT, () => {
 			console.log(`Listening on port: ${config.PORT}`);
 			playerStatsByLeague(779);
+			// testPlayer(918);
 		});
 	})
 	.catch(error => {
