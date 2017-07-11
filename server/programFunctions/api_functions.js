@@ -211,18 +211,13 @@ function playerStatsByLeague(leagueId) {
                 starterInfo = playerInfo(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
-                // updateData(starterInfo.idFromAPI, starterInfo, Player);
+                updateData(starterInfo.idFromAPI, starterInfo, Player);
                 // console.log(`updated ${starterInfo.idFromAPI}`);
                 playerIdList.push(starterInfo.idFromAPI);
               });
-              starterInfo.fantasyPointsSeason = 0;
-              fixture.lineup.data.forEach(starter => {
-                // need to search through the database and update fantasyPointsSeason
-                // starterInfo.fantasyPointsSeason += starterInfo.fantasyPointsRound;
-              });
               
               // fixture.bench.data.forEach(bencher => {
-              //   let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
+              //   bencherInfo = playerInfo(bencher, fixture, ownGoalList);
               //   bencherInfo.ownGoalCalc();
               //   bencherInfo.fantasyPointsCalc();
               //   // bencherInfo.fantasyPointsSeason += bencherInfo.fantasyPointsRound;
@@ -236,42 +231,47 @@ function playerStatsByLeague(leagueId) {
       }
     });
     playerIdList = [... new Set(playerIdList)];
-    // playerIdList.forEach(playerId => {
-    //   const endpoint2 = `${baseURL}/players/`,
-    //     included2 = `${toInclude}team,position,sidelined`,
-    //     results2 = {
-    //       uri: `${endpoint2}${playerId}${key}${included2}`,
-    //       json: true
-    //     };
+    // using playerIdList, search through database for each player and then add fantasyPointsRound to fantasyPointsSeason as this function runs once a day
+    playerIdList.forEach(playerId => {
+      const endpoint2 = `${baseURL}/players/`,
+        included2 = `${toInclude}team,position,sidelined`,
+        results2 = {
+          uri: `${endpoint2}${playerId}${key}${included2}`,
+          json: true
+        };
       
-    //   return rp(results2)
-    //   .then(results2 => {
-    //     let playerInfo2 = {
-    //       idFromAPI: results2.data.player_id,
-    //       commonName: results2.data.player_name,
-    //       fullName: results2.data.fullname,
-    //       firstName: results2.data.firstname,
-    //       lastName: results2.data.lastname,
-    //       position: results2.data.position.data.name,
-    //       picture: results2.data.image_path,
-    //       clubName: results2.data.team.data.name,
-    //       clubId: results2.data.team.data.id,
-    //       clubLogo: results2.data.team.data.logo_path
-    //     };
-    //     // if(results2.data.sidelined.data !== []) {
-    //     //   results2.data.sidelined.data.forEach(sidelined => {
-    //     //     if (sidelined.start_date >= seasonInfo.startDate && sidelined.end_date <= seasonInfo.endDate) {
-              
-    //     //     }
-    //     //   })
-    //     // }
-        
-    //     updateData(playerInfo2, playerInfo2, Player);
-    //   })
-    //   .catch(error => {
-    //     console.log(`playerIdList search error: ${error}`);
-    //   });
-    // });
+      // return rp(results2)
+      // .then(results2 => {
+      //   let playerInfo2 = {
+      //     idFromAPI: results2.data.player_id,
+      //     commonName: results2.data.player_name,
+      //     fullName: results2.data.fullname,
+      //     firstName: results2.data.firstname,
+      //     lastName: results2.data.lastname,
+      //     position: results2.data.position.data.name,
+      //     picture: results2.data.image_path,
+      //     clubName: results2.data.team.data.name,
+      //     clubId: results2.data.team.data.id,
+      //     clubLogo: results2.data.team.data.logo_path,
+      //     sidelined: {
+      //       description: null,
+      //       startDate: null
+      //     }
+      //   };
+      //   if(results2.data.sidelined.data !== []) {
+      //     for (let i = 0; i < results2.data.sidelined.data.length; i++) {
+      //       if (results2.data.sidelined.data[i].end_date === null) {
+      //         playerInfo2.sidelined.description = results2.data.sidelined.data[i].description;
+      //         playerInfo2.sidelined.startDate = results2.data.sidelined.data[i].start_date;
+      //       }
+      //     }
+      //   }
+      //   updateData(playerInfo2, playerInfo2, Player);
+      // })
+      // .catch(error => {
+      //   console.log(`playerIdList search error: ${error}`);
+      // });
+    });
     return seasonInfo;
   })
   .catch(error => {
@@ -281,46 +281,41 @@ function playerStatsByLeague(leagueId) {
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;
-exports.testPlayer = testPlayer;
 
 function testPlayer(playerId) {
   const endpoint2 = `${baseURL}/players/`,
-    included2 = `${toInclude}team,position,sidelined`,
-    results2 = {
-      uri: `${endpoint2}${playerId}${key}${included2}`,
-      json: true
-    };
-  
-  return rp(results2)
-  .then(results2 => {
-    let playerInfo2 = {
-      idFromAPI: results2.data.player_id,
-      commonName: results2.data.player_name,
-      fullName: results2.data.fullname,
-      firstName: results2.data.firstname,
-      lastName: results2.data.lastname,
-      position: results2.data.position.data.name,
-      picture: results2.data.image_path,
-      clubName: results2.data.team.data.name,
-      clubId: results2.data.team.data.id,
-      clubLogo: results2.data.team.data.logo_path,
-      sidelined: {
-        description: null,
-        startDate: null
-      }
-    };
-    if(results2.data.sidelined.data !== []) {
-      for (let i = 0; i < results2.data.sidelined.data.length; i++) {
-        if (results2.data.sidelined.data[i].end_date === null) {
-          playerInfo2.sidelined.description = results2.data.sidelined.data[i].description;
-          playerInfo2.sidelined.startDate = results2.data.sidelined.data[i].start_date;
+        included2 = `${toInclude}team,position,sidelined`,
+        results2 = {
+          uri: `${endpoint2}${playerId}${key}${included2}`,
+          json: true
+        };
+      
+      return rp(results2)
+      .then(results2 => {
+        let playerInfo2 = {
+          idFromAPI: results2.data.player_id,
+          commonName: results2.data.player_name,
+          fullName: results2.data.fullname,
+          firstName: results2.data.firstname,
+          lastName: results2.data.lastname,
+          position: results2.data.position.data.name,
+          picture: results2.data.image_path,
+          clubName: results2.data.team.data.name,
+          clubId: results2.data.team.data.id,
+          clubLogo: results2.data.team.data.logo_path,
+          sidelined: {
+            description: null,
+            startDate: null
+          }
+        };
+        if(results2.data.sidelined.data !== []) {
+          for (let i = 0; i < results2.data.sidelined.data.length; i++) {
+            if (results2.data.sidelined.data[i].end_date === null) {
+              playerInfo2.sidelined.description = results2.data.sidelined.data[i].description;
+              playerInfo2.sidelined.startDate = results2.data.sidelined.data[i].start_date;
+            }
+          }
         }
-      }
-    }
-    console.log(playerInfo2);
-    // updateData(playerInfo2, playerInfo2, Player);
-  })
-  .catch(error => {
-    console.log(`playerIdList search error: ${error}`);
-  });
+        updateData(playerInfo2, playerInfo2, Player);
+      });
 }

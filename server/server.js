@@ -30,7 +30,7 @@ let runServer = () => {
 		app.listen(config.PORT, () => {
 			console.log(`Listening on port: ${config.PORT}`);
 			playerStatsByLeague(779);
-			// testPlayer(918);
+			// testPlayer(70294);
 		});
 	})
 	.catch(error => {

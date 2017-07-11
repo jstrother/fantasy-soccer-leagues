@@ -92,7 +92,9 @@ function playerInfo(playerType, fixture, ownGoalList) {
           : playerType.stats.other.minutes_played
       }
     },
-    fantasyPointsRound: playerType === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchers' or 'reserves'
+    fantasyPoints: {
+      round: playerType === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchers' or 'reserves'
+    },
     ownGoalCalc: function() {
       ownGoalList.forEach(ownGoal => {
         if (ownGoal !== undefined) {
@@ -107,101 +109,101 @@ function playerInfo(playerType, fixture, ownGoalList) {
       
       // minutes played
       if (this.stats.other.minutesPlayed >= 60) {
-        this.fantasyPointsRound += 2;
+        this.fantasyPoints.round += 2;
       }
       
       // goal scored: 5pts for midfielders and forwards, 6 points for goalkeepers and defenders
       if (this.stats.other.minutesPlayed >= 60) {
         if (this.position === 'G' || this.position === 'D') {
-          this.fantasyPointsRound += this.stats.goals.scored * 6;
+          this.fantasyPoints.round += this.stats.goals.scored * 6;
         }
         else {
-          this.fantasyPointsRound += this.stats.goals.scored * 5;
+          this.fantasyPoints.round += this.stats.goals.scored * 5;
         }
       }
       
       // goal conceded: -1pt for every 2 - goalkeepers and defenders only
       if (this.position === 'G' || this.position === 'D') {
         if (this.stats.goals.conceded > 0) {
-          this.fantasyPointsRound += -(Math.floor((this.stats.goals.conceded / 2)));
+          this.fantasyPoints.round += -(Math.floor((this.stats.goals.conceded / 2)));
         }
       }
       
       // assists: 3pts for each assist
-      this.fantasyPointsRound += this.stats.other.assists * 3;
+      this.fantasyPoints.round += this.stats.other.assists * 3;
       
       // clean sheets: 5pts for goalkeepers and defenders, 1pt for midfielders
       if (this.position === 'G' || this.position === 'D') {
         if (this.clubId === fixture.localTeam.data.id && fixture.scores.visitorTeam_score === 0) {
-          this.fantasyPointsRound += 5;
+          this.fantasyPoints.round += 5;
         }
         else if (this.clubId === fixture.visitorTeam.data.id && fixture.scores.localTeam_score === 0) {
-          this.fantasyPointsRound += 5;
+          this.fantasyPoints.round += 5;
         }
       }
       else if (this.position === 'M') {
         if (this.clubId === fixture.localTeam.data.id && fixture.scores.visitorTeam_score === 0) {
-          this.fantasyPointsRound += 1;
+          this.fantasyPoints.round += 1;
         }
         else if (this.clubId === fixture.visitorTeam.data.id && fixture.scores.localTeam_score === 0) {
-          this.fantasyPointsRound += 1;
+          this.fantasyPoints.round += 1;
         }
       }
       
       // penalty missed: -3pts
-      this.fantasyPointsRound += -(this.stats.other.penaltiesMissed * 3);
+      this.fantasyPoints.round += -(this.stats.other.penaltiesMissed * 3);
       
       // penalty scored: 6pts
-      this.fantasyPointsRound += (this.stats.other.penaltiesScored * 6);
+      this.fantasyPoints.round += (this.stats.other.penaltiesScored * 6);
       
       // penalty saved: 5pts
-      this.fantasyPointsRound += (this.stats.other.penaltiesSaved * 5);
+      this.fantasyPoints.round += (this.stats.other.penaltiesSaved * 5);
       
       // own goal: -2pts
-      this.fantasyPointsRound += -(this.stats.goals.ownGoals * 2);
+      this.fantasyPoints.round += -(this.stats.goals.ownGoals * 2);
       
       // yellow cards: -1pt
-      this.fantasyPointsRound += -this.stats.cards.yellowCards;
+      this.fantasyPoints.round += -this.stats.cards.yellowCards;
       
       // red cards: -3pts
-      this.fantasyPointsRound += -(this.stats.cards.redCards * 3);
+      this.fantasyPoints.round += -(this.stats.cards.redCards * 3);
       
       // saves: 1pt - goalkeepers only
       if (this.position === 'G') {
-        this.fantasyPointsRound += this.stats.other.saves;
+        this.fantasyPoints.round += this.stats.other.saves;
       }
       
       // passing accuracy: 1 pt for every 35 passes AND accuracy >= 85
       if (this.stats.passing.passes > 0 && this.stats.passing.passingAccuracy >= 85) {
-        this.fantasyPointsRound += Math.floor(this.stats.passing.passes / 35);
+        this.fantasyPoints.round += Math.floor(this.stats.passing.passes / 35);
       }
       
       // shots taken: 1pt for every 4
-      this.fantasyPointsRound += Math.floor(this.stats.shots.shotsTotal / 4);
+      this.fantasyPoints.round += Math.floor(this.stats.shots.shotsTotal / 4);
       
       // shots on goal: 2pts for every 4
-      this.fantasyPointsRound += (Math.floor(this.stats.shots.shotsOnGoal / 4) * 2);
+      this.fantasyPoints.round += (Math.floor(this.stats.shots.shotsOnGoal / 4) * 2);
       
       // fouls committed: -1pt for every 4
-      this.fantasyPointsRound += -(Math.floor(this.stats.fouls.committed / 4));
+      this.fantasyPoints.round += -(Math.floor(this.stats.fouls.committed / 4));
       
       // fouls received: 1pt for every 4
-      this.fantasyPointsRound += Math.floor(this.stats.fouls.committed / 4);
+      this.fantasyPoints.round += Math.floor(this.stats.fouls.committed / 4);
       
       // crosses: 1pt for every 3
-      this.fantasyPointsRound += Math.floor(this.stats.passing.totalCrosses / 3);
+      this.fantasyPoints.round += Math.floor(this.stats.passing.totalCrosses / 3);
       
       // clearances: 1pt for every 4
-      this.fantasyPointsRound += Math.floor(this.stats.other.clearances / 4);
+      this.fantasyPoints.round += Math.floor(this.stats.other.clearances / 4);
       
       // blocks: 1pt for every 2
-      this.fantasyPointsRound += Math.floor(this.stats.other.blocks / 2);
+      this.fantasyPoints.round += Math.floor(this.stats.other.blocks / 2);
       
       // interceptions: 1pt for every 4
-      this.fantasyPointsRound += Math.floor(this.stats.other.interceptions / 4);
+      this.fantasyPoints.round += Math.floor(this.stats.other.interceptions / 4);
       
       // tackles: 1pt for every 4
-      this.fantasyPointsRound += Math.floor(this.stats.other.tackles / 4);
+      this.fantasyPoints.round += Math.floor(this.stats.other.tackles / 4);
     }
   };
 }
