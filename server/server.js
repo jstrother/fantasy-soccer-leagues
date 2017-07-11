@@ -29,8 +29,8 @@ let runServer = () => {
 	mongoose.connect(database, () => {
 		app.listen(config.PORT, () => {
 			console.log(`Listening on port: ${config.PORT}`);
-			playerStatsByLeague(779);
-			// testPlayer(918);
+			// playerStatsByLeague(779);
+			testPlayer(918);
 		});
 	})
 	.catch(error => {

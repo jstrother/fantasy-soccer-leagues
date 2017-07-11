@@ -298,17 +298,22 @@ function testPlayer(playerId) {
       picture: results2.data.image_path,
       clubName: results2.data.team.data.name,
       clubId: results2.data.team.data.id,
-      clubLogo: results2.data.team.data.logo_path
+      clubLogo: results2.data.team.data.logo_path,
+      sidelined: {
+        description: null,
+        startDate: null
+      }
     };
-    // if(results2.data.sidelined.data !== []) {
-    //   results2.data.sidelined.data.forEach(sidelined => {
-    //     if (sidelined.start_date >= seasonInfo.startDate && sidelined.end_date <= seasonInfo.endDate) {
-          
-    //     }
-    //   })
-    // }
-    
-    updateData(playerInfo2, playerInfo2, Player);
+    if(results2.data.sidelined.data !== []) {
+      for (let i = 0; i < results2.data.sidelined.data.length; i++) {
+        if (results2.data.sidelined.data[i].end_date === null) {
+          playerInfo2.sidelined.description = results2.data.sidelined.data[i].description;
+          playerInfo2.sidelined.startDate = results2.data.sidelined.data[i].start_date;
+        }
+      }
+    }
+    console.log(playerInfo2);
+    // updateData(playerInfo2, playerInfo2, Player);
   })
   .catch(error => {
     console.log(`playerIdList search error: ${error}`);
