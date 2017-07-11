@@ -191,6 +191,8 @@ function playerStatsByLeague(leagueId) {
       if (stage.name === 'Regular Season') {
         seasonInfo.stageId = stage.id;
         
+        let starterInfo = {},
+          bencherInfo = {};
         stage.rounds.data.forEach(round => {
           if (round.stage_id === seasonInfo.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement to confirm only rounds of the right stage with actual fixtures are dealt with
             round.fixtures.data.forEach(fixture => {
@@ -205,26 +207,29 @@ function playerStatsByLeague(leagueId) {
                   ownGoalList.push(ownGoal);
                 }
               });
-              
               fixture.lineup.data.forEach(starter => {
-                let starterInfo = playerInfo(starter, fixture, ownGoalList);
+                starterInfo = playerInfo(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
-                // starterInfo.fantasyPointsSeason += starterInfo.fantasyPointsRound;
-                updateData(starterInfo.idFromAPI, starterInfo, Player);
-                console.log(`updated ${starterInfo.idFromAPI}`);
+                // updateData(starterInfo.idFromAPI, starterInfo, Player);
+                // console.log(`updated ${starterInfo.idFromAPI}`);
                 playerIdList.push(starterInfo.idFromAPI);
               });
-              
-              fixture.bench.data.forEach(bencher => {
-                let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
-                bencherInfo.ownGoalCalc();
-                bencherInfo.fantasyPointsCalc();
-                // bencherInfo.fantasyPointsSeason += bencherInfo.fantasyPointsRound;
-                updateData(bencherInfo.idFromAPI, bencherInfo, Player);
-                console.log(`updated ${bencherInfo.idFromAPI}`);
-                playerIdList.push(bencherInfo.idFromAPI);
+              starterInfo.fantasyPointsSeason = 0;
+              fixture.lineup.data.forEach(starter => {
+                // need to search through the database and update fantasyPointsSeason
+                // starterInfo.fantasyPointsSeason += starterInfo.fantasyPointsRound;
               });
+              
+              // fixture.bench.data.forEach(bencher => {
+              //   let bencherInfo = playerInfo(bencher, fixture, ownGoalList);
+              //   bencherInfo.ownGoalCalc();
+              //   bencherInfo.fantasyPointsCalc();
+              //   // bencherInfo.fantasyPointsSeason += bencherInfo.fantasyPointsRound;
+              //   updateData(bencherInfo.idFromAPI, bencherInfo, Player);
+              //   console.log(`updated ${bencherInfo.idFromAPI}`);
+              //   playerIdList.push(bencherInfo.idFromAPI);
+              // });
             }); // close of round.fixtures.data.forEach
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
