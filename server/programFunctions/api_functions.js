@@ -2,6 +2,7 @@ const rp = require('request-promise'),
   key = require('../config.js').API_KEY,
   baseURL = 'https://soccer.sportmonks.com/api/v2.0',
   toInclude = '&include=',
+  playerStats = require('./playerStats_function.js'),
   playerInfo = require('./playerInfo_function.js'),
   Player = require('../../models/player_model.js'),
   createData = require('./crud_functions.js').createData,
@@ -208,7 +209,7 @@ function playerStatsByLeague(leagueId) {
                 }
               });
               fixture.lineup.data.forEach(starter => {
-                starterInfo = playerInfo(starter, fixture, ownGoalList);
+                starterInfo = playerStats(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
                 updateData(starterInfo.idFromAPI, starterInfo, Player);
@@ -217,7 +218,7 @@ function playerStatsByLeague(leagueId) {
               });
               
               // fixture.bench.data.forEach(bencher => {
-              //   bencherInfo = playerInfo(bencher, fixture, ownGoalList);
+              //   bencherInfo = playerStats(bencher, fixture, ownGoalList);
               //   bencherInfo.ownGoalCalc();
               //   bencherInfo.fantasyPointsCalc();
               //   // bencherInfo.fantasyPointsSeason += bencherInfo.fantasyPointsRound;
@@ -232,45 +233,10 @@ function playerStatsByLeague(leagueId) {
     });
     playerIdList = [... new Set(playerIdList)];
     // using playerIdList, search through database for each player and then add fantasyPointsRound to fantasyPointsSeason as this function runs once a day
+    
     playerIdList.forEach(playerId => {
-      const endpoint2 = `${baseURL}/players/`,
-        included2 = `${toInclude}team,position,sidelined`,
-        results2 = {
-          uri: `${endpoint2}${playerId}${key}${included2}`,
-          json: true
-        };
-      
-      // return rp(results2)
-      // .then(results2 => {
-      //   let playerInfo2 = {
-      //     idFromAPI: results2.data.player_id,
-      //     commonName: results2.data.player_name,
-      //     fullName: results2.data.fullname,
-      //     firstName: results2.data.firstname,
-      //     lastName: results2.data.lastname,
-      //     position: results2.data.position.data.name,
-      //     picture: results2.data.image_path,
-      //     clubName: results2.data.team.data.name,
-      //     clubId: results2.data.team.data.id,
-      //     clubLogo: results2.data.team.data.logo_path,
-      //     sidelined: {
-      //       description: null,
-      //       startDate: null
-      //     }
-      //   };
-      //   if(results2.data.sidelined.data !== []) {
-      //     for (let i = 0; i < results2.data.sidelined.data.length; i++) {
-      //       if (results2.data.sidelined.data[i].end_date === null) {
-      //         playerInfo2.sidelined.description = results2.data.sidelined.data[i].description;
-      //         playerInfo2.sidelined.startDate = results2.data.sidelined.data[i].start_date;
-      //       }
-      //     }
-      //   }
-      //   updateData(playerInfo2, playerInfo2, Player);
-      // })
-      // .catch(error => {
-      //   console.log(`playerIdList search error: ${error}`);
-      // });
+      // let playerInfo2 = playerInfo(playerId);
+      // updateData(playerInfo2.idFromAPI, playerInfo2, Player);
     });
     return seasonInfo;
   })
@@ -282,40 +248,5 @@ function playerStatsByLeague(leagueId) {
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;
 
-function testPlayer(playerId) {
-  const endpoint2 = `${baseURL}/players/`,
-        included2 = `${toInclude}team,position,sidelined`,
-        results2 = {
-          uri: `${endpoint2}${playerId}${key}${included2}`,
-          json: true
-        };
-      
-      return rp(results2)
-      .then(results2 => {
-        let playerInfo2 = {
-          idFromAPI: results2.data.player_id,
-          commonName: results2.data.player_name,
-          fullName: results2.data.fullname,
-          firstName: results2.data.firstname,
-          lastName: results2.data.lastname,
-          position: results2.data.position.data.name,
-          picture: results2.data.image_path,
-          clubName: results2.data.team.data.name,
-          clubId: results2.data.team.data.id,
-          clubLogo: results2.data.team.data.logo_path,
-          sidelined: {
-            description: null,
-            startDate: null
-          }
-        };
-        if(results2.data.sidelined.data !== []) {
-          for (let i = 0; i < results2.data.sidelined.data.length; i++) {
-            if (results2.data.sidelined.data[i].end_date === null) {
-              playerInfo2.sidelined.description = results2.data.sidelined.data[i].description;
-              playerInfo2.sidelined.startDate = results2.data.sidelined.data[i].start_date;
-            }
-          }
-        }
-        updateData(playerInfo2, playerInfo2, Player);
-      });
-}
+let playerInfo2 = playerInfo(918);
+console.log(playerInfo2);
