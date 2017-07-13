@@ -228,34 +228,34 @@ function playerStatsByLeague(leagueId) {
     playerIdList = [... new Set(playerIdList)];
     console.log(playerIdList.length);
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
-    // playerIdList.forEach(playerId => {
-    //   const endpoint2 = `${baseURL}/players/`,
-    //     included2 = `${toInclude}team,position,sidelined`,
-    //     results2 = {
-    //       uri: `${endpoint2}${playerId}${key}${included2}`,
-    //       json: true
-    //     };
+    playerIdList.forEach(playerId => {
+      const endpoint2 = `${baseURL}/players/`,
+        included2 = `${toInclude}team,position,sidelined`,
+        results2 = {
+          uri: `${endpoint2}${playerId}${key}${included2}`,
+          json: true
+        };
       
-    //   return rp(results2)
-    //   .then(results2 => {
-    //     let playerInfo2 = {
-    //       idFromAPI: results2.data.player_id,
-    //       commonName: results2.data.player_name,
-    //       fullName: results2.data.fullname,
-    //       firstName: results2.data.firstname,
-    //       lastName: results2.data.lastname,
-    //       position: results2.data.position.data.name,
-    //       picture: results2.data.image_path,
-    //       clubName: results2.data.team.data.name,
-    //       clubId: results2.data.team.data.id,
-    //       clubLogo: results2.data.team.data.logo_path
-    //     };
-    //     updateData(playerInfo2.idFromAPI, playerInfo2, Player);
-    //   })
-    //   .catch(error => {
-    //     console.log(`playerIdList search error: ${error}`);
-    //   });
-    // });
+      return rp(results2)
+      .then(results2 => {
+        let playerInfo2 = {
+          idFromAPI: results2.data.player_id,
+          commonName: results2.data.player_name,
+          fullName: results2.data.fullname,
+          firstName: results2.data.firstname,
+          lastName: results2.data.lastname,
+          position: results2.data.position.data.name,
+          picture: results2.data.image_path,
+          clubName: results2.data.team.data.name,
+          clubId: results2.data.team.data.id,
+          clubLogo: results2.data.team.data.logo_path
+        };
+        updateData(playerInfo2.idFromAPI, playerInfo2, Player);
+      })
+      .catch(error => {
+        console.log(`playerIdList search error: ${error}`);
+      });
+    });
     return seasonInfo;
   })
   .catch(error => {
