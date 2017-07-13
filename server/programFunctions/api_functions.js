@@ -3,7 +3,6 @@ const rp = require('request-promise'),
   baseURL = 'https://soccer.sportmonks.com/api/v2.0',
   toInclude = '&include=',
   playerStats = require('./playerStats_function.js'),
-  playerInfo = require('./playerInfo_function.js'),
   Player = require('../../models/player_model.js'),
   createData = require('./crud_functions.js').createData,
 	readData = require('./crud_functions.js').readData,
@@ -191,9 +190,7 @@ function playerStatsByLeague(leagueId) {
       //because we only want regular seasons, not playoffs or cup matches
       if (stage.name === 'Regular Season') {
         seasonInfo.stageId = stage.id;
-        
-        let starterInfo = {},
-          bencherInfo = {};
+       
         stage.rounds.data.forEach(round => {
           if (round.stage_id === seasonInfo.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement to confirm only rounds of the right stage with actual fixtures are dealt with
             round.fixtures.data.forEach(fixture => {
@@ -209,35 +206,56 @@ function playerStatsByLeague(leagueId) {
                 }
               });
               fixture.lineup.data.forEach(starter => {
-                starterInfo = playerStats(starter, fixture, ownGoalList);
+                let starterInfo = playerStats(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
                 updateData(starterInfo.idFromAPI, starterInfo, Player);
-                // console.log(`updated ${starterInfo.idFromAPI}`);
                 playerIdList.push(starterInfo.idFromAPI);
               });
               
-              // fixture.bench.data.forEach(bencher => {
-              //   bencherInfo = playerStats(bencher, fixture, ownGoalList);
-              //   bencherInfo.ownGoalCalc();
-              //   bencherInfo.fantasyPointsCalc();
-              //   // bencherInfo.fantasyPointsSeason += bencherInfo.fantasyPointsRound;
-              //   updateData(bencherInfo.idFromAPI, bencherInfo, Player);
-              //   console.log(`updated ${bencherInfo.idFromAPI}`);
-              //   playerIdList.push(bencherInfo.idFromAPI);
-              // });
+              fixture.bench.data.forEach(bencher => {
+                let bencherInfo = playerStats(bencher, fixture, ownGoalList);
+                bencherInfo.ownGoalCalc();
+                bencherInfo.fantasyPointsCalc();
+                updateData(bencherInfo.idFromAPI, bencherInfo, Player);
+                playerIdList.push(bencherInfo.idFromAPI);
+              });
             }); // close of round.fixtures.data.forEach
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
       }
     });
     playerIdList = [... new Set(playerIdList)];
-    // using playerIdList, search through database for each player and then add fantasyPointsRound to fantasyPointsSeason as this function runs once a day
-    
-    playerIdList.forEach(playerId => {
-      // let playerInfo2 = playerInfo(playerId);
-      // updateData(playerInfo2.idFromAPI, playerInfo2, Player);
-    });
+    console.log(playerIdList.length);
+    // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
+    // playerIdList.forEach(playerId => {
+    //   const endpoint2 = `${baseURL}/players/`,
+    //     included2 = `${toInclude}team,position,sidelined`,
+    //     results2 = {
+    //       uri: `${endpoint2}${playerId}${key}${included2}`,
+    //       json: true
+    //     };
+      
+    //   return rp(results2)
+    //   .then(results2 => {
+    //     let playerInfo2 = {
+    //       idFromAPI: results2.data.player_id,
+    //       commonName: results2.data.player_name,
+    //       fullName: results2.data.fullname,
+    //       firstName: results2.data.firstname,
+    //       lastName: results2.data.lastname,
+    //       position: results2.data.position.data.name,
+    //       picture: results2.data.image_path,
+    //       clubName: results2.data.team.data.name,
+    //       clubId: results2.data.team.data.id,
+    //       clubLogo: results2.data.team.data.logo_path
+    //     };
+    //     updateData(playerInfo2.idFromAPI, playerInfo2, Player);
+    //   })
+    //   .catch(error => {
+    //     console.log(`playerIdList search error: ${error}`);
+    //   });
+    // });
     return seasonInfo;
   })
   .catch(error => {
@@ -247,6 +265,3 @@ function playerStatsByLeague(leagueId) {
 
 exports.leagueSelector = leagueSelector;
 exports.playerStatsByLeague = playerStatsByLeague;
-
-let playerInfo2 = playerInfo(918);
-console.log(playerInfo2);

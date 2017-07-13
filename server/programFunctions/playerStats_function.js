@@ -1,6 +1,7 @@
 function playerStats(playerType, fixture, ownGoalList) {
-  return {
+  let playerStats = {
     idFromAPI: playerType.player_id,
+    fullName: playerType.player_name,
     position: playerType.position,
     clubId: playerType.team_id,
     clubName: fixture.localTeam.data.id === playerType.team_id 
@@ -97,7 +98,7 @@ function playerStats(playerType, fixture, ownGoalList) {
     ownGoalCalc: function() {
       ownGoalList.forEach(ownGoal => {
         if (ownGoal !== undefined) {
-          if (ownGoal.fixtureId === this.fixtureId && ownGoal.playerId === this.id) {
+          if (ownGoal.fixtureId === this.fixtureId && ownGoal.playerId === this.idFromAPI) {
             this.stats.goals.ownGoals += 1;
           }
         }
@@ -205,6 +206,9 @@ function playerStats(playerType, fixture, ownGoalList) {
       this.fantasyPoints.round += Math.floor(this.stats.other.tackles / 4);
     }
   };
+  
+  // console.log(`updated ${playerStats.fullName}`);
+  return playerStats;
 }
 
 module.exports = playerStats;

@@ -2,6 +2,7 @@
 
 const config = require('./config.js'),
 	database = `${config.DATABASE_URL}`,
+	port = `${config.PORT}`,
 	path = require('path'),
 	express = require('express'),
 	bodyParser = require('body-parser'),
@@ -12,8 +13,7 @@ const config = require('./config.js'),
 	server = require('http').Server(app),
 	routes = require('./routes.js').router,
 	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague,
-	leagueSelector = require('./programFunctions/api_functions.js').leagueSelector,
-	testPlayer = require('./programFunctions/api_functions.js').testPlayer;
+	leagueSelector = require('./programFunctions/api_functions.js').leagueSelector;
 
 app.use(jsonParser);
 app.use(express.static('public'));
@@ -27,10 +27,9 @@ console.log('Server Started');
 
 let runServer = () => {
 	mongoose.connect(database, () => {
-		app.listen(config.PORT, () => {
-			console.log(`Listening on port: ${config.PORT}`);
+		app.listen(port, () => {
+			console.log(`Listening on port: ${port}`);
 			playerStatsByLeague(779);
-			// testPlayer(70294);
 		});
 	})
 	.catch(error => {

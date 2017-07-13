@@ -49,13 +49,13 @@ const mongoose = require('mongoose'),
         minutesPlayed: Number
       }
     },
-    sidelined: {
+    sidelined: { // to be calculated at a later date
       description: String,
       startDate: String
     },
     fantasyPoints: {
       round: Number,
-      season: Number
+      season: Number // to be calculated at a later date
     }
   }),
   
