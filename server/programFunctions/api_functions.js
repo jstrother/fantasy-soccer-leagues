@@ -205,11 +205,21 @@ function playerStatsByLeague(leagueId) {
                   ownGoalList.push(ownGoal);
                 }
               });
+              
               fixture.lineup.data.forEach(starter => {
+                // console.log('starter:', starter);
                 let starterInfo = playerStats(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
-                updateData(starterInfo.idFromAPI, starterInfo, Player);
+                // console.log(`starterInfo id: ${starterInfo.idFromAPI}`);
+                updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player);
+                // readData(starterInfo, Player)
+                // .then(starterData => {
+                //   console.log(starterData);
+                // })
+                // .catch(error => {
+                //   console.log(`fantasyPoints.season update error: ${error}`);
+                // });
                 playerIdList.push(starterInfo.idFromAPI);
               });
               
@@ -217,7 +227,8 @@ function playerStatsByLeague(leagueId) {
                 let bencherInfo = playerStats(bencher, fixture, ownGoalList);
                 bencherInfo.ownGoalCalc();
                 bencherInfo.fantasyPointsCalc();
-                updateData(bencherInfo.idFromAPI, bencherInfo, Player);
+                // console.log(`bencherInfo id: ${bencherInfo.idFromAPI}`);
+                updateData({idFromAPI: bencherInfo.idFromAPI}, bencherInfo, Player);
                 playerIdList.push(bencherInfo.idFromAPI);
               });
             }); // close of round.fixtures.data.forEach
@@ -229,32 +240,33 @@ function playerStatsByLeague(leagueId) {
     console.log(playerIdList.length);
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
     playerIdList.forEach(playerId => {
-      const endpoint2 = `${baseURL}/players/`,
-        included2 = `${toInclude}team,position,sidelined`,
-        results2 = {
-          uri: `${endpoint2}${playerId}${key}${included2}`,
-          json: true
-        };
+      // const endpoint2 = `${baseURL}/players/`,
+      //   included2 = `${toInclude}team,position,sidelined`,
+      //   results2 = {
+      //     uri: `${endpoint2}${playerId}${key}${included2}`,
+      //     json: true
+      //   };
       
-      return rp(results2)
-      .then(results2 => {
-        let playerInfo2 = {
-          idFromAPI: results2.data.player_id,
-          commonName: results2.data.player_name,
-          fullName: results2.data.fullname,
-          firstName: results2.data.firstname,
-          lastName: results2.data.lastname,
-          position: results2.data.position.data.name,
-          picture: results2.data.image_path,
-          clubName: results2.data.team.data.name,
-          clubId: results2.data.team.data.id,
-          clubLogo: results2.data.team.data.logo_path
-        };
-        updateData(playerInfo2.idFromAPI, playerInfo2, Player);
-      })
-      .catch(error => {
-        console.log(`playerIdList search error: ${error}`);
-      });
+      // return rp(results2)
+      // .then(results2 => {
+      //   let playerInfo2 = {
+      //     idFromAPI: results2.data.player_id,
+      //     commonName: results2.data.player_name,
+      //     fullName: results2.data.fullname,
+      //     firstName: results2.data.firstname,
+      //     lastName: results2.data.lastname,
+      //     position: results2.data.position.data.name,
+      //     picture: results2.data.image_path,
+      //     clubName: results2.data.team.data.name,
+      //     clubId: results2.data.team.data.id,
+      //     clubLogo: results2.data.team.data.logo_path
+      //   };
+      //   console.log(`playerInfo2 id: ${playerInfo2.idFromAPI}`);
+      //   updateData(playerInfo2.idFromAPI, playerInfo2, Player);
+      // })
+      // .catch(error => {
+      //   console.log(`playerIdList search error: ${error}`);
+      // });
     });
     return seasonInfo;
   })

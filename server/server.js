@@ -29,13 +29,14 @@ let runServer = () => {
 	mongoose.connect(database, () => {
 		app.listen(port, () => {
 			console.log(`Listening on port: ${port}`);
-			playerStatsByLeague(779);
 		});
 	})
 	.catch(error => {
 		console.error(`mongoose connect error: ${error}`);
 	});
 };
+
+playerStatsByLeague(779);
 
 if (require.main === module) {
 	runServer();

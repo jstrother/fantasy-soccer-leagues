@@ -1,5 +1,5 @@
 function playerStats(playerType, fixture, ownGoalList) {
-  let playerStats = {
+  let playerStatsObject = {
     idFromAPI: playerType.player_id,
     fullName: playerType.player_name,
     position: playerType.position,
@@ -208,7 +208,7 @@ function playerStats(playerType, fixture, ownGoalList) {
   };
   
   // console.log(`updated ${playerStats.fullName}`);
-  return playerStats;
+  return playerStatsObject;
 }
 
 module.exports = playerStats;
