@@ -54,8 +54,8 @@ const mongoose = require('mongoose'),
       startDate: String
     },
     fantasyPoints: {
-      round: Number,
-      season: Number // to be calculated at a later date
+      fixture: Number,
+      season: {default: 0, type: Number } // to be calculated at a later date
     }
   }),
   

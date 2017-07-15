@@ -207,30 +207,46 @@ function playerStatsByLeague(leagueId) {
               });
               
               fixture.lineup.data.forEach(starter => {
-                // console.log('starter:', starter);
                 let starterInfo = playerStats(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
-                // console.log(`starterInfo id: ${starterInfo.idFromAPI}`);
-                updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player);
-                // readData(starterInfo, Player)
-                // .then(starterData => {
-                //   console.log(starterData);
-                // })
-                // .catch(error => {
-                //   console.log(`fantasyPoints.season update error: ${error}`);
-                // });
+                updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player)
+                .then(starterData => {
+                  return readData({idFromAPI: starterData.idFromAPI}, Player)
+                  .then(data => {
+                    let seasonPointsTotal = data.fantasyPoints.season;
+                    seasonPointsTotal += data.fantasyPoints.fixture;
+                    updateData({idFromAPI: data.idFromAPI}, {$set: {fantasyPoints: {
+                      fixture: data.fantasyPoints.fixture,
+                      season: seasonPointsTotal
+                    }}}, Player)
+                    .then(checkingData => {
+                      // console.log(checkingData);
+                      console.log('playerId', checkingData.idFromAPI);
+                      console.log('fantasyPoints', checkingData.fantasyPoints);
+                      // console.log('season fantasyPoints:', checkingData.fantasyPoints.season);
+                      // console.log('fixture fantasyPoints', checkingData.fantasyPoints.fixture);
+                    });
+                  })
+                  .catch(error => {
+                    console.log(`fantasyPoints.season update error: ${error}`);
+                  });
+                })
+                .catch(error => {
+                  console.log(`starterInfo update error: ${error}`);
+                });
+                
                 playerIdList.push(starterInfo.idFromAPI);
               });
               
-              fixture.bench.data.forEach(bencher => {
-                let bencherInfo = playerStats(bencher, fixture, ownGoalList);
-                bencherInfo.ownGoalCalc();
-                bencherInfo.fantasyPointsCalc();
-                // console.log(`bencherInfo id: ${bencherInfo.idFromAPI}`);
-                updateData({idFromAPI: bencherInfo.idFromAPI}, bencherInfo, Player);
-                playerIdList.push(bencherInfo.idFromAPI);
-              });
+              // fixture.bench.data.forEach(bencher => {
+              //   let bencherInfo = playerStats(bencher, fixture, ownGoalList);
+              //   bencherInfo.ownGoalCalc();
+              //   bencherInfo.fantasyPointsCalc();
+              //   // console.log(`bencherInfo id: ${bencherInfo.idFromAPI}`);
+              //   updateData({idFromAPI: bencherInfo.idFromAPI}, bencherInfo, Player);
+              //   playerIdList.push(bencherInfo.idFromAPI);
+              // });
             }); // close of round.fixtures.data.forEach
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
@@ -262,7 +278,7 @@ function playerStatsByLeague(leagueId) {
       //     clubLogo: results2.data.team.data.logo_path
       //   };
       //   console.log(`playerInfo2 id: ${playerInfo2.idFromAPI}`);
-      //   updateData(playerInfo2.idFromAPI, playerInfo2, Player);
+      //   updateData({idFromAPI: playerInfo2.idFromAPI}, playerInfo2, Player);
       // })
       // .catch(error => {
       //   console.log(`playerIdList search error: ${error}`);
