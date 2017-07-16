@@ -36,7 +36,8 @@ let runServer = () => {
 	});
 };
 
-playerStatsByLeague(779);
+let leagueId = 779; // this variable to eventually be replaced with function that goes through each leagueId and run the playerStatsByLeague function
+setTimeout(playerStatsByLeague, (12 * 60 * 60 * 1000), leagueId);
 
 if (require.main === module) {
 	runServer();
