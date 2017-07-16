@@ -3,6 +3,7 @@ function playerStats(playerType, fixture, ownGoalList) {
     idFromAPI: playerType.player_id,
     fullName: playerType.player_name,
     position: playerType.position,
+    leagueId: fixture.league_id,
     clubId: playerType.team_id,
     clubName: fixture.localTeam.data.id === playerType.team_id 
       ? fixture.localTeam.data.name 

@@ -190,7 +190,6 @@ function playerStatsByLeague(leagueId) {
       //because we only want regular seasons, not playoffs or cup matches
       if (stage.name === 'Regular Season') {
         seasonInfo.stageId = stage.id;
-       
         stage.rounds.data.forEach(round => {
           if (round.stage_id === seasonInfo.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement to confirm only rounds of the right stage with actual fixtures are dealt with
             round.fixtures.data.forEach(fixture => {
@@ -210,6 +209,7 @@ function playerStatsByLeague(leagueId) {
                 let starterInfo = playerStats(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
+                console.log(starterInfo);
                 updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player);
                 playerIdList.push(starterInfo.idFromAPI);
               });
