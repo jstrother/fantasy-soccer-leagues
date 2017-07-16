@@ -210,43 +210,17 @@ function playerStatsByLeague(leagueId) {
                 let starterInfo = playerStats(starter, fixture, ownGoalList);
                 starterInfo.ownGoalCalc();
                 starterInfo.fantasyPointsCalc();
-                updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player)
-                .then(starterData => {
-                  return readData({idFromAPI: starterData.idFromAPI}, Player)
-                  .then(data => {
-                    let seasonPointsTotal = data.fantasyPoints.season;
-                    seasonPointsTotal += data.fantasyPoints.fixture;
-                    updateData({idFromAPI: data.idFromAPI}, {$set: {fantasyPoints: {
-                      fixture: data.fantasyPoints.fixture,
-                      season: seasonPointsTotal
-                    }}}, Player)
-                    .then(checkingData => {
-                      // console.log(checkingData);
-                      console.log('playerId', checkingData.idFromAPI);
-                      console.log('fantasyPoints', checkingData.fantasyPoints);
-                      // console.log('season fantasyPoints:', checkingData.fantasyPoints.season);
-                      // console.log('fixture fantasyPoints', checkingData.fantasyPoints.fixture);
-                    });
-                  })
-                  .catch(error => {
-                    console.log(`fantasyPoints.season update error: ${error}`);
-                  });
-                })
-                .catch(error => {
-                  console.log(`starterInfo update error: ${error}`);
-                });
-                
+                updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player);
                 playerIdList.push(starterInfo.idFromAPI);
               });
               
-              // fixture.bench.data.forEach(bencher => {
-              //   let bencherInfo = playerStats(bencher, fixture, ownGoalList);
-              //   bencherInfo.ownGoalCalc();
-              //   bencherInfo.fantasyPointsCalc();
-              //   // console.log(`bencherInfo id: ${bencherInfo.idFromAPI}`);
-              //   updateData({idFromAPI: bencherInfo.idFromAPI}, bencherInfo, Player);
-              //   playerIdList.push(bencherInfo.idFromAPI);
-              // });
+              fixture.bench.data.forEach(bencher => {
+                let bencherInfo = playerStats(bencher, fixture, ownGoalList);
+                bencherInfo.ownGoalCalc();
+                bencherInfo.fantasyPointsCalc();
+                updateData({idFromAPI: bencherInfo.idFromAPI}, bencherInfo, Player);
+                playerIdList.push(bencherInfo.idFromAPI);
+              });
             }); // close of round.fixtures.data.forEach
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
