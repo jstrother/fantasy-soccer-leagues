@@ -12,8 +12,7 @@ const config = require('./config.js'),
 	app = express(),
 	server = require('http').Server(app),
 	routes = require('./routes.js').router,
-	playerStatsByLeague = require('./programFunctions/api_functions.js').playerStatsByLeague,
-	leagueSelector = require('./programFunctions/api_functions.js').leagueSelector;
+	statsCollector = require('./programFunctions/api_functions.js').statsCollector;
 
 app.use(jsonParser);
 app.use(express.static('public'));
@@ -36,8 +35,7 @@ let runServer = () => {
 	});
 };
 
-let leagueId = 779; // this variable to eventually be replaced with function that goes through each leagueId and run the playerStatsByLeague function
-setTimeout(playerStatsByLeague, (12 * 60 * 60 * 1000), leagueId);
+statsCollector();
 
 if (require.main === module) {
 	runServer();
