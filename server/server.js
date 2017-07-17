@@ -19,7 +19,7 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 app.use('/user', routes);
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'public/index.html'));
+	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 console.log('Server Started');
