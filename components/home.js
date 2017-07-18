@@ -28,7 +28,7 @@ class Home extends React.Component {
           <div>
             Welcome to the Fantasy Soccer-Football Super League!
             <br />
-            Create your own team and compete against others to prove you're the best at fantasy footy!
+            Create your own team and compete against others to prove you are the best at fantasy footy!
           </div>
           <br /><br />
           <section className="login-section"><LoginPage /></section>
