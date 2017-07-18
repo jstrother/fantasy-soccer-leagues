@@ -4,15 +4,17 @@
 require('isomorphic-fetch');
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
-export const setUserSuccess = (currentUser)  => ({
+export const setUserSuccess = (currentUser, statusCode)  => ({
   type: SET_USER_SUCCESS,
-  currentUser
+  currentUser,
+  statusCode
   });
 
 export const SET_USER_FAIL = 'SET_USER_FAIL';
-export const setUserFail = (currentUser)  => ({
+export const setUserFail = (currentUser, statusCode)  => ({
   type: SET_USER_FAIL,
-  currentUser
+  currentUser,
+  statusCode
   });
 
 export const fetchUser = accessToken => dispatch => {
@@ -39,7 +41,6 @@ export const fetchUser = accessToken => dispatch => {
     return;
   })
   .catch(error => {
-    console.log(`fetchUser error: ${error}`);
     throw new Error(error);
   });
 };

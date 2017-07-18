@@ -9,15 +9,13 @@ import { fetchUser } from '../flow/actions.js';
 
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
-import FantasyChampsLeague from './fantasyChampsLeague.js';
+// import FantasyChampsLeague from './fantasyChampsLeague.js';
 import LoginPage from './loginPage.js';
 
 class Home extends React.Component {
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
     if (accessToken) {
-      console.log('fetchUser home.js', fetchUser(accessToken));
-      console.log('accessToken', accessToken);
       this.props.dispatch(fetchUser(accessToken));
     }
   }

@@ -7,7 +7,7 @@ module.exports = {
 		path: `${__dirname}/public`,
 		filename: 'scripts.js'
 	},
-	devtool: 'eval-inline-source-map',
+	devtool: 'source-map',
 	module: {
 		loaders: [{
 			test: /.js?$/,
