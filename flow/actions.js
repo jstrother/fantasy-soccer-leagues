@@ -8,14 +8,14 @@ export const setUserSuccess = (currentUser, statusCode)  => ({
   type: SET_USER_SUCCESS,
   currentUser,
   statusCode
-  });
+});
 
 export const SET_USER_FAIL = 'SET_USER_FAIL';
 export const setUserFail = (currentUser, statusCode)  => ({
   type: SET_USER_FAIL,
   currentUser,
   statusCode
-  });
+});
 
 export const fetchUser = accessToken => dispatch => {
   return fetch('/user', {

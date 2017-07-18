@@ -4,8 +4,10 @@
 import { SET_USER_FAIL, SET_USER_SUCCESS } from '../actions.js';
 
 export const loginReducer = (state = [], action) => {
+  console.log('loginReducer state:', state);
   switch (action.type) {
     case SET_USER_SUCCESS:
+      console.log('sus:', state);
       return Object.assign({}, state, 
         {
           currentUser: {
