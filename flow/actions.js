@@ -36,7 +36,7 @@ export const fetchUser = accessToken => dispatch => {
     return res.json();
   })
   .then(currentUser => {
-    console.log('currentUser', currentUser);
+    // console.log('currentUser', currentUser);
     dispatch(setUserSuccess(currentUser, 200));
     return;
   })
