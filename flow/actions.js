@@ -45,16 +45,6 @@ export const fetchUser = accessToken => dispatch => {
   });
 };
 
-export const PLAYER_UPDATE = 'PLAYER_UPDATE';
-export const playerUpdate = ((player, oldValue, newValue) => {
-  return {
-    type: PLAYER_UPDATE,
-    player,
-    oldValue,
-    newValue
-  };
-});
-
 export const SELECT_RESERVES = 'SELECT_RESERVES';
 export const selectReserves = (fantasyClub, players) => {
   return {

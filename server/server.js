@@ -35,7 +35,7 @@ let runServer = () => {
 	});
 };
 
-// statsCollector();
+statsCollector();
 
 if (require.main === module) {
 	runServer();
