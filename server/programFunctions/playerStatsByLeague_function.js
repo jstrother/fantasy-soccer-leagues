@@ -2,19 +2,10 @@ const rp = require('request-promise'),
   key = require('../config.js').API_KEY,
   baseURL = 'https://soccer.sportmonks.com/api/v2.0',
   toInclude = '&include=',
+  intervalLoop = require('./intervalLoop_function.js'),
   playerStats = require('./playerStats_function.js'),
   Player = require('../../models/player_model.js'),
   updateData = require('./crud_functions.js').updateData;
-
-// this function is to be a timed call every 35 minutes to playerStatsByLeague() for each leagueId available	
-function statsCollector() {
-  let leagueIdArray = [8, 9, 12, 14, 72, 74, 82, 85, 181, 208, 271, 301, 304, 325, 345, 360, 384, 387, 438, 444, 453, 462, 486, 501, 504, 564, 567, 573, 579, 591, 600, 624, 636, 639, 648, 651, 663, 672, 675, 693, 696, 743, 779, 968, 989, 1007, 1098, 1356],
-    timeFrame = 35 * 60 * 1000;
-  
-  for (let i = 0; i < leagueIdArray.length; i++) {
-    setTimeout(playerStatsByLeague, timeFrame, leagueIdArray[i]);
-  }
-}
 
 // this function returns all players and their stats for a league's current regular season
 // game, match, and fixture are same thing
@@ -61,29 +52,32 @@ function playerStatsByLeague(leagueId) {
               });
               
               fixture.lineup.data.forEach(starter => {
-                let starterInfo = playerStats(starter, fixture, ownGoalList);
-                starterInfo.ownGoalCalc();
-                starterInfo.fantasyPointsCalc();
-                updateData({idFromAPI: starterInfo.idFromAPI}, starterInfo, Player);
-                playerIdList.push(starterInfo.idFromAPI);
+                playerInfo(starter, fixture, ownGoalList);
               });
               
               fixture.bench.data.forEach(bencher => {
-                let bencherInfo = playerStats(bencher, fixture, ownGoalList);
-                bencherInfo.ownGoalCalc();
-                bencherInfo.fantasyPointsCalc();
-                updateData({idFromAPI: bencherInfo.idFromAPI}, bencherInfo, Player);
-                playerIdList.push(bencherInfo.idFromAPI);
+                playerInfo(bencher, fixture, ownGoalList);
               });
+              
+              function playerInfo(type, fixture, ownGoalList) {
+                let playerInfoData = playerStats(type, fixture, ownGoalList);
+                playerInfoData.ownGoalCalc();
+                playerInfoData.fantasyPointsCalc();
+                updateData({idFromAPI: playerInfoData.idFromAPI}, playerInfoData, Player);
+                playerIdList.push(playerInfoData.idFromAPI);
+              }
             }); // close of round.fixtures.data.forEach
           } // close of round.stage_id if statement
         }); // close of stage.rounds.data.forEach
       }
     });
     playerIdList = [... new Set(playerIdList)];
-    console.log(`playerIdList length: ${playerIdList.length}`);
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
-    playerIdList.forEach(playerId => {
+    let playerIdTime = 333;
+    intervalLoop(playerIdRetrieve, playerIdList, 0, playerIdTime);
+    
+    function playerIdRetrieve(playerId) {
+      console.log(`playerId: ${playerId}`);
       const endpoint2 = `${baseURL}/players/`,
         included2 = `${toInclude}team,position,sidelined`,
         results2 = {
@@ -110,7 +104,8 @@ function playerStatsByLeague(leagueId) {
       .catch(error => {
         console.log(`playerIdList search error: ${error}`);
       });
-    });
+    }
+    
     return seasonInfo;
   })
   .catch(error => {
@@ -118,4 +113,4 @@ function playerStatsByLeague(leagueId) {
   });
 }
 
-exports.statsCollector = statsCollector;
+module.exports = playerStatsByLeague;

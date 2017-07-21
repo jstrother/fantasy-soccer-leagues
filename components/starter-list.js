@@ -9,6 +9,7 @@ class StarterList extends React.Component {
 	// dispatch selectStarters action here
 	
 	render() {
+		console.log(this.props.players);
 		return(
 			<div>
 				{ this.props.players.map(player => 
@@ -47,7 +48,7 @@ class StarterList extends React.Component {
 }
 
 const mapStartersStateToProps = state => ({
-	players: this.state.updateRosterReducer.players
+	players: state.updateRosterReducer.players
 });
 
 const Starters = connect(

@@ -47,7 +47,7 @@ class ReservePlayerList extends React.Component {
 }
 
 const mapReservesStateToProps = state => ({
-	players: this.state.updateRosterReducer.players
+	players: state.updateRosterReducer.players
 });
 
 const Reserves = connect(

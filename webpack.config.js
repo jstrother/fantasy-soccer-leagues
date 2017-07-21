@@ -7,7 +7,7 @@ module.exports = {
 		path: `${__dirname}/public`,
 		filename: 'scripts.js'
 	},
-	devtool: 'cheap-module-source-map',
+	devtool: 'hidden-source-map',
 	module: {
 		loaders: [{
 			test: /.js?$/,

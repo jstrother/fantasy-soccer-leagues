@@ -47,7 +47,7 @@ class BenchPlayerList extends React.Component {
 }
 
 const mapBenchersStateToProps = state => ({
-	players: this.state.updateRosterReducer.players
+	players: state.updateRosterReducer.players
 });
 
 const Benchers = connect(

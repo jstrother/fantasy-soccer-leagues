@@ -12,7 +12,10 @@ const config = require('./config.js'),
 	app = express(),
 	server = require('http').Server(app),
 	routes = require('./routes.js').router,
-	statsCollector = require('./programFunctions/api_functions.js').statsCollector;
+	intervalLoop = require('./programFunctions/intervalLoop_function.js'),
+	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
+	timeFrame = require('./config.js').LEAGUE_LOOP_REPEAT_TIME,
+	leagueIdArray = require('./config.js').LEAGUE_ID_ARRAY;
 
 app.use(jsonParser);
 app.use(express.static('public'));
@@ -29,13 +32,16 @@ let runServer = () => {
 		app.listen(port, () => {
 			console.log(`Listening on port: ${port}`);
 		});
+		playerStatsByLeague(779);
+		// call loop function starting at 0 to properly iterate through leagueIdArray.length
+		intervalLoop(playerStatsByLeague, leagueIdArray, 0, timeFrame);
 	})
 	.catch(error => {
 		console.error(`mongoose connect error: ${error}`);
 	});
 };
 
-statsCollector();
+// this function is to call any function and feed it 1 key of an array once every loopTime
 
 if (require.main === module) {
 	runServer();
