@@ -3,24 +3,18 @@
 
 import React from 'react';
 
-import Starters from './starter-list.js';
-import Benchers from './bench-players.js';
-import Reserves from './reserve-players.js';
+import Player from './player.js';
 
 export default class Roster extends React.Component {
+	// dispatch a fetchPlayer
+	
 	
 	render() {
 		return(
 			<div>
-				<Starters>
-					
-				</Starters>
-				<Benchers>
-					
-				</Benchers>
-				<Reserves>
-					
-				</Reserves>
+				<div>Starting 11:</div>
+				<div>18-Player MatchDay Roster:</div>
+				<div>22-Player First Team Roster:</div>
 			</div>
 		);
 	}

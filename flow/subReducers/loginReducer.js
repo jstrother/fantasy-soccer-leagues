@@ -1,7 +1,7 @@
 // ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
 
-import { SET_USER_FAIL, SET_USER_SUCCESS } from '../actions.js';
+import { SET_USER_FAIL, SET_USER_SUCCESS } from '../userActions.js';
 
 export const loginReducer = (state = {}, action) => {
   switch (action.type) {

@@ -12,10 +12,10 @@ const config = require('./config.js'),
 	app = express(),
 	server = require('http').Server(app),
 	routes = require('./routes.js').router,
-	intervalLoop = require('./programFunctions/intervalLoop_function.js'),
+	loopArray = require('./programFunctions/loopArray_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
-	timeFrame = require('./config.js').LEAGUE_LOOP_REPEAT_TIME,
-	leagueIdArray = require('./config.js').LEAGUE_ID_ARRAY;
+	leagueIdArray = require('./config.js').LEAGUE_ID_ARRAY,
+	leagueLoopTime = require('./config.js').LEAGUE_LOOP_REPEAT_TIME;
 
 app.use(jsonParser);
 app.use(express.static('public'));
@@ -27,21 +27,17 @@ app.get('*', (req, res) => {
 
 console.log('Server Started');
 
-let runServer = () => {
+const runServer = () => {
 	mongoose.connect(database, () => {
 		app.listen(port, () => {
 			console.log(`Listening on port: ${port}`);
 		});
-		playerStatsByLeague(779);
-		// call loop function starting at 0 to properly iterate through leagueIdArray.length
-		intervalLoop(playerStatsByLeague, leagueIdArray, 0, timeFrame);
+		loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
 	})
 	.catch(error => {
 		console.error(`mongoose connect error: ${error}`);
 	});
 };
-
-// this function is to call any function and feed it 1 key of an array once every loopTime
 
 if (require.main === module) {
 	runServer();

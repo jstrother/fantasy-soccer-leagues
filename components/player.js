@@ -12,9 +12,10 @@ export default class Player extends React.Component {
 				<div >Club:</div>
 				<div >League:</div>
 				<div >Division:</div>
-				<div >Champions League:</div> {/* this should only be visible if player's team plays at this level */}
 				<div >Stats:</div>
-				<div >Active This Week:</div>
+				<div >Starting 11 (Y/N):</div>
+				<div >18-Player MatchDay Roster (Y/N):</div>
+				<div >22-Player First Team Roster (Y/N):</div>
 				<div >Total Fantasy Points:</div>
 			</div>
 		);

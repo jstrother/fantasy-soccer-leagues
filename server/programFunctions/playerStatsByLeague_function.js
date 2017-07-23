@@ -2,7 +2,7 @@ const rp = require('request-promise'),
   key = require('../config.js').API_KEY,
   baseURL = 'https://soccer.sportmonks.com/api/v2.0',
   toInclude = '&include=',
-  intervalLoop = require('./intervalLoop_function.js'),
+  loopArray = require('./loopArray_function.js'),
   playerStats = require('./playerStats_function.js'),
   Player = require('../../models/player_model.js'),
   updateData = require('./crud_functions.js').updateData;
@@ -73,11 +73,12 @@ function playerStatsByLeague(leagueId) {
     });
     playerIdList = [... new Set(playerIdList)];
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
-    let playerIdTime = 333;
-    intervalLoop(playerIdRetrieve, playerIdList, 0, playerIdTime);
+    if (playerIdList[0] != null) {
+      loopArray(playerIdList, playerIdRetrieve, 333, false);
+    }
     
     function playerIdRetrieve(playerId) {
-      console.log(`playerId: ${playerId}`);
+      console.log(`playerIdRetrieve: ${playerId}`);
       const endpoint2 = `${baseURL}/players/`,
         included2 = `${toInclude}team,position,sidelined`,
         results2 = {
