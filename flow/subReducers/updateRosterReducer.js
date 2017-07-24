@@ -1,7 +1,10 @@
 // ./flow/subReducers/updateRosterReducer.js
 // imported into ./flow/reducers.js
 
-import { SET_AS_RESERVE, SET_AS_BENCHER, SET_AS_STARTER, SUBSTITUTE_PLAYER } from '../rosterActions.js';
+import { SET_AS_STARTER } from '../subActions/starterActions.js';
+import { SET_AS_BENCHER } from '../subActions/bencherActions.js';
+import { SET_AS_RESERVE } from '../subActions/reserveActions.js';
+import { SUBSTITUTE_PLAYER } from '../subActions/substituteActions.js';
 import { readData } from '../../server/programFunctions/crud_functions.js';
 import Player from '../../models/player_model.js';
 
