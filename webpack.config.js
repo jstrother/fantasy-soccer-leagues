@@ -5,8 +5,19 @@ module.exports = {
 	entry: './components/index.js',
 	output: {
 		path: `${__dirname}/public`,
-		filename: 'scripts.js'
+		filename: 'scripts.js',
+		libraryTarget: 'commonjs'
 	},
+	target: 'node',
+	node: {
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty',
+		module: 'empty'
+	},
+	externals: [
+    /^(?!\.|\/).+/i
+  ],
 	devtool: 'hidden-source-map',
 	module: {
 		loaders: [{

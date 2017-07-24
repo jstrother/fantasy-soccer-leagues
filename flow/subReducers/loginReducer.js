@@ -6,7 +6,6 @@ import { SET_USER_FAIL, SET_USER_SUCCESS } from '../userActions.js';
 export const loginReducer = (state = {}, action) => {
   switch (action.type) {
     case SET_USER_SUCCESS:
-      // console.log('sus:', state);
       return Object.assign({}, state, 
         {
           currentUser: {
