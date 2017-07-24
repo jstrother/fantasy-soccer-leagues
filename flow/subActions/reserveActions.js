@@ -20,11 +20,11 @@ export const reserveFail = (fantasyClub, player, statusCode) => {
   };
 };
 
-export const fetchPlayer = (fantasyClub, thisPlayer)  => dispatch => {
+export const fetchReserve = (fantasyClub, thisReserve)  => dispatch => {
   return fetch('/something', {
     request: {
       fantasyClub,
-      thisPlayer
+      thisReserve
     }
   })
   .then(res => {
@@ -39,8 +39,8 @@ export const fetchPlayer = (fantasyClub, thisPlayer)  => dispatch => {
     }
     return res.json();
   })
-  .then((fantasyClub, thisPlayer) => {
-    dispatch(selectReserve(fantasyClub, thisPlayer, 200));
+  .then((fantasyClub, thisReserve) => {
+    dispatch(selectReserve(fantasyClub, thisReserve, 200));
     return;
   })
   .catch(error => {

@@ -5,8 +5,10 @@ export const subPlayer = (fantasyClub, playerIn, playerOut, statusCode) => {
   return {
     type: SUBSTITUTE_PLAYER,
     fantasyClub,
-    playerIn,
-    playerOut,
+    substitute: {
+      playerIn,
+      playerOut
+    },
     statusCode
   };
 };
@@ -16,18 +18,22 @@ export const substituteFail = (fantasyClub, playerIn, playerOut, statusCode) => 
   return {
     type: SUBSTITUTE_PLAYER,
     fantasyClub,
-    playerIn,
-    playerOut,
+    substitute: {
+      playerIn,
+      playerOut
+    },
     statusCode
   };
 };
 
-export const fetchPlayer = (fantasyClub, thisPlayerIn, thisPlayerOut)  => dispatch => {
+export const fetchSubstitute = (fantasyClub, thisPlayerIn, thisPlayerOut)  => dispatch => {
   return fetch('/something', {
     request: {
       fantasyClub,
-      thisPlayerIn,
-      thisPlayerOut
+      thisSubstitute: {
+        thisPlayerIn,
+        thisPlayerOut
+      }
     }
   })
   .then(res => {

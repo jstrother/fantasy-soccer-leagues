@@ -24,11 +24,11 @@ export const updateRosterReducer = (state = [], action) => {
       return Object.assign({}, state, thisReserve);
       
     case SUBSTITUTE_PLAYER:
-      let playerOut = readData({idFromAPI: playerOut.idFromAPI}, Player),
-        playerIn = readData({idFromAPI: playerIn.idFromAPI}, Player),
+      let thisPlayerOut = readData({idFromAPI: thisPlayerOut.idFromAPI}, Player),
+        thisPlayerIn = readData({idFromAPI: thisPlayerIn.idFromAPI}, Player),
         substitute = {
-          playerOut,
-          playerIn
+          thisPlayerOut,
+          thisPlayerIn
         };
       return Object.assign({}, state, substitute);
       

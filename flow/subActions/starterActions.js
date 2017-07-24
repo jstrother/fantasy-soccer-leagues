@@ -20,11 +20,11 @@ export const starterFail = (fantasyClub, player, statusCode) => {
   };
 };
 
-export const fetchPlayer = (fantasyClub, thisPlayer)  => dispatch => {
+export const fetchStarter = (fantasyClub, thisStarter)  => dispatch => {
   return fetch('/something', {
     request: {
       fantasyClub,
-      thisPlayer
+      thisStarter
     }
   })
   .then(res => {
@@ -39,8 +39,8 @@ export const fetchPlayer = (fantasyClub, thisPlayer)  => dispatch => {
     }
     return res.json();
   })
-  .then((fantasyClub, thisPlayer) => {
-    dispatch(selectStarter(fantasyClub, thisPlayer, 200));
+  .then((fantasyClub, thisStarter) => {
+    dispatch(selectStarter(fantasyClub, thisStarter, 200));
     return;
   })
   .catch(error => {
