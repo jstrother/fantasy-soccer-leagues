@@ -6,7 +6,7 @@ module.exports = {
 	output: {
 		path: `${__dirname}/public`,
 		filename: 'scripts.js',
-		libraryTarget: 'commonjs'
+		libraryTarget: 'umd'
 	},
 	target: 'node',
 	node: {
@@ -15,9 +15,6 @@ module.exports = {
 		tls: 'empty',
 		module: 'empty'
 	},
-	externals: [
-    /^(?!\.|\/).+/i
-  ],
 	devtool: 'hidden-source-map',
 	module: {
 		loaders: [{

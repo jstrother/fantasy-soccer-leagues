@@ -1,7 +1,7 @@
 needed for Server
 	(R/W = real world)
 	
-	subs can be made, but they earn 2/3 of the points that would have otherwise been made
+	subs can be made, players subbed out score at 2/3 and players subbed in score at 1/2
 	
 	api_functions.js only needs to run once an hour
 
