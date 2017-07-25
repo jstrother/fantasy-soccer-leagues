@@ -15,6 +15,9 @@ module.exports = {
 		tls: 'empty',
 		module: 'empty'
 	},
+	externals: [
+    /^(?!\.|\/).+/i
+  ],
 	devtool: 'hidden-source-map',
 	module: {
 		loaders: [{

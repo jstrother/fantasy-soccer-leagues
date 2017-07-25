@@ -15,7 +15,7 @@ import store from '../flow/store.js';
 
 // FantasyListener(store);
 injectTapEventPlugin();
-
+console.log('react:', React);
 
 
 ReactDOM.render(
