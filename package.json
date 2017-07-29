@@ -17,7 +17,6 @@
     "build:js": "webpack",
     "build": "npm run test && npm run build:html && npm run build:css && npm run build:js",
     "watch:model": "onchange \"./models\" -- npm run test",
-    "watch:functions": "onchange \"./programFunctions\" -- npm run test",
     "watch:test": "onchange \"./test\" -- npm run test",
     "watch:html": "onchange \"./html\" -- npm run build:html",
     "watch:css": "onchange \"./scss\" -- npm run build:css",
@@ -25,9 +24,8 @@
     "watch:flow": "onchange \"./flow\" -- npm run build:js",
     "watch:server": "onchange \"./server\" -- npm run build:js",
     "watch:pFunctions": "onchange \"./server/programFunctions\" -- npm run build:js",
-    "watch:root": "onchange \"./\" -- npm run build:js",
     "watch:wConfig": "onchange \"./webpack.config.js\" -- npm run build:js",
-    "watch": "concurrently \"npm run watch:test\" \"npm run watch:functions\" \"npm run watch:model\" \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:js\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run watch:root\"",
+    "watch": "concurrently \"npm run watch:test\" \"npm run watch:model\" \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:js\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\"",
     "begin": "npm run build && npm run watch"
   },
   "repository": {
@@ -81,7 +79,6 @@
   "dependencies": {
     "S": "0.0.1",
     "body-parser": "^1.17.1",
-    "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.1.4",

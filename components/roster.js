@@ -9,9 +9,11 @@ import MenuItem from 'material-ui/MenuItem';
 import Player from './player.js';
 
 class Team extends React.Component {
-	// this.props.dispatch(fetchStarter(fantasyClub, thisStarter));
-	// this.props.dispatch(fetchBencher(fantasyClub, thisBencher));
-	// this.props.dispatch(fetchReserve(fantasyClub, thisReserve));
+	// need a function to search by leagueId to get list of correct players to choose roster from - the leagueId will be in state already
+	
+	// this.props.dispatch(fetchStarter(thisStarter));
+	// this.props.dispatch(fetchBencher(thisBencher));
+	// this.props.dispatch(fetchReserve(thisReserve));
 	
 	// handleChange function
 	// setStarterClick function

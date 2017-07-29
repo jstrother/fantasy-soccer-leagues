@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 
-import { fetchUser } from '../flow/actions.js';
+import { fetchUser } from '../flow/subActions/userActions.js';
 
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';

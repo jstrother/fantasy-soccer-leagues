@@ -1,5 +1,5 @@
 // server.js
-require('dotenv').config();
+
 const config = require('./config.js'),
 	database = `${config.DATABASE_URL}`,
 	port = `${config.PORT}`,
@@ -11,7 +11,8 @@ const config = require('./config.js'),
 	passport = require('passport'),
 	app = express(),
 	server = require('http').Server(app),
-	routes = require('./routes.js').router,
+	userRoutes = require('./user-routes.js').router,
+	playerRoutes = require('./player-routes.js').router,
 	loopArray = require('./programFunctions/loopArray_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagueIdArray = require('./config.js').LEAGUE_ID_ARRAY,
@@ -20,7 +21,8 @@ const config = require('./config.js'),
 app.use(jsonParser);
 app.use(express.static('public'));
 app.use(passport.initialize());
-app.use('/user', routes);
+app.use('/user', userRoutes);
+app.use('/player', playerRoutes);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
