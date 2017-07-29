@@ -8,14 +8,11 @@ module.exports = {
 		filename: 'scripts.js',
 		libraryTarget: 'umd'
 	},
+  externals: {
+    React: 'react',
+  },
 	target: 'node',
-	node: {
-		fs: 'empty',
-		net: 'empty',
-		tls: 'empty',
-		module: 'empty'
-	},
-	devtool: 'hidden-source-map',
+	devtool: 'source-map',
 	module: {
 		loaders: [{
 			test: /.js?$/,
@@ -27,7 +24,10 @@ module.exports = {
 					'react'
 				],
 				plugins: [
-					'transform-class-properties'
+					'transform-class-properties',
+					// new webpack.DefinePlugin({
+     //       'process.env.NODE_ENV': 'development'
+     //   	})
 				]
 			}
 		}]

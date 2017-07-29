@@ -1,6 +1,6 @@
 // components/index.js
 // top-level react component
-
+import dotenv from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -15,7 +15,6 @@ import store from '../flow/store.js';
 
 // FantasyListener(store);
 injectTapEventPlugin();
-console.log('react:', React);
 
 
 ReactDOM.render(

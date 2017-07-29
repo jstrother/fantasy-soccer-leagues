@@ -1,5 +1,5 @@
 // server.js
-
+require('dotenv').config();
 const config = require('./config.js'),
 	database = `${config.DATABASE_URL}`,
 	port = `${config.PORT}`,
@@ -16,7 +16,7 @@ const config = require('./config.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagueIdArray = require('./config.js').LEAGUE_ID_ARRAY,
 	leagueLoopTime = require('./config.js').LEAGUE_LOOP_REPEAT_TIME;
-
+	
 app.use(jsonParser);
 app.use(express.static('public'));
 app.use(passport.initialize());

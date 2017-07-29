@@ -6,3 +6,4 @@ node_modules/
 rethinkdb_data/
 config.js
 mongo_data/
+*.env
