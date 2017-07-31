@@ -12,6 +12,8 @@ import FantasyLeague from './fantasyLeague.js';
 // import FantasyChampsLeague from './fantasyChampsLeague.js';
 import LoginPage from './loginPage.js';
 
+import leagueSelectorFrontEnd from './frontEndFunctions/leagueSelectorFrontEnd_function.js';
+
 class Home extends React.Component {
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
@@ -34,7 +36,7 @@ class Home extends React.Component {
           <section className="login-section"><LoginPage /></section>
         </div>
       );
-    } else {
+    } else if (this.props.currentUser && !this.props.leagueId) {
       return (
         <div>
           <br /><br />
@@ -44,6 +46,27 @@ class Home extends React.Component {
           <br /><br />
           <div>
             Hello, Coach {this.props.currentUser.familyName}!
+          </div>
+          <div>
+            Which league will be the basis for your fantasy soccer?
+          </div>
+          <FantasyClub />
+          <FantasyLeague />
+        </div>
+      );
+    } else if (this.props.currentUser && this.props.leagueId) {
+      return (
+        <div>
+          <br /><br />
+          <div>
+            Welcome to the Fantasy Soccer-Football Super League!
+          </div>
+          <br /><br />
+          <div>
+            Hello, Coach {this.props.currentUser.familyName}!
+          </div>
+          <div>
+            You are playing
           </div>
           <FantasyClub />
           <FantasyLeague />

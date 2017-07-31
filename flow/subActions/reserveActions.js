@@ -19,7 +19,7 @@ export const reserveFail = (player, statusCode) => {
 };
 
 export const fetchReserve = (thisReserve)  => dispatch => {
-  return fetch('/something', {
+  return fetch('/reserve', {
     request: {
       thisReserve
     }

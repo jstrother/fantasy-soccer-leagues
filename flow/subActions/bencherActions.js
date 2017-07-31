@@ -19,7 +19,7 @@ export const bencherFail = (player, statusCode) => {
 };
 
 export const fetchBencher = (thisBencher)  => dispatch => {
-  return fetch('/something', {
+  return fetch('/bencher', {
     request: {
       thisBencher
     }
