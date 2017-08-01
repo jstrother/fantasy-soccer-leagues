@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 
 import { fetchUser } from '../flow/subActions/userActions.js';
+import { selectLeague } from '../flow/subActions/leagueSelectionActions.js';
 
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
@@ -30,7 +31,9 @@ class Home extends React.Component {
     }
   }
   
-  selectLeagueChange() {/* this function is to use the menu item value as the leagueId needed in state */}
+  selectLeagueChange() {
+    this.props.dispatch(selectLeague());
+  }
   
   render() {
     if (!this.props.currentUser) {
@@ -46,7 +49,9 @@ class Home extends React.Component {
           <section className="login-section"><LoginPage /></section>
         </div>
       );
-    } else if (this.props.currentUser && !this.props.leagueId) {
+    } 
+    
+    if (this.props.currentUser && !this.props.leagueId) {
       return (
         <div>
           <br /><br />
@@ -116,7 +121,9 @@ class Home extends React.Component {
           <FantasyLeague />
         </div>
       );
-    } else if (this.props.currentUser && this.props.leagueId) {
+    } 
+    
+    if (this.props.currentUser && this.props.leagueId) {
       return (
         <div>
           <br /><br />

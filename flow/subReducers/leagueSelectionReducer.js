@@ -5,10 +5,11 @@ export const leagueSelectionReducer = (state = {}, action) => {
     case SELECT_LEAGUE:
       return Object.assign({}, state,
       {
-        thisLeague: {
+        league: {
           leagueId: action.league.leagueId,
           leagueName: action.league.leagueName
-        }
+        },
+        firstTime: false
       });
     
     case LEAGUE_FAIL:
