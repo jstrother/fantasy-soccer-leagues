@@ -16,6 +16,13 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 8
+    };
+  }
+  
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
     if (accessToken) {
