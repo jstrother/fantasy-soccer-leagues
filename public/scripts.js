@@ -17807,7 +17807,8 @@ var reducers = exports.reducers = (0, _redux.combineReducers)({
   loginReducer: _loginReducer.loginReducer,
   setMatchLineupReducer: _setMatchLineupReducer.setMatchLineupReducer,
   subPlayerReducer: _subPlayerReducer.subPlayerReducer,
-  updateRosterReducer: _updateRosterReducer.updateRosterReducer // break into three(2?) reducers or use switch statement
+  updateRosterReducer: _updateRosterReducer.updateRosterReducer,
+  leagueSelectionReducer: _leagueSelectionReducer.leagueSelectionReducer
 });
 
 /***/ }),

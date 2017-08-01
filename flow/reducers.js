@@ -12,5 +12,6 @@ export const reducers = combineReducers({
   loginReducer,
   setMatchLineupReducer,
   subPlayerReducer,
-  updateRosterReducer // break into three(2?) reducers or use switch statement
+  updateRosterReducer,
+  leagueSelectionReducer
 });
