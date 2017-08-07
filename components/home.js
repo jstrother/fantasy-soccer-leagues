@@ -32,7 +32,7 @@ class Home extends React.Component {
   }
   
   selectLeagueChange() {
-    this.props.dispatch(selectLeague());
+    this.props.dispatch(selectLeague(this.refs.value, this.refs.primaryText)); // this function needs to also set selected league id into this.props.currentUser.fantasyLeagueBasedOn
   }
   
   render() {
@@ -51,7 +51,7 @@ class Home extends React.Component {
       );
     } 
     
-    if (this.props.currentUser && !this.props.leagueId) {
+    if (this.props.currentUser && !this.props.currentUser.fantasyLeagueBasedOnId) {
       return (
         <div>
           <br /><br />
@@ -123,7 +123,7 @@ class Home extends React.Component {
       );
     } 
     
-    if (this.props.currentUser && this.props.leagueId) {
+    if (this.props.currentUser && this.props.currentUser.fantasyLeagueBasedOnId) {
       return (
         <div>
           <br /><br />
@@ -135,7 +135,7 @@ class Home extends React.Component {
             Hello, Coach {this.props.currentUser.familyName}!
           </div>
           <div>
-            Your fantasy league is based on {this.props.leagueName}.
+            Your fantasy league is based on {this.props.currentUser.fantasyLeagueBasedOnName}.
           </div>
           <FantasyClub />
           <FantasyLeague />
@@ -146,9 +146,7 @@ class Home extends React.Component {
 }
 
 const mapHomeStateToProps = state => ({
-  currentUser: state.loginReducer.currentUser,
-  leagueId: state.leagueSelectionReducer.leagueId,
-  leagueName: state.leagueSelectionReducer.leagueName
+  currentUser: state.loginReducer.currentUser
 });
 
 const LogIn = connect(

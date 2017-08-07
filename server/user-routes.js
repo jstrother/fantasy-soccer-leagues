@@ -3,7 +3,7 @@ const express = require('express'),
 	passport = require('passport'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
-  router = express.Router(),
+  userRouter = express.Router(),
   User = require("../models/user_model.js");
 
 passport.use(new gStrategy({
@@ -52,13 +52,13 @@ passport.use(new bStrategy((token, done) => {
   })
 );
 
-router.get('/auth/google', 
+userRouter.get('/auth/google', 
 	passport.authenticate('google', {
 		scope: ['profile']
 	})
 );
 
-router.get('/auth/google/callback', 
+userRouter.get('/auth/google/callback', 
 	passport.authenticate('google', {
 		failureRedirect: '/',
 		session: false
@@ -69,22 +69,24 @@ router.get('/auth/google/callback',
 	}
 );
 
-router.get('/auth/logout', (req, res) => {
+userRouter.get('/auth/logout', (req, res) => {
 	req.logout();
 	res.clearCookie('accessToken');
 	res.redirect('/');
 });
 
 // returns user's own page
-router.get('/', 
+userRouter.get('/', 
 	passport.authenticate('bearer', {session: false}), 
 	(req, res) => res.json({
 		googleId: req.user.googleId,
 		displayName: req.user.displayName,
 		givenName: req.user.givenName,
 		familyName: req.user.familyName,
-		userPhoto: req.user.userPhoto
+		userPhoto: req.user.userPhoto,
+		fantasyLeagueBasedOnId: req.user.fantasyLeagueBasedOnId,
+		fantasyLeagueBasedOnName: req.user.fantasyLeagueBasedOnName
 	})
 );
 
-exports.router = router;
+exports.userRouter = userRouter;

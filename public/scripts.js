@@ -17544,7 +17544,7 @@ var Home = function (_React$Component) {
   }, {
     key: 'selectLeagueChange',
     value: function selectLeagueChange() {
-      this.props.dispatch((0, _leagueSelectionActions.selectLeague)());
+      this.props.dispatch((0, _leagueSelectionActions.selectLeague)(this.refs.value, this.refs.primaryText)); // this function needs to also set selected league id into this.props.currentUser.fantasyLeagueBasedOn
     }
   }, {
     key: 'render',
@@ -17572,7 +17572,7 @@ var Home = function (_React$Component) {
         );
       }
 
-      if (this.props.currentUser && !this.props.leagueId) {
+      if (this.props.currentUser && !this.props.currentUser.fantasyLeagueBasedOnId) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17656,7 +17656,7 @@ var Home = function (_React$Component) {
         );
       }
 
-      if (this.props.currentUser && this.props.leagueId) {
+      if (this.props.currentUser && this.props.currentUser.fantasyLeagueBasedOnId) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17680,7 +17680,7 @@ var Home = function (_React$Component) {
             'div',
             null,
             'Your fantasy league is based on ',
-            this.props.leagueName,
+            this.props.currentUser.fantasyLeagueBasedOnName,
             '.'
           ),
           _react2.default.createElement(_fantasyClub2.default, null),
@@ -17695,9 +17695,7 @@ var Home = function (_React$Component) {
 
 var mapHomeStateToProps = function mapHomeStateToProps(state) {
   return {
-    currentUser: state.loginReducer.currentUser,
-    leagueId: state.leagueSelectionReducer.leagueId,
-    leagueName: state.leagueSelectionReducer.leagueName
+    currentUser: state.loginReducer.currentUser
   };
 };
 
@@ -18115,7 +18113,9 @@ var loginReducer = exports.loginReducer = function loginReducer() {
           displayName: action.currentUser.displayName,
           givenName: action.currentUser.givenName,
           familyName: action.currentUser.familyName,
-          userPhoto: action.currentUser.userPhoto
+          userPhoto: action.currentUser.userPhoto,
+          fantasyLeagueBasedOnId: action.currentUser.fantasyLeagueBasedOnId,
+          fantasyLeagueBasedOnName: action.currentUser.fantasyLeagueBasedOnName
         }
       });
     case _userActions.SET_USER_FAIL:

@@ -11,7 +11,8 @@ const mongoose = require('mongoose'),
 		fantasyClubName: String,
 		fantasyLeague: String,
 		fantasyDivision: String,
-		fantasyChampsLeague: Boolean
+		fantasyChampsLeague: Boolean,
+		fantasyLeagueBasedOn: Number
 	}),
 
 	User = mongoose.model('User', userSchema);

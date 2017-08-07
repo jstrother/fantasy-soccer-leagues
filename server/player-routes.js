@@ -1,9 +1,9 @@
 const express = require('express'),
-	router = express.Router(),
+	playerRouter = express.Router(),
 	readData = require('./programFunctions/crud_functions.js').readData,
 	Player = require('../models/player_model.js');
 	
-router.get('/starter', (req, res) => {
+playerRouter.get('/starter', (req, res) => {
   return readData(req.idFromAPI, Player)
   .then(data => {
     res.json(data);
@@ -13,7 +13,7 @@ router.get('/starter', (req, res) => {
   });
 });
 
-router.get('/bencher', (req, res) => {
+playerRouter.get('/bencher', (req, res) => {
   return readData(req.idFromAPI, Player)
   .then(data => {
     res.json(data);
@@ -23,7 +23,7 @@ router.get('/bencher', (req, res) => {
   });
 });
 
-router.get('/reserve', (req, res) => {
+playerRouter.get('/reserve', (req, res) => {
   return readData(req.idFromAPI, Player)
   .then(data => {
     res.json(data);
@@ -33,4 +33,4 @@ router.get('/reserve', (req, res) => {
   });
 });
 
-exports.router = router;
+exports.playerRouter = playerRouter;
