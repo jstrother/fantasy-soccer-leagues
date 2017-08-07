@@ -18212,18 +18212,12 @@ var updateRosterReducer = exports.updateRosterReducer = function updateRosterRed
         }
       });
 
-    case _starterActions.STARTER_FAIL:
-      return Object.assign({}, state, { thisStarter: null });
-
     case _bencherActions.SET_AS_BENCHER:
       return Object.assign({}, state, {
         thisBencher: {
           player: action.thisBencher.player
         }
       });
-
-    case _bencherActions.BENCHER_FAIL:
-      return Object.assign({}, state, { thisBencher: null });
 
     case _reserveActions.SET_AS_RESERVE:
       return Object.assign({}, state, {
@@ -18232,6 +18226,8 @@ var updateRosterReducer = exports.updateRosterReducer = function updateRosterRed
         }
       });
 
+    case _starterActions.STARTER_FAIL:
+    case _bencherActions.BENCHER_FAIL:
     case _reserveActions.RESERVE_FAIL:
       return Object.assign({}, state, { thisReserve: null });
 

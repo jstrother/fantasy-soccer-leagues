@@ -14,29 +14,25 @@ export const updateRosterReducer = (state = {}, action) => {
             player: action.thisStarter.player
           }
         });
-    
-    case STARTER_FAIL:
-      return Object.assign({}, state, {thisStarter: null});
-      
+        
     case SET_AS_BENCHER:
       return Object.assign({}, state, 
-      {
-        thisBencher: {
-          player: action.thisBencher.player
-        }
-      });
-      
-    case BENCHER_FAIL:
-      return Object.assign({}, state, {thisBencher: null});
-      
+        {
+          thisBencher: {
+            player: action.thisBencher.player
+          }
+        });
+        
     case SET_AS_RESERVE:
       return Object.assign({}, state, 
-      {
-        thisReserve: {
-          player: action.thisReserve.player
-        }
-      });
-      
+        {
+          thisReserve: {
+            player: action.thisReserve.player
+          }
+        });
+    
+    case STARTER_FAIL:
+    case BENCHER_FAIL:  
     case RESERVE_FAIL:
       return Object.assign({}, state, {thisReserve: null});
       
