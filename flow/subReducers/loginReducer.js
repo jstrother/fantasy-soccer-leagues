@@ -14,8 +14,7 @@ export const loginReducer = (state = {}, action) => {
             givenName: action.currentUser.givenName,
             familyName: action.currentUser.familyName,
             userPhoto: action.currentUser.userPhoto,
-            fantasyLeagueBasedOnId: action.currentUser.fantasyLeagueBasedOnId,
-            fantasyLeagueBasedOnName: action.currentUser.fantasyLeagueBasedOnName
+            basisLeagueId: action.currentUser.basisLeagueId
           }
         }
       );
