@@ -18,7 +18,7 @@ import LoginPage from './loginPage.js';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-console.log(LIN);
+console.log(LIN[0][0]);
 
 class Home extends React.Component {
   constructor(props) {
@@ -72,8 +72,12 @@ class Home extends React.Component {
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
               value={this.state.value}
-              onChange={this.selectLeagueChange}>
-              <MenuItem /> {/* map league ids and names over a series of menuItems */}
+              onChange={this.selectLeagueChange}
+              children={LIN.forEach(league => {
+                league.map(data => {
+                  <MenuItem key={data[0]} value={data[0]} primaryText={data[1]} />;
+                });
+              })}>
             </DropDownMenu>
           </div>
           <FantasyClub />
