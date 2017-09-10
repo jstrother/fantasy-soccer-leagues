@@ -25,7 +25,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       value: 8
-    };
+    }; // move this abililty into the redux portion of the code to make this component as stateless as possible
   }
   
   componentDidMount() {
