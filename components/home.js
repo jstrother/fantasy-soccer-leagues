@@ -8,7 +8,7 @@ import * as Cookies from 'js-cookie';
 import { fetchUser } from '../flow/subActions/userActions.js';
 import { selectLeague } from '../flow/subActions/leagueSelectionActions.js';
 
-import { LEAGUE_IDS_NAMES as LIN} from '../server/league_ids_names.js';
+import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
@@ -18,7 +18,7 @@ import LoginPage from './loginPage.js';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-console.log(LIN[0][0]);
+console.log(LEAGUE_IDS_NAMES[0][0]);
 
 class Home extends React.Component {
   constructor(props) {
@@ -36,8 +36,8 @@ class Home extends React.Component {
   }
   
   selectLeagueChange(event, key, value) {
-    console.log(value);
-    // this.props.dispatch(selectLeague()); // this function needs to also set selected league id into this.props.currentUser.fantasyLeagueBasedOn
+    console.log('value:', value);
+    this.setState({value}); // move this abililty into the redux portion of the code to make this component as stateless as possible
   }
   
   render() {
@@ -72,12 +72,10 @@ class Home extends React.Component {
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
               value={this.state.value}
-              onChange={this.selectLeagueChange}
-              children={LIN.forEach(league => {
-                league.map(data => {
-                  <MenuItem key={data[0]} value={data[0]} primaryText={data[1]} />;
-                });
-              })}>
+              onChange={this.selectLeagueChange.bind(this)}>
+              {LEAGUE_IDS_NAMES.map(league => {
+                return <MenuItem key={league.id} value={league.id} primaryText={league.name} />;
+              })}
             </DropDownMenu>
           </div>
           <FantasyClub />

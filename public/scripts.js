@@ -17548,8 +17548,8 @@ var Home = function (_React$Component) {
   }, {
     key: 'selectLeagueChange',
     value: function selectLeagueChange(event, key, value) {
-      console.log(value);
-      // this.props.dispatch(selectLeague()); // this function needs to also set selected league id into this.props.currentUser.fantasyLeagueBasedOn
+      console.log('value:', value);
+      this.setState({ value: value });
     }
   }, {
     key: 'render',
@@ -17602,14 +17602,15 @@ var Home = function (_React$Component) {
             'div',
             null,
             'Which league will be the basis for your fantasy soccer?',
-            _react2.default.createElement(_DropDownMenu2.default, {
-              value: this.state.value,
-              onChange: this.selectLeagueChange,
-              children: _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
-                league.map(function (data) {
-                  _react2.default.createElement(_MenuItem2.default, { key: data[0], value: data[0], primaryText: data[1] });
-                });
-              }) })
+            _react2.default.createElement(
+              _DropDownMenu2.default,
+              {
+                value: this.state.value,
+                onChange: this.selectLeagueChange.bind(this) },
+              _league_ids_names.LEAGUE_IDS_NAMES.map(function (league) {
+                return _react2.default.createElement(_MenuItem2.default, { key: league[0], value: league[0], primaryText: league[1] });
+              })
+            )
           ),
           _react2.default.createElement(_fantasyClub2.default, null),
           _react2.default.createElement(_fantasyLeague2.default, null)
