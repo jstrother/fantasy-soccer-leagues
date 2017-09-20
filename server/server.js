@@ -34,7 +34,8 @@ const runServer = () => {
 		app.listen(port, () => {
 			console.log(`Listening on port: ${port}`);
 		});
-		loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
+		// loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
+		console.log('Do not forget to uncomment the loopArray function in server.js');
 	})
 	.catch(error => {
 		console.error(`mongoose connect error: ${error}`);

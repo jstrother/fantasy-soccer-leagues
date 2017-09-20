@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 
 import { fetchUser } from '../flow/subActions/userActions.js';
-import { selectLeague } from '../flow/subActions/leagueSelectionActions.js';
+// import { selectLeague } from '../flow/subActions/leagueSelectionActions.js';
 
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 

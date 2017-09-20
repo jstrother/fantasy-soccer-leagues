@@ -83,10 +83,10 @@ userRouter.get('/',
 		displayName: req.user.displayName,
 		givenName: req.user.givenName,
 		familyName: req.user.familyName,
-		userPhoto: req.user.userPhoto,
-		fantasyLeagueBasedOnId: req.user.fantasyLeagueBasedOnId,
-		fantasyLeagueBasedOnName: req.user.fantasyLeagueBasedOnName
+		userPhoto: req.user.userPhoto
 	})
 );
+
+// return's user's page if there is a league selected for play
 
 exports.userRouter = userRouter;
