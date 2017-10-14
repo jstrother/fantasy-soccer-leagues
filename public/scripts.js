@@ -17497,15 +17497,10 @@ console.log(_league_ids_names.LEAGUE_IDS_NAMES[0][0]);
 var Home = function (_React$Component) {
   _inherits(Home, _React$Component);
 
-  function Home(props) {
+  function Home() {
     _classCallCheck(this, Home);
 
-    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-
-    _this.state = {
-      value: 8
-    }; // move this abililty into the redux portion of the code to make this component as stateless as possible
-    return _this;
+    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
   }
 
   _createClass(Home, [{
@@ -17549,7 +17544,7 @@ var Home = function (_React$Component) {
         );
       }
 
-      if (this.props.currentUser && !this.props.currentUser.basisLeagueId) {
+      if (this.props.currentUser && !this.props.currentUser.fantasyLeagueId) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17576,7 +17571,7 @@ var Home = function (_React$Component) {
             _react2.default.createElement(
               _DropDownMenu2.default,
               {
-                value: this.state.value,
+                value: this.props.currentUser.fantasyLeagueId ? this.props.currentUser.fantasyLeagueId : 0,
                 onChange: this.selectLeagueChange.bind(this) },
               _league_ids_names.LEAGUE_IDS_NAMES.map(function (league) {
                 return _react2.default.createElement(_MenuItem2.default, { key: league.id, value: league.id, primaryText: league.name });
@@ -17588,7 +17583,7 @@ var Home = function (_React$Component) {
         );
       }
 
-      if (this.props.currentUser && this.props.currentUser.basisLeague.leagueId) {
+      if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
         return _react2.default.createElement(
           'div',
           null,
@@ -18138,6 +18133,9 @@ var updateRosterReducer = exports.updateRosterReducer = function updateRosterRed
 
 
 exports.LEAGUE_IDS_NAMES = [{
+  id: 0,
+  name: "Select your league"
+}, {
   id: 8,
   name: "Premiere League (England)"
 }, {

@@ -1,5 +1,9 @@
 exports.LEAGUE_IDS_NAMES = [
   {
+    id: 0,
+    name: "Select your league"
+  },
+  {
     id: 8,
     name: "Premiere League (England)"
   },

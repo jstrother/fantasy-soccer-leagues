@@ -21,12 +21,6 @@ import MenuItem from 'material-ui/MenuItem';
 console.log(LEAGUE_IDS_NAMES[0][0]);
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 8
-    }; // move this abililty into the redux portion of the code to make this component as stateless as possible
-  }
   
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
@@ -57,7 +51,7 @@ class Home extends React.Component {
       );
     } 
     
-    if (this.props.currentUser && !this.props.currentUser.basisLeagueId) {
+    if (this.props.currentUser && !this.props.currentUser.fantasyLeagueId) {
       return (
         <div>
           <br /><br />
@@ -71,7 +65,7 @@ class Home extends React.Component {
           <div>
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
-              value={this.state.value}
+              value={this.props.currentUser.fantasyLeagueId ? this.props.currentUser.fantasyLeagueId : 0}
               onChange={this.selectLeagueChange.bind(this)}>
               {LEAGUE_IDS_NAMES.map(league => {
                 return <MenuItem key={league.id} value={league.id} primaryText={league.name} />;
@@ -84,7 +78,7 @@ class Home extends React.Component {
       );
     } 
     
-    if (this.props.currentUser && this.props.currentUser.basisLeague.leagueId) {
+    if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
       return (
         <div>
           <br /><br />

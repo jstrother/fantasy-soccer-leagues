@@ -87,6 +87,13 @@ userRouter.get('/',
 	})
 );
 
-// return's user's page if there is a league selected for play
+// returns user's page if there is a league selected for play
+userRouter.get('/league-info', 
+	passport.authenticate('bearer', {session: false}),
+	(req, res) => res.json({
+		fantasyLeagueId: req.user.fantasyLeagueId,
+		fantasyLeagueName: req.user.fantasyLeagueName
+	})
+);
 
 exports.userRouter = userRouter;
