@@ -17571,7 +17571,7 @@ var Home = function (_React$Component) {
             _react2.default.createElement(
               _DropDownMenu2.default,
               {
-                value: this.props.currentUser.fantasyLeagueId ? this.props.currentUser.fantasyLeagueId : 0,
+                value: this.props.currentUser.fantasyLeagueId > 0 ? this.props.currentUser.fantasyLeagueId : 0,
                 onChange: this.selectLeagueChange.bind(this) },
               _league_ids_names.LEAGUE_IDS_NAMES.map(function (league) {
                 return _react2.default.createElement(_MenuItem2.default, { key: league.id, value: league.id, primaryText: league.name });
@@ -17607,7 +17607,7 @@ var Home = function (_React$Component) {
             'div',
             null,
             'Your fantasy league is based on ',
-            this.props.currentUser.basisLeague.leagueName,
+            this.props.currentUser.fantasyLeagueName,
             '.'
           ),
           _react2.default.createElement(_fantasyClub2.default, null),

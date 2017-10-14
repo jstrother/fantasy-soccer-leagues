@@ -65,7 +65,7 @@ class Home extends React.Component {
           <div>
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
-              value={this.props.currentUser.fantasyLeagueId ? this.props.currentUser.fantasyLeagueId : 0}
+              value={this.props.currentUser.fantasyLeagueId > 0 ? this.props.currentUser.fantasyLeagueId : 0}
               onChange={this.selectLeagueChange.bind(this)}>
               {LEAGUE_IDS_NAMES.map(league => {
                 return <MenuItem key={league.id} value={league.id} primaryText={league.name} />;
@@ -90,7 +90,7 @@ class Home extends React.Component {
             Hello, Coach {this.props.currentUser.familyName}!
           </div>
           <div>
-            Your fantasy league is based on {this.props.currentUser.basisLeague.leagueName}.
+            Your fantasy league is based on {this.props.currentUser.fantasyLeagueName}.
           </div>
           <FantasyClub />
           <FantasyLeague />
