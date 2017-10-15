@@ -7,3 +7,4 @@ rethinkdb_data/
 config.js
 mongo_data/
 *.env
+coverage/

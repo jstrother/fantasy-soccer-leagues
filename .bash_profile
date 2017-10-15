@@ -47,7 +47,7 @@ alias lint="npm run lint"
 alias serve="npm run serve"
 
 # the following is an alias for npm test
-alias test="npm test"
+alias test="npm run test:server && npm run test:client"
 
 # the following is an alias for git status
 alias status="git status"
