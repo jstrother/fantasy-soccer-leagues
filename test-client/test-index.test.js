@@ -1,3 +1,3 @@
 test('is a sandbox', () => {
-  expect(true).toBe(false);
+  expect(true).toBe(true);
 });
