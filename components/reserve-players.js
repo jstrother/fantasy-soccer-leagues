@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Player from './player.js';
 
-class ReservePlayerList extends React.Component {
+export class ReservePlayerList extends React.Component {
 	// dispatch selectReserves action here
 	
 	render() {

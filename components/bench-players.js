@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Player from './player.js';
 
-class BenchPlayerList extends React.Component {
+export class BenchPlayerList extends React.Component {
 	// dispatch selectBenchers action here
 	
 	render() {

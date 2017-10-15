@@ -20,7 +20,7 @@ import MenuItem from 'material-ui/MenuItem';
 
 console.log(LEAGUE_IDS_NAMES[0][0]);
 
-class Home extends React.Component {
+export class Home extends React.Component {
   
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
@@ -65,7 +65,7 @@ class Home extends React.Component {
           <div>
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
-              value={this.props.currentUser.fantasyLeagueId > 0 ? this.props.currentUser.fantasyLeagueId : 0}
+              value={0}
               onChange={this.selectLeagueChange.bind(this)}>
               {LEAGUE_IDS_NAMES.map(league => {
                 return <MenuItem key={league.id} value={league.id} primaryText={league.name} />;

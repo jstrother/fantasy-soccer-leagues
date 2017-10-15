@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-class LoginPage extends React.Component {
+export class LoginPage extends React.Component {
   render() {
     return <a href={'/user/auth/google'} className='login-button' >Log In</a>;
   }

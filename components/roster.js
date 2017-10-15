@@ -8,7 +8,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Player from './player.js';
 
-class Team extends React.Component {
+export class Team extends React.Component {
 	// need a function to search by leagueId to get list of correct players to choose roster from - the leagueId will be in state already
 	
 	// this.props.dispatch(fetchStarter(thisStarter));

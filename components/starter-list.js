@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Player from './player.js';
 
-class StarterList extends React.Component {
+export class StarterList extends React.Component {
 	// dispatch selectStarters action here
 	
 	render() {
