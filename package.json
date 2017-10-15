@@ -1,11 +1,11 @@
 {
   "name": "fantasy-soccer-leagues",
   "version": "1.0.0",
-  "description": "A fantasy soccer league that auto-updates via web scraping",
+  "description": "A fantasy soccer league that auto-updates via api calls",
   "main": "server.js",
   "scripts": {
     "test:server": "mocha test-server/test-index.js",
-    "test:client": "jest test-client/ --coverage",
+    "test:client": "jest --coverage",
     "scss": "node-sass --output-style compressed scss/styles.scss public/styles.css",
     "autoprefixer": "postcss -u autoprefixer -r public/styles.css",
     "cleancss": "cleancss -o public/styles.css public/styles.css",
@@ -51,7 +51,7 @@
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-latest": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "chai": "^3.5.0",
@@ -102,7 +102,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2",
-    "scrape-it": "^3.3.3"
+    "request-promise": "^4.2.2"
   }
 }

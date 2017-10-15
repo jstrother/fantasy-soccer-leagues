@@ -15,7 +15,7 @@ module.exports = {
 			exclude: /node_modules/,
 			query: {
 				presets: [
-					'latest',
+					'env',
 					'react'
 				],
 				plugins: [
