@@ -9371,6 +9371,7 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
       return res.json();
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
+      console.log('userActions currentUser', currentUser);
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -17751,8 +17752,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // import FantasyChampsLeague from './fantasyChampsLeague.js';
 
-
-console.log(_league_ids_names.LEAGUE_IDS_NAMES[0][0]);
 
 var Home = exports.Home = function (_React$Component) {
   _inherits(Home, _React$Component);

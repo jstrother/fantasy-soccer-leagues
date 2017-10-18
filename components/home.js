@@ -18,8 +18,6 @@ import LoginPage from './loginPage.js';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
-console.log(LEAGUE_IDS_NAMES[0][0]);
-
 export class Home extends React.Component {
   
   componentDidMount() {

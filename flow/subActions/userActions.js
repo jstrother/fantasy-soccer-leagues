@@ -34,6 +34,7 @@ export const fetchUser = accessToken => dispatch => {
   })
   .then(currentUser => {
     dispatch(setUserSuccess(currentUser, 200));
+    console.log('userActions currentUser', currentUser);
     return;
   })
   .catch(error => {
