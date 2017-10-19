@@ -17,7 +17,7 @@
     "build:html": "npm run html && npm run image && npm run font",
     "build:css": "npm run scss && npm run autoprefixer && npm run cleancss",
     "build:js": "webpack",
-    "build": "npm run test && npm run build:html && npm run build:css && npm run build:js",
+    "build": "npm run build:html && npm run build:css && npm run build:js",
     "watch:html": "onchange \"./html\" -- npm run build:html",
     "watch:css": "onchange \"./scss\" -- npm run build:css",
     "watch:components": "onchange \"./components\" -- npm run build:js",
