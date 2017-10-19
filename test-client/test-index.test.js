@@ -19,7 +19,14 @@ import LogIn from '../components/home.js';
 configure({ adapter: new Adapter() });
 
 const mockStore = configureStore(),
-  middlewares = [thunk];
+  middlewares = [thunk],
+  testCurrentUser = {
+    googleId: 2,
+    displayName: 'Clint Dempsey',
+    givenName: 'Clint',
+    familyName: 'Dempsey',
+    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg'
+  };
 
 let store;
 
@@ -51,6 +58,13 @@ function setup() {
 }
 
 test('building the LogIn component', () => {
-  const enzymeWrapper = setup();
-  expect(enzymeWrapper.find(LogIn).length).toEqual(1);
+  const enzymeWrapper = setup(),
+    store = mockStore({});
+  
+  return store.dispatch(fetchData())
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual(success());
+    })
+  // expect(enzymeWrapper.find(LogIn).length).toEqual(1);
 });
