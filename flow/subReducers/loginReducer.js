@@ -19,6 +19,8 @@ export const loginReducer = (state = {}, action) => {
           }
         }
       );
+    case SELECT_LEAGUE:
+      
     case SET_USER_FAIL:
       return Object.assign({}, state, { currentUser: null });
     default:

@@ -8,38 +8,41 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import thunk from 'redux-thunk';
+import nock from 'nock';
 
 import FantasyClub from '../components/fantasyClub.js';
 import FantasyLeague from '../components/fantasyLeague.js';
 import LoginPage from '../components/loginPage.js';
 import LogIn from '../components/home.js';
-// import testCurrentUser from './currentUser.json'; // this line needs to be brought in properly, not as an import
 
 
 configure({ adapter: new Adapter() });
 
-const mockStore = configureStore(),
-  middlewares = [thunk],
+const middlewares = [thunk],
+  mockStore = configureStore(middlewares),
   testCurrentUser = {
     googleId: 2,
     displayName: 'Clint Dempsey',
     givenName: 'Clint',
     familyName: 'Dempsey',
     userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg'
-  };
+  },
+  testNock = nock('https://fantasy-soccer-leagues-jstrother.c9users.io')
+    .get('/')
+    .reply(200, testCurrentUser);
 
 let store;
 
 function success() {
   return {
     type: 'SET_USER_SUCCESS'
-  }
+  };
 }
 
 function fetchData () {
   return dispatch => {
-    return fetch(testCurrentUser)
-      .then(() => dispatch(success()))
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io')
+      .then(() => dispatch(success()));
   };
 }
 
@@ -60,10 +63,12 @@ function setup() {
 test('building the LogIn component', () => {
   const enzymeWrapper = setup(),
     store = mockStore({});
-  
-  return store.dispatch(fetchData())
-    .then(() => {
+  console.log('Hello!');
+  let storeFetch = store.dispatch(fetchData());
+  console.log('storeFetch:', storeFetch);
+    return storeFetch.then(() => {
       const actions = store.getActions();
+      console.log('actions:', actions);
       expect(actions[0]).toEqual(success());
     })
   // expect(enzymeWrapper.find(LogIn).length).toEqual(1);

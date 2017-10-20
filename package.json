@@ -89,6 +89,7 @@
     "mongodb": "^2.2.33",
     "mongoose": "^4.12.2",
     "mquery": "^2.3.2",
+    "nock": "^9.0.22",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0",
     "passport-http-bearer": "^1.0.1",

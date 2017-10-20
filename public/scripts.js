@@ -18266,6 +18266,8 @@ var loginReducer = exports.loginReducer = function loginReducer() {
           fantasyLeagueName: action.currentUser.fantasyLeagueName
         }
       });
+    case SELECT_LEAGUE:
+
     case _userActions.SET_USER_FAIL:
       return Object.assign({}, state, { currentUser: null });
     default:
