@@ -6,20 +6,16 @@ const testCurrentUser = {
     displayName: 'Clint Dempsey',
     givenName: 'Clint',
     familyName: 'Dempsey',
-    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-    fantasyLeagueId: undefined,
-    fantasyLeagueName: undefined
+    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg'
   },
   testReducer = {
-    currentUser: {
-      googleId: 2,
-      displayName: 'Clint Dempsey',
-      givenName: 'Clint',
-      familyName: 'Dempsey',
-      userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-      fantasyLeagueId: 779,
-      fantasyLeagueName: "Major League Soccer (USA)"
-    }
+    googleId: 2,
+    displayName: 'Clint Dempsey',
+    givenName: 'Clint',
+    familyName: 'Dempsey',
+    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
+    fantasyLeagueId: 779,
+    fantasyLeagueName: "Major League Soccer (USA)"
   },
   selectLeague = {
     type: 'SELECT_LEAGUE',

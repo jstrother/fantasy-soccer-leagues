@@ -99,7 +99,7 @@ export class Home extends React.Component {
 }
 
 const mapHomeStateToProps = state => ({
-  currentUser: state.loginReducer.currentUser
+  currentUser: state.loginReducer
 });
 
 const LogIn = connect(

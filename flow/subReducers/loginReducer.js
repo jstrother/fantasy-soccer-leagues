@@ -8,22 +8,18 @@ export const loginReducer = (state = {}, action) => {
     case SET_USER_SUCCESS:
       return Object.assign({}, state, 
         {
-          currentUser: {
-            googleId: action.currentUser.googleId,
-            displayName: action.currentUser.displayName,
-            givenName: action.currentUser.givenName,
-            familyName: action.currentUser.familyName,
-            userPhoto: action.currentUser.userPhoto
-          }
+          googleId: action.currentUser.googleId,
+          displayName: action.currentUser.displayName,
+          givenName: action.currentUser.givenName,
+          familyName: action.currentUser.familyName,
+          userPhoto: action.currentUser.userPhoto
         }
       );
     case SELECT_LEAGUE:
       return Object.assign({}, state,
         {
-          currentUser: {
-            fantasyLeagueId: action.fantasyLeagueId,
-            fantasyLeagueName: action.fantasyLeagueName
-          }
+          fantasyLeagueId: action.fantasyLeagueId,
+          fantasyLeagueName: action.fantasyLeagueName
         }
       );
     case SET_USER_FAIL:

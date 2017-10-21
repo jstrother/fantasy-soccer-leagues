@@ -9356,8 +9356,10 @@ var SELECT_LEAGUE = exports.SELECT_LEAGUE = 'SELECT_LEAGUE';
 var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName) {
   return {
     type: SELECT_LEAGUE,
-    fantasyLeagueId: fantasyLeagueId,
-    fantasyLeagueName: fantasyLeagueName
+    currentUser: {
+      fantasyLeagueId: fantasyLeagueId,
+      fantasyLeagueName: fantasyLeagueName
+    }
   };
 };
 
@@ -17889,7 +17891,7 @@ var Home = exports.Home = function (_React$Component) {
 
 var mapHomeStateToProps = function mapHomeStateToProps(state) {
   return {
-    currentUser: state.loginReducer.currentUser
+    currentUser: state.loginReducer
   };
 };
 
@@ -18264,20 +18266,16 @@ var loginReducer = exports.loginReducer = function loginReducer() {
   switch (action.type) {
     case _userActions.SET_USER_SUCCESS:
       return Object.assign({}, state, {
-        currentUser: {
-          googleId: action.currentUser.googleId,
-          displayName: action.currentUser.displayName,
-          givenName: action.currentUser.givenName,
-          familyName: action.currentUser.familyName,
-          userPhoto: action.currentUser.userPhoto
-        }
+        googleId: action.currentUser.googleId,
+        displayName: action.currentUser.displayName,
+        givenName: action.currentUser.givenName,
+        familyName: action.currentUser.familyName,
+        userPhoto: action.currentUser.userPhoto
       });
     case _userActions.SELECT_LEAGUE:
       return Object.assign({}, state, {
-        currentUser: {
-          fantasyLeagueId: action.fantasyLeagueId,
-          fantasyLeagueName: action.fantasyLeagueName
-        }
+        fantasyLeagueId: action.fantasyLeagueId,
+        fantasyLeagueName: action.fantasyLeagueName
       });
     case _userActions.SET_USER_FAIL:
       return Object.assign({}, state, { currentUser: null });
