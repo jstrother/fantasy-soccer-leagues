@@ -31,8 +31,6 @@ const middlewares = [thunk],
     .get('/')
     .reply(200, testCurrentUser);
 
-let store;
-
 function success() {
   return {
     type: 'SET_USER_SUCCESS'
@@ -46,26 +44,11 @@ function fetchData () {
   };
 }
 
-function setup() {
-  const initialState = {
-    loginReducer: {
-      testCurrentUser
-    }
-  };
-  
-  let store = mockStore(initialState);
-  
-  const enzymeWrapper = mount( <Provider store={store}><LogIn /></Provider> );
-  
-  return {enzymeWrapper, store};
-}
-
 test('building the LogIn component', () => {
-  const enzymeWrapper = setup(),
-    store = mockStore({});
+  const store = mockStore({});
   let storeFetch = store.dispatch(fetchData());
     return storeFetch.then(() => {
       const actions = store.getActions();
       expect(actions[0]).toEqual(success());
-    })
+    });
 });
