@@ -16,7 +16,7 @@
     "start": "nodemon --harmony server/server.js",
     "build:html": "npm run html && npm run image && npm run font",
     "build:css": "npm run scss && npm run autoprefixer && npm run cleancss",
-    "build:js": "webpack",
+    "build:js": "webpack && npm run test",
     "build": "npm run build:html && npm run build:css && npm run build:js",
     "watch:html": "onchange \"./html\" -- npm run build:html",
     "watch:css": "onchange \"./scss\" -- npm run build:css",

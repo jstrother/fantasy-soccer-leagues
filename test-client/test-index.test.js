@@ -63,13 +63,9 @@ function setup() {
 test('building the LogIn component', () => {
   const enzymeWrapper = setup(),
     store = mockStore({});
-  console.log('Hello!');
   let storeFetch = store.dispatch(fetchData());
-  console.log('storeFetch:', storeFetch);
     return storeFetch.then(() => {
       const actions = store.getActions();
-      console.log('actions:', actions);
       expect(actions[0]).toEqual(success());
     })
-  // expect(enzymeWrapper.find(LogIn).length).toEqual(1);
 });

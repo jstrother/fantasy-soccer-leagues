@@ -9352,6 +9352,18 @@ var setUserFail = exports.setUserFail = function setUserFail(currentUser, status
   };
 };
 
+var SELECT_LEAGUE = exports.SELECT_LEAGUE = 'SELECT_LEAGUE';
+var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName, statusCode) {
+  return {
+    type: SELECT_LEAGUE,
+    currentUser: {
+      fantasyLeagueId: fantasyLeagueId,
+      fantasyLeagueName: fantasyLeagueName
+    },
+    statusCode: statusCode
+  };
+};
+
 var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
   return function (dispatch) {
     return fetch('/user', {
@@ -18261,13 +18273,16 @@ var loginReducer = exports.loginReducer = function loginReducer() {
           displayName: action.currentUser.displayName,
           givenName: action.currentUser.givenName,
           familyName: action.currentUser.familyName,
-          userPhoto: action.currentUser.userPhoto,
+          userPhoto: action.currentUser.userPhoto
+        }
+      });
+    case _userActions.SELECT_LEAGUE:
+      return Object.assign({}, state, {
+        currentUser: {
           fantasyLeagueId: action.currentUser.fantasyLeagueId,
           fantasyLeagueName: action.currentUser.fantasyLeagueName
         }
       });
-    case SELECT_LEAGUE:
-
     case _userActions.SET_USER_FAIL:
       return Object.assign({}, state, { currentUser: null });
     default:

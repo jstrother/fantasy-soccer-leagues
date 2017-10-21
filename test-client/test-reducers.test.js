@@ -1,6 +1,5 @@
 import configureStore from 'redux-mock-store';
 import {loginReducer} from '../flow/subReducers/loginReducer.js';
-// import { SET_USER_FAIL, SET_USER_SUCCESS } from '../subActions/userActions.js';
 
 const testCurrentUser = {
     googleId: 2,
