@@ -21,8 +21,8 @@ export const loginReducer = (state = {}, action) => {
       return Object.assign({}, state,
         {
           currentUser: {
-            fantasyLeagueId: action.currentUser.fantasyLeagueId,
-            fantasyLeagueName: action.currentUser.fantasyLeagueName
+            fantasyLeagueId: action.fantasyLeagueId,
+            fantasyLeagueName: action.fantasyLeagueName
           }
         }
       );

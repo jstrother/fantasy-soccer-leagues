@@ -9353,14 +9353,11 @@ var setUserFail = exports.setUserFail = function setUserFail(currentUser, status
 };
 
 var SELECT_LEAGUE = exports.SELECT_LEAGUE = 'SELECT_LEAGUE';
-var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName, statusCode) {
+var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName) {
   return {
     type: SELECT_LEAGUE,
-    currentUser: {
-      fantasyLeagueId: fantasyLeagueId,
-      fantasyLeagueName: fantasyLeagueName
-    },
-    statusCode: statusCode
+    fantasyLeagueId: fantasyLeagueId,
+    fantasyLeagueName: fantasyLeagueName
   };
 };
 
@@ -9383,7 +9380,6 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
       return res.json();
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
-      console.log('userActions currentUser', currentUser);
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -18279,8 +18275,8 @@ var loginReducer = exports.loginReducer = function loginReducer() {
     case _userActions.SELECT_LEAGUE:
       return Object.assign({}, state, {
         currentUser: {
-          fantasyLeagueId: action.currentUser.fantasyLeagueId,
-          fantasyLeagueName: action.currentUser.fantasyLeagueName
+          fantasyLeagueId: action.fantasyLeagueId,
+          fantasyLeagueName: action.fantasyLeagueName
         }
       });
     case _userActions.SET_USER_FAIL:

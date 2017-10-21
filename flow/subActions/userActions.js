@@ -15,13 +15,10 @@ export const setUserFail = (currentUser, statusCode)  => ({
 });
 
 export const SELECT_LEAGUE = 'SELECT_LEAGUE';
-export const selectLeague = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
+export const selectLeague = (fantasyLeagueId, fantasyLeagueName) => ({
   type: SELECT_LEAGUE,
-  currentUser: {
-    fantasyLeagueId,
-    fantasyLeagueName
-  },
-  statusCode
+  fantasyLeagueId,
+  fantasyLeagueName
 });
 
 export const fetchUser = accessToken => dispatch => {
@@ -44,7 +41,6 @@ export const fetchUser = accessToken => dispatch => {
   })
   .then(currentUser => {
     dispatch(setUserSuccess(currentUser, 200));
-    console.log('userActions currentUser', currentUser);
     return;
   })
   .catch(error => {
