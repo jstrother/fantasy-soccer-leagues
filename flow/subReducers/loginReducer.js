@@ -18,8 +18,7 @@ export const loginReducer = (state = {}, action) => {
     case SELECT_LEAGUE:
       return Object.assign({}, state,
         {
-          fantasyLeagueId: action.fantasyLeagueId,
-          fantasyLeagueName: action.fantasyLeagueName
+          fantasyLeagueId: action.fantasyLeagueId
         }
       );
     case SET_USER_FAIL:

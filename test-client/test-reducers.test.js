@@ -14,13 +14,11 @@ const testCurrentUser = {
     givenName: 'Clint',
     familyName: 'Dempsey',
     userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-    fantasyLeagueId: 779,
-    fantasyLeagueName: "Major League Soccer (USA)"
+    fantasyLeagueId: 779
   },
   selectLeague = {
     type: 'SELECT_LEAGUE',
-    fantasyLeagueId: 779,
-    fantasyLeagueName: 'Major League Soccer (USA)'
+    fantasyLeagueId: 779
   };
   
 test('testing loginReducer', () => {

@@ -15,11 +15,10 @@ export const setUserFail = (currentUser, statusCode)  => ({
 });
 
 export const SELECT_LEAGUE = 'SELECT_LEAGUE';
-export const selectLeague = (fantasyLeagueId, fantasyLeagueName) => ({
+export const selectLeague = (fantasyLeagueId) => ({
   type: SELECT_LEAGUE,
   currentUser: {
-    fantasyLeagueId,
-    fantasyLeagueName
+    fantasyLeagueId
   }
 });
 

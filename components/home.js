@@ -28,8 +28,10 @@ export class Home extends React.Component {
   }
   
   selectLeagueChange(event, key, value) {
-    console.log('value:', value);
-    this.setState({value}); // move this abililty into the redux portion of the code to make this component as stateless as possible
+    this.props.dispatch({
+      type: 'SELECT_LEAGUE',
+      fantasyLeagueId: value
+    });
   }
   
   render() {
@@ -77,6 +79,15 @@ export class Home extends React.Component {
     } 
     
     if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
+      const fantasyLeagueName = () => {
+        LEAGUE_IDS_NAMES.forEach(league => {
+          if (league.id === this.props.currentUser.fantasyLeagueId) {
+            return league.name;
+          }
+        });
+      };
+      console.log(fantasyLeagueName);
+      
       return (
         <div>
           <br /><br />
@@ -88,7 +99,7 @@ export class Home extends React.Component {
             Hello, Coach {this.props.currentUser.familyName}!
           </div>
           <div>
-            Your fantasy league is based on {this.props.currentUser.fantasyLeagueName}.
+            Your fantasy league is based on {fantasyLeagueName}.
           </div>
           <FantasyClub />
           <FantasyLeague />
@@ -99,7 +110,14 @@ export class Home extends React.Component {
 }
 
 const mapHomeStateToProps = state => ({
-  currentUser: state.loginReducer
+  currentUser: {
+    googleId: state.loginReducer.googleId,
+    displayName: state.loginReducer.displayName,
+    givenName: state.loginReducer.givenName,
+    familyName: state.loginReducer.familyName,
+    userPhoto: state.loginReducer.userPhoto,
+    fantasyLeagueId: state.loginReducer.fantasyLeagueId
+  }
 });
 
 const LogIn = connect(
