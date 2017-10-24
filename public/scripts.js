@@ -17784,7 +17784,7 @@ var Home = exports.Home = function (_React$Component) {
       var fantasyLeagueName = void 0;
 
       nameFinder(value);
-      console.log('fantasyLeagueName:', fantasyLeagueName);
+
       this.props.dispatch({
         type: 'SELECT_LEAGUE',
         fantasyLeagueId: value,
@@ -17794,7 +17794,6 @@ var Home = exports.Home = function (_React$Component) {
       function nameFinder(value) {
         _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
           if (league.id === value) {
-            console.log('league.name:', league.name);
             fantasyLeagueName = league.name;
           }
         });
@@ -18305,7 +18304,23 @@ var loginReducer = exports.loginReducer = function loginReducer() {
     default:
       return state;
   }
-}; // ./flow/subReducers/loginReducer.js
+};
+
+// need to find the correct file for the following code block
+// User.findOneAndUpdate({
+// 	googleId: this.profile.id
+// },
+// {
+// 	fantasyLeagueId: this.fantasyLeagueId,
+// 	fantasyLeagueName: this.fantasyLeagueName
+// })
+// .then(user => {
+//  callback(null, user);
+// })
+// .catch(error => {
+// 	throw new Error(error);
+// });
+// ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
 
 /***/ }),

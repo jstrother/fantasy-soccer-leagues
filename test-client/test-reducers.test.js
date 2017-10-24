@@ -1,14 +1,14 @@
 import configureStore from 'redux-mock-store';
 import {loginReducer} from '../flow/subReducers/loginReducer.js';
 
-const testCurrentUser = {
+const testUserNoLeague = {
     googleId: 2,
     displayName: 'Clint Dempsey',
     givenName: 'Clint',
     familyName: 'Dempsey',
     userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg'
   },
-  testReducer = {
+  testUserWithLeague = {
     googleId: 2,
     displayName: 'Clint Dempsey',
     givenName: 'Clint',
@@ -24,5 +24,5 @@ const testCurrentUser = {
   };
   
 test('testing loginReducer', () => {
-  expect(loginReducer(testCurrentUser, selectLeague)).toEqual(testReducer)
+  expect(loginReducer(testUserNoLeague, selectLeague)).toEqual(testUserWithLeague);
 });

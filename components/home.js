@@ -31,7 +31,7 @@ export class Home extends React.Component {
     let fantasyLeagueName;
     
     nameFinder(value);
-    console.log('fantasyLeagueName:', fantasyLeagueName);
+    
     this.props.dispatch({
       type: 'SELECT_LEAGUE',
       fantasyLeagueId: value,
@@ -41,7 +41,6 @@ export class Home extends React.Component {
     function nameFinder(value) {
       LEAGUE_IDS_NAMES.forEach(league => {
         if (league.id === value) {
-          console.log('league.name:', league.name);
           fantasyLeagueName = league.name;
         }
       });

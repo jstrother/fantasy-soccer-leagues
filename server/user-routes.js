@@ -4,7 +4,7 @@ const express = require('express'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
   userRouter = express.Router(),
-  User = require("../models/user_model.js");
+  User = require('../models/user_model.js');
 
 passport.use(new gStrategy({
 	clientID: config.CLIENT_ID,
@@ -12,7 +12,6 @@ passport.use(new gStrategy({
 	callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback` //`${process.env.IP}${config.PORT}/user/auth/google/callback`
 },
 	(accessToken, refreshToken, profile, callback) => {
-		// console.log(profile);
 		User.findOneAndUpdate({
 			googleId: profile.id,
 			displayName: profile.displayName,
@@ -34,9 +33,9 @@ passport.use(new gStrategy({
 			callback(null, user);
 		})
 		.catch(error => {
-			console.log(`accessToken error: ${error}`);
+			throw new Error(error);
 		});
-	}	
+	}
 ));
 
 passport.use(new bStrategy((token, done) => {
@@ -47,7 +46,7 @@ passport.use(new bStrategy((token, done) => {
       }
     })
     .catch(error => {
-      console.log(`passport accessToken error: ${error}`);
+      throw new Error(error);
     });
   })
 );
