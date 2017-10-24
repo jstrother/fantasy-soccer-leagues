@@ -15,11 +15,10 @@ export const setUserFail = (currentUser, statusCode)  => ({
 });
 
 export const SELECT_LEAGUE = 'SELECT_LEAGUE';
-export const selectLeague = (fantasyLeagueId) => ({
+export const selectLeague = (fantasyLeagueId, fantasyLeagueName) => ({
   type: SELECT_LEAGUE,
-  currentUser: {
-    fantasyLeagueId
-  }
+  fantasyLeagueId,
+  fantasyLeagueName
 });
 
 export const fetchUser = accessToken => dispatch => {

@@ -28,10 +28,24 @@ export class Home extends React.Component {
   }
   
   selectLeagueChange(event, key, value) {
+    let fantasyLeagueName;
+    
+    nameFinder(value);
+    console.log('fantasyLeagueName:', fantasyLeagueName);
     this.props.dispatch({
       type: 'SELECT_LEAGUE',
-      fantasyLeagueId: value
+      fantasyLeagueId: value,
+      fantasyLeagueName
     });
+    
+    function nameFinder(value) {
+      LEAGUE_IDS_NAMES.forEach(league => {
+        if (league.id === value) {
+          console.log('league.name:', league.name);
+          fantasyLeagueName = league.name;
+        }
+      });
+    }
   }
   
   render() {
@@ -79,14 +93,6 @@ export class Home extends React.Component {
     } 
     
     if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
-      const fantasyLeagueName = () => {
-        LEAGUE_IDS_NAMES.forEach(league => {
-          if (league.id === this.props.currentUser.fantasyLeagueId) {
-            return league.name;
-          }
-        });
-      };
-      console.log(fantasyLeagueName);
       
       return (
         <div>
@@ -99,7 +105,7 @@ export class Home extends React.Component {
             Hello, Coach {this.props.currentUser.familyName}!
           </div>
           <div>
-            Your fantasy league is based on {fantasyLeagueName}.
+            Your fantasy league is based on {this.props.currentUser.fantasyLeagueName}.
           </div>
           <FantasyClub />
           <FantasyLeague />
@@ -116,7 +122,8 @@ const mapHomeStateToProps = state => ({
     givenName: state.loginReducer.givenName,
     familyName: state.loginReducer.familyName,
     userPhoto: state.loginReducer.userPhoto,
-    fantasyLeagueId: state.loginReducer.fantasyLeagueId
+    fantasyLeagueId: state.loginReducer.fantasyLeagueId,
+    fantasyLeagueName: state.loginReducer.fantasyLeagueName
   }
 });
 
