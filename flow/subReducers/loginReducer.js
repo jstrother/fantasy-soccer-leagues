@@ -28,18 +28,3 @@ export const loginReducer = (state = {}, action) => {
       return state;
   }
 };
-
-// need to find the correct file for the following code block
-// User.findOneAndUpdate({
-// 	googleId: this.profile.id
-// },
-// {
-// 	fantasyLeagueId: this.fantasyLeagueId,
-// 	fantasyLeagueName: this.fantasyLeagueName
-// })
-// .then(user => {
-//  callback(null, user);
-// })
-// .catch(error => {
-// 	throw new Error(error);
-// });
