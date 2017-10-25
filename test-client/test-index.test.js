@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import thunk from 'redux-thunk';
 import nock from 'nock';
+import expect from 'expect';
 
 import FantasyClub from '../components/fantasyClub.js';
 import FantasyLeague from '../components/fantasyLeague.js';

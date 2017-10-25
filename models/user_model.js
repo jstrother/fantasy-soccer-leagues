@@ -8,11 +8,11 @@ const mongoose = require('mongoose'),
 		userEmail: String,
 		accessToken: {type: String, required: true},
 		googleId: {type: String, required: true},
+		fantasyLeagueId: Number,
+		fantasyLeagueName: String,
 		fantasyClubName: String,
-		fantasyLeague: String,
 		fantasyDivision: String,
 		fantasyChampsLeague: Boolean,
-		fantasyLeagueBasedOn: Number
 	}),
 
 	User = mongoose.model('User', userSchema);

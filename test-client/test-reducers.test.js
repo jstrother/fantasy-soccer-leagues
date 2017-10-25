@@ -1,5 +1,6 @@
 import configureStore from 'redux-mock-store';
 import {loginReducer} from '../flow/subReducers/loginReducer.js';
+import expect from 'expect';
 
 const testUserNoLeague = {
     googleId: 2,
