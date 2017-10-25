@@ -49,7 +49,7 @@ export class Home extends React.Component {
   
   render() {
     console.log('user', this.props.currentUser);
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser || this.props.currentUser.googleId === undefined) {
       return (
         <div>
           <br /><br />
@@ -92,7 +92,6 @@ export class Home extends React.Component {
     } 
     
     if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
-      
       return (
         <div>
           <br /><br />

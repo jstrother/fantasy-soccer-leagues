@@ -17803,7 +17803,7 @@ var Home = exports.Home = function (_React$Component) {
     key: 'render',
     value: function render() {
       console.log('user', this.props.currentUser);
-      if (!this.props.currentUser) {
+      if (!this.props.currentUser || this.props.currentUser.googleId === undefined) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17866,7 +17866,6 @@ var Home = exports.Home = function (_React$Component) {
       }
 
       if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
-
         return _react2.default.createElement(
           'div',
           null,
@@ -18304,23 +18303,7 @@ var loginReducer = exports.loginReducer = function loginReducer() {
     default:
       return state;
   }
-};
-
-// need to find the correct file for the following code block
-// User.findOneAndUpdate({
-// 	googleId: this.profile.id
-// },
-// {
-// 	fantasyLeagueId: this.fantasyLeagueId,
-// 	fantasyLeagueName: this.fantasyLeagueName
-// })
-// .then(user => {
-//  callback(null, user);
-// })
-// .catch(error => {
-// 	throw new Error(error);
-// });
-// ./flow/subReducers/loginReducer.js
+}; // ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
 
 /***/ }),
