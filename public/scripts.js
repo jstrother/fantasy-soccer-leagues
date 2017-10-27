@@ -9353,12 +9353,20 @@ var setUserFail = exports.setUserFail = function setUserFail(currentUser, status
 };
 
 var SELECT_LEAGUE = exports.SELECT_LEAGUE = 'SELECT_LEAGUE';
-var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName) {
+var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName, statusCode) {
   return {
     type: SELECT_LEAGUE,
     fantasyLeagueId: fantasyLeagueId,
-    fantasyLeagueName: fantasyLeagueName
+    fantasyLeagueName: fantasyLeagueName,
+    statusCode: statusCode
   };
+};
+
+var SELECT_LEAGUE_FAIL = exports.SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
+var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {};
+
+var addLeague = exports.addLeague = function addLeague() {
+  return undefined;
 };
 
 var fetchUser = exports.fetchUser = function fetchUser(accessToken) {

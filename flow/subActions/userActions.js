@@ -15,11 +15,29 @@ export const setUserFail = (currentUser, statusCode)  => ({
 });
 
 export const SELECT_LEAGUE = 'SELECT_LEAGUE';
-export const selectLeague = (fantasyLeagueId, fantasyLeagueName) => ({
+export const selectLeague = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
   type: SELECT_LEAGUE,
   fantasyLeagueId,
-  fantasyLeagueName
+  fantasyLeagueName,
+  statusCode
 });
+
+export const SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
+export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) => {
+  
+};
+
+export const addLeague = accessToken => dispatch => {
+  return fetch('/user', {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then((fantasyLeagueId, fantasyLeagueName) => {
+    dispatch(selectLeague(fantasyLeagueId, fantasyLeagueName, 200));
+  });
+};
 
 export const fetchUser = accessToken => dispatch => {
   return fetch('/user', {

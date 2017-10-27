@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test:server": "mocha test-server/test-index.js",
-    "test:client": "jest --coverage || true",
+    "test:client": "jest || true",
     "test": "npm run test:server && npm run test:client",
     "scss": "node-sass --output-style compressed scss/styles.scss public/styles.css",
     "autoprefixer": "postcss -u autoprefixer -r public/styles.css",
