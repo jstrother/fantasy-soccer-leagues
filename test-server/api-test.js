@@ -9,10 +9,7 @@ chai.use(chaiHTTP);
 mongoose.Promise = Promise;
     
 before(() => {
-	return runServer(dbTestConnection)
-	.then(() => {
-		console.log()
-	});
+	return runServer(dbTestConnection);
 });
 
 // after(done => {

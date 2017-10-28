@@ -27,10 +27,9 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-console.log('Server Started');
-
 const runServer = (database = database) => {
 	return new Promise((resolve, reject) => {
+		console.log('Server Started');
 		mongoose.connect(database, error => {
 			if (error) {
 				return reject(error);
@@ -48,9 +47,24 @@ const runServer = (database = database) => {
 	}
 )};
 
+const closeServer = () => {
+	return new Promise((resolve, reject) => {
+		console.log('Closing server');
+		server.close(error => {
+			if (error) {
+				return reject(error);
+			}
+			resolve();
+		});
+	});
+};
+
 if (require.main === module) {
 	runServer();
 }
 
-exports.app = app;
-exports.runServer = runServer;
+module.exports = {
+	app,
+	runServer,
+	closeServer
+};
