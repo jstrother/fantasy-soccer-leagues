@@ -1,6 +1,6 @@
 const { mongoose, chai, chaiAsPromised, chaiHTTP, should } = require('./common.js');
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 chai.use(chaiAsPromised);
 
 describe('All Tests', function() {

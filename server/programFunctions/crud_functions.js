@@ -2,11 +2,7 @@
 
 const createData = (data, model) => {
   return model.create(data)
-  .then(data => {
-    console.log(`data: ${data}`);
-  })
   .catch(error => {
-    console.log(`createData error: ${error}`);
     throw new Error(error);
   });
 };

@@ -12,15 +12,6 @@ before(() => {
 	return runServer(dbTestConnection);
 });
 
-// after(done => {
-// 	mongoose.disconnect();
-// 	mongoose.connection.on('disconnected', () => {
-// 		console.log('disconnected from dbTestConnection');
-// 		mongoose.connection.db.dropDatabase();
-// 	});
-// 	done();
-// });
-
 describe('Selects League', () => {
 	it('should not exist in a user profile', () => {
 		const sampleUser = {

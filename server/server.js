@@ -1,8 +1,8 @@
 // server.js
 
 const config = require('./config.js'),
-	database = `${config.DATABASE_URL}`,
-	port = `${config.PORT}`,
+	DATABASE = `${config.DATABASE_URL}`,
+	PORT = `${config.PORT}`,
 	path = require('path'),
 	express = require('express'),
 	bodyParser = require('body-parser'),
@@ -27,16 +27,16 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-const runServer = (database = database) => {
+const runServer = (database = DATABASE) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
 		mongoose.connect(database, error => {
 			if (error) {
 				return reject(error);
 			}
-			app.listen(port, () => {
+			app.listen(PORT, () => {
 				resolve();
-				console.log(`Listening on port: ${port}`);
+				console.log(`Listening on port: ${PORT}`);
 			});
 			// loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
 			console.log('Do not forget to uncomment the loopArray function in server.js');
@@ -47,24 +47,11 @@ const runServer = (database = database) => {
 	}
 )};
 
-const closeServer = () => {
-	return new Promise((resolve, reject) => {
-		console.log('Closing server');
-		server.close(error => {
-			if (error) {
-				return reject(error);
-			}
-			resolve();
-		});
-	});
-};
-
 if (require.main === module) {
 	runServer();
 }
 
 module.exports = {
 	app,
-	runServer,
-	closeServer
+	runServer
 };
