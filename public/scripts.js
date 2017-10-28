@@ -9365,8 +9365,17 @@ var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId,
 var SELECT_LEAGUE_FAIL = exports.SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
 var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {};
 
-var addLeague = exports.addLeague = function addLeague() {
-  return undefined;
+var addLeague = exports.addLeague = function addLeague(accessToken) {
+  return function (dispatch) {
+    return fetch('/user', {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    }).then(function (fantasyLeagueId, fantasyLeagueName) {
+      dispatch(selectLeague(fantasyLeagueId, fantasyLeagueName, 200));
+    });
+  };
 };
 
 var fetchUser = exports.fetchUser = function fetchUser(accessToken) {

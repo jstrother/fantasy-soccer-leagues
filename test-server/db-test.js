@@ -13,6 +13,8 @@ const
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../server/programFunctions/crud_functions.js');
 
+mongoose.Promise = Promise;
+
 before(done => {
 	mongoose.connect(dbTestConnection);
 	mongoose.connection.on('connected', () => {

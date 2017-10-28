@@ -9,7 +9,9 @@ import { SELECT_LEAGUE, addLeague } from '../flow/subActions/userActions.js';
 const middlewares = [thunk],
   mockStore = configureMockStore(middlewares),
   config = require('../server/config.js'),
-  accessToken = `${config.GOOGLE_ACCESSTOKEN}`;
+  accessToken = `${config.GOOGLE_ACCESSTOKEN}`,
+  fantasyLeagueId = 779,
+  fantasyLeagueName = 'Major League Soccer (USA)';
   
 describe('select league async action', () => {
   afterEach(() => {
@@ -17,11 +19,11 @@ describe('select league async action', () => {
     fetchMock.restore();
   });
   
-  it.only('selects a league and sets the league id and name', () => {
+  it('selects a league and sets the league id and name', () => {
     fetchMock.putOnce('/user', {
       body: {
-          fantasyLeagueId: 779,
-          fantasyLeagueName: 'Major League Soccer (USA)'
+          fantasyLeagueId,
+          fantasyLeagueName
         },
       headers: {
         'content-type': 'application/json',
@@ -34,18 +36,17 @@ describe('select league async action', () => {
       fantasyLeagueId,
       fantasyLeagueName
     }),
-    postFantasyLeague = (fantasyLeagueId, fantasyLeagueName) => {
-      
+    expectedAction = 
+    {
+      type: SELECT_LEAGUE,
+      fantasyLeagueId,
+      fantasyLeagueName
     },
-    expectedAction = [
-      {
-        type: SELECT_LEAGUE
-      }
-    ],
     store = mockStore({ fantasyLeagueId: undefined, fantasyLeagueName: undefined });
     
-    return store.dispatch(addLeague()).then(() => {
-      expect(store.getActions()).toEqual(expectedAction);
+    return store.dispatch(addLeague(accessToken)).then((fantasyLeagueId, fantasyLeagueName) => {
+      expect(store.getActions()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
+      expect(store.getActions()).toHaveProperty('fantasyLeagueName', fantasyLeagueName);
     });
   });
 });

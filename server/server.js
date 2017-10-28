@@ -29,18 +29,24 @@ app.get('*', (req, res) => {
 
 console.log('Server Started');
 
-const runServer = () => {
-	mongoose.connect(database, () => {
-		app.listen(port, () => {
-			console.log(`Listening on port: ${port}`);
+const runServer = (database = database) => {
+	return new Promise((resolve, reject) => {
+		mongoose.connect(database, error => {
+			if (error) {
+				return reject(error);
+			}
+			app.listen(port, () => {
+				resolve();
+				console.log(`Listening on port: ${port}`);
+			});
+			// loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
+			console.log('Do not forget to uncomment the loopArray function in server.js');
+		})
+		.catch(error => {
+			throw new Error(error);
 		});
-		// loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
-		console.log('Do not forget to uncomment the loopArray function in server.js');
-	})
-	.catch(error => {
-		console.error(`mongoose connect error: ${error}`);
-	});
-};
+	}
+)};
 
 if (require.main === module) {
 	runServer();

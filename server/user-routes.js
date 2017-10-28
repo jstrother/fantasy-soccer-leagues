@@ -87,4 +87,7 @@ userRouter.get('/',
 	})
 );
 
+// adds user's selected league
+userRouter.put('/')
+
 exports.userRouter = userRouter;
