@@ -33,19 +33,18 @@ describe('Selects League', () => {
 					console.log(`api-test res: ${res}`);
 				}
 			});
-			chai.request(app)
-			.put('/user/addLeague')
-			.send({ fantasyLeagueId, fantasyLeagueName })
-			.end((err, res) => {
-				if (err) {
-					throw new Error(err);
-				}
-				
-			});
 		});
 	});
 	
 	it('should add league id and name to a user profile', () => {
-		
+		// chai.request(app)
+		// 	.put('/user/addLeague')
+		// 	.send({ fantasyLeagueId, fantasyLeagueName })
+		// 	.end((err, res) => {
+		// 		if (err) {
+		// 			throw new Error(err);
+		// 		}
+				
+		// 	});
 	});
 });
