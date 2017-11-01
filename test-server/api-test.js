@@ -19,7 +19,7 @@ describe('Selects League', () => {
 			accessToken: '42',
 			googleId: '1974'
 		};
-		createData(sampleUser, User)
+		return createData(sampleUser, User)
 		.then(() => {
 			console.log('hello!23');
 			chai.request(app)
@@ -30,16 +30,19 @@ describe('Selects League', () => {
 					throw new Error(err);
 				}
 				else {
-					console.log(`res: ${res}`);
+					console.log(`api-test res: ${res}`);
 				}
 			});
-		});
-		chai.request(app)
+			chai.request(app)
 			.put('/user/addLeague')
 			.send({ fantasyLeagueId, fantasyLeagueName })
 			.end((err, res) => {
+				if (err) {
+					throw new Error(err);
+				}
 				
 			});
+		});
 	});
 	
 	it('should add league id and name to a user profile', () => {
