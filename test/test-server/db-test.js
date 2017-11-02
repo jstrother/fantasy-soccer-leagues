@@ -1,17 +1,17 @@
 const
 	// import common modules
-	{ mongoose, dbTestConnection } = require('./common.js'),
+	{ mongoose, dbTestConnection } = require('../common.js'),
 	// all models
-	User = require('../models/user_model.js'),
-	FantasyClub = require('../models/fantasyClub_model.js'),
-	FantasyLeague = require('../models/fantasyLeague_model.js'),
-	FantasyChampsLeague = require('../models/fantasyChampsLeague_model.js'),
-	FantasySchedule = require('../models/fantasySchedule_model.js'),
-	FantasyMatch = require('../models/fantasyMatch_model.js'),
-	FantasyDivision = require('../models/fantasyDivision_model.js'),
-	Player = require('../models/player_model.js'),
+	User = require('../../models/user_model.js'),
+	FantasyClub = require('../../models/fantasyClub_model.js'),
+	FantasyLeague = require('../../models/fantasyLeague_model.js'),
+	FantasyChampsLeague = require('../../models/fantasyChampsLeague_model.js'),
+	FantasySchedule = require('../../models/fantasySchedule_model.js'),
+	FantasyMatch = require('../../models/fantasyMatch_model.js'),
+	FantasyDivision = require('../../models/fantasyDivision_model.js'),
+	Player = require('../../models/player_model.js'),
 	// import crud functions
-	{ createData, readData, updateData, deleteData } = require('../server/programFunctions/crud_functions.js');
+	{ createData, readData, updateData, deleteData } = require('../../server/programFunctions/crud_functions.js');
 
 // mongoose.Promise = Promise;
 

@@ -4,11 +4,11 @@ import fetchMock from 'fetch-mock';
 import expect from 'expect';
 import nock from 'nock';
 
-import { SELECT_LEAGUE, addLeague } from '../flow/subActions/userActions.js';
+import { SELECT_LEAGUE, addLeague } from '../../flow/subActions/userActions.js';
 
 const middlewares = [thunk],
   mockStore = configureMockStore(middlewares),
-  config = require('../server/config.js'),
+  config = require('../../server/config.js'),
   accessToken = `${config.GOOGLE_ACCESSTOKEN}`,
   fantasyLeagueId = 779,
   fantasyLeagueName = 'Major League Soccer (USA)';

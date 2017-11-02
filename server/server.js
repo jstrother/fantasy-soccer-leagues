@@ -27,16 +27,16 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-const runServer = (database = DATABASE) => {
+const runServer = (port = PORT, database = DATABASE) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
 		mongoose.connect(database, error => {
 			if (error) {
 				return reject(error);
 			}
-			app.listen(PORT, () => {
+			app.listen(port, () => {
 				resolve();
-				console.log(`Listening on port: ${PORT}`);
+				console.log(`Listening on port: ${port}`);
 			});
 			// loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
 			console.log('Do not forget to uncomment the loopArray function in server.js');

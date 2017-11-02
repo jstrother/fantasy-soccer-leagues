@@ -6,15 +6,15 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
+import { LEAGUE_IDS_NAMES } from '../../server/league_ids_names.js';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import expect from 'expect';
 
-import FantasyClub from '../components/fantasyClub.js';
-import FantasyLeague from '../components/fantasyLeague.js';
-import LoginPage from '../components/loginPage.js';
-import LogIn from '../components/home.js';
+import FantasyClub from '../../components/fantasyClub.js';
+import FantasyLeague from '../../components/fantasyLeague.js';
+import LoginPage from '../../components/loginPage.js';
+import LogIn from '../../components/home.js';
 
 
 configure({ adapter: new Adapter() });

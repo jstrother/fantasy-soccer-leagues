@@ -38,7 +38,7 @@ alias build="npm run build"
 alias watch="npm run watch"
 
 # the following is an alias for npm run begin
-alias begin="npm run begin"
+alias begin="build && watch"
 
 # the following is an alias for npm run lint
 alias lint="npm run lint"
@@ -47,7 +47,7 @@ alias lint="npm run lint"
 alias serve="npm run serve"
 
 # the following is an alias for npm test
-alias test="npm run test:server && npm run test:client"
+alias test="npm run test"
 
 # the following is an alias for git status
 alias status="git status"

@@ -12,7 +12,6 @@ passport.use(new gStrategy({
 	callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback` //`${process.env.IP}${config.PORT}/user/auth/google/callback`
 },
 	(accessToken, refreshToken, profile, callback) => {
-		console.log(`accessToken: ${accessToken}`);
 		User.findOneAndUpdate({
 			googleId: profile.id,
 			displayName: profile.displayName,
