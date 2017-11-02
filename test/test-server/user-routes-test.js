@@ -16,7 +16,7 @@ chai.use(chaiHTTP);
 mongoose.Promise = Promise;
     
 before(() => {
-	return runServer(8081, dbTestConnection);;
+	return runServer(8081, dbTestConnection);
 });
 
 describe('Selects League', () => {
@@ -35,9 +35,9 @@ describe('Selects League', () => {
 			.set({'Authorization': `Bearer ${accessToken}`})
 			.then(res => {
 				console.log(Object.keys(res.body));
-				expect(res.body).to.not.be.empty;
-				// expect(res.body).to.have.key('fantasyLeagueId');
-				// expect(res.body).to.have.key('fantasyLeagueName');
+				// expect(res.body).to.not.be.empty;
+				expect(res.body).to.have.key('fantasyLeagueId');
+				expect(res.body).to.have.key('fantasyLeagueName');
 			})
 			.catch(err => {
 				throw new Error(err);

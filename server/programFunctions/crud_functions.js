@@ -29,7 +29,9 @@ const deleteData = (data, model) => {
   });
 };
 
-exports.createData = createData;
-exports.readData = readData;
-exports.updateData = updateData;
-exports.deleteData = deleteData;
+module.exports = {
+  createData,
+  readData,
+  updateData,
+  deleteData
+};
