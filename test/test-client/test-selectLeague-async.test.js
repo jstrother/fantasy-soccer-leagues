@@ -51,16 +51,16 @@ describe('select league async action', () => {
   });
 });
 
-describe('testing SELECT_LEAGUE async with node-nock', () => {
-  it('puts league id and name into database', () => {
-    const fantasyLeagueId = 779,
-      fantasyLeagueName = 'Major League Soccer (USA)',
-      testDB = nock('https://fantasy-soccer-leagues-jstrother.c9users.io')
-        .put('/user')
-        .reply(200, {
-          fantasyLeagueId,
-          fantasyLeagueName
-        });
+// describe('testing SELECT_LEAGUE async with node-nock', () => {
+//   it('puts league id and name into database', () => {
+//     const fantasyLeagueId = 779,
+//       fantasyLeagueName = 'Major League Soccer (USA)',
+//       testDB = nock('https://fantasy-soccer-leagues-jstrother.c9users.io')
+//         .put('/user')
+//         .reply(200, {
+//           fantasyLeagueId,
+//           fantasyLeagueName
+//         });
     
-  });
-});
+//   });
+// });

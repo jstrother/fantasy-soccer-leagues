@@ -30,14 +30,16 @@ describe('Selects League', () => {
 		};
 		return createData(sampleUser, User)
 		.then(() => {
+			console.log('hello');
 			chai.request(app)
 			.get('/user/user1')
 			.set({'Authorization': `Bearer ${accessToken}`})
 			.then(res => {
-				console.log(Object.keys(res.body));
-				// expect(res.body).to.not.be.empty;
-				expect(res.body).to.have.key('fantasyLeagueId');
-				expect(res.body).to.have.key('fantasyLeagueName');
+				console.log('res.body:', res.body);
+				console.log('res.body keys:', Object.keys(res.body));
+				expect(res.body).to.not.be.empty;
+				expect(res.body).to.have.property('fantasyLeagueId', fantasyLeagueId);
+				expect(res.body).to.have.property('fantasyLeagueName', fantasyLeagueName);
 			})
 			.catch(err => {
 				throw new Error(err);
