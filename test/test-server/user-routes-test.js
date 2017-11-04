@@ -10,7 +10,7 @@ const express = require('express'),
   fantasyLeagueId = 779,
   fantasyLeagueName = 'Major League Soccer (USA)',
   { runServer, app } = require('../../server/server.js'),
-  accessToken = 42;
+  testCurrentUser = require('../currentUser.js');
 
 chai.use(chaiHTTP);
 mongoose.Promise = Promise;
@@ -21,30 +21,30 @@ before(() => {
 
 describe('Selects League', () => {
 	it('fantasyLeagueId and fantasyLeagueName should not exist in a user profile', () => {
-		const sampleUser = {
-			displayName: 'user1',
-			accessToken,
-			googleId: '1974',
-			givenName: 'Test',
-			familyName: 'User'
-		};
-		return createData(sampleUser, User)
-		.then(() => {
-			console.log('hello');
-			chai.request(app)
-			.get('/user/user1')
-			.set({'Authorization': `Bearer ${accessToken}`})
-			.then(res => {
-				console.log('res.body:', res.body);
-				console.log('res.body keys:', Object.keys(res.body));
-				expect(res.body).to.not.be.empty;
-				expect(res.body).to.have.property('fantasyLeagueId', fantasyLeagueId);
-				expect(res.body).to.have.property('fantasyLeagueName', fantasyLeagueName);
-			})
-			.catch(err => {
-				throw new Error(err);
-			});
-		});
+		passport.use(new gStrategy({
+			clientID: config.CLIENT_ID,
+			clientSecret: config.CLIENT_SECRET,
+			callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback`
+		},
+			(accessToken, refreshToken, profile = testCurrentUser, callback) => {
+				return createData(profile, User)
+				.then(() => {
+					chai.request(app)
+					.get('/user/user1')
+					.set({'Authorization': `Bearer ${accessToken}`})
+					.then(res => {
+						console.log('res.body:', res.body);
+						console.log('res.body keys:', Object.keys(res.body));
+						res.body.should.not.be.empty;
+						res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
+						res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
+					})
+					.catch(err => {
+						throw new Error(err);
+					});
+				});
+			}
+		));
 	});
 	
 	it('should add league id and name to a user profile', () => {

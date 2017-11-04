@@ -16,21 +16,12 @@ import FantasyLeague from '../../components/fantasyLeague.js';
 import LoginPage from '../../components/loginPage.js';
 import LogIn from '../../components/home.js';
 
+const testCurrentUser = require('../currentUser.js');
 
 configure({ adapter: new Adapter() });
 
 const middlewares = [thunk],
-  mockStore = configureStore(middlewares),
-  testCurrentUser = {
-    googleId: 2,
-    displayName: 'Clint Dempsey',
-    givenName: 'Clint',
-    familyName: 'Dempsey',
-    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg'
-  },
-  testNock = nock('https://fantasy-soccer-leagues-jstrother.c9users.io')
-    .get('/')
-    .reply(200, testCurrentUser);
+  mockStore = configureStore(middlewares);
 
 function success() {
   return {
