@@ -10,7 +10,8 @@ const express = require('express'),
   fantasyLeagueId = 779,
   fantasyLeagueName = 'Major League Soccer (USA)',
   { runServer, app } = require('../../server/server.js'),
-  testCurrentUser = require('../currentUser.js');
+  testCurrentUser = require('../currentUser.js'),
+  accessToken = 42;
 
 chai.use(chaiHTTP);
 mongoose.Promise = Promise;
@@ -21,30 +22,23 @@ before(() => {
 
 describe('Selects League', () => {
 	it('fantasyLeagueId and fantasyLeagueName should not exist in a user profile', () => {
-		passport.use(new gStrategy({
-			clientID: config.CLIENT_ID,
-			clientSecret: config.CLIENT_SECRET,
-			callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback`
-		},
-			(accessToken, refreshToken, profile = testCurrentUser, callback) => {
-				return createData(profile, User)
-				.then(() => {
-					chai.request(app)
-					.get('/user/user1')
-					.set({'Authorization': `Bearer ${accessToken}`})
-					.then(res => {
-						console.log('res.body:', res.body);
-						console.log('res.body keys:', Object.keys(res.body));
-						res.body.should.not.be.empty;
-						res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
-						res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
-					})
-					.catch(err => {
-						throw new Error(err);
-					});
-				});
-			}
-		));
+		
+		return createData(testCurrentUser, User)
+		.then(() => {
+			chai.request(app)
+			.get('/user/user1')
+			.set({'Authorization': `Bearer ${accessToken}`})
+			.then(res => {
+				console.log('res.body:', res.body);
+				console.log('res.body keys:', Object.keys(res.body));
+				res.body.should.not.be.empty;
+				res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
+				res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
+			})
+			.catch(err => {
+				throw new Error(err);
+			});
+		});
 	});
 	
 	it('should add league id and name to a user profile', () => {
