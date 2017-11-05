@@ -4,6 +4,7 @@ const express = require('express'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
   userRouter = express.Router(),
+  { createData, readData, updateData, deleteData } = require('./programFunctions/crud_functions.js'),
   User = require('../models/user_model.js');
 
 passport.use(new gStrategy({
@@ -12,7 +13,7 @@ passport.use(new gStrategy({
 	callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback` //`${process.env.IP}${config.PORT}/user/auth/google/callback`
 },
 	(accessToken, refreshToken, profile, callback) => {
-		User.findOneAndUpdate({
+		updateData({
 			googleId: profile.id,
 			displayName: profile.displayName,
 			givenName: profile.name.givenName,
@@ -24,11 +25,7 @@ passport.use(new gStrategy({
         accessToken: accessToken,
         googleId: profile.id
       }
-    },
-    {
-    	new: true, 
-    	upsert: true
-    })
+    }, User)
 		.then(user => {
 			callback(null, user);
 		})
@@ -39,7 +36,7 @@ passport.use(new gStrategy({
 ));
 
 passport.use(new bStrategy((token, done) => {
-    User.findOne({accessToken: token})
+    readData({accessToken: token}, User)
     .then(user => {
       if (user) {
       	return done(null, user);
@@ -87,6 +84,11 @@ userRouter.get('/',
 );
 
 // adds user's selected league
-userRouter.put('/addLeague');
+userRouter.put('/addLeague',
+	(req, res) => res.json({
+		fantasyLeagueId: req.fantasyLeagueId,
+		fantasyLeagueName: req.fantasyLeagueName
+	})
+);
 
 exports.userRouter = userRouter;

@@ -9367,13 +9367,27 @@ var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fant
 
 var addLeague = exports.addLeague = function addLeague(accessToken) {
   return function (dispatch) {
-    return fetch('/user', {
+    return fetch('/user/addLeague', {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + accessToken
       }
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(selectLeagueFail(null, null, res.status));
+          return;
+        } else {
+          dispatch(selectLeagueFail(null, null, 500));
+        }
+        throw new Error(res.statusText);
+      }
+      return res.json();
     }).then(function (fantasyLeagueId, fantasyLeagueName) {
       dispatch(selectLeague(fantasyLeagueId, fantasyLeagueName, 200));
+      return;
+    }).catch(function (error) {
+      throw new Error(error);
     });
   };
 };
@@ -17773,8 +17787,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // components/home.js
 // imported into ./app.js
 
-// import { selectLeague } from '../flow/subActions/leagueSelectionActions.js';
-
 // import FantasyChampsLeague from './fantasyChampsLeague.js';
 
 
@@ -17798,13 +17810,15 @@ var Home = exports.Home = function (_React$Component) {
   }, {
     key: 'selectLeagueChange',
     value: function selectLeagueChange(event, key, value) {
-      var fantasyLeagueName = void 0;
+      var accessToken = Cookies.get('accessToken');
+      var fantasyLeagueName = void 0,
+          fantasyLeagueId = value;
 
       nameFinder(value);
 
       this.props.dispatch({
         type: 'SELECT_LEAGUE',
-        fantasyLeagueId: value,
+        fantasyLeagueId: fantasyLeagueId,
         fantasyLeagueName: fantasyLeagueName
       });
 

@@ -27,15 +27,31 @@ export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode)
   
 };
 
-export const addLeague = accessToken => dispatch => {
-  return fetch('/user', {
+export const addLeague = (accessToken) => dispatch => {
+  return fetch('/user/addLeague', {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
   })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(selectLeagueFail(null, null, res.status));
+        return;
+      } else {
+        dispatch(selectLeagueFail(null, null, 500));
+      }
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
   .then((fantasyLeagueId, fantasyLeagueName) => {
     dispatch(selectLeague(fantasyLeagueId, fantasyLeagueName, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
   });
 };
 

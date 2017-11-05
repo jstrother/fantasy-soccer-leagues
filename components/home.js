@@ -5,8 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 
-import { fetchUser } from '../flow/subActions/userActions.js';
-// import { selectLeague } from '../flow/subActions/leagueSelectionActions.js';
+import { fetchUser, addLeague } from '../flow/subActions/userActions.js';
 
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
@@ -28,15 +27,19 @@ export class Home extends React.Component {
   }
   
   selectLeagueChange(event, key, value) {
-    let fantasyLeagueName;
+    const accessToken = Cookies.get('accessToken');
+    let fantasyLeagueName,
+      fantasyLeagueId = value;
     
     nameFinder(value);
     
-    this.props.dispatch({
-      type: 'SELECT_LEAGUE',
-      fantasyLeagueId: value,
-      fantasyLeagueName
-    });
+    this.props.dispatch(
+      {
+        type: 'SELECT_LEAGUE',
+        fantasyLeagueId,
+        fantasyLeagueName
+      }
+    );
     
     function nameFinder(value) {
       LEAGUE_IDS_NAMES.forEach(league => {
