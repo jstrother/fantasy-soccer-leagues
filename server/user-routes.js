@@ -65,11 +65,13 @@ userRouter.get('/auth/google/callback',
 	}
 );
 
-userRouter.get('/auth/logout', (req, res) => {
-	req.logout();
-	res.clearCookie('accessToken');
-	res.redirect('/');
-});
+userRouter.get('/auth/logout',
+	(req, res) => {
+		req.logout();
+		res.clearCookie('accessToken');
+		res.redirect('/');
+	}
+);
 
 // returns user's own page
 userRouter.get('/', 
@@ -86,8 +88,8 @@ userRouter.get('/',
 // adds user's selected league
 userRouter.put('/addLeague',
 	(req, res) => res.json({
-		fantasyLeagueId: req.fantasyLeagueId,
-		fantasyLeagueName: req.fantasyLeagueName
+		fantasyLeagueId: req.body.fantasyLeagueId,
+		fantasyLeagueName: req.body.fantasyLeagueName
 	})
 );
 

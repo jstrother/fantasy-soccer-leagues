@@ -27,14 +27,19 @@ export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode)
   
 };
 
-export const addLeague = (accessToken) => dispatch => {
-  return fetch('/user/addLeague', {
+export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
+  return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${accessToken}`
-    }
+    },
+    body: JSON.stringify({
+      fantasyLeagueId,
+      fantasyLeagueName
+    })
   })
   .then(res => {
+    console.log('id:', fantasyLeagueId);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(selectLeagueFail(null, null, res.status));

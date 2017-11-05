@@ -22,6 +22,7 @@ app.use(jsonParser);
 app.use(express.static('public'));
 app.use(passport.initialize());
 app.use('/user', userRoutes);
+app.use('/user/addLeague', userRoutes);
 app.use('/player', playerRoutes);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));

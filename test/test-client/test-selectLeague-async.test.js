@@ -19,16 +19,19 @@ describe('select league async action', () => {
     fetchMock.restore();
   });
   
-  it('selects a league and sets the league id and name', () => {
-    fetchMock.putOnce('/user', {
+  it('selects a league and dispatches the league id and name', () => {
+    fetchMock.putOnce('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
       body: {
-          fantasyLeagueId,
-          fantasyLeagueName
-        },
+        fantasyLeagueId,
+        fantasyLeagueName
+      },
       headers: {
         'content-type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       }
+    })
+    .catch(error => {
+      throw new Error(error);
     });
     
     const selectLeague = (fantasyLeagueId, fantasyLeagueName) => ({
@@ -50,17 +53,3 @@ describe('select league async action', () => {
     });
   });
 });
-
-// describe('testing SELECT_LEAGUE async with node-nock', () => {
-//   it('puts league id and name into database', () => {
-//     const fantasyLeagueId = 779,
-//       fantasyLeagueName = 'Major League Soccer (USA)',
-//       testDB = nock('https://fantasy-soccer-leagues-jstrother.c9users.io')
-//         .put('/user')
-//         .reply(200, {
-//           fantasyLeagueId,
-//           fantasyLeagueName
-//         });
-    
-//   });
-// });

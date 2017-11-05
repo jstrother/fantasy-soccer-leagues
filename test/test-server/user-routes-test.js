@@ -44,10 +44,20 @@ describe('User Profile', () => {
 	it('should update a user profile', () => {
 		const updateCurrentUser = testCurrentUser;
 		
-		return updateData(updateCurrentUser, { fantasyLeagueId, fantasyLeagueName }, User)
-		.then(updatedItem => {
-			updatedItem.should.have.property('fantasyLeagueId', fantasyLeagueId);
-			updatedItem.should.have.property('fantasyLeagueName', fantasyLeagueName);
+		return chai.request(app)
+		.put('/user/addLeague')
+		.set({'Authorization': `Bearer ${updateCurrentUser.accessToken}`})
+		.send({
+			fantasyLeagueId,
+			fantasyLeagueName
+		})
+		.then(res => {
+			res.body.should.not.be.empty;
+			res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
+			res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
+		})
+		.catch(err => {
+			throw new Error(err);
 		});
 	});
 	
@@ -72,22 +82,3 @@ describe('User Profile', () => {
 	// 	});
 	// });
 });
-
-// .then(() => {
-			// 	console.log('hello');
-			// 	chai.request(app)
-			// 	.get('/user/user1')
-			// 	.set({'Authorization': `Bearer ${accessToken}`})
-			// 	.then(res => {
-			// 		// console.log('res:', res);
-			// 		console.log('res.body:', res.body);
-			// 		console.log('res.body keys:', Object.keys(res.body));
-			// 		true.should.equal(false);
-			// 		res.should.be.empty;
-			// 		res.should.have.property('fantasyLeagueId', fantasyLeagueId);
-			// 		res.should.have.property('fantasyLeagueName', fantasyLeagueName);
-			// 	})
-			// 	.catch(err => {
-			// 		throw new Error(err);
-			// 	});
-			// });

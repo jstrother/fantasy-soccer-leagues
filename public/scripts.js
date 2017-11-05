@@ -9365,14 +9365,19 @@ var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId,
 var SELECT_LEAGUE_FAIL = exports.SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
 var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {};
 
-var addLeague = exports.addLeague = function addLeague(accessToken) {
+var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
-    return fetch('/user/addLeague', {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + accessToken
-      }
+      },
+      body: JSON.stringify({
+        fantasyLeagueId: fantasyLeagueId,
+        fantasyLeagueName: fantasyLeagueName
+      })
     }).then(function (res) {
+      console.log('id:', fantasyLeagueId);
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(selectLeagueFail(null, null, res.status));
