@@ -45,9 +45,6 @@ describe('Selects League', () => {
  			});
  		});
 	});
-	// res.body.should.not.be.empty;
-	// res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
-	// res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
 	
 	it('should add league id and name to a user profile', () => {
 		// chai.request(app)
