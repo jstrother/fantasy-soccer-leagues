@@ -23,9 +23,12 @@ export const selectLeague = (fantasyLeagueId, fantasyLeagueName, statusCode) => 
 });
 
 export const SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
-export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) => {
-  
-};
+export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
+  type: SELECT_LEAGUE_FAIL,
+  fantasyLeagueId,
+  fantasyLeagueName,
+  statusCode
+});
 
 export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
   return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
@@ -39,7 +42,7 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
     })
   })
   .then(res => {
-    console.log('id:', fantasyLeagueId);
+    console.log('res:', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(selectLeagueFail(null, null, res.status));

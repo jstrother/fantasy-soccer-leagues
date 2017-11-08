@@ -9363,7 +9363,14 @@ var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId,
 };
 
 var SELECT_LEAGUE_FAIL = exports.SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
-var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {};
+var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {
+  return {
+    type: SELECT_LEAGUE_FAIL,
+    fantasyLeagueId: fantasyLeagueId,
+    fantasyLeagueName: fantasyLeagueName,
+    statusCode: statusCode
+  };
+};
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
@@ -9377,7 +9384,7 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
         fantasyLeagueName: fantasyLeagueName
       })
     }).then(function (res) {
-      console.log('id:', fantasyLeagueId);
+      console.log('res:', res);
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(selectLeagueFail(null, null, res.status));

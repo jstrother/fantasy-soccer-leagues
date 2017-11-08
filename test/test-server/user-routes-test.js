@@ -61,24 +61,17 @@ describe('User Profile', () => {
 		});
 	});
 	
-	// it('should remove a user profile', () => {
-	// 	const deleteCurrentUser = {
-	// 		accessToken: testCurrentUser.accessToken,
-	// 		googleId: testCurrentUser.googleId,
-	// 		displayName: testCurrentUser.displayName,
-	// 		givenName: testCurrentUser.givenName,
-	// 		familyName: testCurrentUser.familyName,
-	// 		userPhoto: testCurrentUser.userPhoto,
-	// 		fantasyLeagueId,
-	// 		fantasyLeagueName
-	// 	};
+	it('should remove a user profile', () => {
+		const deleteCurrentUser = {
+			accessToken: testCurrentUser.accessToken
+		};
 		
-	// 	return deleteData(deleteCurrentUser, User)
-	// 	.then(deletedItem => {
-	// 		readData(deleteCurrentUser, User)
-	// 		.then(deletedItem => {
-	// 			deletedItem.should.not.exist;
-	// 		});
-	// 	});
-	// });
+		return deleteData(deleteCurrentUser, User)
+		.then(deletedItem => {
+			readData(deleteCurrentUser, User)
+			.then(deletedItem => {
+				deletedItem.should.not.exist;
+			});
+		});
+	});
 });
