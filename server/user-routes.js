@@ -88,8 +88,8 @@ userRouter.get('/',
 // adds user's selected league
 userRouter.put('/addLeague',
 	(req, res) => {
-		console.log('req:', req);
-		res.json({
+		console.log('req.body:', req.body);
+		return res.json({
 			fantasyLeagueId: req.body.fantasyLeagueId,
 			fantasyLeagueName: req.body.fantasyLeagueName
 		});

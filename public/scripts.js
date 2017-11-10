@@ -9384,7 +9384,6 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
         fantasyLeagueName: fantasyLeagueName
       })
     }).then(function (res) {
-      console.log('res:', res);
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(selectLeagueFail(null, null, res.status));

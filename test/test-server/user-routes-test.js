@@ -52,26 +52,27 @@ describe('User Profile', () => {
 			fantasyLeagueName
 		})
 		.then(res => {
+			console.log('res.body:', res.body);
 			res.body.should.not.be.empty;
 			res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
 			res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
 		})
-		.catch(err => {
-			throw new Error(err);
+		.catch(error => {
+			throw new Error(error);
 		});
 	});
 	
-	it('should remove a user profile', () => {
-		const deleteCurrentUser = {
-			accessToken: testCurrentUser.accessToken
-		};
+	// it('should remove a user profile', () => {
+	// 	const deleteCurrentUser = {
+	// 		accessToken: testCurrentUser.accessToken
+	// 	};
 		
-		return deleteData(deleteCurrentUser, User)
-		.then(deletedItem => {
-			readData(deleteCurrentUser, User)
-			.then(deletedItem => {
-				deletedItem.should.not.exist;
-			});
-		});
-	});
+	// 	return deleteData(deleteCurrentUser, User)
+	// 	.then(deletedItem => {
+	// 		readData(deleteCurrentUser, User)
+	// 		.then(deletedItem => {
+	// 			deletedItem.should.not.exist;
+	// 		});
+	// 	});
+	// });
 });

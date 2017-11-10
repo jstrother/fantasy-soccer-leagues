@@ -42,7 +42,6 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
     })
   })
   .then(res => {
-    console.log('res:', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(selectLeagueFail(null, null, res.status));
