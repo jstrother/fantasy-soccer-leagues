@@ -9372,9 +9372,9 @@ var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fant
   };
 };
 
-var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
+var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + accessToken

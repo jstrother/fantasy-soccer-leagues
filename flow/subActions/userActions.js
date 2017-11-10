@@ -30,8 +30,8 @@ export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode)
   statusCode
 });
 
-export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
-  return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
+export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googleId) => dispatch => {
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/${googleId}`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${accessToken}`

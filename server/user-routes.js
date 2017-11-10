@@ -86,13 +86,19 @@ userRouter.get('/',
 );
 
 // adds user's selected league
-userRouter.put('/addLeague',
+userRouter.put(`/addLeague/:googleId`,
 	(req, res) => {
-		console.log('req.body:', req.body);
-		return res.json({
-			fantasyLeagueId: req.body.fantasyLeagueId,
-			fantasyLeagueName: req.body.fantasyLeagueName
-		});
+		return updateData(req.params.googleId, 
+			{
+				fantasyLeagueId: req.body.fantasyLeagueId,
+				fantasyLeagueName: req.body.fantasyLeagueName
+			}, User)
+			.then(data => {
+				res.json(data);
+			})
+			.catch(error => {
+				throw new Error(error);
+			});
 	}
 );
 

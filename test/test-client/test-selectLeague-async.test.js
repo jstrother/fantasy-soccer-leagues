@@ -27,7 +27,7 @@ describe('select league async action', () => {
   });
   
   it('selects a league and dispatches the league id and name', () => {
-    fetchMock.putOnce('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
+    fetchMock.putOnce(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/${testCurrentUser.googleId}`, {
       body: JSON.stringify({
         fantasyLeagueId,
         fantasyLeagueName
@@ -54,7 +54,7 @@ describe('select league async action', () => {
     },
     store = mockStore({ fantasyLeagueId: undefined, fantasyLeagueName: undefined });
     
-    return store.dispatch(addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName))
+    return store.dispatch(addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName, testCurrentUser.googleId))
     .then((fantasyLeagueId, fantasyLeagueName) => {
       expect(store.getActions()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
       expect(store.getActions()).toHaveProperty('fantasyLeagueName', fantasyLeagueName);

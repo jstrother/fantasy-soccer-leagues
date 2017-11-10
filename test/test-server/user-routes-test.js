@@ -45,7 +45,7 @@ describe('User Profile', () => {
 		const updateCurrentUser = testCurrentUser;
 		
 		return chai.request(app)
-		.put('/user/addLeague')
+		.put(`/user/addLeague/${updateCurrentUser.googleId}`)
 		.set({'Authorization': `Bearer ${updateCurrentUser.accessToken}`})
 		.send({
 			fantasyLeagueId,
@@ -56,6 +56,16 @@ describe('User Profile', () => {
 			res.body.should.not.be.empty;
 			res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
 			res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
+			return readData(updateCurrentUser, User)
+			.then(user => {
+				console.log('test-user:', user);
+				user.should.have.property('fantasyLeagueId', fantasyLeagueId);
+				user.should.have.property('fantasyLeagueName', fantasyLeagueName);
+				return user;
+			})
+			.catch(error => {
+				throw new Error(error);
+			});
 		})
 		.catch(error => {
 			throw new Error(error);
