@@ -13,9 +13,9 @@ const middlewares = [],
 function setup() {
   const props = {
     dispatch: jest.fn()
-  }
+  };
 
-  const enzymeWrapper = mount(<Home {...props} />)
+  const enzymeWrapper = mount(<Home {...props} />);
 
   return {
     props,
@@ -25,8 +25,7 @@ function setup() {
 
 describe('Home Component', () => {
   it('sends a request to select the league from home component', () => {
-    const { enzymeWrapper, props } = setup(),
-      store = mockStore();
+    const { enzymeWrapper, props } = setup();
     
     enzymeWrapper.find('DropDownMenu').simulate('change', { target: { value: 779 } });
     expect(props.dispatch.mock.calls.length).toBe(1);
