@@ -52,13 +52,11 @@ describe('User Profile', () => {
 			fantasyLeagueName
 		})
 		.then(res => {
-			console.log('res.body:', res.body);
 			res.body.should.not.be.empty;
 			res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
 			res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
 			return readData(updateCurrentUser, User)
 			.then(user => {
-				console.log('test-user:', user);
 				user.should.have.property('fantasyLeagueId', fantasyLeagueId);
 				user.should.have.property('fantasyLeagueName', fantasyLeagueName);
 				return user;

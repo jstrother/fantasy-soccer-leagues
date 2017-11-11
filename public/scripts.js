@@ -9374,9 +9374,11 @@ var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fant
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
   return function (dispatch) {
+    console.log('actions inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, googleId);
     return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
       method: 'PUT',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + accessToken
       },
       body: JSON.stringify({
@@ -17825,11 +17827,9 @@ var Home = exports.Home = function (_React$Component) {
 
       nameFinder(value);
 
-      this.props.dispatch({
-        type: 'SELECT_LEAGUE',
-        fantasyLeagueId: fantasyLeagueId,
-        fantasyLeagueName: fantasyLeagueName
-      });
+      console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
+
+      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId));
 
       function nameFinder(value) {
         _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
@@ -18313,9 +18313,8 @@ exports.loginReducer = undefined;
 
 var _userActions = __webpack_require__(128);
 
-var loginReducer = exports.loginReducer = function loginReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
+var loginReducer = exports.loginReducer = function loginReducer(action) {
+  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
     case _userActions.SET_USER_SUCCESS:
@@ -18333,6 +18332,8 @@ var loginReducer = exports.loginReducer = function loginReducer() {
       });
     case _userActions.SET_USER_FAIL:
       return Object.assign({}, state, { currentUser: null });
+    case _userActions.SELECT_LEAGUE_FAIL:
+      return Object.assign({}, state, { fantasyLeagueId: null, fantasyLeagueName: null });
     default:
       return state;
   }
@@ -18352,9 +18353,8 @@ Object.defineProperty(exports, "__esModule", {
 // ./flow/subReducers/setMatchLineupReducer.js
 // imported into ./flow/reducers.js
 
-var setMatchLineupReducer = exports.setMatchLineupReducer = function setMatchLineupReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
+var setMatchLineupReducer = exports.setMatchLineupReducer = function setMatchLineupReducer(action) {
+  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   return state;
 };
@@ -18373,9 +18373,8 @@ exports.subPlayerReducer = undefined;
 
 var _substituteActions = __webpack_require__(226);
 
-var subPlayerReducer = exports.subPlayerReducer = function subPlayerReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
+var subPlayerReducer = exports.subPlayerReducer = function subPlayerReducer(action) {
+  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
     case _substituteActions.SUBSTITUTE_PLAYER:
@@ -18413,9 +18412,8 @@ var _bencherActions = __webpack_require__(223);
 
 var _reserveActions = __webpack_require__(224);
 
-var updateRosterReducer = exports.updateRosterReducer = function updateRosterReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
+var updateRosterReducer = exports.updateRosterReducer = function updateRosterReducer(action) {
+  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
     case _starterActions.SET_AS_STARTER:

@@ -1,29 +1,35 @@
-import configureStore from 'redux-mock-store';
-import {loginReducer} from '../../flow/subReducers/loginReducer.js';
+import configureMockStore from 'redux-mock-store';
+import { loginReducer } from '../../flow/subReducers/loginReducer.js';
+import { setUserSuccess, selectLeague } from '../../flow/subActions/userActions.js';
 import expect from 'expect';
 
-const testUserNoLeague = {
-    googleId: 2,
-    displayName: 'Clint Dempsey',
-    givenName: 'Clint',
-    familyName: 'Dempsey',
-    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg'
-  },
-  testUserWithLeague = {
-    googleId: 2,
+const middlewares = [],
+  mockStore = configureMockStore(middlewares),
+  testCurrentUser = {
     displayName: 'Clint Dempsey',
     givenName: 'Clint',
     familyName: 'Dempsey',
     userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-    fantasyLeagueId: 779,
-    fantasyLeagueName: 'Major League Soccer (USA)'
+    googleId: 2
   },
-  selectLeague = {
-    type: 'SELECT_LEAGUE',
-    fantasyLeagueId: 779,
-    fantasyLeagueName: 'Major League Soccer (USA)'
+  fantasyLeagueId = 779,
+  fantasyLeagueName = 'Major League Soccer (USA)',
+  userWithLeague = {
+    displayName: 'Clint Dempsey',
+    givenName: 'Clint',
+    familyName: 'Dempsey',
+    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
+    googleId: 2,
+    fantasyLeagueId,
+    fantasyLeagueName
   };
   
-test('testing loginReducer', () => {
-  expect(loginReducer(testUserNoLeague, selectLeague)).toEqual(testUserWithLeague);
+describe('Tests LoginReducer', () => {
+  it('should log a user into app', () => {
+    expect(loginReducer(setUserSuccess(testCurrentUser, 200))).toBeTruthy;
+  });
+  
+  it('should add a league to a user profile', () => {
+    expect(loginReducer(selectLeague(fantasyLeagueId, fantasyLeagueName, 200))).toEqual(userWithLeague);
+  });
 });

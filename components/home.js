@@ -33,13 +33,9 @@ export class Home extends React.Component {
     
     nameFinder(value);
     
-    this.props.dispatch(
-      {
-        type: 'SELECT_LEAGUE',
-        fantasyLeagueId,
-        fantasyLeagueName
-      }
-    );
+    console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
+    
+    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId));
     
     function nameFinder(value) {
       LEAGUE_IDS_NAMES.forEach(league => {

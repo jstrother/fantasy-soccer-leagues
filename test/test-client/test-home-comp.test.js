@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-15';
 import { Home } from '../../components/home.js';
 import { LoginPage } from '../../components/loginPage.js';
 import { addLeague } from '../../flow/subActions/userActions.js';
+import expect from 'expect';
 
 configure({ adapter: new Adapter() });
 
@@ -32,16 +33,19 @@ function setup() {
   return {
     props,
     enzymeWrapper
-  }
+  };
 }
 
 describe('Home Component', () => {
   it('sends a request to select the league from home component', () => {
     const { enzymeWrapper, props } = setup();
     
-    console.log(enzymeWrapper.debug());
+    // console.log(enzymeWrapper.debug());
     
     enzymeWrapper.find('.league-selection').simulate('change', { target: { value: fantasyLeagueId } });
     expect(props.dispatch.mock.calls.length).toBe(1);
+    expect(typeof props.dispatch.mock.calls[0][0]).toBe('function');
+    // console.log('dispatch:', props.dispatch.mock.calls);
+    // console.log('addLeague:', addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName, testCurrentUser.googleId));
   });
 });

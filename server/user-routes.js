@@ -87,7 +87,9 @@ userRouter.get('/',
 
 // adds user's selected league
 userRouter.put(`/addLeague/:googleId`,
+	passport.authenticate('bearer', {session: false}),
 	(req, res) => {
+		console.log('req:', req);
 		return updateData(req.params.googleId, 
 			{
 				fantasyLeagueId: req.body.fantasyLeagueId,

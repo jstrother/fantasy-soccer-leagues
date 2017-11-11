@@ -31,9 +31,11 @@ export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode)
 });
 
 export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googleId) => dispatch => {
+  console.log('actions inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, googleId);
   return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/${googleId}`, {
     method: 'PUT',
     headers: {
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({

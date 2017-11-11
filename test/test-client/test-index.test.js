@@ -13,7 +13,7 @@ import expect from 'expect';
 
 import FantasyClub from '../../components/fantasyClub.js';
 import FantasyLeague from '../../components/fantasyLeague.js';
-import LoginPage from '../../components/loginPage.js';
+import { LoginPage } from '../../components/loginPage.js';
 import LogIn from '../../components/home.js';
 
 configure({ adapter: new Adapter() });
