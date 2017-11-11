@@ -12,7 +12,7 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
 // import FantasyChampsLeague from './fantasyChampsLeague.js';
-import LoginPage from './loginPage.js';
+import { LoginPage } from './loginPage.js';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -81,6 +81,7 @@ export class Home extends React.Component {
           <div>
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
+              className="league-selection"
               value={0}
               onChange={this.selectLeagueChange.bind(this)}>
               {LEAGUE_IDS_NAMES.map(league => {
