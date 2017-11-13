@@ -9374,7 +9374,7 @@ var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fant
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
   return function (dispatch) {
-    console.log('actions inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, googleId);
+    // console.log('actions inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, googleId);
     return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
       method: 'PUT',
       headers: {
@@ -17822,18 +17822,19 @@ var Home = exports.Home = function (_React$Component) {
     key: 'selectLeagueChange',
     value: function selectLeagueChange(event, key, value) {
       var accessToken = Cookies.get('accessToken');
-      var fantasyLeagueName = void 0,
-          fantasyLeagueId = value;
 
-      nameFinder(value);
+      var fantasyLeagueId = value,
+          fantasyLeagueName = void 0;
 
-      console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
+      nameFinder(fantasyLeagueId);
+
+      // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
 
       this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId));
 
-      function nameFinder(value) {
+      function nameFinder(selectedId) {
         _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
-          if (league.id === value) {
+          if (league.id === selectedId) {
             fantasyLeagueName = league.name;
           }
         });
@@ -17842,7 +17843,7 @@ var Home = exports.Home = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('user', this.props.currentUser);
+      // console.log('user', this.props.currentUser);
       if (!this.props.currentUser || this.props.currentUser.googleId === undefined) {
         return _react2.default.createElement(
           'div',
@@ -18313,8 +18314,9 @@ exports.loginReducer = undefined;
 
 var _userActions = __webpack_require__(128);
 
-var loginReducer = exports.loginReducer = function loginReducer(action) {
-  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+var loginReducer = exports.loginReducer = function loginReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
 
   switch (action.type) {
     case _userActions.SET_USER_SUCCESS:
@@ -18373,8 +18375,9 @@ exports.subPlayerReducer = undefined;
 
 var _substituteActions = __webpack_require__(226);
 
-var subPlayerReducer = exports.subPlayerReducer = function subPlayerReducer(action) {
-  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+var subPlayerReducer = exports.subPlayerReducer = function subPlayerReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
 
   switch (action.type) {
     case _substituteActions.SUBSTITUTE_PLAYER:
@@ -18412,8 +18415,9 @@ var _bencherActions = __webpack_require__(223);
 
 var _reserveActions = __webpack_require__(224);
 
-var updateRosterReducer = exports.updateRosterReducer = function updateRosterReducer(action) {
-  var state = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+var updateRosterReducer = exports.updateRosterReducer = function updateRosterReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
 
   switch (action.type) {
     case _starterActions.SET_AS_STARTER:

@@ -5,7 +5,7 @@ import { SET_AS_STARTER, STARTER_FAIL } from '../subActions/starterActions.js';
 import { SET_AS_BENCHER, BENCHER_FAIL } from '../subActions/bencherActions.js';
 import { SET_AS_RESERVE, RESERVE_FAIL } from '../subActions/reserveActions.js';
 
-export const updateRosterReducer = (action, state = {}) => {
+export const updateRosterReducer = (state = {}, action) => {
   switch (action.type) {
     case SET_AS_STARTER:
       return Object.assign({}, state, 

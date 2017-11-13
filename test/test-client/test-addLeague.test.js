@@ -28,7 +28,7 @@ describe('addLeague async action', () => {
     .reply(200, function(uri, body) {
       return body;
     }),
-    store = mockStore({ fantasyLeagueId: undefined, fantasyLeagueName: undefined });
+    store = mockStore({ testCurrentUser });
     
     return store.dispatch(addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName, testCurrentUser.googleId)).then((fantasyLeagueId, fantasyLeagueName) => {
       expect(store.getState()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);

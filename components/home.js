@@ -28,18 +28,19 @@ export class Home extends React.Component {
   
   selectLeagueChange(event, key, value) {
     const accessToken = Cookies.get('accessToken');
-    let fantasyLeagueName,
-      fantasyLeagueId = value;
     
-    nameFinder(value);
+    let fantasyLeagueId = value,
+      fantasyLeagueName;
     
-    console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
+    nameFinder(fantasyLeagueId);
+    
+    // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
     
     this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId));
     
-    function nameFinder(value) {
+    function nameFinder(selectedId) {
       LEAGUE_IDS_NAMES.forEach(league => {
-        if (league.id === value) {
+        if (league.id === selectedId) {
           fantasyLeagueName = league.name;
         }
       });
@@ -47,7 +48,7 @@ export class Home extends React.Component {
   }
   
   render() {
-    console.log('user', this.props.currentUser);
+    // console.log('user', this.props.currentUser);
     if (!this.props.currentUser || this.props.currentUser.googleId === undefined) {
       return (
         <div>
@@ -113,17 +114,19 @@ export class Home extends React.Component {
   }
 }
 
-const mapHomeStateToProps = state => ({
-  currentUser: {
-    googleId: state.loginReducer.googleId,
-    displayName: state.loginReducer.displayName,
-    givenName: state.loginReducer.givenName,
-    familyName: state.loginReducer.familyName,
-    userPhoto: state.loginReducer.userPhoto,
-    fantasyLeagueId: state.loginReducer.fantasyLeagueId,
-    fantasyLeagueName: state.loginReducer.fantasyLeagueName
+const mapHomeStateToProps = state => (
+  {
+    currentUser: {
+      googleId: state.loginReducer.googleId,
+      displayName: state.loginReducer.displayName,
+      givenName: state.loginReducer.givenName,
+      familyName: state.loginReducer.familyName,
+      userPhoto: state.loginReducer.userPhoto,
+      fantasyLeagueId: state.loginReducer.fantasyLeagueId,
+      fantasyLeagueName: state.loginReducer.fantasyLeagueName
+    }
   }
-});
+);
 
 const LogIn = connect(
   mapHomeStateToProps
