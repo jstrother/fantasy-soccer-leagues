@@ -34,9 +34,9 @@ export class Home extends React.Component {
     
     nameFinder(fantasyLeagueId);
     
-    // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
+    // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId);
     
-    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId));
+    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId));
     
     function nameFinder(selectedId) {
       LEAGUE_IDS_NAMES.forEach(league => {
@@ -48,8 +48,8 @@ export class Home extends React.Component {
   }
   
   render() {
-    // console.log('user', this.props.currentUser);
-    if (!this.props.currentUser || this.props.currentUser.googleId === undefined) {
+    // console.log('user', this.props.googleId);
+    if (!this.props.googleId || this.props.googleId === undefined) {
       return (
         <div>
           <br /><br />
@@ -64,7 +64,7 @@ export class Home extends React.Component {
       );
     } 
     
-    if (this.props.currentUser && !this.props.currentUser.fantasyLeagueId) {
+    if (this.props.googleId && !this.props.fantasyLeagueId) {
       return (
         <div>
           <br /><br />
@@ -73,7 +73,7 @@ export class Home extends React.Component {
           </div>
           <br /><br />
           <div>
-            Hello, Coach {this.props.currentUser.familyName}!
+            Hello, Coach {this.props.familyName}!
           </div>
           <div>
             Which league will be the basis for your fantasy soccer?
@@ -86,13 +86,11 @@ export class Home extends React.Component {
               })}
             </DropDownMenu>
           </div>
-          <FantasyClub />
-          <FantasyLeague />
         </div>
       );
     } 
     
-    if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
+    if (this.props.googleId && this.props.fantasyLeagueId) {
       return (
         <div>
           <br /><br />
@@ -101,10 +99,10 @@ export class Home extends React.Component {
           </div>
           <br /><br />
           <div>
-            Hello, Coach {this.props.currentUser.familyName}!
+            Hello, Coach {this.props.familyName}!
           </div>
           <div>
-            Your fantasy league is based on {this.props.currentUser.fantasyLeagueName}.
+            Your fantasy league is based on {this.props.fantasyLeagueName}.
           </div>
           <FantasyClub />
           <FantasyLeague />
@@ -116,15 +114,13 @@ export class Home extends React.Component {
 
 const mapHomeStateToProps = state => (
   {
-    currentUser: {
-      googleId: state.loginReducer.googleId,
-      displayName: state.loginReducer.displayName,
-      givenName: state.loginReducer.givenName,
-      familyName: state.loginReducer.familyName,
-      userPhoto: state.loginReducer.userPhoto,
-      fantasyLeagueId: state.loginReducer.fantasyLeagueId,
-      fantasyLeagueName: state.loginReducer.fantasyLeagueName
-    }
+    googleId: state.loginReducer.googleId,
+    displayName: state.loginReducer.displayName,
+    givenName: state.loginReducer.givenName,
+    familyName: state.loginReducer.familyName,
+    userPhoto: state.loginReducer.userPhoto,
+    fantasyLeagueId: state.loginReducer.fantasyLeagueId,
+    fantasyLeagueName: state.loginReducer.fantasyLeagueName
   }
 );
 

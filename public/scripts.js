@@ -9374,7 +9374,7 @@ var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fant
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
   return function (dispatch) {
-    // console.log('actions inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, googleId);
+    console.log('actions inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, googleId);
     return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
       method: 'PUT',
       headers: {
@@ -9396,8 +9396,8 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
         throw new Error(res.statusText);
       }
       return res.json();
-    }).then(function (fantasyLeagueId, fantasyLeagueName) {
-      dispatch(selectLeague(fantasyLeagueId, fantasyLeagueName, 200));
+    }).then(function (data) {
+      dispatch(selectLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -17828,9 +17828,9 @@ var Home = exports.Home = function (_React$Component) {
 
       nameFinder(fantasyLeagueId);
 
-      // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId);
+      // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId);
 
-      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.currentUser.googleId));
+      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId));
 
       function nameFinder(selectedId) {
         _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
@@ -17843,8 +17843,8 @@ var Home = exports.Home = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      // console.log('user', this.props.currentUser);
-      if (!this.props.currentUser || this.props.currentUser.googleId === undefined) {
+      // console.log('user', this.props.googleId);
+      if (!this.props.googleId || this.props.googleId === undefined) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17867,7 +17867,7 @@ var Home = exports.Home = function (_React$Component) {
         );
       }
 
-      if (this.props.currentUser && !this.props.currentUser.fantasyLeagueId) {
+      if (this.props.googleId && !this.props.fantasyLeagueId) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17884,7 +17884,7 @@ var Home = exports.Home = function (_React$Component) {
             'div',
             null,
             'Hello, Coach ',
-            this.props.currentUser.familyName,
+            this.props.familyName,
             '!'
           ),
           _react2.default.createElement(
@@ -17901,13 +17901,11 @@ var Home = exports.Home = function (_React$Component) {
                 return _react2.default.createElement(_MenuItem2.default, { key: league.id, value: league.id, primaryText: league.name });
               })
             )
-          ),
-          _react2.default.createElement(_fantasyClub2.default, null),
-          _react2.default.createElement(_fantasyLeague2.default, null)
+          )
         );
       }
 
-      if (this.props.currentUser && this.props.currentUser.fantasyLeagueId) {
+      if (this.props.googleId && this.props.fantasyLeagueId) {
         return _react2.default.createElement(
           'div',
           null,
@@ -17924,14 +17922,14 @@ var Home = exports.Home = function (_React$Component) {
             'div',
             null,
             'Hello, Coach ',
-            this.props.currentUser.familyName,
+            this.props.familyName,
             '!'
           ),
           _react2.default.createElement(
             'div',
             null,
             'Your fantasy league is based on ',
-            this.props.currentUser.fantasyLeagueName,
+            this.props.fantasyLeagueName,
             '.'
           ),
           _react2.default.createElement(_fantasyClub2.default, null),
@@ -17946,15 +17944,13 @@ var Home = exports.Home = function (_React$Component) {
 
 var mapHomeStateToProps = function mapHomeStateToProps(state) {
   return {
-    currentUser: {
-      googleId: state.loginReducer.googleId,
-      displayName: state.loginReducer.displayName,
-      givenName: state.loginReducer.givenName,
-      familyName: state.loginReducer.familyName,
-      userPhoto: state.loginReducer.userPhoto,
-      fantasyLeagueId: state.loginReducer.fantasyLeagueId,
-      fantasyLeagueName: state.loginReducer.fantasyLeagueName
-    }
+    googleId: state.loginReducer.googleId,
+    displayName: state.loginReducer.displayName,
+    givenName: state.loginReducer.givenName,
+    familyName: state.loginReducer.familyName,
+    userPhoto: state.loginReducer.userPhoto,
+    fantasyLeagueId: state.loginReducer.fantasyLeagueId,
+    fantasyLeagueName: state.loginReducer.fantasyLeagueName
   };
 };
 

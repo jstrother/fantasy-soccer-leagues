@@ -88,20 +88,17 @@ userRouter.get('/',
 // adds user's selected league
 userRouter.put(`/addLeague/:googleId`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => {
-		// console.log('req:', req);
-		return updateData(req.params.googleId, 
-			{
-				fantasyLeagueId: req.body.fantasyLeagueId,
-				fantasyLeagueName: req.body.fantasyLeagueName
-			}, User)
-			.then(data => {
-				res.json(data);
-			})
-			.catch(error => {
-				throw new Error(error);
-			});
-	}
+	(req, res) => updateData(req.params.googleId, 
+		{
+			fantasyLeagueId: req.body.fantasyLeagueId,
+			fantasyLeagueName: req.body.fantasyLeagueName
+		}, User)
+		.then(data => {
+			res.json(data);
+		})
+		.catch(error => {
+			throw new Error(error);
+		})
 );
 
 exports.userRouter = userRouter;

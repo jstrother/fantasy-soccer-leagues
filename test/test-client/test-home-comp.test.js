@@ -25,7 +25,12 @@ const middlewares = [],
 function setup() {
   const props = {
     dispatch: jest.fn(),
-    currentUser: testCurrentUser
+    accessToken: testCurrentUser.accessToken,
+    displayName: testCurrentUser.displayName,
+    givenName: testCurrentUser.givenName,
+    familyName: testCurrentUser.familyName,
+    userPhoto: testCurrentUser.userPhoto,
+    googleId: testCurrentUser.googleId
   };
 
   const enzymeWrapper = shallow(<Home {...props} />);
@@ -40,12 +45,8 @@ describe('Home Component', () => {
   it('sends a request to select the league from home component', () => {
     const { enzymeWrapper, props } = setup();
     
-    // console.log(enzymeWrapper.debug());
-    
     enzymeWrapper.find('.league-selection').simulate('change', { target: { value: fantasyLeagueId } });
     expect(props.dispatch.mock.calls.length).toBe(1);
     expect(typeof props.dispatch.mock.calls[0][0]).toBe('function');
-    // console.log('dispatch:', props.dispatch.mock.calls);
-    // console.log('addLeague:', addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName, testCurrentUser.googleId));
   });
 });
