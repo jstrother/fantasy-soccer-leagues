@@ -28,7 +28,6 @@ function setup() {
     accessToken: testCurrentUser.accessToken,
     displayName: testCurrentUser.displayName,
     givenName: testCurrentUser.givenName,
-    familyName: testCurrentUser.familyName,
     userPhoto: testCurrentUser.userPhoto,
     googleId: testCurrentUser.googleId
   };

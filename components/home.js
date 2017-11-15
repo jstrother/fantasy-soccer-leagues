@@ -12,6 +12,7 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
 // import FantasyChampsLeague from './fantasyChampsLeague.js';
+import HelloCoach from './helloCoach.js';
 import { LoginPage } from './loginPage.js';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -34,8 +35,6 @@ export class Home extends React.Component {
     
     nameFinder(fantasyLeagueId);
     
-    // console.log('inputs:', accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId);
-    
     this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId));
     
     function nameFinder(selectedId) {
@@ -48,7 +47,6 @@ export class Home extends React.Component {
   }
   
   render() {
-    // console.log('user', this.props.googleId);
     if (!this.props.googleId || this.props.googleId === undefined) {
       return (
         <div>
@@ -72,9 +70,7 @@ export class Home extends React.Component {
             Welcome to the Fantasy Soccer-Football Super League!
           </div>
           <br /><br />
-          <div>
-            Hello, Coach {this.props.familyName}!
-          </div>
+          <HelloCoach />
           <div>
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
@@ -98,9 +94,7 @@ export class Home extends React.Component {
             Welcome to the Fantasy Soccer-Football Super League!
           </div>
           <br /><br />
-          <div>
-            Hello, Coach {this.props.familyName}!
-          </div>
+          <HelloCoach />
           <div>
             Your fantasy league is based on {this.props.fantasyLeagueName}.
           </div>
@@ -117,7 +111,6 @@ const mapHomeStateToProps = state => (
     googleId: state.loginReducer.googleId,
     displayName: state.loginReducer.displayName,
     givenName: state.loginReducer.givenName,
-    familyName: state.loginReducer.familyName,
     userPhoto: state.loginReducer.userPhoto,
     fantasyLeagueId: state.loginReducer.fantasyLeagueId,
     fantasyLeagueName: state.loginReducer.fantasyLeagueName

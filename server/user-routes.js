@@ -94,6 +94,7 @@ userRouter.put(`/addLeague/:googleId`,
 			fantasyLeagueName: req.body.fantasyLeagueName
 		}, User)
 		.then(data => {
+			console.log('data:', data);
 			res.json(data);
 		})
 		.catch(error => {
