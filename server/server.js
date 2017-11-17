@@ -13,9 +13,9 @@ const config = require('./config.js'),
 	server = require('http').Server(app),
 	userRoutes = require('./user-routes.js').userRouter,
 	playerRoutes = require('./player-routes.js').playerRouter,
-	loopArray = require('./programFunctions/loopArray_function.js'),
+	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
-	leagueIdArray = require('./config.js').LEAGUE_ID_ARRAY,
+	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
 	leagueLoopTime = require('./config.js').LEAGUE_LOOP_REPEAT_TIME;
 	
 app.use(jsonParser);
@@ -39,7 +39,7 @@ const runServer = (port = PORT, database = DATABASE) => {
 				resolve();
 				console.log(`Listening on port: ${port}`);
 			});
-			// loopArray(leagueIdArray, playerStatsByLeague, leagueLoopTime, true);
+			loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
 			console.log('Do not forget to uncomment the loopArray function in server.js');
 		})
 		.catch(error => {

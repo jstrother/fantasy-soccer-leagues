@@ -2,7 +2,7 @@ const rp = require('request-promise'),
   key = require('../config.js').API_KEY,
   baseURL = 'https://soccer.sportmonks.com/api/v2.0',
   toInclude = '&include=',
-  loopArray = require('./loopArray_function.js'),
+  loopFunction = require('./loopFunction_function.js'),
   playerStats = require('./playerStats_function.js'),
   Player = require('../../models/player_model.js'),
   updateData = require('./crud_functions.js').updateData;
@@ -71,10 +71,11 @@ function playerStatsByLeague(leagueId) {
         }); // close of stage.rounds.data.forEach
       }
     });
+    // sometimes a playerId shows up multiple times. create a Set to get unique list of ids, and then convert back to array
     playerIdList = [... new Set(playerIdList)];
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
-    if (playerIdList[0] != null) {
-      loopArray(playerIdList, playerIdRetrieve, 333, false);
+    if (playerIdList[0] !== null) {
+      loopFunction(playerIdList, playerIdRetrieve, 333, false);
     }
     
     function playerIdRetrieve(playerId) {

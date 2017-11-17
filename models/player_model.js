@@ -56,7 +56,7 @@ const mongoose = require('mongoose'),
     },
     fantasyPoints: {
       fixture: Number,
-      season: {default: 0, type: Number } // to be calculated at a later date
+      season: Number
     }
   }),
   
