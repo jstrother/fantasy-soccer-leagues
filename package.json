@@ -36,7 +36,9 @@
     "watch": "concurrently \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\""
   },
   "nodemonConfig": {
-    "ignore": ["test/*"]
+    "ignore": [
+      "test/*"
+    ]
   },
   "repository": {
     "type": "git",
