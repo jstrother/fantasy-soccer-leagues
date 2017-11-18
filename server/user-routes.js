@@ -83,9 +83,6 @@ userRouter.get('/',
 		familyName: req.user.familyName,
 		userPhoto: req.user.userPhoto
 	})
-	.catch(error => {
-		throw new Error(error);
-	})
 );
 
 // adds user's selected league
@@ -106,9 +103,10 @@ userRouter.put(`/addLeague/:googleId`,
 
 userRouter.get(`/league/:googleId`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => res.json({
-		fantasyLeagueId: req.user.fantasyLeagueId,
-		fantasyLeagueName: req.user.fantasyLeagueName
+	(req, res) => readData(req.params.googleId, User)
+	.then(data => {
+		console.log('data:', data);
+		res.json(data);
 	})
 	.catch(error => {
 		throw new Error(error);

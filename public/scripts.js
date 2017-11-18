@@ -9327,12 +9327,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-__webpack_require__(57);
+var fetch = __webpack_require__(57);
 
 var SET_USER_SUCCESS = exports.SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 var setUserSuccess = exports.setUserSuccess = function setUserSuccess(currentUser, statusCode) {
@@ -9374,7 +9374,7 @@ var setLeagueFail = exports.setLeagueFail = function setLeagueFail(fantasyLeague
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
   return function (dispatch) {
-    return fetch(__dirname + '/user/addLeague/' + googleId, {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -9406,7 +9406,7 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
 
 var fetchUser = exports.fetchUser = function fetchUser(accessToken, googleId) {
   return function (dispatch) {
-    return fetch(__dirname + '/user', {
+    return fetch('/user', {
       headers: {
         'Authorization': 'Bearer ' + accessToken
       }
@@ -9423,7 +9423,7 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken, googleId) {
       return res.json();
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
-      return fetch(__dirname + '/user/league/' + googleId, {
+      return fetch('/user/league' + googleId, {
         headers: {
           'Authorization': 'Bearer ' + accessToken
         }
@@ -9449,7 +9449,6 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken, googleId) {
     });
   };
 };
-/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
 /* 129 */
@@ -17900,9 +17899,10 @@ var Home = exports.Home = function (_React$Component) {
   _createClass(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var accessToken = Cookies.get('accessToken');
+      var accessToken = Cookies.get('accessToken'),
+          googleId = Cookies.get('googleId');
       if (accessToken) {
-        this.props.dispatch((0, _userActions.fetchUser)(accessToken));
+        this.props.dispatch((0, _userActions.fetchUser)(accessToken, googleId));
       }
     }
   }, {

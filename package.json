@@ -33,7 +33,8 @@
     "watch:server": "onchange \"./server\" -- npm run build:js",
     "watch:pFunctions": "onchange \"./server/programFunctions\" -- npm run build:js",
     "watch:wConfig": "onchange \"./webpack.config.js\" -- npm run build:js",
-    "watch": "concurrently \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\""
+    "watch": "concurrently \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\"",
+    "begin": "npm run build && npm run watch"
   },
   "nodemonConfig": {
     "ignore": [

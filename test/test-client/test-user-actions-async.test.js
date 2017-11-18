@@ -26,6 +26,7 @@ describe('User Action', () => {
             'Authorization': `Bearer ${testCurrentUser.accessToken}`
           }
         })
+        .persist()
         .get('/user')
         .reply(200, {
           accessToken: 1974,
@@ -34,18 +35,24 @@ describe('User Action', () => {
       	  familyName: 'Dempsey',
       	  userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
       	  googleId: 2
+        })
+        .persist()
+        .get(`/user/league${testCurrentUser.googleId}`)
+        .reply(200, {
+          fantasyLeagueId: 779,
+          fantasyLeagueName: 'Major League Soccer (USA)'
         }),
-        userLeagueNock = nock('https://fantasy-soccer-leagues-jstrother.c9users.io', {
-          reqheaders: {
-              'Authorization': `Bearer ${testCurrentUser.accessToken}`
-            }
-          })
-          .get(`/user/league${testCurrentUser.googleId}`)
-          .reply(200, {
-            fantasyLeagueId: 779,
-            fantasyLeagueName: 'Major League Soccer (USA)'
-          }),
-        store = mockStore({ testCurrentUser });
+        // userLeagueNock = nock('https://fantasy-soccer-leagues-jstrother.c9users.io', {
+        //   reqheaders: {
+        //       'Authorization': `Bearer ${testCurrentUser.accessToken}`
+        //     }
+        //   })
+        //   .get(`/user/league${testCurrentUser.googleId}`)
+        //   .reply(200, {
+        //     fantasyLeagueId: 779,
+        //     fantasyLeagueName: 'Major League Soccer (USA)'
+        //   }),
+        store = mockStore({});
       
       store.dispatch(fetchUser(testCurrentUser.accessToken, testCurrentUser.googleId));
       
