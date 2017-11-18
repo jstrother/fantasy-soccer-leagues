@@ -1,4 +1,4 @@
-require('isomorphic-fetch');
+const fetch = require('isomorphic-fetch');
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const setUserSuccess = (currentUser, statusCode)  => ({
@@ -14,17 +14,17 @@ export const setUserFail = (currentUser, statusCode)  => ({
   statusCode
 });
 
-export const SELECT_LEAGUE = 'SELECT_LEAGUE';
-export const selectLeague = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
-  type: SELECT_LEAGUE,
+export const SET_LEAGUE = 'SET_LEAGUE';
+export const setLeague = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
+  type: SET_LEAGUE,
   fantasyLeagueId,
   fantasyLeagueName,
   statusCode
 });
 
-export const SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
-export const selectLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
-  type: SELECT_LEAGUE_FAIL,
+export const SET_LEAGUE_FAIL = 'SET_LEAGUE_FAIL';
+export const setLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
+  type: SET_LEAGUE_FAIL,
   fantasyLeagueId,
   fantasyLeagueName,
   statusCode
@@ -45,17 +45,17 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googl
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(selectLeagueFail(null, null, res.status));
+        dispatch(setLeagueFail(null, null, res.status));
         return;
       } else {
-        dispatch(selectLeagueFail(null, null, 500));
+        dispatch(setLeagueFail(null, null, 500));
       }
       throw new Error(res.statusText);
     }
     return res.json();
   })
   .then(data => {
-    dispatch(selectLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+    dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
     return;
   })
   .catch(error => {
@@ -63,7 +63,7 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googl
   });
 };
 
-export const fetchUser = accessToken => dispatch => {
+export const fetchUser = (accessToken, googleId) => dispatch => {
   return fetch('/user', {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -83,7 +83,30 @@ export const fetchUser = accessToken => dispatch => {
   })
   .then(currentUser => {
     dispatch(setUserSuccess(currentUser, 200));
-    return;
+    return fetch(`/user/league${googleId}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(setLeagueFail(null, null, res.status));
+          return;
+        } else {
+          dispatch(setLeagueFail(null, null, 500));
+        }
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    })
+    .then(data => {
+      dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+      return;
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
   })
   .catch(error => {
     throw new Error(error);

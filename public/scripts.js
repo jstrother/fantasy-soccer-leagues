@@ -9327,7 +9327,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(__dirname) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -9352,20 +9352,20 @@ var setUserFail = exports.setUserFail = function setUserFail(currentUser, status
   };
 };
 
-var SELECT_LEAGUE = exports.SELECT_LEAGUE = 'SELECT_LEAGUE';
-var selectLeague = exports.selectLeague = function selectLeague(fantasyLeagueId, fantasyLeagueName, statusCode) {
+var SET_LEAGUE = exports.SET_LEAGUE = 'SET_LEAGUE';
+var setLeague = exports.setLeague = function setLeague(fantasyLeagueId, fantasyLeagueName, statusCode) {
   return {
-    type: SELECT_LEAGUE,
+    type: SET_LEAGUE,
     fantasyLeagueId: fantasyLeagueId,
     fantasyLeagueName: fantasyLeagueName,
     statusCode: statusCode
   };
 };
 
-var SELECT_LEAGUE_FAIL = exports.SELECT_LEAGUE_FAIL = 'SELECT_LEAGUE_FAIL';
-var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {
+var SET_LEAGUE_FAIL = exports.SET_LEAGUE_FAIL = 'SET_LEAGUE_FAIL';
+var setLeagueFail = exports.setLeagueFail = function setLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {
   return {
-    type: SELECT_LEAGUE_FAIL,
+    type: SET_LEAGUE_FAIL,
     fantasyLeagueId: fantasyLeagueId,
     fantasyLeagueName: fantasyLeagueName,
     statusCode: statusCode
@@ -9374,7 +9374,7 @@ var selectLeagueFail = exports.selectLeagueFail = function selectLeagueFail(fant
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
+    return fetch(__dirname + '/user/addLeague/' + googleId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -9387,16 +9387,16 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
     }).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
-          dispatch(selectLeagueFail(null, null, res.status));
+          dispatch(setLeagueFail(null, null, res.status));
           return;
         } else {
-          dispatch(selectLeagueFail(null, null, 500));
+          dispatch(setLeagueFail(null, null, 500));
         }
         throw new Error(res.statusText);
       }
       return res.json();
     }).then(function (data) {
-      dispatch(selectLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+      dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -9404,9 +9404,9 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
   };
 };
 
-var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
+var fetchUser = exports.fetchUser = function fetchUser(accessToken, googleId) {
   return function (dispatch) {
-    return fetch('/user', {
+    return fetch(__dirname + '/user', {
       headers: {
         'Authorization': 'Bearer ' + accessToken
       }
@@ -9423,12 +9423,33 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
       return res.json();
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
-      return;
+      return fetch(__dirname + '/user/league/' + googleId, {
+        headers: {
+          'Authorization': 'Bearer ' + accessToken
+        }
+      }).then(function (res) {
+        if (!res.ok) {
+          if (res.status === 400) {
+            dispatch(setLeagueFail(null, null, res.status));
+            return;
+          } else {
+            dispatch(setLeagueFail(null, null, 500));
+          }
+          throw new Error(res.statusText);
+        }
+        return res.json();
+      }).then(function (data) {
+        dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+        return;
+      }).catch(function (error) {
+        throw new Error(error);
+      });
     }).catch(function (error) {
       throw new Error(error);
     });
   };
 };
+/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
 /* 129 */
@@ -18373,14 +18394,14 @@ var loginReducer = exports.loginReducer = function loginReducer() {
         familyName: action.currentUser.familyName,
         userPhoto: action.currentUser.userPhoto
       });
-    case _userActions.SELECT_LEAGUE:
+    case _userActions.SET_LEAGUE:
       return Object.assign({}, state, {
         fantasyLeagueId: action.fantasyLeagueId,
         fantasyLeagueName: action.fantasyLeagueName
       });
     case _userActions.SET_USER_FAIL:
       return Object.assign({}, state, { currentUser: null });
-    case _userActions.SELECT_LEAGUE_FAIL:
+    case _userActions.SET_LEAGUE_FAIL:
       return Object.assign({}, state, { fantasyLeagueId: null, fantasyLeagueName: null });
     default:
       return state;

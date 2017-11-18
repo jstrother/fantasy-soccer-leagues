@@ -21,9 +21,10 @@ import MenuItem from 'material-ui/MenuItem';
 export class Home extends React.Component {
   
   componentDidMount() {
-    const accessToken = Cookies.get('accessToken');
+    const accessToken = Cookies.get('accessToken'),
+      googleId = Cookies.get('googleId');
     if (accessToken) {
-      this.props.dispatch(fetchUser(accessToken));
+      this.props.dispatch(fetchUser(accessToken, googleId));
     }
   }
   

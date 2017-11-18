@@ -70,17 +70,17 @@ describe('User Profile', () => {
 		});
 	});
 	
-	// it('should remove a user profile', () => {
-	// 	const deleteCurrentUser = {
-	// 		accessToken: testCurrentUser.accessToken
-	// 	};
+	it('should remove a user profile', () => {
+		const deleteCurrentUser = {
+			accessToken: testCurrentUser.accessToken
+		};
 		
-	// 	return deleteData(deleteCurrentUser, User)
-	// 	.then(deletedItem => {
-	// 		readData(deleteCurrentUser, User)
-	// 		.then(deletedItem => {
-	// 			deletedItem.should.not.exist;
-	// 		});
-	// 	});
-	// });
+		return deleteData(deleteCurrentUser, User)
+		.then(deletedItem => {
+			readData(deleteCurrentUser, User)
+			.then(deletedItem => {
+				deletedItem.should.not.exist;
+			});
+		});
+	});
 });

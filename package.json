@@ -6,11 +6,15 @@
   "scripts": {
     "test:server": "mocha test/test-server/test-index.js",
     "test:client": "jest || true",
-    "initial:test": "npm run test:server && npm run test:client",
-    "watch:test:server": "onchange \"./test/test-server\" -- npm run test:server",
-    "watch:test:client": "onchange \"./test/test-client\" -- npm run test:client",
-    "watch:test": "concurrently \"npm run watch:test:server\" \"npm run watch:test:client\"",
-    "test": "npm run initial:test && npm run watch:test",
+    "test:initial": "npm run test:server && npm run test:client",
+    "test:watch:server": "onchange \"./test/test-server\" -- npm run test:server",
+    "test:watch:client": "onchange \"./test/test-client\" -- npm run test:client",
+    "testing:watch:server": "onchange \"./server\" -- npm run test:server",
+    "testing:watch:pFunctions": "onchange \"./server/programFunctions\" -- npm run test:server",
+    "testing:watch:components": "onchange \"./components\" -- npm run test:client",
+    "testing:watch:flow": "onchange \"./flow\" -- npm run test:client",
+    "test:watch": "concurrently \"npm run test:watch:server\" \"npm run test:watch:client\" \"npm run testing:watch:server\" \"npm run testing:watch:pFunctions\" \"npm run testing:watch:components\" \"npm run testing:watch:flow\"",
+    "test": "npm run test:initial && npm run test:watch",
     "scss": "node-sass --output-style compressed scss/styles.scss public/styles.css",
     "autoprefixer": "postcss -u autoprefixer -r public/styles.css",
     "cleancss": "cleancss -o public/styles.css public/styles.css",
@@ -29,8 +33,7 @@
     "watch:server": "onchange \"./server\" -- npm run build:js",
     "watch:pFunctions": "onchange \"./server/programFunctions\" -- npm run build:js",
     "watch:wConfig": "onchange \"./webpack.config.js\" -- npm run build:js",
-    "watch": "concurrently \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\"",
-    "begin": "npm run build && npm run watch"
+    "watch": "concurrently \"npm run watch:html\" \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\""
   },
   "nodemonConfig": {
     "ignore": ["test/*"]

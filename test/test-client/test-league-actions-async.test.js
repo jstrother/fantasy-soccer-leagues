@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import expect from 'expect';
 import nock from 'nock';
 
-import { selectLeague, addLeague } from '../../flow/subActions/userActions.js';
+import { setLeague, addLeague } from '../../flow/subActions/userActions.js';
 
 const middlewares = [thunk],
   mockStore = configureMockStore(middlewares),
@@ -18,18 +18,18 @@ const middlewares = [thunk],
   fantasyLeagueId = 779,
   fantasyLeagueName = 'Major League Soccer (USA)';
   
-describe('League Selection Actions', () => {
-  describe('select league sync action', () => {
-    it('selects a league and dispatches the league id and name', () => {
+describe('League Setting Actions', () => {
+  describe('set league sync action', () => {
+    it('sets a league and dispatches the league id and name', () => {
       const expectedAction = 
       {
-        type: 'SELECT_LEAGUE',
+        type: 'SET_LEAGUE',
         fantasyLeagueId: 779,
         fantasyLeagueName: 'Major League Soccer (USA)',
         statusCode: 200
       };
       
-      expect(selectLeague(fantasyLeagueId, fantasyLeagueName, 200)).toEqual(expectedAction);
+      expect(setLeague(fantasyLeagueId, fantasyLeagueName, 200)).toEqual(expectedAction);
     });
   });
   

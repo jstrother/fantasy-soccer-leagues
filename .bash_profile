@@ -37,9 +37,6 @@ alias build="npm run build"
 # the following is an alias for npm run watch
 alias watch="npm run watch"
 
-# the following is an alias for npm run begin
-alias begin="build && watch"
-
 # the following is an alias for npm run lint
 alias lint="npm run lint"
 
