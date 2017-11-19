@@ -63,7 +63,7 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googl
   });
 };
 
-export const fetchUser = (accessToken, googleId) => dispatch => {
+export const fetchUser = (accessToken) => dispatch => {
   console.log("We made it!");
   return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user', {
     headers: {
@@ -85,31 +85,36 @@ export const fetchUser = (accessToken, googleId) => dispatch => {
   })
   .then(currentUser => {
     dispatch(setUserSuccess(currentUser, 200));
-    return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/league/${googleId}`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const userLeague = (accessToken, googleId) => dispatch => {
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/league/${googleId}`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setLeagueFail(null, null, res.status));
+        return;
+      } else {
+        dispatch(setLeagueFail(null, null, 500));
       }
-    })
-    .then(res => {
-      if (!res.ok) {
-        if (res.status === 400) {
-          dispatch(setLeagueFail(null, null, res.status));
-          return;
-        } else {
-          dispatch(setLeagueFail(null, null, 500));
-        }
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    })
-    .then(data => {
-      console.log('data:', data);
-      dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
-      return;
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
+      throw new Error(res.statusText);
+    }
+    console.log('res.json:', res.json());
+    return res.json();
+  })
+  .then(data => {
+    console.log('data:', data);
+    dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+    return;
   })
   .catch(error => {
     throw new Error(error);

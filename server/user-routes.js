@@ -103,14 +103,18 @@ userRouter.put(`/addLeague/:googleId`,
 
 userRouter.get(`/league/:googleId`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => readData(req.params.googleId, User)
-	.then(data => {
-		console.log('data:', data);
-		res.json(data);
-	})
-	.catch(error => {
-		throw new Error(error);
-	})
+	(req, res) => {
+		console.log('req:', req);
+		console.log('res:', res);
+		readData(req.params.googleId, User)
+		.then(data => {
+			console.log('data:', data);
+			res.json(data);
+		})
+		.catch(error => {
+			throw new Error(error);
+		});
+	}
 );
 
 exports.userRouter = userRouter;

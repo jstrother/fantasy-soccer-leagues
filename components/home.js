@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 
-import { fetchUser, addLeague } from '../flow/subActions/userActions.js';
+import { fetchUser, addLeague, userLeague } from '../flow/subActions/userActions.js';
 
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
@@ -24,7 +24,10 @@ export class Home extends React.Component {
     const accessToken = Cookies.get('accessToken'),
       googleId = Cookies.get('googleId');
     if (accessToken) {
-      this.props.dispatch(fetchUser(accessToken, googleId));
+      this.props.dispatch(fetchUser(accessToken));
+    }
+    if (googleId) {
+      this.props.dispatch(userLeague(accessToken, googleId));
     }
   }
   
