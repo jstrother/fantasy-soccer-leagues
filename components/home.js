@@ -22,7 +22,7 @@ export class Home extends React.Component {
   
   componentDidMount() {
     const accessToken = Cookies.get('accessToken'),
-      googleId = Cookies.get('googleId');
+      googleId = this.props.googleId;
     if (accessToken) {
       this.props.dispatch(fetchUser(accessToken));
     }
@@ -32,14 +32,15 @@ export class Home extends React.Component {
   }
   
   selectLeagueChange(event, key, value) {
-    const accessToken = Cookies.get('accessToken');
+    const accessToken = Cookies.get('accessToken'),
+      googleId = this.props.googleId;
     
     let fantasyLeagueId = value,
       fantasyLeagueName;
     
     nameFinder(fantasyLeagueId);
     
-    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, this.props.googleId));
+    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId));
     
     function nameFinder(selectedId) {
       LEAGUE_IDS_NAMES.forEach(league => {

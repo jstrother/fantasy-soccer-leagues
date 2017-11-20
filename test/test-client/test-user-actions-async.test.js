@@ -27,24 +27,16 @@ describe('User Action', () => {
         })
         .get(`/user/league/${testCurrentUser.googleId}`)
         .reply(200, {
-          fantasyLeagueId: 779,
-          fantasyLeagueName: 'Major League Soccer (USA)'
+          fantasyLeagueId,
+          fantasyLeagueName
         }),
-        // userLeagueNock = nock('https://fantasy-soccer-leagues-jstrother.c9users.io', {
-        //   reqheaders: {
-        //       'Authorization': `Bearer ${testCurrentUser.accessToken}`
-        //     }
-        //   })
-        //   .get(`/user/league${testCurrentUser.googleId}`)
-        //   .reply(200, {
-        //     fantasyLeagueId: 779,
-        //     fantasyLeagueName: 'Major League Soccer (USA)'
-        //   }),
         store = mockStore({});
       
-      store.dispatch(userLeague(testCurrentUser.accessToken, testCurrentUser.googleId));
-      
-      expect(store.getState()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
+      return store.dispatch(userLeague(testCurrentUser.accessToken, testCurrentUser.googleId))
+      .then((fantasyLeagueId, fantasyLeagueName) => {
+        expect(store.getState()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
+        expect(store.getState()).toHaveProperty('fantasyLeagueName', fantasyLeagueName);
+      });
     });
   });
 });

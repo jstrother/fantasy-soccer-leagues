@@ -45,7 +45,7 @@ describe('Home Component', () => {
     const { enzymeWrapper, props } = setup();
     
     enzymeWrapper.find('.league-selection').simulate('change', { target: { value: fantasyLeagueId } });
-    expect(props.dispatch.mock.calls.length).toBe(1);
+    expect(props.dispatch.mock.calls.length).toBe(2);
     expect(typeof props.dispatch.mock.calls[0][0]).toBe('function');
   });
 });

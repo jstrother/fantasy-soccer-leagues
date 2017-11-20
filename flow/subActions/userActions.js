@@ -64,14 +64,12 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googl
 };
 
 export const fetchUser = (accessToken) => dispatch => {
-  console.log("We made it!");
   return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user', {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
   })
   .then(res => {
-    console.log('res:', res);
     if (!res.ok) {
       if (res.status === 401) {
         dispatch(setUserFail(null, res.status));
@@ -108,11 +106,9 @@ export const userLeague = (accessToken, googleId) => dispatch => {
       }
       throw new Error(res.statusText);
     }
-    console.log('res.json:', res.json());
     return res.json();
   })
   .then(data => {
-    console.log('data:', data);
     dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
     return;
   })

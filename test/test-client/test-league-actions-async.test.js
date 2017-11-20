@@ -24,8 +24,8 @@ describe('League Setting Actions', () => {
       const expectedAction = 
       {
         type: 'SET_LEAGUE',
-        fantasyLeagueId: 779,
-        fantasyLeagueName: 'Major League Soccer (USA)',
+        fantasyLeagueId,
+        fantasyLeagueName,
         statusCode: 200
       };
       

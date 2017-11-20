@@ -101,6 +101,7 @@ userRouter.put(`/addLeague/:googleId`,
 		})
 );
 
+// returns the league a user selected upon signup
 userRouter.get(`/league/:googleId`,
 	passport.authenticate('bearer', {session: false}),
 	(req, res) => {
