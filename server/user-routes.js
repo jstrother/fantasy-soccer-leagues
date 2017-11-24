@@ -37,22 +37,15 @@ passport.use(new gStrategy({
 
 passport.use(new bStrategy((token, done) => {
 	console.log('token:', token);
-    readData({accessToken: token}, User)
-    .then(user => {
-    	console.log('user:', user);
-      if (user) {
-      	return done(null, user);
-      }
-      if (!user) {
-      	return done(null, false);
-      }
-    })
-    .catch(error => {
-    	console.log('error:', error);
-      throw new Error(error);
-    });
-  })
-);
+	User.find({
+		accessToken: token
+	}, (error, user) => {
+		if (error) return done(error);
+		if (!user) return done(null, false);
+		console.log('user:', user);
+		return done(null, user);
+	});
+}));
 
 userRouter.get('/auth/google', 
 	passport.authenticate('google', {
