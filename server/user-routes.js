@@ -36,13 +36,19 @@ passport.use(new gStrategy({
 ));
 
 passport.use(new bStrategy((token, done) => {
+	console.log('token:', token);
     readData({accessToken: token}, User)
     .then(user => {
+    	console.log('user:', user);
       if (user) {
       	return done(null, user);
       }
+      if (!user) {
+      	return done(null, false);
+      }
     })
     .catch(error => {
+    	console.log('error:', error);
       throw new Error(error);
     });
   })
@@ -73,6 +79,24 @@ userRouter.get('/auth/logout',
 	}
 );
 
+// returns the league a user selected at signup
+userRouter.get(`/league/:googleId`,
+	passport.authenticate('bearer', {session: false}),
+	(req, res) => {
+		console.log('req:', req);
+		console.log('res:', res);
+		readData({googleId: req.params.googleId}, User)
+		.then(data => {
+			console.log('data:', data);
+			res.json(data);
+		})
+		.catch(error => {
+			console.log('error:', error);
+			throw new Error(error);
+		});
+	}
+);
+
 // returns user's own page
 userRouter.get('/', 
 	passport.authenticate('bearer', {session: false}), 
@@ -100,22 +124,7 @@ userRouter.put(`/addLeague/:googleId`,
 			throw new Error(error);
 		})
 );
+console.log('hello world');
 
-// returns the league a user selected upon signup
-userRouter.get(`/league/:googleId`,
-	passport.authenticate('bearer', {session: false}),
-	(req, res) => {
-		console.log('req:', req);
-		console.log('res:', res);
-		readData(req.params.googleId, User)
-		.then(data => {
-			console.log('data:', data);
-			res.json(data);
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
-	}
-);
 
 exports.userRouter = userRouter;
