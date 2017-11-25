@@ -9332,7 +9332,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-__webpack_require__(57);
+var fetch = __webpack_require__(57);
 
 var SET_USER_SUCCESS = exports.SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 var setUserSuccess = exports.setUserSuccess = function setUserSuccess(currentUser, statusCode) {
@@ -9372,9 +9372,9 @@ var setLeagueFail = exports.setLeagueFail = function setLeagueFail(fantasyLeague
   };
 };
 
-var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId) {
+var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/' + googleId, {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -9422,6 +9422,7 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
       }
       return res.json();
     }).then(function (currentUser) {
+      console.log('currentUser:', currentUser);
       dispatch(setUserSuccess(currentUser, 200));
       return;
     }).catch(function (error) {
@@ -9430,9 +9431,9 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
   };
 };
 
-var userLeague = exports.userLeague = function userLeague(accessToken, googleId) {
+var userLeague = exports.userLeague = function userLeague(accessToken) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/league/' + googleId, {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/league', {
       headers: {
         'Authorization': 'Bearer ' + accessToken
       }
@@ -9448,6 +9449,7 @@ var userLeague = exports.userLeague = function userLeague(accessToken, googleId)
       }
       return res.json();
     }).then(function (data) {
+      console.log('data:', data);
       dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
       return;
     }).catch(function (error) {
@@ -18402,7 +18404,9 @@ var loginReducer = exports.loginReducer = function loginReducer() {
         displayName: action.currentUser.displayName,
         givenName: action.currentUser.givenName,
         familyName: action.currentUser.familyName,
-        userPhoto: action.currentUser.userPhoto
+        userPhoto: action.currentUser.userPhoto,
+        fantasyLeagueId: action.currentUser.fantasyLeagueId,
+        fantasyLeagueName: action.currentUser.fantasyLeagueName
       });
     case _userActions.SET_LEAGUE:
       return Object.assign({}, state, {

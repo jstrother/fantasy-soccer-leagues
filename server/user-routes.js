@@ -5,7 +5,8 @@ const express = require('express'),
 	bStrategy = require('passport-http-bearer').Strategy,
   userRouter = express.Router(),
   { createData, readData, updateData, deleteData } = require('./programFunctions/crud_functions.js'),
-  User = require('../models/user_model.js');
+  User = require('../models/user_model.js'),
+  cookieExpire = 1000 * 60 * 60 * 12; // set to expire after 12 hours
 
 passport.use(new gStrategy({
 	clientID: config.CLIENT_ID,
@@ -59,7 +60,7 @@ userRouter.get('/auth/google/callback',
 		session: false
 	}),
 	(req, res) => {
-	res.cookie('accessToken', req.user.accessToken, { expires: (1000 * 60 * 60 * 12) }); // set to expire after 12 hours
+	res.cookie('accessToken', req.user.accessToken, { expires: 0 });
 	res.redirect('/');
 	}
 );
