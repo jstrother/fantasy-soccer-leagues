@@ -1,4 +1,4 @@
-require('isomorphic-fetch');
+const fetch = require('isomorphic-fetch');
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const setUserSuccess = (currentUser, statusCode)  => ({
@@ -30,8 +30,8 @@ export const setLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) =>
   statusCode
 });
 
-export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName, googleId) => dispatch => {
-  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague/${googleId}`, {
+export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -82,6 +82,7 @@ export const fetchUser = (accessToken) => dispatch => {
     return res.json();
   })
   .then(currentUser => {
+    console.log('currentUser:', currentUser);
     dispatch(setUserSuccess(currentUser, 200));
     return;
   })
@@ -90,8 +91,8 @@ export const fetchUser = (accessToken) => dispatch => {
   });
 };
 
-export const userLeague = (accessToken, googleId) => dispatch => {
-  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/league/${googleId}`, {
+export const userLeague = (accessToken) => dispatch => {
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/league`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
@@ -109,6 +110,7 @@ export const userLeague = (accessToken, googleId) => dispatch => {
     return res.json();
   })
   .then(data => {
+    console.log('data:', data);
     dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
     return;
   })

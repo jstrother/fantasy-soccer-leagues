@@ -45,7 +45,7 @@ describe('User Profile', () => {
 		const updateCurrentUser = testCurrentUser;
 		
 		return chai.request(app)
-		.put(`/user/addLeague/${updateCurrentUser.googleId}`)
+		.put(`/user/addLeague`)
 		.set({'Authorization': `Bearer ${updateCurrentUser.accessToken}`})
 		.send({
 			fantasyLeagueId,

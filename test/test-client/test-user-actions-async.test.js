@@ -25,14 +25,14 @@ describe('User Action', () => {
             'Authorization': `Bearer ${testCurrentUser.accessToken}`
           }
         })
-        .get(`/user/league/${testCurrentUser.googleId}`)
+        .get(`/user/league`)
         .reply(200, {
           fantasyLeagueId,
           fantasyLeagueName
         }),
         store = mockStore({});
       
-      return store.dispatch(userLeague(testCurrentUser.accessToken, testCurrentUser.googleId))
+      return store.dispatch(userLeague(testCurrentUser.accessToken))
       .then((fantasyLeagueId, fantasyLeagueName) => {
         expect(store.getState()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
         expect(store.getState()).toHaveProperty('fantasyLeagueName', fantasyLeagueName);

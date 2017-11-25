@@ -36,14 +36,14 @@ passport.use(new gStrategy({
 ));
 
 passport.use(new bStrategy((token, done) => {
-	console.log('token:', token);
 	User.find({
 		accessToken: token
 	}, (error, user) => {
 		if (error) return done(error);
 		if (!user) return done(null, false);
-		console.log('user:', user);
-		return done(null, user);
+		//user gets returned as an array, make sure to select properly
+		console.log('user:', user[0]);
+		return done(null, user[0]);
 	});
 }));
 
@@ -59,7 +59,7 @@ userRouter.get('/auth/google/callback',
 		session: false
 	}),
 	(req, res) => {
-	res.cookie('accessToken', req.user.accessToken, { expires: 0 });
+	res.cookie('accessToken', req.user.accessToken, { expires: (1000 * 60 * 60 * 12) }); // set to expire after 12 hours
 	res.redirect('/');
 	}
 );
@@ -72,24 +72,6 @@ userRouter.get('/auth/logout',
 	}
 );
 
-// returns the league a user selected at signup
-userRouter.get(`/league/:googleId`,
-	passport.authenticate('bearer', {session: false}),
-	(req, res) => {
-		console.log('req:', req);
-		console.log('res:', res);
-		readData({googleId: req.params.googleId}, User)
-		.then(data => {
-			console.log('data:', data);
-			res.json(data);
-		})
-		.catch(error => {
-			console.log('error:', error);
-			throw new Error(error);
-		});
-	}
-);
-
 // returns user's own page
 userRouter.get('/', 
 	passport.authenticate('bearer', {session: false}), 
@@ -98,12 +80,14 @@ userRouter.get('/',
 		displayName: req.user.displayName,
 		givenName: req.user.givenName,
 		familyName: req.user.familyName,
-		userPhoto: req.user.userPhoto
+		userPhoto: req.user.userPhoto,
+		fantasyLeagueId: req.user.fantasyLeagueId,
+		fantasyLeagueName: req.user.fantasyLeagueName
 	})
 );
 
 // adds user's selected league
-userRouter.put(`/addLeague/:googleId`,
+userRouter.put(`/addLeague`,
 	passport.authenticate('bearer', {session: false}),
 	(req, res) => updateData(req.params.googleId, 
 		{
@@ -118,6 +102,22 @@ userRouter.put(`/addLeague/:googleId`,
 		})
 );
 console.log('hello world');
-
+// returns the league a user selected at signup
+// userRouter.get(`/league/:googleId`,
+// 	passport.authenticate('bearer', {session: false}),
+// 	(req, res) => {
+// 		console.log('req:', req);
+// 		console.log('res:', res);
+// 		readData({googleId: req.params.googleId}, User)
+// 		.then(data => {
+// 			console.log('data:', data);
+// 			res.json(data);
+// 		})
+// 		.catch(error => {
+// 			console.log('error:', error);
+// 			throw new Error(error);
+// 		});
+// 	}
+// );
 
 exports.userRouter = userRouter;

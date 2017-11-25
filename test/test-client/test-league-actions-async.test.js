@@ -40,13 +40,13 @@ describe('League Setting Actions', () => {
           'Authorization': `Bearer ${testCurrentUser.accessToken}`
         }
       })
-      .put('/user/addLeague/2')
+      .put('/user/addLeague')
       .reply(200, function(uri, body) {
         return body;
       }),
       store = mockStore({ testCurrentUser });
       
-      return store.dispatch(addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName, testCurrentUser.googleId)).then((fantasyLeagueId, fantasyLeagueName) => {
+      return store.dispatch(addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName)).then((fantasyLeagueId, fantasyLeagueName) => {
         expect(store.getState()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
         expect(store.getState()).toHaveProperty('fantasyLeagueName', fantasyLeagueName);
       });

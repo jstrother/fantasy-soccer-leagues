@@ -12,7 +12,9 @@ export const loginReducer = (state = {}, action) => {
           displayName: action.currentUser.displayName,
           givenName: action.currentUser.givenName,
           familyName: action.currentUser.familyName,
-          userPhoto: action.currentUser.userPhoto
+          userPhoto: action.currentUser.userPhoto,
+          fantasyLeagueId: action.currentUser.fantasyLeagueId,
+          fantasyLeagueName: action.currentUser.fantasyLeagueName
         }
       );
     case SET_LEAGUE:
