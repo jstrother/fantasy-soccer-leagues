@@ -1,6 +1,9 @@
 # the following is an alias for refreshing .bash_profile and getting git status
 alias source="source .bash_profile && status"
 
+# the following is an alias to open the ~/.profile on c9
+alias profile="c9 open ~/.profile"
+
 # the following is an alias for moving up one directory
 alias up="cd .."
 
