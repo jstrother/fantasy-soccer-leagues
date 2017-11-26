@@ -3,13 +3,13 @@
 
 import React from 'react';
 
-export class Player2 extends React.Component {
+export default class Player extends React.Component {
 	render() {
 		console.log('props:', this.props);
 		return(
 			<div>
 				{console.log('div props:', this.props)}
-				<div>Name: {'Hello, World'}</div>
+				<h3>Name: {this.props.name}</h3>
 				<div>Position:</div>
 				<div>Club:</div>
 				<div>League:</div>
@@ -22,12 +22,4 @@ export class Player2 extends React.Component {
 			</div>
 		);
 	}
-}
-
-export default function Player(props) {
-	return (
-		<div>
-			<div>Name: Hello {props.name}</div>
-		</div>
-	);
 }

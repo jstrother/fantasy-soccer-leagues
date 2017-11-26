@@ -17,9 +17,9 @@ describe('Player Component', () => {
   });
   
   it('displays a name from name prop', () => {
-    const wrapper = shallow(<Player name={'Peter Jones'} />),
-      nameDiv = wrapper.children().children().first();
-    console.log(nameDiv.debug());
-    expect(nameDiv.text()).toEqual('Name: Peter Jones');
+    const wrapper = mount(<Player name={'Peter Jones'} />),
+      nameEl = wrapper.children().children().first();
+    console.log(nameEl.debug());
+    expect(nameEl.text()).toEqual('Name: Peter Jones');
   });
 });
