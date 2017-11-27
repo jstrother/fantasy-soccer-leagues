@@ -16,8 +16,8 @@ describe('Player Component', () => {
     expect(Player).toBeDefined();
   });
   
-  it('displays a name from name prop', () => {
-    const wrapper = mount(<Player name={'Peter Jones'} />),
+  it('displays a name from name props', () => {
+    const wrapper = mount(<Player firstName={'Peter'} lastName={'Jones'}/>),
       nameEl = wrapper.find('.player-name');
       
     expect(nameEl.text()).toEqual('Peter Jones');
@@ -45,9 +45,10 @@ describe('Player Component', () => {
   });
   
   it('displays points from points prop', () => {
-    const wrapper = mount(<Player fantasyPoints={14}/>),
+    const wrapper = mount(<Player fixturePoints={14} seasonPoints={36}/>),
       pointsEl = wrapper.find('.player-points');
     
-    expect(pointsEl.text()).toEqual('Total Fantasy Points: ' + 14);
+    expect(pointsEl.first().text()).toEqual('Most Recent Match: ' + 14);
+    expect(pointsEl.last().text()).toEqual('Season Total:' + 36);
   });
 });
