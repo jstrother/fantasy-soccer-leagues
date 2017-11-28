@@ -32,8 +32,8 @@ const mongoose = require('mongoose'),
       },
       passing: {
         totalCrosses: Number,
-        crossesAccuracy: Number,
-        passes: Number,
+        crossingAccuracy: Number,
+        totalPasses: Number,
         passingAccuracy: Number
       },
       other: {

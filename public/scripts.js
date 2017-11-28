@@ -9422,7 +9422,6 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
       }
       return res.json();
     }).then(function (currentUser) {
-      console.log('currentUser:', currentUser);
       dispatch(setUserSuccess(currentUser, 200));
       return;
     }).catch(function (error) {
@@ -9449,7 +9448,6 @@ var userLeague = exports.userLeague = function userLeague(accessToken) {
       }
       return res.json();
     }).then(function (data) {
-      console.log('data:', data);
       dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
       return;
     }).catch(function (error) {

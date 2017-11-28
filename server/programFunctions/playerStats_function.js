@@ -48,10 +48,10 @@ function playerStats(playerType, fixture, ownGoalList) {
           totalCrosses: playerType.stats.passing.total_crosses === null 
             ? 0 
             : playerType.stats.passing.total_crosses,
-          crossesAccuracy: playerType.stats.passing.crosses_accuracy === null 
+          crossingAccuracy: playerType.stats.passing.crosses_accuracy === null 
             ? 0 
             : playerType.stats.passing.crosses_accuracy,
-          passes: playerType.stats.passing.passes === null 
+          totalPasses: playerType.stats.passing.passes === null 
             ? 0 
             : playerType.stats.passing.passes,
           passingAccuracy: playerType.stats.passing.passes_accuracy === null 
@@ -177,8 +177,8 @@ function playerStats(playerType, fixture, ownGoalList) {
         }
         
         // passing accuracy: 1 pt for every 35 passes AND accuracy >= 85
-        if (this.stats.passing.passes > 0 && this.stats.passing.passingAccuracy >= 85) {
-          this.fantasyPoints.fixture += Math.floor(this.stats.passing.passes / 35);
+        if (this.stats.passing.totalPasses > 0 && this.stats.passing.passingAccuracy >= 85) {
+          this.fantasyPoints.fixture += Math.floor(this.stats.passing.totalPasses / 35);
         }
         
         // shots taken: 1pt for every 4

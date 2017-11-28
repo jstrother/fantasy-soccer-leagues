@@ -82,7 +82,6 @@ export const fetchUser = (accessToken) => dispatch => {
     return res.json();
   })
   .then(currentUser => {
-    console.log('currentUser:', currentUser);
     dispatch(setUserSuccess(currentUser, 200));
     return;
   })
@@ -110,7 +109,6 @@ export const userLeague = (accessToken) => dispatch => {
     return res.json();
   })
   .then(data => {
-    console.log('data:', data);
     dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
     return;
   })
