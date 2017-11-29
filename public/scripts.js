@@ -17917,19 +17917,18 @@ var Home = exports.Home = function (_React$Component) {
   }, {
     key: 'selectLeagueChange',
     value: function selectLeagueChange(event, key, value) {
-      var accessToken = Cookies.get('accessToken'),
-          googleId = this.props.googleId;
+      var accessToken = Cookies.get('accessToken');
 
       var fantasyLeagueId = value,
           fantasyLeagueName = void 0;
 
-      nameFinder(fantasyLeagueId);
+      leagueNameFinder(fantasyLeagueId);
 
-      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName, googleId));
+      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName));
 
-      function nameFinder(selectedId) {
+      function leagueNameFinder(leagueId) {
         _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
-          if (league.id === selectedId) {
+          if (league.id === leagueId) {
             fantasyLeagueName = league.name;
           }
         });
@@ -17938,7 +17937,7 @@ var Home = exports.Home = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.googleId || this.props.googleId === undefined) {
+      if (this.props.googleId === undefined || !this.props.googleId) {
         return _react2.default.createElement(
           'div',
           null,

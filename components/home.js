@@ -32,19 +32,18 @@ export class Home extends React.Component {
   }
   
   selectLeagueChange(event, key, value) {
-    const accessToken = Cookies.get('accessToken'),
-      googleId = this.props.googleId;
+    const accessToken = Cookies.get('accessToken');
     
     let fantasyLeagueId = value,
       fantasyLeagueName;
+      
+    leagueNameFinder(fantasyLeagueId);
     
-    nameFinder(fantasyLeagueId);
+    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName));
     
-    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName, googleId));
-    
-    function nameFinder(selectedId) {
+    function leagueNameFinder(leagueId) {
       LEAGUE_IDS_NAMES.forEach(league => {
-        if (league.id === selectedId) {
+        if (league.id === leagueId) {
           fantasyLeagueName = league.name;
         }
       });
@@ -52,7 +51,7 @@ export class Home extends React.Component {
   }
   
   render() {
-    if (!this.props.googleId || this.props.googleId === undefined) {
+    if (this.props.googleId === undefined || !this.props.googleId) {
       return (
         <div>
           <br /><br />

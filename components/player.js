@@ -1,5 +1,5 @@
 // components/player.js
-// imported into roster.js
+// this shows all data associated with a given player
 
 import React from 'react';
 
