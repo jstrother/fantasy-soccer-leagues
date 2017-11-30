@@ -34,12 +34,12 @@ export class Home extends React.Component {
   selectLeagueChange(event, key, value) {
     const accessToken = Cookies.get('accessToken');
     
-    let fantasyLeagueId = value,
-      fantasyLeagueName;
-      
-    leagueNameFinder(fantasyLeagueId);
+    let fantasyLeagueName;
     
-    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName));
+    leagueNameFinder(value);
+    
+    // fantasyLeagueId is value
+    this.props.dispatch(addLeague(accessToken, value, fantasyLeagueName));
     
     function leagueNameFinder(leagueId) {
       LEAGUE_IDS_NAMES.forEach(league => {

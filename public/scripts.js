@@ -17919,12 +17919,12 @@ var Home = exports.Home = function (_React$Component) {
     value: function selectLeagueChange(event, key, value) {
       var accessToken = Cookies.get('accessToken');
 
-      var fantasyLeagueId = value,
-          fantasyLeagueName = void 0;
+      var fantasyLeagueName = void 0;
 
-      leagueNameFinder(fantasyLeagueId);
+      leagueNameFinder(value);
 
-      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName));
+      // fantasyLeagueId is value
+      this.props.dispatch((0, _userActions.addLeague)(accessToken, value, fantasyLeagueName));
 
       function leagueNameFinder(leagueId) {
         _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {

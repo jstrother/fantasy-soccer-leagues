@@ -9,7 +9,6 @@ configure({ adapter: new Adapter() });
 
 describe('Player Component', () => {
   it('renders without crashing', () => {
-    console.log(Player);
     const wrapper = shallow(<Player />);
     
     expect(wrapper).toHaveLength(1);
@@ -31,17 +30,17 @@ describe('Player Component', () => {
   });
   
   it('displays a club from club prop', () => {
-    const wrapper = mount(<Player club={'FC Augsburg'}/>),
+    const wrapper = mount(<Player club={'Seattle Sounders'}/>),
       clubEl = wrapper.find('.player-club');
     
-    expect(clubEl.text()).toEqual('FC Augsburg');
+    expect(clubEl.text()).toEqual('Seattle Sounders');
   });
   
   it('displays a league from league prop', () => {
-    const wrapper = mount(<Player league={'Bundesliga'}/>),
+    const wrapper = mount(<Player leagueId={779}/>),
       leagueEl = wrapper.find('.player-league');
     
-    expect(leagueEl.text()).toEqual('Bundesliga');
+    expect(leagueEl.text()).toEqual('Major League Soccer (USA)');
   });
   
   it('displays points from points prop', () => {
