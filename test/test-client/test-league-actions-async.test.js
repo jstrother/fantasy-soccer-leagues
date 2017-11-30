@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import expect from 'expect';
 import nock from 'nock';
 
-import { setLeague, addLeague } from '../../flow/subActions/userActions.js';
+import { setLeagueSuccess, addLeague } from '../../flow/subActions/userActions.js';
 
 const middlewares = [thunk],
   mockStore = configureMockStore(middlewares),
@@ -22,14 +22,14 @@ describe('League Setting Actions', () => {
   describe('set league sync action', () => {
     it('sets a league and dispatches the league id and name', () => {
       const expectedAction = 
-      {
-        type: 'SET_LEAGUE',
-        fantasyLeagueId,
-        fantasyLeagueName,
-        statusCode: 200
-      };
+        {
+          type: 'SET_LEAGUE_SUCCESS',
+          fantasyLeagueId,
+          fantasyLeagueName,
+          statusCode: 200
+        };
       
-      expect(setLeague(fantasyLeagueId, fantasyLeagueName, 200)).toEqual(expectedAction);
+      expect(setLeagueSuccess(fantasyLeagueId, fantasyLeagueName, 200)).toEqual(expectedAction);
     });
   });
   

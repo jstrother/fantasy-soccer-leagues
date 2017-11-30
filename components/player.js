@@ -6,19 +6,20 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
 export default class Player extends React.Component {
 	render() {
+		let leagueName;
+		
+		LEAGUE_IDS_NAMES.forEach(league => {
+			if (this.props.leagueId === league.id) {
+				leagueName = league.name;
+			}
+		});
+		
 		return(
 			<div>
 				<h2 className={'player-name'}>{`${this.props.firstName} ${this.props.lastName}`}</h2>
 				<h3 className={'player-position'}>{this.props.position}</h3>
 				<h3 className={'player-club'}>{this.props.club}</h3>
-				<h3 className={'player-league'}>{
-					LEAGUE_IDS_NAMES.forEach(league => {
-						if (this.props.leagueId === league.id) {
-							console.log('league:', league.name);
-							return league.name;
-						}
-					})
-				}</h3>
+				<h3 className={'player-league'}>{leagueName}</h3>
 				<div className={'player-stats'}>
 					<h3 className={'stats-header'}>Stats:</h3>
 					

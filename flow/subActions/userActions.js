@@ -1,4 +1,5 @@
-const fetch = require('isomorphic-fetch');
+const fetch = require('isomorphic-fetch'),
+  url = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const setUserSuccess = (currentUser, statusCode)  => ({
@@ -8,30 +9,54 @@ export const setUserSuccess = (currentUser, statusCode)  => ({
 });
 
 export const SET_USER_FAIL = 'SET_USER_FAIL';
-export const setUserFail = (currentUser, statusCode)  => ({
+export const setUserFail = statusCode  => ({
   type: SET_USER_FAIL,
-  currentUser,
   statusCode
 });
 
-export const SET_LEAGUE = 'SET_LEAGUE';
-export const setLeague = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
-  type: SET_LEAGUE,
+export const SET_LEAGUE_SUCCESS = 'SET_LEAGUE_SUCCESS';
+export const setLeagueSuccess = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
+  type: SET_LEAGUE_SUCCESS,
   fantasyLeagueId,
   fantasyLeagueName,
   statusCode
 });
 
 export const SET_LEAGUE_FAIL = 'SET_LEAGUE_FAIL';
-export const setLeagueFail = (fantasyLeagueId, fantasyLeagueName, statusCode) => ({
+export const setLeagueFail = statusCode => ({
   type: SET_LEAGUE_FAIL,
-  fantasyLeagueId,
-  fantasyLeagueName,
   statusCode
 });
 
+export const fetchUser = accessToken => dispatch => {
+  return fetch(`${url}/user`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 401) {
+        dispatch(setUserFail(res.status));
+        return;
+      } else {
+        dispatch(setUserFail(500));
+        throw new Error(res.statusText);
+      }
+    }
+    return res.json();
+  })
+  .then(currentUser => {
+    dispatch(setUserSuccess(currentUser, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
 export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
-  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague`, {
+  return fetch(`${url}/user/addLeague`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -45,71 +70,17 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(setLeagueFail(null, null, res.status));
+        dispatch(setLeagueFail(res.status));
         return;
       } else {
-        dispatch(setLeagueFail(null, null, 500));
+        dispatch(setLeagueFail(500));
+        throw new Error(res.statusText);
       }
-      throw new Error(res.statusText);
     }
     return res.json();
   })
   .then(data => {
-    dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
-    return;
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
-export const fetchUser = (accessToken) => dispatch => {
-  return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user', {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 401) {
-        dispatch(setUserFail(null, res.status));
-        return;
-      } else {
-        dispatch(setUserFail(null, 500));
-      }
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(currentUser => {
-    dispatch(setUserSuccess(currentUser, 200));
-    return;
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
-export const userLeague = (accessToken) => dispatch => {
-  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/league`, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 400) {
-        dispatch(setLeagueFail(null, null, res.status));
-        return;
-      } else {
-        dispatch(setLeagueFail(null, null, 500));
-      }
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(data => {
-    dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+    dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
     return;
   })
   .catch(error => {

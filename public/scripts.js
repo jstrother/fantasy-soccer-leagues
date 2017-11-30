@@ -9332,7 +9332,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var fetch = __webpack_require__(57);
+var fetch = __webpack_require__(57),
+    url = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
 
 var SET_USER_SUCCESS = exports.SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 var setUserSuccess = exports.setUserSuccess = function setUserSuccess(currentUser, statusCode) {
@@ -9344,18 +9345,17 @@ var setUserSuccess = exports.setUserSuccess = function setUserSuccess(currentUse
 };
 
 var SET_USER_FAIL = exports.SET_USER_FAIL = 'SET_USER_FAIL';
-var setUserFail = exports.setUserFail = function setUserFail(currentUser, statusCode) {
+var setUserFail = exports.setUserFail = function setUserFail(statusCode) {
   return {
     type: SET_USER_FAIL,
-    currentUser: currentUser,
     statusCode: statusCode
   };
 };
 
-var SET_LEAGUE = exports.SET_LEAGUE = 'SET_LEAGUE';
-var setLeague = exports.setLeague = function setLeague(fantasyLeagueId, fantasyLeagueName, statusCode) {
+var SET_LEAGUE_SUCCESS = exports.SET_LEAGUE_SUCCESS = 'SET_LEAGUE_SUCCESS';
+var setLeagueSuccess = exports.setLeagueSuccess = function setLeagueSuccess(fantasyLeagueId, fantasyLeagueName, statusCode) {
   return {
-    type: SET_LEAGUE,
+    type: SET_LEAGUE_SUCCESS,
     fantasyLeagueId: fantasyLeagueId,
     fantasyLeagueName: fantasyLeagueName,
     statusCode: statusCode
@@ -9363,18 +9363,42 @@ var setLeague = exports.setLeague = function setLeague(fantasyLeagueId, fantasyL
 };
 
 var SET_LEAGUE_FAIL = exports.SET_LEAGUE_FAIL = 'SET_LEAGUE_FAIL';
-var setLeagueFail = exports.setLeagueFail = function setLeagueFail(fantasyLeagueId, fantasyLeagueName, statusCode) {
+var setLeagueFail = exports.setLeagueFail = function setLeagueFail(statusCode) {
   return {
     type: SET_LEAGUE_FAIL,
-    fantasyLeagueId: fantasyLeagueId,
-    fantasyLeagueName: fantasyLeagueName,
     statusCode: statusCode
+  };
+};
+
+var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
+  return function (dispatch) {
+    return fetch(url + '/user', {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 401) {
+          dispatch(setUserFail(res.status));
+          return;
+        } else {
+          dispatch(setUserFail(500));
+          throw new Error(res.statusText);
+        }
+      }
+      return res.json();
+    }).then(function (currentUser) {
+      dispatch(setUserSuccess(currentUser, 200));
+      return;
+    }).catch(function (error) {
+      throw new Error(error);
+    });
   };
 };
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
+    return fetch(url + '/user/addLeague', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -9387,68 +9411,16 @@ var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagu
     }).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
-          dispatch(setLeagueFail(null, null, res.status));
+          dispatch(setLeagueFail(res.status));
           return;
         } else {
-          dispatch(setLeagueFail(null, null, 500));
+          dispatch(setLeagueFail(500));
+          throw new Error(res.statusText);
         }
-        throw new Error(res.statusText);
       }
       return res.json();
     }).then(function (data) {
-      dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
-      return;
-    }).catch(function (error) {
-      throw new Error(error);
-    });
-  };
-};
-
-var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
-  return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user', {
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      }
-    }).then(function (res) {
-      if (!res.ok) {
-        if (res.status === 401) {
-          dispatch(setUserFail(null, res.status));
-          return;
-        } else {
-          dispatch(setUserFail(null, 500));
-        }
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    }).then(function (currentUser) {
-      dispatch(setUserSuccess(currentUser, 200));
-      return;
-    }).catch(function (error) {
-      throw new Error(error);
-    });
-  };
-};
-
-var userLeague = exports.userLeague = function userLeague(accessToken) {
-  return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/league', {
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      }
-    }).then(function (res) {
-      if (!res.ok) {
-        if (res.status === 400) {
-          dispatch(setLeagueFail(null, null, res.status));
-          return;
-        } else {
-          dispatch(setLeagueFail(null, null, 500));
-        }
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    }).then(function (data) {
-      dispatch(setLeague(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+      dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -17905,13 +17877,9 @@ var Home = exports.Home = function (_React$Component) {
   _createClass(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var accessToken = Cookies.get('accessToken'),
-          googleId = this.props.googleId;
+      var accessToken = Cookies.get('accessToken');
       if (accessToken) {
         this.props.dispatch((0, _userActions.fetchUser)(accessToken));
-      }
-      if (googleId) {
-        this.props.dispatch((0, _userActions.userLeague)(accessToken, googleId));
       }
     }
   }, {
@@ -17921,18 +17889,14 @@ var Home = exports.Home = function (_React$Component) {
 
       var fantasyLeagueName = void 0;
 
-      leagueNameFinder(value);
+      _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
+        if (value === league.id) {
+          fantasyLeagueName = league.name;
+        }
+      });
 
       // fantasyLeagueId is value
       this.props.dispatch((0, _userActions.addLeague)(accessToken, value, fantasyLeagueName));
-
-      function leagueNameFinder(leagueId) {
-        _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
-          if (league.id === leagueId) {
-            fantasyLeagueName = league.name;
-          }
-        });
-      }
     }
   }, {
     key: 'render',
@@ -18405,15 +18369,15 @@ var loginReducer = exports.loginReducer = function loginReducer() {
         fantasyLeagueId: action.currentUser.fantasyLeagueId,
         fantasyLeagueName: action.currentUser.fantasyLeagueName
       });
-    case _userActions.SET_LEAGUE:
+    case _userActions.SET_LEAGUE_SUCCESS:
       return Object.assign({}, state, {
         fantasyLeagueId: action.fantasyLeagueId,
         fantasyLeagueName: action.fantasyLeagueName
       });
     case _userActions.SET_USER_FAIL:
-      return Object.assign({}, state, { currentUser: null });
+      return Object.assign({}, state);
     case _userActions.SET_LEAGUE_FAIL:
-      return Object.assign({}, state, { fantasyLeagueId: null, fantasyLeagueName: null });
+      return Object.assign({}, state);
     default:
       return state;
   }

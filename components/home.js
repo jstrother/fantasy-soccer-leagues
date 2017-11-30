@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 
-import { fetchUser, addLeague, userLeague } from '../flow/subActions/userActions.js';
+import { fetchUser, addLeague } from '../flow/subActions/userActions.js';
 
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
@@ -21,13 +21,9 @@ import MenuItem from 'material-ui/MenuItem';
 export class Home extends React.Component {
   
   componentDidMount() {
-    const accessToken = Cookies.get('accessToken'),
-      googleId = this.props.googleId;
+    const accessToken = Cookies.get('accessToken');
     if (accessToken) {
       this.props.dispatch(fetchUser(accessToken));
-    }
-    if (googleId) {
-      this.props.dispatch(userLeague(accessToken, googleId));
     }
   }
   
@@ -36,18 +32,14 @@ export class Home extends React.Component {
     
     let fantasyLeagueName;
     
-    leagueNameFinder(value);
+    LEAGUE_IDS_NAMES.forEach(league => {
+      if (value === league.id) {
+        fantasyLeagueName = league.name;
+      }
+    });
     
     // fantasyLeagueId is value
     this.props.dispatch(addLeague(accessToken, value, fantasyLeagueName));
-    
-    function leagueNameFinder(leagueId) {
-      LEAGUE_IDS_NAMES.forEach(league => {
-        if (league.id === leagueId) {
-          fantasyLeagueName = league.name;
-        }
-      });
-    }
   }
   
   render() {

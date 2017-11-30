@@ -42,8 +42,7 @@ passport.use(new bStrategy((token, done) => {
 	}, (error, user) => {
 		if (error) return done(error);
 		if (!user) return done(null, false);
-		//user gets returned as an array, make sure to select properly
-		console.log('user:', user[0]);
+		//user gets returned as an array of one, make sure to select properly
 		return done(null, user[0]);
 	});
 }));

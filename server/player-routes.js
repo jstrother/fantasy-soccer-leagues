@@ -3,7 +3,7 @@ const express = require('express'),
 	readData = require('./programFunctions/crud_functions.js').readData,
 	Player = require('../models/player_model.js');
 	
-playerRouter.get('/player', 
+playerRouter.get('/', 
   (req, res) => res.json({
     idFromApi: req.player.idFromApi,
     commonName: req.player.commonName,
