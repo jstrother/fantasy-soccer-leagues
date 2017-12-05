@@ -2,9 +2,10 @@
 // this shows all data associated with a given player
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
-export default class Player extends React.Component {
+export class Teammate extends React.Component {
 	render() {
 		let leagueName;
 		
@@ -70,3 +71,13 @@ export default class Player extends React.Component {
 		);
 	}
 }
+
+const mapPlayerStateToProps = state => {
+	{
+		
+	}
+};
+
+export const Player = connect(
+	mapPlayerStateToProps	
+)(Teammate);

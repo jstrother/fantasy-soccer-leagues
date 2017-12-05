@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-fetch'),
-  url = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
+  url = require('../../server/config.js').THIS_DIRECTORY;
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const setUserSuccess = (currentUser, statusCode)  => ({
