@@ -16,32 +16,48 @@ playerRouter.get('/',
     clubName: req.player.clubName,
     clubId: req.player.clubId,
     clubLogo: req.player.clubLogo,
-    shotsTotal: req.player.stats.shots.shotsTotal,
-    shotsOnGoal: req.player.stats.shots.shotsOnGoal,
-    goalsScored: req.player.stats.goals.scored,
-    goalsConceded: req.player.stats.goals.conceded,
-    ownGoals: req.player.stats.goals.ownGoals,
-    foulsDrawn: req.player.stats.fouls.drawn,
-    foulsCommitted: req.player.stats.fouls.committed,
-    yellowCards: req.player.stats.cards.yellowCards,
-    redCards: req.player.stats.cards.redCards,
-    totalCrosses: req.player.stats.passing.totalCrosses,
-    crossingAccuracy: req.player.stats.passing.crossingAccuracy,
-    totalPasses: req.player.stats.passing.totalPasses,
-    passingAccuracy: req.player.stats.passing.passingAccuracy,
-    penaltiesScored: req.player.stats.other.penaltiesScored,
-    penaltiesMissed: req.player.stats.other.penaltiesMissed,
-    penaltiesSaved: req.player.stats.other.penaltiesSaved,
-    assists: req.player.stats.other.assists,
-    offsides: req.player.stats.other.offsides,
-    saves: req.player.stats.other.saves,
-    tackles: req.player.stats.other.tackles,
-    blocks: req.player.stats.other.blocks,
-    interceptions: req.stats.other.interceptions,
-    clearances: req.player.stats.other.clearances,
-    minutesPlayed: req.player.stats.other.minutesPlayed,
-    fixturePoints: req.player.fantasyPoints.fixture,
-    seasonPoints: req.player.fantasyPoints.season
+    stats: {
+      shots: {
+        shotsTotal: req.player.stats.shots.shotsTotal,
+        shotsOnGoal: req.player.stats.shots.shotsOnGoal
+      },
+      goals: {
+        scored: req.player.stats.goals.scored,
+        conceded: req.player.stats.goals.conceded,
+        ownGoals: req.player.stats.goals.ownGoals
+      },
+      fouls: {
+        drawn: req.player.stats.fouls.drawn,
+        committed: req.player.stats.fouls.committed
+      },
+      cards: {
+        yellowCards: req.player.stats.cards.yellowCards,
+        redCards: req.player.stats.cards.redCards
+      },
+      passing: {
+        totalCrosses: req.player.stats.passing.totalCrosses,
+        crossingAccuracy: req.player.stats.passing.crossingAccuracy,
+        totalPasses: req.player.stats.passing.totalPasses,
+        passingAccuracy: req.player.stats.passing.passingAccuracy
+      },
+      other: {
+        assists: req.player.stats.other.assists,
+        offsides: req.player.stats.other.offsides,
+        saves: req.player.stats.other.saves,
+        penaltiesScored: req.player.stats.other.penaltiesScored,
+        penaltiesMissed: req.player.stats.other.penaltiesMissed,
+        penaltiesSaved: req.player.stats.other.penaltiesSaved,
+        tackles: req.player.stats.other.tackles,
+        blocks: req.player.stats.other.blocks,
+        interceptions: req.stats.other.interceptions,
+        clearances: req.player.stats.other.clearances,
+        minutesPlayed: req.player.stats.other.minutesPlayed
+      }
+    },
+    fantasyPoints: {
+      fixture: req.player.fantasyPoints.fixture,
+      season: req.player.fantasyPoints.season
+    }
   })
 );
 

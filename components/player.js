@@ -72,11 +72,41 @@ export class Teammate extends React.Component {
 	}
 }
 
-const mapPlayerStateToProps = state => {
+const mapPlayerStateToProps = state => (
 	{
-		
+		firstName: state.playerReducer.firstName,
+		lastName: state.playerReducer.lastName,
+		position: state.playerReducer.position,
+		club: state.playerReducer.club,
+		leagueId: state.playerReducer.leagueId,
+		shotsTotal: state.playerReducer.stats.shots.shotsTotal,
+		shotsOnGoal: state.playerReducer.stats.shots.shotsOnGoal,
+		goalsScored: state.playerReducer.stats.goals.scored,
+		goalsConceded: state.playerReducer.stats.goals.conceded,
+		ownGoals: state.playerReducer.stats.goals.ownGoals,
+		foulsDrawn: state.playerReducer.stats.fouls.drawn,
+		foulsCommitted: state.playerReducer.stats.fouls.committed,
+		yellowCards: state.playerReducer.stats.cards.yellowCards,
+		redCards: state.playerReducer.stats.cards.redCards,
+		totalCrosses: state.playerReducer.stats.passing.totalCrosses,
+		crossingAccuracy: state.playerReducer.stats.passing.crossingAccuracy,
+		totalPasses: state.playerReducer.stats.passing.totalPasses,
+		passingAccuracy: state.playerReducer.stats.passing.passingAccuracy,
+		penaltiesScored: state.playerReducer.stats.other.penaltiesScored,
+		penaltiesMissed: state.playerReducer.stats.other.penaltiesMissed,
+		penaltiesSaved: state.playerReducer.stats.other.penaltiesSaved,
+		assists: state.playerReducer.stats.other.assists,
+		offsides: state.playerReducer.stats.other.offsides,
+		saves: state.playerReducer.stats.other.saves,
+		tackles: state.playerReducer.stats.other.tackles,
+		blocks: state.playerReducer.stats.other.blocks,
+		interceptions: state.playerReducer.stats.other.interceptions,
+		clearances: state.playerReducer.stats.other.clearances,
+		minutesPlayed: state.playerReducer.stats.other.minutesPlayed,
+		fixturePoints: state.playerReducer.fantasyPoints.fixture,
+		seasonPoints: state.playerReducer.fantasyPoints.season
 	}
-};
+);
 
 export const Player = connect(
 	mapPlayerStateToProps	

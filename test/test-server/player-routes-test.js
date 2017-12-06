@@ -1,14 +1,11 @@
-const express = require('express'),
-  nock = require('nock'),
-  chai = require('chai'),
+const chai = require('chai'),
   chaiHTTP = require('chai-http'),
   should = chai.should(),
   expect = chai.expect,
-  config = require('../../server/config.js'),
   playerRoutes = require('../../server/player-routes.js'),
   { mongoose, dbTestConnection } = require('../common.js'),
   Player = require('../../models/player_model.js'),
-  { readData } = require('../../server/programFunctions/crud_functions.js'),
+  { createData, readData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
   { runServer, app } = require('../../server/server.js'),
   testPlayer = {
     idFromApi: 1,
@@ -22,30 +19,64 @@ const express = require('express'),
     clubName: 'Seattle Sounders FC',
     clubId: 1974,
     clubLogo: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-    shotsTotal: 12,
-    shotsOnGoal: 10,
-    goalsScored: 9,
-    goalsConceded: 0,
-    ownGoals: 0,
-    foulsDrawn: 11,
-    foulsCommitted: 5,
-    yellowCards: 3,
-    redCards: 1,
-    totalCrosses: 21,
-    crossingAccuracy: 85,
-    totalPasses: 34,
-    passingAccuracy: 88,
-    penaltiesScored: 2,
-    penaltiesMissed: 0,
-    penaltiesSaved: 0,
-    assists: 10,
-    offsides: 3,
-    saves: 0,
-    tackles: 13,
-    blocks: 0,
-    interceptions: 7,
-    clearances: 2,
-    minutesPlayed: 90,
-    fixturePoints: 8,
-    seasonPoints: 32
+    stats: {
+      shots: {
+        shotsTotal: 12,
+        shotsOnGoal: 10
+      },
+      goals: {
+        scored: 9,
+        conceded: 0,
+        ownGoals: 0
+      },
+      fouls: {
+        drawn: 11,
+        committed: 5
+      },
+      cards: {
+        yellowCards: 3,
+        redCards: 1
+      },
+      passing: {
+        totalCrosses: 21,
+        crossingAccuracy: 85,
+        totalPasses: 34,
+        passingAccuracy: 88
+      },
+      other: {
+        assists: 10,
+        offsides: 3,
+        saves: 0,
+        penaltiesScored: 2,
+        penaltiesMissed: 0,
+        penaltiesSaved: 0,
+        tackles: 13,
+        blocks: 0,
+        interceptions: 7,
+        clearances: 2,
+        minutesPlayed: 90
+      }
+    },
+    fantasyPoints: {
+      fixture: 8,
+      season: 32
+    }
   };
+
+chai.use(chaiHTTP);
+mongoose.Promise = Promise;
+
+before(() => {
+  runServer(8081, dbTestConnection);
+  createData(testPlayer, Player);
+});
+
+after(() => {
+  deleteData(testPlayer, Player);
+});
+
+describe('Player Info',() => {
+  it('should return player info from database', () => {
+    return readData(testPlayer, Player).should.eventually.exist;
+  });
+});

@@ -55,8 +55,8 @@ function playerStatsByLeague(leagueId) {
                 playerInfo(starter, fixture, ownGoalList);
               });
               
-              fixture.bench.data.forEach(bencher => {
-                playerInfo(bencher, fixture, ownGoalList);
+              fixture.bench.data.forEach(benchwarmer => {
+                playerInfo(benchwarmer, fixture, ownGoalList);
               });
               
               function playerInfo(type, fixture, ownGoalList) {

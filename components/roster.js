@@ -12,12 +12,12 @@ export class Team extends React.Component {
 	// need a function to search by leagueId to get list of correct players to choose roster from - the leagueId will be in state already
 	
 	// this.props.dispatch(fetchStarter(thisStarter));
-	// this.props.dispatch(fetchBencher(thisBencher));
+	// this.props.dispatch(fetchBenchwarmer(thisBenchwarmer));
 	// this.props.dispatch(fetchReserve(thisReserve));
 	
 	// handleChange function
 	// setStarterClick function
-	// setBencherClick function
+	// setBenchwarmerClick function
 	// setReserveClick function
 	
 	render() {
