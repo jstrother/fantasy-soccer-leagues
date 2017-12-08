@@ -4,7 +4,6 @@
   "description": "A fantasy soccer league that auto-updates via api calls",
   "main": "server.js",
   "scripts": {
-    "bash": "source .bash_profile",
     "test:server": "mocha test/test-server/test-index.js",
     "test:client": "jest || true",
     "test:initial": "npm run test:server && npm run test:client",

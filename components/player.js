@@ -4,7 +4,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
-import FlatButton from 'material-ui/FlatButton';
 
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
@@ -33,6 +32,7 @@ export class Teammate extends React.Component {
 		return(
 			<div>
 				<h2 className='player-name'>{`${this.props.firstName} ${this.props.lastName}`}</h2>
+				<img className='player-picture' src={this.props.picture} alt={this.props.fullName} />
 				<h3 className='player-position'>{this.props.position}</h3>
 				<h3 className='player-club'>{this.props.club}</h3>
 				<h3 className='player-league'>{leagueName}</h3>
@@ -83,20 +83,15 @@ export class Teammate extends React.Component {
 					<p className='season-points'>Season Total: {this.props.seasonPoints}</p>
 				</div>
 				<div className='roster-selection-div'>
-					<FlatButton
-						className='starting-11-btn'
-						label='Add to Starting 11'
-						onClick={this.handleStarterClick} />
-					<FlatButton
-						className='matchday-18-btn'
-						label='Add to Matchday Roster'
-						primary={true}
-						onClick={this.handleMatchdayClick} />
-					<FlatButton
-						className='reserve-23-btn'
-						label='Add to 23-player Roster'
-						secondary={true}
-						onClick={this.handleReserveClick} />
+					<button
+						className='add-starter-btn'
+						onClick={this.handleStarterClick}>Add to Starting Lineup</button>
+					<button
+						className='add-matchday-btn'
+						onClick={this.handleMatchdayClick}>Add to Matchday Roster</button>
+					<button
+						className='add-reserves-btn'
+						onClick={this.handleReserveClick}>Add to Reserves</button>
 				</div>
 			</div>
 		);
@@ -105,8 +100,10 @@ export class Teammate extends React.Component {
 
 const mapPlayerStateToProps = state => (
 	{
+		fullName: state.playerReducer.fullName,
 		firstName: state.playerReducer.firstName,
 		lastName: state.playerReducer.lastName,
+		picture: state.playerReducer.picture,
 		position: state.playerReducer.position,
 		club: state.playerReducer.club,
 		leagueId: state.playerReducer.leagueId,

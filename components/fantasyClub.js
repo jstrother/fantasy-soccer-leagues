@@ -2,7 +2,7 @@
 // imported into user.js
 
 import React from 'react';
-// import Roster from './roster.js';
+import Roster from './roster.js';
 import FantasySchedule from './fantasySchedule.js';
 
 export default class FantasyClub extends React.Component {
@@ -10,8 +10,8 @@ export default class FantasyClub extends React.Component {
 		return(
 			<div>
 				<div>
-					Check and update your roster.
-					{ /*<Roster /> */ }
+					Select players for your roster.
+					<Roster />
 				</div>
 				<div>
 					Set your lineup for upcoming matches.

@@ -2,7 +2,7 @@ const fetch = require('isomorphic-fetch'),
   url = require('../../server/config.js').THIS_DIRECTORY;
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
-export const setStarterSuccess = (starter, statusCode) => {
+export const setStarterSuccess = (player, statusCode) => {
   type: SET_STARTER_SUCCESS,
   starter,
   statusCode
@@ -15,7 +15,7 @@ export const setStarterFail = statusCode => {
 };
 
 export const SET_BENCHWARMER_SUCCESS = 'SET_BENCHWARMER_SUCCESS';
-export const setBenchwarmerSuccess = (benchwarmer, statusCode) => {
+export const setBenchwarmerSuccess = (player, statusCode) => {
   type: SET_BENCHWARMER_SUCCESS,
   benchwarmer,
   statusCode
@@ -28,7 +28,7 @@ export const setBenchwarmerFail = statusCode => {
 };
 
 export const SET_RESERVE_SUCCESS = 'SET_RESERVE_SUCCESS';
-export const setReserveSuccess = (reserve, statusCode) => {
+export const setReserveSuccess = (player, statusCode) => {
   type: SET_RESERVE_SUCCESS,
   reserve,
   statusCode
@@ -40,8 +40,8 @@ export const setReserveFail = statusCode => {
   statusCode
 };
 
-export const fetchStarter = starter => dispatch => {
-  return fetch(`${url}/player/${starter}`)
+export const fetchStarter = player => dispatch => {
+  return fetch(`${url}/player/${player}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -54,8 +54,8 @@ export const fetchStarter = starter => dispatch => {
     }
     return res.json();
   })
-  .then(starter => {
-    dispatch(setStarterSuccess(starter, 200));
+  .then(player => {
+    dispatch(setStarterSuccess(player, 200));
     return;
   })
   .catch(error => {
@@ -63,8 +63,8 @@ export const fetchStarter = starter => dispatch => {
   });
 };
 
-export const fetchBenchwarmer = benchwarmer => dispatch => {
-  return fetch(`${url}/player/${benchwarmer}`)
+export const fetchBenchwarmer = player => dispatch => {
+  return fetch(`${url}/player/${player}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -77,8 +77,8 @@ export const fetchBenchwarmer = benchwarmer => dispatch => {
     }
     return res.json();
   })
-  .then(benchwarmer => {
-    dispatch(setBenchwarmerSuccess(benchwarmer, 200));
+  .then(player => {
+    dispatch(setBenchwarmerSuccess(player, 200));
     return;
   })
   .catch(error => {
@@ -86,8 +86,8 @@ export const fetchBenchwarmer = benchwarmer => dispatch => {
   });
 };
 
-export const fetchReserve = reserve => dispatch => {
-  return fetch(`${url}/player/${reserve}`)
+export const fetchReserve = player => dispatch => {
+  return fetch(`${url}/player/${player}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -100,8 +100,8 @@ export const fetchReserve = reserve => dispatch => {
     }
     return res.json();
   })
-  .then(reserve => {
-    dispatch(setReserveSuccess(reserve, 200));
+  .then(player => {
+    dispatch(setReserveSuccess(player, 200));
     return;
   })
   .catch(error => {
