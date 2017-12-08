@@ -10145,7 +10145,429 @@ var _objectWithoutProperties2 = __webpack_require__(12);
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
+<<<<<<< HEAD
 var _toArray2 = __webpack_require__(132);
+
+var _toArray3 = _interopRequireDefault(_toArray2);
+
+=======
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
+var _getPrototypeOf = __webpack_require__(8);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(5);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(7);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(10);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(9);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _simpleAssign = __webpack_require__(11);
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(20);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _shallowEqual = __webpack_require__(51);
+
+var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+
+<<<<<<< HEAD
+var _ClickAwayListener = __webpack_require__(346);
+=======
+var _Popover = __webpack_require__(159);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
+
+var _Popover2 = _interopRequireDefault(_Popover);
+
+<<<<<<< HEAD
+var _keycode = __webpack_require__(93);
+=======
+var _check = __webpack_require__(363);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
+
+var _check2 = _interopRequireDefault(_check);
+
+var _ListItem = __webpack_require__(332);
+
+var _ListItem2 = _interopRequireDefault(_ListItem);
+
+<<<<<<< HEAD
+var _List = __webpack_require__(155);
+=======
+var _Menu = __webpack_require__(158);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
+
+var _Menu2 = _interopRequireDefault(_Menu);
+
+var _propTypes3 = __webpack_require__(32);
+
+<<<<<<< HEAD
+var _menuUtils = __webpack_require__(330);
+=======
+var _propTypes4 = _interopRequireDefault(_propTypes3);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var nestedMenuStyle = {
+  position: 'relative'
+};
+
+function getStyles(props, context) {
+  var disabledColor = context.muiTheme.baseTheme.palette.disabledColor;
+  var textColor = context.muiTheme.baseTheme.palette.textColor;
+  var indent = props.desktop ? 64 : 72;
+  var sidePadding = props.desktop ? 24 : 16;
+
+  var styles = {
+    root: {
+      color: props.disabled ? disabledColor : textColor,
+      cursor: props.disabled ? 'not-allowed' : 'pointer',
+      minHeight: props.desktop ? '32px' : '48px',
+      lineHeight: props.desktop ? '32px' : '48px',
+      fontSize: props.desktop ? 15 : 16,
+      whiteSpace: 'nowrap'
+    },
+
+    innerDivStyle: {
+      paddingLeft: props.leftIcon || props.insetChildren || props.checked ? indent : sidePadding,
+      paddingRight: props.rightIcon ? indent : sidePadding,
+      paddingBottom: 0,
+      paddingTop: 0
+    },
+
+    secondaryText: {
+      float: 'right'
+    },
+
+    leftIconDesktop: {
+      margin: 0,
+      left: 24,
+      top: 4
+    },
+
+    rightIconDesktop: {
+      margin: 0,
+      right: 24,
+      top: 4,
+      fill: context.muiTheme.menuItem.rightIconDesktopFill
+    }
+  };
+
+  return styles;
+}
+
+var MenuItem = function (_Component) {
+  (0, _inherits3.default)(MenuItem, _Component);
+
+  function MenuItem() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    (0, _classCallCheck3.default)(this, MenuItem);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = MenuItem.__proto__ || (0, _getPrototypeOf2.default)(MenuItem)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      open: false
+    }, _this.cloneMenuItem = function (item) {
+      return _react2.default.cloneElement(item, {
+        onTouchTap: function onTouchTap(event) {
+          if (!item.props.menuItems) {
+            _this.handleRequestClose();
+          }
+
+          if (item.props.onTouchTap) {
+            item.props.onTouchTap(event);
+          }
+        }
+      });
+    }, _this.handleTouchTap = function (event) {
+      event.preventDefault();
+
+      _this.setState({
+        open: true,
+        anchorEl: _reactDom2.default.findDOMNode(_this)
+      });
+
+      if (_this.props.onTouchTap) {
+        _this.props.onTouchTap(event);
+      }
+    }, _this.handleRequestClose = function () {
+      _this.setState({
+        open: false,
+        anchorEl: null
+      });
+    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+  }
+
+  (0, _createClass3.default)(MenuItem, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.applyFocusState();
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.state.open && nextProps.focusState === 'none') {
+        this.handleRequestClose();
+      }
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
+      return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)(this.state, nextState) || !(0, _shallowEqual2.default)(this.context, nextContext);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.applyFocusState();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this.state.open) {
+        this.setState({
+          open: false
+        });
+      }
+    }
+  }, {
+    key: 'applyFocusState',
+    value: function applyFocusState() {
+      this.refs.listItem.applyFocusState(this.props.focusState);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          checked = _props.checked,
+          children = _props.children,
+          desktop = _props.desktop,
+          disabled = _props.disabled,
+          focusState = _props.focusState,
+          innerDivStyle = _props.innerDivStyle,
+          insetChildren = _props.insetChildren,
+          leftIcon = _props.leftIcon,
+          menuItems = _props.menuItems,
+          rightIcon = _props.rightIcon,
+          secondaryText = _props.secondaryText,
+          style = _props.style,
+          animation = _props.animation,
+          anchorOrigin = _props.anchorOrigin,
+          value = _props.value,
+          other = (0, _objectWithoutProperties3.default)(_props, ['checked', 'children', 'desktop', 'disabled', 'focusState', 'innerDivStyle', 'insetChildren', 'leftIcon', 'menuItems', 'rightIcon', 'secondaryText', 'style', 'animation', 'anchorOrigin', 'value']);
+      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+      var styles = getStyles(this.props, this.context);
+      var mergedRootStyles = (0, _simpleAssign2.default)(styles.root, style);
+      var mergedInnerDivStyles = (0, _simpleAssign2.default)(styles.innerDivStyle, innerDivStyle);
+
+      // Left Icon
+      var leftIconElement = leftIcon ? leftIcon : checked ? _react2.default.createElement(_check2.default, null) : null;
+      if (leftIconElement) {
+        var mergedLeftIconStyles = desktop ? (0, _simpleAssign2.default)(styles.leftIconDesktop, leftIconElement.props.style) : leftIconElement.props.style;
+        leftIconElement = _react2.default.cloneElement(leftIconElement, { style: mergedLeftIconStyles });
+      }
+
+      // Right Icon
+      var rightIconElement = void 0;
+      if (rightIcon) {
+        var mergedRightIconStyles = desktop ? (0, _simpleAssign2.default)(styles.rightIconDesktop, rightIcon.props.style) : rightIcon.props.style;
+        rightIconElement = _react2.default.cloneElement(rightIcon, { style: mergedRightIconStyles });
+      }
+
+      // Secondary Text
+      var secondaryTextElement = void 0;
+      if (secondaryText) {
+        var secondaryTextIsAnElement = _react2.default.isValidElement(secondaryText);
+        var mergedSecondaryTextStyles = secondaryTextIsAnElement ? (0, _simpleAssign2.default)(styles.secondaryText, secondaryText.props.style) : null;
+
+        secondaryTextElement = secondaryTextIsAnElement ? _react2.default.cloneElement(secondaryText, { style: mergedSecondaryTextStyles }) : _react2.default.createElement(
+          'div',
+          { style: prepareStyles(styles.secondaryText) },
+          secondaryText
+        );
+      }
+      var childMenuPopover = void 0;
+      if (menuItems) {
+        childMenuPopover = _react2.default.createElement(
+          _Popover2.default,
+          {
+            animation: animation,
+            anchorOrigin: anchorOrigin,
+            anchorEl: this.state.anchorEl,
+            open: this.state.open,
+            useLayerForClickAway: false,
+            onRequestClose: this.handleRequestClose
+          },
+          _react2.default.createElement(
+            _Menu2.default,
+            { desktop: desktop, disabled: disabled, style: nestedMenuStyle },
+            _react2.default.Children.map(menuItems, this.cloneMenuItem)
+          )
+        );
+        other.onTouchTap = this.handleTouchTap;
+      }
+
+      return _react2.default.createElement(
+        _ListItem2.default,
+        (0, _extends3.default)({}, other, {
+          disabled: disabled,
+          hoverColor: this.context.muiTheme.menuItem.hoverColor,
+          innerDivStyle: mergedInnerDivStyles,
+          insetChildren: insetChildren,
+          leftIcon: leftIconElement,
+          ref: 'listItem',
+          rightIcon: rightIconElement,
+          role: 'menuitem',
+          style: mergedRootStyles
+        }),
+        children,
+        secondaryTextElement,
+        childMenuPopover
+      );
+    }
+  }]);
+  return MenuItem;
+}(_react.Component);
+
+MenuItem.muiName = 'MenuItem';
+MenuItem.defaultProps = {
+  anchorOrigin: { horizontal: 'right', vertical: 'top' },
+  checked: false,
+  desktop: false,
+  disabled: false,
+  focusState: 'none',
+  insetChildren: false
+};
+MenuItem.contextTypes = {
+  muiTheme: _propTypes2.default.object.isRequired
+};
+process.env.NODE_ENV !== "production" ? MenuItem.propTypes = {
+  /**
+   * Location of the anchor for the popover of nested `MenuItem`
+   * elements.
+   */
+  anchorOrigin: _propTypes4.default.origin,
+  /**
+   * Override the default animation component used.
+   */
+  animation: _propTypes2.default.func,
+  /**
+   * If true, a left check mark will be rendered.
+   */
+  checked: _propTypes2.default.bool,
+  /**
+   * Elements passed as children to the underlying `ListItem`.
+   */
+  children: _propTypes2.default.node,
+  /**
+   * @ignore
+   * If true, the menu item will render with compact desktop
+   * styles.
+   */
+  desktop: _propTypes2.default.bool,
+  /**
+   * If true, the menu item will be disabled.
+   */
+  disabled: _propTypes2.default.bool,
+  /**
+   * The focus state of the menu item. This prop is used to set the focus
+   * state of the underlying `ListItem`.
+   */
+  focusState: _propTypes2.default.oneOf(['none', 'focused', 'keyboard-focused']),
+  /**
+   * Override the inline-styles of the inner div.
+   */
+  innerDivStyle: _propTypes2.default.object,
+  /**
+   * If true, the children will be indented.
+   * This is only needed when there is no `leftIcon`.
+   */
+  insetChildren: _propTypes2.default.bool,
+  /**
+   * The `SvgIcon` or `FontIcon` to be displayed on the left side.
+   */
+  leftIcon: _propTypes2.default.element,
+  /**
+   * `MenuItem` elements to nest within the menu item.
+   */
+  menuItems: _propTypes2.default.node,
+  /**
+   * Callback function fired when the menu item is touch-tapped.
+   *
+   * @param {object} event TouchTap event targeting the menu item.
+   */
+  onTouchTap: _propTypes2.default.func,
+  /**
+   * Can be used to render primary text within the menu item.
+   */
+  primaryText: _propTypes2.default.node,
+  /**
+   * The `SvgIcon` or `FontIcon` to be displayed on the right side.
+   */
+  rightIcon: _propTypes2.default.element,
+  /**
+   * Can be used to render secondary text within the menu item.
+   */
+  secondaryText: _propTypes2.default.node,
+  /**
+   * Override the inline-styles of the root element.
+   */
+  style: _propTypes2.default.object,
+  /**
+   * The value of the menu item.
+   */
+  value: _propTypes2.default.any
+} : void 0;
+exports.default = MenuItem;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(14);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(12);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _toArray2 = __webpack_require__(133);
 
 var _toArray3 = _interopRequireDefault(_toArray2);
 
@@ -10189,11 +10611,11 @@ var _shallowEqual = __webpack_require__(51);
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-var _ClickAwayListener = __webpack_require__(346);
+var _ClickAwayListener = __webpack_require__(350);
 
 var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
-var _keycode = __webpack_require__(93);
+var _keycode = __webpack_require__(94);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
@@ -10201,11 +10623,11 @@ var _propTypes3 = __webpack_require__(32);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
-var _List = __webpack_require__(155);
+var _List = __webpack_require__(156);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _menuUtils = __webpack_require__(330);
+var _menuUtils = __webpack_require__(335);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10252,8 +10674,12 @@ var Menu = function (_Component) {
 
     _initialiseProps.call(_this);
 
+<<<<<<< HEAD
+var _Popover = __webpack_require__(158);
+=======
     var filteredChildren = _this.getFilteredChildren(props.children);
     var selectedIndex = _this.getSelectedIndex(props, filteredChildren);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 
     var newFocusIndex = props.disableAutoFocus ? -1 : selectedIndex >= 0 ? selectedIndex : 0;
     if (newFocusIndex !== -1 && props.onMenuItemFocusChange) {
@@ -10265,9 +10691,13 @@ var Menu = function (_Component) {
       keyWidth: props.desktop ? 64 : 56
     };
 
+<<<<<<< HEAD
+var _check = __webpack_require__(359);
+=======
     _this.hotKeyHolder = new _menuUtils.HotKeyHolder();
     return _this;
   }
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 
   (0, _createClass3.default)(Menu, [{
     key: 'componentDidMount',
@@ -10283,6 +10713,9 @@ var Menu = function (_Component) {
       var filteredChildren = this.getFilteredChildren(nextProps.children);
       var selectedIndex = this.getSelectedIndex(nextProps, filteredChildren);
 
+<<<<<<< HEAD
+var _ListItem = __webpack_require__(328);
+=======
       var newFocusIndex = nextProps.disableAutoFocus ? -1 : selectedIndex >= 0 ? selectedIndex : 0;
       if (newFocusIndex !== this.state.focusIndex && this.props.onMenuItemFocusChange) {
         this.props.onMenuItemFocusChange(null, newFocusIndex);
@@ -10304,8 +10737,12 @@ var Menu = function (_Component) {
     }
   }, {
     key: 'getValueLink',
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 
 
+<<<<<<< HEAD
+var _Menu = __webpack_require__(156);
+=======
     // Do not use outside of this component, it will be removed once valueLink is deprecated
     value: function getValueLink(props) {
       return props.valueLink || {
@@ -10335,6 +10772,7 @@ var Menu = function (_Component) {
     key: 'cloneMenuItem',
     value: function cloneMenuItem(child, childIndex, styles, index) {
       var _this2 = this;
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 
       var childIsDisabled = child.props.disabled;
 
@@ -10822,405 +11260,6 @@ process.env.NODE_ENV !== "production" ? Menu.propTypes = {
   width: _propTypes4.default.stringOrNumber
 } : void 0;
 exports.default = Menu;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(14);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(12);
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _getPrototypeOf = __webpack_require__(8);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(5);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(7);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(10);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(9);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _simpleAssign = __webpack_require__(11);
-
-var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(20);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _shallowEqual = __webpack_require__(51);
-
-var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
-
-var _Popover = __webpack_require__(158);
-
-var _Popover2 = _interopRequireDefault(_Popover);
-
-var _check = __webpack_require__(359);
-
-var _check2 = _interopRequireDefault(_check);
-
-var _ListItem = __webpack_require__(328);
-
-var _ListItem2 = _interopRequireDefault(_ListItem);
-
-var _Menu = __webpack_require__(156);
-
-var _Menu2 = _interopRequireDefault(_Menu);
-
-var _propTypes3 = __webpack_require__(32);
-
-var _propTypes4 = _interopRequireDefault(_propTypes3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var nestedMenuStyle = {
-  position: 'relative'
-};
-
-function getStyles(props, context) {
-  var disabledColor = context.muiTheme.baseTheme.palette.disabledColor;
-  var textColor = context.muiTheme.baseTheme.palette.textColor;
-  var indent = props.desktop ? 64 : 72;
-  var sidePadding = props.desktop ? 24 : 16;
-
-  var styles = {
-    root: {
-      color: props.disabled ? disabledColor : textColor,
-      cursor: props.disabled ? 'not-allowed' : 'pointer',
-      minHeight: props.desktop ? '32px' : '48px',
-      lineHeight: props.desktop ? '32px' : '48px',
-      fontSize: props.desktop ? 15 : 16,
-      whiteSpace: 'nowrap'
-    },
-
-    innerDivStyle: {
-      paddingLeft: props.leftIcon || props.insetChildren || props.checked ? indent : sidePadding,
-      paddingRight: props.rightIcon ? indent : sidePadding,
-      paddingBottom: 0,
-      paddingTop: 0
-    },
-
-    secondaryText: {
-      float: 'right'
-    },
-
-    leftIconDesktop: {
-      margin: 0,
-      left: 24,
-      top: 4
-    },
-
-    rightIconDesktop: {
-      margin: 0,
-      right: 24,
-      top: 4,
-      fill: context.muiTheme.menuItem.rightIconDesktopFill
-    }
-  };
-
-  return styles;
-}
-
-var MenuItem = function (_Component) {
-  (0, _inherits3.default)(MenuItem, _Component);
-
-  function MenuItem() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    (0, _classCallCheck3.default)(this, MenuItem);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = MenuItem.__proto__ || (0, _getPrototypeOf2.default)(MenuItem)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      open: false
-    }, _this.cloneMenuItem = function (item) {
-      return _react2.default.cloneElement(item, {
-        onTouchTap: function onTouchTap(event) {
-          if (!item.props.menuItems) {
-            _this.handleRequestClose();
-          }
-
-          if (item.props.onTouchTap) {
-            item.props.onTouchTap(event);
-          }
-        }
-      });
-    }, _this.handleTouchTap = function (event) {
-      event.preventDefault();
-
-      _this.setState({
-        open: true,
-        anchorEl: _reactDom2.default.findDOMNode(_this)
-      });
-
-      if (_this.props.onTouchTap) {
-        _this.props.onTouchTap(event);
-      }
-    }, _this.handleRequestClose = function () {
-      _this.setState({
-        open: false,
-        anchorEl: null
-      });
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-  }
-
-  (0, _createClass3.default)(MenuItem, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.applyFocusState();
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.state.open && nextProps.focusState === 'none') {
-        this.handleRequestClose();
-      }
-    }
-  }, {
-    key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
-      return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)(this.state, nextState) || !(0, _shallowEqual2.default)(this.context, nextContext);
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      this.applyFocusState();
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      if (this.state.open) {
-        this.setState({
-          open: false
-        });
-      }
-    }
-  }, {
-    key: 'applyFocusState',
-    value: function applyFocusState() {
-      this.refs.listItem.applyFocusState(this.props.focusState);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          checked = _props.checked,
-          children = _props.children,
-          desktop = _props.desktop,
-          disabled = _props.disabled,
-          focusState = _props.focusState,
-          innerDivStyle = _props.innerDivStyle,
-          insetChildren = _props.insetChildren,
-          leftIcon = _props.leftIcon,
-          menuItems = _props.menuItems,
-          rightIcon = _props.rightIcon,
-          secondaryText = _props.secondaryText,
-          style = _props.style,
-          animation = _props.animation,
-          anchorOrigin = _props.anchorOrigin,
-          value = _props.value,
-          other = (0, _objectWithoutProperties3.default)(_props, ['checked', 'children', 'desktop', 'disabled', 'focusState', 'innerDivStyle', 'insetChildren', 'leftIcon', 'menuItems', 'rightIcon', 'secondaryText', 'style', 'animation', 'anchorOrigin', 'value']);
-      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-      var styles = getStyles(this.props, this.context);
-      var mergedRootStyles = (0, _simpleAssign2.default)(styles.root, style);
-      var mergedInnerDivStyles = (0, _simpleAssign2.default)(styles.innerDivStyle, innerDivStyle);
-
-      // Left Icon
-      var leftIconElement = leftIcon ? leftIcon : checked ? _react2.default.createElement(_check2.default, null) : null;
-      if (leftIconElement) {
-        var mergedLeftIconStyles = desktop ? (0, _simpleAssign2.default)(styles.leftIconDesktop, leftIconElement.props.style) : leftIconElement.props.style;
-        leftIconElement = _react2.default.cloneElement(leftIconElement, { style: mergedLeftIconStyles });
-      }
-
-      // Right Icon
-      var rightIconElement = void 0;
-      if (rightIcon) {
-        var mergedRightIconStyles = desktop ? (0, _simpleAssign2.default)(styles.rightIconDesktop, rightIcon.props.style) : rightIcon.props.style;
-        rightIconElement = _react2.default.cloneElement(rightIcon, { style: mergedRightIconStyles });
-      }
-
-      // Secondary Text
-      var secondaryTextElement = void 0;
-      if (secondaryText) {
-        var secondaryTextIsAnElement = _react2.default.isValidElement(secondaryText);
-        var mergedSecondaryTextStyles = secondaryTextIsAnElement ? (0, _simpleAssign2.default)(styles.secondaryText, secondaryText.props.style) : null;
-
-        secondaryTextElement = secondaryTextIsAnElement ? _react2.default.cloneElement(secondaryText, { style: mergedSecondaryTextStyles }) : _react2.default.createElement(
-          'div',
-          { style: prepareStyles(styles.secondaryText) },
-          secondaryText
-        );
-      }
-      var childMenuPopover = void 0;
-      if (menuItems) {
-        childMenuPopover = _react2.default.createElement(
-          _Popover2.default,
-          {
-            animation: animation,
-            anchorOrigin: anchorOrigin,
-            anchorEl: this.state.anchorEl,
-            open: this.state.open,
-            useLayerForClickAway: false,
-            onRequestClose: this.handleRequestClose
-          },
-          _react2.default.createElement(
-            _Menu2.default,
-            { desktop: desktop, disabled: disabled, style: nestedMenuStyle },
-            _react2.default.Children.map(menuItems, this.cloneMenuItem)
-          )
-        );
-        other.onTouchTap = this.handleTouchTap;
-      }
-
-      return _react2.default.createElement(
-        _ListItem2.default,
-        (0, _extends3.default)({}, other, {
-          disabled: disabled,
-          hoverColor: this.context.muiTheme.menuItem.hoverColor,
-          innerDivStyle: mergedInnerDivStyles,
-          insetChildren: insetChildren,
-          leftIcon: leftIconElement,
-          ref: 'listItem',
-          rightIcon: rightIconElement,
-          role: 'menuitem',
-          style: mergedRootStyles
-        }),
-        children,
-        secondaryTextElement,
-        childMenuPopover
-      );
-    }
-  }]);
-  return MenuItem;
-}(_react.Component);
-
-MenuItem.muiName = 'MenuItem';
-MenuItem.defaultProps = {
-  anchorOrigin: { horizontal: 'right', vertical: 'top' },
-  checked: false,
-  desktop: false,
-  disabled: false,
-  focusState: 'none',
-  insetChildren: false
-};
-MenuItem.contextTypes = {
-  muiTheme: _propTypes2.default.object.isRequired
-};
-process.env.NODE_ENV !== "production" ? MenuItem.propTypes = {
-  /**
-   * Location of the anchor for the popover of nested `MenuItem`
-   * elements.
-   */
-  anchorOrigin: _propTypes4.default.origin,
-  /**
-   * Override the default animation component used.
-   */
-  animation: _propTypes2.default.func,
-  /**
-   * If true, a left check mark will be rendered.
-   */
-  checked: _propTypes2.default.bool,
-  /**
-   * Elements passed as children to the underlying `ListItem`.
-   */
-  children: _propTypes2.default.node,
-  /**
-   * @ignore
-   * If true, the menu item will render with compact desktop
-   * styles.
-   */
-  desktop: _propTypes2.default.bool,
-  /**
-   * If true, the menu item will be disabled.
-   */
-  disabled: _propTypes2.default.bool,
-  /**
-   * The focus state of the menu item. This prop is used to set the focus
-   * state of the underlying `ListItem`.
-   */
-  focusState: _propTypes2.default.oneOf(['none', 'focused', 'keyboard-focused']),
-  /**
-   * Override the inline-styles of the inner div.
-   */
-  innerDivStyle: _propTypes2.default.object,
-  /**
-   * If true, the children will be indented.
-   * This is only needed when there is no `leftIcon`.
-   */
-  insetChildren: _propTypes2.default.bool,
-  /**
-   * The `SvgIcon` or `FontIcon` to be displayed on the left side.
-   */
-  leftIcon: _propTypes2.default.element,
-  /**
-   * `MenuItem` elements to nest within the menu item.
-   */
-  menuItems: _propTypes2.default.node,
-  /**
-   * Callback function fired when the menu item is touch-tapped.
-   *
-   * @param {object} event TouchTap event targeting the menu item.
-   */
-  onTouchTap: _propTypes2.default.func,
-  /**
-   * Can be used to render primary text within the menu item.
-   */
-  primaryText: _propTypes2.default.node,
-  /**
-   * The `SvgIcon` or `FontIcon` to be displayed on the right side.
-   */
-  rightIcon: _propTypes2.default.element,
-  /**
-   * Can be used to render secondary text within the menu item.
-   */
-  secondaryText: _propTypes2.default.node,
-  /**
-   * Override the inline-styles of the root element.
-   */
-  style: _propTypes2.default.object,
-  /**
-   * The value of the menu item.
-   */
-  value: _propTypes2.default.any
-} : void 0;
-exports.default = MenuItem;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -17835,7 +17874,11 @@ var _DropDownMenu = __webpack_require__(324);
 
 var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 
+<<<<<<< HEAD
 var _MenuItem = __webpack_require__(331);
+=======
+var _MenuItem = __webpack_require__(334);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -24923,7 +24966,11 @@ var _arrowDropDown = __webpack_require__(358);
 
 var _arrowDropDown2 = _interopRequireDefault(_arrowDropDown);
 
+<<<<<<< HEAD
 var _Menu = __webpack_require__(156);
+=======
+var _Menu = __webpack_require__(158);
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -26870,6 +26917,26 @@ exports.default = NestedList;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = undefined;
+
+var _MenuItem = __webpack_require__(157);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _MenuItem2.default;
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.HotKeyHolder = undefined;
 
 var _classCallCheck2 = __webpack_require__(5);
@@ -26906,6 +26973,7 @@ var HotKeyHolder = exports.HotKeyHolder = function () {
 }();
 
 /***/ }),
+<<<<<<< HEAD
 /* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26927,6 +26995,9 @@ exports.default = _MenuItem2.default;
 
 /***/ }),
 /* 332 */
+=======
+/* 336 */
+>>>>>>> b1718cf6fb4a9a4fc148490354c8b9ba8ef5570c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

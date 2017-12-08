@@ -94,7 +94,6 @@
     "webpack": "^2.7.0"
   },
   "dependencies": {
-    "S": "0.0.1",
     "body-parser": "^1.18.2",
     "expect": "^21.2.1",
     "express": "^4.16.2",
