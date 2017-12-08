@@ -16,9 +16,6 @@ export class Team extends React.Component {
 	// this.props.dispatch(fetchReserve(thisReserve));
 	
 	// handleChange function
-	// setStarterClick function
-	// setBenchwarmerClick function
-	// setReserveClick function
 	
 	render() {
 		return(
@@ -26,7 +23,6 @@ export class Team extends React.Component {
 				<DropDownMenu value={0} onChange={this.handleChange}>
           {/* need to pull players from db based upon leagueId and then display as menu items */}
         </DropDownMenu>
-        {/* need three buttons to set a player as either starter, bencher, or reserve */}
 				<div>Starting 11:</div>
 				{/* set up a table to list players chosen for this section */}
 				<div>MatchDay Roster:</div>
