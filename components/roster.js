@@ -37,9 +37,3 @@ const Roster = connect(
 )(Team);
 
 export default Roster;
-
-// need a roster selector
-
-// starters -11
-// benchers -7
-// reserves -4

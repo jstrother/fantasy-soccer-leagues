@@ -6,7 +6,7 @@ const chai = require('chai'),
 	{ mongoose, dbTestConnection } = require('../common.js'),
   User = require('../../models/user_model.js'),
   { createData, readData, updateData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
-  { runServer, app } = require('../../server/server.js'),
+  { closeServer, runServer, app } = require('../../server/server.js'),
   testCurrentUser = {
   	accessToken: 1974,
 	  displayName: 'Clint Dempsey',
@@ -23,6 +23,10 @@ mongoose.Promise = Promise;
     
 before(() => {
 	runServer(8081, dbTestConnection);
+});
+
+after(() => {
+	closeServer();
 });
 
 describe('User Profile', () => {

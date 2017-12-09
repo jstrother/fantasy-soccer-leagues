@@ -10,24 +10,18 @@ const
 	FantasyMatch = require('../../models/fantasyMatch_model.js'),
 	FantasyDivision = require('../../models/fantasyDivision_model.js'),
 	Player = require('../../models/player_model.js'),
+	// import server functions
+	{ closeServer, runServer, app } = require('../../server/server.js'),
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../../server/programFunctions/crud_functions.js');
 
 before(done => {
-	mongoose.connect(dbTestConnection);
-	mongoose.connection.on('connected', () => {
-		console.log('connection made to dbTestConnection');
-		mongoose.connection.db.dropDatabase();
-	});
+	runServer(8081, dbTestConnection);
 	done();
 });
 
 after(done => {
-	mongoose.disconnect();
-	mongoose.connection.on('disconnected', () => {
-		console.log('disconnected from dbTestConnection');
-		mongoose.connection.db.dropDatabase();
-	});
+	closeServer();
 	done();
 });
 

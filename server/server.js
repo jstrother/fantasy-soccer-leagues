@@ -34,7 +34,7 @@ const runServer = (port = PORT, database = DATABASE) => {
 			if (error) {
 				return reject(error);
 			}
-			app.listen(port, () => {
+			server.listen(port, () => {
 				resolve();
 				console.log(`Listening on port: ${port}`);
 			});
@@ -47,11 +47,26 @@ const runServer = (port = PORT, database = DATABASE) => {
 	}
 )};
 
+const closeServer = () => {
+  return new Promise((resolve, reject) => {
+    console.log('Closing server');
+    server.close(err => {
+      if (err) {
+        reject(err);
+        // so we don't also call `resolve()`
+        return;
+      }
+      resolve();
+    });
+  });
+};
+
 if (require.main === module) {
 	runServer();
 }
 
 module.exports = {
 	app,
-	runServer
+	runServer,
+	closeServer
 };

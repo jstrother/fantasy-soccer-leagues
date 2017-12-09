@@ -6,7 +6,7 @@ const chai = require('chai'),
   { mongoose, dbTestConnection } = require('../common.js'),
   Player = require('../../models/player_model.js'),
   { createData, readData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
-  { runServer, app } = require('../../server/server.js'),
+  { closeServer, runServer, app } = require('../../server/server.js'),
   testPlayer = {
     idFromApi: 1,
     commonName: 'Deuce',
@@ -14,11 +14,11 @@ const chai = require('chai'),
     firstName: 'Clint',
     lastName: 'Dempsey',
     position: 'Forward',
-    picture: 'www.picture.url',
+    picture: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
     leagueId: 779,
     clubName: 'Seattle Sounders FC',
     clubId: 1974,
-    clubLogo: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
+    clubLogo: 'www.picture.url',
     stats: {
       shots: {
         shotsTotal: 12,
@@ -73,10 +73,14 @@ before(() => {
 
 after(() => {
   deleteData(testPlayer, Player);
+  closeServer();
 });
 
 describe('Player Info',() => {
   it('should return player info from database', () => {
-    return readData(testPlayer, Player).should.eventually.exist;
+    return readData({'idFromApi': testPlayer.idFromApi}, Player)
+      .then((data) => {
+        console.log('test data:', data);
+      });
   });
 });

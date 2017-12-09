@@ -19860,12 +19860,6 @@ var Roster = (0, _reactRedux.connect)(mapRosterStateToProps)(Team);
 
 exports.default = Roster;
 
-// need a roster selector
-
-// starters -11
-// benchers -7
-// reserves -4
-
 /***/ }),
 /* 237 */
 /***/ (function(module, exports, __webpack_require__) {
