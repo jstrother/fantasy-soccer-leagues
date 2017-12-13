@@ -71,8 +71,11 @@ before(() => {
   createData(testPlayer, Player);
 });
 
+afterEach(done => {
+	mongoose.connection.db.dropDatabase(done);
+});
+
 after(() => {
-  deleteData(testPlayer, Player);
   closeServer();
 });
 
@@ -81,6 +84,7 @@ describe('Player Info',() => {
     return readData({'idFromApi': testPlayer.idFromApi}, Player)
       .then((data) => {
         console.log('test data:', data);
+        // data.should.eventually.exist;
       });
   });
 });

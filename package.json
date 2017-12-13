@@ -56,7 +56,7 @@
   },
   "homepage": "https://github.com/jstrother/fantasy-soccer-leagues#readme",
   "devDependencies": {
-    "autoprefixer": "^7.2.1",
+    "autoprefixer": "^7.2.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
@@ -101,7 +101,7 @@
     "js-cookie": "^2.2.0",
     "material-ui": "^0.17.4",
     "mongodb": "^2.2.33",
-    "mongoose": "^4.13.6",
+    "mongoose": "^4.13.7",
     "mquery": "^2.3.3",
     "nock": "^9.1.4",
     "passport": "^0.3.2",

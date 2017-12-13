@@ -11,13 +11,17 @@ const
 	FantasyDivision = require('../../models/fantasyDivision_model.js'),
 	Player = require('../../models/player_model.js'),
 	// import server functions
-	{ closeServer, runServer, app } = require('../../server/server.js'),
+	{ closeServer, runServer } = require('../../server/server.js'),
 	// import crud functions
 	{ createData, readData, updateData, deleteData } = require('../../server/programFunctions/crud_functions.js');
 
 before(done => {
 	runServer(8081, dbTestConnection);
 	done();
+});
+
+afterEach(done => {
+	mongoose.connection.db.dropDatabase(done);
 });
 
 after(done => {
@@ -319,13 +323,13 @@ describe('Fantasy Match', () => {
 					awayScore: 0
 				};
 				return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
-				})
-				.catch((error) => {
-					console.log(`Fantasy Match should not exist inner then error: ${error}`);
-				});
+			})
+			.catch((error) => {
+				console.log(`Fantasy Match should create new inner then error: ${error}`);
+			});
 		})
-		.catch(error => {
-			console.log(`Fantasy Match should not exist outer then error: ${error}`);
+		.catch((error) => {
+			console.log(`Fantasy Match should create new outer then error: ${error}`);
 		});
 	}).timeout(5000);
 	it('should create new fantasy match', () => {
@@ -400,7 +404,7 @@ describe('Fantasy Match', () => {
 				});
 			})
 			.catch((error) => {
-				console.log(`Fantasy Match should update inner then error: ${error}`);
+				console.log(`Fantasy Match should delete inner then error: ${error}`);
 			});
 		})
 		.catch((error) => {
@@ -409,14 +413,14 @@ describe('Fantasy Match', () => {
 	}).timeout(5000);
 	it('should remove a fantasy match', () => {
 		const homeClub = {
-			name: 'Home',
+			name: 'Home4',
 			manager: 'Coach',
 			league: 'Test League',
 			division: 'Test Division 1'
 		};
 		
 		const awayClub = {
-			name: 'Away',
+			name: 'Away4',
 			manager: 'Boss',
 			league: 'Test League',
 			division: 'Test Division 1'

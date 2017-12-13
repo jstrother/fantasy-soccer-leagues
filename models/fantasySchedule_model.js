@@ -1,21 +1,21 @@
 const mongoose = require('mongoose'),
 
-			fantasyScheduleSchema = mongoose.Schema({
-				masterLeagueSeasonSchedule: {
-					
-				},
-				numLeagueSeasonMatches: Number,
-				masterLeagueCupSchedule: {
-					
-				},
-				leagueCupRound: String,
-				masterChampsSchedule: {
-					
-				},
-				champsLeagueRound: String
-			}),
+	fantasyScheduleSchema = mongoose.Schema({
+		masterLeagueSeasonSchedule: {
+			
+		},
+		numLeagueSeasonMatches: Number,
+		masterLeagueCupSchedule: {
+			
+		},
+		leagueCupRound: String,
+		masterChampsSchedule: {
+			
+		},
+		champsLeagueRound: String
+	}),
 
-			FantasySchedule = mongoose.model('FantasySchedule', fantasyScheduleSchema);
+	FantasySchedule = mongoose.model('FantasySchedule', fantasyScheduleSchema);
 
 module.exports = FantasySchedule;
 
