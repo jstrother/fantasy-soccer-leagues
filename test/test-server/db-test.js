@@ -513,6 +513,7 @@ describe('Fantasy Division', () => {
 describe('Player', () => {
 	it('should not exist', () => {
 		const samplePlayer = {
+			idFromAPI: 77,
 			firstName: 'Bob'
 		};
 		
@@ -520,17 +521,17 @@ describe('Player', () => {
 	}).timeout(5000);
 	it('should create new fantasy division', () => {
 		const samplePlayer = {
-			firstName: 'Bob'
+			idFromAPI: 77
 		};
 		
 		return createData(samplePlayer, Player).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a fantasy division', () => {
 		const samplePlayer = {
-			firstName: 'Bob'
+			idFromAPI: 77
 		};
 		
-		return updateData(samplePlayer, {firstName: 'Joe'}, Player)
+		return updateData(samplePlayer, {idFromAPI: 77}, Player)
 		.then(updatedItem => {
 			updatedItem.should.have.property('firstName', 'Joe');
 		})
@@ -540,7 +541,7 @@ describe('Player', () => {
 	}).timeout(5000);
 	it('should remove a fantasy division', () => {
 		const samplePlayer = {
-			firstName: 'Joe'
+			idFromAPI: 77
 		};
 		
 		return deleteData(samplePlayer, Player)

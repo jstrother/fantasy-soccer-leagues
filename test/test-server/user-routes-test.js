@@ -25,7 +25,8 @@ before(() => {
 	runServer(8081, dbTestConnection);
 });
 
-after(() => {
+after(done => {
+	mongoose.connection.db.dropDatabase(done);
 	closeServer();
 });
 

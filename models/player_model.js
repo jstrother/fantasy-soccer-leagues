@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
 
   playerSchema = mongoose.Schema({
-    idFromAPI: Number,
+    idFromAPI: {type: Number, required: true},
     commonName: String,
     fullName: String,
     firstName: String,

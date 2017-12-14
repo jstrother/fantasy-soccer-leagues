@@ -5,10 +5,10 @@ const chai = require('chai'),
   playerRoutes = require('../../server/player-routes.js'),
   { mongoose, dbTestConnection } = require('../common.js'),
   Player = require('../../models/player_model.js'),
-  { createData, readData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
+  { createData, readData } = require('../../server/programFunctions/crud_functions.js'),
   { closeServer, runServer, app } = require('../../server/server.js'),
   testPlayer = {
-    idFromApi: 1,
+    idFromAPI: 1,
     commonName: 'Deuce',
     fullName: 'Clint Dempsey',
     firstName: 'Clint',
@@ -68,11 +68,6 @@ mongoose.Promise = Promise;
 
 before(() => {
   runServer(8081, dbTestConnection);
-  createData(testPlayer, Player);
-});
-
-afterEach(done => {
-	mongoose.connection.db.dropDatabase(done);
 });
 
 after(() => {
@@ -81,10 +76,15 @@ after(() => {
 
 describe('Player Info',() => {
   it('should return player info from database', () => {
-    return readData({'idFromApi': testPlayer.idFromApi}, Player)
-      .then((data) => {
-        console.log('test data:', data);
-        // data.should.eventually.exist;
-      });
+    createData(testPlayer, Player);
+    
+    return chai.request(app)
+    .get(`/player/${testPlayer.idFromApi}`)
+    .then(res => {
+      console.log('res.body:', res.body);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
   });
 });

@@ -4,7 +4,7 @@ const fetch = require('isomorphic-fetch'),
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 export const setStarterSuccess = (player, statusCode) => {
   type: SET_STARTER_SUCCESS,
-  starter,
+  player,
   statusCode
 };
 
@@ -17,7 +17,7 @@ export const setStarterFail = statusCode => {
 export const SET_BENCHWARMER_SUCCESS = 'SET_BENCHWARMER_SUCCESS';
 export const setBenchwarmerSuccess = (player, statusCode) => {
   type: SET_BENCHWARMER_SUCCESS,
-  benchwarmer,
+  player,
   statusCode
 };
 
@@ -30,7 +30,7 @@ export const setBenchwarmerFail = statusCode => {
 export const SET_RESERVE_SUCCESS = 'SET_RESERVE_SUCCESS';
 export const setReserveSuccess = (player, statusCode) => {
   type: SET_RESERVE_SUCCESS,
-  reserve,
+  player,
   statusCode
 };
 
@@ -41,7 +41,7 @@ export const setReserveFail = statusCode => {
 };
 
 export const fetchStarter = player => dispatch => {
-  return fetch(`${url}/player/${player}`)
+  return fetch(`${url}/player/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -64,7 +64,7 @@ export const fetchStarter = player => dispatch => {
 };
 
 export const fetchBenchwarmer = player => dispatch => {
-  return fetch(`${url}/player/${player}`)
+  return fetch(`${url}/player/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -87,7 +87,7 @@ export const fetchBenchwarmer = player => dispatch => {
 };
 
 export const fetchReserve = player => dispatch => {
-  return fetch(`${url}/player/${player}`)
+  return fetch(`${url}/player/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
