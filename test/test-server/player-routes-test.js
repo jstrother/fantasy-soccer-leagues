@@ -86,5 +86,5 @@ describe('Player Info',() => {
     .catch(error => {
       throw new Error(error);
     });
-  });
+  }).timeout(5000);
 });

@@ -87,7 +87,7 @@ userRouter.get('/',
 );
 
 // adds user's selected league
-userRouter.put(`/addLeague`,
+userRouter.put('/addLeague',
 	passport.authenticate('bearer', {session: false}),
 	(req, res) => updateData(req.params.googleId, 
 		{
