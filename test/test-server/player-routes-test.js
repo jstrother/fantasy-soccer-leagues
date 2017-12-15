@@ -74,17 +74,18 @@ after(() => {
   closeServer();
 });
 
-describe('Player Info',() => {
+describe('Player Info', () => {
   it('should return player info from database', () => {
     createData(testPlayer, Player);
     
     return chai.request(app)
     .get(`/player/${testPlayer.idFromApi}`)
     .then(res => {
-      console.log('res.body:', res.body);
+      console.log('res:', res);
+      expect(true).to.equal(false);
     })
     .catch(error => {
       throw new Error(error);
     });
-  }).timeout(5000);
+  });
 });

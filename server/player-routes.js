@@ -5,7 +5,7 @@ const express = require('express'),
 	
 playerRouter.get('/:playerId', 
   (req, res) => {
-    readData({playerId: req.params.playerId}, Player)
+    readData({idFromAPI: req.params.playerId}, Player)
     .then(data => {
       console.log('data:', data);
       // res.json({

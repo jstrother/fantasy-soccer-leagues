@@ -19906,7 +19906,7 @@ var fetch = __webpack_require__(157),
 
 var SET_STARTER_SUCCESS = exports.SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 var setStarterSuccess = exports.setStarterSuccess = function setStarterSuccess(player, statusCode) {
-  type: SET_STARTER_SUCCESS, starter, statusCode;
+  type: SET_STARTER_SUCCESS, player, statusCode;
 };
 
 var SET_STARTER_FAIL = exports.SET_STARTER_FAIL = 'SET_STARTER_FAIL';
@@ -19916,7 +19916,7 @@ var setStarterFail = exports.setStarterFail = function setStarterFail(statusCode
 
 var SET_BENCHWARMER_SUCCESS = exports.SET_BENCHWARMER_SUCCESS = 'SET_BENCHWARMER_SUCCESS';
 var setBenchwarmerSuccess = exports.setBenchwarmerSuccess = function setBenchwarmerSuccess(player, statusCode) {
-  type: SET_BENCHWARMER_SUCCESS, benchwarmer, statusCode;
+  type: SET_BENCHWARMER_SUCCESS, player, statusCode;
 };
 
 var SET_BENCHWARMER_FAIL = exports.SET_BENCHWARMER_FAIL = 'SET_BENCHWARMER_FAIL';
@@ -19926,7 +19926,7 @@ var setBenchwarmerFail = exports.setBenchwarmerFail = function setBenchwarmerFai
 
 var SET_RESERVE_SUCCESS = exports.SET_RESERVE_SUCCESS = 'SET_RESERVE_SUCCESS';
 var setReserveSuccess = exports.setReserveSuccess = function setReserveSuccess(player, statusCode) {
-  type: SET_RESERVE_SUCCESS, reserve, statusCode;
+  type: SET_RESERVE_SUCCESS, player, statusCode;
 };
 
 var SET_RESERVE_FAIL = exports.SET_RESERVE_FAIL = 'SET_RESERVE_FAIL';
@@ -19936,7 +19936,7 @@ var setReserveFail = exports.setReserveFail = function setReserveFail(statusCode
 
 var fetchStarter = exports.fetchStarter = function fetchStarter(player) {
   return function (dispatch) {
-    return fetch(url + '/player/' + player).then(function (res) {
+    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setStarterFail(res.status));
@@ -19958,7 +19958,7 @@ var fetchStarter = exports.fetchStarter = function fetchStarter(player) {
 
 var fetchBenchwarmer = exports.fetchBenchwarmer = function fetchBenchwarmer(player) {
   return function (dispatch) {
-    return fetch(url + '/player/' + player).then(function (res) {
+    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setBenchwarmerFail(res.status));
@@ -19980,7 +19980,7 @@ var fetchBenchwarmer = exports.fetchBenchwarmer = function fetchBenchwarmer(play
 
 var fetchReserve = exports.fetchReserve = function fetchReserve(player) {
   return function (dispatch) {
-    return fetch(url + '/player/' + player).then(function (res) {
+    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setReserveFail(res.status));
