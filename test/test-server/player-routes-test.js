@@ -1,5 +1,6 @@
 const chai = require('chai'),
   chaiHTTP = require('chai-http'),
+  chaiAsPromised = require("chai-as-promised"),
   should = chai.should(),
   expect = chai.expect,
   playerRoutes = require('../../server/player-routes.js'),
@@ -64,6 +65,7 @@ const chai = require('chai'),
   };
 
 chai.use(chaiHTTP);
+// chai.use(chaiAsPromised);
 mongoose.Promise = Promise;
 
 before(() => {
@@ -74,17 +76,22 @@ after(() => {
   closeServer();
 });
 
-describe('Player Info', () => {
-  it('should return player info from database', () => {
-    createData(testPlayer, Player);
-    
-    return chai.request(app)
-    .get(`/player/${testPlayer.idFromApi}`)
-    .then(res => {
-      console.log('res:', res);
-      expect(true).to.equal(false);
+describe('Player Info', function() {
+  it('should return player info from database', function() {
+    return createData(testPlayer, Player)
+    .then(function(player) {
+      console.log('player.idFromAPI:', player.idFromAPI);
+      chai.request(app)
+      .get(`/player/${player.idFromAPI}`)
+      .then(function(res) {
+        console.log('res:', res);
+        // expect(res).to.have.property('idFromAPI');
+      })
+      .catch(function(error) {
+        throw new Error(error);
+      });
     })
-    .catch(error => {
+    .catch(function(error) {
       throw new Error(error);
     });
   });

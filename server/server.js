@@ -11,8 +11,8 @@ const config = require('./config.js'),
 	passport = require('passport'),
 	app = express(),
 	server = require('http').Server(app),
-	userRoutes = require('./user-routes.js').userRouter,
-	playerRoutes = require('./player-routes.js').playerRouter,
+	userRouter = require('./user-routes.js').userRouter,
+	playerRouter = require('./player-routes.js').playerRouter,
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
@@ -21,8 +21,8 @@ const config = require('./config.js'),
 app.use(jsonParser);
 app.use(express.static('public'));
 app.use(passport.initialize());
-app.use('/user', userRoutes);
-app.use('/player', playerRoutes);
+app.use('/user', userRouter);
+app.use('/player', playerRouter);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
