@@ -103,7 +103,7 @@ describe('Teammate Component', () => {
     expect(passingAccuracyEl.first().text()).toEqual('Passing Accuracy: 85');
   });
   
-  it('displays penalties stas from penalties props', () => {
+  it('displays penalties stats from penalties props', () => {
     const wrapper = mount(<Teammate penaltiesScored={0} penaltiesMissed={1} penaltiesSaved={0} />),
       penaltiesScoredEl = wrapper.find('.penalties-scored'),
       penaltiesMissedEl = wrapper.find('.penalties-missed'),

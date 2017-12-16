@@ -2,21 +2,11 @@ const chai = require('chai'),
 	chaiHTTP = require('chai-http'),
 	should = chai.should(),
 	expect = chai.expect,
-	userRoutes = require('../../server/user-routes.js'),
-	{ mongoose, dbTestConnection } = require('../common.js'),
+	userRouter = require('../../server/user-routes.js').userRouter,
+	{ mongoose, dbTestConnection, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
   User = require('../../models/user_model.js'),
-  { createData, readData, updateData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
-  { closeServer, runServer, app } = require('../../server/server.js'),
-  testCurrentUser = {
-  	accessToken: 1974,
-	  displayName: 'Clint Dempsey',
-	  givenName: 'Clint',
-	  familyName: 'Dempsey',
-	  userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-	  googleId: 2
-  },
-  fantasyLeagueId = 779,
-  fantasyLeagueName = 'Major League Soccer (USA)';
+  { createData, readData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
+  { closeServer, runServer, app } = require('../../server/server.js');
 
 chai.use(chaiHTTP);
 mongoose.Promise = Promise;

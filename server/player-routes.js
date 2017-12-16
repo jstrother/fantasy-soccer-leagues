@@ -8,7 +8,7 @@ playerRouter.get('/:playerId',
     readData({idFromAPI: req.params.playerId}, Player)
     .then(data => {
       // console.log('data:', data);
-      // res.json(data);
+      res.json(data);
     })
     .catch(error => {
       throw new Error(error);

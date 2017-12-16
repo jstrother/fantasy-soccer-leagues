@@ -7,16 +7,7 @@ import { setLeagueSuccess, addLeague } from '../../flow/subActions/userActions.j
 
 const middlewares = [thunk],
   mockStore = configureMockStore(middlewares),
-  testCurrentUser = {
-  	accessToken: 1974,
-	  displayName: 'Clint Dempsey',
-	  givenName: 'Clint',
-	  familyName: 'Dempsey',
-	  userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-	  googleId: 2
-  },
-  fantasyLeagueId = 779,
-  fantasyLeagueName = 'Major League Soccer (USA)';
+  { testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js');
   
 describe('League Setting Actions', () => {
   describe('set league sync action', () => {

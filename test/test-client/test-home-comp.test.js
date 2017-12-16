@@ -11,16 +11,7 @@ configure({ adapter: new Adapter() });
 
 const middlewares = [],
   mockStore = configureMockStore(middlewares),
-  testCurrentUser = {
-    accessToken: 1974,
-    displayName: 'Clint Dempsey',
-    givenName: 'Clint',
-    familyName: 'Dempsey',
-    userPhoto: 'http://ww2.hdnux.com/photos/61/57/52/13040273/3/rawImage.jpg',
-    googleId: 2
-  },
-  fantasyLeagueId = 779,
-  fantasyLeagueName = 'Major League Soccer (USA)';
+  { testCurrentUser, fantasyLeagueId } = require('../common.js');
 
 function setup() {
   const props = {
