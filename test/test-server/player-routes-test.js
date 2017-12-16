@@ -1,6 +1,5 @@
 const chai = require('chai'),
   chaiHTTP = require('chai-http'),
-  chaiAsPromised = require("chai-as-promised"),
   should = chai.should(),
   expect = chai.expect,
   playerRoutes = require('../../server/player-routes.js'),
@@ -65,7 +64,6 @@ const chai = require('chai'),
   };
 
 chai.use(chaiHTTP);
-// chai.use(chaiAsPromised);
 mongoose.Promise = Promise;
 
 before(() => {
