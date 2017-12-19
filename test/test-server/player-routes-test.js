@@ -3,7 +3,7 @@ const chai = require('chai'),
   should = chai.should(),
   expect = chai.expect,
   playerRouter = require('../../server/player-routes.js').playerRouter,
-  { mongoose, dbTestConnection, testPlayer } = require('../common.js'),
+  { mongoose, dbTestConnection, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
   Player = require('../../models/player_model.js'),
   { createData } = require('../../server/programFunctions/crud_functions.js'),
   { closeServer, runServer, app } = require('../../server/server.js');
@@ -19,18 +19,16 @@ after(() => {
   return closeServer();
 });
 
-describe('Player Info', function () {
-  it('should return player info from database', function () {
+describe('Player Info', () => {
+   it('should return player info from database', () => {
     return createData(testPlayer, Player)
-    .then(function (player) {
+    .then(player => {
       
       return chai.request(app)
       .get(`/player/${player.idFromAPI}`)
-      .then(function (res) {
+      .then(res => {
         const body = res.body,
           stats = body.stats;
-        
-        console.log('res.body:', body);
         
         expect(body).to.have.property('idFromAPI');
         expect(body).to.have.property('commonName');
@@ -78,8 +76,26 @@ describe('Player Info', function () {
         expect(stats.shots).to.have.property('shotsOnGoal');
       });
     })
-    .catch(function (error) {
+    .catch(error => {
       throw new Error(error);
+    });
+  });
+  
+  it.only('should return a list of players based upon leagueId', () => {
+    return createData(testPlayer, Player)
+    .then(player1 => {
+      return createData(testPlayer2, Player)
+      .then(player2 => {
+        return createData(testPlayer3, Player)
+        .then(player3 => {
+          return chai.request(app)
+          .get(`/player/${fantasyLeagueId}`)
+          .then(res => {
+            console.log('res:', res);
+            expect(true).to.equal(false);
+          });
+        });
+      });
     });
   });
 });
