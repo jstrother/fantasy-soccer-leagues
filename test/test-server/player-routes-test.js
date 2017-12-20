@@ -30,6 +30,7 @@ describe('Player Info', () => {
         const body = res.body,
           stats = body.stats;
         
+        expect(body).to.exist;
         expect(body).to.have.property('idFromAPI');
         expect(body).to.have.property('commonName');
         expect(body).to.have.property('fullName');
@@ -92,7 +93,7 @@ describe('Player Info', () => {
           .get(`/player/${fantasyLeagueId}`)
           .then(res => {
             console.log('res:', res);
-            expect(true).to.equal(false);
+            expect(res.body).to.exist;
           });
         });
       });
