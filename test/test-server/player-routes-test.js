@@ -3,7 +3,7 @@ const chai = require('chai'),
   should = chai.should(),
   expect = chai.expect,
   playerRouter = require('../../server/player-routes.js').playerRouter,
-  { mongoose, dbTestConnection, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
+  { mongoose, dbTestConnection, testPlayer } = require('../common.js'),
   Player = require('../../models/player_model.js'),
   { createData } = require('../../server/programFunctions/crud_functions.js'),
   { closeServer, runServer, app } = require('../../server/server.js');
@@ -15,8 +15,9 @@ before(() => {
   runServer(8081, dbTestConnection);
 });
 
-after(() => {
-  return closeServer();
+after(done => {
+	mongoose.connection.db.dropDatabase(done);
+	closeServer();
 });
 
 describe('Player Info', () => {
@@ -79,24 +80,6 @@ describe('Player Info', () => {
     })
     .catch(error => {
       throw new Error(error);
-    });
-  });
-  
-  it.only('should return a list of players based upon leagueId', () => {
-    return createData(testPlayer, Player)
-    .then(player1 => {
-      return createData(testPlayer2, Player)
-      .then(player2 => {
-        return createData(testPlayer3, Player)
-        .then(player3 => {
-          return chai.request(app)
-          .get(`/player/${fantasyLeagueId}`)
-          .then(res => {
-            console.log('res:', res);
-            expect(res.body).to.exist;
-          });
-        });
-      });
     });
   });
 });

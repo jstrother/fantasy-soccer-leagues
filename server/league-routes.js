@@ -1,13 +1,14 @@
 const express = require('express'),
-	playerRouter = express.Router(),
+	leagueRouter = express.Router(),
 	readData = require('./programFunctions/crud_functions.js').readData,
 	Player = require('../models/player_model.js');
-
-// this route is to retrieve player stats from the database
-playerRouter.get('/:idFromAPI', 
+	
+// this route is to retrieve a list of players from database based upon league id
+leagueRouter.get('/:leagueId',
   (req, res) => {
-    readData({idFromAPI: req.params.idFromAPI}, Player)
+    readData({leagueId: req.params.leagueId}, Player)
     .then(data => {
+      // console.log('data:', data);
       res.json(data);
     })
     .catch(error => {
@@ -16,4 +17,4 @@ playerRouter.get('/:idFromAPI',
   }
 );
 
-exports.playerRouter = playerRouter;
+exports.leagueRouter = leagueRouter;

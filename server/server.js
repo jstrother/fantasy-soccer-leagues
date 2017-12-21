@@ -13,6 +13,7 @@ const config = require('./config.js'),
 	server = require('http').Server(app),
 	userRouter = require('./user-routes.js').userRouter,
 	playerRouter = require('./player-routes.js').playerRouter,
+	leagueRouter = require('./league-routes.js').leagueRouter,
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
@@ -23,6 +24,7 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 app.use('/user', userRouter);
 app.use('/player', playerRouter);
+app.use('/league', leagueRouter);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
