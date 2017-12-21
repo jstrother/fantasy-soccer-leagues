@@ -5,7 +5,6 @@ const chai = require('chai'),
   playerRouter = require('../../server/player-routes.js').playerRouter,
   { mongoose, dbTestConnection, testPlayer } = require('../common.js'),
   Player = require('../../models/player_model.js'),
-  { createData } = require('../../server/programFunctions/crud_functions.js'),
   { closeServer, runServer, app } = require('../../server/server.js');
 
 chai.use(chaiHTTP);
@@ -22,7 +21,7 @@ after(done => {
 
 describe('Player Info', () => {
    it('should return player info from database', () => {
-    return createData(testPlayer, Player)
+    return Player.create(testPlayer)
     .then(player => {
       
       return chai.request(app)

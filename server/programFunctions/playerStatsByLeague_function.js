@@ -4,8 +4,7 @@ const rp = require('request-promise'),
   toInclude = '&include=',
   loopFunction = require('./loopFunction_function.js'),
   playerStats = require('./playerStats_function.js'),
-  Player = require('../../models/player_model.js'),
-  updateData = require('./crud_functions.js').updateData;
+  Player = require('../../models/player_model.js');
 
 // this function returns all players and their stats for a league's current regular season
 // game, match, and fixture are same thing
@@ -63,7 +62,7 @@ function playerStatsByLeague(leagueId) {
                 let playerInfoData = playerStats(type, fixture, ownGoalList);
                 playerInfoData.ownGoalCalc();
                 playerInfoData.fantasyPointsCalc();
-                updateData({idFromAPI: playerInfoData.idFromAPI}, playerInfoData, Player);
+                Player.findOneAndUpdate({idFromAPI: playerInfoData.idFromAPI}, playerInfoData, {new: true, upsert: true});
                 playerIdList.push(playerInfoData.idFromAPI);
               }
             }); // close of round.fixtures.data.forEach
@@ -101,7 +100,7 @@ function playerStatsByLeague(leagueId) {
           clubId: results2.data.team.data.id,
           clubLogo: results2.data.team.data.logo_path
         };
-        updateData({idFromAPI: playerInfo2.idFromAPI}, playerInfo2, Player);
+        Player.findOneAndUpdate({idFromAPI: playerInfo2.idFromAPI}, playerInfo2, {new: true, upsert: true});
       })
       .catch(error => {
         console.log(`playerIdList search error: ${error}`);

@@ -5,7 +5,6 @@ const chai = require('chai'),
 	userRouter = require('../../server/user-routes.js').userRouter,
 	{ mongoose, dbTestConnection, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
   User = require('../../models/user_model.js'),
-  { createData, readData, deleteData } = require('../../server/programFunctions/crud_functions.js'),
   { closeServer, runServer, app } = require('../../server/server.js');
 
 chai.use(chaiHTTP);
@@ -24,13 +23,13 @@ describe('User Profile', () => {
 	it('should not exist', () => {
 		const nonExistantCurrentUser = testCurrentUser;
 		
-		return readData(nonExistantCurrentUser, User).should.eventually.not.exist;
+		return User.findOne(nonExistantCurrentUser).should.eventually.not.exist;
 	});
 	
 	it('should create a user profile', () => {
 		const createCurrentUser = testCurrentUser;
 		
-		return createData(createCurrentUser, User).should.eventually.exist;
+		return User.create(createCurrentUser).should.eventually.exist;
 	});
 	
 	it('should update a user profile', () => {
@@ -47,7 +46,7 @@ describe('User Profile', () => {
 			res.body.should.not.be.empty;
 			res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
 			res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
-			return readData(updateCurrentUser, User)
+			return User.findOne(updateCurrentUser)
 			.then(user => {
 				user.should.have.property('fantasyLeagueId', fantasyLeagueId);
 				user.should.have.property('fantasyLeagueName', fantasyLeagueName);
@@ -67,9 +66,9 @@ describe('User Profile', () => {
 			accessToken: testCurrentUser.accessToken
 		};
 		
-		return deleteData(deleteCurrentUser, User)
+		return User.findOneAndRemove(deleteCurrentUser)
 		.then(deletedItem => {
-			readData(deleteCurrentUser, User)
+			User.findOne(deleteCurrentUser)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			});

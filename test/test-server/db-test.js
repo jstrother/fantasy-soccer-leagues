@@ -11,9 +11,7 @@ const
 	FantasyDivision = require('../../models/fantasyDivision_model.js'),
 	Player = require('../../models/player_model.js'),
 	// import server functions
-	{ closeServer, runServer } = require('../../server/server.js'),
-	// import crud functions
-	{ createData, readData, updateData, deleteData } = require('../../server/programFunctions/crud_functions.js');
+	{ closeServer, runServer } = require('../../server/server.js');
 
 before(done => {
 	runServer(8081, dbTestConnection);
@@ -35,21 +33,21 @@ describe('Champions League', () => {
 			fantasyChampsLeagueName: 'Champions 1'
 		};
 		
-		return readData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.not.exist;
+		return FantasyChampsLeague.findOne(sampleFantasyChampsLeague).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create a new champions league', () => {
 		const sampleFantasyChampsLeague = {
 			name: 'Champions 1'
 		};
 		
-		return createData(sampleFantasyChampsLeague, FantasyChampsLeague).should.eventually.exist;
+		return FantasyChampsLeague.create(sampleFantasyChampsLeague).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a champions league', () => {
 		const sampleFantasyChampsLeague = {
 			name: 'Champions 1'
 		};
 		
-		return updateData(sampleFantasyChampsLeague, {name: 'Champions 2'}, FantasyChampsLeague)
+		return FantasyChampsLeague.findOneAndUpdate(sampleFantasyChampsLeague, {name: 'Champions 2'}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('name', 'Champions 2');
 		})
@@ -62,9 +60,9 @@ describe('Champions League', () => {
 			name: 'Champions 2'
 		};
 		
-		return deleteData(sampleFantasyChampsLeague, FantasyChampsLeague)
+		return FantasyChampsLeague.findOneAndRemove(sampleFantasyChampsLeague)
 		.then(deletedItem => {
-			readData(sampleFantasyChampsLeague, FantasyChampsLeague)
+			FantasyChampsLeague.findOne(sampleFantasyChampsLeague)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
@@ -84,23 +82,23 @@ describe('Fantasy Schedule', () => {
 			numLeagueSeasonMatches: 100
 		};
 		
-		return readData(sampleFantasySchedule, FantasySchedule).should.eventually.not.exist;
+		return FantasySchedule.findOne(sampleFantasySchedule).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create a new fantasy schedule', () => {
 		const sampleFantasySchedule = {
 			numLeagueSeasonMatches: 100
 		};
 		
-		return createData(sampleFantasySchedule, FantasySchedule).should.eventually.exist;
+		return FantasySchedule.create(sampleFantasySchedule).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a fantasy schedule', () => {
 		const sampleFantasySchedule = {
 			numLeagueSeasonMatches: 100
 		};
 		
-		return updateData(sampleFantasySchedule, {
+		return FantasySchedule.findOneAndUpdate(sampleFantasySchedule, {
 			numLeagueSeasonMatches: 101
-		}, FantasySchedule)
+		}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.masterRegSeasonSchedule.should.have.property('numLeagueSeasonMatches', 101);
 		})
@@ -113,9 +111,9 @@ describe('Fantasy Schedule', () => {
 			numLeagueSeasonMatches: 101
 		};
 		
-		return deleteData(sampleFantasySchedule, FantasySchedule)
+		return FantasySchedule.findOneAndRemove(sampleFantasySchedule)
 		.then(deletedItem => {
-			readData(sampleFantasySchedule, FantasySchedule)
+			FantasySchedule.findOne(sampleFantasySchedule)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
@@ -137,7 +135,7 @@ describe('User', () => {
 			googleId: '1974'
 		};
 		
-		return readData(sampleUser, User).should.eventually.not.exist;
+		return User.findOne(sampleUser).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create a new user', () => {
 		const sampleUser = {
@@ -146,7 +144,7 @@ describe('User', () => {
 			googleId: '1974'
 		};
 		
-		return createData(sampleUser, User).should.eventually.exist;
+		return User.create(sampleUser).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a user', () => {
 		const sampleUser = {
@@ -155,7 +153,7 @@ describe('User', () => {
 			googleId: '1974'
 		};
 		
-		return updateData(sampleUser, {displayName: 'user2'}, User)
+		return User.findOneAndUpdate(sampleUser, {displayName: 'user2'}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('displayName', 'user2');
 		})
@@ -170,9 +168,9 @@ describe('User', () => {
 			googleId: '1974'
 		};
 		
-		return deleteData(sampleUser2, User)
+		return User.findOneAndRemove(sampleUser2)
 		.then(deletedItem => {
-			readData(sampleUser2, User)
+			User.findOne(sampleUser2)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
@@ -192,21 +190,21 @@ describe('Fantasy League', () => {
 			Name: 'Super Fantasy League'
 		};
 		
-		return readData(sampleFantasyLeague, FantasyLeague).should.eventually.not.exist;
+		return FantasyLeague.findOne(sampleFantasyLeague).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create a new fantasy league', () => {
 		const sampleFantasyLeague = {
 			Name: 'Super Fantasy League'
 		};
 		
-		return createData(sampleFantasyLeague, FantasyLeague).should.eventually.exist;
+		return FantasyLeague.create(sampleFantasyLeague).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a user', () => {
 		const sampleFantasyLeague = {
 			Name: 'Super Fantasy League'
 		};
 		
-		return updateData(sampleFantasyLeague, {Name: 'Another Fantasy League'}, FantasyLeague)
+		return FantasyLeague.findOneAndUpdate(sampleFantasyLeague, {Name: 'Another Fantasy League'}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('Name', 'Another Fantasy League');
 		})
@@ -219,9 +217,9 @@ describe('Fantasy League', () => {
 			Name: 'Another Fantasy League'
 		};
 		
-		return deleteData(sampleFantasyLeague2, FantasyLeague)
+		return FantasyLeague.findOneAndRemove(sampleFantasyLeague2)
 		.then(deletedItem => {
-			readData(sampleFantasyLeague2, FantasyLeague)
+			FantasyLeague.findOne(sampleFantasyLeague2)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
@@ -244,7 +242,7 @@ describe('Fantasy Club', () => {
 			division: 'Test Division 1'
 		};
 		
-		return readData(sampleFantasyClub, FantasyClub).should.eventually.not.exist;
+		return FantasyClub.findOne(sampleFantasyClub).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create new fantasy club', () => {
 		const sampleFantasyClub = {
@@ -254,7 +252,7 @@ describe('Fantasy Club', () => {
 			division: 'Test Division 1'
 		};
 		
-		return createData(sampleFantasyClub, FantasyClub).should.eventually.exist;
+		return FantasyClub.create(sampleFantasyClub).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a fantasy club', () => {
 		const sampleFantasyClub = {
@@ -264,7 +262,7 @@ describe('Fantasy Club', () => {
 			division: 'Test Division 1'
 		};
 		
-		return updateData(sampleFantasyClub, {division: 'Test Division 2'}, FantasyClub)
+		return FantasyClub.findOneAndUpdate(sampleFantasyClub, {division: 'Test Division 2'}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('division', 'Test Division 2');
 		})
@@ -280,9 +278,9 @@ describe('Fantasy Club', () => {
 			division: 'Test Division 2'
 		};
 		
-		return deleteData(sampleFantasyClub, FantasyClub)
+		return FantasyClub.findOneAndRemove(sampleFantasyClub)
 		.then(deletedItem => {
-			readData(sampleFantasyClub, FantasyClub)
+			FantasyClub.findOne(sampleFantasyClub)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
@@ -311,9 +309,9 @@ describe('Fantasy Match', () => {
 			league: 'Test League',
 			division: 'Test Division 1'
 		};
-		return createData(homeClub, FantasyClub)
+		return FantasyClub.create(homeClub)
 		.then((homeClub) => {
-			return createData(awayClub, FantasyClub)
+			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchType: 'Regular Season',
@@ -322,7 +320,7 @@ describe('Fantasy Match', () => {
 					awayClub,
 					awayScore: 0
 				};
-				return readData(sampleFantasyMatch, FantasyMatch).should.eventually.not.exist;
+				return FantasyMatch.findOne(sampleFantasyMatch).should.eventually.not.exist;
 			})
 			.catch((error) => {
 				console.log(`Fantasy Match should create new inner then error: ${error}`);
@@ -347,9 +345,9 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		return createData(homeClub, FantasyClub)
+		return FantasyClub.create(homeClub)
 		.then((homeClub) => {
-			return createData(awayClub, FantasyClub)
+			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchType: 'Regular Season',
@@ -358,7 +356,7 @@ describe('Fantasy Match', () => {
 					awayClub,
 					awayScore: 0
 				};
-				return createData(sampleFantasyMatch, FantasyMatch).should.eventually.exist;
+				return FantasyMatch.create(sampleFantasyMatch).should.eventually.exist;
 			})
 			.catch((error) => {
 				console.log(`Fantasy Match should create new inner then error: ${error}`);
@@ -383,9 +381,9 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		return createData(homeClub, FantasyClub)
+		return FantasyClub.create(homeClub)
 		.then((homeClub) => {
-			return createData(awayClub, FantasyClub)
+			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchType: 'Regular Season',
@@ -394,7 +392,7 @@ describe('Fantasy Match', () => {
 					awayClub,
 					awayScore: 0
 				};
-				return updateData(sampleFantasyMatch, {homeScore: 2, awayScore: 1}, FantasyMatch)
+				return FantasyMatch.findOneAndUpdate(sampleFantasyMatch, {homeScore: 2, awayScore: 1}, {new: true, upsert: true})
 				.then(updatedItem => {
 					updatedItem.should.have.property('homeScore', 2);
 					updatedItem.should.have.property('awayScore', 1);
@@ -426,9 +424,9 @@ describe('Fantasy Match', () => {
 			division: 'Test Division 1'
 		};
 		
-		return createData(homeClub, FantasyClub)
+		return FantasyClub.create(homeClub)
 		.then((homeClub) => {
-			return createData(awayClub, FantasyClub)
+			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchType: 'Regular Season',
@@ -437,9 +435,9 @@ describe('Fantasy Match', () => {
 					awayClub,
 					awayScore: 0
 				};
-				return deleteData(sampleFantasyMatch, FantasyMatch)
+				return FantasyMatch.findOneAndRemove(sampleFantasyMatch)
 				.then(deletedItem => {
-					readData(sampleFantasyMatch, FantasyMatch)
+					FantasyMatch.findOne(sampleFantasyMatch)
 					.then(deletedItem => {
 						deletedItem.should.not.exist;
 					})
@@ -467,21 +465,21 @@ describe('Fantasy Division', () => {
 			name: 'Team Division 1'
 		};
 		
-		return readData(sampleFantasyDivision, FantasyDivision).should.eventually.not.exist;
+		return FantasyDivision.findOne(sampleFantasyDivision).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create new fantasy division', () => {
 		const sampleFantasyDivision = {
 			name: 'Team Division 1'
 		};
 		
-		return createData(sampleFantasyDivision, FantasyDivision).should.eventually.exist;
+		return FantasyDivision.create(sampleFantasyDivision).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a fantasy division', () => {
 		const sampleFantasyDivision = {
 			name: 'Team Division 1'
 		};
 		
-		return updateData(sampleFantasyDivision, {name: 'Test Division 2'}, FantasyDivision)
+		return FantasyDivision.findOneAndUpdate(sampleFantasyDivision, {name: 'Test Division 2'}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('name', 'Test Division 2');
 		})
@@ -494,9 +492,9 @@ describe('Fantasy Division', () => {
 			name: 'Team Division 2'
 		};
 		
-		return deleteData(sampleFantasyDivision, FantasyDivision)
+		return FantasyDivision.findOneAndRemove(sampleFantasyDivision)
 		.then(deletedItem => {
-			readData(sampleFantasyDivision, FantasyDivision)
+			FantasyDivision.findOne(sampleFantasyDivision)
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})
@@ -517,21 +515,21 @@ describe('Player', () => {
 			firstName: 'Bob'
 		};
 		
-		return readData(samplePlayer, Player).should.eventually.not.exist;
+		return Player.findOne(samplePlayer).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create new fantasy division', () => {
 		const samplePlayer = {
 			idFromAPI: 77
 		};
 		
-		return createData(samplePlayer, Player).should.eventually.exist;
+		return Player.create(samplePlayer).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a fantasy division', () => {
 		const samplePlayer = {
 			idFromAPI: 77
 		};
 		
-		return updateData(samplePlayer, {idFromAPI: 77}, Player)
+		return Player.findOneAndUpdate(samplePlayer, {idFromAPI: 77}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('firstName', 'Joe');
 		})
@@ -544,9 +542,9 @@ describe('Player', () => {
 			idFromAPI: 77
 		};
 		
-		return deleteData(samplePlayer, Player)
+		return Player.findOneAndRemove(samplePlayer)
 		.then(deletedItem => {
-			readData(samplePlayer, Player)
+			Player.findOne(samplePlayer, )
 			.then(deletedItem => {
 				deletedItem.should.not.exist;
 			})

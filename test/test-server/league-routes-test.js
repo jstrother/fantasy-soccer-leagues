@@ -5,7 +5,6 @@ const chai = require('chai'),
   leagueRouter = require('../../server/league-routes.js').leagueRouter,
   { mongoose, dbTestConnection, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
   Player = require('../../models/player_model.js'),
-  { createData } = require('../../server/programFunctions/crud_functions.js'),
   { closeServer, runServer, app } = require('../../server/server.js');
 
 chai.use(chaiHTTP);
@@ -21,16 +20,15 @@ after(() => {
 
 describe('Players by League', () => {
   it('should return a list of players based upon leagueId', () => {
-    return createData(testPlayer, Player)
+    return Player.create(testPlayer)
     .then(player1 => {
-      return createData(testPlayer2, Player)
+      return Player.create(testPlayer2)
       .then(player2 => {
-        return createData(testPlayer3, Player)
+        return Player.create(testPlayer3)
         .then(player3 => {
           return chai.request(app)
           .get(`/league/${fantasyLeagueId}`)
           .then(res => {
-            console.log('res.body:', res.body);
             expect(res.body).to.not.be.empty;
           });
         });
