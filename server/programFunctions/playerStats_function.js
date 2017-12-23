@@ -1,103 +1,98 @@
-function playerStats(playerType, fixture, ownGoalList) {
+function playerStats(player, fixtureData, ownGoalList) {
   let seasonFantasyPoints,
     playerStatsObject = {
-      idFromAPI: playerType.player_id,
-      fullName: playerType.player_name,
-      position: playerType.position,
-      leagueId: fixture.league_id,
-      clubId: playerType.team_id === undefined 
+      idFromAPI: player.player_id,
+      leagueId: fixtureData.league_id,
+      clubId: player.team_id === undefined 
         ? 0 
-        : playerType.team_id,
-      clubName: fixture.localTeam.data.id === playerType.team_id 
-        ? fixture.localTeam.data.name 
-        : fixture.visitorTeam.data.name,
+        : player.team_id,
       stats: {
         shots: {
-          shotsTotal: playerType.stats.shots.shots_total === null 
+          shotsTotal: player.stats.shots.shots_total === null 
             ? 0 
-            : playerType.stats.shots.shots_total,
-          shotsOnGoal: playerType.stats.shots.shots_on_goal === null 
+            : player.stats.shots.shots_total,
+          shotsOnGoal: player.stats.shots.shots_on_goal === null 
             ? 0 
-            : playerType.stats.shots.shots_on_goal
+            : player.stats.shots.shots_on_goal
         },
         goals: {
-          scored: playerType.stats.goals.scored === null 
+          scored: player.stats.goals.scored === null 
             ? 0 
-            : playerType.stats.goals.scored,
-          conceded: playerType.stats.goals.conceded === null 
+            : player.stats.goals.scored,
+          conceded: player.stats.goals.conceded === null 
             ? 0 
-            : playerType.stats.goals.conceded,
+            : player.stats.goals.conceded,
           ownGoals: 0
         },
         fouls: {
-          drawn: playerType.stats.fouls.drawn === null 
+          drawn: player.stats.fouls.drawn === null 
             ? 0 
-            : playerType.stats.fouls.drawn,
-          committed: playerType.stats.fouls.committed === null 
+            : player.stats.fouls.drawn,
+          committed: player.stats.fouls.committed === null 
             ? 0 
-            : playerType.stats.fouls.committed
+            : player.stats.fouls.committed
         },
         cards: {
-          yellowCards: playerType.stats.cards.yellowcards === null 
+          yellowCards: player.stats.cards.yellowcards === null 
             ? 0 
-            : playerType.stats.cards.yellowcards,
-          redCards: playerType.stats.cards.redcards === null 
+            : player.stats.cards.yellowcards,
+          redCards: player.stats.cards.redcards === null 
             ? 0 
-            : playerType.stats.cards.redcards
+            : player.stats.cards.redcards
         },
         passing: {
           // the two accuracy stats here return numbers, but are to be treated as percentages
-          totalCrosses: playerType.stats.passing.total_crosses === null 
+          totalCrosses: player.stats.passing.total_crosses === null 
             ? 0 
-            : playerType.stats.passing.total_crosses,
-          crossingAccuracy: playerType.stats.passing.crosses_accuracy === null 
+            : player.stats.passing.total_crosses,
+          crossingAccuracy: player.stats.passing.crosses_accuracy === null 
             ? 0 
-            : playerType.stats.passing.crosses_accuracy,
-          totalPasses: playerType.stats.passing.passes === null 
+            : player.stats.passing.crosses_accuracy,
+          totalPasses: player.stats.passing.passes === null 
             ? 0 
-            : playerType.stats.passing.passes,
-          passingAccuracy: playerType.stats.passing.passes_accuracy === null 
+            : player.stats.passing.passes,
+          passingAccuracy: player.stats.passing.passes_accuracy === null 
             ? 0 
-            : playerType.stats.passing.passes_accuracy
+            : player.stats.passing.passes_accuracy
         },
         other: {
-          assists: playerType.stats.other.assists === null 
+          assists: player.stats.other.assists === null 
             ? 0 
-            : playerType.stats.other.assists,
-          offsides: playerType.stats.other.offsides === null 
+            : player.stats.other.assists,
+          offsides: player.stats.other.offsides === null 
             ? 0 
-            : playerType.stats.other.offsides,
-          saves: playerType.stats.other.saves === null 
+            : player.stats.other.offsides,
+          saves: player.stats.other.saves === null 
             ? 0 
-            : playerType.stats.other.saves,
-          penaltiesScored: playerType.stats.other.pen_scored === null 
+            : player.stats.other.saves,
+          penaltiesScored: player.stats.other.pen_scored === null 
             ? 0 
-            : playerType.stats.other.pen_scored,
-          penaltiesMissed: playerType.stats.other.pen_missed === null 
+            : player.stats.other.pen_scored,
+          penaltiesMissed: player.stats.other.pen_missed === null 
             ? 0 
-            : playerType.stats.other.pen_missed,
-          penaltiesSaved: playerType.stats.other.pen_saved === null 
+            : player.stats.other.pen_missed,
+          penaltiesSaved: player.stats.other.pen_saved === null 
             ? 0 
-            : playerType.stats.other.pen_saved,
-          tackles: playerType.stats.other.tackles === null 
+            : player.stats.other.pen_saved,
+          tackles: player.stats.other.tackles === null 
             ? 0 
-            : playerType.stats.other.tackles,
-          blocks: playerType.stats.other.blocks === null 
+            : player.stats.other.tackles,
+          blocks: player.stats.other.blocks === null 
             ? 0 
-            : playerType.stats.other.blocks,
-          interceptions: playerType.stats.other.interceptions === null 
+            : player.stats.other.blocks,
+          interceptions: player.stats.other.interceptions === null 
             ? 0 
-            : playerType.stats.other.interceptions,
-          clearances: playerType.stats.other.clearances === null 
+            : player.stats.other.interceptions,
+          clearances: player.stats.other.clearances === null 
             ? 0 
-            : playerType.stats.other.clearances,
-          minutesPlayed: playerType.stats.other.minutes_played === null 
+            : player.stats.other.clearances,
+          minutesPlayed: player.stats.other.minutes_played === null 
             ? 0 
-            : playerType.stats.other.minutes_played
+            : player.stats.other.minutes_played
         }
       },
       fantasyPoints: {
-        fixture: playerType === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchwarmers' or 'reserves'
+        fixture: player === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchwarmers' or 'reserves'
         season: seasonFantasyPoints
       },
       ownGoalCalc: function() {
@@ -139,18 +134,18 @@ function playerStats(playerType, fixture, ownGoalList) {
         
         // clean sheets: 5pts for goalkeepers and defenders, 1pt for midfielders
         if (this.position === 'G' || this.position === 'D') {
-          if (this.clubId === fixture.localTeam.data.id && fixture.scores.visitorTeam_score === 0) {
+          if (this.clubId === fixtureData.localTeamId && fixtureData.visitorTeamScore === 0) {
             this.fantasyPoints.fixture += 5;
           }
-          else if (this.clubId === fixture.visitorTeam.data.id && fixture.scores.localTeam_score === 0) {
+          else if (this.clubId === fixtureData.visitorTeamId && fixtureData.localTeamScore === 0) {
             this.fantasyPoints.fixture += 5;
           }
         }
         else if (this.position === 'M') {
-          if (this.clubId === fixture.localTeam.data.id && fixture.scores.visitorTeam_score === 0) {
+          if (this.clubId === fixtureData.localTeamId && fixtureData.visitorTeamScore === 0) {
             this.fantasyPoints.fixture += 1;
           }
-          else if (this.clubId === fixture.visitorTeam.data.id && fixture.scores.localTeam_score === 0) {
+          else if (this.clubId === fixtureData.visitorTeamId && fixtureData.localTeamScore === 0) {
             this.fantasyPoints.fixture += 1;
           }
         }
