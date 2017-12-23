@@ -11,7 +11,7 @@ const rp = require('request-promise'),
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
   const endpoint = `${baseURL}/leagues/`,
-    included = `${toInclude}season.stages.rounds.fixtures.lineup,season.stages.rounds.fixtures.bench,season.stages.rounds.fixtures.localTeam.squad,season.stages.rounds.fixtures.visitorTeam.squad,season.stages.rounds.fixtures.goals`,
+    included = `${toInclude}season.stages.rounds.fixtures`,
     results = {
       uri: `${endpoint}${leagueId}${key}${included}`,
       json: true
@@ -32,31 +32,37 @@ function playerStatsByLeague(leagueId) {
       }
     }
     
-    if (results.data.season.data.is_current_season === true) {
-      // console.log(results.data.season.data);
-      const seasonEndpoint = `${baseURL}/teams/season/`,
-        seasonIncluded = `${toInclude}squad`,
-        seasonId = `${results.data.season.data.id}`,
-        seasonResults = {
-          uri: `${seasonEndpoint}${seasonId}${key}${seasonIncluded}`,
-          json: true
-        };
-      
-      return rp(seasonResults)
-      .then(seasonData => {
-        // console.log('squads:', seasonData.data[0].squad);
-        playerIdRetrieve(581199);
-        // seasonData.data[0].squad.data.forEach(player => {
-        //   playerIdRetrieve(player.player_id);
-        // });
-      })
-      .catch(error => {
-        throw new Error(error);
+    //because we only want current regular seasons, not older seasons, playoffs, or cup matches
+    if (results.data.season.data.is_current_season === true && results.data.season.data.stages.data[0].name === 'Regular Season') {
+      console.log('into the if statement');
+      // console.log(results.data.season.data.stages.data[0].rounds.data[0].fixtures.data[0]);
+      const fixtureIdList = [];
+      seasonInfo.stageId = results.data.season.data.stages.data[0].id;
+      results.data.season.data.stages.data[0].rounds.data.forEach(round => {
+        round.fixtures.data.forEach(fixture => {
+          fixtureIdList.push(fixture.id);
+        });
       });
+      
+      fixtureIdList.forEach(fixtureId => {
+        const fixtureEndpoint = `${baseURL}/fixtures/`,
+          fixtureIncluded = `${toInclude}localTeam.squad,visitorTeam.squad,goals,lineup,bench,sidelined,stats`,
+          fixtureResults = {
+            uri: `${fixtureEndpoint}${fixtureId}${key}${fixtureIncluded}`,
+            json: true
+          };
+        
+        return rp(fixtureResults)
+        .then(fixture => {
+          console.log(fixture);
+        })
+        .catch(error => {
+          throw new Error(error);
+        });
+      });
+      
       // results.data.season.data.stages.data.forEach(stage => {
-      //   //because we only want regular seasons, not playoffs or cup matches
       //   if (stage.name === 'Regular Season') {
-      //     seasonInfo.stageId = stage.id;
       //     stage.rounds.data.forEach(round => {
       //       if (round.stage_id === seasonInfo.stageId && round.fixtures.data.length > 0) { // round.stage_id if statement to confirm only rounds of the right stage with actual fixtures are dealt with
       //         round.fixtures.data.forEach(fixture => {
@@ -112,7 +118,7 @@ function playerStatsByLeague(leagueId) {
       
       return rp(playerResults)
       .then(playerData => {
-        console.log('playerData:', playerData.data.stats.data);
+        // console.log('playerData:', playerData.data.stats.data);
         // let playerInfo2 = {
         //   idFromAPI: playerData.data.player_id,
         //   commonName: playerData.data.player_name,

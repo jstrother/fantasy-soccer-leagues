@@ -5,7 +5,9 @@ function playerStats(playerType, fixture, ownGoalList) {
       fullName: playerType.player_name,
       position: playerType.position,
       leagueId: fixture.league_id,
-      clubId: playerType.team_id === undefined ? 0 : playerType.team_id,
+      clubId: playerType.team_id === undefined 
+        ? 0 
+        : playerType.team_id,
       clubName: fixture.localTeam.data.id === playerType.team_id 
         ? fixture.localTeam.data.name 
         : fixture.visitorTeam.data.name,
@@ -95,7 +97,7 @@ function playerStats(playerType, fixture, ownGoalList) {
         }
       },
       fantasyPoints: {
-        fixture: playerType === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchers' or 'reserves'
+        fixture: playerType === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchwarmers' or 'reserves'
         season: seasonFantasyPoints
       },
       ownGoalCalc: function() {
