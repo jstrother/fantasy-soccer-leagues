@@ -10,20 +10,20 @@ const rp = require('request-promise'),
 // this function returns all players and their stats for a league's current regular season
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
-  let results = endpointCreator('/leagues/', leagueId, 'season.stages.rounds.fixtures');
+  let leagueResults = endpointCreator('/leagues/', leagueId, 'season.stages.rounds.fixtures');
     
-  return rp(results)
-  .then(results => {
+  return rp(leagueResults)
+  .then(leagueData => {
     let playerIdList = [];  // this is to help make a master list of all players in league
     
     //because we only want current regular seasons, not older seasons, playoffs, or cup matches
-    if (results.data.season.data.is_current_season === true && results.data.season.data.stages.data[0].name === 'Regular Season') {
+    if (leagueData.data.season.data.is_current_season === true && leagueData.data.season.data.stages.data[0].name === 'Regular Season') {
       console.log('into the if statement');
       let fixtureIdList = [],
         ownGoalList = [];
       
       // this is where and how we get ids for each match in a season, whether it has been played, is being played, or has not yet been played  
-      results.data.season.data.stages.data[0].rounds.data.forEach(round => {
+      leagueData.data.season.data.stages.data[0].rounds.data.forEach(round => {
         round.fixtures.data.forEach(fixture => {
           fixtureIdList.push(fixture.id);
         });
@@ -34,15 +34,15 @@ function playerStatsByLeague(leagueId) {
         let fixtureResults = endpointCreator('/fixtures/', fixtureId, 'localTeam.squad,visitorTeam.squad,goals,lineup,bench,sidelined,stats');
         
         return rp(fixtureResults)
-        .then(fixture => {
-          const fixtureData = {
-            leagueId: fixture.data.league_id,
-            localTeamId: fixture.data.localteam_id,
-            localTeamScore: fixture.data.scores.localteam_score,
-            visitorTeamId: fixture.data.visitorteam_id,
-            visitorTeamScore: fixture.data.scores.visitorteam_score
+        .then(fixtureData => {
+          const fixtureBasics = {
+            leagueId: fixtureData.data.league_id,
+            localTeamId: fixtureData.data.localteam_id,
+            localTeamScore: fixtureData.data.scores.localteam_score,
+            visitorTeamId: fixtureData.data.visitorteam_id,
+            visitorTeamScore: fixtureData.data.scores.visitorteam_score
           };
-          fixture.data.goals.data.forEach(goal => {
+          fixtureData.data.goals.data.forEach(goal => {
             if (goal.type !== 'goal') {
               let ownGoal = {
                 fixtureId: goal.fixture_id,
@@ -51,12 +51,12 @@ function playerStatsByLeague(leagueId) {
               ownGoalList.push(ownGoal);
             }
           });
-          fixture.data.lineup.data.forEach(player => {
-            playerInfo(player, fixtureData, ownGoalList);
+          fixtureData.data.lineup.data.forEach(player => {
+            playerInfo(player, fixtureBasics, ownGoalList);
           });
           
-          fixture.data.bench.data.forEach(player => {
-            playerInfo(player, fixtureData, ownGoalList);
+          fixtureData.data.bench.data.forEach(player => {
+            playerInfo(player, fixtureBasics, ownGoalList);
           });
           
           // sometimes a playerId shows up multiple times. create a Set to get unique list of ids, and then convert back to array
