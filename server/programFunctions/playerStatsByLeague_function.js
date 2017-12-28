@@ -86,7 +86,9 @@ function playerStatsByLeague(leagueId) {
       });
     }
     
-    return playerIdList;
+    if(playerIdList !== []) {
+      return playerIdList;
+    }
   })
   .then(playerIdList => {
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
