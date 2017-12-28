@@ -19,25 +19,14 @@ function playerStatsByLeague(leagueId) {
     
   return rp(results)
   .then(results => {
-    let seasonInfo = {
-      startDate: results.data.season.data.stages.data[0].rounds.data[0].start
-    },
-    playerIdList = [];  // this is to help make a master list of all players in league
-    
-    // the following little bit helps to find the end date of a season. the start and end are important
-    const seasonLength = results.data.season.data.stages.data[0].rounds.data.length;
-    for (let i = 0; i < seasonLength; i++) {
-      if (results.data.season.data.stages.data[0].rounds.data[i].name === seasonLength) {
-        seasonInfo.endDate = results.data.season.data.stages.data[0].rounds.data[i].end;
-      }
-    }
+    let playerIdList = [];  // this is to help make a master list of all players in league
     
     //because we only want current regular seasons, not older seasons, playoffs, or cup matches
     if (results.data.season.data.is_current_season === true && results.data.season.data.stages.data[0].name === 'Regular Season') {
       console.log('into the if statement');
       let fixtureIdList = [],
         ownGoalList = [];
-      seasonInfo.stageId = results.data.season.data.stages.data[0].id;
+        
       results.data.season.data.stages.data[0].rounds.data.forEach(round => {
         round.fixtures.data.forEach(fixture => {
           fixtureIdList.push(fixture.id);
@@ -78,6 +67,10 @@ function playerStatsByLeague(leagueId) {
             playerInfo(player, fixtureData, ownGoalList);
           });
           
+          // sometimes a playerId shows up multiple times. create a Set to get unique list of ids, and then convert back to array
+          playerIdList = [... new Set(playerIdList)];
+          console.log('playerIdList after Set:', playerIdList);
+          
           function playerInfo(player, fixtureData, ownGoalList) {
             let playerInfoData = playerStats(player, fixtureData, ownGoalList);
             playerInfoData.ownGoalCalc();
@@ -93,13 +86,13 @@ function playerStatsByLeague(leagueId) {
       });
     }
     
-    // sometimes a playerId shows up multiple times. create a Set to get unique list of ids, and then convert back to array
-    playerIdList = [... new Set(playerIdList)];
-    console.log('playerIdList after Set:', playerIdList);
+    return playerIdList;
+  })
+  .then(playerIdList => {
     // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
-    // if (playerIdList !== undefined || playerIdList[0] !== null) {
-    //   loopFunction(playerIdList, playerIdRetrieve, 333, false);
-    // }
+    if (playerIdList !== undefined || playerIdList[0] !== null) {
+      loopFunction(playerIdList, playerIdRetrieve, 333, false);
+    }
     
     function playerIdRetrieve(playerId) {
       console.log(`playerIdRetrieve: ${playerId}`);
@@ -112,27 +105,25 @@ function playerStatsByLeague(leagueId) {
       
       return rp(playerResults)
       .then(playerData => {
-        // console.log('playerData:', playerData.data.stats.data);
-        // let playerInfo2 = {
-        //   idFromAPI: playerData.data.player_id,
-        //   commonName: playerData.data.player_name,
-        //   fullName: playerData.data.fullname,
-        //   firstName: playerData.data.firstname,
-        //   lastName: playerData.data.lastname,
-        //   position: playerData.data.position.data.name,
-        //   picture: playerData.data.image_path,
-        //   clubName: playerData.data.team.data.name,
-        //   clubId: playerData.data.team.data.id,
-        //   clubLogo: playerData.data.team.data.logo_path
-        // };
-        // Player.findOneAndUpdate({idFromAPI: playerInfo2.idFromAPI}, playerInfo2, {new: true, upsert: true});
+        console.log('playerData:', playerData.data.stats.data);
+        let playerInfo2 = {
+          idFromAPI: playerData.data.player_id,
+          commonName: playerData.data.player_name,
+          fullName: playerData.data.fullname,
+          firstName: playerData.data.firstname,
+          lastName: playerData.data.lastname,
+          position: playerData.data.position.data.name,
+          picture: playerData.data.image_path,
+          clubName: playerData.data.team.data.name,
+          clubId: playerData.data.team.data.id,
+          clubLogo: playerData.data.team.data.logo_path
+        };
+        Player.findOneAndUpdate({idFromAPI: playerInfo2.idFromAPI}, playerInfo2, {new: true, upsert: true});
       })
       .catch(error => {
         throw new Error(error);
       });
     }
-    
-    return seasonInfo;
   })
   .catch(error => {
     throw new Error(error);
