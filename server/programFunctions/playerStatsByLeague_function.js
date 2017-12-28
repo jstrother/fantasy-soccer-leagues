@@ -10,12 +10,7 @@ const rp = require('request-promise'),
 // this function returns all players and their stats for a league's current regular season
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
-  const endpoint = `${baseURL}/leagues/`,
-    included = `${toInclude}season.stages.rounds.fixtures`,
-    results = {
-      uri: `${endpoint}${leagueId}${key}${included}`,
-      json: true
-    };
+  let results = endpointCreator('/leagues/', leagueId, 'season.stages.rounds.fixtures');
     
   return rp(results)
   .then(results => {
@@ -26,20 +21,17 @@ function playerStatsByLeague(leagueId) {
       console.log('into the if statement');
       let fixtureIdList = [],
         ownGoalList = [];
-        
+      
+      // this is where and how we get ids for each match in a season, whether it has been played, is being played, or has not yet been played  
       results.data.season.data.stages.data[0].rounds.data.forEach(round => {
         round.fixtures.data.forEach(fixture => {
           fixtureIdList.push(fixture.id);
         });
       });
       
+      // using the fixture ids from the last function, we need to get info on each player in that game
       fixtureIdList.forEach(fixtureId => {
-        const fixtureEndpoint = `${baseURL}/fixtures/`,
-          fixtureIncluded = `${toInclude}localTeam.squad,visitorTeam.squad,goals,lineup,bench,sidelined,stats`,
-          fixtureResults = {
-            uri: `${fixtureEndpoint}${fixtureId}${key}${fixtureIncluded}`,
-            json: true
-          };
+        let fixtureResults = endpointCreator('/fixtures/', fixtureId, 'localTeam.squad,visitorTeam.squad,goals,lineup,bench,sidelined,stats');
         
         return rp(fixtureResults)
         .then(fixture => {
@@ -69,7 +61,6 @@ function playerStatsByLeague(leagueId) {
           
           // sometimes a playerId shows up multiple times. create a Set to get unique list of ids, and then convert back to array
           playerIdList = [... new Set(playerIdList)];
-          console.log('playerIdList after Set:', playerIdList);
           
           function playerInfo(player, fixtureData, ownGoalList) {
             let playerInfoData = playerStats(player, fixtureData, ownGoalList);
@@ -87,28 +78,24 @@ function playerStatsByLeague(leagueId) {
     }
     
     if(playerIdList !== []) {
-      return playerIdList;
+      console.log('playerIdList:', playerIdList);
+      return playerIdList; // this checks to make sure we have something to actually pass on to the next then block to process
     }
+    return [null]; // this is to make sure that the loop doesn't run in the next then block if playerIdList does not get anything added to it for some reason
   })
   .then(playerIdList => {
-    // using playerIdList, search through database for each player and then add fantasyPoints.round to fantasyPoints.season as this function runs once a day
-    if (playerIdList !== undefined || playerIdList[0] !== null) {
+    if (playerIdList[0] !== null) {
       loopFunction(playerIdList, playerIdRetrieve, 333, false);
     }
     
     function playerIdRetrieve(playerId) {
       console.log(`playerIdRetrieve: ${playerId}`);
-      const playerEndpoint = `${baseURL}/players/`,
-        playerIncluded = `${toInclude}team,position,sidelined,stats`,
-        playerResults = {
-          uri: `${playerEndpoint}${playerId}${key}${playerIncluded}`,
-          json: true
-        };
+      let playerResults = endpointCreator('/players/', playerId, 'team,position,sidelined,stats');
       
       return rp(playerResults)
       .then(playerData => {
         console.log('playerData:', playerData.data.stats.data);
-        let playerInfo2 = {
+        let playerInfo = {
           idFromAPI: playerData.data.player_id,
           commonName: playerData.data.player_name,
           fullName: playerData.data.fullname,
@@ -120,7 +107,7 @@ function playerStatsByLeague(leagueId) {
           clubId: playerData.data.team.data.id,
           clubLogo: playerData.data.team.data.logo_path
         };
-        Player.findOneAndUpdate({idFromAPI: playerInfo2.idFromAPI}, playerInfo2, {new: true, upsert: true});
+        Player.findOneAndUpdate({idFromAPI: playerInfo.idFromAPI}, playerInfo, {new: true, upsert: true});
       })
       .catch(error => {
         throw new Error(error);
@@ -130,6 +117,20 @@ function playerStatsByLeague(leagueId) {
   .catch(error => {
     throw new Error(error);
   });
+  
+  function endpointCreator(specificEndpoint, uniqueId, includes) {
+    if (typeof specificEndpoint !== 'string' || typeof uniqueId !== 'number' || typeof includes !== 'string') {
+      console.log('check your types for endpointCreator function args: playerStatsByLeague_function.js');
+      return;
+    }
+    
+    // baseURL, key, and toInclude come from delcared consts at top of file
+    const results = {
+      uri: `${baseURL}${specificEndpoint}${uniqueId}${key}${toInclude}${includes}`,
+      json: true
+    };
+    return results;
+  }
 }
 
 module.exports = playerStatsByLeague;
