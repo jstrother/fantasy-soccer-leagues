@@ -314,6 +314,7 @@ describe('Fantasy Match', () => {
 			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
+					matchId: 1,
 					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
@@ -350,6 +351,7 @@ describe('Fantasy Match', () => {
 			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
+					matchId: 1,
 					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
@@ -386,6 +388,7 @@ describe('Fantasy Match', () => {
 			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
+					matchId: 1,
 					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
@@ -429,6 +432,7 @@ describe('Fantasy Match', () => {
 			return FantasyClub.create(awayClub)
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
+					matchId: 1,
 					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
@@ -529,7 +533,7 @@ describe('Player', () => {
 			idFromAPI: 77
 		};
 		
-		return Player.findOneAndUpdate(samplePlayer, {idFromAPI: 77}, {new: true, upsert: true})
+		return Player.findOneAndUpdate(samplePlayer, {firstName: 'Joe'}, {new: true, upsert: true})
 		.then(updatedItem => {
 			updatedItem.should.have.property('firstName', 'Joe');
 		})

@@ -2,10 +2,10 @@
 
 function loopFunction(array, callback, time, repeat) {
 	console.log('loop running');
-	let i = repeat === false ? 0 : 1,
+	let i = 1,
 		total = array.length - 1;
 	const loop = () => {
-		let id = repeat === false ? array[i] : array[i].id; // the second array here is one that is an array of objects in this specific program
+		let id = array[i].id;
 		console.log(id);
 		callback(id);
 		
@@ -16,7 +16,7 @@ function loopFunction(array, callback, time, repeat) {
 			console.log('end of loop');
 			// some arrays we want to repeat, others no
 			if(repeat === false) return;
-			i = 0;
+			i = 1;
 		}
 		
 		setTimeout(loop, time);
