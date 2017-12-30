@@ -9561,7 +9561,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetch = __webpack_require__(157),
-    url = __webpack_require__(131).THIS_DIRECTORY;
+    url = __webpack_require__(131).DEV_DIRECTORY;
 
 var SET_USER_SUCCESS = exports.SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 var setUserSuccess = exports.setUserSuccess = function setUserSuccess(currentUser, statusCode) {
@@ -9600,7 +9600,7 @@ var setLeagueFail = exports.setLeagueFail = function setLeagueFail(statusCode) {
 
 var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
   return function (dispatch) {
-    return fetch(url + '/user', {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user', {
       headers: {
         'Authorization': 'Bearer ' + accessToken
       }
@@ -9626,7 +9626,7 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
-    return fetch(url + '/user/addLeague', {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -9678,7 +9678,7 @@ exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes loopFuntion sh
 exports.GOOGLE_ACCESSTOKEN = 'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U';
 
 // this const to be set to main directory upon deployment
-exports.THIS_DIRECTORY = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
+exports.DEV_DIRECTORY = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -19902,7 +19902,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetch = __webpack_require__(157),
-    url = __webpack_require__(131).THIS_DIRECTORY;
+    url = __webpack_require__(131).DEV_DIRECTORY;
 
 var SET_STARTER_SUCCESS = exports.SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 var setStarterSuccess = exports.setStarterSuccess = function setStarterSuccess(player, statusCode) {
@@ -19936,7 +19936,7 @@ var setReserveFail = exports.setReserveFail = function setReserveFail(statusCode
 
 var fetchStarter = exports.fetchStarter = function fetchStarter(player) {
   return function (dispatch) {
-    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setStarterFail(res.status));
@@ -19958,7 +19958,7 @@ var fetchStarter = exports.fetchStarter = function fetchStarter(player) {
 
 var fetchBenchwarmer = exports.fetchBenchwarmer = function fetchBenchwarmer(player) {
   return function (dispatch) {
-    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setBenchwarmerFail(res.status));
@@ -19980,7 +19980,7 @@ var fetchBenchwarmer = exports.fetchBenchwarmer = function fetchBenchwarmer(play
 
 var fetchReserve = exports.fetchReserve = function fetchReserve(player) {
   return function (dispatch) {
-    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
+    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setReserveFail(res.status));

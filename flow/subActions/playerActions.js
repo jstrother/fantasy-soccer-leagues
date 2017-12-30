@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-fetch'),
-  url = require('../../server/config.js').THIS_DIRECTORY;
+  url = require('../../server/config.js').DEV_DIRECTORY;
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 export const setStarterSuccess = (player, statusCode) => {
@@ -41,7 +41,7 @@ export const setReserveFail = statusCode => {
 };
 
 export const fetchStarter = player => dispatch => {
-  return fetch(`${url}/player/${player.idFromAPI}`)
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/player/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -64,7 +64,7 @@ export const fetchStarter = player => dispatch => {
 };
 
 export const fetchBenchwarmer = player => dispatch => {
-  return fetch(`${url}/player/${player.idFromAPI}`)
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/player/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -87,7 +87,7 @@ export const fetchBenchwarmer = player => dispatch => {
 };
 
 export const fetchReserve = player => dispatch => {
-  return fetch(`${url}/player/${player.idFromAPI}`)
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/player/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {

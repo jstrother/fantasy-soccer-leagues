@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-fetch'),
-  url = require('../../server/config.js').THIS_DIRECTORY;
+  url = require('../../server/config.js').DEV_DIRECTORY;
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const setUserSuccess = (currentUser, statusCode)  => ({
@@ -29,7 +29,7 @@ export const setLeagueFail = statusCode => ({
 });
 
 export const fetchUser = accessToken => dispatch => {
-  return fetch(`${url}/user`, {
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
@@ -56,7 +56,7 @@ export const fetchUser = accessToken => dispatch => {
 };
 
 export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
-  return fetch(`${url}/user/addLeague`, {
+  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
