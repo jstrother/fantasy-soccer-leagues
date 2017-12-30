@@ -9600,7 +9600,7 @@ var setLeagueFail = exports.setLeagueFail = function setLeagueFail(statusCode) {
 
 var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user', {
+    return fetch(url + '/user', {
       headers: {
         'Authorization': 'Bearer ' + accessToken
       }
@@ -9626,7 +9626,7 @@ var fetchUser = exports.fetchUser = function fetchUser(accessToken) {
 
 var addLeague = exports.addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague', {
+    return fetch(url + '/user/addLeague', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -19936,7 +19936,7 @@ var setReserveFail = exports.setReserveFail = function setReserveFail(statusCode
 
 var fetchStarter = exports.fetchStarter = function fetchStarter(player) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/player/' + player.idFromAPI).then(function (res) {
+    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setStarterFail(res.status));
@@ -19958,7 +19958,7 @@ var fetchStarter = exports.fetchStarter = function fetchStarter(player) {
 
 var fetchBenchwarmer = exports.fetchBenchwarmer = function fetchBenchwarmer(player) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/player/' + player.idFromAPI).then(function (res) {
+    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setBenchwarmerFail(res.status));
@@ -19980,7 +19980,7 @@ var fetchBenchwarmer = exports.fetchBenchwarmer = function fetchBenchwarmer(play
 
 var fetchReserve = exports.fetchReserve = function fetchReserve(player) {
   return function (dispatch) {
-    return fetch('https://fantasy-soccer-leagues-jstrother.c9users.io/player/' + player.idFromAPI).then(function (res) {
+    return fetch(url + '/player/' + player.idFromAPI).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setReserveFail(res.status));

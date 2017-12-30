@@ -209,7 +209,6 @@ function playerStats(player, fixtureData, ownGoalList) {
       }
     };
   
-  // console.log(`updated ${playerStats.fullName}`);
   return playerStatsObject;
 }
 

@@ -5,19 +5,10 @@ const chai = require('chai'),
 	userRouter = require('../../server/user-routes.js').userRouter,
 	{ mongoose, dbTestConnection, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
   User = require('../../models/user_model.js'),
-  { closeServer, runServer, app } = require('../../server/server.js');
+  { app } = require('../../server/server.js');
 
 chai.use(chaiHTTP);
 mongoose.Promise = Promise;
-    
-before(() => {
-	runServer(8081, dbTestConnection);
-});
-
-after(done => {
-	mongoose.connection.db.dropDatabase(done);
-	closeServer();
-});
 
 describe('User Profile', () => {
 	it('should not exist', () => {
@@ -43,11 +34,13 @@ describe('User Profile', () => {
 			fantasyLeagueName
 		})
 		.then(res => {
+			should.exist(res);
 			res.body.should.not.be.empty;
 			res.body.should.have.property('fantasyLeagueId', fantasyLeagueId);
 			res.body.should.have.property('fantasyLeagueName', fantasyLeagueName);
 			return User.findOne(updateCurrentUser)
 			.then(user => {
+				should.exist(user);
 				user.should.have.property('fantasyLeagueId', fantasyLeagueId);
 				user.should.have.property('fantasyLeagueName', fantasyLeagueName);
 				return user;
@@ -70,7 +63,7 @@ describe('User Profile', () => {
 		.then(deletedItem => {
 			User.findOne(deleteCurrentUser)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			});
 		});
 	});

@@ -1,22 +1,10 @@
-const chai = require('chai'),
-  chaiHTTP = require('chai-http'),
-  should = chai.should(),
-  expect = chai.expect,
-  leagueRouter = require('../../server/league-routes.js').leagueRouter,
-  { mongoose, dbTestConnection, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
+const leagueRouter = require('../../server/league-routes.js').leagueRouter,
+  { mongoose, dbTestConnection, chai, chaiHTTP, should, expect, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
   Player = require('../../models/player_model.js'),
-  { closeServer, runServer, app } = require('../../server/server.js');
+  { app } = require('../../server/server.js');
 
 chai.use(chaiHTTP);
 mongoose.Promise = Promise;
-
-before(() => {
-  runServer(8081, dbTestConnection);
-});
-
-after(() => {
-  closeServer();
-});
 
 describe('Players by League', () => {
   it('should return a list of players based upon leagueId', () => {

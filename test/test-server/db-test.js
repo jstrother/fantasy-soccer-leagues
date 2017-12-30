@@ -1,6 +1,6 @@
 const
 	// import common modules
-	{ mongoose, dbTestConnection } = require('../common.js'),
+	{ mongoose, dbTestConnection, chai, should } = require('../common.js'),
 	// all models
 	User = require('../../models/user_model.js'),
 	FantasyClub = require('../../models/fantasyClub_model.js'),
@@ -10,22 +10,8 @@ const
 	FantasyMatch = require('../../models/fantasyMatch_model.js'),
 	FantasyDivision = require('../../models/fantasyDivision_model.js'),
 	Player = require('../../models/player_model.js'),
-	// import server functions
-	{ closeServer, runServer } = require('../../server/server.js');
-
-before(done => {
-	runServer(8081, dbTestConnection);
-	done();
-});
-
-afterEach(done => {
-	mongoose.connection.db.dropDatabase(done);
-});
-
-after(done => {
-	closeServer();
-	done();
-});
+	// import updateData function to keep options consistent throughout
+	{ updateData } = require('../../server/programFunctions/updateData_function.js');
 
 describe('Champions League', () => {
 	it('should not exist', () => {
@@ -47,12 +33,19 @@ describe('Champions League', () => {
 			name: 'Champions 1'
 		};
 		
-		return FantasyChampsLeague.findOneAndUpdate(sampleFantasyChampsLeague, {name: 'Champions 2'}, {new: true, upsert: true})
+		return updateData(
+			sampleFantasyChampsLeague,
+			{
+				name: 'Champions 2'
+			},
+			FantasyChampsLeague
+		)
 		.then(updatedItem => {
+			should.exist(updatedItem);
 			updatedItem.should.have.property('name', 'Champions 2');
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a champions league', () => {
@@ -64,14 +57,14 @@ describe('Champions League', () => {
 		.then(deletedItem => {
 			FantasyChampsLeague.findOne(sampleFantasyChampsLeague)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });
@@ -96,14 +89,19 @@ describe('Fantasy Schedule', () => {
 			numLeagueSeasonMatches: 100
 		};
 		
-		return FantasySchedule.findOneAndUpdate(sampleFantasySchedule, {
-			numLeagueSeasonMatches: 101
-		}, {new: true, upsert: true})
+		return updateData(
+			sampleFantasySchedule,
+			{
+				numLeagueSeasonMatches: 101
+			},
+			FantasySchedule
+		)
 		.then(updatedItem => {
-			updatedItem.masterRegSeasonSchedule.should.have.property('numLeagueSeasonMatches', 101);
+			should.exist(updatedItem);
+			updatedItem.should.have.property('numLeagueSeasonMatches', 101);
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy schedule', () => {
@@ -115,14 +113,14 @@ describe('Fantasy Schedule', () => {
 		.then(deletedItem => {
 			FantasySchedule.findOne(sampleFantasySchedule)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });
@@ -153,12 +151,19 @@ describe('User', () => {
 			googleId: '1974'
 		};
 		
-		return User.findOneAndUpdate(sampleUser, {displayName: 'user2'}, {new: true, upsert: true})
+		return updateData(
+			sampleUser, 
+			{
+				displayName: 'user2'
+			},
+			User
+		)
 		.then(updatedItem => {
+			should.exist(updatedItem);
 			updatedItem.should.have.property('displayName', 'user2');
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should delete a user', () => {
@@ -172,14 +177,14 @@ describe('User', () => {
 		.then(deletedItem => {
 			User.findOne(sampleUser2)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });
@@ -204,12 +209,19 @@ describe('Fantasy League', () => {
 			Name: 'Super Fantasy League'
 		};
 		
-		return FantasyLeague.findOneAndUpdate(sampleFantasyLeague, {Name: 'Another Fantasy League'}, {new: true, upsert: true})
+		return updateData(
+			sampleFantasyLeague, 
+			{
+				Name: 'Another Fantasy League'
+			},
+			FantasyLeague
+		)
 		.then(updatedItem => {
+			should.exist(updatedItem);
 			updatedItem.should.have.property('Name', 'Another Fantasy League');
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy league', () => {
@@ -221,14 +233,14 @@ describe('Fantasy League', () => {
 		.then(deletedItem => {
 			FantasyLeague.findOne(sampleFantasyLeague2)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });
@@ -262,12 +274,19 @@ describe('Fantasy Club', () => {
 			division: 'Test Division 1'
 		};
 		
-		return FantasyClub.findOneAndUpdate(sampleFantasyClub, {division: 'Test Division 2'}, {new: true, upsert: true})
+		return updateData(
+			sampleFantasyClub, 
+			{
+				division: 'Test Division 2'
+			},
+			FantasyClub
+		)
 		.then(updatedItem => {
+			should.exist(updatedItem);
 			updatedItem.should.have.property('division', 'Test Division 2');
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy club', () => {
@@ -282,14 +301,14 @@ describe('Fantasy Club', () => {
 		.then(deletedItem => {
 			FantasyClub.findOne(sampleFantasyClub)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });
@@ -395,8 +414,16 @@ describe('Fantasy Match', () => {
 					awayClub,
 					awayScore: 0
 				};
-				return FantasyMatch.findOneAndUpdate(sampleFantasyMatch, {homeScore: 2, awayScore: 1}, {new: true, upsert: true})
+				return updateData(
+					sampleFantasyMatch, 
+					{
+						homeScore: 2,
+						awayScore: 1
+					},
+					FantasyMatch
+				)
 				.then(updatedItem => {
+					should.exist(updatedItem);
 					updatedItem.should.have.property('homeScore', 2);
 					updatedItem.should.have.property('awayScore', 1);
 				})
@@ -443,14 +470,14 @@ describe('Fantasy Match', () => {
 				.then(deletedItem => {
 					FantasyMatch.findOne(sampleFantasyMatch)
 					.then(deletedItem => {
-						deletedItem.should.not.exist;
+						should.not.exist(deletedItem);
 					})
 					.catch(error => {
-						console.log(`error: ${error}`);
+						throw new Error(error);
 					});
 				})
 				.catch(error => {
-					console.log(`error: ${error}`);
+					throw new Error(error);
 				});
 			})
 			.catch((error) => {
@@ -483,12 +510,19 @@ describe('Fantasy Division', () => {
 			name: 'Team Division 1'
 		};
 		
-		return FantasyDivision.findOneAndUpdate(sampleFantasyDivision, {name: 'Test Division 2'}, {new: true, upsert: true})
+		return updateData(
+			sampleFantasyDivision, 
+			{
+				name: 'Test Division 2'
+			},
+			FantasyDivision
+		)
 		.then(updatedItem => {
+			should.exist(updatedItem);
 			updatedItem.should.have.property('name', 'Test Division 2');
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy division', () => {
@@ -500,14 +534,14 @@ describe('Fantasy Division', () => {
 		.then(deletedItem => {
 			FantasyDivision.findOne(sampleFantasyDivision)
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });
@@ -533,12 +567,19 @@ describe('Player', () => {
 			idFromAPI: 77
 		};
 		
-		return Player.findOneAndUpdate(samplePlayer, {firstName: 'Joe'}, {new: true, upsert: true})
+		return updateData(
+			samplePlayer, 
+			{
+				firstName: 'Joe'
+			},
+			Player
+		)
 		.then(updatedItem => {
+			should.exist(updatedItem);
 			updatedItem.should.have.property('firstName', 'Joe');
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy division', () => {
@@ -550,14 +591,14 @@ describe('Player', () => {
 		.then(deletedItem => {
 			Player.findOne(samplePlayer, )
 			.then(deletedItem => {
-				deletedItem.should.not.exist;
+				should.not.exist(deletedItem);
 			})
 			.catch(error => {
-				console.log(`error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch(error => {
-			console.log(`error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });

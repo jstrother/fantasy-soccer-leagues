@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'),
-	chai = require('chai'),
+	chai = require('chai'), // if you need expect or should, then you need to import chai also
 	chaiHTTP = require('chai-http'),
 	chaiAsPromised = require('chai-as-promised'),
 	should = chai.should(),

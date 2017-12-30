@@ -32,7 +32,11 @@ app.get('*', (req, res) => {
 const runServer = (port = PORT, database = DATABASE) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
-		mongoose.connect(database, error => {
+		mongoose.connect(database,
+		{
+			useMongoClient: true
+		}
+		, error => {
 			if (error) {
 				return reject(error);
 			}
@@ -41,7 +45,7 @@ const runServer = (port = PORT, database = DATABASE) => {
 				console.log(`Listening on port: ${port}`);
 			});
 			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
-			console.log('Do not forget to uncomment the loopFunction in server.js');
+			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
 		})
 		.catch(error => {
 			throw new Error(error);

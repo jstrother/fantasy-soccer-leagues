@@ -4,6 +4,7 @@ const express = require('express'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
   userRouter = express.Router(),
+  { updateData } = require('./programFunctions/updateData_function.js'),
   User = require('../models/user_model.js'),
   cookieExpire = 1000 * 60 * 60 * 12; // set to expire after 12 hours
 
@@ -13,7 +14,7 @@ passport.use(new gStrategy({
 	callbackURL: `https://${process.env.C9_HOSTNAME}/user/auth/google/callback` //`${process.env.IP}${config.PORT}/user/auth/google/callback`
 },
 	(accessToken, refreshToken, profile, callback) => {
-		User.findOneAndUpdate({
+		updateData({
 			googleId: profile.id,
 			displayName: profile.displayName,
 			givenName: profile.name.givenName,
@@ -25,13 +26,8 @@ passport.use(new gStrategy({
         accessToken: accessToken,
         googleId: profile.id
       }
-    })
-		.then(user => {
-			callback(null, user);
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
+    },
+    User);
 	}
 ));
 
@@ -89,16 +85,13 @@ userRouter.get('/',
 userRouter.put('/addLeague',
 	passport.authenticate('bearer', {session: false}),
 	(req, res) => {
-		User.findOneAndUpdate(
+		updateData(
 			req.params.googleId,
 			{
 				fantasyLeagueId: req.body.fantasyLeagueId,
 				fantasyLeagueName: req.body.fantasyLeagueName
 			},
-			{
-				new: true,
-				upsert: true
-			}
+			User
 		)
 		.then(data => {
 			res.json(data);

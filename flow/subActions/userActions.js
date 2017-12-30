@@ -29,7 +29,7 @@ export const setLeagueFail = statusCode => ({
 });
 
 export const fetchUser = accessToken => dispatch => {
-  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user`, {
+  return fetch(`${url}/user`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
@@ -56,7 +56,7 @@ export const fetchUser = accessToken => dispatch => {
 };
 
 export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
-  return fetch(`https://fantasy-soccer-leagues-jstrother.c9users.io/user/addLeague`, {
+  return fetch(`${url}/user/addLeague`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
