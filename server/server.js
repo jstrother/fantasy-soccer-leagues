@@ -29,14 +29,16 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
+mongoose.Promise = Promise;
+
 const runServer = (port = PORT, database = DATABASE) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
 		mongoose.connect(database,
 		{
 			useMongoClient: true
-		}
-		, error => {
+		},
+		error => {
 			if (error) {
 				return reject(error);
 			}
@@ -44,8 +46,8 @@ const runServer = (port = PORT, database = DATABASE) => {
 				resolve();
 				console.log(`Listening on port: ${port}`);
 			});
-			loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
-			// console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
+			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
+			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
 		})
 		.catch(error => {
 			throw new Error(error);
@@ -59,7 +61,7 @@ const closeServer = () => {
     server.close(err => {
       if (err) {
         reject(err);
-        // so we don't also call `resolve()`
+        // so we don't also call resolve()
         return;
       }
       resolve();

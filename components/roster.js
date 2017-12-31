@@ -16,8 +16,8 @@ export class Team extends React.Component {
 		return(
 			<div>
 				<div>
+					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					{/*set up a table here that lists all players in selected league. column headers can be used (as drop down menus) to limit to a certain position or team for easier readability and selection*/}
-					<h6>You must select 23 players, no more than 4 from any one club.</h6>
 				</div>
 				<div>
 					Roster:

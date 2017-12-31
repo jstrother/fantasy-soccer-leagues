@@ -19831,7 +19831,7 @@ var Team = exports.Team = function (_React$Component) {
 					'div',
 					null,
 					_react2.default.createElement(
-						'h6',
+						'h5',
 						null,
 						'You must select 23 players, no more than 4 from any one club.'
 					)
