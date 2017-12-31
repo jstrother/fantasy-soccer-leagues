@@ -23,16 +23,11 @@ function playerStatsByLeague(leagueId) {
       
       // this is where and how we get ids for each match in a season, but we check to see if today's date is in the round.start - round.end range.  this helps to limit number of API calls each hour.
       leagueData.data.season.data.stages.data[0].rounds.data.forEach(round => {
-        console.log('start:', round.start);
-        console.log('today:', today);
-        console.log('end:', round.end);
         if (Date.parse(round.start) <= Date.parse(today)) {
           if(Date.parse(today) <= Date.parse(round.end)) {
-            console.log('date check if statement');
             round.fixtures.data.forEach(fixture => {
               fixtureIdList.push(fixture.id);
             });
-            console.log('fixtureIdList:', fixtureIdList);
           }
         }
       });
