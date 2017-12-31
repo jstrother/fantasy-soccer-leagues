@@ -44,8 +44,8 @@ const runServer = (port = PORT, database = DATABASE) => {
 				resolve();
 				console.log(`Listening on port: ${port}`);
 			});
-			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
-			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
+			loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
+			// console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
 		})
 		.catch(error => {
 			throw new Error(error);

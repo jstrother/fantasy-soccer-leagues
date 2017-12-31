@@ -11,22 +11,30 @@ const rp = require('request-promise'),
 // this function returns all players and their stats for a league's current regular season
 // game, match, and fixture are same thing
 function playerStatsByLeague(leagueId) {
-  let playerIdList = [], // this array creates a master list of player IDs
-    leagueResults = endpointCreator('leagues', leagueId, 'season.stages.rounds.fixtures');
+  let leagueResults = endpointCreator('leagues', leagueId, 'season.stages.rounds.fixtures'),
+    today = dateCalc(); // we need today's date to be calculated each time we loop through league IDs
     
   return rp(leagueResults)
   .then(leagueData => {
     //because we only want current regular seasons, not older seasons, playoffs, or cup matches
     if (leagueData.data.season.data.is_current_season === true && leagueData.data.season.data.stages.data[0].name === 'Regular Season') {
-      console.log('into the if statement');
       let fixtureIdList = [],
         ownGoalList = [];
       
-      // this is where and how we get ids for each match in a season, whether it has been played, is being played, or has not yet been played  
+      // this is where and how we get ids for each match in a season, but we check to see if today's date is in the round.start - round.end range.  this helps to limit number of API calls each hour.
       leagueData.data.season.data.stages.data[0].rounds.data.forEach(round => {
-        round.fixtures.data.forEach(fixture => {
-          fixtureIdList.push(fixture.id);
-        });
+        console.log('start:', round.start);
+        console.log('today:', today);
+        console.log('end:', round.end);
+        if (Date.parse(round.start) <= Date.parse(today)) {
+          if(Date.parse(today) <= Date.parse(round.end)) {
+            console.log('date check if statement');
+            round.fixtures.data.forEach(fixture => {
+              fixtureIdList.push(fixture.id);
+            });
+            console.log('fixtureIdList:', fixtureIdList);
+          }
+        }
       });
       
       // using the fixture ids from the last function, we need to get info on each player in that game
@@ -35,6 +43,7 @@ function playerStatsByLeague(leagueId) {
         
         return rp(fixtureResults)
         .then(fixtureData => {
+          let playerIdList = []; // this array creates a master list of player IDs
           const fixtureBasics = {
             leagueId: fixtureData.data.league_id,
             localTeamId: fixtureData.data.localteam_id,
@@ -58,8 +67,57 @@ function playerStatsByLeague(leagueId) {
           fixtureData.data.bench.data.forEach(player => {
             playerInfo(player, fixtureBasics, ownGoalList);
           });
-          playerIdList = [... new Set(playerIdList)];
+          playerIdList = [... new Set(playerIdList)]; // this is to ensure there is only one of each player ID in the list
+          return playerIdList;
+          
+          function playerInfo(player, fixtureData, ownGoalList) {
+            let playerInfoData = playerStats(player, fixtureData, ownGoalList);
+            playerInfoData.ownGoalCalc();
+            playerInfoData.fantasyPointsCalc();
+            console.log('playerId from playerInfo:', playerInfoData.idFromAPI);
+            updateData(
+              {
+                idFromAPI: playerInfoData.idFromAPI
+              },
+              playerInfoData,
+              Player
+            );
+            playerIdList.push(playerInfoData.idFromAPI);
+          }
+        })
+        .then(playerIdList => {
           loopFunction(playerIdList, playerIdRetrieve, 300, false);
+          
+          function playerIdRetrieve(playerId) {
+            console.log(`playerIdRetrieve: ${playerId}`);
+            let playerResults = endpointCreator('players', playerId, 'team,position,sidelined,stats');
+            
+            return rp(playerResults)
+            .then(playerData => {
+              let playerInfo = {
+                idFromAPI: playerData.data.player_id,
+                commonName: playerData.data.player_name,
+                fullName: playerData.data.fullname,
+                firstName: playerData.data.firstname,
+                lastName: playerData.data.lastname,
+                position: playerData.data.position.data.name,
+                picture: playerData.data.image_path,
+                clubName: playerData.data.team.data.name,
+                clubId: playerData.data.team.data.id,
+                clubLogo: playerData.data.team.data.logo_path
+              };
+              updateData(
+                {
+                  idFromAPI: playerData.idFromAPI
+                },
+                playerInfo,
+                Player
+              );
+            })
+            .catch(error => {
+              throw new Error(error);
+            });
+          }
         })
         .catch(error => {
           throw new Error(error);
@@ -70,52 +128,6 @@ function playerStatsByLeague(leagueId) {
   .catch(error => {
     throw new Error(error);
   });
-
-  function playerInfo(player, fixtureData, ownGoalList) {
-    let playerInfoData = playerStats(player, fixtureData, ownGoalList);
-    playerInfoData.ownGoalCalc();
-    playerInfoData.fantasyPointsCalc();
-    console.log('playerId from playerInfo:', playerInfoData.idFromAPI);
-    updateData(
-      {
-        idFromAPI: playerInfoData.idFromAPI
-      },
-      playerInfoData,
-      Player
-    );
-    playerIdList.push(playerInfoData.idFromAPI);
-  }
-  
-  function playerIdRetrieve(playerId) {
-    console.log(`playerIdRetrieve: ${playerId}`);
-    let playerResults = endpointCreator('players', playerId, 'team,position,sidelined,stats');
-    
-    return rp(playerResults)
-    .then(playerData => {
-      let playerInfo = {
-        idFromAPI: playerData.data.player_id,
-        commonName: playerData.data.player_name,
-        fullName: playerData.data.fullname,
-        firstName: playerData.data.firstname,
-        lastName: playerData.data.lastname,
-        position: playerData.data.position.data.name,
-        picture: playerData.data.image_path,
-        clubName: playerData.data.team.data.name,
-        clubId: playerData.data.team.data.id,
-        clubLogo: playerData.data.team.data.logo_path
-      };
-      updateData(
-        {
-          idFromAPI: playerData.idFromAPI
-        },
-        playerData,
-        Player
-      );
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
   
   function endpointCreator(specificEndpoint, uniqueId, includes) {
     if (typeof specificEndpoint !== 'string' || typeof uniqueId !== 'number' || typeof includes !== 'string') {
@@ -129,6 +141,24 @@ function playerStatsByLeague(leagueId) {
       json: true
     };
     return results;
+  }
+  
+  function dateCalc() {
+    let today = new Date(),
+      day = today.getUTCDate(), // we are grabbing the UTC date as the API uses UTC dates
+      month = today.getUTCMonth() + 1, // remember! January is month 0!
+      year = today.getUTCFullYear();
+    
+    if (day < 10) {
+      day = `0${day}`;
+    }
+    
+    if (month < 10) {
+      month = `0${month}`;
+    }
+    
+    today = `${year}-${month}-${day}`;
+    return today;
   }
 }
 
