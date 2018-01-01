@@ -23,12 +23,15 @@ function playerStatsByLeague(leagueId) {
       
       // this is where and how we get ids for each match in a season, but we check to see if today's date is in the round.start - round.end range.  this helps to limit number of API calls each hour.
       leagueData.data.season.data.stages.data[0].rounds.data.forEach(round => {
-        if (Date.parse(round.start) <= Date.parse(today)) {
-          if(Date.parse(today) <= Date.parse(round.end)) {
-            round.fixtures.data.forEach(fixture => {
-              fixtureIdList.push(fixture.id);
-            });
-          }
+        // the Date.parse() below gives us the milliseconds since the start of the epoch, which makes comparison a little easier
+        const start = Date.parse(round.start),
+          current = Date.parse(today),
+          end = Date.parse(round.end);
+        
+        if (start <= current && current <= end) {
+          round.fixtures.data.forEach(fixture => {
+            fixtureIdList.push(fixture.id);
+          });
         }
       });
       
@@ -41,6 +44,7 @@ function playerStatsByLeague(leagueId) {
           let playerIdList = []; // this array creates a master list of player IDs
           const fixtureBasics = {
             leagueId: fixtureData.data.league_id,
+            roundId: fixtureData.data.round_id,
             localTeamId: fixtureData.data.localteam_id,
             localTeamScore: fixtureData.data.scores.localteam_score,
             visitorTeamId: fixtureData.data.visitorteam_id,
@@ -84,6 +88,10 @@ function playerStatsByLeague(leagueId) {
           loopFunction(playerIdList, playerIdRetrieve, 300, false);
           
           function playerIdRetrieve(playerId) {
+            if (playerId == undefined) {
+              console.log('playerId is undefined');
+              return;
+            }
             console.log(`playerIdRetrieve: ${playerId}`);
             let playerResults = endpointCreator('players', playerId, 'team,position,sidelined,stats');
             

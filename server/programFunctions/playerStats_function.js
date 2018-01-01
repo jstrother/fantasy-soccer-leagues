@@ -1,8 +1,9 @@
-function playerStats(player, fixtureData, ownGoalList) {
+function playerStats(player, fixtureBasics, ownGoalList) {
   let seasonFantasyPoints,
     playerStatsObject = {
       idFromAPI: player.player_id,
-      leagueId: fixtureData.league_id,
+      leagueId: fixtureBasics.leagueId,
+      roundId: fixtureBasics.roundId,
       clubId: player.team_id === undefined 
         ? 0 
         : player.team_id,
@@ -93,7 +94,7 @@ function playerStats(player, fixtureData, ownGoalList) {
       },
       fantasyPoints: {
         fixture: player === 'starter' ? 2 : 0, // players classed as 'starters' earn 2 extra points over those classed 'benchwarmers' or 'reserves'
-        season: seasonFantasyPoints
+        season: seasonFantasyPoints === undefined ? 0 : seasonFantasyPoints
       },
       ownGoalCalc: function() {
         ownGoalList.forEach(ownGoal => {
@@ -134,18 +135,18 @@ function playerStats(player, fixtureData, ownGoalList) {
         
         // clean sheets: 5pts for goalkeepers and defenders, 1pt for midfielders
         if (this.position === 'G' || this.position === 'D') {
-          if (this.clubId === fixtureData.localTeamId && fixtureData.visitorTeamScore === 0) {
+          if (this.clubId === fixtureBasics.localTeamId && fixtureBasics.visitorTeamScore === 0) {
             this.fantasyPoints.fixture += 5;
           }
-          else if (this.clubId === fixtureData.visitorTeamId && fixtureData.localTeamScore === 0) {
+          else if (this.clubId === fixtureBasics.visitorTeamId && fixtureBasics.localTeamScore === 0) {
             this.fantasyPoints.fixture += 5;
           }
         }
         else if (this.position === 'M') {
-          if (this.clubId === fixtureData.localTeamId && fixtureData.visitorTeamScore === 0) {
+          if (this.clubId === fixtureBasics.localTeamId && fixtureBasics.visitorTeamScore === 0) {
             this.fantasyPoints.fixture += 1;
           }
-          else if (this.clubId === fixtureData.visitorTeamId && fixtureData.localTeamScore === 0) {
+          else if (this.clubId === fixtureBasics.visitorTeamId && fixtureBasics.localTeamScore === 0) {
             this.fantasyPoints.fixture += 1;
           }
         }
