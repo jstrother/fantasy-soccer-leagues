@@ -6,11 +6,13 @@ import { connect } from 'react-redux';
 import { Table, TableHeader, TableBody, TableRow, TableHeaderColumn } from 'material-ui/Table';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
 
 export class Team extends React.Component {
-	// need a function to search by leagueId to get list of correct players to choose roster from - the leagueId will be in state already
+	// using fantasyLeagueId, display list of players from that league
 	
-	// handleChange function
+	
+	// handleChange functions
 	
 	render() {
 		return(
@@ -29,7 +31,7 @@ export class Team extends React.Component {
 }
 
 const mapRosterStateToProps = state => ({
-  // use leagueId already in state to pull correct players from database
+  fantasyLeagueId: state.loginReducer.fantasyLeagueId
 });
 
 const Roster = connect(
