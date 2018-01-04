@@ -15,8 +15,6 @@ export const subPlayerReducer = (state = {}, action) => {
       });
       
     case SUBSTITUTE_FAIL:
-      return Object.assign({}, state, {substitute: null});
-      
     default:
       return state;
   }

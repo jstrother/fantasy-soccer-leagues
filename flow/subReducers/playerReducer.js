@@ -122,7 +122,6 @@ export const playerReducer = (state = {}, action) => {
     case SET_BENCHWARMER_FAIL:
     case SET_STARTER_FAIL:    
     case SET_RESERVE_FAIL:
-      return Object.assign({}, state);
     default:
       return state;
   }  

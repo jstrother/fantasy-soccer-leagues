@@ -11,6 +11,9 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
+// import FantasyChampsLeague from './fantasyChampsLeague.js';
+import HelloCoach from './helloCoach.js';
+import { LoginPage } from './loginPage.js';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -49,6 +52,8 @@ export class Home extends React.Component {
             <br />
             Create your own team and compete against others to prove you are the best at fantasy footy!
           </div>
+          <br /><br />
+          <section className="login-section"><LoginPage /></section>
         </div>
       );
     } 
@@ -61,6 +66,7 @@ export class Home extends React.Component {
             Welcome to the Fantasy Soccer-Football Super League!
           </div>
           <br /><br />
+          <HelloCoach />
           <div>
             Which league will be the basis for your fantasy soccer?
             <DropDownMenu
@@ -82,6 +88,11 @@ export class Home extends React.Component {
           <br /><br />
           <div>
             Welcome to the Fantasy Soccer-Football Super League!
+          </div>
+          <br /><br />
+          <HelloCoach />
+          <div>
+            Your fantasy league is based on {this.props.fantasyLeagueName}.
           </div>
           <FantasyClub />
           <FantasyLeague />

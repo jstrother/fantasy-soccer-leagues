@@ -1,5 +1,5 @@
-const fetch = require('isomorphic-fetch'),
-  url = require('../../server/config.js').DEV_DIRECTORY;
+import fetch from 'isomorphic-fetch';
+import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const setUserSuccess = (currentUser, statusCode)  => ({

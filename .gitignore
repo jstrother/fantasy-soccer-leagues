@@ -8,3 +8,4 @@ config.js
 mongo_data/
 *.env
 coverage/
+*.map

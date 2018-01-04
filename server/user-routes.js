@@ -4,9 +4,8 @@ const express = require('express'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
   userRouter = express.Router(),
-  { updateData } = require('./programFunctions/updateData_function.js'),
-  User = require('../models/user_model.js'),
-  cookieExpire = 1000 * 60 * 60 * 12; // set to expire after 12 hours
+  { updateData } = require("./programFunctions/updateData_function.js"),
+  User = require('../models/user_model.js'); // set to expire after 12 hours
 
 passport.use(new gStrategy({
 	clientID: config.CLIENT_ID,
@@ -26,8 +25,13 @@ passport.use(new gStrategy({
         accessToken: accessToken,
         googleId: profile.id
       }
-    },
-    User);
+    }, User)
+		.then(user => {
+			callback(null, user);
+		})
+		.catch(error => {
+			throw new Error(error);
+		});
 	}
 ));
 
@@ -82,24 +86,19 @@ userRouter.get('/',
 );
 
 // adds user's selected league
-userRouter.put('/addLeague',
+userRouter.put(`/addLeague`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => {
-		updateData(
-			req.params.googleId,
-			{
-				fantasyLeagueId: req.body.fantasyLeagueId,
-				fantasyLeagueName: req.body.fantasyLeagueName
-			},
-			User
-		)
+	(req, res) => updateData(req.params.googleId, 
+		{
+			fantasyLeagueId: req.body.fantasyLeagueId,
+			fantasyLeagueName: req.body.fantasyLeagueName
+		}, User)
 		.then(data => {
 			res.json(data);
 		})
 		.catch(error => {
 			throw new Error(error);
-		});
-	}
+		})
 );
 
 exports.userRouter = userRouter;

@@ -1,5 +1,5 @@
-const fetch = require('isomorphic-fetch'),
-  url = require('../../server/config.js').DEV_DIRECTORY;
+import fetch from 'isomorphic-fetch';
+import { DEV_DIRECTORY as url } from '../../server/config.js';
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 export const setStarterSuccess = (player, statusCode) => {
