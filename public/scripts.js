@@ -19741,8 +19741,8 @@ var Header = exports.Header = function (_React$Component) {
                 className: 'user-name-header',
                 style: {
                   order: 1,
-                  marginLeft: '82em',
-                  paddingRight: '0.75em'
+                  marginLeft: '81.75em',
+                  paddingRight: '0.55em'
                 } },
               this.props.displayName
             ),
@@ -19777,7 +19777,7 @@ var Header = exports.Header = function (_React$Component) {
                 style: {
                   order: 1,
                   marginLeft: '5em',
-                  paddingRight: '0.75em'
+                  paddingRight: '0.55em'
                 } },
               this.props.displayName
             ),
