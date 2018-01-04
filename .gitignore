@@ -7,4 +7,4 @@ rethinkdb_data/
 config.js
 *.env
 coverage/
-*.map
+scripts.js.map
