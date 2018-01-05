@@ -19,7 +19,7 @@
     "image": "imagemin html/img/*.* -o public/img",
     "font": "cp html/font/*.* public/font/",
     "html": "cp html/*.* public/",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --port $PORT --host $IP",
     "build:html": "npm run html && npm run image && npm run font",
     "build:css": "npm run scss && npm run autoprefixer && npm run cleancss",
     "build:js": "webpack",

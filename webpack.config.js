@@ -12,10 +12,7 @@ module.exports = {
   devtool: "source-map",
   devServer: {
     contentBase: path.join(__dirname, "public"),
-    publicPath: "/",
-    host: "0.0.0.0",
-    port: 8080,
-    hot: true
+    disableHostCheck: true
   },
   module: {
   	rules: [
@@ -65,7 +62,7 @@ module.exports = {
 	  ]
   },
   plugins: [
-    new UglifyJsPlugin(),
+    // new UglifyJsPlugin(),
     new ExtractTextPlugin({
       filename: path.join(__dirname, "public/styles.css")
     })
