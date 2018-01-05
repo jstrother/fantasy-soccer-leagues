@@ -13,7 +13,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './app.js';
 import store from '../flow/store.js';
 
-// FantasyListener(store);
 injectTapEventPlugin();
 
 
