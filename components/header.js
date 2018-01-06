@@ -7,7 +7,6 @@ import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { LoginPage } from './loginPage.js';
 import { fetchUser } from '../flow/subActions/userActions.js';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 
 import styles from '../scss/header.scss';
 
