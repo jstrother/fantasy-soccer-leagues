@@ -11,7 +11,11 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-    contentBase: path.join(__dirname, "public"),
+    contentBase: "./public",
+    hot: true,
+    proxy: {
+    	"/user/auth/google": "https://fantasy-soccer-leagues-jstrother.c9users.io/"
+    },
     disableHostCheck: true
   },
   module: {
@@ -26,9 +30,6 @@ module.exports = {
 	    				presets: [
 	    					"@babel/preset-env",
 	    					"@babel/preset-react"
-	    				],
-	    				plugins: [
-	    					"react-css-modules"	
 	    				]
 	    			}
 	    		}	
@@ -43,12 +44,20 @@ module.exports = {
 	          {
 	            loader: "css-loader",
 	            options: {
-	              minimize: true,
-	              sourceMap: true
+	              modules: true,
+	              sourceMap: true,
+	              localIdentName: "[name]__[local]__[hash:base64:5]"
 	            }
 	          },
 	          {
-	          	loader: "postcss-loader"
+	          	loader: "postcss-loader",
+	          	options: {
+	          		ident: "postcss",
+	          		sourceMap: true,
+	          		plugins: [
+	          			require("autoprefixer")()
+	          		]
+	          	}
 	          },
 	          {
 	            loader: "sass-loader",
@@ -64,7 +73,9 @@ module.exports = {
   plugins: [
     // new UglifyJsPlugin(),
     new ExtractTextPlugin({
-      filename: path.join(__dirname, "public/styles.css")
-    })
+      filename: "styles.css",
+      allChunks: true
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

@@ -2,6 +2,7 @@
 // imported into ./index.js
 
 import React from 'react';
+import CSSModules from 'react-css-modules';
 
 import Header from './header.js';
 import Login from './home.js';

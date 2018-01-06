@@ -4,9 +4,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
+import CSSModules from 'react-css-modules';
 import { LoginPage } from './loginPage.js';
 import { fetchUser } from '../flow/subActions/userActions.js';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+
+import styles from '../scss/header.scss';
 
 export class Header extends React.Component {
   componentDidMount() {
@@ -19,95 +22,61 @@ export class Header extends React.Component {
   render() {
     if (!this.props.displayName) {
       return (
-        <Toolbar>
-      		<ToolbarGroup 
-      		  className="toolbar-header" 
-      		  style={{
-      		    display: "flex",
-      		    flexDirection: "row"
-      		  }}>
-      			<ToolbarTitle 
-      			  className="toolbar-title-header"
-      			  text="The Fantasy Soccer-Football Super League" />
+        <div
+          className={styles.toolbar}>
+      			<h2
+      			  className={styles.title}>
+      			  The Fantasy Soccer-Football Super League
+      			 </h2>
       			<section 
-      			  className="login-section"
-      			  style={{
-      			    marginLeft: "85em"
-      			  }}>
+    			    className={styles.login}>
       			  <LoginPage />
       			</section>
-      		</ToolbarGroup>
-      	</Toolbar>
+      	</div>
       );
     }
     
     if (this.props.displayName && !this.props.fantasyLeagueName) {
       return (
-        <Toolbar>
-      		<ToolbarGroup 
-      		  className="toolbar-header"
-      		  style={{
-      		    display: 'flex'
-      		  }}>
-      			<ToolbarTitle 
-      			  className="toolbar-title-header" 
-      			  text="The Fantasy Soccer-Football Super League" />
+        <div
+          className={styles.toolbar}>
+      			<h2
+      			  className={styles.title}>
+      			  The Fantasy Soccer-Football Super League
+      			 </h2>
       			<p 
-    			    className="user-name-header"
-    			    style={{
-      			    order: 1,
-      			    marginLeft: '81.75em',
-      			    paddingRight: '0.55em'
-      			  }}>
+    			    className={styles.userName}>
       			  {this.props.displayName}
       			</p>
     			  <img 
+    			    className={styles.userPhoto}
     			    src={this.props.userPhoto} 
-    			    alt={`${this.props.displayName} picture`}
-    			    style={{
-    			      order: 2
-    			    }}/>
-      		</ToolbarGroup>
-      	</Toolbar>
+    			    alt={`${this.props.displayName} picture`}/>
+      	</div>
       );
     }
     
     if (this.props.displayName && this.props.fantasyLeagueName) {
       return (
-        <Toolbar>
-      		<ToolbarGroup 
-      		  className="toolbar-header"
-      		  style={{
-      		    display: 'flex'
-      		  }}>
-      			<ToolbarTitle 
-      			  className="toolbar-title-header" 
-      			  text="The Fantasy Soccer-Football Super League" />
+        <div
+          className={styles.toolbar}>
+      			<h2
+      			  className={styles.title}>
+      			  The Fantasy Soccer-Football Super League
+      			 </h2>
       			<p 
-    			    className="user-name-header"
-    			    style={{
-      			    order: 1,
-      			    marginLeft: '5em',
-      			    paddingRight: '0.55em'
-      			  }}>
+    			    className={styles.userName}>
       			  {this.props.displayName}
       			</p>
     			  <img 
+    			    className={styles.userPhoto}
     			    src={this.props.userPhoto} 
-    			    alt={`${this.props.displayName} picture`}
-    			    style={{
-    			      order: 2
-    			    }}/>
-    			  <p 
-    			    className="league-name-header"
-    			    style={{
-    			      order: 0,
-    			      marginLeft: '60em'
-    			    }}>
-    			    {`Based upon: ${this.props.fantasyLeagueName}`}
-    			 </p>
-      		</ToolbarGroup>
-      	</Toolbar>
+    			    alt={`${this.props.displayName} picture`}/>
+    			   <p 
+    			    className={styles.leagueName}>
+      			    {`Based upon: ${this.props.fantasyLeagueName}`}
+      			 </p>
+      	</div>
       );
     }
   }  
@@ -125,4 +94,4 @@ const CustomizedHeader = connect(
   mapHeaderStateToProps  
 )(Header);
 
-export default CustomizedHeader;
+export default CSSModules(CustomizedHeader, styles);

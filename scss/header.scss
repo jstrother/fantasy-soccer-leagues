@@ -1,0 +1,34 @@
+@import "normalize";
+// @import "myVariables";
+
+.toolbar {
+  width: 100%;
+  margin: -0.5em -12em 0 -0.5em;
+  padding: 0.5em;
+  background: grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  padding-left: 1em;
+  flex: 0 3 auto;
+}
+
+.login {
+  flex: 0 1 auto;
+  padding-right: 2.5em;
+}
+
+.userName {
+  order: 1;
+}
+
+.userPhoto {
+  order: 2;
+}
+
+.leagueName {
+  order: 0;
+}
