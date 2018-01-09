@@ -11,11 +11,13 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-    contentBase: "./public",
-    hot: true,
+    contentBase: `${__dirname}/public`,
     proxy: {
-    	"/user/auth/google": "https://fantasy-soccer-leagues-jstrother.c9users.io/"
+    	"/user": {
+    		target: "https://fantasy-soccer-leagues-jstrother.c9users.io"
+    	}
     },
+    hot: true,
     disableHostCheck: true
   },
   module: {
