@@ -7,7 +7,7 @@
   padding: 0.5em;
   background: grey;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -19,6 +19,7 @@
 .login {
   flex: 0 1 auto;
   padding-right: 2.5em;
+  margin-left: 25em;
 }
 
 .userName {
