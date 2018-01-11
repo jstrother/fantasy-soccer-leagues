@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5d3e92af1f20b7e2542b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "abc07ee2e1d8eb68ac3c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -48326,38 +48326,24 @@ function (_React$Component) {
         }, _react.default.createElement("h2", {
           className: _header.default.title
         }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("section", {
-          className: _header.default.login
+          className: _header.default.userSection
         }, _react.default.createElement(_loginPage.LoginPage, null)));
       }
 
-      if (this.props.displayName && !this.props.fantasyLeagueName) {
+      if (this.props.displayName) {
         return _react.default.createElement("div", {
           className: _header.default.toolbar
         }, _react.default.createElement("h2", {
           className: _header.default.title
-        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("p", {
+        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("section", {
+          className: _header.default.userSection
+        }, _react.default.createElement("p", {
           className: _header.default.userName
         }, this.props.displayName), _react.default.createElement("img", {
           className: _header.default.userPhoto,
           src: this.props.userPhoto,
           alt: "".concat(this.props.displayName, " picture")
-        }));
-      }
-
-      if (this.props.displayName && this.props.fantasyLeagueName) {
-        return _react.default.createElement("div", {
-          className: _header.default.toolbar
-        }, _react.default.createElement("h2", {
-          className: _header.default.title
-        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("p", {
-          className: _header.default.userName
-        }, this.props.displayName), _react.default.createElement("img", {
-          className: _header.default.userPhoto,
-          src: this.props.userPhoto,
-          alt: "".concat(this.props.displayName, " picture")
-        }), _react.default.createElement("p", {
-          className: _header.default.leagueName
-        }, "Based upon: ".concat(this.props.fantasyLeagueName)));
+        })));
       }
     }
   }]);
@@ -48370,8 +48356,7 @@ exports.Header = Header;
 var mapHeaderStateToProps = function mapHeaderStateToProps(state) {
   return {
     displayName: state.loginReducer.displayName,
-    userPhoto: state.loginReducer.userPhoto,
-    fantasyLeagueName: state.loginReducer.fantasyLeagueName
+    userPhoto: state.loginReducer.userPhoto
   };
 };
 
@@ -48922,7 +48907,7 @@ module.exports = {"link":"loginPage__link__3qoZW"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"toolbar":"header__toolbar__1Evjs","title":"header__title__19n9o","login":"header__login__vvd5x","userName":"header__userName__2mr9b","userPhoto":"header__userPhoto__3AS2d","leagueName":"header__leagueName__1rTaf"};
+module.exports = {"toolbar":"header__toolbar__1Evjs","title":"header__title__19n9o","userSection":"header__userSection__1vBlL","userName":"header__userName__2mr9b","userPhoto":"header__userPhoto__3AS2d"};
 
 /***/ }),
 /* 637 */
@@ -48988,8 +48973,10 @@ function (_React$Component) {
   _createClass(Home, [{
     key: "selectLeagueChange",
     value: function selectLeagueChange(event, key, value) {
+      event.preventDefault();
       var accessToken = Cookies.get('accessToken');
       var fantasyLeagueName;
+      console.log('value:', value);
 
       _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
         if (value === league.id) {
@@ -49008,7 +48995,7 @@ function (_React$Component) {
       }
 
       if (this.props.googleId && !this.props.fantasyLeagueId) {
-        return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, "Which league will be the basis for your fantasy soccer?", _react.default.createElement(_DropDownMenu.default, {
+        return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, "Which league will be the basis for your fantasy soccer?", _react.default.createElement("br", null), _react.default.createElement(_DropDownMenu.default, {
           className: "league-selection",
           value: 0,
           onChange: this.selectLeagueChange.bind(this)
@@ -49022,7 +49009,7 @@ function (_React$Component) {
       }
 
       if (this.props.googleId && this.props.fantasyLeagueId) {
-        return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement(_fantasyClub.default, null), _react.default.createElement(_fantasyLeague.default, null));
+        return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", null, "Welcome to the Fantasy Soccer-Football Super League!", _react.default.createElement("br", null), "You have selected ", this.props.fantasyLeagueName, "."), _react.default.createElement("br", null), _react.default.createElement(_fantasyClub.default, null), _react.default.createElement(_fantasyLeague.default, null));
       }
     }
   }]);

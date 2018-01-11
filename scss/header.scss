@@ -7,29 +7,26 @@
   padding: 0.5em;
   background: grey;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-}
-
-.title {
-  padding-left: 1em;
-  flex: 0 3 auto;
-}
-
-.login {
-  flex: 0 1 auto;
-  padding-right: 2.5em;
-  margin-left: 25em;
-}
-
-.userName {
-  order: 1;
-}
-
-.userPhoto {
-  order: 2;
-}
-
-.leagueName {
-  order: 0;
+  flex-flow: row nowrap;
+  
+  .title {
+    flex: 0 3 auto;
+  }
+  
+  .userSection {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    flex: 0 1 auto;
+    
+    .userName {
+      font-size: 1.25em;
+    }
+    
+    .userPhoto {
+      margin-left: 0.75em;
+    }
+  }
 }

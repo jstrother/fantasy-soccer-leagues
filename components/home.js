@@ -20,10 +20,11 @@ import MenuItem from 'material-ui/MenuItem';
 export class Home extends React.Component {
   
   selectLeagueChange(event, key, value) {
+    event.preventDefault();
     const accessToken = Cookies.get('accessToken');
     
     let fantasyLeagueName;
-    
+    console.log('value:', value);
     LEAGUE_IDS_NAMES.forEach(league => {
       if (value === league.id) {
         fantasyLeagueName = league.name;
@@ -58,6 +59,7 @@ export class Home extends React.Component {
           <br /><br />
           <div>
             Which league will be the basis for your fantasy soccer?
+            <br />
             <DropDownMenu
               className="league-selection"
               value={0}
@@ -77,7 +79,10 @@ export class Home extends React.Component {
           <br /><br />
           <div>
             Welcome to the Fantasy Soccer-Football Super League!
+            <br />
+            You have selected {this.props.fantasyLeagueName}.
           </div>
+          <br />
           <FantasyClub />
           <FantasyLeague />
         </div>

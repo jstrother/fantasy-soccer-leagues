@@ -23,59 +23,38 @@ export class Header extends React.Component {
       return (
         <div
           className={styles.toolbar}>
-      			<h2
-      			  className={styles.title}>
-      			  The Fantasy Soccer-Football Super League
-      			 </h2>
-      			<section 
-    			    className={styles.login}>
-      			  <LoginPage />
-      			</section>
-      	</div>
+          <h2
+            className={styles.title}>
+            The Fantasy Soccer-Football Super League
+          </h2>
+          <section 
+            className={styles.userSection}>
+            <LoginPage />
+          </section>
+        </div>
       );
     }
     
-    if (this.props.displayName && !this.props.fantasyLeagueName) {
+    if (this.props.displayName) {
       return (
         <div
           className={styles.toolbar}>
-      			<h2
-      			  className={styles.title}>
-      			  The Fantasy Soccer-Football Super League
-      			 </h2>
-      			<p 
-    			    className={styles.userName}>
-      			  {this.props.displayName}
-      			</p>
-    			  <img 
-    			    className={styles.userPhoto}
-    			    src={this.props.userPhoto} 
-    			    alt={`${this.props.displayName} picture`}/>
-      	</div>
-      );
-    }
-    
-    if (this.props.displayName && this.props.fantasyLeagueName) {
-      return (
-        <div
-          className={styles.toolbar}>
-      			<h2
-      			  className={styles.title}>
-      			  The Fantasy Soccer-Football Super League
-      			 </h2>
-      			<p 
-    			    className={styles.userName}>
-      			  {this.props.displayName}
-      			</p>
-    			  <img 
-    			    className={styles.userPhoto}
-    			    src={this.props.userPhoto} 
-    			    alt={`${this.props.displayName} picture`}/>
-    			   <p 
-    			    className={styles.leagueName}>
-      			    {`Based upon: ${this.props.fantasyLeagueName}`}
-      			 </p>
-      	</div>
+          <h2
+            className={styles.title}>
+            The Fantasy Soccer-Football Super League
+          </h2>
+          <section
+            className={styles.userSection}>
+            <p 
+              className={styles.userName}>
+              {this.props.displayName}
+            </p>
+            <img 
+              className={styles.userPhoto}
+              src={this.props.userPhoto} 
+              alt={`${this.props.displayName} picture`}/>
+          </section>
+        </div>
       );
     }
   }  
@@ -84,8 +63,7 @@ export class Header extends React.Component {
 const mapHeaderStateToProps = state => (
   {
     displayName: state.loginReducer.displayName,
-    userPhoto: state.loginReducer.userPhoto,
-    fantasyLeagueName: state.loginReducer.fantasyLeagueName
+    userPhoto: state.loginReducer.userPhoto
   }
 );
 
