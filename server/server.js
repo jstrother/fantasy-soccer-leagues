@@ -48,6 +48,7 @@ const runServer = (port = PORT, database = DATABASE) => {
 			});
 			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
 			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
+			console.log('API cost jumped to $200/month. Can\'t afford that as a student');
 		})
 		.catch(error => {
 			throw new Error(error);

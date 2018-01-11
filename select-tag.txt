@@ -1,5 +1,5 @@
 <select
-  className="league-selection"
+  className="leagueSelection"
   onChange={this.selectLeagueChange}>
   {LEAGUE_IDS_NAMES.map(league => {
     console.log(league.name, league.id);
