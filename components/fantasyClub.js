@@ -1,11 +1,14 @@
 // components/fantasyClub.js
-// imported into user.js
+// imported into home.js
 
 import React from 'react';
-import Roster from './roster.js';
+import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
+import Roster from './roster.js';
+import styles from '../scss/fantasyClub.scss';
 
-export default class FantasyClub extends React.Component {
+export class FantasyClub extends React.Component {
 	render() {
 		return(
 			<div>
@@ -21,3 +24,5 @@ export default class FantasyClub extends React.Component {
 		);
 	}
 }
+
+export default CSSModules(FantasyClub, styles);

@@ -2,43 +2,43 @@ import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
-export const setStarterSuccess = (player, statusCode) => {
+export const setStarterSuccess = (player, statusCode) => ({
   type: SET_STARTER_SUCCESS,
   player,
   statusCode
-};
+});
 
 export const SET_STARTER_FAIL = 'SET_STARTER_FAIL';
-export const setStarterFail = statusCode => {
+export const setStarterFail = statusCode => ({
   type: SET_STARTER_FAIL,
   statusCode
-};
+});
 
 export const SET_BENCHWARMER_SUCCESS = 'SET_BENCHWARMER_SUCCESS';
-export const setBenchwarmerSuccess = (player, statusCode) => {
+export const setBenchwarmerSuccess = (player, statusCode) => ({
   type: SET_BENCHWARMER_SUCCESS,
   player,
   statusCode
-};
+});
 
 export const SET_BENCHWARMER_FAIL = 'SET_BENCHWARMER_FAIL';
-export const setBenchwarmerFail = statusCode => {
+export const setBenchwarmerFail = statusCode => ({
   type: SET_BENCHWARMER_FAIL,
   statusCode
-};
+});
 
 export const SET_RESERVE_SUCCESS = 'SET_RESERVE_SUCCESS';
-export const setReserveSuccess = (player, statusCode) => {
+export const setReserveSuccess = (player, statusCode) => ({
   type: SET_RESERVE_SUCCESS,
   player,
   statusCode
-};
+});
 
 export const SET_RESERVE_FAIL = 'SET_RESERVE_FAIL';
-export const setReserveFail = statusCode => {
+export const setReserveFail = statusCode => ({
   type: SET_RESERVE_FAIL,
   statusCode
-};
+});
 
 export const fetchStarter = player => dispatch => {
   return fetch(`${url}/player/${player.idFromAPI}`)
