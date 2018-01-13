@@ -36,10 +36,11 @@ export class Home extends React.Component {
       return (
         <div>
           <br /><br />
-          <div>
-            Welcome to the Fantasy Soccer-Football Super League!
+          <div
+            className={styles.welcome}>
+            <p>Welcome to the Fantasy Soccer-Football Super League!</p>
             <br />
-            Create your own team and compete against others to prove you are the best at fantasy footy!
+            <p>Create your own team and compete against others to prove you are the best at fantasy</p> footy!
           </div>
         </div>
       );
@@ -47,14 +48,13 @@ export class Home extends React.Component {
     
     if (this.props.googleId && !this.props.fantasyLeagueId) {
       return (
-        <div>
+        <main>
           <br /><br />
-          <div>
-            Welcome to the Fantasy Soccer-Football Super League!
-          </div>
-          <br /><br />
-          <div>
-            Which league will be the basis for your fantasy soccer?
+          <div
+            className={styles.welcome}>
+            <p>Welcome to the Fantasy Soccer-Football Super League!</p>
+            <br /><br />
+            <p>Which league will be the basis for your fantasy soccer?</p>
             <br />
             <DropDownMenu
               className="league-selection"
@@ -65,23 +65,30 @@ export class Home extends React.Component {
               })}
             </DropDownMenu>
           </div>
-        </div>
+        </main>
       );
     } 
     
     if (this.props.googleId && this.props.fantasyLeagueId) {
       return (
-        <div>
+        <main>
           <br /><br />
-          <div>
-            Welcome to the Fantasy Soccer-Football Super League!
+          <div
+            className={styles.welcome}>
+            <p>Welcome to the Fantasy Soccer-Football Super League!</p>
             <br />
-            You have selected {this.props.fantasyLeagueName}.
+            <p>You have selected {this.props.fantasyLeagueName}.</p>
           </div>
           <br />
-          <FantasyClub />
-          <FantasyLeague />
-        </div>
+          <div
+            className={styles.club}>
+            <FantasyClub />
+          </div>
+          <div
+            className={styles.league}>
+            <FantasyLeague />
+          </div>
+        </main>
       );
     }
   }

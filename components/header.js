@@ -21,7 +21,7 @@ export class Header extends React.Component {
   render() {
     if (!this.props.displayName) {
       return (
-        <div
+        <header
           className={styles.toolbar}>
           <h2
             className={styles.title}>
@@ -31,13 +31,13 @@ export class Header extends React.Component {
             className={styles.userSection}>
             <LoginPage />
           </section>
-        </div>
+        </header>
       );
     }
     
     if (this.props.displayName) {
       return (
-        <div
+        <header
           className={styles.toolbar}>
           <h2
             className={styles.title}>
@@ -54,7 +54,7 @@ export class Header extends React.Component {
               src={this.props.userPhoto} 
               alt={`${this.props.displayName} picture`}/>
           </section>
-        </div>
+        </header>
       );
     }
   }  

@@ -7,7 +7,7 @@ export default class FantasyLeague extends React.Component {
 	render() {
 		return(
 			<div>
-			
+				Fantasy League Standings:
 			</div>
 		);
 	}
