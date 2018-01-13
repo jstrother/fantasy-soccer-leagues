@@ -23,15 +23,20 @@ main {
   
   p {
     margin: 0.1em;
+    align-self: center;
   }
 }
 
 .club {
   grid-column: 1 / 7;
   grid-row: 2 / 6;
+  justify-self: start;
+  align-self: center;
 }
 
 .league {
   grid-column: 7 / 9;
   grid-row: 2 / 6;
+  justify-self: center;
+  align-self: center;
 }

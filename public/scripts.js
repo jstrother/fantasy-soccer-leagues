@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e10a4c7ddab31aba13bd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dd27e188f2ff9c5648e2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -47975,7 +47975,17 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club.")), _react.default.createElement("div", null, "Roster:"));
+      return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must DropDownMenu 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, null, _react.default.createElement(_MenuItem.default, {
+        value: "all"
+      }, "All Positions"), _react.default.createElement(_MenuItem.default, {
+        value: "f"
+      }, "Forwards"), _react.default.createElement(_MenuItem.default, {
+        value: "m"
+      }, "Midfielders"), _react.default.createElement(_MenuItem.default, {
+        value: "d"
+      }, "Defenders"), _react.default.createElement(_MenuItem.default, {
+        value: "g"
+      }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, null))))), _react.default.createElement("div", null, "Roster:"));
     }
   }]);
 
