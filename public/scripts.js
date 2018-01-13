@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9ef3eeb173316d25d64b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b376683e8ff1bc9a5d56"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -54699,7 +54699,8 @@ var _leagueReducer = __webpack_require__(690);
 // import { subPlayerRedcer } from './subReducers/subPlayerReducer.js';
 var reducers = (0, _redux.combineReducers)({
   loginReducer: _loginReducer.loginReducer,
-  playerReducer: _playerReducer.playerReducer // subPlayerRedcer
+  playerReducer: _playerReducer.playerReducer,
+  leagueReducer: _leagueReducer.leagueReducer // subPlayerRedcer
 
 });
 exports.reducers = reducers;

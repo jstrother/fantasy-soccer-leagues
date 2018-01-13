@@ -10,5 +10,6 @@ import { leagueReducer } from './subReducers/leagueReducer.js';
 export const reducers = combineReducers({
   loginReducer,
   playerReducer,
+  leagueReducer,
   // subPlayerRedcer
 });

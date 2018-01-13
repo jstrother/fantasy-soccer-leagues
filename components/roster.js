@@ -12,6 +12,9 @@ import styles from '../scss/roster.scss';
 
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
+	playersInLeague(fantasyLeagueId) {
+		this.props.dispatch(fetchLeague(fantasyLeagueId));
+	}
 	
 	
 	// handleChange functions
