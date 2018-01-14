@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dd27e188f2ff9c5648e2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "605d08aff800c0f4ed31"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -19848,10 +19848,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var LEAGUE_SUCCESS = 'LEAGUE_SUCCESS';
 exports.LEAGUE_SUCCESS = LEAGUE_SUCCESS;
 
-var leagueSuccess = function leagueSuccess(leagueId, statusCode) {
+var leagueSuccess = function leagueSuccess(player, statusCode) {
   return {
     type: LEAGUE_SUCCESS,
-    leagueId: leagueId,
+    player: player,
     statusCode: statusCode
   };
 };
@@ -19883,8 +19883,8 @@ var fetchLeague = function fetchLeague(leagueId) {
       }
 
       return res.json();
-    }).then(function (leagueId) {
-      dispatch(leagueSuccess(leagueId, 200));
+    }).then(function (player) {
+      dispatch(leagueSuccess(player, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -46899,8 +46899,8 @@ exports.Header = Header;
 
 var mapHeaderStateToProps = function mapHeaderStateToProps(state) {
   return {
-    displayName: state.loginReducer.displayName,
-    userPhoto: state.loginReducer.userPhoto
+    displayName: state.userReducer.displayName,
+    userPhoto: state.userReducer.userPhoto
   };
 };
 
@@ -47575,12 +47575,12 @@ exports.Home = Home;
 
 var mapHomeStateToProps = function mapHomeStateToProps(state) {
   return {
-    googleId: state.loginReducer.googleId,
-    displayName: state.loginReducer.displayName,
-    givenName: state.loginReducer.givenName,
-    userPhoto: state.loginReducer.userPhoto,
-    fantasyLeagueId: state.loginReducer.fantasyLeagueId,
-    fantasyLeagueName: state.loginReducer.fantasyLeagueName
+    googleId: state.userReducer.googleId,
+    displayName: state.userReducer.displayName,
+    givenName: state.userReducer.givenName,
+    userPhoto: state.userReducer.userPhoto,
+    fantasyLeagueId: state.userReducer.fantasyLeagueId,
+    fantasyLeagueName: state.userReducer.fantasyLeagueName
   };
 };
 
@@ -47966,26 +47966,39 @@ function (_React$Component) {
   }
 
   _createClass(Team, [{
-    key: "playersInLeague",
+    key: "componentDidMount",
     // using fantasyLeagueId, display list of players from that league
-    value: function playersInLeague(fantasyLeagueId) {
-      this.props.dispatch((0, _leagueActions.fetchLeague)(fantasyLeagueId));
+    value: function componentDidMount() {
+      this.props.dispatch((0, _leagueActions.fetchLeague)(this.props.fantasyLeagueId));
+      console.log('idFromAPI:', this.props.idFromAPI);
     } // handleChange functions
 
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must DropDownMenu 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, null, _react.default.createElement(_MenuItem.default, {
+      return _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, {
         value: "all"
-      }, "All Positions"), _react.default.createElement(_MenuItem.default, {
-        value: "f"
-      }, "Forwards"), _react.default.createElement(_MenuItem.default, {
-        value: "m"
-      }, "Midfielders"), _react.default.createElement(_MenuItem.default, {
-        value: "d"
-      }, "Defenders"), _react.default.createElement(_MenuItem.default, {
-        value: "g"
-      }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, null))))), _react.default.createElement("div", null, "Roster:"));
+      }, _react.default.createElement(_MenuItem.default, {
+        key: "1",
+        value: "all",
+        primaryText: "All Positions"
+      }), _react.default.createElement(_MenuItem.default, {
+        key: "2",
+        value: "f",
+        primaryText: "Forwards"
+      }), _react.default.createElement(_MenuItem.default, {
+        key: "3",
+        value: "m",
+        primaryText: "Midfielders"
+      }), _react.default.createElement(_MenuItem.default, {
+        key: "4",
+        value: "d",
+        primaryText: "Defenders"
+      }), _react.default.createElement(_MenuItem.default, {
+        key: "5",
+        value: "g",
+        primaryText: "Goalkeepers"
+      }))), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, null)))), _react.default.createElement("tbody", null))), _react.default.createElement("div", null, "Roster:"));
     }
   }]);
 
@@ -47996,7 +48009,11 @@ exports.Team = Team;
 
 var mapRosterStateToProps = function mapRosterStateToProps(state) {
   return {
-    fantasyLeagueId: state.loginReducer.fantasyLeagueId
+    fantasyLeagueId: state.userReducer.fantasyLeagueId,
+    idFromAPI: state.leagueReducer.idFromAPI,
+    fullName: state.leagueReducer.fullName,
+    position: state.leagueReducer.position,
+    clubName: state.leagueReducer.clubName
   };
 };
 
@@ -54714,7 +54731,7 @@ exports.reducers = void 0;
 
 var _redux = __webpack_require__(115);
 
-var _loginReducer = __webpack_require__(688);
+var _userReducer = __webpack_require__(688);
 
 var _playerReducer = __webpack_require__(689);
 
@@ -54724,7 +54741,7 @@ var _leagueReducer = __webpack_require__(690);
 // imported into ./flow/store.js
 // import { subPlayerRedcer } from './subReducers/subPlayerReducer.js';
 var reducers = (0, _redux.combineReducers)({
-  loginReducer: _loginReducer.loginReducer,
+  userReducer: _userReducer.userReducer,
   playerReducer: _playerReducer.playerReducer,
   leagueReducer: _leagueReducer.leagueReducer // subPlayerRedcer
 
@@ -54741,13 +54758,13 @@ exports.reducers = reducers;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loginReducer = void 0;
+exports.userReducer = void 0;
 
 var _userActions = __webpack_require__(148);
 
 // ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
-var loginReducer = function loginReducer() {
+var userReducer = function userReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -54776,7 +54793,7 @@ var loginReducer = function loginReducer() {
   }
 };
 
-exports.loginReducer = loginReducer;
+exports.userReducer = userReducer;
 
 /***/ }),
 /* 689 */
@@ -54943,10 +54960,10 @@ var leagueReducer = function leagueReducer() {
   switch (action.type) {
     case _leagueActions.LEAGUE_SUCCESS:
       return Object.assign({}, state, {
-        idFromAPI: action.player.idFromAPI,
-        fullName: action.player.fullName,
-        position: action.player.position,
-        clubName: action.player.clubName
+        idFromAPI: action.idFromAPI,
+        fullName: action.fullName,
+        position: action.position,
+        clubName: action.clubName
       });
 
     case _leagueActions.LEAGUE_FAIL:

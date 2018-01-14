@@ -96,12 +96,12 @@ export class Home extends React.Component {
 
 const mapHomeStateToProps = state => (
   {
-    googleId: state.loginReducer.googleId,
-    displayName: state.loginReducer.displayName,
-    givenName: state.loginReducer.givenName,
-    userPhoto: state.loginReducer.userPhoto,
-    fantasyLeagueId: state.loginReducer.fantasyLeagueId,
-    fantasyLeagueName: state.loginReducer.fantasyLeagueName
+    googleId: state.userReducer.googleId,
+    displayName: state.userReducer.displayName,
+    givenName: state.userReducer.givenName,
+    userPhoto: state.userReducer.userPhoto,
+    fantasyLeagueId: state.userReducer.fantasyLeagueId,
+    fantasyLeagueName: state.userReducer.fantasyLeagueName
   }
 );
 

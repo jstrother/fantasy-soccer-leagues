@@ -2,9 +2,9 @@ import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 export const LEAGUE_SUCCESS = 'LEAGUE_SUCCESS';
-export const leagueSuccess = (leagueId, statusCode) => ({
+export const leagueSuccess = (player, statusCode) => ({
   type: LEAGUE_SUCCESS,
-  leagueId,
+  player,
   statusCode
 });
 
@@ -28,8 +28,8 @@ export const fetchLeague = leagueId => dispatch => {
     }
     return res.json();
   })
-  .then(leagueId => {
-    dispatch(leagueSuccess(leagueId, 200));
+  .then(player => {
+    dispatch(leagueSuccess(player, 200));
     return;
   })
   .catch(error => {

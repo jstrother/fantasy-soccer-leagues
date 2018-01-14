@@ -62,8 +62,8 @@ export class Header extends React.Component {
 
 const mapHeaderStateToProps = state => (
   {
-    displayName: state.loginReducer.displayName,
-    userPhoto: state.loginReducer.userPhoto
+    displayName: state.userReducer.displayName,
+    userPhoto: state.userReducer.userPhoto
   }
 );
 

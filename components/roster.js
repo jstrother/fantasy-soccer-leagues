@@ -12,8 +12,9 @@ import styles from '../scss/roster.scss';
 
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
-	playersInLeague(fantasyLeagueId) {
-		this.props.dispatch(fetchLeague(fantasyLeagueId));
+	componentDidMount(){
+		this.props.dispatch(fetchLeague(this.props.fantasyLeagueId));
+		console.log('idFromAPI:', this.props.idFromAPI);
 	}
 	
 	
@@ -23,26 +24,32 @@ export class Team extends React.Component {
 		return(
 			<div>
 				<div>
-					<h5>You must DropDownMenu 23 players, no more than 4 from any one club.</h5>
+					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					{/*set up a table here that lists all players in DropDownMenued league. column headers can be used (as drop down menus) to limit to a certain position or team for easier readability and DropDownMenuion. column headers will be "fullName position clubName"*/}
 					<table>
-						<tr>
-							<th>Name</th>
-							<th>
-								<DropDownMenu>
-									<MenuItem value="all">All Positions</MenuItem>
-									<MenuItem value="f">Forwards</MenuItem>
-									<MenuItem value="m">Midfielders</MenuItem>
-									<MenuItem value="d">Defenders</MenuItem>
-									<MenuItem value="g">Goalkeepers</MenuItem>
-								</DropDownMenu>
-							</th>
-							<th>
-								<DropDownMenu>
-									
-								</DropDownMenu>
-							</th>
-						</tr>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>
+									<DropDownMenu
+										value={"all"}>
+										<MenuItem key={"1"} value={"all"} primaryText={"All Positions"}/>
+										<MenuItem key={"2"} value={"f"} primaryText={"Forwards"}/>
+										<MenuItem key={"3"} value={"m"} primaryText={"Midfielders"}/>
+										<MenuItem key={"4"} value={"d"} primaryText={"Defenders"}/>
+										<MenuItem key={"5"} value={"g"} primaryText={"Goalkeepers"}/>
+									</DropDownMenu>
+								</th>
+								<th>
+									<DropDownMenu>
+										
+									</DropDownMenu>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
 					</table>
 				</div>
 				<div>
@@ -55,7 +62,11 @@ export class Team extends React.Component {
 }
 
 const mapRosterStateToProps = state => ({
-  fantasyLeagueId: state.loginReducer.fantasyLeagueId
+  fantasyLeagueId: state.userReducer.fantasyLeagueId,
+  idFromAPI: state.leagueReducer.idFromAPI,
+  fullName: state.leagueReducer.fullName,
+  position: state.leagueReducer.position,
+  clubName: state.leagueReducer.clubName
 });
 
 const Roster = connect(

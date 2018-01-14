@@ -1,14 +1,14 @@
 @import "normalize";
 // @import "myVariables";
 
-* {
-  border: 1px solid red;
-}
-
 main {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+  
+  * {
+    border: 1px solid red;
+  }
 }
 
 .welcome {
