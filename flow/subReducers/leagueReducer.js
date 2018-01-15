@@ -8,10 +8,7 @@ export const leagueReducer = (state = {}, action) => {
     case LEAGUE_SUCCESS:
       return Object.assign({}, state,
         {
-          idFromAPI: action.player.idFromAPI,
-          fullName: action.player.fullName,
-          position: action.player.position,
-          clubName: action.player.clubName
+          players: action.players
         }
       );
     case LEAGUE_FAIL:

@@ -10,19 +10,20 @@ import { fetchLeague } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
 import styles from '../scss/roster.scss';
 
+
+
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
-	componentDidMount(){
+	componentDidMount() {
 		this.props.dispatch(fetchLeague(this.props.fantasyLeagueId));
-		console.log('idFromAPI:', this.props.idFromAPI);
 	}
-	
 	
 	// handleChange functions
 	
 	render() {
 		return(
 			<div>
+				{console.log('roster.js players:', this.props.players)}
 				<div>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					{/*set up a table here that lists all players in DropDownMenued league. column headers can be used (as drop down menus) to limit to a certain position or team for easier readability and DropDownMenuion. column headers will be "fullName position clubName"*/}
@@ -63,10 +64,7 @@ export class Team extends React.Component {
 
 const mapRosterStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
-  idFromAPI: state.leagueReducer.idFromAPI,
-  fullName: state.leagueReducer.fullName,
-  position: state.leagueReducer.position,
-  clubName: state.leagueReducer.clubName
+  players: state.leagueReducer.players
 });
 
 const Roster = connect(
