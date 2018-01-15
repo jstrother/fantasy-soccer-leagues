@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "251d20fcd6146ba44719"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "589ed5682e8c5e81c3f0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -47538,7 +47538,7 @@ function (_React$Component) {
       if (this.props.googleId === undefined || !this.props.googleId) {
         return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", {
           className: _home.default.welcome
-        }, _react.default.createElement("p", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", null, "Create your own team and compete against others to prove you are the best at fantasy"), " footy!"));
+        }, _react.default.createElement("p", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", null, "Create your own team and compete against others to prove you are the best at fantasy footy!")));
       }
 
       if (this.props.googleId && !this.props.fantasyLeagueId) {
@@ -47976,29 +47976,45 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, console.log('roster.js players:', this.props.players), _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, {
-        value: "all"
-      }, _react.default.createElement(_MenuItem.default, {
-        key: "1",
-        value: "all",
-        primaryText: "All Positions"
-      }), _react.default.createElement(_MenuItem.default, {
-        key: "2",
-        value: "f",
-        primaryText: "Forwards"
-      }), _react.default.createElement(_MenuItem.default, {
-        key: "3",
-        value: "m",
-        primaryText: "Midfielders"
-      }), _react.default.createElement(_MenuItem.default, {
-        key: "4",
-        value: "d",
-        primaryText: "Defenders"
-      }), _react.default.createElement(_MenuItem.default, {
-        key: "5",
-        value: "g",
-        primaryText: "Goalkeepers"
-      }))), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, null)))), _react.default.createElement("tbody", null))), _react.default.createElement("div", null, "Roster:"));
+      if (this.props.players) {
+        return _react.default.createElement("div", null, console.log('roster.js players:', this.props.players), _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, {
+          value: "allPositions"
+        }, _react.default.createElement(_MenuItem.default, {
+          key: "1",
+          value: "allPositions",
+          primaryText: "All Positions"
+        }), _react.default.createElement(_MenuItem.default, {
+          key: "2",
+          value: "f",
+          primaryText: "Forwards"
+        }), _react.default.createElement(_MenuItem.default, {
+          key: "3",
+          value: "m",
+          primaryText: "Midfielders"
+        }), _react.default.createElement(_MenuItem.default, {
+          key: "4",
+          value: "d",
+          primaryText: "Defenders"
+        }), _react.default.createElement(_MenuItem.default, {
+          key: "5",
+          value: "g",
+          primaryText: "Goalkeepers"
+        }))), _react.default.createElement("th", null, _react.default.createElement(_DropDownMenu.default, {
+          value: "allClubs"
+        }, _react.default.createElement(_MenuItem.default, {
+          key: "77",
+          value: "allClubs",
+          primaryText: "All Clubs"
+        }), console.log('dropDownMenu this:', this), this.props.players.map(function (player) {
+          return _react.default.createElement(_MenuItem.default, {
+            key: player.idFromAPI,
+            value: player.clubName,
+            primaryText: player.clubName
+          });
+        }))))), _react.default.createElement("tbody", null))), _react.default.createElement("div", null, "Roster:"));
+      } else {
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
+      }
     }
   }]);
 

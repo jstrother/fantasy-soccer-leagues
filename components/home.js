@@ -40,7 +40,7 @@ export class Home extends React.Component {
             className={styles.welcome}>
             <p>Welcome to the Fantasy Soccer-Football Super League!</p>
             <br />
-            <p>Create your own team and compete against others to prove you are the best at fantasy</p> footy!
+            <p>Create your own team and compete against others to prove you are the best at fantasy footy!</p>
           </div>
         </div>
       );
