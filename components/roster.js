@@ -47,7 +47,7 @@ export class Team extends React.Component {
 										<DropDownMenu
 											value={"allClubs"}>
 											<MenuItem key={"77"} value={"allClubs"} primaryText={"All Clubs"} />
-											{LEAGUE_IDS_NAMES.map(league => {
+											{LEAGUE_IDS_NAMES.forEach(league => {
 												if (league.id === this.props.fantasyLeagueId) {
 													league.clubs.map(club => {
 														return <MenuItem key={Math.random()} value={club.name} primaryText={club.name} />;
