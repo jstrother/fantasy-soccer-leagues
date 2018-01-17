@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
 import styles from '../scss/roster.scss';
@@ -46,9 +47,12 @@ export class Team extends React.Component {
 										<DropDownMenu
 											value={"allClubs"}>
 											<MenuItem key={"77"} value={"allClubs"} primaryText={"All Clubs"} />
-											{console.log('dropDownMenu this:', this)}
-											{this.props.players.map(player => {
-												return <MenuItem key={player.idFromAPI} value={player.clubName} primaryText={player.clubName} />;
+											{LEAGUE_IDS_NAMES.map(league => {
+												if (league.id === this.props.fantasyLeagueId) {
+													league.clubs.map(club => {
+														return <MenuItem key={Math.random()} value={club.name} primaryText={club.name} />;
+													});
+												}
 											})}
 										</DropDownMenu>
 									</th>
