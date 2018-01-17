@@ -5,7 +5,8 @@ const rp = require('request-promise'),
   { updateData } = require('./updateData_function.js'),
   loopFunction = require('./loopFunction_function.js'),
   playerStats = require('./playerStats_function.js'),
-  Player = require('../../models/player_model.js');
+  Player = require('../../models/player_model.js'),
+  Clubs = require("../../models/clubs_model.js");
 
 
 // this function returns all players and their stats for a league's current regular season

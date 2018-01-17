@@ -5,194 +5,1067 @@ exports.LEAGUE_IDS_NAMES = [
   },
   {
     id: 8,
-    name: "Premiere League (England)"
+    name: "Premiere League (England)",
+    clubs: [
+      'Arsenal',
+      'Bournemouth',
+      'Brighton & Hove Albion',
+      'Burnley',
+      'Chelsea',
+      'Crystal Palace',
+      'Everton',
+      'Huddersfield Town',
+      'Leicester City',
+      'Liverpool',
+      'Manchester City',
+      'Manchester United',
+      'Newcastle United',
+      'Southampton',
+      'Stoke City',
+      'Swansea City',
+      'Tottenham Hotspur',
+      'Watford',
+      'West Bromwich Albion',
+      'West Ham United'  
+    ]
   },
   {
     id:9, 
-    name: "Championship (England)"
+    name: "Championship (England)",
+    clubs: [
+      'Aston Villa',
+      'Barnsley',
+      'Birmingham City',
+      'Bolton Wanderers',
+      'Brentford',
+      'Bristol City',
+      'Burton Albion',
+      'Cardiff City',
+      'Derby County',
+      'Fulham',
+      'Hull City',
+      'Ipswich Town',
+      'Leeds United',
+      'Middlesbrough',
+      'Millwall',
+      'Norwich City',
+      'Nottingham Forest',
+      'Preston North End',
+      'Queens Park Rangers',
+      'Reading',
+      'Sheffield United',
+      'Sheffield Wednesday',
+      'Sunderland',
+      'Wolverhampton Wanderers'
+    ]
   },
   {
     id: 12, 
-    name: "League One (England)"
+    name: "League One (England)",
+    clubs: [
+      'AFC Wimbledon',
+      'Blackburn Rovers',
+      'Blackpool',
+      'Bradford City',
+      'Bristol Rovers',
+      'Bury',
+      'Charlton Athletic',
+      'Doncaster Rovers',
+      'Fleetwood Town',
+      'Gillingham',
+      'Milton Keynes Dons',
+      'Northampton Town',
+      'Oldham Athletic',
+      'Oxford United',
+      'Peterborough United',
+      'Plymouth Argyle',
+      'Portsmouth',
+      'Rochdale',
+      'Rotherham United',
+      'Scrunthorpe United',
+      'Shrewsbury Town',
+      'Southend United',
+      'Walsall',
+      'Wigan Athletic'
+    ]
   },
   {
     id: 14, 
-    name: "League Two (England)"
+    name: "League Two (England)",
+    clubs: [
+      'Accrington Stanley',
+      'Barnet',
+      'Cambridge United',
+      'Carlisle United',
+      'Cheltenham Town',
+      'Chesterfield',
+      'Colchester United',
+      'Crawley Town',
+      'Crewe Alexandria',
+      'Exeter City',
+      'Forest Green Rovers',
+      'Grimsby Town',
+      'Lincoln City',
+      'Luton Town',
+      'Mansfield Town',
+      'Morecambe',
+      'Newport County',
+      'Notts County',
+      'Port Vale',
+      'Stevenage',
+      'Swindon Town',
+      'Wycombe Wanderers',
+      'Yeovil Town'
+    ]
   },
   {
     id: 72, 
-    name: "Eredivise (Netherlands)"
+    name: "Eredivise (Netherlands)",
+    clubs: [
+      'ADO Den Haag',
+      'Ajax',
+      'AZ',
+      'Excelsior',
+      'Feyenoord',
+      'Groningen',
+      'Heerenveen',
+      'Heracles Almelo',
+      'NAC Breda',
+      'PEC Zwolle',
+      'PSV',
+      'Roda JC',
+      'Sparta Rotterdam',
+      'Twente',
+      'Utrecht',
+      'Vitesse',
+      'VVV-Venlo',
+      'Willem II'
+    ]
   },
   {
     id: 74, 
-    name: "Eerste Divisie (Netherlands)"
+    name: "Eerste Divisie (Netherlands)",
+    clubs: [
+      'Jong Ajax',
+      'Almere City',
+      'Jong AZ',
+      'Cambuur',
+      'De Graafschap',
+      'Den Bosch',
+      'Dordrecht',
+      'FC Eindhoven',
+      'Emmen',
+      'Fortuna Sittard',
+      'Go Ahead Eagles',
+      'Helmond Sport',
+      'MVV',
+      'NEC',
+      'Oss',
+      'Jong PSV',
+      'RKC Waalwijk',
+      'Telstar',
+      'Jong FC Utrect',
+      'Volendam'
+    ]
   },
   {
     id: 82, 
-    name: "Bundesliga (Germany)"
+    name: "Bundesliga (Germany)",
+    clubs: [
+      'FC Augsburg',
+      'Hertha BSC',
+      'Weder Bremen',
+      'Borussia Dortmund',
+      'Eintracht Frankfurt',
+      'SC Freiburg',
+      'Hamburger SV',
+      'Hannover 96',
+      '1899 Hoffenheim',
+      '1. FC Köln',
+      'RB Leipzig',
+      'Bayer Leverkusen',
+      'Mainz 05',
+      'Borussia Mönchengladbach',
+      'Bayern Munich',
+      'Schalke 04',
+      'VfB Stuttgart',
+      'VfL Wolfsburg'
+    ]
   },
   {
     id: 85, 
-    name: "2.Bundesliga (Germany)"
+    name: "2.Bundesliga (Germany)",
+    clubs: [
+      'Erzgebirge Aue',
+      'Arminia Bielefeld',
+      'VfL Bochum',
+      'Eintracht Braunschweig',
+      'Darmstadt 98',
+      'Dynamo Dresden',
+      'MSV Duisburg',
+      'Fortuna Düsseldorf',
+      'SpVgg Greuther Fürth',
+      '1. FC Heidenheim',
+      'FC Ingolstadt',
+      '1. FC Kaiserslautern',
+      'Holstein Kiel',
+      '1. FC Nürnberg',
+      'Jahn Regensburg',
+      'SV Sandhausen',
+      'FC St. Pauli',
+      'Union Berlin'
+    ]
   },
   {
     id: 181, 
-    name: "Bundesliga (Austria)"
+    name: "Bundesliga (Austria)",
+    clubs: [
+      'Admira Wacker Mödling',
+      'Austria Wien',
+      'LASK Linz',
+      'Rapid Wien',
+      'Red Bull Salzburg',
+      'Rheindorf Altach',
+      'St. Pölten',
+      'Sturm Graz',
+      'SV Mattersburg',
+      'Wolfsberger AC'
+    ]
   },
   {
     id: 208, 
-    name: "Jupiler Pro League (Belgium)"
+    name: "First Division A (Belgium)",
+    clubs: [
+      'Anderlecht',
+      'Antwerp',
+      'Charleroi',
+      'Club Brugge',
+      'Eupen',
+      'Genk',
+      'Gent',
+      'Kortrijk',
+      'Lokeren',
+      'Mechelen',
+      'Excel Mouscron',
+      'Oostende',
+      'Sint-Truiden',
+      'Standard Liège',
+      'Waasland-Beveren',
+      'Zulte Waregem'
+    ]
   },
   {
     id: 271, 
-    name: "Superliga (Denmark)"
+    name: "Superliga (Denmark)",
+    clubs: [
+      'AaB',
+      'AGF',
+      'Brøndby',
+      'FCK',
+      'Helsingør',
+      'Hobro',
+      'Horsens',
+      'Midtjylland',
+      'Nordsjælland',
+      'Lyngby',
+      'OB',
+      'Randers',
+      'Silkeborg IF',
+      'SønderjyskE'
+    ]
   },
   {
     id: 301, 
-    name: "Ligue 1 (France)"
+    name: "Ligue 1 (France)",
+    clubs: [
+      'Amiens',
+      'Angers',
+      'Bordeaux',
+      'Caen',
+      'Dijon',
+      'Guingamp',
+      'Lille',
+      'Lyon',
+      'Marseille',
+      'Metz',
+      'Monaco',
+      'Montpellier',
+      'Nantes',
+      'Nice',
+      'PSG',
+      'Rennes',
+      'Saint-Étienne',
+      'Strasbourg',
+      'Toulouse',
+      'Troyes'
+    ]
   },
   {
     id: 304, 
-    name: "Ligue 2 (France)"
+    name: "Ligue 2 (France)",
+    clubs: [
+      'AC Ajaccio',
+      'Auxerre',
+      'Bourg-Péronnas',
+      'Brest',
+      'Châteauroux',
+      'Clermont Foot',
+      'Gazélec Ajaccio',
+      'Le Havre',
+      'Lens',
+      'Lorient',
+      'Nancy',
+      'Nîmes',
+      'Niort',
+      'Orléans',
+      'Paris FC',
+      'Quevilly-Rouen',
+      'Reims',
+      'Sochaux',
+      'Tours',
+      'Valenciennes'
+    ]
   },
   {
     id: 325, 
-    name: "Super League (Greece)"
+    name: "Superleague (Greece)",
+    clubs: [
+      'AEK Athens',
+      'AEL',
+      'Apollon Smyrni',
+      'Asteras Tripoli',
+      'Atromitos',
+      'Kerkyra',
+      'Lamia',
+      'Levadiakos',
+      'Olympiacos',
+      'Panathinaikos',
+      'Panetolikos',
+      'Panionios',
+      'PAOK',
+      'PAS Giannina',
+      'Platanias',
+      'Xanthi'
+    ]
   },
   {
     id: 345, 
-    name: "Urvalsdeild (Iceland)"
+    name: "Úrvalsdeild (Iceland)",
+    clubs: [
+      'Breiðablik',
+      'FH',
+      'Fjölnir',
+      'Grindavík',
+      'ÍA',
+      'ÍBV',
+      'KA',
+      'KR',
+      'Stjarnan',
+      'Valur',
+      'Víkingur Ó.',
+      'Víkingur R.'
+    ]
   },
   {
     id: 360, 
-    name: "Premiere Division (Ireland)"
+    name: "Premiere Division (Ireland)",
+    clubs: [
+      "Bohemians",
+      "Bray Wanderers",
+      "Cork City",
+      "Derry City",
+      "Dundalk",
+      "Limerick",
+      "Shamrock Rovers",
+      "Sligo Rovers",
+      "St Patrick's Athletic",
+      "Waterford"
+    ]
   },
   {
     id: 384, 
-    name: "Serie A (Italy)"
+    name: "Serie A (Italy)",
+    clubs: [
+      'Atalanta',
+      'Benevento',
+      'Bologna',
+      'Cagliari',
+      'Chievo',
+      'Crotone',
+      'Fiorentina',
+      'Genoa',
+      'Hellas Verona',
+      'Internazionale',
+      'Juventus',
+      'Lazio',
+      'Milan',
+      'Napoli',
+      'Roma',
+      'Sampdoria',
+      'Sassuolo',
+      'SPAL',
+      'Torino',
+      'Udinese'
+    ]
   },
   {
     id: 387, 
-    name: "Serie B (Italy)"
+    name: "Serie B (Italy)",
+    clubs: [
+      'Ascoli',
+      'Avellino',
+      'Bari',
+      'Brescia',
+      'Carpi',
+      'Cesena',
+      'Cittadella',
+      'Cremonese',
+      'Empoli',
+      'Foggia',
+      'Frosinone',
+      'Novara',
+      'Palermo',
+      'Parma',
+      'Perugia',
+      'Pescara',
+      'Pro Vercelli',
+      'Salernitana',
+      'Spezia',
+      'Ternana',
+      'Venezia',
+      'Virtus Entella'
+    ]
   },
   {
     id: 438, 
-    name: "Premiership (Northern Ireland)"
+    name: "Premiership (Northern Ireland)",
+    clubs: [
+      'Ards',
+      'Ballinamallard United',
+      'Ballymena United',
+      'Carrick Rangers',
+      'Cliftonville',
+      'Coleraine',
+      'Crusaders',
+      'Dungannon Swifts',
+      'Glenavon',
+      'Glentoran',
+      'Linfield',
+      'Warrenpoint Town'
+    ]
   },
   {
     id: 444, 
-    name: "Tippeligaen (Norway)"
+    name: "Eliteserien (Norway)",
+    clubs: [
+      'Bodø/Glimt',
+      'Brann',
+      'Haugesund',
+      'Kristiansund',
+      'Lillestrøm',
+      'Molde',
+      'Odd',
+      'Ranheim',
+      'Rosenborg',
+      'Sandefjord',
+      'Sarpsborg 08',
+      'Stabæk',
+      'Start',
+      'Strømsgodset',
+      'Tromsø',
+      'Vålerenga'
+    ]
   },
   {
     id: 453, 
-    name: "Ekstraklasa (Poland)"
+    name: "Ekstraklasa (Poland)",
+    clubs: [
+      'Arka Gdynia',
+      'Bruk-Bet Termalica Nieciecza',
+      'Cracovia',
+      'Górnik Zabrze',
+      'Jagiellonia Białystok',
+      'Korona Kielce',
+      'Lech Poznań',
+      'Lechia Gdańsk',
+      'Legia Warsaw',
+      'Piast Gliwice',
+      'Pogoń Szczecin',
+      'Sandecja Nowy Sącz',
+      'Śląsk Wrocław',
+      'Wisła Kraków',
+      'Wisła Płock',
+      'Zagłębie Lubin'
+    ]
   },
   {
     id: 462, 
-    name: "Primeira Liga (Portugal)"
+    name: "Primeira Liga (Portugal)",
+    clubs: [
+      'Belenenses',
+      'Benfica',
+      'Boavista',
+      'Braga',
+      'Chaves',
+      'Desportivo das Aves',
+      'Estoril',
+      'Feirense',
+      'Marítimo',
+      'Moreirense',
+      'Paços de Ferreira',
+      'Porto',
+      'Portimonense',
+      'Rio Ave',
+      'Sporting CP',
+      'Tondela',
+      'Vitória de Guimarães',
+      'Vitória de Setúbal'
+    ]
   },
   {
     id: 486, 
-    name: "Premiere League (Russia)"
+    name: "Premiere League (Russia)",
+    clubs: [
+      'Akhmat',
+      'Amkar',
+      'Anzhi',
+      'Arsenal',
+      'CSKA',
+      'Dynamo',
+      'Krasnodar',
+      'Lokomotiv',
+      'Rostov',
+      'Rubin',
+      'SKA-Khabarovsk',
+      'Spartak',
+      'Tosno',
+      'Ufa',
+      'Ural',
+      'Zenit'
+    ]
   },
   {
     id: 501, 
-    name: "Premiership (Scotland)"
+    name: "Premiership (Scotland)",
+    clubs: [
+      'Aberdeen',
+      'Celtic',
+      'Dundee',
+      'Hamilton Academical',
+      'Heart of Midlothian',
+      'Hibernian',
+      'Kilmarnock',
+      'Motherwell',
+      'Partick Thistle',
+      'Rangers',
+      'Ross County',
+      'St Johnstone'
+    ]
   },
   {
     id: 504, 
-    name: "Championship (Scotland)"
+    name: "Championship (Scotland)",
+    clubs: [
+      'Brechin City',
+      'Dumbarton',
+      'Dundee United',
+      'Dunfermline Athletic',
+      'Falkirk',
+      'Greenock Morton',
+      'Inverness Caledonian Thistle',
+      'Livingston',
+      'Queen of the South',
+      'St Mirren'
+    ]
   },
   {
     id: 564, 
-    name: "La Liga (Spain)"
+    name: "La Liga (Spain)",
+    clubs: [
+      'Alavés',
+      'Athletic Bilbao',
+      'Atlético Madrid',
+      'Barcelona',
+      'Celta Vigo',
+      'Deportivo La Coruña',
+      'Eibar',
+      'Espanyol',
+      'Getafe',
+      'Girona',
+      'Las Palmas',
+      'Leganés',
+      'Levante',
+      'Málaga',
+      'Real Betis',
+      'Real Madrid',
+      'Real Sociedad',
+      'Sevilla',
+      'Valencia',
+      'Villarreal'
+    ]
   },
   {
     id: 567, 
-    name: "Segunda Division (Spain)"
+    name: "Segunda Division (Spain)",
+    clubs: [
+      'Albacete',
+      'Alcorcón',
+      'Almería',
+      'Barcelona B',
+      'Cádiz',
+      'Córdoba',
+      'Cultural Leonesa',
+      'Gimnàstic',
+      'Granada',
+      'Huesca',
+      'Lorca FC',
+      'Lugo',
+      'Numancia',
+      'Osasuna',
+      'Oviedo',
+      'Rayo Vallecano',
+      'Reus',
+      'Sevilla Atlético',
+      'Sporting Gijón',
+      'Tenerife',
+      'Valladolid',
+      'Zaragoza'
+    ]
   },
   {
     id: 573, 
-    name: "Allsvenskan (Sweden)"
+    name: "Allsvenskan (Sweden)",
+    clubs: [
+      'AFC Eskilstuna',
+      'AIK',
+      'BK Häcken',
+      'Djurgårdens IF',
+      'GIF Sundsvall',
+      'Halmstads BK',
+      'Hammarby IF',
+      'IF Elfsborg',
+      'IFK Göteborg',
+      'IFK Norrköping',
+      'IK Sirius',
+      'Jönköpings Södra IF',
+      'Kalmar FF',
+      'Malmö FF',
+      'Örebro SK',
+      'Östersunds FK'
+    ]
   },
   {
     id: 579, 
-    name: "Superettan (Sweden)"
+    name: "Superettan (Sweden)",
+    clubs: [
+      'Dalkurd',
+      'Degerfors',
+      'Falkenberg',
+      'GAIS',
+      'Gefle',
+      'Helsingborg',
+      'Brommapojkarna',
+      'Värnamo',
+      'Frej',
+      'Norrby',
+      'Syrianska',
+      'Trelleborg',
+      'Varberg',
+      'Åtvidaberg',
+      'Örgryte',
+      'Öster'
+    ]
   },
   {
     id: 591, 
-    name: "Super League (Switzerland)"
+    name: "Super League (Switzerland)",
+    clubs: [
+      'Basel',
+      'Grasshopper',
+      'Lausanne',
+      'Lugano',
+      'Luzern',
+      'Sion',
+      'St. Gallen',
+      'Thun',
+      'Young Boys',
+      'FC Zürich'
+    ]
   },
   {
     id: 600, 
-    name: "Super Lig (Turkey)"
+    name: "Süper Lig (Turkey)",
+    clubs: [
+      'Akhisar Belediyespor',
+      'Alanyaspor',
+      'Antalyaspor',
+      'Beşiktaş',
+      'Bursaspor',
+      'Fenerbahçe',
+      'Galatasaray',
+      'Gençlerbirliği',
+      'Göztepe',
+      'İstanbul Başakşehir',
+      'Kardemir Karabükspor',
+      'Kasımpaşa',
+      'Kayserispor',
+      'Konyaspor',
+      'Osmanlıspor',
+      'Sivasspor',
+      'Trabzonspor',
+      'Yeni Malatyaspor'
+    ]
   },
   {
     id: 624, 
-    name: "Premiere League (Wales)"
+    name: "Premiere League (Wales)",
+    clubs: [
+      "Aberystwyth Town",
+      "Bala Town",
+      "Bangor City",
+      "Barry Town United",
+      "Cardiff Metropolitan University",
+      "Carmarthen Town",
+      "Cefn Druids",
+      "Connah's Quay Nomads",
+      "Llandudno",
+      "Newtown",
+      "Prestatyn Town",
+      "The New Saints"
+    ]
   },
   {
     id: 636, 
-    name: "Primera Division (Argentina)"
+    name: "Primera Division (Argentina)",
+    clubs: [
+      "Argentinos Juniors",
+      "Arsenal",
+      "Atlético Tucumán",
+      "Banfield",
+      "Belgrano",
+      "Boca Juniors",
+      "Chacarita Juniors",
+      "Colón",
+      "Defensa y Justicia",
+      "Estudiantes (LP)",
+      "Gimnasia y Esgrima (LP)",
+      "Godoy Cruz",
+      "Huracán",
+      "Independiente",
+      "Lanús",
+      "Newell's Old Boys",
+      "Olimpo",
+      "Patronato",
+      "Racing",
+      "River Plate",
+      "Rosario Central",
+      "San Lorenzo",
+      "San Martín (SJ)",
+      "Talleres (C)",
+      "Temperley",
+      "Tigre",
+      "Unión",
+      "Vélez Sarsfield"
+    ]
   },
   {
     id: 639, 
-    name: "Primera B (Argentina)"
+    name: "Primera B (Argentina)",
+    clubs: [
+      'Agropecuario Argentino',
+      'Aldosivi',
+      'All Boys',
+      'Almagro',
+      'Atlético de Rafaela',
+      'Boca Unidos',
+      'Brown',
+      'Deportivo Morón',
+      'Deportivo Riestra',
+      'Estudiantes (SL)',
+      'Ferro Carril Oeste',
+      'Flandria',
+      'Gimnasia y Esgrima (J)',
+      'Guillermo Brown',
+      'Independiente Rivadavia',
+      'Instituto',
+      'Juventud Unida (G)',
+      'Los Andes',
+      'Mitre (SdE)',
+      'Nueva Chicago',
+      'Quilmes',
+      'San Martín (T)',
+      'Santamarina',
+      'Sarmiento (J)',
+      'Villa Dálmine'
+    ]
   },
   {
     id: 648, 
-    name: "Serie A (Brazil)"
+    name: "Serie A (Brazil)",
+    clubs: [
+      'América Mineiro',
+      'Atlético Mineiro',
+      'Atlético Paranaense',
+      'Bahia',
+      'Botafogo',
+      'Ceará',
+      'Chapecoense',
+      'Corinthians',
+      'Cruzeiro',
+      'Flamengo',
+      'Fluminense',
+      'Grêmio',
+      'Internacional',
+      'Palmeiras',
+      'Paraná',
+      'Santos',
+      'São Paulo',
+      'Sport',
+      'Vasco da Gama',
+      'Vitória'
+    ]
   },
   {
     id: 651, 
-    name: "Serie B (Brazil)"
+    name: "Serie B (Brazil)",
+    clubs: [
+      'Atlético Goianiense',
+      'Avaí',
+      'Boa Esporte',
+      'Brasil de Pelotas',
+      'Coritiba',
+      'CRB',
+      'Criciúma',
+      'CSA',
+      'Figueirense',
+      'Fortaleza',
+      'Goiás',
+      'Guarani',
+      'Juventude',
+      'Londrina',
+      'Oeste',
+      'Paysandu',
+      'Ponte Preta',
+      'Sampaio Corrêa',
+      'São Bento',
+      'Vila Nova'
+    ]
   },
   {
     id: 663, 
-    name: "Primera Division (Chile)"
+    name: "Primera Division (Chile)",
+    clubs: [
+      "Audax Italiano",
+      "Colo-Colo",
+      "Curicó Unido",
+      "Deportes Antofagasta",
+      "Deportes Iquique",
+      "Deportes Temuco",
+      "Everton",
+      "Huachipato",
+      "O'Higgins",
+      "Palestino",
+      "San Luis",
+      "Unión Española",
+      "Unión La Calera",
+      "Universidad Católica",
+      "Universidad de Chile",
+      "Universidad de Concepción"
+    ]
   },
   {
     id: 672, 
-    name: "Primera A: Apertura (Colombia)"
-  },
-  {
-    id: 675, 
-    name: "Primera A: Clausura (Colombia)"
-  },
-  {
-    id: 693, 
-    name: "Primera A: Apertura (Ecuador)"
+    name: "Primera A (Colombia)",
+    clubs: [
+      "Alianza Petrolera",
+      "América de Cali",
+      "Atlético Bucaramanga",
+      "Atlético Huila",
+      "Atlético Nacional",
+      "Boyacá Chicó",
+      "Deportes Tolima",
+      "Deportivo Cali",
+      "Deportivo Pasto",
+      "Envigado",
+      "Independiente Medellín",
+      "Jaguares",
+      "Junior",
+      "La Equidad",
+      "Leones",
+      "Millonarios",
+      "Once Caldas",
+      "Patriotas",
+      "Rionegro Águilas",
+      "Santa Fe"
+    ]
   },
   {
     id: 696, 
-    name: "Primera A: Clausura (Ecuador)"
+    name: "Primera A (Ecuador)",
+    clubs: [
+      'Aucas',
+      'Barcelona',
+      'Delfín',
+      'Deportivo Cuenca',
+      'El Nacional',
+      'Emelec',
+      'Guayaquil City',
+      'Independiente del Valle',
+      'LDU Quito',
+      'Macará',
+      'Técnico Universitario',
+      'Universidad Católica'
+    ]
   },
   {
     id: 743, 
-    name: "Liga MX (Mexico)"
+    name: "Liga MX (Mexico)",
+    clubs: [
+      'América',
+      'Atlas',
+      'BUAP',
+      'Cruz Azul',
+      'Guadalajara',
+      'León',
+      'Monterrey',
+      'Morelia',
+      'Necaxa',
+      'Pachuca',
+      'Puebla',
+      'Querétaro',
+      'Santos Laguna',
+      'Tijuana',
+      'Toluca',
+      'UANL',
+      'UNAM',
+      'Veracruz'
+    ]
   },
   {
     id: 779, 
-    name: "Major League Soccer (USA)"
+    name: "Major League Soccer (USA)",
+    clubs: [
+      'Atlanta United FC',
+      'Chicago Fire',
+      'Colorado Rapids',
+      'Columbus Crew SC',
+      'D.C. United',
+      'FC Dallas',
+      'Houston Dynamo',
+      'LA Galaxy',
+      'Los Angeles FC',
+      'Minnesota United FC',
+      'Montreal Impact',
+      'New England Revolution',
+      'New York City FC',
+      'New York Red Bulls',
+      'Orlando City SC',
+      'Philadelphia Union',
+      'Portland Timbers',
+      'Real Salt Lake',
+      'San Jose Earthquakes',
+      'Seattle Sounders FC',
+      'Sporting Kansas City',
+      'Toronto FC',
+      'Vancouver Whitecaps FC'
+    ]
   },
   {
     id: 968, 
-    name: "J-League (Japan)"
+    name: "J-League (Japan)",
+    clubs: [
+      'Hokkaido Consadole Sapporo',
+      'Vegalta Sendai',
+      'Kashima Antlers',
+      'Urawa Red Diamonds',
+      'Kashiwa Reysol',
+      'FC Tokyo',
+      'Kawasaki Frontale',
+      'Yokohama F. Marinos',
+      'Shonan Bellmare',
+      'Shimizu S-Pulse',
+      'Júbilo Iwata',
+      'Nagoya Grampus',
+      'Gamba Osaka',
+      'Cerezo Osaka',
+      'Vissel Kobe',
+      'Sanfrecce Hiroshima',
+      'Sagan Tosu',
+      'V-Varen Nagasaki'
+    ]
   },
   {
     id: 989, 
-    name: "Super League (China)"
+    name: "Super League (China)",
+    clubs: [
+      'Guangzhou Evergrande Taobao',
+      'Shanghai SIPG',
+      'Tianjin Quanjian',
+      'Hebei China Fortune',
+      'Guangzhou R&F',
+      'Shandong Luneng Taishan',
+      'Changchun Yatai',
+      'Guizhou Hengfeng',
+      'Beijing Sinobo Guoan',
+      'Chongqing Dangdai Lifan',
+      'Shanghai Greenland Shenhua',
+      'Jiangsu Suning',
+      'Tianjin Teda',
+      'Henan Jianye',
+      'Dalian Yifang',
+      'Beijing Renhe'
+    ]
   },
   {
     id: 1007, 
-    name: "Indian Super League (India)"
+    name: "Indian Super League (India)",
+    clubs: [
+      'ATK',
+      'Bengaluru',
+      'Chennaiyin',
+      'Delhi Dynamos',
+      'Goa',
+      'Jamshedpur',
+      'Kerala Blasters',
+      'Mumbai City',
+      'NorthEast United',
+      'Pune City'
+    ]
   },
   {
     id: 1098, 
-    name: "Liga de Futbol Profesional (Bolivia)"
+    name: "Liga de Futbol Profesional (Bolivia)",
+    clubs: [
+      'Aurora',
+      'Blooming',
+      'Bolívar',
+      'Destroyers',
+      'Guabirá',
+      'Jorge Wilstermann',
+      'Nacional Potosí',
+      'Oriente Petrolero',
+      'Real Potosí',
+      'Royal Pari',
+      'San José',
+      'Sport Boys',
+      'The Strongest',
+      'Universitario'
+    ]
   },
   {
     id: 1356, 
-    name: "A-League (Australia)"
+    name: "A-League (Australia)",
+    clubs: [
+      'Adelaide United',
+      'Brisbane Roar',
+      'Central Coast Mariners',
+      'Melbourne City',
+      'Melbourne Victory',
+      'Newcastle Jets',
+      'Perth Glory',
+      'Sydney FC',
+      'Wellington Phoenix',
+      'Western Sydney Wanderers'
+    ]
   }
 ];
