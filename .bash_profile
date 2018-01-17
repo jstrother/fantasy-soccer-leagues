@@ -167,6 +167,14 @@ alias remove="git rm -rf $1"
 
 alias switch="git checkout $1"
 
+# the following is an alias to push to heroku
+alias hero="git push heroku master"
+
+# the following is an alias to spin up a heroku dyno
+alias spin="heroku ps:scale web=1"
+
+# the following is an alias to open a heroku app
+alias open="heroku open"
 
 # the following is an alias to start rethink on port 8081
 
