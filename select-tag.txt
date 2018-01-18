@@ -1,8 +1,0 @@
-<select
-  className="leagueSelection"
-  onChange={this.selectLeagueChange}>
-  {LEAGUE_IDS_NAMES.map(league => {
-    console.log(league.name, league.id);
-    return <option key={league.id} value={league.id}>{league.name}</option>;
-  })}
-</select>

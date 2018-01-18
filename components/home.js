@@ -10,8 +10,6 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
 import styles from '../scss/home.scss';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
 
 export class Home extends React.Component {
   
@@ -20,15 +18,15 @@ export class Home extends React.Component {
     const accessToken = Cookies.get('accessToken');
     
     let fantasyLeagueName;
-    console.log('value:', value);
+    
     LEAGUE_IDS_NAMES.forEach(league => {
-      if (value === league.id) {
+      if (event.target.value == league.id) {
         fantasyLeagueName = league.name;
       }
     });
     
     // fantasyLeagueId is value
-    this.props.dispatch(addLeague(accessToken, value, fantasyLeagueName));
+    this.props.dispatch(addLeague(accessToken, event.target.value, fantasyLeagueName));
   }
   
   render() {
@@ -56,14 +54,15 @@ export class Home extends React.Component {
             <br /><br />
             <p>Which league will be the basis for your fantasy soccer?</p>
             <br />
-            <DropDownMenu
-              className="league-selection"
+            <select
+              className="leagueSelection"
+              name="leagueSelection"
               value={0}
               onChange={this.selectLeagueChange.bind(this)}>
               {LEAGUE_IDS_NAMES.map(league => {
-                return <MenuItem key={league.id} value={league.id} primaryText={league.name} />;
+                return <option key={league.id} value={league.id}>{league.name}</option>;
               })}
-            </DropDownMenu>
+            </select>
           </div>
         </main>
       );

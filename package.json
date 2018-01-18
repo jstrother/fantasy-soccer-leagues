@@ -99,7 +99,6 @@
     "fetch-mock": "^5.13.1",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.2.0",
-    "material-ui": "^0.17.4",
     "mongodb": "^2.2.34",
     "mongoose": "^4.13.9",
     "mquery": "^2.3.3",

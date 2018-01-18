@@ -4,8 +4,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
@@ -20,7 +18,11 @@ export class Team extends React.Component {
 	}
 	
 	// handleChange functions
-	handlePositionChange() {
+	handlePositionChange(event, key, value) {
+		
+	}
+	
+	handleClubChange(event, key, value) {
 		
 	}
 	
@@ -36,29 +38,32 @@ export class Team extends React.Component {
 								<tr>
 									<th>Name</th>
 									<th>
-										<DropDownMenu
+										<select
 											className={'positionsList'}
-											value={"allPositions"}>
-											<MenuItem key={"1"} value={"allPositions"} primaryText={"All Positions"}/>
-											<MenuItem key={"2"} value={"forwards"} primaryText={"Forwards"}/>
-											<MenuItem key={"3"} value={"midfielders"} primaryText={"Midfielders"}/>
-											<MenuItem key={"4"} value={"defenders"} primaryText={"Defenders"}/>
-											<MenuItem key={"5"} value={"goalkeepers"} primaryText={"Goalkeepers"}/>
-										</DropDownMenu>
+											defaultValue={"allPositions"}
+											onChange={this.handlePositionChange}>
+											<option key={"1"} value={"allPositions"}>All Positions</option>
+											<option key={"2"} value={"forwards"}>Forwards</option>
+											<option key={"3"} value={"midfielders"}>Midfielders</option>
+											<option key={"4"} value={"defenders"}>Defenders</option>
+											<option key={"5"} value={"goalkeepers"}>Goalkeepers</option>
+										</select>
 									</th>
 									<th>
-										<DropDownMenu
-											value={"allClubs"}>
-											<MenuItem key={"77"} value={"allClubs"} primaryText={"All Clubs"} />
+										<select
+											className={"clubsList"}
+											defaultValue={"allClubs"}
+											onChange={this.handleClubChange}>
+											<option key={"77"} value={"allClubs"}>All Clubs</option>
 											{LEAGUE_IDS_NAMES.forEach(league => {
-												if (league.id === this.props.fantasyLeagueId) {
+												if (league.id == this.props.fantasyLeagueId) {
 													league.clubs.map(club => {
 														console.log('club:', club.name); // this line works, the next one does not.  why?
-														return <MenuItem key={club.name} value={club.name} primaryText={club.name} />;
+														return <option key={club.name} value={club.name}>{club.name}</option>;
 													});
 												}
 											})}
-										</DropDownMenu>
+										</select>
 									</th>
 								</tr>
 							</thead>
