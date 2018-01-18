@@ -180,3 +180,6 @@ alias open="heroku open"
 
 alias rethink="rethinkdb --bind all --http-port 8081"
 
+# the following is an alias to upgrade node AND then to redo the node-sass binary bindings
+alias N="G node && npm rebuild node-sass --force"
+

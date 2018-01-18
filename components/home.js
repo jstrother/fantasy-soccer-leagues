@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars*/
 // components/home.js
 // imported into ./app.js
 
@@ -13,20 +14,21 @@ import styles from '../scss/home.scss';
 
 export class Home extends React.Component {
   
-  selectLeagueChange(event, key, value) {
+  selectLeagueChange(event) {
     event.preventDefault();
-    const accessToken = Cookies.get('accessToken');
+    const accessToken = Cookies.get('accessToken'),
+      fantasyLeagueId = parseInt(event.target.value, 10);
+      // we do parseInt on event.target.value as it is a string, but we need it to be a number like league.id
     
     let fantasyLeagueName;
     
     LEAGUE_IDS_NAMES.forEach(league => {
-      if (event.target.value == league.id) {
+      if (fantasyLeagueId === league.id) {
         fantasyLeagueName = league.name;
       }
     });
     
-    // fantasyLeagueId is value
-    this.props.dispatch(addLeague(accessToken, event.target.value, fantasyLeagueName));
+    this.props.dispatch(addLeague(accessToken, fantasyLeagueId, fantasyLeagueName));
   }
   
   render() {

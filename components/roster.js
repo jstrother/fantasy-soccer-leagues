@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-unused-vars*/
 // components/roster.js
 // imported into fantasyClub.js
 

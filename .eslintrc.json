@@ -1,7 +1,37 @@
 {
-    "extends": "standard",
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
     "plugins": [
-        "standard",
-        "promise"
-    ]
+        "react"
+    ],
+    "rules": {
+        "indent": [
+            "off",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "off",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
 }

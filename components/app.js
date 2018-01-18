@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, no-mixed-spaces-and-tabs*/
 // components/app.js
 // imported into ./index.js
 

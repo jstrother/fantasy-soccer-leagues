@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars*/
 // components/fantasySchedule.js
 
 import React from 'react';

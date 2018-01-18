@@ -24,8 +24,9 @@ module.exports = {
   	rules: [
 	    {
 	      test: /.js?$/,
+	      // enforce: "pre",
 	      use: [
-	    		{
+	      	{
 	    			loader: "babel-loader",
 	    			options: {
 	    				babelrc: false,
@@ -34,7 +35,10 @@ module.exports = {
 	    					"@babel/preset-react"
 	    				]
 	    			}
-	    		}	
+	    		},
+	    		{
+	      		loader: "eslint-loader"
+	      	}
 	      ],
 	      exclude: /node_modules/
 	    },

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars*/
 // components/index.js
 // top-level react component
 
@@ -12,7 +13,6 @@ import App from './app.js';
 import store from '../flow/store.js';
 
 injectTapEventPlugin();
-
 
 ReactDOM.render(
 	<Provider store={store}>

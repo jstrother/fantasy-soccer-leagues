@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars*/
 // components/fantasyClub.js
 // imported into home.js
 

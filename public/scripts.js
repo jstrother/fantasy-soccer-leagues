@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e581e3764fddda8693d4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "73d43655da94a16dedea"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16931,6 +16931,7 @@ var _config = __webpack_require__(97);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console*/
 var LEAGUE_SUCCESS = 'LEAGUE_SUCCESS';
 exports.LEAGUE_SUCCESS = LEAGUE_SUCCESS;
 
@@ -17167,6 +17168,7 @@ var _store = _interopRequireDefault(__webpack_require__(470));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-unused-vars*/
 // components/index.js
 // top-level react component
 (0, _reactTapEventPlugin.default)();
@@ -39062,19 +39064,20 @@ function (_React$Component) {
 
   _createClass(Home, [{
     key: "selectLeagueChange",
-    value: function selectLeagueChange(event, key, value) {
+    value: function selectLeagueChange(event) {
       event.preventDefault();
-      var accessToken = Cookies.get('accessToken');
+      var accessToken = Cookies.get('accessToken'),
+          fantasyLeagueId = parseInt(event.target.value, 10); // we do parseInt on event.target.value as it is a string, but we need it to be a number like league.id
+
       var fantasyLeagueName;
 
       _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
-        if (event.target.value == league.id) {
+        if (fantasyLeagueId === league.id) {
           fantasyLeagueName = league.name;
         }
-      }); // fantasyLeagueId is value
+      });
 
-
-      this.props.dispatch((0, _userActions.addLeague)(accessToken, event.target.value, fantasyLeagueName));
+      this.props.dispatch((0, _userActions.addLeague)(accessToken, fantasyLeagueId, fantasyLeagueName));
     }
   }, {
     key: "render",
