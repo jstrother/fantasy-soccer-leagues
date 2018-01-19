@@ -13,18 +13,18 @@ module.exports = {
   devServer: {
     contentBase: `${__dirname}/public`,
     proxy: {
-    	"/user": {
+    	"/": {
     		target: "https://fantasy-soccer-leagues-jstrother.c9users.io"
     	}
     },
     hot: true,
-    disableHostCheck: true
+    disableHostCheck: true,
+    https: true
   },
   module: {
   	rules: [
 	    {
 	      test: /.js?$/,
-	      // enforce: "pre",
 	      use: [
 	      	{
 	    			loader: "babel-loader",

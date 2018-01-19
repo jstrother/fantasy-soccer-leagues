@@ -73,6 +73,7 @@
     "expect": "^22.1.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "fetch-mock": "^6.0.0-beta.9",
+    "http-proxy-middleware": "^0.17.4",
     "imagemin": "^5.2.2",
     "imagemin-cli": "^3.0.0",
     "jest": "^20.0.4",
