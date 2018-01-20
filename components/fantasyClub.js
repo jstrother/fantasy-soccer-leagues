@@ -12,8 +12,10 @@ import styles from '../scss/fantasyClub.scss';
 export class FantasyClub extends React.Component {
 	render() {
 		return(
-			<div>
-				<div>
+			<div
+				className={styles.fantasyClub}>
+				<div
+					className={styles.rosterDiv}>
 					Select players for your roster.
 					<Roster />
 				</div>

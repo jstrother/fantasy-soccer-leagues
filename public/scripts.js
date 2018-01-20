@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "391141fa749c50da3bd1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "27df3ed0d2baf559a1c6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39190,7 +39190,11 @@ function (_React$Component) {
   _createClass(FantasyClub, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("div", null, "Select players for your roster.", _react.default.createElement(_roster.default, null)), _react.default.createElement("div", null, "Set your lineup for upcoming matches.", _react.default.createElement(_fantasySchedule.default, null), " "));
+      return _react.default.createElement("div", {
+        className: _fantasyClub.default.fantasyClub
+      }, _react.default.createElement("div", {
+        className: _fantasyClub.default.rosterDiv
+      }, "Select players for your roster.", _react.default.createElement(_roster.default, null)), _react.default.createElement("div", null, "Set your lineup for upcoming matches.", _react.default.createElement(_fantasySchedule.default, null), " "));
     }
   }]);
 
@@ -39376,46 +39380,48 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      if (this.props.players) {
-        var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
-          return l.id === _this.props.fantasyLeagueId;
-        });
+      var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
+        return l.id === _this.props.fantasyLeagueId;
+      });
 
-        return _react.default.createElement("div", null, console.log('roster.js players:', this.props.players), _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
-          className: 'positionsList',
-          defaultValue: "allPositions",
-          onChange: this.handlePositionChange
-        }, _react.default.createElement("option", {
-          key: "1",
-          value: "allPositions"
-        }, "All Positions"), _react.default.createElement("option", {
-          key: "2",
-          value: "forwards"
-        }, "Forwards"), _react.default.createElement("option", {
-          key: "3",
-          value: "midfielders"
-        }, "Midfielders"), _react.default.createElement("option", {
-          key: "4",
-          value: "defenders"
-        }, "Defenders"), _react.default.createElement("option", {
-          key: "5",
-          value: "goalkeepers"
-        }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
-          className: "clubsList",
-          defaultValue: "allClubs",
-          onChange: this.handleClubChange
-        }, _react.default.createElement("option", {
-          key: "allClubs",
-          value: "allClubs"
-        }, "All Clubs"), league.clubs.map(function (c) {
-          return _react.default.createElement("option", {
-            key: c.name,
-            value: c.name
-          }, c.name);
-        }))))), _react.default.createElement("tbody", null))), _react.default.createElement("div", null, "Roster:"));
-      } else {
-        return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
-      }
+      return _react.default.createElement("div", {
+        className: _roster.default.rosterComponent
+      }, console.log('roster.js players:', this.props.players), _react.default.createElement("div", {
+        className: _roster.default.playerSelection
+      }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+        className: 'positionsList',
+        defaultValue: "allPositions",
+        onChange: this.handlePositionChange
+      }, _react.default.createElement("option", {
+        key: "1",
+        value: "allPositions"
+      }, "All Positions"), _react.default.createElement("option", {
+        key: "2",
+        value: "forwards"
+      }, "Forwards"), _react.default.createElement("option", {
+        key: "3",
+        value: "midfielders"
+      }, "Midfielders"), _react.default.createElement("option", {
+        key: "4",
+        value: "defenders"
+      }, "Defenders"), _react.default.createElement("option", {
+        key: "5",
+        value: "goalkeepers"
+      }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
+        className: "clubsList",
+        defaultValue: "allClubs",
+        onChange: this.handleClubChange
+      }, _react.default.createElement("option", {
+        key: "allClubs",
+        value: "allClubs"
+      }, "All Clubs"), league.clubs.map(function (c) {
+        return _react.default.createElement("option", {
+          key: c.name,
+          value: c.name
+        }, c.name);
+      }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null))), _react.default.createElement("div", {
+        className: _roster.default.rosterDisplay
+      }, "Roster:"));
     }
   }]);
 
@@ -39442,12 +39448,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P"};
 
 /***/ }),
 /* 467 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"fantasyClub":"fantasyClub__fantasyClub__3Imxb"};
 
 /***/ }),
 /* 468 */

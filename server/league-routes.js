@@ -5,7 +5,7 @@ const express = require('express'),
 // this route is to retrieve a list of players from database based upon league id
 leagueRouter.get('/:leagueId',
   (req, res) => {
-    Player.find({leagueId: req.params.leagueId}, 'idFromAPI fullName position clubName')
+    Player.find({leagueId: req.params.leagueId}, 'idFromAPI fullName position clubName fantasyPoints.fixture')
     .then(data => {
       res.json(data);
     })

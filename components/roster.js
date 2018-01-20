@@ -28,58 +28,56 @@ export class Team extends React.Component {
 	}
 	
 	render() {
-		if (this.props.players) {
-			const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
-			return(
-				<div>
-					{console.log('roster.js players:', this.props.players)}
-					<div>
-						<h5>You must select 23 players, no more than 4 from any one club.</h5>
-						<table>
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th>
-										<select
-											className={'positionsList'}
-											defaultValue={"allPositions"}
-											onChange={this.handlePositionChange}>
-											<option key={"1"} value={"allPositions"}>All Positions</option>
-											<option key={"2"} value={"forwards"}>Forwards</option>
-											<option key={"3"} value={"midfielders"}>Midfielders</option>
-											<option key={"4"} value={"defenders"}>Defenders</option>
-											<option key={"5"} value={"goalkeepers"}>Goalkeepers</option>
-										</select>
-									</th>
-									<th>
-										<select
-											className={"clubsList"}
-											defaultValue={"allClubs"}
-											onChange={this.handleClubChange}>
-											<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
-											{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
-										</select>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-						</table>
-					</div>
-					<div>
-						Roster:
-						{/* set up a table to list players chosen for this section */}
-					</div>
+		const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
+		return(
+			<div
+				className={styles.rosterComponent}>
+				{console.log('roster.js players:', this.props.players)}
+				<div
+					className={styles.playerSelection}>
+					<h5>You must select 23 players, no more than 4 from any one club.</h5>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>
+									<select
+										className={'positionsList'}
+										defaultValue={"allPositions"}
+										onChange={this.handlePositionChange}>
+										<option key={"1"} value={"allPositions"}>All Positions</option>
+										<option key={"2"} value={"forwards"}>Forwards</option>
+										<option key={"3"} value={"midfielders"}>Midfielders</option>
+										<option key={"4"} value={"defenders"}>Defenders</option>
+										<option key={"5"} value={"goalkeepers"}>Goalkeepers</option>
+									</select>
+								</th>
+								<th>
+									<select
+										className={"clubsList"}
+										defaultValue={"allClubs"}
+										onChange={this.handleClubChange}>
+										<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
+										{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
+									</select>
+								</th>
+								<th>
+									Points Last Match
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{/* here is where we need to put the players, creating one row for each based upon selection criteria*/}
+						</tbody>
+					</table>
 				</div>
-			);
-		} else {
-			return(
-				<div>
-					<p>We are sorry, but something went wrong.  Please try again later.</p>
+				<div
+					className={styles.rosterDisplay}>
+					Roster:
+					{/* set up a table to list players chosen for this section */}
 				</div>
-			);
-		}
+			</div>
+		);
 	}
 }
 

@@ -1,3 +1,8 @@
 @import "normalize";
 // @import "myVariables";
 
+.fantasyClub {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
