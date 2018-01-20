@@ -19,16 +19,17 @@ export class Team extends React.Component {
 	}
 	
 	// handleChange functions
-	handlePositionChange(event, key, value) {
+	handlePositionChange(event) {
 		
 	}
 	
-	handleClubChange(event, key, value) {
+	handleClubChange(event) {
 		
 	}
 	
 	render() {
 		if (this.props.players) {
+			const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
 			return(
 				<div>
 					{console.log('roster.js players:', this.props.players)}
@@ -55,15 +56,8 @@ export class Team extends React.Component {
 											className={"clubsList"}
 											defaultValue={"allClubs"}
 											onChange={this.handleClubChange}>
-											<option key={"77"} value={"allClubs"}>All Clubs</option>
-											{LEAGUE_IDS_NAMES.forEach(league => {
-												if (league.id == this.props.fantasyLeagueId) {
-													league.clubs.map(club => {
-														console.log('club:', club.name); // this line works, the next one does not.  why?
-														return <option key={club.name} value={club.name}>{club.name}</option>;
-													});
-												}
-											})}
+											<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
+											{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
 										</select>
 									</th>
 								</tr>

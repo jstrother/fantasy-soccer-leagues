@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "73d43655da94a16dedea"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "391141fa749c50da3bd1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39367,16 +39367,20 @@ function (_React$Component) {
 
   }, {
     key: "handlePositionChange",
-    value: function handlePositionChange(event, key, value) {}
+    value: function handlePositionChange(event) {}
   }, {
     key: "handleClubChange",
-    value: function handleClubChange(event, key, value) {}
+    value: function handleClubChange(event) {}
   }, {
     key: "render",
     value: function render() {
       var _this = this;
 
       if (this.props.players) {
+        var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
+          return l.id === _this.props.fantasyLeagueId;
+        });
+
         return _react.default.createElement("div", null, console.log('roster.js players:', this.props.players), _react.default.createElement("div", null, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: 'positionsList',
           defaultValue: "allPositions",
@@ -39401,19 +39405,13 @@ function (_React$Component) {
           defaultValue: "allClubs",
           onChange: this.handleClubChange
         }, _react.default.createElement("option", {
-          key: "77",
+          key: "allClubs",
           value: "allClubs"
-        }, "All Clubs"), _league_ids_names.LEAGUE_IDS_NAMES.forEach(function (league) {
-          if (league.id == _this.props.fantasyLeagueId) {
-            league.clubs.map(function (club) {
-              console.log('club:', club.name); // this line works, the next one does not.  why?
-
-              return _react.default.createElement("option", {
-                key: club.name,
-                value: club.name
-              }, club.name);
-            });
-          }
+        }, "All Clubs"), league.clubs.map(function (c) {
+          return _react.default.createElement("option", {
+            key: c.name,
+            value: c.name
+          }, c.name);
         }))))), _react.default.createElement("tbody", null))), _react.default.createElement("div", null, "Roster:"));
       } else {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
