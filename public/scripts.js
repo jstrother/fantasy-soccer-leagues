@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "27df3ed0d2baf559a1c6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7d1326d83692a875ed39"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16971,7 +16971,6 @@ var fetchLeague = function fetchLeague(leagueId) {
 
       return res.json();
     }).then(function (players) {
-      console.log('leagueActions players:', players);
       dispatch(leagueSuccess(players, 200));
       return;
     }).catch(function (error) {
@@ -39380,48 +39379,66 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
-        return l.id === _this.props.fantasyLeagueId;
-      });
+      if (this.props.players) {
+        var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
+          return l.id === _this.props.fantasyLeagueId;
+        });
 
-      return _react.default.createElement("div", {
-        className: _roster.default.rosterComponent
-      }, console.log('roster.js players:', this.props.players), _react.default.createElement("div", {
-        className: _roster.default.playerSelection
-      }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
-        className: 'positionsList',
-        defaultValue: "allPositions",
-        onChange: this.handlePositionChange
-      }, _react.default.createElement("option", {
-        key: "1",
-        value: "allPositions"
-      }, "All Positions"), _react.default.createElement("option", {
-        key: "2",
-        value: "forwards"
-      }, "Forwards"), _react.default.createElement("option", {
-        key: "3",
-        value: "midfielders"
-      }, "Midfielders"), _react.default.createElement("option", {
-        key: "4",
-        value: "defenders"
-      }, "Defenders"), _react.default.createElement("option", {
-        key: "5",
-        value: "goalkeepers"
-      }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
-        className: "clubsList",
-        defaultValue: "allClubs",
-        onChange: this.handleClubChange
-      }, _react.default.createElement("option", {
-        key: "allClubs",
-        value: "allClubs"
-      }, "All Clubs"), league.clubs.map(function (c) {
-        return _react.default.createElement("option", {
-          key: c.name,
-          value: c.name
-        }, c.name);
-      }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null))), _react.default.createElement("div", {
-        className: _roster.default.rosterDisplay
-      }, "Roster:"));
+        return _react.default.createElement("div", {
+          className: _roster.default.rosterComponent
+        }, _react.default.createElement("div", {
+          className: _roster.default.playerSelection
+        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+          className: 'positionsList',
+          defaultValue: "allPositions",
+          onChange: this.handlePositionChange
+        }, _react.default.createElement("option", {
+          key: "1",
+          value: "allPositions"
+        }, "All Positions"), _react.default.createElement("option", {
+          key: "2",
+          value: "forwards"
+        }, "Forwards"), _react.default.createElement("option", {
+          key: "3",
+          value: "midfielders"
+        }, "Midfielders"), _react.default.createElement("option", {
+          key: "4",
+          value: "defenders"
+        }, "Defenders"), _react.default.createElement("option", {
+          key: "5",
+          value: "goalkeepers"
+        }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
+          className: "clubsList",
+          defaultValue: "allClubs",
+          onChange: this.handleClubChange
+        }, _react.default.createElement("option", {
+          key: "allClubs",
+          value: "allClubs"
+        }, "All Clubs"), league.clubs.map(function (c) {
+          return _react.default.createElement("option", {
+            key: c.name,
+            value: c.name
+          }, c.name);
+        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.map(function (p) {
+          console.log('roster.js players:', p); // creating a table row for each player
+
+          return _react.default.createElement("tr", {
+            key: p.idFromAPI
+          }, _react.default.createElement("td", {
+            value: p.lastName
+          }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", {
+            value: p.position
+          }, p.position), _react.default.createElement("td", {
+            value: p.clubName
+          }, p.clubName), _react.default.createElement("td", {
+            value: p.fantasyPoints.fixture
+          }, p.fantasyPoints.fixture));
+        })))), _react.default.createElement("div", {
+          className: _roster.default.rosterDisplay
+        }, "Roster:"));
+      } else {
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
+      }
     }
   }]);
 

@@ -30,7 +30,6 @@ export const fetchLeague = leagueId => dispatch => {
     return res.json();
   })
   .then(players => {
-    console.log('leagueActions players:', players);
     dispatch(leagueSuccess(players, 200));
     return;
   })
