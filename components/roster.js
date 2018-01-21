@@ -69,7 +69,6 @@ export class Team extends React.Component {
 							<tbody>
 								{
 									this.props.players.map(p => {
-										console.log('roster.js players:', p);
 										// creating a table row for each player
 										return(
 											<tr

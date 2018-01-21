@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7d1326d83692a875ed39"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "84085f76fb0c57745575"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39420,8 +39420,7 @@ function (_React$Component) {
             value: c.name
           }, c.name);
         }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.map(function (p) {
-          console.log('roster.js players:', p); // creating a table row for each player
-
+          // creating a table row for each player
           return _react.default.createElement("tr", {
             key: p.idFromAPI
           }, _react.default.createElement("td", {
@@ -39465,7 +39464,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P"};
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","playerSelection":"roster__playerSelection__19dK2"};
 
 /***/ }),
 /* 467 */
