@@ -1,5 +1,5 @@
 @import "normalize";
-// @import "myVariables";
+@import "myVariables";
 
 .rosterComponent {
   display: flex;
@@ -7,9 +7,47 @@
   justify-content: space-between;
   
   .playerSelection {
+    width: $tableWidth;
     
     table {
-      border: 1px solid black;
+      border: $tableBorder;
+      width: 100%;
+      
+      tbody {
+        display: block;
+        height: 20em;
+        overflow: auto;
+      }
+      
+      thead > tr {
+        display: block;
+        position: relative;
+      }
+      
+      tr {
+        border: $tableBorder;
+        
+        .even {
+          background-color: darken($trColor, 10%);
+        }
+        
+        .odd {
+          background-color: lighten($trColor, 10%);
+        }
+      }
+      
+      th {
+        width: $tableWidth / 4;
+        
+        &:last-of-type {
+          padding-right: 1em;
+        }
+      }
+      
+      td {
+        text-align: center;
+        width: $tableWidth / 4;
+      }
     }
     
   }

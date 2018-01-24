@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "84085f76fb0c57745575"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "792b9c72ea269ab8c80f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39379,11 +39379,12 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      if (this.props.players) {
-        var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
-          return l.id === _this.props.fantasyLeagueId;
-        });
+      var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
+        return l.id === _this.props.fantasyLeagueId;
+      }),
+          length = this.props.players ? this.props.players.length : 0;
 
+      if (this.props.players) {
         return _react.default.createElement("div", {
           className: _roster.default.rosterComponent
         }, _react.default.createElement("div", {
@@ -39422,7 +39423,8 @@ function (_React$Component) {
         }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.map(function (p) {
           // creating a table row for each player
           return _react.default.createElement("tr", {
-            key: p.idFromAPI
+            key: p.idFromAPI,
+            className: tableRowColorize()
           }, _react.default.createElement("td", {
             value: p.lastName
           }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", {
@@ -39437,6 +39439,21 @@ function (_React$Component) {
         }, "Roster:"));
       } else {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
+      }
+
+      function tableRowColorize() {
+        // this function helps to alternate colors of each row for easier reading of the table
+        console.log('length:', length);
+
+        for (var i = 0; i <= length; i++) {
+          console.log('i:', i);
+
+          if (i % 2 === 0) {
+            console.log('even'); // return styles.even;
+          } else {
+            console.log('odd'); // return styles.odd;
+          }
+        }
       }
     }
   }]);
@@ -39464,7 +39481,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","playerSelection":"roster__playerSelection__19dK2"};
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","playerSelection":"roster__playerSelection__19dK2","even":"roster__even__kjamw","odd":"roster__odd__sgBHY"};
 
 /***/ }),
 /* 467 */

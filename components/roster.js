@@ -28,8 +28,9 @@ export class Team extends React.Component {
 	}
 	
 	render() {
+		const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId),
+			length = this.props.players ? this.props.players.length : 0;
 		if (this.props.players){
-			const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
 			return(
 				<div
 					className={styles.rosterComponent}>
@@ -97,6 +98,22 @@ export class Team extends React.Component {
 					<p>We are sorry, but something went wrong.  Please try again later.</p>
 				</div>
 			);
+		}
+		function tableRowColorize() {
+			// this function helps to alternate colors of each row for easier reading of the table
+			// for some reason, this function runs infinitely
+			console.log('length:', length);
+			for(let i = 0; i <= length; i++) {
+				console.log('i:', i);
+				if ((i % 2) === 0) {
+					console.log('even');
+					// return styles.even;
+				}
+				else {
+					console.log('odd');
+					// return styles.odd;
+				}
+			}
 		}
 	}
 }
