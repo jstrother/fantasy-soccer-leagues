@@ -101,4 +101,19 @@ userRouter.put(`/addLeague`,
 		})
 );
 
+// adds user's selected roster
+userRouter.put(`/addRoster`,
+	passport.authenticate('bearer', {session: false}),
+	(req, res) => updateData(req.params.googleId, 
+		{
+			roster: req.body.roster
+		}, User)
+		.then(data => {
+			res.json(data);
+		})
+		.catch(error => {
+			throw new Error(error);
+		})
+);
+
 exports.userRouter = userRouter;

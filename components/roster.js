@@ -10,7 +10,8 @@ import { fetchLeague } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
 import styles from '../scss/roster.scss';
 
-
+let playerPosition,
+	club;
 
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
@@ -18,25 +19,29 @@ export class Team extends React.Component {
 		this.props.dispatch(fetchLeague(this.props.fantasyLeagueId));
 	}
 	
-	// handleChange functions
 	handlePositionChange(event) {
-		
+		playerPosition = event.target.value;
+		console.log(playerPosition);
 	}
 	
 	handleClubChange(event) {
 		
 	}
 	
+	addToRoster(event) {
+		
+	}
+	
 	render() {
-		const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId),
-			length = this.props.players ? this.props.players.length : 0;
 		if (this.props.players){
+			const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
 			return(
 				<div
 					className={styles.rosterComponent}>
 					<div
 						className={styles.playerSelection}>
 						<h5>You must select 23 players, no more than 4 from any one club.</h5>
+						<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards.</h5>
 						<table>
 							<thead>
 								<tr>
@@ -45,7 +50,7 @@ export class Team extends React.Component {
 										<select
 											className={'positionsList'}
 											defaultValue={"allPositions"}
-											onChange={this.handlePositionChange}>
+											onChange={this.handlePositionChange.bind(this)}>
 											<option key={"1"} value={"allPositions"}>All Positions</option>
 											<option key={"2"} value={"forwards"}>Forwards</option>
 											<option key={"3"} value={"midfielders"}>Midfielders</option>
@@ -69,11 +74,14 @@ export class Team extends React.Component {
 							</thead>
 							<tbody>
 								{
-									this.props.players.map(p => {
+									this.props.players
+									.filter(player => filterPlayerPosition(player))
+									.map(p => {
 										// creating a table row for each player
 										return(
 											<tr
-												key={p.idFromAPI}>
+												key={p.idFromAPI}
+												onClick={this.addToRoster}>
 												<td value={p.lastName}>{`${p.firstName} ${p.lastName}`}</td>
 												<td value={p.position}>{p.position}</td>
 												<td value={p.clubName}>{p.clubName}</td>
@@ -99,20 +107,14 @@ export class Team extends React.Component {
 				</div>
 			);
 		}
-		function tableRowColorize() {
-			// this function helps to alternate colors of each row for easier reading of the table
-			// for some reason, this function runs infinitely
-			console.log('length:', length);
-			for(let i = 0; i <= length; i++) {
-				console.log('i:', i);
-				if ((i % 2) === 0) {
-					console.log('even');
-					// return styles.even;
-				}
-				else {
-					console.log('odd');
-					// return styles.odd;
-				}
+		
+		function filterPlayerPosition(player) {
+			if (playerPosition === player.position) {
+				return player;
+			}
+			else if (playerPosition === 'allPositions') {
+				// this is designed to return all players in league as no player plays "all positions"
+				return player;
 			}
 		}
 	}
@@ -120,6 +122,7 @@ export class Team extends React.Component {
 
 const mapRosterStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
+  roster: state.userReducer.roster,
   players: state.leagueReducer.players
 });
 

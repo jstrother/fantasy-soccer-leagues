@@ -9,10 +9,10 @@ export default class FantasySchedule extends React.Component {
 		return(
 			<div>
 				<div>
-					Set your Matchday Roster:
+					Select your Starting 11:
 				</div>
 				<div>
-					Select your Starting 11:
+					Select your Matchday 18:
 				</div>
 				<FantasyMatch />
 			</div>

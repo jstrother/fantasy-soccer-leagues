@@ -13,6 +13,7 @@ const mongoose = require('mongoose'),
 		fantasyClubName: String,
 		fantasyDivision: String,
 		fantasyChampsLeague: Boolean,
+		roster: Array
 	}),
 
 	User = mongoose.model('User', userSchema);

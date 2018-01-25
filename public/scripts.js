@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "792b9c72ea269ab8c80f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2565cc19d80d7e27fd05"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9076,7 +9076,7 @@ module.exports = baseIndexOf;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addLeague = exports.fetchUser = exports.setLeagueFail = exports.SET_LEAGUE_FAIL = exports.setLeagueSuccess = exports.SET_LEAGUE_SUCCESS = exports.setUserFail = exports.SET_USER_FAIL = exports.setUserSuccess = exports.SET_USER_SUCCESS = void 0;
+exports.addRoster = exports.addLeague = exports.fetchUser = exports.setRosterFail = exports.SET_ROSTER_FAIL = exports.setRosterSuccess = exports.SET_ROSTER_SUCCESS = exports.setLeagueFail = exports.SET_LEAGUE_FAIL = exports.setLeagueSuccess = exports.SET_LEAGUE_SUCCESS = exports.setUserFail = exports.SET_USER_FAIL = exports.setUserSuccess = exports.SET_USER_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(96));
 
@@ -9131,6 +9131,29 @@ var setLeagueFail = function setLeagueFail(statusCode) {
 };
 
 exports.setLeagueFail = setLeagueFail;
+var SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
+exports.SET_ROSTER_SUCCESS = SET_ROSTER_SUCCESS;
+
+var setRosterSuccess = function setRosterSuccess(roster, statusCode) {
+  return {
+    type: SET_ROSTER_SUCCESS,
+    roster: roster,
+    statusCode: statusCode
+  };
+};
+
+exports.setRosterSuccess = setRosterSuccess;
+var SET_ROSTER_FAIL = 'SET_ROSTER_FAIL';
+exports.SET_ROSTER_FAIL = SET_ROSTER_FAIL;
+
+var setRosterFail = function setRosterFail(statusCode) {
+  return {
+    type: SET_ROSTER_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.setRosterFail = setRosterFail;
 
 var fetchUser = function fetchUser(accessToken) {
   return function (dispatch) {
@@ -9195,6 +9218,40 @@ var addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueNa
 };
 
 exports.addLeague = addLeague;
+
+var addRoster = function addRoster(accessToken, roster) {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(_config.DEV_DIRECTORY, "/user/addRoster"), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      },
+      body: JSON.stringify({
+        roster: roster
+      })
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(setLeagueFail(res.status));
+          return;
+        } else {
+          dispatch(setLeagueFail(500));
+          throw new Error(res.statusText);
+        }
+      }
+
+      return res.json();
+    }).then(function (data) {
+      dispatch(setRosterSuccess(data.roster, 200));
+      return;
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.addRoster = addRoster;
 
 /***/ }),
 /* 96 */
@@ -39250,7 +39307,7 @@ function (_React$Component) {
   _createClass(FantasySchedule, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("div", null, "Set your Matchday Roster:"), _react.default.createElement("div", null, "Select your Starting 11:"), _react.default.createElement(_fantasyMatch.default, null));
+      return _react.default.createElement("div", null, _react.default.createElement("div", null, "Select your Starting 11:"), _react.default.createElement("div", null, "Select your Matchday 18:"), _react.default.createElement(_fantasyMatch.default, null));
     }
   }]);
 
@@ -39350,6 +39407,8 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var playerPosition, club;
+
 var Team =
 /*#__PURE__*/
 function (_React$Component) {
@@ -39366,33 +39425,37 @@ function (_React$Component) {
     // using fantasyLeagueId, display list of players from that league
     value: function componentDidMount() {
       this.props.dispatch((0, _leagueActions.fetchLeague)(this.props.fantasyLeagueId));
-    } // handleChange functions
-
+    }
   }, {
     key: "handlePositionChange",
-    value: function handlePositionChange(event) {}
+    value: function handlePositionChange(event) {
+      playerPosition = event.target.value;
+      console.log(playerPosition);
+    }
   }, {
     key: "handleClubChange",
     value: function handleClubChange(event) {}
+  }, {
+    key: "addToRoster",
+    value: function addToRoster(event) {}
   }, {
     key: "render",
     value: function render() {
       var _this = this;
 
-      var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
-        return l.id === _this.props.fantasyLeagueId;
-      }),
-          length = this.props.players ? this.props.players.length : 0;
-
       if (this.props.players) {
+        var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
+          return l.id === _this.props.fantasyLeagueId;
+        });
+
         return _react.default.createElement("div", {
           className: _roster.default.rosterComponent
         }, _react.default.createElement("div", {
           className: _roster.default.playerSelection
-        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: 'positionsList',
           defaultValue: "allPositions",
-          onChange: this.handlePositionChange
+          onChange: this.handlePositionChange.bind(this)
         }, _react.default.createElement("option", {
           key: "1",
           value: "allPositions"
@@ -39420,11 +39483,13 @@ function (_React$Component) {
             key: c.name,
             value: c.name
           }, c.name);
-        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.map(function (p) {
+        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.filter(function (player) {
+          return filterPlayerPosition(player);
+        }).map(function (p) {
           // creating a table row for each player
           return _react.default.createElement("tr", {
             key: p.idFromAPI,
-            className: tableRowColorize()
+            onClick: _this.addToRoster
           }, _react.default.createElement("td", {
             value: p.lastName
           }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", {
@@ -39441,18 +39506,12 @@ function (_React$Component) {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
       }
 
-      function tableRowColorize() {
-        // this function helps to alternate colors of each row for easier reading of the table
-        console.log('length:', length);
-
-        for (var i = 0; i <= length; i++) {
-          console.log('i:', i);
-
-          if (i % 2 === 0) {
-            console.log('even'); // return styles.even;
-          } else {
-            console.log('odd'); // return styles.odd;
-          }
+      function filterPlayerPosition(player) {
+        if (playerPosition === player.position) {
+          return player;
+        } else if (playerPosition === 'allPositions') {
+          // this is designed to return all players in league as no player plays "all positions"
+          return player;
         }
       }
     }
@@ -39466,6 +39525,7 @@ exports.Team = Team;
 var mapRosterStateToProps = function mapRosterStateToProps(state) {
   return {
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
+    roster: state.userReducer.roster,
     players: state.leagueReducer.players
   };
 };
@@ -39481,7 +39541,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","playerSelection":"roster__playerSelection__19dK2","even":"roster__even__kjamw","odd":"roster__odd__sgBHY"};
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","playerSelection":"roster__playerSelection__19dK2"};
 
 /***/ }),
 /* 467 */

@@ -28,6 +28,19 @@ export const setLeagueFail = statusCode => ({
   statusCode
 });
 
+export const SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
+export const setRosterSuccess = (roster, statusCode) => ({
+  type: SET_ROSTER_SUCCESS,
+  roster,
+  statusCode
+});
+
+export const SET_ROSTER_FAIL = 'SET_ROSTER_FAIL';
+export const setRosterFail = statusCode => ({
+  type: SET_ROSTER_FAIL,
+  statusCode
+});
+
 export const fetchUser = accessToken => dispatch => {
   return fetch(`${url}/user`, {
     headers: {
@@ -81,6 +94,38 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
   })
   .then(data => {
     dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addRoster = (accessToken, roster) => dispatch => {
+  return fetch(`${url}/user/addRoster`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      roster
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setLeagueFail(res.status));
+        return;
+      } else {
+        dispatch(setLeagueFail(500));
+        throw new Error(res.statusText);
+      }
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(setRosterSuccess(data.roster, 200));
     return;
   })
   .catch(error => {
