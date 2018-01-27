@@ -140,12 +140,12 @@ alias ac="add && commit"
 
 # the following is an alias for pushing to git, and calling status after
 
-alias push="git push origin master && status"
+alias push="git push origin $1 && status"
 
 
 # the following is an alias for pulling from git, and calling status after
 
-alias pull="git pull origin master && status"
+alias pull="git pull origin $1 && status"
 
 
 # the following is an alias for pushing to gh-pages and calling status after
@@ -166,6 +166,9 @@ alias remove="git rm -rf $1"
 # the following is an alias to switch between master branch and gh-pages
 
 alias switch="git checkout $1"
+
+# the following is an alias to create a new git branch
+alias branch="git branch $1"
 
 # the following is an alias to push to heroku
 alias hero="git push heroku master"
