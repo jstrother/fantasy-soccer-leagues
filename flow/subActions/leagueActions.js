@@ -21,6 +21,12 @@ export const playerPositionSelect = position => ({
   position
 });
 
+export const PLAYER_CLUB_SELECT = 'PLAYER_CLUB_SELECT';
+export const playerClubSelect = club => ({
+  type: PLAYER_CLUB_SELECT,
+  club
+});
+
 export const fetchLeague = leagueId => dispatch => {
   return fetch(`${url}/league/${leagueId}`)
   .then(res => {

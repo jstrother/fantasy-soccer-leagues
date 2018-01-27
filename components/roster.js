@@ -6,12 +6,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
-import { fetchLeague, playerPositionSelect } from '../flow/subActions/leagueActions.js';
+import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
 import styles from '../scss/roster.scss';
-
-let playerPosition,
-	club;
 
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
@@ -20,12 +17,11 @@ export class Team extends React.Component {
 	}
 	
 	handlePositionChange(event) {
-		console.log(event.target.value);
 		this.props.dispatch(playerPositionSelect(event.target.value));
 	}
 	
 	handleClubChange(event) {
-		
+		this.props.dispatch(playerClubSelect(event.target.value));
 	}
 	
 	addToRoster(event) {
@@ -62,7 +58,7 @@ export class Team extends React.Component {
 										<select
 											className={"clubsList"}
 											defaultValue={"allClubs"}
-											onChange={this.handleClubChange}>
+											onChange={this.handleClubChange.bind(this)}>
 											<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
 											{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
 										</select>
@@ -98,6 +94,14 @@ export class Team extends React.Component {
 											}
 										}
 										if (this.props.position === 'allPositions') {
+											return true;
+										}
+									})
+									.filter(player => {
+										if (this.props.club === player.clubName) {
+											return true;
+										}
+										if (this.props.club === 'allClubs') {
 											return true;
 										}
 									})
@@ -139,7 +143,8 @@ const mapRosterStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   roster: state.userReducer.roster,
   players: state.leagueReducer.players,
-  position: state.leagueReducer.position
+  position: state.leagueReducer.position,
+  club: state.leagueReducer.club
 });
 
 const Roster = connect(
