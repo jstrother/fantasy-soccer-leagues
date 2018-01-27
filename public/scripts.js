@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2565cc19d80d7e27fd05"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3ceded7fad4bc480c430"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39483,9 +39483,8 @@ function (_React$Component) {
             key: c.name,
             value: c.name
           }, c.name);
-        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.filter(function (player) {
-          return filterPlayerPosition(player);
-        }).map(function (p) {
+        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players // .filter(player => filterPlayerPosition(player))
+        .map(function (p) {
           // creating a table row for each player
           return _react.default.createElement("tr", {
             key: p.idFromAPI,

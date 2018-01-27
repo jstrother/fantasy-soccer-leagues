@@ -75,7 +75,7 @@ export class Team extends React.Component {
 							<tbody>
 								{
 									this.props.players
-									.filter(player => filterPlayerPosition(player))
+									// .filter(player => filterPlayerPosition(player))
 									.map(p => {
 										// creating a table row for each player
 										return(
