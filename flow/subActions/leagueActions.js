@@ -15,6 +15,12 @@ export const leagueFail = statusCode => ({
   statusCode
 });
 
+export const PLAYER_POSITION_SELECT = 'PLAYER_POSITION_SELECT';
+export const playerPositionSelect = position => ({
+  type: PLAYER_POSITION_SELECT,
+  position
+});
+
 export const fetchLeague = leagueId => dispatch => {
   return fetch(`${url}/league/${leagueId}`)
   .then(res => {

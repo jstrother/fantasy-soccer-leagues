@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3ceded7fad4bc480c430"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "afe9a0b15e9088cb63b2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16980,7 +16980,7 @@ exports.LEAGUE_IDS_NAMES = [{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchLeague = exports.leagueFail = exports.LEAGUE_FAIL = exports.leagueSuccess = exports.LEAGUE_SUCCESS = void 0;
+exports.fetchLeague = exports.playerPositionSelect = exports.PLAYER_POSITION_SELECT = exports.leagueFail = exports.LEAGUE_FAIL = exports.leagueSuccess = exports.LEAGUE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(96));
 
@@ -17012,6 +17012,17 @@ var leagueFail = function leagueFail(statusCode) {
 };
 
 exports.leagueFail = leagueFail;
+var PLAYER_POSITION_SELECT = 'PLAYER_POSITION_SELECT';
+exports.PLAYER_POSITION_SELECT = PLAYER_POSITION_SELECT;
+
+var playerPositionSelect = function playerPositionSelect(position) {
+  return {
+    type: PLAYER_POSITION_SELECT,
+    position: position
+  };
+};
+
+exports.playerPositionSelect = playerPositionSelect;
 
 var fetchLeague = function fetchLeague(leagueId) {
   return function (dispatch) {
@@ -39429,8 +39440,8 @@ function (_React$Component) {
   }, {
     key: "handlePositionChange",
     value: function handlePositionChange(event) {
-      playerPosition = event.target.value;
-      console.log(playerPosition);
+      console.log(event.target.value);
+      this.props.dispatch((0, _leagueActions.playerPositionSelect)(event.target.value));
     }
   }, {
     key: "handleClubChange",
@@ -39453,7 +39464,7 @@ function (_React$Component) {
         }, _react.default.createElement("div", {
           className: _roster.default.playerSelection
         }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
-          className: 'positionsList',
+          className: "positionsList",
           defaultValue: "allPositions",
           onChange: this.handlePositionChange.bind(this)
         }, _react.default.createElement("option", {
@@ -39483,8 +39494,36 @@ function (_React$Component) {
             key: c.name,
             value: c.name
           }, c.name);
-        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players // .filter(player => filterPlayerPosition(player))
-        .map(function (p) {
+        }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.players.filter(function (player) {
+          // this is a hack to account for the fact that the db doesn't have a consistent method
+          if (_this.props.position === 'forwards') {
+            if (player.position === 'F' || player.position === 'Attacker') {
+              return true;
+            }
+          }
+
+          if (_this.props.position === 'midfielders') {
+            if (player.position === 'M' || player.position === 'Midfielder') {
+              return true;
+            }
+          }
+
+          if (_this.props.position === 'defenders') {
+            if (player.position === 'D' || player.position === 'Defender') {
+              return true;
+            }
+          }
+
+          if (_this.props.position === 'goalkeepers') {
+            if (player.position === 'G' || player.position === 'Goalkeeper') {
+              return true;
+            }
+          }
+
+          if (_this.props.position === 'allPositions') {
+            return true;
+          }
+        }).map(function (p) {
           // creating a table row for each player
           return _react.default.createElement("tr", {
             key: p.idFromAPI,
@@ -39504,15 +39543,6 @@ function (_React$Component) {
       } else {
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "We are sorry, but something went wrong.  Please try again later."));
       }
-
-      function filterPlayerPosition(player) {
-        if (playerPosition === player.position) {
-          return player;
-        } else if (playerPosition === 'allPositions') {
-          // this is designed to return all players in league as no player plays "all positions"
-          return player;
-        }
-      }
     }
   }]);
 
@@ -39525,7 +39555,8 @@ var mapRosterStateToProps = function mapRosterStateToProps(state) {
   return {
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
     roster: state.userReducer.roster,
-    players: state.leagueReducer.players
+    players: state.leagueReducer.players,
+    position: state.leagueReducer.position
   };
 };
 
@@ -39874,13 +39905,20 @@ var _leagueActions = __webpack_require__(170);
 // ./flow/subReducers/leagueReducer.js
 // imported into ./flow/reducers.js
 var leagueReducer = function leagueReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    position: 'allPositions'
+  };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _leagueActions.LEAGUE_SUCCESS:
       return Object.assign({}, state, {
         players: action.players
+      });
+
+    case _leagueActions.PLAYER_POSITION_SELECT:
+      return Object.assign({}, state, {
+        position: action.position
       });
 
     case _leagueActions.LEAGUE_FAIL:

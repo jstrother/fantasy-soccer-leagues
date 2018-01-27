@@ -6,7 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
-import { fetchLeague } from '../flow/subActions/leagueActions.js';
+import { fetchLeague, playerPositionSelect } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
 import styles from '../scss/roster.scss';
 
@@ -20,8 +20,8 @@ export class Team extends React.Component {
 	}
 	
 	handlePositionChange(event) {
-		playerPosition = event.target.value;
-		console.log(playerPosition);
+		console.log(event.target.value);
+		this.props.dispatch(playerPositionSelect(event.target.value));
 	}
 	
 	handleClubChange(event) {
@@ -48,7 +48,7 @@ export class Team extends React.Component {
 									<th>Name</th>
 									<th>
 										<select
-											className={'positionsList'}
+											className={"positionsList"}
 											defaultValue={"allPositions"}
 											onChange={this.handlePositionChange.bind(this)}>
 											<option key={"1"} value={"allPositions"}>All Positions</option>
@@ -75,7 +75,32 @@ export class Team extends React.Component {
 							<tbody>
 								{
 									this.props.players
-									// .filter(player => filterPlayerPosition(player))
+									.filter(player => {
+										// this is a hack to account for the fact that the db doesn't have a consistent method
+										if (this.props.position === 'forwards') {
+											if (player.position === 'F' || player.position === 'Attacker') {
+												return true;
+											}
+										}
+										if (this.props.position === 'midfielders') {
+											if (player.position === 'M' || player.position === 'Midfielder') {
+												return true;
+											}
+										}
+										if (this.props.position === 'defenders') {
+											if (player.position === 'D' || player.position === 'Defender') {
+												return true;
+											}
+										}
+										if (this.props.position === 'goalkeepers') {
+											if (player.position === 'G' || player.position === 'Goalkeeper') {
+												return true;
+											}
+										}
+										if (this.props.position === 'allPositions') {
+											return true;
+										}
+									})
 									.map(p => {
 										// creating a table row for each player
 										return(
@@ -107,23 +132,14 @@ export class Team extends React.Component {
 				</div>
 			);
 		}
-		
-		function filterPlayerPosition(player) {
-			if (playerPosition === player.position) {
-				return player;
-			}
-			else if (playerPosition === 'allPositions') {
-				// this is designed to return all players in league as no player plays "all positions"
-				return player;
-			}
-		}
 	}
 }
 
 const mapRosterStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   roster: state.userReducer.roster,
-  players: state.leagueReducer.players
+  players: state.leagueReducer.players,
+  position: state.leagueReducer.position
 });
 
 const Roster = connect(
