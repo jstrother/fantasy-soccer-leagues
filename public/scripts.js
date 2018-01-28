@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "afe9a0b15e9088cb63b2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "17d8c789c2eed160dc86"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16766,35 +16766,35 @@ exports.LEAGUE_IDS_NAMES = [{
   id: 779,
   name: "Major League Soccer (USA)",
   clubs: [{
-    name: 'Atlanta United FC'
+    name: 'Atlanta United'
   }, {
     name: 'Chicago Fire'
   }, {
     name: 'Colorado Rapids'
   }, {
-    name: 'Columbus Crew SC'
+    name: 'Columbus Crew'
   }, {
-    name: 'D.C. United'
+    name: 'DC United'
   }, {
-    name: 'FC Dallas'
+    name: 'Dallas'
   }, {
     name: 'Houston Dynamo'
   }, {
     name: 'LA Galaxy'
   }, {
-    name: 'Los Angeles FC'
+    name: 'Los Angeles'
   }, {
-    name: 'Minnesota United FC'
+    name: 'Minnesota United'
   }, {
     name: 'Montreal Impact'
   }, {
-    name: 'New England Revolution'
+    name: 'New England'
   }, {
-    name: 'New York City FC'
+    name: 'New York City'
   }, {
-    name: 'New York Red Bulls'
+    name: 'New York RB'
   }, {
-    name: 'Orlando City SC'
+    name: 'Orlando City'
   }, {
     name: 'Philadelphia Union'
   }, {
@@ -16802,15 +16802,15 @@ exports.LEAGUE_IDS_NAMES = [{
   }, {
     name: 'Real Salt Lake'
   }, {
-    name: 'San Jose Earthquakes'
+    name: 'SJ Earthquakes'
   }, {
-    name: 'Seattle Sounders FC'
+    name: 'Seattle Sounders'
   }, {
-    name: 'Sporting Kansas City'
+    name: 'Sporting KC'
   }, {
-    name: 'Toronto FC'
+    name: 'Toronto'
   }, {
-    name: 'Vancouver Whitecaps FC'
+    name: 'Vancouver Whitecaps'
   }]
 }, {
   id: 968,
@@ -16980,7 +16980,7 @@ exports.LEAGUE_IDS_NAMES = [{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchLeague = exports.playerPositionSelect = exports.PLAYER_POSITION_SELECT = exports.leagueFail = exports.LEAGUE_FAIL = exports.leagueSuccess = exports.LEAGUE_SUCCESS = void 0;
+exports.fetchLeague = exports.playerClubSelect = exports.PLAYER_CLUB_SELECT = exports.playerPositionSelect = exports.PLAYER_POSITION_SELECT = exports.leagueFail = exports.LEAGUE_FAIL = exports.leagueSuccess = exports.LEAGUE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(96));
 
@@ -17023,6 +17023,17 @@ var playerPositionSelect = function playerPositionSelect(position) {
 };
 
 exports.playerPositionSelect = playerPositionSelect;
+var PLAYER_CLUB_SELECT = 'PLAYER_CLUB_SELECT';
+exports.PLAYER_CLUB_SELECT = PLAYER_CLUB_SELECT;
+
+var playerClubSelect = function playerClubSelect(club) {
+  return {
+    type: PLAYER_CLUB_SELECT,
+    club: club
+  };
+};
+
+exports.playerClubSelect = playerClubSelect;
 
 var fetchLeague = function fetchLeague(leagueId) {
   return function (dispatch) {
@@ -39418,8 +39429,6 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var playerPosition, club;
-
 var Team =
 /*#__PURE__*/
 function (_React$Component) {
@@ -39440,12 +39449,13 @@ function (_React$Component) {
   }, {
     key: "handlePositionChange",
     value: function handlePositionChange(event) {
-      console.log(event.target.value);
       this.props.dispatch((0, _leagueActions.playerPositionSelect)(event.target.value));
     }
   }, {
     key: "handleClubChange",
-    value: function handleClubChange(event) {}
+    value: function handleClubChange(event) {
+      this.props.dispatch((0, _leagueActions.playerClubSelect)(event.target.value));
+    }
   }, {
     key: "addToRoster",
     value: function addToRoster(event) {}
@@ -39485,7 +39495,7 @@ function (_React$Component) {
         }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "clubsList",
           defaultValue: "allClubs",
-          onChange: this.handleClubChange
+          onChange: this.handleClubChange.bind(this)
         }, _react.default.createElement("option", {
           key: "allClubs",
           value: "allClubs"
@@ -39523,6 +39533,14 @@ function (_React$Component) {
           if (_this.props.position === 'allPositions') {
             return true;
           }
+        }).filter(function (player) {
+          if (_this.props.club === player.clubName) {
+            return true;
+          }
+
+          if (_this.props.club === 'allClubs') {
+            return true;
+          }
         }).map(function (p) {
           // creating a table row for each player
           return _react.default.createElement("tr", {
@@ -39556,7 +39574,8 @@ var mapRosterStateToProps = function mapRosterStateToProps(state) {
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
     roster: state.userReducer.roster,
     players: state.leagueReducer.players,
-    position: state.leagueReducer.position
+    position: state.leagueReducer.position,
+    club: state.leagueReducer.club
   };
 };
 
@@ -39906,7 +39925,8 @@ var _leagueActions = __webpack_require__(170);
 // imported into ./flow/reducers.js
 var leagueReducer = function leagueReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    position: 'allPositions'
+    position: 'allPositions',
+    club: 'allClubs'
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -39919,6 +39939,11 @@ var leagueReducer = function leagueReducer() {
     case _leagueActions.PLAYER_POSITION_SELECT:
       return Object.assign({}, state, {
         position: action.position
+      });
+
+    case _leagueActions.PLAYER_CLUB_SELECT:
+      return Object.assign({}, state, {
+        club: action.club
       });
 
     case _leagueActions.LEAGUE_FAIL:
