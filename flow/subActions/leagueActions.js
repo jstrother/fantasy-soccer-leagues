@@ -35,8 +35,8 @@ export const fetchLeague = leagueId => dispatch => {
     }
     return res.json();
   })
-  .then(players => {
-    dispatch(leagueSuccess(players, 200));
+  .then(playerList => {
+    dispatch(leagueSuccess(playerList, 200));
     return;
   })
   .catch(error => {

@@ -8,7 +8,7 @@ export const leagueReducer = (state = {position: 'allPositions'}, action) => {
     case LEAGUE_SUCCESS:
       return Object.assign({}, state,
         {
-          players: action.players
+          playerList: action.playerList
         }
       );
     case PLAYER_POSITION_SELECT:

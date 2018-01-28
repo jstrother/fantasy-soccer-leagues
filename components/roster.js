@@ -6,8 +6,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
+<<<<<<< Updated upstream
 import { fetchLeague, playerPositionSelect } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
+=======
+import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
+import { addToRoster, fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
+>>>>>>> Stashed changes
 import styles from '../scss/roster.scss';
 
 let playerPosition,
@@ -28,7 +33,7 @@ export class Team extends React.Component {
 		
 	}
 	
-	addToRoster(event) {
+	handleRosterAdd(event) {
 		
 	}
 	
@@ -138,8 +143,15 @@ export class Team extends React.Component {
 const mapRosterStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   roster: state.userReducer.roster,
+<<<<<<< Updated upstream
   players: state.leagueReducer.players,
   position: state.leagueReducer.position
+=======
+  playerList: state.leagueReducer.playerList,
+  position: state.leagueReducer.position,
+  club: state.leagueReducer.club,
+  player: state.playerReducer.player
+>>>>>>> Stashed changes
 });
 
 const Roster = connect(

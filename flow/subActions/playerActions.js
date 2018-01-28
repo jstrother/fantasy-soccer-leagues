@@ -1,5 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
+
+export const ADD_TO_ROSTER = 'ADD_TO_ROSTER';
+export const addToRoster = player => ({
+  type: ADD_TO_ROSTER,
+  player
+});
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 export const setStarterSuccess = (player, statusCode) => ({
