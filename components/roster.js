@@ -6,23 +6,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
-<<<<<<< Updated upstream
-import { fetchLeague, playerPositionSelect } from '../flow/subActions/leagueActions.js';
-=======
-import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
->>>>>>> f5a9a1964ea78f87d0e66d9a6f167582c7ea96be
-=======
-import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
->>>>>>> f5a9a1964ea78f87d0e66d9a6f167582c7ea96be
-import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
-=======
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { addToRoster, fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
->>>>>>> Stashed changes
 import styles from '../scss/roster.scss';
-
-let playerPosition,
-	club;
 
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
@@ -31,12 +17,11 @@ export class Team extends React.Component {
 	}
 	
 	handlePositionChange(event) {
-		console.log(event.target.value);
 		this.props.dispatch(playerPositionSelect(event.target.value));
 	}
 	
 	handleClubChange(event) {
-		
+		this.props.dispatch(playerClubSelect(event.target.value));
 	}
 	
 	handleRosterAdd(event) {
@@ -73,7 +58,7 @@ export class Team extends React.Component {
 										<select
 											className={"clubsList"}
 											defaultValue={"allClubs"}
-											onChange={this.handleClubChange}>
+											onChange={this.handleClubChange.bind(this)}>
 											<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
 											{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
 										</select>
@@ -125,14 +110,7 @@ export class Team extends React.Component {
 										return(
 											<tr
 												key={p.idFromAPI}
-<<<<<<<<< saved version
-												<td value={p.fantasyPoints.fixture}>{p.fantasyPoints.fixture}</td>
-											</tr>
-										);
-									})
-=========
 												onClick={this.handleRosterAdd.bind(this)}>
->>>>>>>>> local version
 												<td value={p.lastName}>{`${p.firstName} ${p.lastName}`}</td>
 												<td value={p.position}>{p.position}</td>
 												<td value={p.clubName}>{p.clubName}</td>
@@ -164,44 +142,10 @@ export class Team extends React.Component {
 const mapRosterStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   roster: state.userReducer.roster,
-<<<<<<< Updated upstream
-  players: state.leagueReducer.players,
-<<<<<<< HEAD
-<<<<<<< HEAD
-  position: state.leagueReducer.position
-=======
   playerList: state.leagueReducer.playerList,
   position: state.leagueReducer.position,
   club: state.leagueReducer.club,
   player: state.playerReducer.player
-=======
-  playerList: state.leagueReducer.playerList,
-  position: state.leagueReducer.position,
-  club: state.leagueReducer.club,
-  player: state.playerReducer.player
->>>>>>> Stashed changes
-const mapRosterStateToProps = state => ({
-  fantasyLeagueId: state.userReducer.fantasyLeagueId,
-  roster: state.userReducer.roster,
-<<<<<<< Updated upstream
-  players: state.leagueReducer.players,
-<<<<<<< HEAD
-<<<<<<< HEAD
-  position: state.leagueReducer.position
-=======
-  playerList: state.leagueReducer.playerList,
-  position: state.leagueReducer.position,
-  club: state.leagueReducer.club,
-  player: state.playerReducer.player
->>>>>>> Stashed changes
-=======
-  position: state.leagueReducer.position,
-  club: state.leagueReducer.club
->>>>>>> f5a9a1964ea78f87d0e66d9a6f167582c7ea96be
-=======
-  position: state.leagueReducer.position,
-  club: state.leagueReducer.club
->>>>>>> f5a9a1964ea78f87d0e66d9a6f167582c7ea96be
 });
 
 const Roster = connect(
