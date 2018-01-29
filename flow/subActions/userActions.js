@@ -101,7 +101,7 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
   });
 };
 
-export const addRoster = (accessToken, roster) => dispatch => {
+export const fetchRoster = (accessToken, roster) => dispatch => {
   return fetch(`${url}/user/addRoster`, {
     method: 'PUT',
     headers: {
@@ -115,10 +115,10 @@ export const addRoster = (accessToken, roster) => dispatch => {
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(setLeagueFail(res.status));
+        dispatch(setRosterFail(res.status));
         return;
       } else {
-        dispatch(setLeagueFail(500));
+        dispatch(setRosterFail(500));
         throw new Error(res.statusText);
       }
     }

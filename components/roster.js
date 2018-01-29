@@ -4,10 +4,12 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { addToRoster, fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
+import { fetchRoster } from '../flow/subActions/userActions.js';
 import styles from '../scss/roster.scss';
 
 export class Team extends React.Component {
@@ -25,11 +27,11 @@ export class Team extends React.Component {
 	}
 	
 	handleRosterAdd(event) {
-		
+		this.props.dispatch(addToRoster(event.target.value));
 	}
 	
 	render() {
-		if (this.props.players){
+		if (this.props.playerList){
 			const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
 			return(
 				<div
@@ -70,7 +72,7 @@ export class Team extends React.Component {
 							</thead>
 							<tbody>
 								{
-									this.props.players
+									this.props.playerList
 									.filter(player => {
 										// this is a hack to account for the fact that the db doesn't have a consistent method
 										if (this.props.position === 'forwards') {
@@ -109,12 +111,13 @@ export class Team extends React.Component {
 										// creating a table row for each player
 										return(
 											<tr
+												value={p.idFromAPI}
 												key={p.idFromAPI}
 												onClick={this.handleRosterAdd.bind(this)}>
-												<td value={p.lastName}>{`${p.firstName} ${p.lastName}`}</td>
-												<td value={p.position}>{p.position}</td>
-												<td value={p.clubName}>{p.clubName}</td>
-												<td value={p.fantasyPoints.fixture}>{p.fantasyPoints.fixture}</td>
+												<td>{`${p.firstName} ${p.lastName}`}</td>
+												<td>{p.position}</td>
+												<td>{p.clubName}</td>
+												<td>{p.fantasyPoints.fixture}</td>
 											</tr>
 										);
 									})
@@ -125,7 +128,27 @@ export class Team extends React.Component {
 					<div
 						className={styles.rosterDisplay}>
 						Roster:
-						{/* set up a table to list players chosen for this section */}
+						<table>
+							<thead>
+								<tr>
+									<th>
+										Name
+									</th>
+									<th>
+										Position
+									</th>
+									<th>
+										Club
+									</th>
+									<th>
+										Points Last Match
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
 					</div>
 				</div>
 			);

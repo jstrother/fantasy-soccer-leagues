@@ -3,9 +3,9 @@ import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 export const LEAGUE_SUCCESS = 'LEAGUE_SUCCESS';
-export const leagueSuccess = (players, statusCode) => ({
+export const leagueSuccess = (playerList, statusCode) => ({
   type: LEAGUE_SUCCESS,
-  players,
+  playerList,
   statusCode
 });
 

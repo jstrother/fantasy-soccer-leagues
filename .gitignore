@@ -8,4 +8,3 @@ config.js
 *.env
 coverage/
 *.map
-public/scripts.js
