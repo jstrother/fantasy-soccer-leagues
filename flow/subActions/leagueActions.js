@@ -2,6 +2,8 @@
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
+const thisURL = `${url}/league`;
+
 export const LEAGUE_SUCCESS = 'LEAGUE_SUCCESS';
 export const leagueSuccess = (playerList, statusCode) => ({
   type: LEAGUE_SUCCESS,
@@ -28,7 +30,7 @@ export const playerClubSelect = club => ({
 });
 
 export const fetchLeague = leagueId => dispatch => {
-  return fetch(`${url}/league/${leagueId}`)
+  return fetch(`${thisURL}/${leagueId}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {

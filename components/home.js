@@ -7,12 +7,16 @@ import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { addLeague } from '../flow/subActions/userActions.js';
+import { addManager } from '../flow/subActions/fantasyClubActions.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import FantasyClub from './fantasyClub.js';
 import FantasyLeague from './fantasyLeague.js';
 import styles from '../scss/home.scss';
 
 export class Home extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(addManager(this.props.displayName));
+  }
   
   selectLeagueChange(event) {
     event.preventDefault();
@@ -100,6 +104,7 @@ const mapHomeStateToProps = state => (
     googleId: state.userReducer.googleId,
     displayName: state.userReducer.displayName,
     givenName: state.userReducer.givenName,
+    familyName: state.userReducer.familyName,
     userPhoto: state.userReducer.userPhoto,
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
     fantasyLeagueName: state.userReducer.fantasyLeagueName

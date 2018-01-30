@@ -1,23 +1,14 @@
 const mongoose = require('mongoose'),
 
 	fantasyScheduleSchema = mongoose.Schema({
-		masterLeagueSeasonSchedule: {
-			
-		},
+		fantasyLeague: [{type: mongoose.Schema.Types.ObjectId, ref: 'FantasyLeague'}],
 		numLeagueSeasonMatches: Number,
-		masterLeagueCupSchedule: {
-			
-		},
+		fantasyLeagueCup: [{type: mongoose.Schema.Types.ObjectId, ref: 'FantasyLeagueCup'}],
 		leagueCupRound: String,
-		masterChampsSchedule: {
-			
-		},
+		fantasyChampsLeague: [{type: mongoose.Schema.Types.ObjectId, ref: 'FantasyChampsLeague'}],
 		champsLeagueRound: String
 	}),
 
 	FantasySchedule = mongoose.model('FantasySchedule', fantasyScheduleSchema);
 
 module.exports = FantasySchedule;
-
-// schedule should reference league season model AND league cup model AND champions league model
-// each sub-model should then in turn reference fantasy match model

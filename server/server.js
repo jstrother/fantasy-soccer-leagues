@@ -14,6 +14,7 @@ const config = require('./config.js'),
 	userRouter = require('./user-routes.js').userRouter,
 	playerRouter = require('./player-routes.js').playerRouter,
 	leagueRouter = require('./league-routes.js').leagueRouter,
+	fantasyClubRouter = require("./fantasyClub-routes.js").fantasyClubRouter,
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
@@ -25,6 +26,7 @@ app.use(passport.initialize());
 app.use('/user', userRouter);
 app.use('/player', playerRouter);
 app.use('/league', leagueRouter);
+app.use('/fantasyClub', fantasyClubRouter);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });

@@ -8,8 +8,8 @@ import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
-import { addToRoster, fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
-import { fetchRoster } from '../flow/subActions/userActions.js';
+import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
+import { addRoster } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/roster.scss';
 
 export class Team extends React.Component {
@@ -27,7 +27,11 @@ export class Team extends React.Component {
 	}
 	
 	handleRosterAdd(event) {
-		this.props.dispatch(addToRoster(event.target.value));
+		this.props.dispatch(addRoster(event.target.value));
+	}
+	
+	handleRosterRemove(event) {
+		
 	}
 	
 	render() {
@@ -146,7 +150,22 @@ export class Team extends React.Component {
 								</tr>
 							</thead>
 							<tbody>
-								
+								{
+									this.props.roster
+									.map(p => {
+										return(
+											<tr
+												value={p.idFromAPI + 1}
+												key={p.idFromAPI + 1}
+												onClick={this.handleRosterRemove.bind(this)}>
+												<td>{`${p.firstName} ${p.lastName}`}</td>
+												<td>{p.position}</td>
+												<td>{p.clubName}</td>
+												<td>{p.fantasyPoints.fixture}</td>
+											</tr>
+										);
+									})
+								}
 							</tbody>
 						</table>
 					</div>
