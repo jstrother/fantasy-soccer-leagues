@@ -28,12 +28,13 @@ fantasyClubRouter.put('/addRoster',
     })
 );
 
-fantasyClubRouter.put('/addName',
-  (req, res) => updateData(req.params.name,
+fantasyClubRouter.put('/addClubName',
+  (req, res) => updateData(req.params.clubName,
     {
-      name: req.body.name
+      clubName: req.body.clubName
     }, FantasyClub)
     .then(data => {
+      console.log('clubName data routes:', data);
       res.json(data);
     })
     .catch(error => {

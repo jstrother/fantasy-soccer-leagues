@@ -1,7 +1,7 @@
 // ./flow/subReducers/fantasyClubReducer.js
 // imported into ./flow/reducers.js
 
-import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_ROSTER_SUCCESS, SET_ROSTER_FAIL, SET_NAME_SUCCESS, SET_NAME_FAIL } from '../subActions/fantasyClubActions.js';
+import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_ROSTER_SUCCESS, SET_ROSTER_FAIL, SET_CLUB_NAME_SUCCESS, SET_CLUB_NAME_FAIL } from '../subActions/fantasyClubActions.js';
 
 export const fantasyClubReducer = (state = {}, action) => {
   switch (action.type) {
@@ -17,13 +17,13 @@ export const fantasyClubReducer = (state = {}, action) => {
           roster: action.roster
         }
       );
-    case SET_NAME_SUCCESS:
+    case SET_CLUB_NAME_SUCCESS:
       return Object.assign({}, state,
         {
-          name: action.name
+          clubName: action.clubName
         }
       );
-    case SET_NAME_FAIL:
+    case SET_CLUB_NAME_FAIL:
     case SET_MANAGER_FAIL:
     case SET_ROSTER_FAIL:
     default:

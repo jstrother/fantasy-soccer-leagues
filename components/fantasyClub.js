@@ -1,17 +1,25 @@
-/* eslint-disable no-unused-vars*/
+/* eslint-disable no-console, no-unused-vars*/
 // components/fantasyClub.js
 // imported into home.js
 
 import React from 'react';
 import { connect } from 'react-redux';
+import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
+import FantasyLeague from './fantasyLeague.js';
+import { addClubName, addManager } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
+	componentDidMount() {
+    this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+  }
 	submitClubName(event) {
-		
+		event.preventDefault();
+		console.log('clubNameInput:', this.clubNameInput.value);
+		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
 	}
 	
 	render() {
@@ -19,9 +27,11 @@ export class FantasyTeam extends React.Component {
 			return(
 				<div
 					className={styles.fantasyClub}>
-					<form>
+					<form
+						className={'clubNameForm'}>
 						<input
 							className={'clubNameInput'}
+							ref={(input) => {this.clubNameInput = input;}}
 							type="text"
 							placeholder="Enter your club's name"/>
 						<button
@@ -35,11 +45,11 @@ export class FantasyTeam extends React.Component {
 			);
 		}
 		
-		if(this.props.fantasyClub.name) {
+		if(this.props.clubName) {
 			return(
 				<div
 					className={styles.fantasyClub}>
-					<h3>{this.props.fantasyClub.name}</h3>
+					<h3>{this.props.clubName}</h3>
 					<div
 						className={styles.rosterDiv}>
 						Select players for your roster.
@@ -49,6 +59,10 @@ export class FantasyTeam extends React.Component {
 						Set your lineup for upcoming matches.
 						<FantasySchedule /> {/* covers league matches within a division and the cup matches between all teams in all divisions */}
 					</div>
+					<div
+            className={styles.league}>
+            <FantasyLeague />
+          </div>
 				</div>
 			);
 		}
@@ -56,7 +70,9 @@ export class FantasyTeam extends React.Component {
 }
 
 const mapFantasyClubStateToProps = state => ({
-	clubName: state.fantasyClubReducer.name
+	accessToken: state.userReducer.accessToken,
+	displayName: state.userReducer.displayName,
+	clubName: state.fantasyClubReducer.clubName
 });
 
 const FantasyClub = connect(

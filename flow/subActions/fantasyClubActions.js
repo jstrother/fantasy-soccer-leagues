@@ -1,18 +1,20 @@
+/* eslint-disable no-console */
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 const thisURL = `${url}/fantasyClub`;
 
-export const SET_NAME_SUCCESS = 'SET_NAME_SUCCESS';
-export const setNameSuccess = (name, statusCode) => ({
-  type: SET_NAME_SUCCESS,
-  name,
+export const SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
+export const setClubNameSuccess = (clubName, statusCode) => ({
+  type: SET_CLUB_NAME_SUCCESS,
+  clubName,
   statusCode
 });
 
-export const SET_NAME_FAIL = 'SET_NAME_FAIL';
-export const setNameFail = statusCode => ({
-  type: SET_NAME_FAIL,
+export const SET_CLUB_NAME_FAIL = 'SET_CLUB_NAME_FAIL';
+export const setClubNameFail = statusCode => ({
+  type: SET_CLUB_NAME_FAIL,
   statusCode
 });
 
@@ -65,8 +67,8 @@ export const addRoster = (accessToken, roster) => dispatch => {
     }
     return res.json();
   })
-  .then(roster => {
-    dispatch(setRosterSuccess(roster, 200));
+  .then(data => {
+    dispatch(setRosterSuccess(data.roster, 200));
     return;
   })
   .catch(error => {
@@ -97,8 +99,8 @@ export const addManager = (accessToken, manager) => dispatch => {
     }
     return res.json();
   })
-  .then(manager => {
-    dispatch(setManagerSuccess(manager, 200));
+  .then(data => {
+    dispatch(setManagerSuccess(data.manager, 200));
     return;
   })
   .catch(error => {
@@ -106,31 +108,32 @@ export const addManager = (accessToken, manager) => dispatch => {
   });
 };
 
-export const addName = (accessToken, name) => dispatch => {
-  return fetch(`${thisURL}/addManager`, {
+export const addClubName = (accessToken, clubName) => dispatch => {
+  return fetch(`${thisURL}/addClubName`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
-      name
+      clubName
     })
   })
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(setNameFail(res.status));
+        dispatch(setClubNameFail(res.status));
         return;
       } else {
-        dispatch(setNameFail(500));
+        dispatch(setClubNameFail(500));
         throw new Error(res.statusText);
       }
     }
     return res.json();
   })
-  .then(name => {
-    dispatch(setNameSuccess(name, 200));
+  .then(data => {
+    // console.log('clubName data:', data);
+    dispatch(setClubNameSuccess(data.clubName, 200));
     return;
   })
   .catch(error => {

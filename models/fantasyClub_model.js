@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
 
 			fantasyClubSchema = mongoose.Schema({
-				name: { type: String, required: true },
+				clubName: { type: String, required: true },
 				manager: { type: String, required: true },
 				league: String,
 				division: String,
