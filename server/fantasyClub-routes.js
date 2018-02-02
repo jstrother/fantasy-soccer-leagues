@@ -1,6 +1,6 @@
 const express = require('express'),
   passport = require("passport"),
-  { updateData } = require("./programFunctions/updateData_function.js"),
+  { updateData, updateArrayData } = require("./programFunctions/updateData_function.js"),
 	fantasyClubRouter = express.Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
 
@@ -30,17 +30,16 @@ fantasyClubRouter.get('/',
 );
 
 fantasyClubRouter.put('/addRoster',
-  (req, res) => updateData(req.params.roster,
-    {
-      roster: req.body.roster
-    }, FantasyClub)
+  (req, res) => {
+    console.log('req.body:', req.body);
+    updateArrayData(req.params.player, 'roster', req.body.player, FantasyClub)
     .then(data => {
-      console.log('roster:', data);
       res.json(data);
     })
     .catch(error => {
       throw new Error(error);
-    })
+    });
+  }
 );
 
 fantasyClubRouter.put('/addClubName',

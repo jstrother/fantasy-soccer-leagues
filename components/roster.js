@@ -4,18 +4,18 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
-import { addRoster } from '../flow/subActions/fantasyClubActions.js';
+import { addRoster, getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/roster.scss';
 
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
 	componentDidMount() {
 		this.props.dispatch(fetchLeague(this.props.fantasyLeagueId));
+		this.props.dispatch(getClub(this.props.accessToken));
 	}
 	
 	handlePositionChange(event) {
@@ -27,7 +27,8 @@ export class Team extends React.Component {
 	}
 	
 	handleRosterAdd(event) {
-		this.props.dispatch(addRoster(event.target.value));
+		console.log('idFromAPI roster.js:', event.target.value);
+		this.props.dispatch(addRoster(this.props.accessToken, event.target.value));
 	}
 	
 	handleRosterRemove(event) {
@@ -151,20 +152,20 @@ export class Team extends React.Component {
 							</thead>
 							<tbody>
 								{
-									this.props.roster
-									.map(p => {
-										return(
-											<tr
-												value={p.idFromAPI + 1}
-												key={p.idFromAPI + 1}
-												onClick={this.handleRosterRemove.bind(this)}>
-												<td>{`${p.firstName} ${p.lastName}`}</td>
-												<td>{p.position}</td>
-												<td>{p.clubName}</td>
-												<td>{p.fantasyPoints.fixture}</td>
-											</tr>
-										);
-									})
+									// this.props.roster
+									// .map(p => {
+									// 	return(
+									// 		<tr
+									// 			value={p.idFromAPI + 1}
+									// 			key={p.idFromAPI + 1}
+									// 			onClick={this.handleRosterRemove.bind(this)}>
+									// 			<td>{`${p.firstName} ${p.lastName}`}</td>
+									// 			<td>{p.position}</td>
+									// 			<td>{p.clubName}</td>
+									// 			<td>{p.fantasyPoints.fixture}</td>
+									// 		</tr>
+									// 	);
+									// })
 								}
 							</tbody>
 						</table>
@@ -182,8 +183,9 @@ export class Team extends React.Component {
 }
 
 const mapRosterStateToProps = state => ({
+	accessToken: state.userReducer.accessToken,
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
-  roster: state.userReducer.roster,
+  roster: state.fantasyClubReducer.roster,
   playerList: state.leagueReducer.playerList,
   position: state.leagueReducer.position,
   club: state.leagueReducer.club,

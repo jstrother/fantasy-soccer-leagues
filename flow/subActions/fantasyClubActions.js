@@ -82,7 +82,7 @@ export const getClub = accessToken => dispatch => {
   });
 };
 
-export const addRoster = (accessToken, roster) => dispatch => {
+export const addRoster = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/addRoster`, {
     method: 'PUT',
     headers: {
@@ -90,7 +90,7 @@ export const addRoster = (accessToken, roster) => dispatch => {
       'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
-      roster
+      player
     })
   })
   .then(res => {

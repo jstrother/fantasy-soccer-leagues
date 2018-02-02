@@ -13,7 +13,9 @@ import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-    this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+    if (!(this.props.manager)) {
+			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+    }
     this.props.dispatch(getClub(this.props.accessToken));
   }
 	submitClubName(event) {
@@ -48,7 +50,6 @@ export class FantasyTeam extends React.Component {
 			return(
 				<div
 					className={styles.fantasyClub}>
-					<h3>{this.props.clubName}</h3>
 					<div
 						className={styles.rosterDiv}>
 						Select players for your roster.
