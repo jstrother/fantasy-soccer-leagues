@@ -41,10 +41,9 @@ export const fetchUser = accessToken => dispatch => {
       if (res.status === 401) {
         dispatch(setUserFail(res.status));
         return;
-      } else {
-        dispatch(setUserFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setUserFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -74,10 +73,9 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
       if (res.status === 400) {
         dispatch(setLeagueFail(res.status));
         return;
-      } else {
-        dispatch(setLeagueFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setLeagueFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })

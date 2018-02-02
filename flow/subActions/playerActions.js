@@ -49,10 +49,9 @@ export const fetchStarter = player => dispatch => {
       if (res.status === 401) {
         dispatch(setStarterFail(res.status));
         return;
-      } else {
-        dispatch(setStarterFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setStarterFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -72,10 +71,9 @@ export const fetchBenchwarmer = player => dispatch => {
       if (res.status === 401) {
         dispatch(setBenchwarmerFail(res.status));
         return;
-      } else {
-        dispatch(setBenchwarmerFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setBenchwarmerFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -95,10 +93,9 @@ export const fetchReserve = player => dispatch => {
       if (res.status === 401) {
         dispatch(setReserveFail(res.status));
         return;
-      } else {
-        dispatch(setReserveFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setReserveFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })

@@ -36,10 +36,9 @@ export const fetchLeague = leagueId => dispatch => {
       if (res.status === 401) {
         dispatch(leagueFail(res.status));
         return;
-      } else {
-        dispatch(leagueFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(leagueFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })

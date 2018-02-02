@@ -75,6 +75,7 @@ userRouter.get('/auth/logout',
 userRouter.get('/', 
 	passport.authenticate('bearer', {session: false}), 
 	(req, res) => res.json({
+		accessToken: req.user.accessToken,
 		googleId: req.user.googleId,
 		displayName: req.user.displayName,
 		givenName: req.user.givenName,
@@ -92,21 +93,6 @@ userRouter.put(`/addLeague`,
 		{
 			fantasyLeagueId: req.body.fantasyLeagueId,
 			fantasyLeagueName: req.body.fantasyLeagueName
-		}, User)
-		.then(data => {
-			res.json(data);
-		})
-		.catch(error => {
-			throw new Error(error);
-		})
-);
-
-// adds user's selected roster
-userRouter.put(`/addRoster`,
-	passport.authenticate('bearer', {session: false}),
-	(req, res) => updateData(req.params.googleId, 
-		{
-			roster: req.body.roster
 		}, User)
 		.then(data => {
 			res.json(data);

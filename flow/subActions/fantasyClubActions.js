@@ -5,6 +5,19 @@ import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 const thisURL = `${url}/fantasyClub`;
 
+export const GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
+export const getClubSuccess = (fantasyClub, statusCode) => ({
+  type: GET_CLUB_SUCCESS,
+  fantasyClub,
+  statusCode
+});
+
+export const GET_CLUB_FAIL = 'GET_CLUB_FAIL';
+export const getClubFail = statusCode => ({
+  type: GET_CLUB_FAIL,
+  statusCode
+});
+
 export const SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
 export const setClubNameSuccess = (clubName, statusCode) => ({
   type: SET_CLUB_NAME_SUCCESS,
@@ -44,6 +57,31 @@ export const setManagerFail = statusCode => ({
   statusCode
 });
 
+export const getClub = accessToken => dispatch => {
+  return fetch(`${thisURL}/`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(getClubFail(res.status));
+        return;
+      }
+      dispatch(getClubFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(getClubSuccess(data));
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
 export const addRoster = (accessToken, roster) => dispatch => {
   return fetch(`${thisURL}/addRoster`, {
     method: 'PUT',
@@ -60,10 +98,9 @@ export const addRoster = (accessToken, roster) => dispatch => {
       if (res.status === 400) {
         dispatch(setRosterFail(res.status));
         return;
-      } else {
-        dispatch(setRosterFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setRosterFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -92,10 +129,9 @@ export const addManager = (accessToken, manager) => dispatch => {
       if (res.status === 400) {
         dispatch(setManagerFail(res.status));
         return;
-      } else {
-        dispatch(setManagerFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setManagerFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -124,15 +160,13 @@ export const addClubName = (accessToken, clubName) => dispatch => {
       if (res.status === 400) {
         dispatch(setClubNameFail(res.status));
         return;
-      } else {
-        dispatch(setClubNameFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setClubNameFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
   .then(data => {
-    // console.log('clubName data:', data);
     dispatch(setClubNameSuccess(data.clubName, 200));
     return;
   })

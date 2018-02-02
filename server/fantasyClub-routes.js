@@ -1,4 +1,5 @@
 const express = require('express'),
+  passport = require("passport"),
   { updateData } = require("./programFunctions/updateData_function.js"),
 	fantasyClubRouter = express.Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
@@ -15,12 +16,26 @@ fantasyClubRouter.get('/',
   }
 );
 
+fantasyClubRouter.get('/',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => res.json({
+    manager: req.body.manager,
+    clubName: req.body.clubName,
+    roster: req.body.roster,
+    league: req.body.league,
+    division: req.body.division,
+    champsLeague: req.body.champsLeague,
+    schedule: req.body.schedule
+  })
+);
+
 fantasyClubRouter.put('/addRoster',
   (req, res) => updateData(req.params.roster,
     {
       roster: req.body.roster
     }, FantasyClub)
     .then(data => {
+      console.log('roster:', data);
       res.json(data);
     })
     .catch(error => {
@@ -34,7 +49,6 @@ fantasyClubRouter.put('/addClubName',
       clubName: req.body.clubName
     }, FantasyClub)
     .then(data => {
-      console.log('clubName data routes:', data);
       res.json(data);
     })
     .catch(error => {

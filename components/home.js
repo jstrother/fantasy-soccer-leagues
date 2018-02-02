@@ -4,7 +4,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { addLeague } from '../flow/subActions/userActions.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';

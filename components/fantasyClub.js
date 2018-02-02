@@ -4,21 +4,20 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
-import { addClubName, addManager } from '../flow/subActions/fantasyClubActions.js';
+import { addClubName, addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
     this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+    this.props.dispatch(getClub(this.props.accessToken));
   }
 	submitClubName(event) {
 		event.preventDefault();
-		console.log('clubNameInput:', this.clubNameInput.value);
 		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
 	}
 	
@@ -72,7 +71,8 @@ export class FantasyTeam extends React.Component {
 const mapFantasyClubStateToProps = state => ({
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
-	clubName: state.fantasyClubReducer.clubName
+	clubName: state.fantasyClubReducer.clubName,
+	manager: state.fantasyClubReducer.manager
 });
 
 const FantasyClub = connect(
