@@ -14,6 +14,8 @@ import styles from '../scss/roster.scss';
 export class Team extends React.Component {
 	// using fantasyLeagueId, display list of players from that league
 	componentDidMount() {
+		console.log('this.props.roster:', this.props.roster);
+		console.log('this.props.club:', this.props.club);
 		this.props.dispatch(fetchLeague(this.props.fantasyLeagueId));
 		this.props.dispatch(getClub(this.props.accessToken));
 	}

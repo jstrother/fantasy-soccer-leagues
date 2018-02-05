@@ -3,7 +3,7 @@
 
 import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_ROSTER_SUCCESS, SET_ROSTER_FAIL, SET_CLUB_NAME_SUCCESS, SET_CLUB_NAME_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL } from '../subActions/fantasyClubActions.js';
 
-export const fantasyClubReducer = (state = {roster: [""]}, action) => {
+export const fantasyClubReducer = (state = {roster: ['placeholder']}, action) => {
   switch (action.type) {
     case GET_CLUB_SUCCESS:
       return Object.assign({}, state,

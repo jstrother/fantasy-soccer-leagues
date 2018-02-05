@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4b0dc7bb72154fe6139d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5b927b2ebbba80d2ced3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9367,7 +9367,7 @@ exports.getClub = getClub;
 var addRoster = function addRoster(accessToken, player) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/addRoster"), {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "Bearer ".concat(accessToken)
@@ -9388,7 +9388,7 @@ var addRoster = function addRoster(accessToken, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setRosterSuccess(data.roster, 200));
+      dispatch(setRosterSuccess(data, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -39686,6 +39686,8 @@ function (_React$Component) {
     key: "componentDidMount",
     // using fantasyLeagueId, display list of players from that league
     value: function componentDidMount() {
+      console.log('this.props.roster:', this.props.roster);
+      console.log('this.props.club:', this.props.club);
       this.props.dispatch((0, _leagueActions.fetchLeague)(this.props.fantasyLeagueId));
       this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken));
     }
@@ -40129,7 +40131,7 @@ var _fantasyClubActions = __webpack_require__(98);
 // imported into ./flow/reducers.js
 var fantasyClubReducer = function fantasyClubReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    roster: [""]
+    roster: ['placeholder']
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 

@@ -84,7 +84,7 @@ export const getClub = accessToken => dispatch => {
 
 export const addRoster = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/addRoster`, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
@@ -105,7 +105,7 @@ export const addRoster = (accessToken, player) => dispatch => {
     return res.json();
   })
   .then(data => {
-    dispatch(setRosterSuccess(data.roster, 200));
+    dispatch(setRosterSuccess(data, 200));
     return;
   })
   .catch(error => {

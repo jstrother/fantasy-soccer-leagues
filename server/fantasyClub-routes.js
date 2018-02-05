@@ -29,7 +29,7 @@ fantasyClubRouter.get('/',
   })
 );
 
-fantasyClubRouter.put('/addRoster',
+fantasyClubRouter.post('/addRoster',
   (req, res) => {
     console.log('req.body:', req.body);
     updateArrayData(req.params.player, 'roster', req.body.player, FantasyClub)
