@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "087c80b26b0afe8b3b1b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "115004325b15b2058c56"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39786,7 +39786,8 @@ function (_React$Component) {
   }, {
     key: "handleRosterAdd",
     value: function handleRosterAdd(event) {
-      console.log('idFromAPI roster.js:', event.target.value);
+      console.log('event.target playerSelection.js:', event.target);
+      console.log('event.target.value playerSelection.js:', event.target.value);
       this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, event.target.value));
     }
   }, {
@@ -39870,12 +39871,20 @@ function (_React$Component) {
             return true;
           }
         }).map(function (p) {
-          // creating a table row for each player
+          // creating a table row for each player that makes it through the filters
           return _react.default.createElement("tr", {
             value: p.idFromAPI,
             key: p.idFromAPI,
             onClick: _this.handleRosterAdd.bind(_this)
-          }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, p.position), _react.default.createElement("td", null, p.clubName), _react.default.createElement("td", null, p.fantasyPoints.fixture));
+          }, _react.default.createElement("td", {
+            value: p.idFromAPI
+          }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", {
+            value: p.idFromAPI
+          }, p.position), _react.default.createElement("td", {
+            value: p.idFromAPI
+          }, p.clubName), _react.default.createElement("td", {
+            value: p.idFromAPI
+          }, p.fantasyPoints.fixture));
         }))));
       } else {
         return _react.default.createElement("p", null, "We're sorry, but something went wrong.");
@@ -40293,7 +40302,7 @@ var _fantasyClubActions = __webpack_require__(63);
 // imported into ./flow/reducers.js
 var fantasyClubReducer = function fantasyClubReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    roster: ['placeholder']
+    roster: []
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 

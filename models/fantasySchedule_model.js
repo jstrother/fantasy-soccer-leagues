@@ -1,11 +1,11 @@
 const mongoose = require('mongoose'),
 
 	fantasyScheduleSchema = mongoose.Schema({
-		fantasyLeague: [{type: mongoose.Schema.Types.ObjectId, ref: 'FantasyLeague'}],
+		fantasyLeague: Array,
 		numLeagueSeasonMatches: Number,
-		fantasyLeagueCup: [{type: mongoose.Schema.Types.ObjectId, ref: 'FantasyLeagueCup'}],
+		fantasyLeagueCup: Array,
 		leagueCupRound: String,
-		fantasyChampsLeague: [{type: mongoose.Schema.Types.ObjectId, ref: 'FantasyChampsLeague'}],
+		fantasyChampsLeague: Array,
 		champsLeagueRound: String
 	}),
 

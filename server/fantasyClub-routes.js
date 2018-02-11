@@ -34,8 +34,13 @@ fantasyClubRouter.get('/',
 
 fantasyClubRouter.post('/addRoster',
   (req, res) => {
+    console.log('req.params:', req.params);
     console.log('req.body:', req.body);
-    updateArrayData(req.params.player, 'roster', req.body.player, FantasyClub)
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.roster,
+      {$push: {roster: req.body.player}}
+    )
     .then(data => {
       res.json(data);
     })

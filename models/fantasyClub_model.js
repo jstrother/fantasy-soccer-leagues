@@ -5,12 +5,12 @@ const mongoose = require('mongoose'),
 				manager: { type: String, required: true },
 				league: String,
 				division: String,
-				roster: [{type: mongoose.Schema.Types.ObjectId, ref: 'Player'}],
-				starters: [{type: mongoose.Schema.Types.ObjectId, ref: 'Player'}],
-				benchwarmers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Player'}],
-				reserves: [{type: mongoose.Schema.Types.ObjectId, ref: 'Player'}],
+				roster: Array,
+				starters: Array,
+				benchwarmers: Array,
+				reserves: Array,
 				champsLeague: String,
-				schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FantasyMatch' }]
+				schedule: Array
 			}),
 
 			FantasyClub = mongoose.model('FantasyClub', fantasyClubSchema);

@@ -24,7 +24,8 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		console.log('idFromAPI roster.js:', event.target.value);
+		console.log('event.target playerSelection.js:', event.target);
+		console.log('event.target.value playerSelection.js:', event.target.value);
 		this.props.dispatch(addRoster(this.props.accessToken, event.target.value));
 	}
   
@@ -104,16 +105,28 @@ export class Selection extends React.Component {
 									}
 								})
 								.map(p => {
-									// creating a table row for each player
+									// creating a table row for each player that makes it through the filters
 									return(
 										<tr
 											value={p.idFromAPI}
 											key={p.idFromAPI}
 											onClick={this.handleRosterAdd.bind(this)}>
-											<td>{`${p.firstName} ${p.lastName}`}</td>
-											<td>{p.position}</td>
-											<td>{p.clubName}</td>
-											<td>{p.fantasyPoints.fixture}</td>
+											<td
+												value={p.idFromAPI}>{/*we attach the same value to all td elements because we don't know exactly where a user will click to select a player*/}
+												{`${p.firstName} ${p.lastName}`}
+											</td>
+											<td
+												value={p.idFromAPI}>
+												{p.position}
+											</td>
+											<td
+												value={p.idFromAPI}>
+												{p.clubName}
+											</td>
+											<td
+												value={p.idFromAPI}>
+												{p.fantasyPoints.fixture}
+											</td>
 										</tr>
 									);
 								})

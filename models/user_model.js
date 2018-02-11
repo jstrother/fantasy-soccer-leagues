@@ -10,7 +10,7 @@ const mongoose = require('mongoose'),
 		googleId: {type: String, required: true},
 		fantasyLeagueId: Number,
 		fantasyLeagueName: String,
-		fantasyClub: { type: mongoose.Schema.Types.ObjectId, ref: 'FantasyClub'},
+		fantasyClub: Array,
 		fantasyDivision: String,
 		fantasyChampsLeague: String
 	}),
