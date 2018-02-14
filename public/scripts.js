@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "115004325b15b2058c56"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ab2e9dc3afdfde8810dc"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6618,7 +6618,7 @@ exports.DEV_DIRECTORY = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addClubName = exports.addManager = exports.addRoster = exports.getClub = exports.setManagerFail = exports.SET_MANAGER_FAIL = exports.setManagerSuccess = exports.SET_MANAGER_SUCCESS = exports.setRosterFail = exports.SET_ROSTER_FAIL = exports.setRosterSuccess = exports.SET_ROSTER_SUCCESS = exports.setClubNameFail = exports.SET_FANTASY_CLUB_NAME_FAIL = exports.setClubNameSuccess = exports.SET_FANTASY_CLUB_NAME_SUCCESS = exports.getClubFail = exports.GET_CLUB_FAIL = exports.getClubSuccess = exports.GET_CLUB_SUCCESS = void 0;
+exports.addClubName = exports.addManager = exports.addRoster = exports.getClub = exports.setManagerFail = exports.SET_MANAGER_FAIL = exports.setManagerSuccess = exports.SET_MANAGER_SUCCESS = exports.setRosterFail = exports.SET_ROSTER_FAIL = exports.setRosterSuccess = exports.SET_ROSTER_SUCCESS = exports.setClubNameFail = exports.SET_CLUB_NAME_FAIL = exports.setClubNameSuccess = exports.SET_CLUB_NAME_SUCCESS = exports.getClubFail = exports.GET_CLUB_FAIL = exports.getClubSuccess = exports.GET_CLUB_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(61));
 
@@ -6651,24 +6651,24 @@ var getClubFail = function getClubFail(statusCode) {
 };
 
 exports.getClubFail = getClubFail;
-var SET_FANTASY_CLUB_NAME_SUCCESS = 'SET_FANTASY_CLUB_NAME_SUCCESS';
-exports.SET_FANTASY_CLUB_NAME_SUCCESS = SET_FANTASY_CLUB_NAME_SUCCESS;
+var SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
+exports.SET_CLUB_NAME_SUCCESS = SET_CLUB_NAME_SUCCESS;
 
 var setClubNameSuccess = function setClubNameSuccess(clubName, statusCode) {
   return {
-    type: SET_FANTASY_CLUB_NAME_SUCCESS,
+    type: SET_CLUB_NAME_SUCCESS,
     clubName: clubName,
     statusCode: statusCode
   };
 };
 
 exports.setClubNameSuccess = setClubNameSuccess;
-var SET_FANTASY_CLUB_NAME_FAIL = 'SET_FANTASY_CLUB_NAME_FAIL';
-exports.SET_FANTASY_CLUB_NAME_FAIL = SET_FANTASY_CLUB_NAME_FAIL;
+var SET_CLUB_NAME_FAIL = 'SET_CLUB_NAME_FAIL';
+exports.SET_CLUB_NAME_FAIL = SET_CLUB_NAME_FAIL;
 
 var setClubNameFail = function setClubNameFail(statusCode) {
   return {
-    type: SET_FANTASY_CLUB_NAME_FAIL,
+    type: SET_CLUB_NAME_FAIL,
     statusCode: statusCode
   };
 };
@@ -39786,9 +39786,10 @@ function (_React$Component) {
   }, {
     key: "handleRosterAdd",
     value: function handleRosterAdd(event) {
+      var playerId = parseInt(event.target.id.slice(4), 10);
       console.log('event.target playerSelection.js:', event.target);
-      console.log('event.target.value playerSelection.js:', event.target.value);
-      this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, event.target.value));
+      console.log('playerId playerSelection.js:', playerId);
+      this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, playerId));
     }
   }, {
     key: "render",
@@ -39873,17 +39874,17 @@ function (_React$Component) {
         }).map(function (p) {
           // creating a table row for each player that makes it through the filters
           return _react.default.createElement("tr", {
-            value: p.idFromAPI,
+            id: "sel-".concat(p.idFromAPI),
             key: p.idFromAPI,
             onClick: _this.handleRosterAdd.bind(_this)
           }, _react.default.createElement("td", {
-            value: p.idFromAPI
+            id: "api-".concat(p.idFromAPI)
           }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", {
-            value: p.idFromAPI
+            id: "pos-".concat(p.idFromAPI)
           }, p.position), _react.default.createElement("td", {
-            value: p.idFromAPI
+            id: "nam-".concat(p.idFromAPI)
           }, p.clubName), _react.default.createElement("td", {
-            value: p.idFromAPI
+            id: "pts-".concat(p.idFromAPI)
           }, p.fantasyPoints.fixture));
         }))));
       } else {

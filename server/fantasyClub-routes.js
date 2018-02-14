@@ -35,14 +35,15 @@ fantasyClubRouter.get('/',
 fantasyClubRouter.post('/addRoster',
   (req, res) => {
     console.log('req.params:', req.params);
-    console.log('req.body:', req.body);
+    console.log('req.body.player:', req.body.player);
     FantasyClub
     .findOneAndUpdate(
       req.params.roster,
-      {$push: {roster: req.body.player}}
+      {$addToSet: {roster: req.body.player}}
     )
     .then(data => {
-      res.json(data);
+      console.log('data.roster:', data.roster);
+      res.json(data.roster);
     })
     .catch(error => {
       throw new Error(error);
@@ -51,16 +52,19 @@ fantasyClubRouter.post('/addRoster',
 );
 
 fantasyClubRouter.put('/addClubName',
-  (req, res) => updateData(req.params.clubName,
-    {
-      clubName: req.body.clubName
-    }, FantasyClub)
+  (req, res) => {
+    // console.log('req.params:', req.params);
+    updateData(req.params.clubName,
+      {
+        clubName: req.body.clubName
+      }, FantasyClub)
     .then(data => {
       res.json(data);
     })
     .catch(error => {
       throw new Error(error);
-    })
+    });
+  }
 );
 
 fantasyClubRouter.put('/addManager',

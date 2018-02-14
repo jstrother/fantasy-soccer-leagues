@@ -18,16 +18,16 @@ export const getClubFail = statusCode => ({
   statusCode
 });
 
-export const SET_FANTASY_CLUB_NAME_SUCCESS = 'SET_FANTASY_CLUB_NAME_SUCCESS';
+export const SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
 export const setClubNameSuccess = (clubName, statusCode) => ({
-  type: SET_FANTASY_CLUB_NAME_SUCCESS,
+  type: SET_CLUB_NAME_SUCCESS,
   clubName,
   statusCode
 });
 
-export const SET_FANTASY_CLUB_NAME_FAIL = 'SET_FANTASY_CLUB_NAME_FAIL';
+export const SET_CLUB_NAME_FAIL = 'SET_CLUB_NAME_FAIL';
 export const setClubNameFail = statusCode => ({
-  type: SET_FANTASY_CLUB_NAME_FAIL,
+  type: SET_CLUB_NAME_FAIL,
   statusCode
 });
 

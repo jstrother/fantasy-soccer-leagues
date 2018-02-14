@@ -24,9 +24,10 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
+		let playerId = parseInt(event.target.id.slice(4), 10);
 		console.log('event.target playerSelection.js:', event.target);
-		console.log('event.target.value playerSelection.js:', event.target.value);
-		this.props.dispatch(addRoster(this.props.accessToken, event.target.value));
+		console.log('playerId playerSelection.js:', playerId);
+		this.props.dispatch(addRoster(this.props.accessToken, playerId));
 	}
   
   render() {
@@ -108,23 +109,23 @@ export class Selection extends React.Component {
 									// creating a table row for each player that makes it through the filters
 									return(
 										<tr
-											value={p.idFromAPI}
+											id={`sel-${p.idFromAPI}`}
 											key={p.idFromAPI}
 											onClick={this.handleRosterAdd.bind(this)}>
 											<td
-												value={p.idFromAPI}>{/*we attach the same value to all td elements because we don't know exactly where a user will click to select a player*/}
+												id={`api-${p.idFromAPI}`}>{/*we attach the same value to all td elements because we don't know exactly where a user will click to select a player*/}
 												{`${p.firstName} ${p.lastName}`}
 											</td>
 											<td
-												value={p.idFromAPI}>
+												id={`pos-${p.idFromAPI}`}>
 												{p.position}
 											</td>
 											<td
-												value={p.idFromAPI}>
+												id={`nam-${p.idFromAPI}`}>
 												{p.clubName}
 											</td>
 											<td
-												value={p.idFromAPI}>
+												id={`pts-${p.idFromAPI}`}>
 												{p.fantasyPoints.fixture}
 											</td>
 										</tr>
