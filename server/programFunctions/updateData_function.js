@@ -5,6 +5,14 @@ function updateData(searchData, updateData, model) {
   });
 }
 
+function updateArrayData(searchData, field, updateData, model) {
+  return model.findOneAndUpdate(searchData, {$push: {field: updateData}}, {new: true, upsert: true})
+  .catch(error => {
+    throw new Error(error);
+  });
+}
+
 module.exports = {
-  updateData
+  updateData,
+  updateArrayData
 };

@@ -8,6 +8,7 @@ export const userReducer = (state = {}, action) => {
     case SET_USER_SUCCESS:
       return Object.assign({}, state, 
         {
+          accessToken: action.currentUser.accessToken,
           googleId: action.currentUser.googleId,
           displayName: action.currentUser.displayName,
           givenName: action.currentUser.givenName,

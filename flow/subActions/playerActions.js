@@ -1,11 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
-export const ADD_TO_ROSTER = 'ADD_TO_ROSTER';
-export const addToRoster = player => ({
-  type: ADD_TO_ROSTER,
-  player
-});
+const thisURL = `${url}/player`;
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 export const setStarterSuccess = (player, statusCode) => ({
@@ -47,16 +43,15 @@ export const setReserveFail = statusCode => ({
 });
 
 export const fetchStarter = player => dispatch => {
-  return fetch(`${url}/player/${player.idFromAPI}`)
+  return fetch(`${thisURL}/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
         dispatch(setStarterFail(res.status));
         return;
-      } else {
-        dispatch(setStarterFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setStarterFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -70,16 +65,15 @@ export const fetchStarter = player => dispatch => {
 };
 
 export const fetchBenchwarmer = player => dispatch => {
-  return fetch(`${url}/player/${player.idFromAPI}`)
+  return fetch(`${thisURL}/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
         dispatch(setBenchwarmerFail(res.status));
         return;
-      } else {
-        dispatch(setBenchwarmerFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setBenchwarmerFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })
@@ -93,16 +87,15 @@ export const fetchBenchwarmer = player => dispatch => {
 };
 
 export const fetchReserve = player => dispatch => {
-  return fetch(`${url}/player/${player.idFromAPI}`)
+  return fetch(`${thisURL}/${player.idFromAPI}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
         dispatch(setReserveFail(res.status));
         return;
-      } else {
-        dispatch(setReserveFail(500));
-        throw new Error(res.statusText);
-      }
+      } 
+      dispatch(setReserveFail(500));
+      throw new Error(res.statusText);
     }
     return res.json();
   })

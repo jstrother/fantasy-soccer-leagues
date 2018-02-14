@@ -8,7 +8,7 @@ export const playerReducer = (state = {}, action) => {
     case ADD_TO_ROSTER:
       return Object.assign({}, state, 
         {
-          idFromA
+          idFromAPI: action.player.idFromAPI
         }
       );
     case SET_STARTER_SUCCESS:

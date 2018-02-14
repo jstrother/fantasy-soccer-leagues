@@ -46,6 +46,10 @@ export class Header extends React.Component {
           </h2>
           <section
             className={styles.userSection}>
+            <h3
+              className={styles.clubName}>
+              {this.props.clubName}
+            </h3>
             <p 
               className={styles.userName}>
               {this.props.displayName}
@@ -64,7 +68,8 @@ export class Header extends React.Component {
 const mapHeaderStateToProps = state => (
   {
     displayName: state.userReducer.displayName,
-    userPhoto: state.userReducer.userPhoto
+    userPhoto: state.userReducer.userPhoto,
+    clubName: state.fantasyClubReducer.clubName
   }
 );
 
