@@ -113,7 +113,7 @@ export class Selection extends React.Component {
 											key={p.idFromAPI}
 											onClick={this.handleRosterAdd.bind(this)}>
 											<td
-												id={`api-${p.idFromAPI}`}>{/*we attach the same value to all td elements because we don't know exactly where a user will click to select a player*/}
+												id={`api-${p.idFromAPI}`}>
 												{`${p.firstName} ${p.lastName}`}
 											</td>
 											<td

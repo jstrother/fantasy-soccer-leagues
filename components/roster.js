@@ -10,14 +10,9 @@ import RosterDisplay from './rosterDisplay.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { fetchStarter, fetchBenchwarmer, fetchReserve } from '../flow/subActions/playerActions.js';
-import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/roster.scss';
 
 export class Team extends React.Component {
-	componentDidMount() {
-		this.props.dispatch(getClub(this.props.accessToken));
-	}
-	
 	render() {
 		return(
 			<div

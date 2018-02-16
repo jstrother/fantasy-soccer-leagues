@@ -34,15 +34,12 @@ fantasyClubRouter.get('/',
 
 fantasyClubRouter.post('/addRoster',
   (req, res) => {
-    console.log('req.params:', req.params);
-    console.log('req.body.player:', req.body.player);
     FantasyClub
     .findOneAndUpdate(
       req.params.roster,
       {$addToSet: {roster: req.body.player}}
     )
     .then(data => {
-      console.log('data.roster:', data.roster);
       res.json(data.roster);
     })
     .catch(error => {
