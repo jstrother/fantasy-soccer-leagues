@@ -1,3 +1,5 @@
+/*eslint-disable no-console, no-unused-vars*/
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -55,8 +57,12 @@ export const setReserveFail = statusCode => ({
   statusCode
 });
 
-export const fetchRosterPlayerData = playerId => dispatch => {
-  return fetch(`${thisURL}/${playerId}`)
+export const fetchRosterPlayerData = (accessToken, playerId) => dispatch => {
+  return fetch(`${thisURL}/${playerId}`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
   .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
@@ -69,6 +75,7 @@ export const fetchRosterPlayerData = playerId => dispatch => {
     return res.json();
   })
   .then(player => {
+    console.log('player-playerActions.js:', player);
     dispatch(rosterPlayerDataSuccess(player, 200));
     return;
   })

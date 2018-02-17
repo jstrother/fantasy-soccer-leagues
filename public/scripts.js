@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a543ff65076406bc065b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d5ff165f89e050229b66"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11302,6 +11302,7 @@ var _config = __webpack_require__(62);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/*eslint-disable no-console, no-unused-vars*/
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/player");
 var ROSTER_PLAYER_DATA_SUCCESS = 'ROSTER_PLAYER_DATA_SUCCESS';
 exports.ROSTER_PLAYER_DATA_SUCCESS = ROSTER_PLAYER_DATA_SUCCESS;
@@ -11396,9 +11397,13 @@ var setReserveFail = function setReserveFail(statusCode) {
 
 exports.setReserveFail = setReserveFail;
 
-var fetchRosterPlayerData = function fetchRosterPlayerData(playerId) {
+var fetchRosterPlayerData = function fetchRosterPlayerData(accessToken, playerId) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(playerId)).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(playerId), {
+      headers: {
+        'Authorization': "Bearer ".concat(accessToken)
+      }
+    }).then(function (res) {
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(rosterPlayerDataFail(res.status));
@@ -11411,6 +11416,7 @@ var fetchRosterPlayerData = function fetchRosterPlayerData(playerId) {
 
       return res.json();
     }).then(function (player) {
+      console.log('player-playerActions.js:', player);
       dispatch(rosterPlayerDataSuccess(player, 200));
       return;
     }).catch(function (error) {
@@ -39986,6 +39992,8 @@ var _playerActions = __webpack_require__(101);
 
 var _rosterDisplay = _interopRequireDefault(__webpack_require__(470));
 
+var _this2 = void 0;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -40017,6 +40025,12 @@ function (_React$Component) {
       this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken));
     }
   }, {
+    key: "rosterPlayers",
+    value: function rosterPlayers(playerId) {
+      var player = this.props.dispatch((0, _playerActions.fetchRosterPlayerData)(this.props.accessToken, playerId));
+      console.log('player:', player);
+    }
+  }, {
     key: "handleRosterRemove",
     value: function handleRosterRemove(event) {}
   }, {
@@ -40027,9 +40041,9 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: _rosterDisplay.default.rosterDisplay
       }, "Roster:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Remove from Roster"))), _react.default.createElement("tbody", null, this.props.roster.forEach(function (id) {
-        console.log('id:', id);
+        console.log('id:', id); // this.rosterPlayers(id);
 
-        _this.props.dispatch((0, _playerActions.fetchRosterPlayerData)(id)).map(function (p) {
+        _this.props.fetchRosterPlayerData(id).then(function (p) {
           return _react.default.createElement("tr", {
             id: "ros-".concat(p.idFromAPI),
             key: "key-".concat(p.idFromAPI)
@@ -40054,7 +40068,15 @@ var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   };
 };
 
-var RosterDisplay = (0, _reactRedux.connect)(mapDisplayStateToProps)(Display);
+var mapDisplayDispatchToProps = function mapDisplayDispatchToProps(dispatch) {
+  return {
+    fetchRosterPlayerData: function fetchRosterPlayerData(id) {
+      dispatch((0, _playerActions.fetchRosterPlayerData)(_this2.props.accessToken, id));
+    }
+  };
+};
+
+var RosterDisplay = (0, _reactRedux.connect)(mapDisplayStateToProps, mapDisplayDispatchToProps)(Display);
 
 var _default = (0, _reactCssModules.default)(RosterDisplay, _rosterDisplay.default);
 

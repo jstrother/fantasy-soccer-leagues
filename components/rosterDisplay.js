@@ -14,6 +14,11 @@ export class Display extends React.Component {
 		this.props.dispatch(getClub(this.props.accessToken));
 	}
 	
+	rosterPlayers(playerId) {
+		let player = this.props.dispatch(fetchRosterPlayerData(this.props.accessToken, playerId));
+		console.log('player:', player);
+	}
+	
   handleRosterRemove(event) {
     
   }
@@ -48,8 +53,9 @@ export class Display extends React.Component {
 							this.props.roster
 							.forEach(id => {
 								console.log('id:', id);
-								this.props.dispatch(fetchRosterPlayerData(id))
-								.map(p => {
+								// this.rosterPlayers(id);
+								this.props.fetchRosterPlayerData(id)
+								.then(p => {
 									return(
 										<tr
 											id={`ros-${p.idFromAPI}`}
@@ -88,8 +94,17 @@ const mapDisplayStateToProps = state => ({
   player: state.playerReducer.player
 });
 
+const mapDisplayDispatchToProps = dispatch => {
+	return {
+		fetchRosterPlayerData: id => {
+			dispatch(fetchRosterPlayerData(this.props.accessToken, id));
+		}
+	};
+};
+
 const RosterDisplay = connect(
-  mapDisplayStateToProps
+  mapDisplayStateToProps,
+  mapDisplayDispatchToProps
 )(Display);
 
 export default CSSModules(RosterDisplay, styles);
