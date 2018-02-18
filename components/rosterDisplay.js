@@ -51,34 +51,29 @@ export class Display extends React.Component {
 					<tbody>
 						{
 							this.props.roster
-							.forEach(id => {
-								console.log('id:', id);
-								// this.rosterPlayers(id);
-								this.props.fetchRosterPlayerData(id)
-								.then(p => {
-									return(
-										<tr
-											id={`ros-${p.idFromAPI}`}
-											key={`key-${p.idFromAPI}`}>
-											<td>
-												{`${p.firstName} ${p.lastName}`}
-											</td>
-											<td>
-												{`${p.position}`}
-											</td>
-											<td>
-												{`${p.clubName}`}
-											</td>
-											<td>
-												{`${p.fantasyPoints.fixture}`}
-											</td>
-											<td
-												onClick={this.handleRosterRemove.bind(this)}>
-												Remove
-											</td>
-										</tr>
-									);
-								});
+							.map(p => {
+								return(
+									<tr
+										id={`ros-${p.idFromAPI}`}
+										key={`key-${p.idFromAPI}`}>
+										<td>
+											{`${p.firstName} ${p.lastName}`}
+										</td>
+										<td>
+											{`${p.position}`}
+										</td>
+										<td>
+											{`${p.clubName}`}
+										</td>
+										<td>
+											{`${p.fantasyPoints.fixture}`}
+										</td>
+										<td
+											onClick={this.handleRosterRemove.bind(this)}>
+											Remove
+										</td>
+									</tr>
+								);
 							})
 						}
 					</tbody>
@@ -94,17 +89,8 @@ const mapDisplayStateToProps = state => ({
   player: state.playerReducer.player
 });
 
-const mapDisplayDispatchToProps = dispatch => {
-	return {
-		fetchRosterPlayerData: id => {
-			dispatch(fetchRosterPlayerData(this.props.accessToken, id));
-		}
-	};
-};
-
 const RosterDisplay = connect(
-  mapDisplayStateToProps,
-  mapDisplayDispatchToProps
+  mapDisplayStateToProps
 )(Display);
 
 export default CSSModules(RosterDisplay, styles);

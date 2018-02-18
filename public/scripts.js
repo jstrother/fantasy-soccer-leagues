@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d5ff165f89e050229b66"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e79006e6559a6963b0dc"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6677,10 +6677,10 @@ exports.setClubNameFail = setClubNameFail;
 var SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
 exports.SET_ROSTER_SUCCESS = SET_ROSTER_SUCCESS;
 
-var setRosterSuccess = function setRosterSuccess(roster, statusCode) {
+var setRosterSuccess = function setRosterSuccess(player, statusCode) {
   return {
     type: SET_ROSTER_SUCCESS,
-    roster: roster,
+    player: player,
     statusCode: statusCode
   };
 };
@@ -6772,8 +6772,8 @@ var addRoster = function addRoster(accessToken, player) {
       }
 
       return res.json();
-    }).then(function (data) {
-      dispatch(setRosterSuccess(data, 200));
+    }).then(function (player) {
+      dispatch(setRosterSuccess(player, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -39518,6 +39518,15 @@ function (_React$Component) {
       this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken));
     }
   }, {
+    key: "_handleKeyPress",
+    value: function _handleKeyPress(event) {
+      // makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        this.props.dispatch((0, _fantasyClubActions.addClubName)(this.props.accessToken, this.clubNameInput.value));
+      }
+    }
+  }, {
     key: "submitClubName",
     value: function submitClubName(event) {
       event.preventDefault();
@@ -39535,6 +39544,7 @@ function (_React$Component) {
           className: 'clubNameForm'
         }, _react.default.createElement("input", {
           className: 'clubNameInput',
+          onKeyPress: this._handleKeyPress.bind(this),
           ref: function ref(input) {
             _this.clubNameInput = input;
           },
@@ -39833,10 +39843,19 @@ function (_React$Component) {
   }, {
     key: "handleRosterAdd",
     value: function handleRosterAdd(event) {
-      var playerId = parseInt(event.target.id.slice(4), 10);
-      console.log('event.target playerSelection.js:', event.target);
-      console.log('playerId playerSelection.js:', playerId);
-      this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, playerId));
+      var dataSet = event.target.dataset,
+          player = {
+        idFromAPI: parseInt(dataSet.id, 10),
+        firstName: dataSet.firstname,
+        lastName: dataSet.lastname,
+        position: dataSet.position,
+        clubName: dataSet.clubname,
+        fantasyPoints: {
+          fixture: parseInt(dataSet.points, 10)
+        }
+      };
+      console.log('player playerSelection.js:', player);
+      this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, player));
     }
   }, {
     key: "render",
@@ -39850,7 +39869,7 @@ function (_React$Component) {
 
         return _react.default.createElement("div", {
           className: _playerSelection.default.playerSelection
-        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
           defaultValue: "allPositions",
           onChange: this.handlePositionChange.bind(this)
@@ -39921,18 +39940,17 @@ function (_React$Component) {
         }).map(function (p) {
           // creating a table row for each player that makes it through the filters
           return _react.default.createElement("tr", {
-            id: "sel-".concat(p.idFromAPI),
-            key: p.idFromAPI,
-            onClick: _this.handleRosterAdd.bind(_this)
+            key: p.idFromAPI
           }, _react.default.createElement("td", {
-            id: "api-".concat(p.idFromAPI)
-          }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", {
-            id: "pos-".concat(p.idFromAPI)
-          }, p.position), _react.default.createElement("td", {
-            id: "nam-".concat(p.idFromAPI)
-          }, p.clubName), _react.default.createElement("td", {
-            id: "pts-".concat(p.idFromAPI)
-          }, p.fantasyPoints.fixture));
+            className: _playerSelection.default.playerName,
+            "data-id": p.idFromAPI,
+            "data-firstname": p.firstName,
+            "data-lastname": p.lastName,
+            "data-position": p.position,
+            "data-clubname": p.clubName,
+            "data-points": p.fantasyPoints.fixture,
+            onClick: _this.handleRosterAdd.bind(_this)
+          }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, p.position), _react.default.createElement("td", null, p.clubName), _react.default.createElement("td", null, p.fantasyPoints.fixture));
         }))));
       } else {
         return _react.default.createElement("p", null, "We're sorry, but something went wrong.");
@@ -39966,7 +39984,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX"};
 
 /***/ }),
 /* 469 */
@@ -39991,8 +40009,6 @@ var _fantasyClubActions = __webpack_require__(63);
 var _playerActions = __webpack_require__(101);
 
 var _rosterDisplay = _interopRequireDefault(__webpack_require__(470));
-
-var _this2 = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40040,17 +40056,13 @@ function (_React$Component) {
 
       return _react.default.createElement("div", {
         className: _rosterDisplay.default.rosterDisplay
-      }, "Roster:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Remove from Roster"))), _react.default.createElement("tbody", null, this.props.roster.forEach(function (id) {
-        console.log('id:', id); // this.rosterPlayers(id);
-
-        _this.props.fetchRosterPlayerData(id).then(function (p) {
-          return _react.default.createElement("tr", {
-            id: "ros-".concat(p.idFromAPI),
-            key: "key-".concat(p.idFromAPI)
-          }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
-            onClick: _this.handleRosterRemove.bind(_this)
-          }, "Remove"));
-        });
+      }, "Roster:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Remove from Roster"))), _react.default.createElement("tbody", null, this.props.roster.map(function (p) {
+        return _react.default.createElement("tr", {
+          id: "ros-".concat(p.idFromAPI),
+          key: "key-".concat(p.idFromAPI)
+        }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
+          onClick: _this.handleRosterRemove.bind(_this)
+        }, "Remove"));
       }))));
     }
   }]);
@@ -40068,15 +40080,7 @@ var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   };
 };
 
-var mapDisplayDispatchToProps = function mapDisplayDispatchToProps(dispatch) {
-  return {
-    fetchRosterPlayerData: function fetchRosterPlayerData(id) {
-      dispatch((0, _playerActions.fetchRosterPlayerData)(_this2.props.accessToken, id));
-    }
-  };
-};
-
-var RosterDisplay = (0, _reactRedux.connect)(mapDisplayStateToProps, mapDisplayDispatchToProps)(Display);
+var RosterDisplay = (0, _reactRedux.connect)(mapDisplayStateToProps)(Display);
 
 var _default = (0, _reactCssModules.default)(RosterDisplay, _rosterDisplay.default);
 

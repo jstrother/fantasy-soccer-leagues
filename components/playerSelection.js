@@ -24,10 +24,19 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		let playerId = parseInt(event.target.id.slice(4), 10);
-		console.log('event.target playerSelection.js:', event.target);
-		console.log('playerId playerSelection.js:', playerId);
-		this.props.dispatch(addRoster(this.props.accessToken, playerId));
+		let dataSet = event.target.dataset,
+		player = {
+			idFromAPI: parseInt(dataSet.id, 10),
+			firstName: dataSet.firstname,
+			lastName: dataSet.lastname,
+			position: dataSet.position,
+			clubName: dataSet.clubname,
+			fantasyPoints: {
+				fixture: parseInt(dataSet.points, 10)
+			}
+		};
+		console.log('player playerSelection.js:', player);
+		this.props.dispatch(addRoster(this.props.accessToken, player));
 	}
   
   render() {
@@ -38,6 +47,7 @@ export class Selection extends React.Component {
 					className={styles.playerSelection}>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards.</h5>
+					<h5>Click on a player's name to add them to your roster.</h5>
 					<table>
 						<thead>
 							<tr>
@@ -109,23 +119,25 @@ export class Selection extends React.Component {
 									// creating a table row for each player that makes it through the filters
 									return(
 										<tr
-											id={`sel-${p.idFromAPI}`}
-											key={p.idFromAPI}
-											onClick={this.handleRosterAdd.bind(this)}>
+											key={p.idFromAPI}>
 											<td
-												id={`api-${p.idFromAPI}`}>
+												className={styles.playerName}
+												data-id={p.idFromAPI}
+												data-firstname={p.firstName}
+												data-lastname={p.lastName}
+												data-position={p.position}
+												data-clubname={p.clubName}
+												data-points={p.fantasyPoints.fixture}
+												onClick={this.handleRosterAdd.bind(this)}>
 												{`${p.firstName} ${p.lastName}`}
 											</td>
-											<td
-												id={`pos-${p.idFromAPI}`}>
+											<td>
 												{p.position}
 											</td>
-											<td
-												id={`nam-${p.idFromAPI}`}>
+											<td>
 												{p.clubName}
 											</td>
-											<td
-												id={`pts-${p.idFromAPI}`}>
+											<td>
 												{p.fantasyPoints.fixture}
 											</td>
 										</tr>

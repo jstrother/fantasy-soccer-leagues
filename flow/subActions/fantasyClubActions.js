@@ -32,9 +32,9 @@ export const setClubNameFail = statusCode => ({
 });
 
 export const SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
-export const setRosterSuccess = (roster, statusCode) => ({
+export const setRosterSuccess = (player, statusCode) => ({
   type: SET_ROSTER_SUCCESS,
-  roster,
+  player,
   statusCode
 });
 
@@ -104,8 +104,8 @@ export const addRoster = (accessToken, player) => dispatch => {
     }
     return res.json();
   })
-  .then(data => {
-    dispatch(setRosterSuccess(data, 200));
+  .then(player => {
+    dispatch(setRosterSuccess(player, 200));
     return;
   })
   .catch(error => {
