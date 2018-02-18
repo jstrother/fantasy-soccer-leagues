@@ -32,9 +32,9 @@ export const setClubNameFail = statusCode => ({
 });
 
 export const SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
-export const setRosterSuccess = (player, statusCode) => ({
+export const setRosterSuccess = (roster, statusCode) => ({
   type: SET_ROSTER_SUCCESS,
-  player,
+  roster,
   statusCode
 });
 
@@ -83,6 +83,7 @@ export const getClub = accessToken => dispatch => {
 };
 
 export const addRoster = (accessToken, player) => dispatch => {
+  console.log('player addRoster:', player); // console.logs the correct selection
   return fetch(`${thisURL}/addRoster`, {
     method: 'POST',
     headers: {
@@ -102,10 +103,12 @@ export const addRoster = (accessToken, player) => dispatch => {
       dispatch(setRosterFail(500));
       throw new Error(res.statusText);
     }
+    // console.log('res.json:', res.json()); // player does not get added to this however
     return res.json();
   })
-  .then(player => {
-    dispatch(setRosterSuccess(player, 200));
+  .then(data => {
+    console.log('data fantasyClubActions.js:', data);
+    dispatch(setRosterSuccess(data, 200));
     return;
   })
   .catch(error => {

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e79006e6559a6963b0dc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c97a1f0eb4daa3669422"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6677,10 +6677,10 @@ exports.setClubNameFail = setClubNameFail;
 var SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
 exports.SET_ROSTER_SUCCESS = SET_ROSTER_SUCCESS;
 
-var setRosterSuccess = function setRosterSuccess(player, statusCode) {
+var setRosterSuccess = function setRosterSuccess(roster, statusCode) {
   return {
     type: SET_ROSTER_SUCCESS,
-    player: player,
+    roster: roster,
     statusCode: statusCode
   };
 };
@@ -6751,6 +6751,8 @@ exports.getClub = getClub;
 
 var addRoster = function addRoster(accessToken, player) {
   return function (dispatch) {
+    console.log('player addRoster:', player); // console.logs the correct selection
+
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/addRoster"), {
       method: 'POST',
       headers: {
@@ -6769,11 +6771,13 @@ var addRoster = function addRoster(accessToken, player) {
 
         dispatch(setRosterFail(500));
         throw new Error(res.statusText);
-      }
+      } // console.log('res.json:', res.json()); // player does not get added to this however
+
 
       return res.json();
-    }).then(function (player) {
-      dispatch(setRosterSuccess(player, 200));
+    }).then(function (data) {
+      console.log('data fantasyClubActions.js:', data);
+      dispatch(setRosterSuccess(data, 200));
       return;
     }).catch(function (error) {
       throw new Error(error);
@@ -39854,7 +39858,6 @@ function (_React$Component) {
           fixture: parseInt(dataSet.points, 10)
         }
       };
-      console.log('player playerSelection.js:', player);
       this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, player));
     }
   }, {

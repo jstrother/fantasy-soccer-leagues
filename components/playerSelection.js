@@ -35,7 +35,6 @@ export class Selection extends React.Component {
 				fixture: parseInt(dataSet.points, 10)
 			}
 		};
-		console.log('player playerSelection.js:', player);
 		this.props.dispatch(addRoster(this.props.accessToken, player));
 	}
   
