@@ -17,8 +17,7 @@ export class Team extends React.Component {
 		return(
 			<div
 				className={styles.rosterComponent}>
-				<PlayerSelction
-					className={this.props.roster.length === 23 ? styles.hidden : null}/>
+				<PlayerSelction />
 				<RosterDisplay />
 			</div>
 		);

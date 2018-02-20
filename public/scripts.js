@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c4e71ff3cb243587d55c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7065a3f087bad627f63a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39760,9 +39760,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: _roster.default.rosterComponent
-      }, _react.default.createElement(_playerSelection.default, {
-        className: this.props.roster.length === 23 ? _roster.default.hidden : null
-      }), _react.default.createElement(_rosterDisplay.default, null));
+      }, _react.default.createElement(_playerSelection.default, null), _react.default.createElement(_rosterDisplay.default, null));
     }
   }]);
 
@@ -39853,23 +39851,28 @@ function (_React$Component) {
   }, {
     key: "handleRosterAdd",
     value: function handleRosterAdd(event) {
-      var dataSet = event.target.dataset,
-          player = {
-        idFromAPI: parseInt(dataSet.id, 10),
-        firstName: dataSet.firstname,
-        lastName: dataSet.lastname,
-        position: dataSet.position,
-        clubName: dataSet.clubname,
-        fantasyPoints: {
-          fixture: parseInt(dataSet.points, 10)
-        }
-      };
-      this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, player));
+      if (this.props.roster.length < 23) {
+        var dataSet = event.target.dataset,
+            player = {
+          idFromAPI: parseInt(dataSet.id, 10),
+          firstName: dataSet.firstname,
+          lastName: dataSet.lastname,
+          position: dataSet.position,
+          clubName: dataSet.clubname,
+          fantasyPoints: {
+            fixture: parseInt(dataSet.points, 10)
+          }
+        };
+        this.props.dispatch((0, _fantasyClubActions.addRoster)(this.props.accessToken, player));
+      }
     }
   }, {
     key: "render",
     value: function render() {
       var _this = this;
+
+      console.log('roster length:', this.props.roster.length);
+      console.log('styles.hidden:', _playerSelection.default.hidden);
 
       if (this.props.playerList) {
         var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
@@ -39877,7 +39880,7 @@ function (_React$Component) {
         });
 
         return _react.default.createElement("div", {
-          className: _playerSelection.default.playerSelection
+          className: this.props.roster.length === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
         }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
           defaultValue: "allPositions",
@@ -39978,7 +39981,8 @@ var mapSelectionStateToProps = function mapSelectionStateToProps(state) {
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
     playerList: state.leagueReducer.playerList,
     positionSelection: state.leagueReducer.position,
-    clubSelection: state.leagueReducer.club
+    clubSelection: state.leagueReducer.club,
+    roster: state.fantasyClubReducer.roster
   };
 };
 
@@ -39993,7 +39997,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","hidden":"playerSelection__hidden__1wvZE"};
 
 /***/ }),
 /* 469 */
@@ -40106,7 +40110,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","hidden":"roster__hidden__1PVPk"};
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P"};
 
 /***/ }),
 /* 472 */

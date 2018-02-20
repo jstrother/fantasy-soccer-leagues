@@ -24,26 +24,30 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		let dataSet = event.target.dataset,
-		player = {
-			idFromAPI: parseInt(dataSet.id, 10),
-			firstName: dataSet.firstname,
-			lastName: dataSet.lastname,
-			position: dataSet.position,
-			clubName: dataSet.clubname,
-			fantasyPoints: {
-				fixture: parseInt(dataSet.points, 10)
-			}
-		};
-		this.props.dispatch(addRoster(this.props.accessToken, player));
+		if (this.props.roster.length < 23) {
+			let dataSet = event.target.dataset,
+			player = {
+				idFromAPI: parseInt(dataSet.id, 10),
+				firstName: dataSet.firstname,
+				lastName: dataSet.lastname,
+				position: dataSet.position,
+				clubName: dataSet.clubname,
+				fantasyPoints: {
+					fixture: parseInt(dataSet.points, 10)
+				}
+			};
+			this.props.dispatch(addRoster(this.props.accessToken, player));
+		}
 	}
   
   render() {
+		console.log('roster length:', this.props.roster.length);
+		console.log('styles.hidden:', styles.hidden);
     if (this.props.playerList) {
       const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
       return(
         <div
-					className={styles.playerSelection}>
+					className={this.props.roster.length === 23 ? styles.hidden : styles.playerSelection}>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards.</h5>
 					<h5>Click on a player's name to add them to your roster.</h5>
@@ -161,7 +165,8 @@ const mapSelectionStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   playerList: state.leagueReducer.playerList,
   positionSelection: state.leagueReducer.position,
-  clubSelection: state.leagueReducer.club
+  clubSelection: state.leagueReducer.club,
+  roster: state.fantasyClubReducer.roster
 });
 
 const PlayerSelction = connect(
