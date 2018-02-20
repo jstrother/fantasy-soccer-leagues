@@ -17,7 +17,8 @@ export class Team extends React.Component {
 		return(
 			<div
 				className={styles.rosterComponent}>
-				<PlayerSelction />
+				<PlayerSelction
+					className={this.props.roster.length === 23 ? styles.hidden : null}/>
 				<RosterDisplay />
 			</div>
 		);
@@ -25,7 +26,8 @@ export class Team extends React.Component {
 }
 
 const mapRosterStateToProps = state => ({
-	accessToken: state.userReducer.accessToken
+	accessToken: state.userReducer.accessToken,
+	roster: state.fantasyClubReducer.roster
 });
 
 const Roster = connect(

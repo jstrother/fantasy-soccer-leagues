@@ -40,7 +40,17 @@ fantasyClubRouter.post('/addRoster',
       {$addToSet: {roster: req.body.player}}
     )
     .then(data => {
-      res.json(data.roster);
+      FantasyClub
+      .findOne(
+        req.params.roster  
+      )
+      .then(data => {
+        console.log('data.roster:', data.roster);
+        res.json(data.roster);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
     })
     .catch(error => {
       throw new Error(error);

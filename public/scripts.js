@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c97a1f0eb4daa3669422"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c4e71ff3cb243587d55c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6763,6 +6763,8 @@ var addRoster = function addRoster(accessToken, player) {
         player: player
       })
     }).then(function (res) {
+      console.log('res:', res);
+
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(setRosterFail(res.status));
@@ -6776,7 +6778,8 @@ var addRoster = function addRoster(accessToken, player) {
 
       return res.json();
     }).then(function (data) {
-      console.log('data fantasyClubActions.js:', data);
+      console.log('data fantasyClubActions.js:', data); // returns roster array, but w/o most recent selection
+
       dispatch(setRosterSuccess(data, 200));
       return;
     }).catch(function (error) {
@@ -39757,7 +39760,9 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: _roster.default.rosterComponent
-      }, _react.default.createElement(_playerSelection.default, null), _react.default.createElement(_rosterDisplay.default, null));
+      }, _react.default.createElement(_playerSelection.default, {
+        className: this.props.roster.length === 23 ? _roster.default.hidden : null
+      }), _react.default.createElement(_rosterDisplay.default, null));
     }
   }]);
 
@@ -39768,7 +39773,8 @@ exports.Team = Team;
 
 var mapRosterStateToProps = function mapRosterStateToProps(state) {
   return {
-    accessToken: state.userReducer.accessToken
+    accessToken: state.userReducer.accessToken,
+    roster: state.fantasyClubReducer.roster
   };
 };
 
@@ -40100,7 +40106,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P"};
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","hidden":"roster__hidden__1PVPk"};
 
 /***/ }),
 /* 472 */

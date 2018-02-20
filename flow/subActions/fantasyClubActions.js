@@ -95,6 +95,7 @@ export const addRoster = (accessToken, player) => dispatch => {
     })
   })
   .then(res => {
+    console.log('res:', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(setRosterFail(res.status));
@@ -107,7 +108,7 @@ export const addRoster = (accessToken, player) => dispatch => {
     return res.json();
   })
   .then(data => {
-    console.log('data fantasyClubActions.js:', data);
+    console.log('data fantasyClubActions.js:', data); // returns roster array, but w/o most recent selection
     dispatch(setRosterSuccess(data, 200));
     return;
   })
