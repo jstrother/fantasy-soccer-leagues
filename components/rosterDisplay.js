@@ -24,6 +24,13 @@ export class Display extends React.Component {
   }
   
   render() {
+		let roster = [];
+		roster.push.apply(roster, this.props.goalkeepers);
+		roster.push.apply(roster, this.props.defenders);
+		roster.push.apply(roster, this.props.midfielders);
+		roster.push.apply(roster, this.props.forwards);
+		console.log('roster > rosterDisplay.js:', roster);
+		console.log('defenders > rosterDisplay.js:', this.props.defenders);
     return(
       <div
 				className={styles.rosterDisplay}>
@@ -50,7 +57,7 @@ export class Display extends React.Component {
 					</thead>
 					<tbody>
 						{
-							this.props.roster
+							roster
 							.map(p => {
 								return(
 									<tr
@@ -85,7 +92,10 @@ export class Display extends React.Component {
 
 const mapDisplayStateToProps = state => ({
   accessToken: state.userReducer.accessToken,
-  roster: state.fantasyClubReducer.roster,
+  goalkeepers: state.fantasyClubReducer.goalkeepers,
+  defenders: state.fantasyClubReducer.defenders,
+  midfielders: state.fantasyClubReducer.midfielders,
+  forwards: state.fantasyClubReducer.forwards,
   player: state.playerReducer.player
 });
 

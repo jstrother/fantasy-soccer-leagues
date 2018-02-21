@@ -21,7 +21,10 @@ fantasyClubRouter.get('/',
   (req, res) => res.json({
     manager: req.body.manager,
     clubName: req.body.clubName,
-    roster: req.body.roster,
+    goalkeepers: req.body.goalkeepers,
+    defenders: req.body.defenders,
+    midfielders: req.body.midfielders,
+    forwards: req.body.forwards,
     starters: req.body.starters,
     benchwarmers: req.body.benchwarmers,
     reserves: req.body.reserves,
@@ -32,21 +35,95 @@ fantasyClubRouter.get('/',
   })
 );
 
-fantasyClubRouter.post('/addRoster',
+fantasyClubRouter.post('/addGoalkeeper',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.roster,
+      req.params.goalkeepers,
+      {$addToSet: {goalkeepers: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.goalkeepers  
+      )
+      .then(data => {
+        res.json(data.goalkeepers);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addDefender',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.defenders,
+      {$addToSet: {defenders: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.defenders  
+      )
+      .then(data => {
+        res.json(data.defendfers);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addForward',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.forwards,
+      {$addToSet: {forwards: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.forwards  
+      )
+      .then(data => {
+        res.json(data.forwards);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addMidfielder',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.midfielders,
       {$addToSet: {roster: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.roster  
+        req.params.midfielders  
       )
       .then(data => {
-        console.log('data.roster:', data.roster);
-        res.json(data.roster);
+        res.json(data.midfielders);
       })
       .catch(error => {
         throw new Error(error);
