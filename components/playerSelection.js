@@ -25,6 +25,7 @@ export class Selection extends React.Component {
 	
 	handleRosterAdd(event) {
 		let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+		// first, check to see if the roster has room for new players
 		if (rosterTotal < 23) {
 			let dataSet = event.target.dataset,
 				player = {

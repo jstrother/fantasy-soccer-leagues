@@ -73,7 +73,7 @@ fantasyClubRouter.post('/addDefender',
         req.params.defenders  
       )
       .then(data => {
-        res.json(data.defendfers);
+        res.json(data.defenders);
       })
       .catch(error => {
         throw new Error(error);

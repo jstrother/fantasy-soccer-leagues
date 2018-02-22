@@ -14,23 +14,17 @@ export class Display extends React.Component {
 		this.props.dispatch(getClub(this.props.accessToken));
 	}
 	
-	rosterPlayers(playerId) {
-		let player = this.props.dispatch(fetchRosterPlayerData(this.props.accessToken, playerId));
-		console.log('player:', player);
-	}
-	
   handleRosterRemove(event) {
     
   }
   
   render() {
+		// this is to create a single list to more easily map over in tbody below
 		let roster = [];
 		roster.push.apply(roster, this.props.goalkeepers);
 		roster.push.apply(roster, this.props.defenders);
 		roster.push.apply(roster, this.props.midfielders);
 		roster.push.apply(roster, this.props.forwards);
-		console.log('roster > rosterDisplay.js:', roster);
-		console.log('defenders > rosterDisplay.js:', this.props.defenders);
     return(
       <div
 				className={styles.rosterDisplay}>
