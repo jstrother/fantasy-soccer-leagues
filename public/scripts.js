@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "14a2fbe486aebfded699"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "421462fc983b17861de2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -40057,14 +40057,14 @@ function (_React$Component) {
         var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
         return _react.default.createElement("div", {
           className: rosterLength === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
-        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
           defaultValue: "allPositions",
           onChange: this.handlePositionChange.bind(this)
         }, _react.default.createElement("option", {
           key: "1",
           value: "allPositions"
-        }, "All Positions"), _react.default.createElement("option", {
+        }, "All Position"), _react.default.createElement("option", {
           key: "2",
           value: "forwards"
         }, "Forwards"), _react.default.createElement("option", {
@@ -40083,7 +40083,7 @@ function (_React$Component) {
         }, _react.default.createElement("option", {
           key: "allClubs",
           value: "allClubs"
-        }, "All Clubs"), league.clubs.map(function (c) {
+        }, "All Club"), league.clubs.map(function (c) {
           return _react.default.createElement("option", {
             key: c.name,
             value: c.name

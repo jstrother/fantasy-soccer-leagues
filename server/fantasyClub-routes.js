@@ -115,7 +115,7 @@ fantasyClubRouter.post('/addMidfielder',
     FantasyClub
     .findOneAndUpdate(
       req.params.midfielders,
-      {$addToSet: {roster: req.body.player}}
+      {$addToSet: {midfielders: req.body.player}}
     )
     .then(data => {
       FantasyClub
