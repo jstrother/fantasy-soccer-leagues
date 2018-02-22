@@ -153,7 +153,6 @@ export const addGoalkeeper = (accessToken, player) => dispatch => {
 };
 
 export const addDefender = (accessToken, player) => dispatch => {
-  console.log('addDefender player:', player);
   return fetch(`${thisURL}/addDefender`, {
     method: 'POST',
     headers: {
@@ -165,7 +164,6 @@ export const addDefender = (accessToken, player) => dispatch => {
     })
   })
   .then(res => {
-    console.log('addDefender res:', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(setDefenderFail(res.status));
@@ -186,7 +184,6 @@ export const addDefender = (accessToken, player) => dispatch => {
 };
 
 export const addMidfielder = (accessToken, player) => dispatch => {
-  console.log('addMidfielder player:', player);
   return fetch(`${thisURL}/addMidfielder`, {
     method: 'POST',
     headers: {

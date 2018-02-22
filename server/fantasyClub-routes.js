@@ -137,7 +137,6 @@ fantasyClubRouter.post('/addMidfielder',
 
 fantasyClubRouter.put('/addClubName',
   (req, res) => {
-    // console.log('req.params:', req.params);
     updateData(req.params.clubName,
       {
         clubName: req.body.clubName

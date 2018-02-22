@@ -24,39 +24,56 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-		// first, check to see if the roster has room for new players
-		if (rosterTotal < 23) {
-			let dataSet = event.target.dataset,
-				player = {
-					idFromAPI: parseInt(dataSet.id, 10),
-					firstName: dataSet.firstname,
-					lastName: dataSet.lastname,
-					position: dataSet.position,
-					clubName: dataSet.clubname,
-					fantasyPoints: {
-						fixture: parseInt(dataSet.points, 10)
+		let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
+			dataSet = event.target.dataset,
+			player = {
+				idFromAPI: parseInt(dataSet.id, 10),
+				firstName: dataSet.firstname,
+				lastName: dataSet.lastname,
+				position: dataSet.position,
+				clubName: dataSet.clubname,
+				fantasyPoints: {
+					fixture: parseInt(dataSet.points, 10)
+				}
+			},
+			roster = [],
+			clubCount;
+		// we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
+		roster.push.apply(roster, this.props.goalkeepers);
+		roster.push.apply(roster, this.props.defenders);
+		roster.push.apply(roster, this.props.midfielders);
+		roster.push.apply(roster, this.props.forwards);
+		
+		clubCount = roster.filter(p => {
+			if (player.clubName === p.clubName) {
+				return true;
+			}
+		});
+		
+		// we first check to see if there are less than 4 instances of a particular clubName as a user can only have a max of 4 players from any one clubName
+		if (clubCount.length < 4) {
+			// first, check to see if the roster has room for new players
+			if (rosterTotal < 23) {
+				// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
+				if (player.position === 'G' || player.position === 'Goalkeeper') {
+					if (this.props.goalkeepers.length < 4) {
+						this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
 					}
-				};
-			// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
-			if (player.position === 'G' || player.position === 'Goalkeeper') {
-				if (this.props.goalkeepers.length < 4) {
-					this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
 				}
-			}
-			if (player.position === 'D' || player.position === 'Defender') {
-				if (this.props.defenders.length < 7) {
-					this.props.dispatch(addDefender(this.props.accessToken, player));
+				if (player.position === 'D' || player.position === 'Defender') {
+					if (this.props.defenders.length < 7) {
+						this.props.dispatch(addDefender(this.props.accessToken, player));
+					}
 				}
-			}
-			if (player.position === 'M' || player.position === 'Midfielder') {
-				if (this.props.midfielders.length < 7) {
-					this.props.dispatch(addMidfielder(this.props.accessToken, player));
+				if (player.position === 'M' || player.position === 'Midfielder') {
+					if (this.props.midfielders.length < 7) {
+						this.props.dispatch(addMidfielder(this.props.accessToken, player));
+					}
 				}
-			}
-			if (player.position === 'F' || player.position === 'Attacker') {
-				if (this.props.forwards.length < 5) {
-					this.props.dispatch(addForward(this.props.accessToken, player));
+				if (player.position === 'F' || player.position === 'Attacker') {
+					if (this.props.forwards.length < 5) {
+						this.props.dispatch(addForward(this.props.accessToken, player));
+					}
 				}
 			}
 		}
