@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
 
 export const SHOW_ROSTER_WARNING = 'SHOW_ROSTER_WARNING';
-export const showRosterWarning = message => ({
+export const showRosterWarning = (message, timeout) => ({
   type: SHOW_ROSTER_WARNING,
-  message
+  message,
+  timeout,
+  show: true
 });
 
 export const ROSTER_WARNING_FAIL = 'ROSTER_WARNING_FAIL';

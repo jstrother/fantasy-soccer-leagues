@@ -12,7 +12,7 @@ export class Warning extends React.Component {
   render() {
     return (
       <div
-        className={this.props.warningMessage === null ? styles.hidden : styles.rosterWarning}>
+        className={this.props.show === false ? styles.hidden : styles.rosterWarning}>
         <p>
           {this.props.warningMessage}
         </p>
@@ -22,7 +22,8 @@ export class Warning extends React.Component {
 }
 
 const mapWarningStateToProps = state => ({
-  warningMessage: state.rosterWarningReducer.message
+  warningMessage: state.rosterWarningReducer.message,
+  show: state.rosterWarningReducer.show
 });
 
 const RosterWarning = connect(
