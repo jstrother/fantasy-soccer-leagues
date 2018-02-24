@@ -18,6 +18,15 @@ export class FantasyTeam extends React.Component {
     }
     this.props.dispatch(getClub(this.props.accessToken));
   }
+  
+	_handleKeyPress(event) {
+		// makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
+		}
+	}
+  
 	submitClubName(event) {
 		event.preventDefault();
 		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
@@ -32,6 +41,7 @@ export class FantasyTeam extends React.Component {
 						className={'clubNameForm'}>
 						<input
 							className={'clubNameInput'}
+							onKeyPress={this._handleKeyPress.bind(this)}
 							ref={(input) => {this.clubNameInput = input;}}
 							type="text"
 							placeholder="Enter your club's name"/>

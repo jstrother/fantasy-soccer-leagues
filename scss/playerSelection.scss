@@ -17,10 +17,6 @@
       display: block;
       height: 20em;
       overflow: auto;
-      
-      tr {
-        cursor: pointer;
-      }
     }
     
     th {
@@ -41,6 +37,13 @@
       text-align: center;
       width: $tableWidth / 4;
     }
+    
+    .playerName {
+      cursor: pointer;
+    }
   }
-  
+}
+
+.hidden {
+  display: none;
 }

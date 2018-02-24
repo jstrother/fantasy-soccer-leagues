@@ -18,29 +18,68 @@ export const getClubFail = statusCode => ({
   statusCode
 });
 
-export const SET_FANTASY_CLUB_NAME_SUCCESS = 'SET_FANTASY_CLUB_NAME_SUCCESS';
+export const SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
 export const setClubNameSuccess = (clubName, statusCode) => ({
-  type: SET_FANTASY_CLUB_NAME_SUCCESS,
+  type: SET_CLUB_NAME_SUCCESS,
   clubName,
   statusCode
 });
 
-export const SET_FANTASY_CLUB_NAME_FAIL = 'SET_FANTASY_CLUB_NAME_FAIL';
+export const SET_CLUB_NAME_FAIL = 'SET_CLUB_NAME_FAIL';
 export const setClubNameFail = statusCode => ({
-  type: SET_FANTASY_CLUB_NAME_FAIL,
+  type: SET_CLUB_NAME_FAIL,
   statusCode
 });
 
-export const SET_ROSTER_SUCCESS = 'SET_ROSTER_SUCCESS';
-export const setRosterSuccess = (roster, statusCode) => ({
-  type: SET_ROSTER_SUCCESS,
-  roster,
+export const SET_GOALKEEPER_SUCCESS = 'SET_GOALKEEPER_SUCCESS';
+export const setGoalkeeperSuccess = (goalkeeper, statusCode) => ({
+  type: SET_GOALKEEPER_SUCCESS,
+  goalkeeper,
   statusCode
 });
 
-export const SET_ROSTER_FAIL = 'SET_ROSTER_FAIL';
-export const setRosterFail = statusCode => ({
-  type: SET_ROSTER_FAIL,
+export const SET_GOALKEEPER_FAIL = 'SET_GOALKEEPER_FAIL';
+export const setGoalkeeperFail = statusCode => ({
+  type: SET_GOALKEEPER_FAIL,
+  statusCode
+});
+
+export const SET_DEFENDER_SUCCESS = 'SET_DEFENDER_SUCCESS';
+export const setDefenderSuccess = (defender, statusCode) => ({
+  type: SET_DEFENDER_SUCCESS,
+  defender,
+  statusCode
+});
+
+export const SET_DEFENDER_FAIL = 'SET_DEFENDER_FAIL';
+export const setDefenderFail = statusCode => ({
+  type: SET_DEFENDER_FAIL,
+  statusCode
+});
+
+export const SET_MIDFIELDER_SUCCESS = 'SET_MIDFIELDER_SUCCESS';
+export const setMidfielderSuccess = (midfielder, statusCode) => ({
+  type: SET_MIDFIELDER_SUCCESS,
+  midfielder,
+  statusCode
+});
+
+export const SET_MIDFIELDER_FAIL = 'SET_MIDFIELDER_FAIL';
+export const setMidfielderFail = statusCode => ({
+  type: SET_MIDFIELDER_FAIL,
+  statusCode
+});
+
+export const SET_FORWARD_SUCCESS = 'SET_FORWARD_SUCCESS';
+export const setForwardSuccess = (forward, statusCode) => ({
+  type: SET_FORWARD_SUCCESS,
+  forward,
+  statusCode
+});
+
+export const SET_FORWARD_FAIL = 'SET_FORWARD_FAIL';
+export const setForwardFail = statusCode => ({
+  type: SET_FORWARD_FAIL,
   statusCode
 });
 
@@ -82,8 +121,8 @@ export const getClub = accessToken => dispatch => {
   });
 };
 
-export const addRoster = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addRoster`, {
+export const addGoalkeeper = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/addGoalkeeper`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -96,16 +135,109 @@ export const addRoster = (accessToken, player) => dispatch => {
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(setRosterFail(res.status));
+        dispatch(setGoalkeeperFail(res.status));
         return;
       } 
-      dispatch(setRosterFail(500));
+      dispatch(setGoalkeeperFail(500));
       throw new Error(res.statusText);
     }
     return res.json();
   })
   .then(data => {
-    dispatch(setRosterSuccess(data, 200));
+    dispatch(setGoalkeeperSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addDefender = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/addDefender`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setDefenderFail(res.status));
+        return;
+      }
+      dispatch(setDefenderFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(setDefenderSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addMidfielder = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/addMidfielder`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setMidfielderFail(res.status));
+        return;
+      } 
+      dispatch(setMidfielderFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(setMidfielderSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addForward = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/addForward`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setForwardFail(res.status));
+        return;
+      } 
+      dispatch(setForwardFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(setForwardSuccess(data, 200));
     return;
   })
   .catch(error => {

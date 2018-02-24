@@ -1,7 +1,22 @@
+/*eslint-disable no-console, no-unused-vars*/
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 const thisURL = `${url}/player`;
+
+export const ROSTER_PLAYER_DATA_SUCCESS = 'ROSTER_PLAYER_DATA_SUCCESS';
+export const rosterPlayerDataSuccess = (player, statusCode) => ({
+  type: ROSTER_PLAYER_DATA_SUCCESS,
+  player,
+  statusCode
+});
+
+export const ROSTER_PLAYER_DATA_FAIL = 'ROSTER_PLAYER_DATA_FAIL';
+export const rosterPlayerDataFail = statusCode => ({
+  type: ROSTER_PLAYER_DATA_FAIL,
+  statusCode
+});
   
 export const SET_STARTER_SUCCESS = 'SET_STARTER_SUCCESS';
 export const setStarterSuccess = (player, statusCode) => ({
@@ -41,6 +56,33 @@ export const setReserveFail = statusCode => ({
   type: SET_RESERVE_FAIL,
   statusCode
 });
+
+export const fetchRosterPlayerData = (accessToken, playerId) => dispatch => {
+  return fetch(`${thisURL}/${playerId}`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 401) {
+        dispatch(rosterPlayerDataFail(res.status));
+        return;
+      }
+      dispatch(rosterPlayerDataFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(player => {
+    console.log('player-playerActions.js:', player);
+    dispatch(rosterPlayerDataSuccess(player, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
 
 export const fetchStarter = player => dispatch => {
   return fetch(`${thisURL}/${player.idFromAPI}`)

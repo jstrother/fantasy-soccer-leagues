@@ -21,7 +21,10 @@ fantasyClubRouter.get('/',
   (req, res) => res.json({
     manager: req.body.manager,
     clubName: req.body.clubName,
-    roster: req.body.roster,
+    goalkeepers: req.body.goalkeepers,
+    defenders: req.body.defenders,
+    midfielders: req.body.midfielders,
+    forwards: req.body.forwards,
     starters: req.body.starters,
     benchwarmers: req.body.benchwarmers,
     reserves: req.body.reserves,
@@ -32,17 +35,99 @@ fantasyClubRouter.get('/',
   })
 );
 
-fantasyClubRouter.post('/addRoster',
+fantasyClubRouter.post('/addGoalkeeper',
   (req, res) => {
-    console.log('req.params:', req.params);
-    console.log('req.body:', req.body);
     FantasyClub
     .findOneAndUpdate(
-      req.params.roster,
-      {$push: {roster: req.body.player}}
+      req.params.goalkeepers,
+      {$addToSet: {goalkeepers: req.body.player}}
     )
     .then(data => {
-      res.json(data);
+      FantasyClub
+      .findOne(
+        req.params.goalkeepers  
+      )
+      .then(data => {
+        res.json(data.goalkeepers);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addDefender',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.defenders,
+      {$addToSet: {defenders: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.defenders  
+      )
+      .then(data => {
+        res.json(data.defenders);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addForward',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.forwards,
+      {$addToSet: {forwards: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.forwards  
+      )
+      .then(data => {
+        res.json(data.forwards);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addMidfielder',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.midfielders,
+      {$addToSet: {midfielders: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.midfielders  
+      )
+      .then(data => {
+        res.json(data.midfielders);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
     })
     .catch(error => {
       throw new Error(error);
@@ -51,16 +136,18 @@ fantasyClubRouter.post('/addRoster',
 );
 
 fantasyClubRouter.put('/addClubName',
-  (req, res) => updateData(req.params.clubName,
-    {
-      clubName: req.body.clubName
-    }, FantasyClub)
+  (req, res) => {
+    updateData(req.params.clubName,
+      {
+        clubName: req.body.clubName
+      }, FantasyClub)
     .then(data => {
       res.json(data);
     })
     .catch(error => {
       throw new Error(error);
-    })
+    });
+  }
 );
 
 fantasyClubRouter.put('/addManager',

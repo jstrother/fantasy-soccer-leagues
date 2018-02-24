@@ -5,9 +5,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
+import RosterWarning from './rosterWarning.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
-import { addRoster } from '../flow/subActions/fantasyClubActions.js';
+import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
+import { rosterWarning } from '../flow/subActions/rosterWarningAction.js';
 import styles from '../scss/playerSelection.scss';
 
 export class Selection extends React.Component {
@@ -24,19 +26,87 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		console.log('event.target playerSelection.js:', event.target);
-		console.log('event.target.value playerSelection.js:', event.target.value);
-		this.props.dispatch(addRoster(this.props.accessToken, event.target.value));
+		let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
+			dataSet = event.target.dataset,
+			player = {
+				idFromAPI: parseInt(dataSet.id, 10),
+				firstName: dataSet.firstname,
+				lastName: dataSet.lastname,
+				position: dataSet.position,
+				clubName: dataSet.clubname,
+				fantasyPoints: {
+					fixture: parseInt(dataSet.points, 10)
+				}
+			},
+			roster = [],
+			clubCount;
+		// we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
+		roster.push.apply(roster, this.props.goalkeepers);
+		roster.push.apply(roster, this.props.defenders);
+		roster.push.apply(roster, this.props.midfielders);
+		roster.push.apply(roster, this.props.forwards);
+		
+		clubCount = roster.filter(p => {
+			if (player.clubName === p.clubName) {
+				return true;
+			}
+		});
+		
+		// we first check to see if there are less than 4 instances of a particular clubName as a user can only have a max of 4 players from any one clubName
+		if (clubCount.length < 4) {
+			// first, check to see if the roster has room for new players
+			if (rosterTotal < 23) {
+				// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
+				if (player.position === 'G' || player.position === 'Goalkeeper') {
+					if (this.props.goalkeepers.length < 4) {
+						this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
+					}
+					else {
+						this.props.dispatch(rosterWarning('You have reached the maximum number of goalkeepers.'));
+					}
+				}
+				if (player.position === 'D' || player.position === 'Defender') {
+					if (this.props.defenders.length < 7) {
+						this.props.dispatch(addDefender(this.props.accessToken, player));
+					}
+					else {
+						this.props.dispatch(rosterWarning('You have reached the maximum number of defenders.'));
+					}
+				}
+				if (player.position === 'M' || player.position === 'Midfielder') {
+					if (this.props.midfielders.length < 7) {
+						this.props.dispatch(addMidfielder(this.props.accessToken, player));
+					}
+					else {
+						this.props.dispatch(rosterWarning('You have reached the maximum number of midfielders.'));
+					}
+				}
+				if (player.position === 'F' || player.position === 'Attacker') {
+					if (this.props.forwards.length < 5) {
+						this.props.dispatch(addForward(this.props.accessToken, player));
+					}
+					else {
+						this.props.dispatch(rosterWarning('You have reached the maximum number of goalkeepers.'));
+					}
+				}
+			}
+		}
+		else {
+			this.props.dispatch(rosterWarning(`You have reached the maximum number of players from ${player.clubName}`));
+		}
 	}
   
   render() {
     if (this.props.playerList) {
       const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
+      let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
       return(
         <div
-					className={styles.playerSelection}>
+					className={rosterLength === 23 ? styles.hidden : styles.playerSelection}>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
-					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards.</h5>
+					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward.</h5>
+					<h5>Click on a player's name to add them to your roster.</h5>
+					<RosterWarning />
 					<table>
 						<thead>
 							<tr>
@@ -46,7 +116,7 @@ export class Selection extends React.Component {
 										className={"positionsList"}
 										defaultValue={"allPositions"}
 										onChange={this.handlePositionChange.bind(this)}>
-										<option key={"1"} value={"allPositions"}>All Positions</option>
+										<option key={"1"} value={"allPositions"}>All Position</option>
 										<option key={"2"} value={"forwards"}>Forwards</option>
 										<option key={"3"} value={"midfielders"}>Midfielders</option>
 										<option key={"4"} value={"defenders"}>Defenders</option>
@@ -58,7 +128,7 @@ export class Selection extends React.Component {
 										className={"clubsList"}
 										defaultValue={"allClubs"}
 										onChange={this.handleClubChange.bind(this)}>
-										<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
+										<option key={"allClubs"} value={"allClubs"}>All Club</option>
 										{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
 									</select>
 								</th>
@@ -108,23 +178,25 @@ export class Selection extends React.Component {
 									// creating a table row for each player that makes it through the filters
 									return(
 										<tr
-											value={p.idFromAPI}
-											key={p.idFromAPI}
-											onClick={this.handleRosterAdd.bind(this)}>
+											key={p.idFromAPI}>
 											<td
-												value={p.idFromAPI}>{/*we attach the same value to all td elements because we don't know exactly where a user will click to select a player*/}
+												className={styles.playerName}
+												data-id={p.idFromAPI}
+												data-firstname={p.firstName}
+												data-lastname={p.lastName}
+												data-position={p.position}
+												data-clubname={p.clubName}
+												data-points={p.fantasyPoints.fixture}
+												onClick={this.handleRosterAdd.bind(this)}>
 												{`${p.firstName} ${p.lastName}`}
 											</td>
-											<td
-												value={p.idFromAPI}>
+											<td>
 												{p.position}
 											</td>
-											<td
-												value={p.idFromAPI}>
+											<td>
 												{p.clubName}
 											</td>
-											<td
-												value={p.idFromAPI}>
+											<td>
 												{p.fantasyPoints.fixture}
 											</td>
 										</tr>
@@ -149,7 +221,11 @@ const mapSelectionStateToProps = state => ({
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   playerList: state.leagueReducer.playerList,
   positionSelection: state.leagueReducer.position,
-  clubSelection: state.leagueReducer.club
+  clubSelection: state.leagueReducer.club,
+  goalkeepers: state.fantasyClubReducer.goalkeepers,
+  defenders: state.fantasyClubReducer.defenders,
+  midfielders: state.fantasyClubReducer.midfielders,
+  forwards: state.fantasyClubReducer.forwards
 });
 
 const PlayerSelction = connect(
