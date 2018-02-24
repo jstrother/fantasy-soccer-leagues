@@ -5,7 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { getClub, removeGoalkeeper } from '../flow/subActions/fantasyClubActions.js';
+import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -30,18 +30,23 @@ export class Display extends React.Component {
 			this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
 		}
 		if (player.position === 'D' || player.position === 'Defender') {
-			console.log('player removed!');
-			// this.props.dispatch(removeDefender(this.props.accessToken, player));
+			this.props.dispatch(removeDefender(this.props.accessToken, player));
 		}
 		if (player.position === 'M' || player.position === 'Midfielder') {
-			console.log('player removed!');
-			// this.props.dispatch(removeMidfielder(this.props.accessToken, player));
+			this.props.dispatch(removeMidfielder(this.props.accessToken, player));
 		}
 		if (player.position === 'F' || player.position === 'Attacker') {
-			console.log('player removed!');
-			// this.props.dispatch(removeForward(this.props.accessToken, player));
+			this.props.dispatch(removeForward(this.props.accessToken, player));
 		}
   }
+  
+	addStarter() {
+		
+	}
+	
+	addBench() {
+		
+	}
   
   render() {
 		// this is to create a single list to more easily map over in tbody below
@@ -70,6 +75,12 @@ export class Display extends React.Component {
 								Points Last Match
 							</th>
 							<th>
+								Make Starter?
+							</th>
+							<th>
+								Have on Bench?
+							</th>
+							<th>
 								Remove from Roster
 							</th>
 						</tr>
@@ -96,7 +107,29 @@ export class Display extends React.Component {
 											{`${p.fantasyPoints.fixture}`}
 										</td>
 										<td
+											data-id={p.idFromAPI}
+											data-firstname={p.firstName}
+											data-lastname={p.lastName}
+											data-position={p.position}
+											onClick={this.addStarter.bind(this)}>
+											Make Starter
+										</td>
+										<td
+											data-id={p.idFromAPI}
+											data-firstname={p.firstName}
+											data-lastname={p.lastName}
+											data-position={p.position}
+											onClick={this.addBench.bind(this)}>
+											Have on Bench
+										</td>
+										<td
 											className={styles.playerRemove}
+											data-id={p.idFromAPI}
+											data-firstname={p.firstName}
+											data-lastname={p.lastName}
+											data-position={p.position}
+											data-clubname={p.clubName}
+											data-points={p.fantasyPoints.fixture}
 											onClick={this.handleRosterRemove.bind(this)}>
 											Remove
 										</td>

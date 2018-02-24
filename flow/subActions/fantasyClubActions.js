@@ -70,6 +70,19 @@ export const setDefenderFail = statusCode => ({
   statusCode
 });
 
+export const REMOVE_DEFENDER_SUCCESS = 'REMOVE_DEFENDER_SUCCESS';
+export const removeDefenderSuccess = (defender, statusCode) => ({
+  type: REMOVE_DEFENDER_SUCCESS,
+  defender,
+  statusCode
+});
+
+export const REMOVE_DEFENDER_FAIL = 'REMOVE_DEFENDER_FAIL';
+export const removeDefenderFail = statusCode => ({
+  type: REMOVE_DEFENDER_FAIL,
+  statusCode
+});
+
 export const SET_MIDFIELDER_SUCCESS = 'SET_MIDFIELDER_SUCCESS';
 export const setMidfielderSuccess = (midfielder, statusCode) => ({
   type: SET_MIDFIELDER_SUCCESS,
@@ -83,6 +96,19 @@ export const setMidfielderFail = statusCode => ({
   statusCode
 });
 
+export const REMOVE_MIDFIELDER_SUCCESS = 'REMOVE_MIDFIELDER_SUCCESS';
+export const removeMidfielderSuccess = (midfielder, statusCode) => ({
+  type: REMOVE_MIDFIELDER_SUCCESS,
+  midfielder,
+  statusCode
+});
+
+export const REMOVE_MIDFIELDER_FAIL = 'REMOVE_MIDFIELDER_FAIL';
+export const removeMidfielderFail = statusCode => ({
+  type: REMOVE_MIDFIELDER_FAIL,
+  statusCode
+});
+
 export const SET_FORWARD_SUCCESS = 'SET_FORWARD_SUCCESS';
 export const setForwardSuccess = (forward, statusCode) => ({
   type: SET_FORWARD_SUCCESS,
@@ -93,6 +119,19 @@ export const setForwardSuccess = (forward, statusCode) => ({
 export const SET_FORWARD_FAIL = 'SET_FORWARD_FAIL';
 export const setForwardFail = statusCode => ({
   type: SET_FORWARD_FAIL,
+  statusCode
+});
+
+export const REMOVE_FORWARD_SUCCESS = 'REMOVE_FORWARD_SUCCESS';
+export const removeForwardSuccess = (forward, statusCode) => ({
+  type: REMOVE_FORWARD_SUCCESS,
+  forward,
+  statusCode
+});
+
+export const REMOVE_FORWARD_FAIL = 'REMOVE_FORWARD_FAIL';
+export const removeForwardFail = statusCode => ({
+  type: REMOVE_FORWARD_FAIL,
   statusCode
 });
 
@@ -167,7 +206,7 @@ export const addGoalkeeper = (accessToken, player) => dispatch => {
 
 export const removeGoalkeeper = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/removeGoalkeeper`, {
-    method: 'DELETE',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
@@ -227,6 +266,37 @@ export const addDefender = (accessToken, player) => dispatch => {
   });
 };
 
+export const removeDefender = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/removeDefender`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(removeDefenderFail(res.status));
+        return;
+      }
+      dispatch(removeDefenderFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(removeDefenderSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
 export const addMidfielder = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/addMidfielder`, {
     method: 'POST',
@@ -258,6 +328,37 @@ export const addMidfielder = (accessToken, player) => dispatch => {
   });
 };
 
+export const removeMidfielder = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/removeMidfielder`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(removeMidfielderFail(res.status));
+        return;
+      } 
+      dispatch(removeMidfielderFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(removeMidfielderSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
 export const addForward = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/addForward`, {
     method: 'POST',
@@ -282,6 +383,37 @@ export const addForward = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(setForwardSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const removeForward = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/removeForward`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(removeForwardFail(res.status));
+        return;
+      } 
+      dispatch(removeForwardFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(removeForwardSuccess(data, 200));
     return;
   })
   .catch(error => {

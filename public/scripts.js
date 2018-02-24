@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a69d3bb8a7f4cb046b78"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6fd497a681fcd7cce26c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6618,7 +6618,7 @@ exports.DEV_DIRECTORY = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addClubName = exports.addManager = exports.addForward = exports.addMidfielder = exports.addDefender = exports.removeGoalkeeper = exports.addGoalkeeper = exports.getClub = exports.setManagerFail = exports.SET_MANAGER_FAIL = exports.setManagerSuccess = exports.SET_MANAGER_SUCCESS = exports.setForwardFail = exports.SET_FORWARD_FAIL = exports.setForwardSuccess = exports.SET_FORWARD_SUCCESS = exports.setMidfielderFail = exports.SET_MIDFIELDER_FAIL = exports.setMidfielderSuccess = exports.SET_MIDFIELDER_SUCCESS = exports.setDefenderFail = exports.SET_DEFENDER_FAIL = exports.setDefenderSuccess = exports.SET_DEFENDER_SUCCESS = exports.removeGoalkeeperFail = exports.REMOVE_GOALKEEPER_FAIL = exports.removeGoalkeeperSuccess = exports.REMOVE_GOALKEEPER_SUCCESS = exports.setGoalkeeperFail = exports.SET_GOALKEEPER_FAIL = exports.setGoalkeeperSuccess = exports.SET_GOALKEEPER_SUCCESS = exports.setClubNameFail = exports.SET_CLUB_NAME_FAIL = exports.setClubNameSuccess = exports.SET_CLUB_NAME_SUCCESS = exports.getClubFail = exports.GET_CLUB_FAIL = exports.getClubSuccess = exports.GET_CLUB_SUCCESS = void 0;
+exports.addClubName = exports.addManager = exports.removeForward = exports.addForward = exports.removeMidfielder = exports.addMidfielder = exports.removeDefender = exports.addDefender = exports.removeGoalkeeper = exports.addGoalkeeper = exports.getClub = exports.setManagerFail = exports.SET_MANAGER_FAIL = exports.setManagerSuccess = exports.SET_MANAGER_SUCCESS = exports.removeForwardFail = exports.REMOVE_FORWARD_FAIL = exports.removeForwardSuccess = exports.REMOVE_FORWARD_SUCCESS = exports.setForwardFail = exports.SET_FORWARD_FAIL = exports.setForwardSuccess = exports.SET_FORWARD_SUCCESS = exports.removeMidfielderFail = exports.REMOVE_MIDFIELDER_FAIL = exports.removeMidfielderSuccess = exports.REMOVE_MIDFIELDER_SUCCESS = exports.setMidfielderFail = exports.SET_MIDFIELDER_FAIL = exports.setMidfielderSuccess = exports.SET_MIDFIELDER_SUCCESS = exports.removeDefenderFail = exports.REMOVE_DEFENDER_FAIL = exports.removeDefenderSuccess = exports.REMOVE_DEFENDER_SUCCESS = exports.setDefenderFail = exports.SET_DEFENDER_FAIL = exports.setDefenderSuccess = exports.SET_DEFENDER_SUCCESS = exports.removeGoalkeeperFail = exports.REMOVE_GOALKEEPER_FAIL = exports.removeGoalkeeperSuccess = exports.REMOVE_GOALKEEPER_SUCCESS = exports.setGoalkeeperFail = exports.SET_GOALKEEPER_FAIL = exports.setGoalkeeperSuccess = exports.SET_GOALKEEPER_SUCCESS = exports.setClubNameFail = exports.SET_CLUB_NAME_FAIL = exports.setClubNameSuccess = exports.SET_CLUB_NAME_SUCCESS = exports.getClubFail = exports.GET_CLUB_FAIL = exports.getClubSuccess = exports.GET_CLUB_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(61));
 
@@ -6743,6 +6743,29 @@ var setDefenderFail = function setDefenderFail(statusCode) {
 };
 
 exports.setDefenderFail = setDefenderFail;
+var REMOVE_DEFENDER_SUCCESS = 'REMOVE_DEFENDER_SUCCESS';
+exports.REMOVE_DEFENDER_SUCCESS = REMOVE_DEFENDER_SUCCESS;
+
+var removeDefenderSuccess = function removeDefenderSuccess(defender, statusCode) {
+  return {
+    type: REMOVE_DEFENDER_SUCCESS,
+    defender: defender,
+    statusCode: statusCode
+  };
+};
+
+exports.removeDefenderSuccess = removeDefenderSuccess;
+var REMOVE_DEFENDER_FAIL = 'REMOVE_DEFENDER_FAIL';
+exports.REMOVE_DEFENDER_FAIL = REMOVE_DEFENDER_FAIL;
+
+var removeDefenderFail = function removeDefenderFail(statusCode) {
+  return {
+    type: REMOVE_DEFENDER_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.removeDefenderFail = removeDefenderFail;
 var SET_MIDFIELDER_SUCCESS = 'SET_MIDFIELDER_SUCCESS';
 exports.SET_MIDFIELDER_SUCCESS = SET_MIDFIELDER_SUCCESS;
 
@@ -6766,6 +6789,29 @@ var setMidfielderFail = function setMidfielderFail(statusCode) {
 };
 
 exports.setMidfielderFail = setMidfielderFail;
+var REMOVE_MIDFIELDER_SUCCESS = 'REMOVE_MIDFIELDER_SUCCESS';
+exports.REMOVE_MIDFIELDER_SUCCESS = REMOVE_MIDFIELDER_SUCCESS;
+
+var removeMidfielderSuccess = function removeMidfielderSuccess(midfielder, statusCode) {
+  return {
+    type: REMOVE_MIDFIELDER_SUCCESS,
+    midfielder: midfielder,
+    statusCode: statusCode
+  };
+};
+
+exports.removeMidfielderSuccess = removeMidfielderSuccess;
+var REMOVE_MIDFIELDER_FAIL = 'REMOVE_MIDFIELDER_FAIL';
+exports.REMOVE_MIDFIELDER_FAIL = REMOVE_MIDFIELDER_FAIL;
+
+var removeMidfielderFail = function removeMidfielderFail(statusCode) {
+  return {
+    type: REMOVE_MIDFIELDER_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.removeMidfielderFail = removeMidfielderFail;
 var SET_FORWARD_SUCCESS = 'SET_FORWARD_SUCCESS';
 exports.SET_FORWARD_SUCCESS = SET_FORWARD_SUCCESS;
 
@@ -6789,6 +6835,29 @@ var setForwardFail = function setForwardFail(statusCode) {
 };
 
 exports.setForwardFail = setForwardFail;
+var REMOVE_FORWARD_SUCCESS = 'REMOVE_FORWARD_SUCCESS';
+exports.REMOVE_FORWARD_SUCCESS = REMOVE_FORWARD_SUCCESS;
+
+var removeForwardSuccess = function removeForwardSuccess(forward, statusCode) {
+  return {
+    type: REMOVE_FORWARD_SUCCESS,
+    forward: forward,
+    statusCode: statusCode
+  };
+};
+
+exports.removeForwardSuccess = removeForwardSuccess;
+var REMOVE_FORWARD_FAIL = 'REMOVE_FORWARD_FAIL';
+exports.REMOVE_FORWARD_FAIL = REMOVE_FORWARD_FAIL;
+
+var removeForwardFail = function removeForwardFail(statusCode) {
+  return {
+    type: REMOVE_FORWARD_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.removeForwardFail = removeForwardFail;
 var SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
 exports.SET_MANAGER_SUCCESS = SET_MANAGER_SUCCESS;
 
@@ -6878,7 +6947,7 @@ exports.addGoalkeeper = addGoalkeeper;
 var removeGoalkeeper = function removeGoalkeeper(accessToken, player) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeGoalkeeper"), {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "Bearer ".concat(accessToken)
@@ -6943,6 +7012,40 @@ var addDefender = function addDefender(accessToken, player) {
 
 exports.addDefender = addDefender;
 
+var removeDefender = function removeDefender(accessToken, player) {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeDefender"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      },
+      body: JSON.stringify({
+        player: player
+      })
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(removeDefenderFail(res.status));
+          return;
+        }
+
+        dispatch(removeDefenderFail(500));
+        throw new Error(res.statusText);
+      }
+
+      return res.json();
+    }).then(function (data) {
+      dispatch(removeDefenderSuccess(data, 200));
+      return;
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.removeDefender = removeDefender;
+
 var addMidfielder = function addMidfielder(accessToken, player) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/addMidfielder"), {
@@ -6977,6 +7080,40 @@ var addMidfielder = function addMidfielder(accessToken, player) {
 
 exports.addMidfielder = addMidfielder;
 
+var removeMidfielder = function removeMidfielder(accessToken, player) {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeMidfielder"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      },
+      body: JSON.stringify({
+        player: player
+      })
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(removeMidfielderFail(res.status));
+          return;
+        }
+
+        dispatch(removeMidfielderFail(500));
+        throw new Error(res.statusText);
+      }
+
+      return res.json();
+    }).then(function (data) {
+      dispatch(removeMidfielderSuccess(data, 200));
+      return;
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.removeMidfielder = removeMidfielder;
+
 var addForward = function addForward(accessToken, player) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/addForward"), {
@@ -7010,6 +7147,40 @@ var addForward = function addForward(accessToken, player) {
 };
 
 exports.addForward = addForward;
+
+var removeForward = function removeForward(accessToken, player) {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeForward"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      },
+      body: JSON.stringify({
+        player: player
+      })
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(removeForwardFail(res.status));
+          return;
+        }
+
+        dispatch(removeForwardFail(500));
+        throw new Error(res.statusText);
+      }
+
+      return res.json();
+    }).then(function (data) {
+      dispatch(removeForwardSuccess(data, 200));
+      return;
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.removeForward = removeForward;
 
 var addManager = function addManager(accessToken, manager) {
   return function (dispatch) {
@@ -39713,7 +39884,7 @@ function (_React$Component) {
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
       return _react.default.createElement("div", {
         className: rosterLength < 23 ? _fantasySchedule.default.hidden : _fantasySchedule.default.fantasySchedule
-      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement("div", null, "Select your Starting 11:"), _react.default.createElement("div", null, "Select your Matchday 18:"), _react.default.createElement(_fantasyMatch.default, null));
+      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement("div", null, "Your Starting 11:"), _react.default.createElement("div", null, "Players Available on Bench:"), _react.default.createElement(_fantasyMatch.default, null));
     }
   }]);
 
@@ -40085,7 +40256,8 @@ function (_React$Component) {
         }).map(function (p) {
           // creating a table row for each player that makes it through the filters
           return _react.default.createElement("tr", {
-            key: p.idFromAPI
+            key: p.idFromAPI,
+            id: "sel-".concat(p.idFromAPI)
           }, _react.default.createElement("td", {
             className: _playerSelection.default.playerName,
             "data-id": p.idFromAPI,
@@ -40286,17 +40458,23 @@ function (_React$Component) {
       }
 
       if (player.position === 'D' || player.position === 'Defender') {
-        console.log('player removed!'); // this.props.dispatch(removeDefender(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeDefender)(this.props.accessToken, player));
       }
 
       if (player.position === 'M' || player.position === 'Midfielder') {
-        console.log('player removed!'); // this.props.dispatch(removeMidfielder(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeMidfielder)(this.props.accessToken, player));
       }
 
       if (player.position === 'F' || player.position === 'Attacker') {
-        console.log('player removed!'); // this.props.dispatch(removeForward(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeForward)(this.props.accessToken, player));
       }
     }
+  }, {
+    key: "addStarter",
+    value: function addStarter() {}
+  }, {
+    key: "addBench",
+    value: function addBench() {}
   }, {
     key: "render",
     value: function render() {
@@ -40310,12 +40488,32 @@ function (_React$Component) {
       roster.push.apply(roster, this.props.forwards);
       return _react.default.createElement("div", {
         className: _rosterDisplay.default.rosterDisplay
-      }, "Roster:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Remove from Roster"))), _react.default.createElement("tbody", null, roster.map(function (p) {
+      }, "Roster:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Make Starter?"), _react.default.createElement("th", null, "Have on Bench?"), _react.default.createElement("th", null, "Remove from Roster"))), _react.default.createElement("tbody", null, roster.map(function (p) {
         return _react.default.createElement("tr", {
           id: "ros-".concat(p.idFromAPI),
           key: "key-".concat(p.idFromAPI)
-        }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
+        }, _react.default.createElement("td", {
+          className: _rosterDisplay.default.playerName
+        }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
+          "data-id": p.idFromAPI,
+          "data-firstname": p.firstName,
+          "data-lastname": p.lastName,
+          "data-position": p.position,
+          onClick: _this.addStarter.bind(_this)
+        }, "Make Starter"), _react.default.createElement("td", {
+          "data-id": p.idFromAPI,
+          "data-firstname": p.firstName,
+          "data-lastname": p.lastName,
+          "data-position": p.position,
+          onClick: _this.addBench.bind(_this)
+        }, "Have on Bench"), _react.default.createElement("td", {
           className: _rosterDisplay.default.playerRemove,
+          "data-id": p.idFromAPI,
+          "data-firstname": p.firstName,
+          "data-lastname": p.lastName,
+          "data-position": p.position,
+          "data-clubname": p.clubName,
+          "data-points": p.fantasyPoints.fixture,
           onClick: _this.handleRosterRemove.bind(_this)
         }, "Remove"));
       }))));
@@ -40919,12 +41117,27 @@ var fantasyClubReducer = function fantasyClubReducer() {
         midfielders: action.midfielder
       });
 
+    case _fantasyClubActions.REMOVE_MIDFIELDER_SUCCESS:
+      return Object.assign({}, state, {
+        midfielders: action.midfielder
+      });
+
     case _fantasyClubActions.SET_DEFENDER_SUCCESS:
       return Object.assign({}, state, {
         defenders: action.defender
       });
 
+    case _fantasyClubActions.REMOVE_DEFENDER_SUCCESS:
+      return Object.assign({}, state, {
+        defenders: action.defender
+      });
+
     case _fantasyClubActions.SET_FORWARD_SUCCESS:
+      return Object.assign({}, state, {
+        forwards: action.forward
+      });
+
+    case _fantasyClubActions.REMOVE_FORWARD_SUCCESS:
       return Object.assign({}, state, {
         forwards: action.forward
       });
@@ -40940,8 +41153,11 @@ var fantasyClubReducer = function fantasyClubReducer() {
     case _fantasyClubActions.SET_GOALKEEPER_FAIL:
     case _fantasyClubActions.REMOVE_GOALKEEPER_FAIL:
     case _fantasyClubActions.SET_DEFENDER_FAIL:
+    case _fantasyClubActions.REMOVE_DEFENDER_FAIL:
     case _fantasyClubActions.SET_MIDFIELDER_FAIL:
+    case _fantasyClubActions.REMOVE_MIDFIELDER_FAIL:
     case _fantasyClubActions.SET_FORWARD_FAIL:
+    case _fantasyClubActions.REMOVE_FORWARD_FAIL:
     default:
       return state;
   }

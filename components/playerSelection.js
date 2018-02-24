@@ -179,7 +179,8 @@ export class Selection extends React.Component {
 									// creating a table row for each player that makes it through the filters
 									return(
 										<tr
-											key={p.idFromAPI}>
+											key={p.idFromAPI}
+											id={`sel-${p.idFromAPI}`}>
 											<td
 												className={styles.playerName}
 												data-id={p.idFromAPI}

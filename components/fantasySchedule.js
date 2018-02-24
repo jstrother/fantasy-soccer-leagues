@@ -15,10 +15,10 @@ export class Schedule extends React.Component {
 				className={rosterLength < 23 ? styles.hidden : styles.fantasySchedule}>
 				<p>Set your lineup for upcoming matches.</p>
 				<div>
-					Select your Starting 11:
+					Your Starting 11:
 				</div>
 				<div>
-					Select your Matchday 18:
+					Players Available on Bench:
 				</div>
 				<FantasyMatch />
 			</div>

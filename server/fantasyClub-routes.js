@@ -60,10 +60,25 @@ fantasyClubRouter.post('/addGoalkeeper',
   }
 );
 
-fantasyClubRouter.delete('/removeGoalkeeper',
+fantasyClubRouter.post('/removeGoalkeeper',
   (req, res) => {
     FantasyClub
-    .deleteOne({idFromAPI: req.params.player.idFromAPI})
+    .findOneAndUpdate(
+      req.params.goalkeepers,
+      {$pull: {goalkeepers: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.goalkeepers
+      )
+      .then(data => {
+        res.json(data.goalkeepers);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
     .catch(error => {
       throw new Error(error);
     });
@@ -81,6 +96,31 @@ fantasyClubRouter.post('/addDefender',
       FantasyClub
       .findOne(
         req.params.defenders  
+      )
+      .then(data => {
+        res.json(data.defenders);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/removeDefender',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.defenders,
+      {$pull: {defenders: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.defenders
       )
       .then(data => {
         res.json(data.defenders);
@@ -120,6 +160,31 @@ fantasyClubRouter.post('/addForward',
   }
 );
 
+fantasyClubRouter.post('/removeForward',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.forwards,
+      {$pull: {forwards: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.forwards  
+      )
+      .then(data => {
+        res.json(data.forwards);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
 fantasyClubRouter.post('/addMidfielder',
   (req, res) => {
     FantasyClub
@@ -131,6 +196,31 @@ fantasyClubRouter.post('/addMidfielder',
       FantasyClub
       .findOne(
         req.params.midfielders  
+      )
+      .then(data => {
+        res.json(data.midfielders);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/removeMidfielder',
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.midfielders,
+      {$pull: {midfielders: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.midfielders
       )
       .then(data => {
         res.json(data.midfielders);
