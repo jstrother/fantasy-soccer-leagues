@@ -117,7 +117,7 @@ export class Selection extends React.Component {
 										className={"positionsList"}
 										defaultValue={"allPositions"}
 										onChange={this.handlePositionChange.bind(this)}>
-										<option key={"1"} value={"allPositions"}>All Position</option>
+										<option key={"1"} value={"allPositions"}>All Positions</option>
 										<option key={"2"} value={"forwards"}>Forwards</option>
 										<option key={"3"} value={"midfielders"}>Midfielders</option>
 										<option key={"4"} value={"defenders"}>Defenders</option>
@@ -129,7 +129,7 @@ export class Selection extends React.Component {
 										className={"clubsList"}
 										defaultValue={"allClubs"}
 										onChange={this.handleClubChange.bind(this)}>
-										<option key={"allClubs"} value={"allClubs"}>All Club</option>
+										<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
 										{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
 									</select>
 								</th>

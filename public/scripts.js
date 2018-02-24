@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6fd497a681fcd7cce26c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c4c9e9dc29d5ea314b1f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -40192,7 +40192,7 @@ function (_React$Component) {
         }, _react.default.createElement("option", {
           key: "1",
           value: "allPositions"
-        }, "All Position"), _react.default.createElement("option", {
+        }, "All Positions"), _react.default.createElement("option", {
           key: "2",
           value: "forwards"
         }, "Forwards"), _react.default.createElement("option", {
@@ -40211,7 +40211,7 @@ function (_React$Component) {
         }, _react.default.createElement("option", {
           key: "allClubs",
           value: "allClubs"
-        }, "All Club"), league.clubs.map(function (c) {
+        }, "All Clubs"), league.clubs.map(function (c) {
           return _react.default.createElement("option", {
             key: c.name,
             value: c.name
