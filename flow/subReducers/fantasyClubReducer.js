@@ -1,7 +1,7 @@
 // ./flow/subReducers/fantasyClubReducer.js
 // imported into ./flow/reducers.js
 
-import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_GOALKEEPER_SUCCESS, SET_GOALKEEPER_FAIL, SET_DEFENDER_SUCCESS, SET_DEFENDER_FAIL, SET_MIDFIELDER_SUCCESS, SET_MIDFIELDER_FAIL, SET_FORWARD_SUCCESS, SET_FORWARD_FAIL, SET_CLUB_NAME_SUCCESS, SET_CLUB_NAME_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL } from '../subActions/fantasyClubActions.js';
+import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_GOALKEEPER_SUCCESS, SET_GOALKEEPER_FAIL, SET_DEFENDER_SUCCESS, SET_DEFENDER_FAIL, SET_MIDFIELDER_SUCCESS, SET_MIDFIELDER_FAIL, SET_FORWARD_SUCCESS, SET_FORWARD_FAIL, SET_CLUB_NAME_SUCCESS, SET_CLUB_NAME_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL, REMOVE_GOALKEEPER_SUCCESS, REMOVE_GOALKEEPER_FAIL } from '../subActions/fantasyClubActions.js';
 
 export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midfielders: [], forwards: []}, action) => {
   switch (action.type) {
@@ -27,6 +27,12 @@ export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midf
         }
       );
     case SET_GOALKEEPER_SUCCESS:
+      return Object.assign({}, state,
+        {
+          goalkeepers: action.goalkeeper
+        }
+      );
+    case REMOVE_GOALKEEPER_SUCCESS:
       return Object.assign({}, state,
         {
           goalkeepers: action.goalkeeper
@@ -60,6 +66,7 @@ export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midf
     case SET_CLUB_NAME_FAIL:
     case SET_MANAGER_FAIL:
     case SET_GOALKEEPER_FAIL:
+    case REMOVE_GOALKEEPER_FAIL:
     case SET_DEFENDER_FAIL:
     case SET_MIDFIELDER_FAIL:
     case SET_FORWARD_FAIL:

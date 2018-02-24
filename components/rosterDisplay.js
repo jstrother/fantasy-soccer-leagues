@@ -5,8 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { getClub } from '../flow/subActions/fantasyClubActions.js';
-import { fetchRosterPlayerData } from '../flow/subActions/playerActions.js';
+import { getClub, removeGoalkeeper } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -15,7 +14,33 @@ export class Display extends React.Component {
 	}
 	
   handleRosterRemove(event) {
-    
+    let dataSet = event.target.dataset,
+			player = {
+				idFromAPI: parseInt(dataSet.id, 10),
+				firstName: dataSet.firstname,
+				lastName: dataSet.lastname,
+				position: dataSet.position,
+				clubName: dataSet.clubname,
+				fantasyPoints: {
+					fixture: parseInt(dataSet.points, 10)
+				}
+			};
+		
+		if (player.position === 'G' || player.position === 'Goalkeeper') {
+			this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
+		}
+		if (player.position === 'D' || player.position === 'Defender') {
+			console.log('player removed!');
+			// this.props.dispatch(removeDefender(this.props.accessToken, player));
+		}
+		if (player.position === 'M' || player.position === 'Midfielder') {
+			console.log('player removed!');
+			// this.props.dispatch(removeMidfielder(this.props.accessToken, player));
+		}
+		if (player.position === 'F' || player.position === 'Attacker') {
+			console.log('player removed!');
+			// this.props.dispatch(removeForward(this.props.accessToken, player));
+		}
   }
   
   render() {
@@ -57,7 +82,8 @@ export class Display extends React.Component {
 									<tr
 										id={`ros-${p.idFromAPI}`}
 										key={`key-${p.idFromAPI}`}>
-										<td>
+										<td
+											className={styles.playerName}>
 											{`${p.firstName} ${p.lastName}`}
 										</td>
 										<td>
@@ -70,6 +96,7 @@ export class Display extends React.Component {
 											{`${p.fantasyPoints.fixture}`}
 										</td>
 										<td
+											className={styles.playerRemove}
 											onClick={this.handleRosterRemove.bind(this)}>
 											Remove
 										</td>

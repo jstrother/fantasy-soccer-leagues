@@ -44,6 +44,19 @@ export const setGoalkeeperFail = statusCode => ({
   statusCode
 });
 
+export const REMOVE_GOALKEEPER_SUCCESS = 'REMOVE_GOALKEEPER_SUCCESS';
+export const removeGoalkeeperSuccess = (goalkeeper, statusCode) => ({
+  type: REMOVE_GOALKEEPER_SUCCESS,
+  goalkeeper,
+  statusCode
+});
+
+export const REMOVE_GOALKEEPER_FAIL = 'REMOVE_GOALKEEPER_FAIL';
+export const removeGoalkeeperFail = statusCode => ({
+  type: REMOVE_GOALKEEPER_FAIL,
+  statusCode
+});
+
 export const SET_DEFENDER_SUCCESS = 'SET_DEFENDER_SUCCESS';
 export const setDefenderSuccess = (defender, statusCode) => ({
   type: SET_DEFENDER_SUCCESS,
@@ -145,6 +158,37 @@ export const addGoalkeeper = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(setGoalkeeperSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const removeGoalkeeper = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/removeGoalkeeper`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(removeGoalkeeperFail(res.status));
+        return;
+      }
+      dispatch(removeGoalkeeperFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(removeGoalkeeperSuccess(data, 200));
     return;
   })
   .catch(error => {

@@ -60,6 +60,16 @@ fantasyClubRouter.post('/addGoalkeeper',
   }
 );
 
+fantasyClubRouter.delete('/removeGoalkeeper',
+  (req, res) => {
+    FantasyClub
+    .deleteOne({idFromAPI: req.params.player.idFromAPI})
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
 fantasyClubRouter.post('/addDefender',
   (req, res) => {
     FantasyClub
