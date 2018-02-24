@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "77064eacc90b7ad54981"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "61a6a1d37a775eda8fa3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9647,7 +9647,7 @@ exports.addLeague = addLeague;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.rosterWarning = exports.rosterWarningFail = exports.ROSTER_WARNING_FAIL = exports.showRosterWarning = exports.SHOW_ROSTER_WARNING = void 0;
+exports.rosterWarning = exports.rosterWarningFail = exports.ROSTER_WARNING_FAIL = exports.hideRosterWarning = exports.HIDE_ROSTER_WARNING = exports.showRosterWarning = exports.SHOW_ROSTER_WARNING = void 0;
 
 /* eslint-disable no-console */
 var SHOW_ROSTER_WARNING = 'SHOW_ROSTER_WARNING';
@@ -9663,6 +9663,17 @@ var showRosterWarning = function showRosterWarning(message, timeout) {
 };
 
 exports.showRosterWarning = showRosterWarning;
+var HIDE_ROSTER_WARNING = 'HIDE_ROSTER_WARNING';
+exports.HIDE_ROSTER_WARNING = HIDE_ROSTER_WARNING;
+
+var hideRosterWarning = function hideRosterWarning() {
+  return {
+    type: HIDE_ROSTER_WARNING,
+    show: false
+  };
+};
+
+exports.hideRosterWarning = hideRosterWarning;
 var ROSTER_WARNING_FAIL = 'ROSTER_WARNING_FAIL';
 exports.ROSTER_WARNING_FAIL = ROSTER_WARNING_FAIL;
 
@@ -40843,7 +40854,7 @@ var rosterWarningReducer = function rosterWarningReducer() {
         show: action.show
       });
 
-    case 'HIDE_ROSTER_WARNING':
+    case _rosterWarningAction.HIDE_ROSTER_WARNING:
       return Object.assign({}, state, {
         show: action.show
       });
@@ -40912,10 +40923,7 @@ var warningFadeMiddleware = function warningFadeMiddleware(store) {
     return function (action) {
       if (action.type === _rosterWarningAction.SHOW_ROSTER_WARNING) {
         action.timeout = setTimeout(function () {
-          return store.dispatch({
-            type: 'HIDE_ROSTER_WARNING',
-            show: false
-          });
+          return store.dispatch((0, _rosterWarningAction.hideRosterWarning)());
         }, 7000);
       } else {
         clearTimeout(action.timeout);
