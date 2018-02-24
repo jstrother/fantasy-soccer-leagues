@@ -103,6 +103,7 @@ export class Selection extends React.Component {
       return(
         <div
 					className={rosterLength === 23 ? styles.hidden : styles.playerSelection}>
+					<p>Select players for your roster.</p>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward.</h5>
 					<h5>Click on a player's name to add them to your roster.</h5>
