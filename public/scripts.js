@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "61a6a1d37a775eda8fa3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1ee6c618ad133a04883a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -40307,7 +40307,7 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: this.props.show === false ? _rosterWarning.default.hidden : _rosterWarning.default.rosterWarning
-      }, _react.default.createElement("p", null, this.props.warningMessage));
+      }, _react.default.createElement("p", null, this.props.message));
     }
   }]);
 
@@ -40318,7 +40318,7 @@ exports.Warning = Warning;
 
 var mapWarningStateToProps = function mapWarningStateToProps(state) {
   return {
-    warningMessage: state.rosterWarningReducer.message,
+    message: state.rosterWarningReducer.message,
     show: state.rosterWarningReducer.show
   };
 };
@@ -40550,9 +40550,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // flow/store.js
 // imported into ../components/index.js
-var logger = (0, _reduxLogger.createLogger)();
+var logger = (0, _reduxLogger.createLogger)(),
+    devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware);
 
-var _default = (0, _redux.createStore)(_reducers.reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware));
+var _default = (0, _redux.createStore)(_reducers.reducers, devTools, middleware);
 
 exports.default = _default;
 
