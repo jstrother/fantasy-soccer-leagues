@@ -1,7 +1,7 @@
 @import "normalize";
 @import "myVariables";
 
-.rosterDisplay {
+.benchPlayers {
   width: $tableWidth;
   
   table {
@@ -40,4 +40,8 @@
       cursor: pointer;
     }
   }
+}
+
+.hidden {
+  display: none;
 }

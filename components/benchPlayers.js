@@ -1,57 +1,90 @@
-
+// components/startingEleven.js
 
 import React from 'react';
 import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
+import { removeGoalkeeper } from '../flow/subActions/fantasyClubActions.js';
+import styles from '../scss/benchPlayers.scss';
 
-import Player from './player.js';
-
-export class BenchPlayerList extends React.Component {
-	// dispatch selectBenchers action here
-	
-	render() {
-		return(
-			<div>
-				{ this.props.players.map(player => 
-					<Player name={player.id}
-						position={player.position}
-						club={player.clubName}
-						shotsTotal={player.stats.shots.shotsTotal}
-						shotsOnGoal={player.stats.shots.shotsOnGoal}
-						goalsScored={player.stats.goals.scored}
-						goalsConceded={player.stats.goals.conceded}
-						ownGoals={player.stats.goals.ownGoals}
-						foulsDrawn={player.stats.fouls.drawn}
-						foulsCommitted={player.stats.fouls.committed}
-						yellowCards={player.stats.cards.yellowCards}
-						redCards={player.stats.cards.redCards}
-						totalCrosses={player.stats.passing.totalCrosses}
-						crossesAccuracy={player.stats.passing.crossesAccuracy}
-						totalPasses={player.stats.passing.passes}
-						passingAccuracy={player.stats.passing.passingAccuracy}
-						assists={player.stats.other.assists}
-						offsides={player.stats.other.offsides}
-						saves={player.stats.other.saves}
-						penaltiesScored={player.stats.other.penaltiesScored}
-						penaltiesMissed={player.stats.other.penaltiesMissed}
-						penaltiesSaved={player.stats.other.penaltiesSaved}
-						tackles={player.stats.other.tackles}
-						blocks={player.stats.other.blocks}
-						interceptions={player.stats.other.interceptions}
-						clearances={player.stats.other.clearances}
-						minutesPlayed={player.stats.other.minutesPlayed} />
-					) 
-				}
-			</div>
-		);
-	}
+export class Bench extends React.Component {
+  handleMatchdayRemove(event) {
+    let dataSet = event.target.dataset,
+      player = {
+        idFromAPI: parseInt(dataSet.id, 10),
+        firstName: dataSet.firstname,
+        lastName: dataSet.lastname,
+        position: dataSet.position
+      };
+    
+    this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
+  }
+  render () {
+    if (this.props.benchwarmers) {
+			return(
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Name
+								</th>
+								<th>
+									Position
+								</th>
+								<th>
+									Remove from Starting 11?
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								this.props.benchwarmers
+								.map(p => {
+									return(
+										<tr
+											id={`s11-${p.idFromAPI}`}
+											key={`key-${p.idFromAPI}`}>
+											<td>
+												{`${p.firstName} ${p.lastName}`}
+											</td>
+											<td>
+												{`${p.position}`}
+											</td>
+											<td
+												className={styles.pointer}
+												data-id={p.idFromAPI}
+												data-firstname={p.firstName}
+												data-lastname={p.lastName}
+												data-position={p.position}
+												onClick={this.handleMatchdayRemove.bind(this)}>
+												Remove
+											</td>
+										</tr>
+									);
+								})
+							}
+						</tbody>
+					</table>
+				</div>
+			);
+    }
+    else {
+			return(
+				<div>
+					You have no bench players yet.
+				</div>
+			);
+    }
+  }
 }
 
-const mapBenchersStateToProps = state => ({
-	players: state.updateRosterReducer.players
+const mapBenchStateToProps = state => ({
+	accessToken: state.userReducer.accessToken,
+  benchwarmers: state.fantasyClubReducer.benchwarmers
 });
 
-const Benchers = connect(
-	mapBenchersStateToProps
-)(BenchPlayerList);
+const BenchPlayers = connect(
+  mapBenchStateToProps
+)(Bench);
 
-export default Benchers;
+export default CSSModules(BenchPlayers, styles);

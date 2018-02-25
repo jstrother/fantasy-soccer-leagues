@@ -103,6 +103,7 @@ export class Selection extends React.Component {
       return(
         <div
 					className={rosterLength === 23 ? styles.hidden : styles.playerSelection}>
+					<p>Select players for your roster.</p>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward.</h5>
 					<h5>Click on a player's name to add them to your roster.</h5>
@@ -116,7 +117,7 @@ export class Selection extends React.Component {
 										className={"positionsList"}
 										defaultValue={"allPositions"}
 										onChange={this.handlePositionChange.bind(this)}>
-										<option key={"1"} value={"allPositions"}>All Position</option>
+										<option key={"1"} value={"allPositions"}>All Positions</option>
 										<option key={"2"} value={"forwards"}>Forwards</option>
 										<option key={"3"} value={"midfielders"}>Midfielders</option>
 										<option key={"4"} value={"defenders"}>Defenders</option>
@@ -128,7 +129,7 @@ export class Selection extends React.Component {
 										className={"clubsList"}
 										defaultValue={"allClubs"}
 										onChange={this.handleClubChange.bind(this)}>
-										<option key={"allClubs"} value={"allClubs"}>All Club</option>
+										<option key={"allClubs"} value={"allClubs"}>All Clubs</option>
 										{league.clubs.map(c => (<option key={c.name} value={c.name}>{c.name}</option>))}
 									</select>
 								</th>
@@ -178,7 +179,8 @@ export class Selection extends React.Component {
 									// creating a table row for each player that makes it through the filters
 									return(
 										<tr
-											key={p.idFromAPI}>
+											key={p.idFromAPI}
+											id={`sel-${p.idFromAPI}`}>
 											<td
 												className={styles.playerName}
 												data-id={p.idFromAPI}

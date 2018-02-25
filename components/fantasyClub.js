@@ -62,11 +62,9 @@ export class FantasyTeam extends React.Component {
 					className={styles.fantasyClub}>
 					<div
 						className={styles.rosterDiv}>
-						Select players for your roster.
 						<Roster />
 					</div>
 					<div>
-						Set your lineup for upcoming matches.
 						<FantasySchedule /> {/* covers league matches within a division and the cup matches between all teams in all divisions */}
 					</div>
 					<div

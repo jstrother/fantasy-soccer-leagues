@@ -2,20 +2,44 @@
 // components/fantasySchedule.js
 
 import React from 'react';
+import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
 import FantasyMatch from './fantasyMatch.js';
+import StartingEleven from './startingEleven.js';
+import BenchPlayers from './benchPlayers.js';
+import styles from '../scss/fantasySchedule.scss';
 
-export default class FantasySchedule extends React.Component {
+export class Schedule extends React.Component {
 	render() {
+		const rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 		return(
-			<div>
+			<div
+				className={rosterLength < 23 ? styles.hidden : styles.fantasySchedule}>
+				<p>Set your lineup for upcoming matches.</p>
 				<div>
-					Select your Starting 11:
+					Your Starting 11:
+					<StartingEleven />
 				</div>
 				<div>
-					Select your Matchday 18:
+					Players Available on Bench:
+					<BenchPlayers />
 				</div>
 				<FantasyMatch />
 			</div>
 		);
 	}
 }
+
+const mapScheduleStateToProps = state => ({
+	goalkeepers: state.fantasyClubReducer.goalkeepers,
+	defenders: state.fantasyClubReducer.defenders,
+	midfielders: state.fantasyClubReducer.midfielders,
+	forwards: state.fantasyClubReducer.forwards,
+	accessToken: state.userReducer.accessToken
+});
+
+const FantasySchedule = connect(
+	mapScheduleStateToProps	
+)(Schedule);
+
+export default CSSModules(FantasySchedule, styles);
