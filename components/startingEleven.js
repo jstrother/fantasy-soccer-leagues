@@ -1,8 +1,10 @@
+/*eslint-disable no-unused-vars*/
 // components/startingEleven.js
 
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
+import StartingElevenAlert from './startingElevenAlert.js';
 import { removeStarter } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/startingEleven.scss';
 
@@ -19,9 +21,11 @@ export class Starters extends React.Component {
     this.props.dispatch(removeStarter(this.props.accessToken, player));
   }
   render () {
-    if (this.props.starters) {
+    if (this.props.starters.length > 0) {
       return(
-        <div>
+        <div
+          className={styles.startingEleven}>
+          <StartingElevenAlert />
           <table>
             <thead>
               <tr>

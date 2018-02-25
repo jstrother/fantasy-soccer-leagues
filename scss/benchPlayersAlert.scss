@@ -1,0 +1,17 @@
+@import "normalize";
+@import "myVariables";
+
+.benchPlayersAlert {
+  background-color: red;
+  height: 3em;
+  width: 30em;
+  display: flex;
+  p {
+    margin: auto;
+    font-weight: bold;
+  }
+}
+
+.hidden {
+  display: none;
+}

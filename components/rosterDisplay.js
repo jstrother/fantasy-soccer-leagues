@@ -6,6 +6,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
+import { startingElevenAlert } from '../flow/subActions/startingElevenAlertActions.js';
+import { benchPlayersAlert } from '../flow/subActions/benchPlayersAlertActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -54,7 +56,13 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.starters.length < 11) {
-			this.props.dispatch(addStarter(this.props.accessToken, player));
+			this.props.benchwarmers.forEach(p => {
+				if (player.idFromAPI !== p.idFromAPI) {
+					this.props.dispatch(addStarter(this.props.accessToken, player));
+				}
+			});
+		} else {
+			this.props.dispatch(startingElevenAlert('You have 11 starters.'));
 		}
 	}
 	
@@ -72,8 +80,18 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.benchwarmers.length < 7 ) {
-			this.props.dispatch(addBench(this.props.accessToken, player));
+			this.props.starters.forEach(p => {
+				if (player.idFromAPI !== p.idFromAPI) {
+					this.props.dispatch(addBench(this.props.accessToken, player));
+				}
+			});
+		} else {
+			this.props.dispatch(benchPlayersAlert('You have 7 players on the bench.'));
 		}
+	}
+	
+	showPlayerStats(event) {
+		
 	}
   
   render() {
@@ -87,6 +105,7 @@ export class Display extends React.Component {
       <div
 				className={styles.rosterDisplay}>
 				Roster:
+				<h5>Click on a player's name to view their stats.</h5>
 				<table>
 					<thead>
 						<tr>
@@ -122,7 +141,8 @@ export class Display extends React.Component {
 										id={`ros-${p.idFromAPI}`}
 										key={`key-${p.idFromAPI}`}>
 										<td
-											className={styles.pointer}>
+											className={styles.pointer}
+											onClick={this.showPlayerStats.bind(this)}>
 											{`${p.firstName} ${p.lastName}`}
 										</td>
 										<td>

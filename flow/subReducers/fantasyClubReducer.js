@@ -3,7 +3,7 @@
 
 import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_GOALKEEPER_SUCCESS, SET_GOALKEEPER_FAIL, SET_DEFENDER_SUCCESS, SET_DEFENDER_FAIL, SET_MIDFIELDER_SUCCESS, SET_MIDFIELDER_FAIL, SET_FORWARD_SUCCESS, SET_FORWARD_FAIL, SET_CLUB_NAME_SUCCESS, SET_CLUB_NAME_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL, REMOVE_GOALKEEPER_SUCCESS, REMOVE_GOALKEEPER_FAIL, REMOVE_DEFENDER_SUCCESS, REMOVE_DEFENDER_FAIL, REMOVE_MIDFIELDER_SUCCESS, REMOVE_MIDFIELDER_FAIL, REMOVE_FORWARD_SUCCESS, REMOVE_FORWARD_FAIL, ADD_STARTER_SUCCESS, ADD_STARTER_FAIL, ADD_BENCHWARMER_SUCCESS, ADD_BENCHWARMER_FAIL, REMOVE_STARTER_SUCCESS, REMOVE_STARTER_FAIL, REMOVE_BENCHWARMER_SUCCESS, REMOVE_BENCHWARMER_FAIL } from '../subActions/fantasyClubActions.js';
 
-export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midfielders: [], forwards: []}, action) => {
+export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midfielders: [], forwards: [], starters: [], benchwarmers: []}, action) => {
   switch (action.type) {
     case GET_CLUB_SUCCESS:
       return Object.assign({}, state,
@@ -14,6 +14,8 @@ export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midf
           defenders: action.fantasyClub.defenders,
           midfielders: action.fantasyClub.midfielders,
           forwards: action.fantasyClub.forwards,
+          starters: action.fantasyClub.starters,
+          benchwarmers: action.fantasyClub.benchwarmers,
           league: action.fantasyClub.league,
           division: action.fantasyClub.division,
           champsLeague: action.fantasyClub.champsLeague,

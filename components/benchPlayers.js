@@ -1,9 +1,11 @@
+/*eslint-disable no-console, no-unused-vars*/
 // components/startingEleven.js
 
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { removeGoalkeeper } from '../flow/subActions/fantasyClubActions.js';
+import BenchPlayersAlert from './benchPlayersAlert.js';
+import { removeBench } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/benchPlayers.scss';
 
 export class Bench extends React.Component {
@@ -16,12 +18,14 @@ export class Bench extends React.Component {
         position: dataSet.position
       };
     
-    this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
+    this.props.dispatch(removeBench(this.props.accessToken, player));
   }
   render () {
-    if (this.props.benchwarmers) {
+    if (this.props.benchwarmers.length > 0) {
 			return(
-				<div>
+				<div
+					className={styles.benchPlayers}>
+					<BenchPlayersAlert />
 					<table>
 						<thead>
 							<tr>
@@ -32,7 +36,7 @@ export class Bench extends React.Component {
 									Position
 								</th>
 								<th>
-									Remove from Starting 11?
+									Remove from Bench?
 								</th>
 							</tr>
 						</thead>
