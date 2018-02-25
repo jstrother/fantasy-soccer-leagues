@@ -5,7 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward } from '../flow/subActions/fantasyClubActions.js';
+import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -40,12 +40,40 @@ export class Display extends React.Component {
 		}
   }
   
-	addStarter() {
+	addStarter(event) {
+		let dataSet = event.target.dataset,
+			player = {
+				idFromAPI: parseInt(dataSet.id, 10),
+				firstName: dataSet.firstname,
+				lastName: dataSet.lastname,
+				position: dataSet.position,
+				clubName: dataSet.clubname,
+				fantasyPoints: {
+					fixture: parseInt(dataSet.points, 10)
+				}
+			};
 		
+		if (this.props.starters.length < 11) {
+			this.props.dispatch(addStarter(this.props.accessToken, player));
+		}
 	}
 	
-	addBench() {
+	addBench(event) {
+		let dataSet = event.target.dataset,
+			player = {
+				idFromAPI: parseInt(dataSet.id, 10),
+				firstName: dataSet.firstname,
+				lastName: dataSet.lastname,
+				position: dataSet.position,
+				clubName: dataSet.clubname,
+				fantasyPoints: {
+					fixture: parseInt(dataSet.points, 10)
+				}
+			};
 		
+		if (this.props.benchwarmers.length < 7 ) {
+			this.props.dispatch(addBench(this.props.accessToken, player));
+		}
 	}
   
   render() {
@@ -94,7 +122,7 @@ export class Display extends React.Component {
 										id={`ros-${p.idFromAPI}`}
 										key={`key-${p.idFromAPI}`}>
 										<td
-											className={styles.playerName}>
+											className={styles.pointer}>
 											{`${p.firstName} ${p.lastName}`}
 										</td>
 										<td>
@@ -107,6 +135,7 @@ export class Display extends React.Component {
 											{`${p.fantasyPoints.fixture}`}
 										</td>
 										<td
+											className={styles.pointer}
 											data-id={p.idFromAPI}
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
@@ -115,6 +144,7 @@ export class Display extends React.Component {
 											Make Starter
 										</td>
 										<td
+											className={styles.pointer}
 											data-id={p.idFromAPI}
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
@@ -123,7 +153,7 @@ export class Display extends React.Component {
 											Have on Bench
 										</td>
 										<td
-											className={styles.playerRemove}
+											className={styles.pointer}
 											data-id={p.idFromAPI}
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
@@ -150,7 +180,8 @@ const mapDisplayStateToProps = state => ({
   defenders: state.fantasyClubReducer.defenders,
   midfielders: state.fantasyClubReducer.midfielders,
   forwards: state.fantasyClubReducer.forwards,
-  player: state.playerReducer.player
+  starters: state.fantasyClubReducer.starters,
+  benchwarmers: state.fantasyClubReducer.benchwarmers
 });
 
 const RosterDisplay = connect(

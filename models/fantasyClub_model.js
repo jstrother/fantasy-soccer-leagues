@@ -11,7 +11,6 @@ const mongoose = require('mongoose'),
 				forwards: Array,
 				starters: Array,
 				benchwarmers: Array,
-				reserves: Array,
 				champsLeague: String,
 				schedule: Array
 			}),

@@ -5,6 +5,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import FantasyMatch from './fantasyMatch.js';
+import StartingEleven from './startingEleven.js';
+import BenchPlayers from './benchPlayers.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
@@ -16,9 +18,11 @@ export class Schedule extends React.Component {
 				<p>Set your lineup for upcoming matches.</p>
 				<div>
 					Your Starting 11:
+					<StartingEleven />
 				</div>
 				<div>
 					Players Available on Bench:
+					<BenchPlayers />
 				</div>
 				<FantasyMatch />
 			</div>

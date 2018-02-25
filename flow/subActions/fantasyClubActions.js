@@ -135,6 +135,58 @@ export const removeForwardFail = statusCode => ({
   statusCode
 });
 
+export const ADD_STARTER_SUCCESS = 'ADD_STARTER_SUCCESS';
+export const addStarterSuccess = (starter, statusCode) => ({
+  type: ADD_STARTER_SUCCESS,
+  starter,
+  statusCode
+});
+
+export const ADD_STARTER_FAIL = 'ADD_STARTER_FAIL';
+export const addStarterFail = statusCode => ({
+  type: ADD_STARTER_FAIL,
+  statusCode
+});
+
+export const REMOVE_STARTER_SUCCESS = 'REMOVE_STARTER_SUCCESS';
+export const removeStarterSuccess = (starter, statusCode) => ({
+  type: REMOVE_STARTER_SUCCESS,
+  starter,
+  statusCode
+});
+
+export const REMOVE_STARTER_FAIL = 'REMOVE_STARTER_FAIL';
+export const removeStarterFail = statusCode => ({
+  type: REMOVE_STARTER_FAIL,
+  statusCode
+});
+
+export const ADD_BENCHWARMER_SUCCESS = 'ADD_BENCHWARMER_SUCCESS';
+export const addBenchwarmerSuccess = (benchwarmer, statusCode) => ({
+  type: ADD_BENCHWARMER_SUCCESS,
+  benchwarmer,
+  statusCode
+});
+
+export const ADD_BENCHWARMER_FAIL = 'ADD_BENCHWARMER_FAIL';
+export const addBenchwarmerFail = statusCode => ({
+  type: ADD_BENCHWARMER_FAIL,
+  statusCode
+});
+
+export const REMOVE_BENCHWARMER_SUCCESS = 'REMOVE_BENCHWARMER_SUCCESS';
+export const removeBenchwarmerSuccess = (benchwarmer, statusCode) => ({
+  type: REMOVE_BENCHWARMER_SUCCESS,
+  benchwarmer,
+  statusCode
+});
+
+export const REMOVE_BENCHWARMER_FAIL = 'REMOVE_BENCHWARMER_FAIL';
+export const removeBenchwarmerFail = statusCode => ({
+  type: REMOVE_BENCHWARMER_FAIL,
+  statusCode
+});
+
 export const SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
 export const setManagerSuccess = (manager, statusCode) => ({
   type: SET_MANAGER_SUCCESS,
@@ -414,6 +466,130 @@ export const removeForward = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeForwardSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addStarter = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/addStarter`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(addStarterFail(res.status));
+        return;
+      } 
+      dispatch(addStarterFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(addStarterSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const removeStarter = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/removeStarter`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(removeStarterFail(res.status));
+        return;
+      }
+      dispatch(removeStarterFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(removeStarterSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addBench = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/addBench`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(addBenchwarmerFail(res.status));
+        return;
+      } 
+      dispatch(addBenchwarmerFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(addBenchwarmerSuccess(data, 200));
+    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const removeBench = (accessToken, player) => dispatch => {
+  return fetch(`${thisURL}/removeBench`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      player
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(removeBenchwarmerFail(res.status));
+        return;
+      }
+      dispatch(removeBenchwarmerFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(removeBenchwarmerSuccess(data, 200));
     return;
   })
   .catch(error => {

@@ -235,6 +235,106 @@ fantasyClubRouter.post('/removeMidfielder',
   }
 );
 
+fantasyClubRouter.post('/addStarter', 
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.starters,
+      {$addToSet: {starters: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.starters
+      )
+      .then(data => {
+        res.json(data.starters);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/removeStarter', 
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.starters,
+      {$pull: {starters: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.starters
+      )
+      .then(data => {
+        res.json(data.starters);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/addBench', 
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.benchwarmers,
+      {$addToSet: {benchwarmers: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.benchwarmers
+      )
+      .then(data => {
+        res.json(data.benchwarmers);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.post('/removeBench', 
+  (req, res) => {
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.benchwarmers,
+      {$pull: {benchwarmers: req.body.player}}
+    )
+    .then(data => {
+      FantasyClub
+      .findOne(
+        req.params.benchwarmers
+      )
+      .then(data => {
+        res.json(data.benchwarmers);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
 fantasyClubRouter.put('/addClubName',
   (req, res) => {
     updateData(req.params.clubName,
