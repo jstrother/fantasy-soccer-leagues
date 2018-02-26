@@ -4,7 +4,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import BenchPlayersAlert from './benchPlayersAlert.js';
 import { removeBench } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/benchPlayers.scss';
 
@@ -25,7 +24,6 @@ export class Bench extends React.Component {
 			return(
 				<div
 					className={styles.benchPlayers}>
-					<BenchPlayersAlert />
 					<table>
 						<thead>
 							<tr>

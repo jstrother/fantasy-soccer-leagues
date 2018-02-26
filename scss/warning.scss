@@ -1,10 +1,10 @@
 @import "normalize";
 @import "myVariables";
 
-.benchPlayersAlert {
+.rosterWarning {
   background-color: red;
   height: 3em;
-  width: 30em;
+  width: auto;
   display: flex;
   p {
     margin: auto;

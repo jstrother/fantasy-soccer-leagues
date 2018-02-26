@@ -5,11 +5,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import RosterWarning from './rosterWarning.js';
+import Warning from './warning.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
-import { rosterWarning } from '../flow/subActions/rosterWarningAction.js';
+import { warning } from '../flow/subActions/warningActions.js';
 import styles from '../scss/playerSelection.scss';
 
 export class Selection extends React.Component {
@@ -62,7 +62,7 @@ export class Selection extends React.Component {
 						this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
 					}
 					else {
-						this.props.dispatch(rosterWarning('You have reached the maximum number of goalkeepers.'));
+						this.props.dispatch(warning('You have reached the maximum number of goalkeepers.'));
 					}
 				}
 				if (player.position === 'D' || player.position === 'Defender') {
@@ -70,7 +70,7 @@ export class Selection extends React.Component {
 						this.props.dispatch(addDefender(this.props.accessToken, player));
 					}
 					else {
-						this.props.dispatch(rosterWarning('You have reached the maximum number of defenders.'));
+						this.props.dispatch(warning('You have reached the maximum number of defenders.'));
 					}
 				}
 				if (player.position === 'M' || player.position === 'Midfielder') {
@@ -78,7 +78,7 @@ export class Selection extends React.Component {
 						this.props.dispatch(addMidfielder(this.props.accessToken, player));
 					}
 					else {
-						this.props.dispatch(rosterWarning('You have reached the maximum number of midfielders.'));
+						this.props.dispatch(warning('You have reached the maximum number of midfielders.'));
 					}
 				}
 				if (player.position === 'F' || player.position === 'Attacker') {
@@ -86,13 +86,13 @@ export class Selection extends React.Component {
 						this.props.dispatch(addForward(this.props.accessToken, player));
 					}
 					else {
-						this.props.dispatch(rosterWarning('You have reached the maximum number of goalkeepers.'));
+						this.props.dispatch(warning('You have reached the maximum number of goalkeepers.'));
 					}
 				}
 			}
 		}
 		else {
-			this.props.dispatch(rosterWarning(`You have reached the maximum number of players from ${player.clubName}`));
+			this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}`));
 		}
 	}
   
@@ -107,7 +107,7 @@ export class Selection extends React.Component {
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
 					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward.</h5>
 					<h5>Click on a player's name to add them to your roster.</h5>
-					<RosterWarning />
+					<Warning />
 					<table>
 						<thead>
 							<tr>

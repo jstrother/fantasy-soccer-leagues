@@ -1,13 +1,13 @@
 /*eslint-disable no-console, no-unused-vars*/
-// components/rosterWarning.js
+// components/warning.js
 
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 
-import styles from '../scss/rosterWarning.scss';
+import styles from '../scss/warning.scss';
 
-export class Warning extends React.Component {
+export class Alert extends React.Component {
   
   render() {
     return (
@@ -21,13 +21,13 @@ export class Warning extends React.Component {
   }
 }
 
-const mapWarningStateToProps = state => ({
-  message: state.rosterWarningReducer.message,
-  show: state.rosterWarningReducer.show
+const mapAlertStateToProps = state => ({
+  message: state.warningReducer.message,
+  show: state.warningReducer.show
 });
 
-const RosterWarning = connect(
-  mapWarningStateToProps
-)(Warning);
+const Warning = connect(
+  mapAlertStateToProps
+)(Alert);
 
-export default CSSModules(RosterWarning, styles);
+export default CSSModules(Warning, styles);

@@ -1,8 +1,8 @@
-import { SHOW_ROSTER_WARNING, HIDE_ROSTER_WARNING, ROSTER_WARNING_FAIL } from '../subActions/rosterWarningAction.js';
+import { SHOW_WARNING, HIDE_WARNING, WARNING_FAIL } from '../subActions/warningActions.js';
 
-export const rosterWarningReducer = (state = {message: null, timeout: null, show: false}, action) => {
+export const warningReducer = (state = {message: null, timeout: null, show: false}, action) => {
   switch (action.type) {
-    case SHOW_ROSTER_WARNING:
+    case SHOW_WARNING:
       return Object.assign({}, state,
         {
           message: action.message,
@@ -10,13 +10,13 @@ export const rosterWarningReducer = (state = {message: null, timeout: null, show
           show: action.show
         }
       );
-    case HIDE_ROSTER_WARNING:
+    case HIDE_WARNING:
       return Object.assign({}, state,
         {
           show: action.show
         }
       );
-    case ROSTER_WARNING_FAIL:
+    case WARNING_FAIL:
     default:
       return state;
   }

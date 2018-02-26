@@ -1,8 +1,8 @@
-import { SHOW_ROSTER_WARNING, hideRosterWarning } from '../subActions/rosterWarningAction.js';
+import { SHOW_WARNING, hideWarning } from '../subActions/warningActions.js';
 
 export const warningFadeMiddleware = store => next => action => {
-  if (action.type === SHOW_ROSTER_WARNING) {
-    action.timeout = setTimeout(() => store.dispatch(hideRosterWarning()), 7000);
+  if (action.type === SHOW_WARNING) {
+    action.timeout = setTimeout(() => store.dispatch(hideWarning()), 7000);
   }
   else {
     clearTimeout(action.timeout);

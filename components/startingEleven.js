@@ -4,7 +4,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import StartingElevenAlert from './startingElevenAlert.js';
 import { removeStarter } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/startingEleven.scss';
 
@@ -25,7 +24,6 @@ export class Starters extends React.Component {
       return(
         <div
           className={styles.startingEleven}>
-          <StartingElevenAlert />
           <table>
             <thead>
               <tr>

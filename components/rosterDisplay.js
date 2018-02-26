@@ -6,8 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
-import { startingElevenAlert } from '../flow/subActions/startingElevenAlertActions.js';
-import { benchPlayersAlert } from '../flow/subActions/benchPlayersAlertActions.js';
+import { warning } from '../flow/subActions/warningActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -56,13 +55,17 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.starters.length < 11) {
-			this.props.benchwarmers.forEach(p => {
-				if (player.idFromAPI !== p.idFromAPI) {
-					this.props.dispatch(addStarter(this.props.accessToken, player));
-				}
-			});
+			if (this.props.benchwarmers.length > 0) {
+				this.props.benchwarmers.forEach(p => {
+					if (player.idFromAPI !== p.idFromAPI) {
+						this.props.dispatch(addStarter(this.props.accessToken, player));
+					}
+				});
+			} else {
+				this.props.dispatch(addStarter(this.props.accessToken, player));
+			}
 		} else {
-			this.props.dispatch(startingElevenAlert('You have 11 starters.'));
+			this.props.dispatch(warning('You already have 11 starters.'));
 		}
 	}
 	
@@ -80,13 +83,17 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.benchwarmers.length < 7 ) {
-			this.props.starters.forEach(p => {
-				if (player.idFromAPI !== p.idFromAPI) {
-					this.props.dispatch(addBench(this.props.accessToken, player));
-				}
-			});
+			if (this.props.starters.length > 0) {
+				this.props.starters.forEach(p => {
+					if (player.idFromAPI !== p.idFromAPI) {
+						this.props.dispatch(addBench(this.props.accessToken, player));
+					}
+				});
+			} else {
+				this.props.dispatch(addBench(this.props.accessToken, player));
+			}
 		} else {
-			this.props.dispatch(benchPlayersAlert('You have 7 players on the bench.'));
+			this.props.dispatch(warning('You already have 7 players on the bench.'));
 		}
 	}
 	
