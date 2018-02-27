@@ -59,13 +59,13 @@ export class FantasyTeam extends React.Component {
 		if(this.props.clubName) {
 			return(
 				<div
-					className={styles.fantasyClub}>
+					className={this.props.playerDataShow === false ? styles.fantasyClub : styles.hidden}>
 					<div
 						className={styles.rosterDiv}>
 						<Roster />
 					</div>
 					<div>
-						<FantasySchedule /> {/* covers league matches within a division and the cup matches between all teams in all divisions */}
+						<FantasySchedule />
 					</div>
 					<div
             className={styles.league}>
@@ -81,7 +81,8 @@ const mapFantasyClubStateToProps = state => ({
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
 	clubName: state.fantasyClubReducer.clubName,
-	manager: state.fantasyClubReducer.manager
+	manager: state.fantasyClubReducer.manager,
+	playerDataShow: state.playerReducer.show
 });
 
 const FantasyClub = connect(

@@ -9,6 +9,7 @@ export const PLAYER_DATA_SUCCESS = 'PLAYER_DATA_SUCCESS';
 export const playerDataSuccess = (player, statusCode) => ({
   type: PLAYER_DATA_SUCCESS,
   player,
+  show: true,
   statusCode
 });
 
@@ -16,6 +17,17 @@ export const PLAYER_DATA_FAIL = 'PLAYER_DATA_FAIL';
 export const playerDataFail = statusCode => ({
   type: PLAYER_DATA_FAIL,
   statusCode
+});
+
+export const PLAYER_HIDE_SUCCESS = 'PLAYER_HIDE_SUCCESS';
+export const playerHideSuccess = () => ({
+  type: PLAYER_HIDE_SUCCESS,
+  show: false
+});
+
+export const PLAYER_HIDE_FAIL = 'PLAYER_HIDE_FAIL';
+export const playerHideFail = () => ({
+  type: PLAYER_HIDE_FAIL
 });
 
 export const fetchPlayerData = (accessToken, playerId) => dispatch => {

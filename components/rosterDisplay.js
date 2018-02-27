@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
+import { fetchPlayerData } from '../flow/subActions/playerActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -98,7 +99,8 @@ export class Display extends React.Component {
 	}
 	
 	showPlayerStats(event) {
-		
+		let playerId = parseInt(event.target.dataset.id, 10);
+		this.props.dispatch(fetchPlayerData(this.props.accessToken, playerId));
 	}
   
   render() {
@@ -149,6 +151,7 @@ export class Display extends React.Component {
 										key={`key-${p.idFromAPI}`}>
 										<td
 											className={styles.pointer}
+											data-id={p.idFromAPI}
 											onClick={this.showPlayerStats.bind(this)}>
 											{`${p.firstName} ${p.lastName}`}
 										</td>
