@@ -8,6 +8,7 @@ import CSSModules from 'react-css-modules';
 import { addLeague } from '../flow/subActions/userActions.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import FantasyClub from './fantasyClub.js';
+import Player from './player.js';
 import styles from '../scss/home.scss';
 
 export class Home extends React.Component {
@@ -70,16 +71,20 @@ export class Home extends React.Component {
     if (this.props.googleId && this.props.fantasyLeagueId) {
       return (
         <main>
+          <div
+            className={styles.player}>
+            <Player />
+          </div>
           <br /><br />
           <div
-            className={styles.welcome}>
+            className={this.props.playerDataShow === false ? styles.welcome : styles.hidden}>
             <p>Welcome to the Fantasy Soccer-Football Super League!</p>
             <br />
             <p>You have selected {this.props.fantasyLeagueName}.</p>
           </div>
           <br />
           <div
-            className={styles.club}>
+            className={this.props.playerDataShow === false ? styles.club : styles.hidden}>
             <FantasyClub />
           </div>
         </main>
@@ -97,7 +102,8 @@ const mapHomeStateToProps = state => (
     familyName: state.userReducer.familyName,
     userPhoto: state.userReducer.userPhoto,
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
-    fantasyLeagueName: state.userReducer.fantasyLeagueName
+    fantasyLeagueName: state.userReducer.fantasyLeagueName,
+    playerDataShow: state.playerReducer.show
   }
 );
 

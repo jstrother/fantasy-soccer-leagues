@@ -7,6 +7,7 @@ import CSSModules from 'react-css-modules';
 import FantasyMatch from './fantasyMatch.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
+import Warning from './warning.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
@@ -16,6 +17,7 @@ export class Schedule extends React.Component {
 			<div
 				className={rosterLength < 23 ? styles.hidden : styles.fantasySchedule}>
 				<p>Set your lineup for upcoming matches.</p>
+				<Warning />
 				<div>
 					Your Starting 11:
 					<StartingEleven />

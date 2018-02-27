@@ -2,7 +2,7 @@
 @import "myVariables";
 
 .benchPlayers {
-  width: $tableWidth;
+  width: $tableWidth * 0.667;
   
   table {
     border: $tableBorder;

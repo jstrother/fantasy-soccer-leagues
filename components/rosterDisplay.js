@@ -6,6 +6,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
+import { warning } from '../flow/subActions/warningActions.js';
+import { fetchPlayerData } from '../flow/subActions/playerActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
@@ -54,7 +56,17 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.starters.length < 11) {
-			this.props.dispatch(addStarter(this.props.accessToken, player));
+			if (this.props.benchwarmers.length > 0) {
+				this.props.benchwarmers.forEach(p => {
+					if (player.idFromAPI !== p.idFromAPI) {
+						this.props.dispatch(addStarter(this.props.accessToken, player));
+					}
+				});
+			} else {
+				this.props.dispatch(addStarter(this.props.accessToken, player));
+			}
+		} else {
+			this.props.dispatch(warning('You already have 11 starters.'));
 		}
 	}
 	
@@ -72,8 +84,23 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.benchwarmers.length < 7 ) {
-			this.props.dispatch(addBench(this.props.accessToken, player));
+			if (this.props.starters.length > 0) {
+				this.props.starters.forEach(p => {
+					if (player.idFromAPI !== p.idFromAPI) {
+						this.props.dispatch(addBench(this.props.accessToken, player));
+					}
+				});
+			} else {
+				this.props.dispatch(addBench(this.props.accessToken, player));
+			}
+		} else {
+			this.props.dispatch(warning('You already have 7 players on the bench.'));
 		}
+	}
+	
+	showPlayerStats(event) {
+		let playerId = parseInt(event.target.dataset.id, 10);
+		this.props.dispatch(fetchPlayerData(this.props.accessToken, playerId));
 	}
   
   render() {
@@ -87,6 +114,7 @@ export class Display extends React.Component {
       <div
 				className={styles.rosterDisplay}>
 				Roster:
+				<h5>Click on a player's name to view their stats.</h5>
 				<table>
 					<thead>
 						<tr>
@@ -122,7 +150,9 @@ export class Display extends React.Component {
 										id={`ros-${p.idFromAPI}`}
 										key={`key-${p.idFromAPI}`}>
 										<td
-											className={styles.pointer}>
+											className={styles.pointer}
+											data-id={p.idFromAPI}
+											onClick={this.showPlayerStats.bind(this)}>
 											{`${p.firstName} ${p.lastName}`}
 										</td>
 										<td>

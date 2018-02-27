@@ -1,3 +1,4 @@
+/*eslint-disable no-unused-vars*/
 // components/startingEleven.js
 
 import React from 'react';
@@ -19,9 +20,10 @@ export class Starters extends React.Component {
     this.props.dispatch(removeStarter(this.props.accessToken, player));
   }
   render () {
-    if (this.props.starters) {
+    if (this.props.starters.length > 0) {
       return(
-        <div>
+        <div
+          className={styles.startingEleven}>
           <table>
             <thead>
               <tr>
