@@ -248,42 +248,36 @@ describe('Fantasy League', () => {
 describe('Fantasy Club', () => {
 	it('should not exist', () => {
 		const sampleFantasyClub = {
-			name: 'Team Name',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Team Name',
+			manager: 'Coach'
 		};
 		
 		return FantasyClub.findOne(sampleFantasyClub).should.eventually.not.exist;
 	}).timeout(5000);
 	it('should create new fantasy club', () => {
 		const sampleFantasyClub = {
-			name: 'Team Name',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Team Name',
+			manager: 'Coach'
 		};
 		
 		return FantasyClub.create(sampleFantasyClub).should.eventually.exist;
 	}).timeout(5000);
 	it('should update a fantasy club', () => {
 		const sampleFantasyClub = {
-			name: 'Team Name',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Team Name',
+			manager: 'Coach'
 		};
 		
 		return updateData(
 			sampleFantasyClub, 
 			{
-				division: 'Test Division 2'
+				manager: 'Bill Thompson'
 			},
 			FantasyClub
 		)
 		.then(updatedItem => {
 			should.exist(updatedItem);
-			updatedItem.should.have.property('division', 'Test Division 2');
+			updatedItem.should.have.property('manager', 'Bill Thompson');
 		})
 		.catch(error => {
 			throw new Error(error);
@@ -291,10 +285,8 @@ describe('Fantasy Club', () => {
 	}).timeout(5000);
 	it('should remove a fantasy club', () => {
 		const sampleFantasyClub = {
-			name: 'Team Name',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 2'
+			clubName: 'Team Name',
+			manager: 'Bill Thompson'
 		};
 		
 		return FantasyClub.findOneAndRemove(sampleFantasyClub)
@@ -316,17 +308,13 @@ describe('Fantasy Club', () => {
 describe('Fantasy Match', () => {
 	it('should not exist', () => {
 		const homeClub = {
-			name: 'Home',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Home',
+			manager: 'Coach'
 		};
 		
 		const awayClub = {
-			name: 'Away',
-			manager: 'Boss',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Away',
+			manager: 'Boss'
 		};
 		return FantasyClub.create(homeClub)
 		.then((homeClub) => {
@@ -334,7 +322,6 @@ describe('Fantasy Match', () => {
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchId: 1,
-					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
 					awayClub,
@@ -343,26 +330,22 @@ describe('Fantasy Match', () => {
 				return FantasyMatch.findOne(sampleFantasyMatch).should.eventually.not.exist;
 			})
 			.catch((error) => {
-				console.log(`Fantasy Match should create new inner then error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch((error) => {
-			console.log(`Fantasy Match should create new outer then error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should create new fantasy match', () => {
 		const homeClub = {
-			name: 'Home',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Home',
+			manager: 'Coach'
 		};
 		
 		const awayClub = {
-			name: 'Away',
-			manager: 'Boss',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Away',
+			manager: 'Boss'
 		};
 		
 		return FantasyClub.create(homeClub)
@@ -371,7 +354,6 @@ describe('Fantasy Match', () => {
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchId: 1,
-					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
 					awayClub,
@@ -380,26 +362,22 @@ describe('Fantasy Match', () => {
 				return FantasyMatch.create(sampleFantasyMatch).should.eventually.exist;
 			})
 			.catch((error) => {
-				console.log(`Fantasy Match should create new inner then error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch((error) => {
-			console.log(`Fantasy Match should create new outer then error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should update a fantasy match', () => {
 		const homeClub = {
-			name: 'Home',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Home',
+			manager: 'Coach'
 		};
 		
 		const awayClub = {
-			name: 'Away',
-			manager: 'Boss',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Away',
+			manager: 'Boss'
 		};
 		
 		return FantasyClub.create(homeClub)
@@ -408,7 +386,6 @@ describe('Fantasy Match', () => {
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchId: 1,
-					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
 					awayClub,
@@ -428,30 +405,26 @@ describe('Fantasy Match', () => {
 					updatedItem.should.have.property('awayScore', 1);
 				})
 				.catch(error => {
-				console.log(`Fantasy Match update error: ${error}`);
+				throw new Error(error);
 				});
 			})
 			.catch((error) => {
-				console.log(`Fantasy Match should delete inner then error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch((error) => {
-			console.log(`Fantasy Match should update outer then error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 	it('should remove a fantasy match', () => {
 		const homeClub = {
-			name: 'Home4',
-			manager: 'Coach',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Home4',
+			manager: 'Coach'
 		};
 		
 		const awayClub = {
-			name: 'Away4',
-			manager: 'Boss',
-			league: 'Test League',
-			division: 'Test Division 1'
+			clubName: 'Away4',
+			manager: 'Boss'
 		};
 		
 		return FantasyClub.create(homeClub)
@@ -460,7 +433,6 @@ describe('Fantasy Match', () => {
 			.then((awayClub) => {
 				const sampleFantasyMatch = {
 					matchId: 1,
-					matchType: 'Regular Season',
 					homeClub,
 					homeScore: 0,
 					awayClub,
@@ -481,11 +453,11 @@ describe('Fantasy Match', () => {
 				});
 			})
 			.catch((error) => {
-				console.log(`Fantasy Match should delete inner then error: ${error}`);
+				throw new Error(error);
 			});
 		})
 		.catch((error) => {
-			console.log(`Fantasy Match should delete outer then error: ${error}`);
+			throw new Error(error);
 		});
 	}).timeout(5000);
 });

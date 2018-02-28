@@ -181,7 +181,47 @@ const mongoose = require('mongoose'),
     }
   },
   fantasyLeagueId = 779,
-  fantasyLeagueName = 'Major League Soccer (USA)';
+  fantasyLeagueName = 'Major League Soccer (USA)',
+  testTeam1 = {
+    clubName: 'Seattle Sounders FC',
+    manager: 'Brian Schmetzer',
+    goalkeepers: [],
+    defenders: [],
+    midfielders: [],
+    forwards: [],
+    starters: [],
+    benchwarmers: []
+  },
+  testTeam2 = {
+    clubName: 'Los Angeles FC',
+    manager: 'Bob Bradley',
+    goalkeepers: [],
+    defenders: [],
+    midfielders: [],
+    forwards: [],
+    starters: [],
+    benchwarmers: []
+  },
+  testTeam3 = {
+    clubName: 'Orlando City SC',
+    manager: 'Jason Kreis',
+    goalkeepers: [],
+    defenders: [],
+    midfielders: [],
+    forwards: [],
+    starters: [],
+    benchwarmers: []
+  },
+  testTeam4 = {
+    clubName: 'Chicago Fire SC',
+    manager: 'Veljko Paunović',
+    goalkeepers: [],
+    defenders: [],
+    midfielders: [],
+    forwards: [],
+    starters: [],
+    benchwarmers: []
+  };
 
 module.exports = {
 	mongoose,
@@ -196,5 +236,9 @@ module.exports = {
 	testPlayer2,
 	testPlayer3,
 	fantasyLeagueId,
-	fantasyLeagueName
+	fantasyLeagueName,
+	testTeam1,
+	testTeam2,
+	testTeam3,
+	testTeam4
 };

@@ -1,6 +1,6 @@
 const express = require('express'),
   passport = require("passport"),
-  { updateData, updateArrayData } = require("./programFunctions/updateData_function.js"),
+  { updateData } = require("./programFunctions/updateData_function.js"),
 	fantasyClubRouter = express.Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
 
