@@ -14,11 +14,11 @@ after(done => {
 });
 
 describe('All Tests', function() {
-  importTest('Fantasy Game', './db-test.js');
-  importTest('User Routes Test', './user-routes-test.js');
-  importTest('Player Routes Test', './player-routes-test.js');
-  importTest('League Routes Test', './league-routes-test.js');
-  // importTest('Fantasy Match', './matches-routes-test.js');
+  // importTest('Fantasy Game', './db-test.js');
+  // importTest('User Routes Test', './user-routes-test.js');
+  // importTest('Player Routes Test', './player-routes-test.js');
+  // importTest('League Routes Test', './league-routes-test.js');
+  importTest('Fantasy Schedule Test', './scheduleCreation-test.js');
 });
 	
 function importTest(name, path) {

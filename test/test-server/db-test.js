@@ -13,62 +13,6 @@ const
 	// import updateData function to keep options consistent throughout
 	{ updateData } = require('../../server/programFunctions/updateData_function.js');
 
-describe('Champions League', () => {
-	it('should not exist', () => {
-		const sampleFantasyChampsLeague = {
-			fantasyChampsLeagueName: 'Champions 1'
-		};
-		
-		return FantasyChampsLeague.findOne(sampleFantasyChampsLeague).should.eventually.not.exist;
-	}).timeout(5000);
-	it('should create a new champions league', () => {
-		const sampleFantasyChampsLeague = {
-			name: 'Champions 1'
-		};
-		
-		return FantasyChampsLeague.create(sampleFantasyChampsLeague).should.eventually.exist;
-	}).timeout(5000);
-	it('should update a champions league', () => {
-		const sampleFantasyChampsLeague = {
-			name: 'Champions 1'
-		};
-		
-		return updateData(
-			sampleFantasyChampsLeague,
-			{
-				name: 'Champions 2'
-			},
-			FantasyChampsLeague
-		)
-		.then(updatedItem => {
-			should.exist(updatedItem);
-			updatedItem.should.have.property('name', 'Champions 2');
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
-	}).timeout(5000);
-	it('should remove a champions league', () => {
-		const sampleFantasyChampsLeague = {
-			name: 'Champions 2'
-		};
-		
-		return FantasyChampsLeague.findOneAndRemove(sampleFantasyChampsLeague)
-		.then(deletedItem => {
-			FantasyChampsLeague.findOne(sampleFantasyChampsLeague)
-			.then(deletedItem => {
-				should.not.exist(deletedItem);
-			})
-			.catch(error => {
-				throw new Error(error);
-			});
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
-	}).timeout(5000);
-});
-
 describe('Fantasy Schedule', () => {
 	it('should not exist', () => {
 		const sampleFantasySchedule = {
@@ -457,62 +401,6 @@ describe('Fantasy Match', () => {
 			});
 		})
 		.catch((error) => {
-			throw new Error(error);
-		});
-	}).timeout(5000);
-});
-
-describe('Fantasy Division', () => {
-	it('should not exist', () => {
-		const sampleFantasyDivision = {
-			name: 'Team Division 1'
-		};
-		
-		return FantasyDivision.findOne(sampleFantasyDivision).should.eventually.not.exist;
-	}).timeout(5000);
-	it('should create new fantasy division', () => {
-		const sampleFantasyDivision = {
-			name: 'Team Division 1'
-		};
-		
-		return FantasyDivision.create(sampleFantasyDivision).should.eventually.exist;
-	}).timeout(5000);
-	it('should update a fantasy division', () => {
-		const sampleFantasyDivision = {
-			name: 'Team Division 1'
-		};
-		
-		return updateData(
-			sampleFantasyDivision, 
-			{
-				name: 'Test Division 2'
-			},
-			FantasyDivision
-		)
-		.then(updatedItem => {
-			should.exist(updatedItem);
-			updatedItem.should.have.property('name', 'Test Division 2');
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
-	}).timeout(5000);
-	it('should remove a fantasy division', () => {
-		const sampleFantasyDivision = {
-			name: 'Team Division 2'
-		};
-		
-		return FantasyDivision.findOneAndRemove(sampleFantasyDivision)
-		.then(deletedItem => {
-			FantasyDivision.findOne(sampleFantasyDivision)
-			.then(deletedItem => {
-				should.not.exist(deletedItem);
-			})
-			.catch(error => {
-				throw new Error(error);
-			});
-		})
-		.catch(error => {
 			throw new Error(error);
 		});
 	}).timeout(5000);
