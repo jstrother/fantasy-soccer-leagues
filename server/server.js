@@ -69,6 +69,9 @@ const closeServer = () => {
       }
       resolve();
     });
+    setImmediate(() => {
+    	server.emit('close');
+    });
   });
 };
 

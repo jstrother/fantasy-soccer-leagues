@@ -1,6 +1,8 @@
 const mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
 
-			fantasyClubSchema = mongoose.Schema({
+			fantasyClubSchema = Schema({
+				_id: Schema.Types.ObjectId,
 				clubName: { type: String, required: true },
 				manager: { type: String, required: true },
 				goalkeepers: Array,
