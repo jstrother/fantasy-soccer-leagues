@@ -8,15 +8,15 @@ before(() => {
 	runServer(8081, dbTestConnection);
 });
 
-after(done => {
-	mongoose.connection.dropDatabase(done);
+after(() => {
+// 	mongoose.connection.dropDatabase(done);
 	closeServer();
 });
 
 describe('All Tests', function() {
-  importTest('User Routes Test', './user-routes-test.js');
-  importTest('Player Routes Test', './player-routes-test.js');
-  importTest('League Routes Test', './league-routes-test.js');
+  // importTest('User Routes Test', './user-routes-test.js');
+  // importTest('Player Routes Test', './player-routes-test.js');
+  // importTest('League Routes Test', './league-routes-test.js');
   importTest('Fantasy Schedule Test', './scheduleCreation-test.js');
 });
 	

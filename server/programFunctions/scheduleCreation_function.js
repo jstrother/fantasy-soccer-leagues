@@ -1,11 +1,31 @@
 const mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
   FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js");
-  
+
+// matchArray will be filled by getting schedule.matches from fantasySchedule-routes.js
+// can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
+function matchResolver(matchArray) {
+  let homeClubScore = 0,
+    combinedScores = 0,
+    matchArrayLength = matchArray.length / 2 - 1; // setting up these last two in case there is an averageClub in matchArray somewhere
+  for (let match of matchArray) {
+    console.log('match final?:', match.final);
+    if (match.final === false) {
+      match.homeClub.starters.forEach(starter => {
+        if (match.homeClub.clubName !== 'Average') {
+          homeClubScore += match.homeScore.fantasyPoints.fixture;
+          // console.log('homeClubScore:', homeClubScore);
+        }
+      });
+    }
+  }
+  // console.log('homeClubScore:', homeClubScore);
+}
+
+// clubArray will be filled by getting all clubs from fantasyClubs-router.js
+// can use loopArray_function.js to run scheduleCreator() once a year
 function scheduleCreator(clubArray) {
-  // need to create enough matches so that each club has 38 of them and that there is only one match per club per week, matches should end up as an array of arrays
   let schedule = new FantasySchedule({
     matches: [],
     numLeagueSeasonMatches: clubArray.length * 38
@@ -32,11 +52,7 @@ function scheduleCreator(clubArray) {
     arrayParser(clubArray);
   }
   
-  schedule
-  .save()
-  .catch(error => {
-    throw new Error(error);
-  });
+  save(schedule);
   
   return schedule;
   
@@ -61,7 +77,8 @@ function scheduleCreator(clubArray) {
     return clubArray;
   }
 }
-  
+
+// homeClub and awayClub are filled when matchCreator() is called inside scheduleCreator()
 function matchCreator(homeClub, awayClub) {
   let homeScore = 0,
     awayScore = 0,
@@ -70,10 +87,16 @@ function matchCreator(homeClub, awayClub) {
       homeClub: homeClub._id,
       homeScore,
       awayClub: awayClub._id,
-      awayScore
+      awayScore,
+      final: false
     });
     
-  match.save()
+  save(match);
+  
+  FantasyMatch
+  .find()
+  .populate('homeClub')
+  .populate('awayClub')
   .catch(error => {
     throw new Error(error);
   });
@@ -81,7 +104,17 @@ function matchCreator(homeClub, awayClub) {
   return match;
 }
 
+function save(item) {
+  item
+  .save()
+  .catch(error => {
+    throw new Error(error);
+  });
+}
+
 module.exports = {
   scheduleCreator,
-  matchCreator
+  matchCreator,
+  matchResolver,
+  save
 };
