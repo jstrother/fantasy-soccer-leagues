@@ -15,6 +15,7 @@ const config = require('./config.js'),
 	playerRouter = require('./player-routes.js').playerRouter,
 	leagueRouter = require('./league-routes.js').leagueRouter,
 	fantasyClubRouter = require("./fantasyClub-routes.js").fantasyClubRouter,
+	scheduleCreationRouter = require("./scheduleCreation-routes.js").scheduleCreationRouter,
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
@@ -27,6 +28,7 @@ app.use('/user', userRouter);
 app.use('/player', playerRouter);
 app.use('/league', leagueRouter);
 app.use('/fantasyClub', fantasyClubRouter);
+app.use('/scheduleCreation', scheduleCreationRouter);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
@@ -68,9 +70,6 @@ const closeServer = () => {
         return;
       }
       resolve();
-    });
-    setImmediate(() => {
-    	server.emit('close');
     });
   });
 };

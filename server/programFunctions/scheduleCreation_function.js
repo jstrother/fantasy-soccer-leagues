@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+  scheduleCreationRouter = require("../scheduleCreation-routes.js").scheduleCreationRouter,
   FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js");
@@ -10,7 +11,7 @@ function matchResolver(matchArray) {
     combinedScores = 0,
     matchArrayLength = matchArray.length / 2 - 1; // setting up these last two in case there is an averageClub in matchArray somewhere
   for (let match of matchArray) {
-    console.log('match final?:', match.final);
+    // console.log('match:', match);
     if (match.final === false) {
       match.homeClub.starters.forEach(starter => {
         if (match.homeClub.clubName !== 'Average') {
@@ -54,6 +55,15 @@ function scheduleCreator(clubArray) {
   
   save(schedule);
   
+  FantasySchedule
+  .findById(schedule._id)
+  .populate('matches')
+  .catch(error => {
+    throw new Error(error);
+  });
+  
+  console.log('round 1:', schedule.matches[0]);
+  
   return schedule;
   
   // this function goes over clubArray and sets up a match between each pair
@@ -93,13 +103,15 @@ function matchCreator(homeClub, awayClub) {
     
   save(match);
   
-  FantasyMatch
-  .find()
-  .populate('homeClub')
-  .populate('awayClub')
-  .catch(error => {
-    throw new Error(error);
-  });
+  // FantasyMatch
+  // .findById(match._id)
+  // .populate('homeClub')
+  // .populate('awayClub')
+  // .catch(error => {
+  //   throw new Error(error);
+  // });
+  
+  console.log('matchCreator homeClub:', match.homeClub);
   
   return match;
 }

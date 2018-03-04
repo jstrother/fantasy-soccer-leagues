@@ -3,6 +3,7 @@ const { mongoose, chai, chaiHTTP, should } = require('../common.js'),
   FantasyClub = require('../../models/fantasyClub_model.js'),
   FantasySchedule = require('../../models/fantasySchedule_model.js'),
   { app } = require('../../server/server.js'),
+  scheduleCreationRouter = require("../../server/scheduleCreation-routes.js").scheduleCreationRouter,
   { save, matchCreator, scheduleCreator, matchResolver } = require("../../server/programFunctions/scheduleCreation_function.js");
 
 chai.use(chaiHTTP);
@@ -10,12 +11,12 @@ mongoose.Promise = Promise;
 
 describe('Fantasy Schedule',() => {
   it('should create a match', () => {
+    app.use('/scheduleCreation', scheduleCreationRouter);
     const firstClub = new FantasyClub({
       _id: new mongoose.Types.ObjectId(),
       clubName: 'Strikers \'87',
       manager: 'Jim Strother'
     }),
-    
     secondClub = new FantasyClub({
       _id: new mongoose.Types.ObjectId(),
       clubName: 'Team RamRod',
