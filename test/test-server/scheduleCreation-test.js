@@ -59,6 +59,10 @@ describe('Fantasy Schedule',() => {
     return scheduleCreator(clubArray).should.exist;
   });
   
+  // it('should resolve match outcomes', () => {
+    
+  // });
+  
   // it('should calculate the league standings', () => {
     
   // });
