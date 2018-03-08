@@ -12,7 +12,6 @@ import Player from './player.js';
 import styles from '../scss/home.scss';
 
 export class Home extends React.Component {
-  
   selectLeagueChange(event) {
     event.preventDefault();
     const fantasyLeagueId = parseInt(event.target.value, 10);

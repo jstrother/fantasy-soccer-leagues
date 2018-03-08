@@ -11,7 +11,6 @@ mongoose.Promise = Promise;
 
 describe('Fantasy Schedule',() => {
   it('should create a match', () => {
-    app.use('/scheduleCreation', scheduleCreationRouter);
     const firstClub = new FantasyClub({
       _id: new mongoose.Types.ObjectId(),
       clubName: 'Strikers \'87',

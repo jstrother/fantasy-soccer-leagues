@@ -10,7 +10,15 @@ const mongoose = require('mongoose'),
 				midfielders: Array,
 				forwards: Array,
 				starters: Array,
-				benchwarmers: Array
+				benchwarmers: Array,
+				points: Number,
+				wins: Number,
+				draws: Number,
+				losses: Number,
+				goalsFor: Number,
+				goalsAgainst: Number,
+				goalDifferential: Number
+				// ranking starts with points, then goalDifferential, then goalsFor
 			}),
 
 			FantasyClub = mongoose.model('FantasyClub', fantasyClubSchema);

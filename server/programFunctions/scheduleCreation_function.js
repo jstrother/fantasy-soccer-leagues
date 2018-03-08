@@ -1,5 +1,4 @@
 const mongoose = require('mongoose'),
-  scheduleCreationRouter = require("../scheduleCreation-routes.js").scheduleCreationRouter,
   FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js");
@@ -55,14 +54,7 @@ function scheduleCreator(clubArray) {
   
   save(schedule);
   
-  FantasySchedule
-  .findById(schedule._id)
-  .populate('matches')
-  .catch(error => {
-    throw new Error(error);
-  });
-  
-  console.log('round 1:', schedule.matches[0]);
+  console.log('scheduleCreator() round 1:', schedule.matches[0]);
   
   return schedule;
   
@@ -102,16 +94,6 @@ function matchCreator(homeClub, awayClub) {
     });
     
   save(match);
-  
-  // FantasyMatch
-  // .findById(match._id)
-  // .populate('homeClub')
-  // .populate('awayClub')
-  // .catch(error => {
-  //   throw new Error(error);
-  // });
-  
-  console.log('matchCreator homeClub:', match.homeClub);
   
   return match;
 }

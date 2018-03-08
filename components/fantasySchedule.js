@@ -8,9 +8,17 @@ import FantasyMatch from './fantasyMatch.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
+import { populateSchedule, populateMatches, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
+	componentWillMount() {
+		if (this.props.matches.length === 0) {
+			this.props.dispatch(createSchedule());
+		}
+		this.props.dispatch(populateSchedule());
+		this.props.dispatch(populateMatches());
+	}
 	render() {
 		const rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 		return(
@@ -37,7 +45,8 @@ const mapScheduleStateToProps = state => ({
 	defenders: state.fantasyClubReducer.defenders,
 	midfielders: state.fantasyClubReducer.midfielders,
 	forwards: state.fantasyClubReducer.forwards,
-	accessToken: state.userReducer.accessToken
+	accessToken: state.userReducer.accessToken,
+	matches: state.fantasyScheduleReducer.matches
 });
 
 const FantasySchedule = connect(
