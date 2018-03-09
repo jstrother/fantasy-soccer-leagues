@@ -9,14 +9,30 @@ import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
 import { addClubName, addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
+import { populateSchedule, populateMatches, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
     if (!(this.props.manager)) {
-			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+			if(this.props.clubName !== 'Average') {
+				this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+			}
     }
     this.props.dispatch(getClub(this.props.accessToken));
+    if (this.props.fantasySchedule.length === 0) {
+			console.log('this.props.fantasySchedule === []');
+			console.log('fantasySchedule.js:', this.props.fantasySchedule);
+			this.props.dispatch(createSchedule());
+			this.props.dispatch(populateSchedule());
+			this.props.dispatch(populateMatches());
+		}
+		if (this.props.fantasySchedule.length === 1) {
+			console.log('this.props.fantasySchedule !== []');
+			console.log('fantasySchedule.js:', this.props.fantasySchedule);
+			this.props.dispatch(populateSchedule());
+			this.props.dispatch(populateMatches());
+		}
   }
   
 	_handleKeyPress(event) {
@@ -82,7 +98,8 @@ const mapFantasyClubStateToProps = state => ({
 	displayName: state.userReducer.displayName,
 	clubName: state.fantasyClubReducer.clubName,
 	manager: state.fantasyClubReducer.manager,
-	playerDataShow: state.playerReducer.show
+	playerDataShow: state.playerReducer.show,
+	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
 });
 
 const FantasyClub = connect(

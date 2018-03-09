@@ -27,9 +27,9 @@ function matchResolver(matchArray) {
 // can use loopArray_function.js to run scheduleCreator() once a year
 function scheduleCreator(clubArray) {
   let schedule = new FantasySchedule({
-    matches: [],
-    numLeagueSeasonMatches: clubArray.length * 38
-  });
+    matches: []
+  }),
+  numberOfMatches = 0;
   
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
@@ -48,7 +48,10 @@ function scheduleCreator(clubArray) {
     clubArray.push(averageClub);
   }
   
-  while (schedule.matches.length <= schedule.numLeagueSeasonMatches) {
+  // we fill this variable here in case an averageClub was created
+  numberOfMatches = (clubArray.length / 2) * 38;
+  
+  while (schedule.matches.length < numberOfMatches) {
     arrayParser(clubArray);
   }
   

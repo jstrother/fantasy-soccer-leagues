@@ -6,10 +6,9 @@ import { DEV_DIRECTORY as url } from '../../server/config.js';
 const thisURL = `${url}/fantasySchedule`;
 
 export const POPULATE_SCHEDULE_SUCCESS = 'POPULATE_SCHEDULE_SUCCESS';
-export const populateScheduleSuccess = (matches, clubs, statusCode) => ({
+export const populateScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: POPULATE_SCHEDULE_SUCCESS,
-  matches,
-  clubs,
+  fantasySchedule,
   statusCode
 });
 
@@ -33,10 +32,9 @@ export const createScheduleFail = statusCode => ({
 });
 
 export const POPULATE_MATCHES_SUCCESS = 'POPULATE_MATCHES_SUCCESS';
-export const populateMatchesSuccess = (homeClub, awayClub, statusCode) => ({
+export const populateMatchesSuccess = (fantasySchedule, statusCode) => ({
   type: POPULATE_MATCHES_SUCCESS,
-  homeClub,
-  awayClub,
+  fantasySchedule,
   statusCode
 });
 
@@ -46,7 +44,7 @@ export const populateMatchesFail = statusCode => ({
   statusCode
 });
 
-export const populateFantasySchedule = () => dispatch => {
+export const populateSchedule = () => dispatch => {
   return fetch(`${thisURL}/populateSchedule`)
   .then(res => {
     if (!res.ok) {
@@ -72,6 +70,7 @@ export const createSchedule = () => dispatch => {
     method: 'POST'
   })
   .then(res => {
+    console.log('createSchedule res:', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(createScheduleFail(res.status));
@@ -83,6 +82,7 @@ export const createSchedule = () => dispatch => {
     return res.json();
   })
   .then(data => {
+    console.log('createSchedule data:', data);
     dispatch(createScheduleSuccess(data, 200));
   })
   .catch(error => {

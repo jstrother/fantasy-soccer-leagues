@@ -9,7 +9,6 @@ fantasyScheduleRouter.get('/populateSchedule',
   (req, res) => {
     FantasySchedule
     .find()
-    .populate('clubs')
     .populate('matches')
     .then(data => {
       res.json(data);
@@ -40,7 +39,7 @@ fantasyScheduleRouter.post('/createSchedule',
     FantasyClub
     .find()
     .then(data => {
-      console.log('fantasyScheduleRouter.js /createSchedule', data);
+      console.log('/createSchedule', data);
       scheduleCreator(data);
     })
     .catch(error => {
