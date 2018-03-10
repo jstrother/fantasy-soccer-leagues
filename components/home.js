@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars, no-console*/
 // components/home.js
 // imported into ./app.js
 
