@@ -65,7 +65,7 @@ alias start="npm start"
 
 # the following is an alias for npm update
 
-alias update="npm update & echo 'Updating' && echo 'Update Complete'"
+alias update="npm update & echo 'Updating'"
 
 
 # the following is an alias for npm install (packages can be specified)
@@ -83,7 +83,7 @@ alias S="i --save"
 alias D="i --save-dev"
 
 
-# the following is an alias to install npm packages globally
+# the following is an alias to install npm packages globally (packages can be specified)
 
 alias G="i -g"
 
