@@ -8,24 +8,19 @@ import FantasyMatch from './fantasyMatch.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { populateSchedule, populateMatches, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { populateSchedule, populateMatches, createSchedule, getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidMount() {
-    if (this.props.fantasySchedule.length === 0) {
-			console.log('this.props.fantasySchedule === []');
-			console.log('fantasySchedule.js:', this.props.fantasySchedule);
+		if (this.props.fantasySchedule.matches.length > 0) {
+			this.props.dispatch(getSchedule());
+		}
+    if (this.props.fantasySchedule.matches.length === 0) {
 			this.props.dispatch(createSchedule());
-			this.props.dispatch(populateSchedule());
-			this.props.dispatch(populateMatches());
 		}
-		if (this.props.fantasySchedule.length === 1) {
-			console.log('this.props.fantasySchedule !== []');
-			console.log('fantasySchedule.js:', this.props.fantasySchedule);
-			this.props.dispatch(populateSchedule());
-			this.props.dispatch(populateMatches());
-		}
+		// this.props.dispatch(populateSchedule());
+		// this.props.dispatch(populateMatches());
   }
 	render() {
 		const rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;

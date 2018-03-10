@@ -5,13 +5,26 @@ const express = require("express"),
   FantasyMatch = require("../models/fantasyMatch_model.js"),
   { scheduleCreator } = require("./programFunctions/scheduleCreation_function.js");
   
+fantasyScheduleRouter.get('/',
+  (req, res) => {
+    FantasySchedule
+    .find()
+    .then(data => {
+      res.json(data.matches);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
 fantasyScheduleRouter.get('/populateSchedule',
   (req, res) => {
     FantasySchedule
     .find()
     .populate('matches')
     .then(data => {
-      res.json(data);
+      res.json(data.matches);
     })
     .catch(error => {
       throw new Error(error);
@@ -39,7 +52,6 @@ fantasyScheduleRouter.post('/createSchedule',
     FantasyClub
     .find()
     .then(data => {
-      console.log('/createSchedule', data);
       scheduleCreator(data);
     })
     .catch(error => {

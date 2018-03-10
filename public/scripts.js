@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4fe6120b9575befe0671"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "165eb75f098d62ff9064"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18086,7 +18086,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.populateMatches = exports.createSchedule = exports.populateSchedule = exports.populateMatchesFail = exports.POPULATE_MATCHES_FAIL = exports.populateMatchesSuccess = exports.POPULATE_MATCHES_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.populateScheduleFail = exports.POPULATE_SCHEDULE_FAIL = exports.populateScheduleSuccess = exports.POPULATE_SCHEDULE_SUCCESS = void 0;
+exports.populateMatches = exports.createSchedule = exports.populateSchedule = exports.getSchedule = exports.populateMatchesFail = exports.POPULATE_MATCHES_FAIL = exports.populateMatchesSuccess = exports.POPULATE_MATCHES_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.populateScheduleFail = exports.POPULATE_SCHEDULE_FAIL = exports.populateScheduleSuccess = exports.POPULATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(42));
 
@@ -18096,13 +18096,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /* eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasySchedule");
+var GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
+exports.GET_SCHEDULE_SUCCESS = GET_SCHEDULE_SUCCESS;
+
+var getScheduleSuccess = function getScheduleSuccess(matches, statusCode) {
+  return {
+    type: GET_SCHEDULE_SUCCESS,
+    matches: matches,
+    statusCode: statusCode
+  };
+};
+
+exports.getScheduleSuccess = getScheduleSuccess;
+var GET_SCHEDULE_FAIL = 'GET_SCHEDULE_FAIL';
+exports.GET_SCHEDULE_FAIL = GET_SCHEDULE_FAIL;
+
+var getScheduleFail = function getScheduleFail(statusCode) {
+  return {
+    type: GET_SCHEDULE_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.getScheduleFail = getScheduleFail;
 var POPULATE_SCHEDULE_SUCCESS = 'POPULATE_SCHEDULE_SUCCESS';
 exports.POPULATE_SCHEDULE_SUCCESS = POPULATE_SCHEDULE_SUCCESS;
 
-var populateScheduleSuccess = function populateScheduleSuccess(fantasySchedule, statusCode) {
+var populateScheduleSuccess = function populateScheduleSuccess(matches, statusCode) {
   return {
     type: POPULATE_SCHEDULE_SUCCESS,
-    fantasySchedule: fantasySchedule,
+    matches: matches,
     statusCode: statusCode
   };
 };
@@ -18122,10 +18145,10 @@ exports.populateScheduleFail = populateScheduleFail;
 var CREATE_SCHEDULE_SUCCESS = 'CREATE_SCHEDULE_SUCCESS';
 exports.CREATE_SCHEDULE_SUCCESS = CREATE_SCHEDULE_SUCCESS;
 
-var createScheduleSuccess = function createScheduleSuccess(fantasySchedule, statusCode) {
+var createScheduleSuccess = function createScheduleSuccess(matches, statusCode) {
   return {
     type: CREATE_SCHEDULE_SUCCESS,
-    fantasySchedule: fantasySchedule,
+    matches: matches,
     statusCode: statusCode
   };
 };
@@ -18145,10 +18168,10 @@ exports.createScheduleFail = createScheduleFail;
 var POPULATE_MATCHES_SUCCESS = 'POPULATE_MATCHES_SUCCESS';
 exports.POPULATE_MATCHES_SUCCESS = POPULATE_MATCHES_SUCCESS;
 
-var populateMatchesSuccess = function populateMatchesSuccess(fantasySchedule, statusCode) {
+var populateMatchesSuccess = function populateMatchesSuccess(matches, statusCode) {
   return {
     type: POPULATE_MATCHES_SUCCESS,
-    fantasySchedule: fantasySchedule,
+    matches: matches,
     statusCode: statusCode
   };
 };
@@ -18165,6 +18188,34 @@ var populateMatchesFail = function populateMatchesFail(statusCode) {
 };
 
 exports.populateMatchesFail = populateMatchesFail;
+
+var getSchedule = function getSchedule() {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
+      console.log('res 1:', res);
+
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(getScheduleFail(res.status));
+          return;
+        }
+
+        dispatch(getScheduleFail(500));
+        throw new Error(res.statusText);
+      }
+
+      console.log('res.body:', res.body);
+      return res.json();
+    }).then(function (data) {
+      console.log('data:', data);
+      dispatch(getScheduleSuccess(data, 200));
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.getSchedule = getSchedule;
 
 var populateSchedule = function populateSchedule() {
   return function (dispatch) {
@@ -41680,20 +41731,15 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.fantasySchedule.length === 0) {
-        console.log('this.props.fantasySchedule === []');
-        console.log('fantasySchedule.js:', this.props.fantasySchedule);
-        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
-        this.props.dispatch((0, _fantasyScheduleActions.populateSchedule)());
-        this.props.dispatch((0, _fantasyScheduleActions.populateMatches)());
+      if (this.props.fantasySchedule.matches.length > 0) {
+        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
       }
 
-      if (this.props.fantasySchedule.length === 1) {
-        console.log('this.props.fantasySchedule !== []');
-        console.log('fantasySchedule.js:', this.props.fantasySchedule);
-        this.props.dispatch((0, _fantasyScheduleActions.populateSchedule)());
-        this.props.dispatch((0, _fantasyScheduleActions.populateMatches)());
-      }
+      if (this.props.fantasySchedule.matches.length === 0) {
+        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
+      } // this.props.dispatch(populateSchedule());
+      // this.props.dispatch(populateMatches());
+
     }
   }, {
     key: "render",
@@ -43268,26 +43314,42 @@ var _fantasyScheduleActions = __webpack_require__(179);
 // imported into ./flow/reducers.js
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    fantasySchedule: []
+    fantasySchedule: {
+      matches: []
+    }
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case _fantasyScheduleActions.GET_SCHEDULE_SUCCESS:
+      return Object.assign({}, state, {
+        fantasySchedule: {
+          matches: action.matches
+        }
+      });
+
     case _fantasyScheduleActions.POPULATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: action.fantasySchedule
+        fantasySchedule: {
+          matches: action.matches
+        }
       });
 
     case _fantasyScheduleActions.POPULATE_MATCHES_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: action.fantasySchedule
+        fantasySchedule: {
+          matches: action.matches
+        }
       });
 
     case _fantasyScheduleActions.CREATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: action.fantasySchedule
+        fantasySchedule: {
+          matches: action.matches
+        }
       });
 
+    case _fantasyScheduleActions.GET_SCHEDULE_FAIL:
     case _fantasyScheduleActions.POPULATE_SCHEDULE_FAIL:
     case _fantasyScheduleActions.POPULATE_MATCHES_FAIL:
     case _fantasyScheduleActions.CREATE_SCHEDULE_FAIL:

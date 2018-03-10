@@ -57,7 +57,7 @@ function scheduleCreator(clubArray) {
   
   save(schedule);
   
-  console.log('scheduleCreator() round 1:', schedule.matches[0]);
+  // console.log('scheduleCreator() schedule.matches.length:', schedule.matches.length);
   
   return schedule;
   
