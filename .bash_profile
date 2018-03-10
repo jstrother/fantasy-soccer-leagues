@@ -1,11 +1,11 @@
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
+if [ -f ~/Projects/.bashrc ]; then
+  . ~/Projects/.bashrc
 fi
 
 # the following is an alias to open the Cloud9 user profile
 alias profile="c9 open ~/.profile"
 
-# the following sets up an alias for sourcing .bash_profile
+# the following sets up an alias for sourcing .profile
 
 alias source="cd && source .bash_profile && echo '.bash_profile updated'"
 
