@@ -10,4 +10,3 @@ coverage/
 *.map
 public/scripts.js
 .vscode/
-.eslintrc.json
