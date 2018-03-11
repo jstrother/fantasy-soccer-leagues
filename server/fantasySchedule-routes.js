@@ -49,10 +49,11 @@ fantasyScheduleRouter.get('/populateMatches',
 
 fantasyScheduleRouter.post('/createSchedule',
   (req, res) => {
+    // console.log('req:', req);
     FantasyClub
     .find()
     .then(data => {
-      scheduleCreator(data);
+      res.json(scheduleCreator(data).matches);
     })
     .catch(error => {
       throw new Error(error);

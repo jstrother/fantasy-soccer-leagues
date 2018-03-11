@@ -60,7 +60,7 @@ export const populateMatchesFail = statusCode => ({
 export const getSchedule = () => dispatch => {
   return fetch(`${thisURL}`)
   .then(res => {
-    console.log('res 1:', res);
+    // console.log('res 1:', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(getScheduleFail(res.status));
@@ -69,11 +69,11 @@ export const getSchedule = () => dispatch => {
       dispatch(getScheduleFail(500));
       throw new Error(res.statusText);
     }
-    console.log('res.body:', res.body);
+    // console.log('res.body:', res.body);
     return res.json();
   })
   .then(data => {
-    console.log('data:', data);
+    // console.log('data:', data);
     dispatch(getScheduleSuccess(data, 200));
   })
   .catch(error => {

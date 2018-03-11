@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "165eb75f098d62ff9064"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "aa5f16f9b665b3f5fb31"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18192,8 +18192,7 @@ exports.populateMatchesFail = populateMatchesFail;
 var getSchedule = function getSchedule() {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
-      console.log('res 1:', res);
-
+      // console.log('res 1:', res);
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(getScheduleFail(res.status));
@@ -18202,12 +18201,12 @@ var getSchedule = function getSchedule() {
 
         dispatch(getScheduleFail(500));
         throw new Error(res.statusText);
-      }
+      } // console.log('res.body:', res.body);
 
-      console.log('res.body:', res.body);
+
       return res.json();
     }).then(function (data) {
-      console.log('data:', data);
+      // console.log('data:', data);
       dispatch(getScheduleSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -41737,6 +41736,7 @@ function (_React$Component) {
 
       if (this.props.fantasySchedule.matches.length === 0) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
+        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
       } // this.props.dispatch(populateSchedule());
       // this.props.dispatch(populateMatches());
 

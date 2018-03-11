@@ -18,6 +18,7 @@ export class Schedule extends React.Component {
 		}
     if (this.props.fantasySchedule.matches.length === 0) {
 			this.props.dispatch(createSchedule());
+			this.props.dispatch(getSchedule());
 		}
 		// this.props.dispatch(populateSchedule());
 		// this.props.dispatch(populateMatches());
