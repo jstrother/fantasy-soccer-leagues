@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "81584e4a5f3f7b5d177f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b1af6d4f7603f86665dd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18242,7 +18242,7 @@ exports.populateSchedule = populateSchedule;
 
 var createSchedule = function createSchedule() {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/createSchedule"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/scheduleCreator"), {
       method: 'POST'
     }).then(function (res) {
       console.log('createSchedule res:', res);

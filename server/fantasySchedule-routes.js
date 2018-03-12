@@ -47,13 +47,38 @@ fantasyScheduleRouter.get('/populateMatches',
   }
 );
 
-fantasyScheduleRouter.post('/createSchedule',
+fantasyScheduleRouter.post('/scheduleCreator',
   (req, res) => {
-    // console.log('req:', req);
     FantasyClub
     .find()
     .then(data => {
-      res.json(scheduleCreator(data).matches);
+      scheduleCreator(data)
+      .then(schedule => {
+        FantasySchedule
+        .findById(schedule._id)
+        .populate({
+          path: 'weeklyMatches',
+          model: 'WeeklyMatches',
+          populate: {
+            path: 'matches',
+            model: 'FantasyMatch',
+            populate: {
+              path: 'homeClub awayClub',
+              model: 'FantasyClub'
+            }
+          }
+        })
+        .exec((error, populatedSchedule) => {
+          if (error) {
+            return () => {throw new Error(error)};
+          }
+          console.log('populatedWeeklyMatches:', populatedSchedule.weeklyMatches);
+          // res.json(populatedSchedule);
+        });
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
     })
     .catch(error => {
       throw new Error(error);

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose'),
   FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
-  FantasyClub = require("../../models/fantasyClub_model.js");
+  FantasyClub = require("../../models/fantasyClub_model.js"),
+  WeeklyMatches = require("../../models/weeklyMatches.js");
 
 // matchArray will be filled by getting schedule.matches from fantasySchedule-routes.js
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
@@ -27,9 +28,9 @@ function matchResolver(matchArray) {
 // can use loopArray_function.js to run scheduleCreator() once a year
 function scheduleCreator(clubArray) {
   let schedule = new FantasySchedule({
-    matches: []
+    weeklyMatches: []
   }),
-  numberOfMatches = 0;
+  numberOfWeeks = 38;
   
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
@@ -48,38 +49,40 @@ function scheduleCreator(clubArray) {
     clubArray.push(averageClub);
   }
   
-  // we fill this variable here in case an averageClub was created
-  numberOfMatches = (clubArray.length / 2) * 38;
+  arrayParser(clubArray, schedule.weeklyMatches.length);
   
-  while (schedule.matches.length < numberOfMatches) {
-    arrayParser(clubArray);
-  }
-  
-  save(schedule);
-  
-  // console.log('scheduleCreator() schedule.matches.length:', schedule.matches.length);
-  
-  return schedule;
+  return save(schedule)
+    .catch(error => {
+      throw new Error(error);
+    });
   
   // this function goes over clubArray and sets up a match between each pair
-  function arrayParser (clubArray) {
+  function arrayParser (clubArray, roundNumber) {
     const controlNumber = clubArray.length / 2,
       controlClub = clubArray[controlNumber];
-    let weeklyMatches = [];
+    let weeklyMatches = new WeeklyMatches({
+      _id: new mongoose.Types.ObjectId(),
+      name: `Round ${roundNumber + 1}`,
+      matches: []
+    });
+    
+    schedule.weeklyMatches.push(weeklyMatches._id);
     
     do {
       let firstTwoClubs = clubArray.slice(0, 2),
         match = matchCreator(firstTwoClubs[0], firstTwoClubs[1]);
-      
-      weeklyMatches.push(match._id);
+      weeklyMatches.matches.push(match._id);
       // we take what was originally the first club in the list and move it to the end so a new set of pairs results and we don't end up making the same set of matches for each week, and also that we don't lose any clubs in the process
       let clubToEnd = clubArray.shift();
       clubArray.push(clubToEnd);
     } while (controlClub !== clubArray[0]);
     
-    schedule.matches.push(weeklyMatches);
+    save(weeklyMatches);
     
-    return clubArray;
+    if (schedule.weeklyMatches.length < numberOfWeeks) {
+      arrayParser(clubArray, schedule.weeklyMatches.length);
+    }
+    return;
   }
 }
 
@@ -102,16 +105,26 @@ function matchCreator(homeClub, awayClub) {
 }
 
 function save(item) {
-  item
+  return item
   .save()
   .catch(error => {
     throw new Error(error);
   });
 }
 
+const scheduleCreatorPromise = (clubArray, error) => {
+  return new Promise((resolve, reject) => {
+    if (error) {
+      reject(error);
+    }
+    resolve(scheduleCreator(clubArray));
+  });
+};
+
 module.exports = {
   scheduleCreator,
   matchCreator,
   matchResolver,
-  save
+  save,
+  scheduleCreatorPromise
 };

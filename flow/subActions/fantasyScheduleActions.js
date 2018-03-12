@@ -103,7 +103,7 @@ export const populateSchedule = () => dispatch => {
 };
 
 export const createSchedule = () => dispatch => {
-  return fetch(`${thisURL}/createSchedule`, {
+  return fetch(`${thisURL}/scheduleCreator`, {
     method: 'POST'
   })
   .then(res => {
