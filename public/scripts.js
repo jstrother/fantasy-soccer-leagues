@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b1af6d4f7603f86665dd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "052e6d864f6eee146787"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18086,7 +18086,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.populateMatches = exports.createSchedule = exports.populateSchedule = exports.getSchedule = exports.populateMatchesFail = exports.POPULATE_MATCHES_FAIL = exports.populateMatchesSuccess = exports.POPULATE_MATCHES_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.populateScheduleFail = exports.POPULATE_SCHEDULE_FAIL = exports.populateScheduleSuccess = exports.POPULATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
+exports.createSchedule = exports.getSchedule = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(42));
 
@@ -18119,29 +18119,6 @@ var getScheduleFail = function getScheduleFail(statusCode) {
 };
 
 exports.getScheduleFail = getScheduleFail;
-var POPULATE_SCHEDULE_SUCCESS = 'POPULATE_SCHEDULE_SUCCESS';
-exports.POPULATE_SCHEDULE_SUCCESS = POPULATE_SCHEDULE_SUCCESS;
-
-var populateScheduleSuccess = function populateScheduleSuccess(matches, statusCode) {
-  return {
-    type: POPULATE_SCHEDULE_SUCCESS,
-    matches: matches,
-    statusCode: statusCode
-  };
-};
-
-exports.populateScheduleSuccess = populateScheduleSuccess;
-var POPULATE_SCHEDULE_FAIL = 'POPULATE_SCHEDULE_FAIL';
-exports.POPULATE_SCHEDULE_FAIL = POPULATE_SCHEDULE_FAIL;
-
-var populateScheduleFail = function populateScheduleFail(statusCode) {
-  return {
-    type: POPULATE_SCHEDULE_FAIL,
-    statusCode: statusCode
-  };
-};
-
-exports.populateScheduleFail = populateScheduleFail;
 var CREATE_SCHEDULE_SUCCESS = 'CREATE_SCHEDULE_SUCCESS';
 exports.CREATE_SCHEDULE_SUCCESS = CREATE_SCHEDULE_SUCCESS;
 
@@ -18165,29 +18142,6 @@ var createScheduleFail = function createScheduleFail(statusCode) {
 };
 
 exports.createScheduleFail = createScheduleFail;
-var POPULATE_MATCHES_SUCCESS = 'POPULATE_MATCHES_SUCCESS';
-exports.POPULATE_MATCHES_SUCCESS = POPULATE_MATCHES_SUCCESS;
-
-var populateMatchesSuccess = function populateMatchesSuccess(matches, statusCode) {
-  return {
-    type: POPULATE_MATCHES_SUCCESS,
-    matches: matches,
-    statusCode: statusCode
-  };
-};
-
-exports.populateMatchesSuccess = populateMatchesSuccess;
-var POPULATE_MATCHES_FAIL = 'POPULATE_MATCHES_FAIL';
-exports.POPULATE_MATCHES_FAIL = POPULATE_MATCHES_FAIL;
-
-var populateMatchesFail = function populateMatchesFail(statusCode) {
-  return {
-    type: POPULATE_MATCHES_FAIL,
-    statusCode: statusCode
-  };
-};
-
-exports.populateMatchesFail = populateMatchesFail;
 
 var getSchedule = function getSchedule() {
   return function (dispatch) {
@@ -18216,37 +18170,11 @@ var getSchedule = function getSchedule() {
 
 exports.getSchedule = getSchedule;
 
-var populateSchedule = function populateSchedule() {
-  return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/populateSchedule")).then(function (res) {
-      if (!res.ok) {
-        if (res.status === 400) {
-          dispatch(populateScheduleFail(res.status));
-          return;
-        }
-
-        dispatch(populateScheduleFail(500));
-        throw new Error(res.statusText);
-      }
-
-      return res.json();
-    }).then(function (data) {
-      dispatch(populateScheduleSuccess(data, 200));
-    }).catch(function (error) {
-      throw new Error(error);
-    });
-  };
-};
-
-exports.populateSchedule = populateSchedule;
-
 var createSchedule = function createSchedule() {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/scheduleCreator"), {
       method: 'POST'
     }).then(function (res) {
-      console.log('createSchedule res:', res);
-
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(createScheduleFail(res.status));
@@ -18259,7 +18187,6 @@ var createSchedule = function createSchedule() {
 
       return res.json();
     }).then(function (data) {
-      console.log('createSchedule data:', data);
       dispatch(createScheduleSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -18268,30 +18195,6 @@ var createSchedule = function createSchedule() {
 };
 
 exports.createSchedule = createSchedule;
-
-var populateMatches = function populateMatches() {
-  return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/populateMatches")).then(function (res) {
-      if (!res.ok) {
-        if (res.status === 400) {
-          dispatch(populateMatchesFail(res.status));
-          return;
-        }
-
-        dispatch(populateMatchesFail(500));
-        throw new Error(res.statusText);
-      }
-
-      return res.json();
-    }).then(function (data) {
-      dispatch(populateMatchesSuccess(data, 200));
-    }).catch(function (error) {
-      throw new Error(error);
-    });
-  };
-};
-
-exports.populateMatches = populateMatches;
 
 /***/ }),
 /* 180 */
@@ -41730,16 +41633,12 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.fantasySchedule.matches.length > 0) {
-        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
-      }
+      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
+      console.log('fantasySchedule:', this.props.fantasySchedule);
 
       if (this.props.fantasySchedule.matches.length === 0) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
-        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
-      } // this.props.dispatch(populateSchedule());
-      // this.props.dispatch(populateMatches());
-
+      }
     }
   }, {
     key: "render",
@@ -43328,20 +43227,6 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
         }
       });
 
-    case _fantasyScheduleActions.POPULATE_SCHEDULE_SUCCESS:
-      return Object.assign({}, state, {
-        fantasySchedule: {
-          matches: action.matches
-        }
-      });
-
-    case _fantasyScheduleActions.POPULATE_MATCHES_SUCCESS:
-      return Object.assign({}, state, {
-        fantasySchedule: {
-          matches: action.matches
-        }
-      });
-
     case _fantasyScheduleActions.CREATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
         fantasySchedule: {
@@ -43350,8 +43235,6 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
       });
 
     case _fantasyScheduleActions.GET_SCHEDULE_FAIL:
-    case _fantasyScheduleActions.POPULATE_SCHEDULE_FAIL:
-    case _fantasyScheduleActions.POPULATE_MATCHES_FAIL:
     case _fantasyScheduleActions.CREATE_SCHEDULE_FAIL:
     default:
       return state;

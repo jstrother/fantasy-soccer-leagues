@@ -13,15 +13,11 @@ import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidMount() {
-		if (this.props.fantasySchedule.matches.length > 0) {
-			this.props.dispatch(getSchedule());
-		}
-    if (this.props.fantasySchedule.matches.length === 0) {
+		this.props.dispatch(getSchedule());
+		console.log('fantasySchedule:', this.props.fantasySchedule);
+    if (this.props.fantasySchedule.matches.weeklyMatches.length === 0) {
 			this.props.dispatch(createSchedule());
-			this.props.dispatch(getSchedule());
 		}
-		// this.props.dispatch(populateSchedule());
-		// this.props.dispatch(populateMatches());
   }
 	render() {
 		const rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;

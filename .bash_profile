@@ -1,11 +1,11 @@
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
+if [ -f ~/Projects/.bashrc ]; then
+  . ~/Projects/.bashrc
 fi
 
 # the following is an alias to open the Cloud9 user profile
 alias profile="c9 open ~/.profile"
 
-# the following sets up an alias for sourcing .bash_profile
+# the following sets up an alias for sourcing .profile
 
 alias source="cd && source .bash_profile && echo '.bash_profile updated'"
 
@@ -65,7 +65,7 @@ alias start="npm start"
 
 # the following is an alias for npm update
 
-alias update="npm update & echo 'Updating'"
+alias update="npm update & echo 'Updating' && echo 'Update Complete'"
 
 
 # the following is an alias for npm install (packages can be specified)
@@ -83,7 +83,7 @@ alias S="i --save"
 alias D="i --save-dev"
 
 
-# the following is an alias to install npm packages globally (packages can be specified)
+# the following is an alias to install npm packages globally
 
 alias G="i -g"
 
@@ -185,4 +185,3 @@ alias rethink="rethinkdb --bind all --http-port 8081"
 
 # the following is an alias to upgrade node AND then to redo the node-sass binary bindings
 alias N="G node && npm rebuild node-sass --force"
-

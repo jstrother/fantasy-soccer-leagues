@@ -18,35 +18,6 @@ fantasyScheduleRouter.get('/',
   }
 );
 
-fantasyScheduleRouter.get('/populateSchedule',
-  (req, res) => {
-    FantasySchedule
-    .find()
-    .populate('matches')
-    .then(data => {
-      res.json(data.matches);
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-
-fantasyScheduleRouter.get('/populateMatches',
-  (req, res) => {
-    FantasyMatch
-    .find()
-    .populate('homeClub')
-    .populate('awayClub')
-    .then(data => {
-      res.json(data);
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-
 fantasyScheduleRouter.post('/scheduleCreator',
   (req, res) => {
     FantasyClub
@@ -72,8 +43,7 @@ fantasyScheduleRouter.post('/scheduleCreator',
           if (error) {
             return () => {throw new Error(error)};
           }
-          console.log('populatedWeeklyMatches:', populatedSchedule.weeklyMatches);
-          // res.json(populatedSchedule);
+          res.json(populatedSchedule);
         });
       })
       .catch(error => {
