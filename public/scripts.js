@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "052e6d864f6eee146787"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "35dc61e80b819bae3d6c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41636,7 +41636,7 @@ function (_React$Component) {
       this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
       console.log('fantasySchedule:', this.props.fantasySchedule);
 
-      if (this.props.fantasySchedule.matches.length === 0) {
+      if (this.props.fantasySchedule.matches.weeklyMatches.length === 0) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
       }
     }

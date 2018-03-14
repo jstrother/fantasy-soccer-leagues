@@ -11,17 +11,18 @@ function matchResolver(matchArray) {
     combinedScores = 0,
     matchArrayLength = matchArray.length / 2 - 1; // setting up these last two in case there is an averageClub in matchArray somewhere
   for (let match of matchArray) {
-    // console.log('match:', match);
+    console.log('match:', match);
     if (match.final === false) {
-      match.homeClub.starters.forEach(starter => {
-        if (match.homeClub.clubName !== 'Average') {
-          homeClubScore += match.homeScore.fantasyPoints.fixture;
-          // console.log('homeClubScore:', homeClubScore);
-        }
-      });
+      // console.log('homeClub starters:', match.homeClub.starters);
+      // console.log('homeClub manager:', match.homeClub.manager);
+      // match.homeClub.starters.forEach(starter => {
+      //   if (match.homeClub.clubName !== 'Average') {
+      //     homeClubScore += match.homeScore.fantasyPoints.fixture;
+      //     console.log('homeClubScore:', homeClubScore);
+      //   }
+      // });
     }
   }
-  // console.log('homeClubScore:', homeClubScore);
 }
 
 // clubArray will be filled by getting all clubs from fantasyClubs-router.js
