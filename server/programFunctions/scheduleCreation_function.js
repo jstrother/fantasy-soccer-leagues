@@ -4,7 +4,24 @@ const mongoose = require('mongoose'),
   FantasyClub = require("../../models/fantasyClub_model.js"),
   WeeklyMatches = require("../../models/weeklyMatches.js");
 
-// matchArray will be filled by getting schedule.matches from fantasySchedule-routes.js
+function standingsCalculator(clubArray) {
+  clubArray.sort((a, b) => compare(a.points, b.points) || compare(a.goalDifferential, b.goalDifferential) || compare(a.goalsFor, b.goalsFor));
+  return clubArray;
+  
+  function compare(a, b) {
+    if(a < b) {
+      return 1;
+    }
+    if(a > b) {
+      return -1;
+    }
+    if( a === b) {
+      return 0;
+    }
+  }
+}
+
+// matchArray will be filled by getting schedule.matches.weeklyMatches from fantasySchedule-routes.js
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 function matchResolver(matchArray) {
   let allScores = 0,
@@ -170,6 +187,7 @@ module.exports = {
   scheduleCreator,
   matchCreator,
   matchResolver,
+  standingsCalculator,
   save,
   scheduleCreatorPromise
 };
