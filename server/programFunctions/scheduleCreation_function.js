@@ -7,22 +7,66 @@ const mongoose = require('mongoose'),
 // matchArray will be filled by getting schedule.matches from fantasySchedule-routes.js
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 function matchResolver(matchArray) {
-  let homeClubScore = 0,
-    combinedScores = 0,
-    matchArrayLength = matchArray.length / 2 - 1; // setting up these last two in case there is an averageClub in matchArray somewhere
-  for (let match of matchArray) {
-    console.log('match:', match);
+  let allScores = 0,
+    counter = 0;
+  // first calculate fantasyPoints for each team run by a human
+  matchArray.forEach(match => {
     if (match.final === false) {
-      // console.log('homeClub starters:', match.homeClub.starters);
-      // console.log('homeClub manager:', match.homeClub.manager);
-      // match.homeClub.starters.forEach(starter => {
-      //   if (match.homeClub.clubName !== 'Average') {
-      //     homeClubScore += match.homeScore.fantasyPoints.fixture;
-      //     console.log('homeClubScore:', homeClubScore);
-      //   }
-      // });
+      if (match.homeClub.clubName !== 'Average') {
+        match.homeClub.starters.forEach(starter => {
+          match.homeScore += starter.fantasyPoints.fixture;
+          counter++;
+        });
+      }
+      if (match.awayClub.clubName !== 'Average') {
+        match.awayClub.starters.forEach(starter => {
+          match.awayScore += starter.fantasyPoints.fixture;
+          counter++;
+        });
+      }
+      match.final = true;
+      
+      match.homeClub.goalsFor += match.homeScore;
+      match.homeClub.goalsAgainst += match.awayScore;
+      match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+      allScores += match.homeScore;
+      
+      match.awayClub.goalsFor += match.awayScore;
+      match.awayClub.goalsAgainst += match.homeScore;
+      match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+      allScores += match.awayScore;
     }
-  }
+  });
+  // then calculate the points for averageClub if present
+  matchArray.forEach(match => {
+    if(match.homeClub.clubName === 'Average') {
+      match.homeScore = allScores / counter;
+    }
+    if(match.awayClub.clubName === 'Average') {
+      match.awayScore = allScores / counter;
+    }
+  });
+  // finally, compare scores and add 1 to correct "column" (W, D, L)
+  matchArray.forEach(match => {
+    if (match.homeScore > match.awayScore) {
+      match.homeClub.wins += 1;
+      match.homeClub.points += 3;
+      match.awayClub.losses += 1;
+    }
+    if (match.awayScore > match.homeScore) {
+      match.awayClub.wins += 1;
+      match.awayClub.points += 3;
+      match.homeClub.losses += 1;
+    }
+    if (match.homeScore === match.awayScore) {
+      match.homeClub.draws += 1;
+      match.homeClub.points += 1;
+      match.awayClub.draws += 1;
+      match.awayClub.points += 1;
+    }
+  });
+  
+  return matchArray;
 }
 
 // clubArray will be filled by getting all clubs from fantasyClubs-router.js

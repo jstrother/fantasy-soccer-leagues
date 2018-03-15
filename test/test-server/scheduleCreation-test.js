@@ -19,21 +19,26 @@ describe('Fantasy Schedule',() => {
     return scheduleCreator(clubArray).should.eventually.exist;
   });
   
-  // it('should resolve match outcomes', () => {
-  //   let match1 = matchCreator(firstClub, secondClub),
-  //     match2 = matchCreator(thirdClub, fourthClub),
-  //     match3 = matchCreator(fifthClub, sixthClub),
-  //     matchArray = [match1, match2, match3];
+  it('should resolve match outcomes', () => {
+    // these test are not set up to clear from the database after each and every test, so we just tack on the rest of the clubs here and build up from the mathCreator() test above
+    save(thirdClub);
+    save(fourthClub);
+    save(fifthClub);
+    save(sixthClub);
     
-  //   FantasyMatch
-  //   .find()
-  //   .populate({
-  //     path: 'homeClub awayClub',
-  //     model: 'FantasyClub'
-  //   });
+    matchCreator(thirdClub, fourthClub);
+    matchCreator(fifthClub, sixthClub);
     
-  //   return matchResolver(matchArray).should.exist;
-  // });
+    return FantasyMatch
+      .find()
+      .populate({
+        path: 'homeClub awayClub',
+        model: 'FantasyClub'
+      })
+      .then(data => {
+        matchResolver(data).should.exist;
+      });
+  });
   
   // it('should calculate the league standings', () => {
     
