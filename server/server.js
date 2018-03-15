@@ -11,10 +11,11 @@ const config = require('./config.js'),
 	passport = require('passport'),
 	app = express(),
 	server = require('http').Server(app),
-	userRouter = require('./user-routes.js').userRouter,
-	playerRouter = require('./player-routes.js').playerRouter,
-	leagueRouter = require('./league-routes.js').leagueRouter,
-	fantasyClubRouter = require("./fantasyClub-routes.js").fantasyClubRouter,
+	{ userRouter } = require('./user-routes.js'),
+	{ playerRouter } = require('./player-routes.js'),
+	{ leagueRouter } = require('./league-routes.js'),
+	{ fantasyClubRouter } = require("./fantasyClub-routes.js"),
+	{ fantasyScheduleRouter } = require("./fantasySchedule-routes.js"),
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
@@ -27,6 +28,7 @@ app.use('/user', userRouter);
 app.use('/player', playerRouter);
 app.use('/league', leagueRouter);
 app.use('/fantasyClub', fantasyClubRouter);
+app.use('/fantasySchedule', fantasyScheduleRouter);
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'));
 });

@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars, no-console*/
 // components/home.js
 // imported into ./app.js
 
@@ -12,7 +12,6 @@ import Player from './player.js';
 import styles from '../scss/home.scss';
 
 export class Home extends React.Component {
-  
   selectLeagueChange(event) {
     event.preventDefault();
     const fantasyLeagueId = parseInt(event.target.value, 10);

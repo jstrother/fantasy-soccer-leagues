@@ -54,7 +54,7 @@ export class Selection extends React.Component {
 		
 		// we first check to see if there are less than 4 instances of a particular clubName as a user can only have a max of 4 players from any one clubName
 		if (clubCount.length < 4) {
-			// first, check to see if the roster has room for new players
+			// next, check to see if the roster has room for new players
 			if (rosterTotal < 23) {
 				// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
 				if (player.position === 'G' || player.position === 'Goalkeeper') {

@@ -181,7 +181,420 @@ const mongoose = require('mongoose'),
     }
   },
   fantasyLeagueId = 779,
-  fantasyLeagueName = 'Major League Soccer (USA)';
+  fantasyLeagueName = 'Major League Soccer (USA)',
+  FantasyClub = require("../models/fantasyClub_model.js"),
+  firstClub = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Strikers \'87',
+    manager: 'Jim Strother',
+    points: 17,
+    wins: 5,
+    draws: 2,
+    losses: 3,
+    goalsFor: 160,
+    goalsAgainst: 100,
+    goalDifferential: 60,
+    starters: [
+      {
+        idFromAPI: 1,
+        fantasyPoints: {
+          fixture: 8
+        }
+      },
+      {
+        idFromAPI: 2,
+        fantasyPoints: {
+          fixture: 3
+        }
+      },
+      {
+        idFromAPI: 3,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 4,
+        fantasyPoints: {
+          fixture: 10
+        }
+      },
+      {
+        idFromAPI: 5,
+        fantasyPoints: {
+          fixture: 0
+        }
+      },
+      {
+        idFromAPI: 6,
+        fantasyPoints: {
+          fixture: 11
+        }
+      },
+      {
+        idFromAPI: 7,
+        fantasyPoints: {
+          fixture: 3
+        }
+      },
+      {
+        idFromAPI: 8,
+        fantasyPoints: {
+          fixture: 1
+        }
+      },
+      {
+        idFromAPI: 9,
+        fantasyPoints: {
+          fixture: 4
+        }
+      },
+      {
+        idFromAPI: 10,
+        fantasyPoints: {
+          fixture: 0
+        }
+      },
+      {
+        idFromAPI: 11,
+        fantasyPoints: {
+          fixture: 7
+        }
+      }
+    ]
+  }),
+  secondClub = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Team RamRod',
+    manager: 'Daniel Mayberry',
+    points: 15,
+    wins: 4,
+    draws: 3,
+    losses: 3,
+    goalsFor: 200,
+    goalsAgainst: 180,
+    goalDifferential: 20,
+    starters: [
+      {
+        idFromAPI: 12,
+        fantasyPoints: {
+          fixture: 4
+        }
+      },
+      {
+        idFromAPI: 13,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 14,
+        fantasyPoints: {
+          fixture: 7
+        }
+      },
+      {
+        idFromAPI: 15,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 16,
+        fantasyPoints: {
+          fixture: 2
+        }
+      },
+      {
+        idFromAPI: 17,
+        fantasyPoints: {
+          fixture: 8
+        }
+      },
+      {
+        idFromAPI: 18,
+        fantasyPoints: {
+          fixture: 14
+        }
+      },
+      {
+        idFromAPI: 19,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 20,
+        fantasyPoints: {
+          fixture: 9
+        }
+      },
+      {
+        idFromAPI: 21,
+        fantasyPoints: {
+          fixture: 1
+        }
+      },
+      {
+        idFromAPI: 22,
+        fantasyPoints: {
+          fixture: 6
+        }
+      }
+    ]
+  }),
+  thirdClub = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'ThunderTurtleUnited',
+    manager: 'Ryan Pritchett',
+    points: 15,
+    wins: 4,
+    draws: 3,
+    losses: 3,
+    goalsFor: 210,
+    goalsAgainst: 180,
+    goalDifferential: 30,
+    starters: [
+      {
+        idFromAPI: 23,
+        fantasyPoints: {
+          fixture: 2
+        }
+      },
+      {
+        idFromAPI: 24,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 25,
+        fantasyPoints: {
+          fixture: 3
+        }
+      },
+      {
+        idFromAPI: 26,
+        fantasyPoints: {
+          fixture: 7
+        }
+      },
+      {
+        idFromAPI: 27,
+        fantasyPoints: {
+          fixture: 0
+        }
+      },
+      {
+        idFromAPI: 28,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 29,
+        fantasyPoints: {
+          fixture: 12
+        }
+      },
+      {
+        idFromAPI: 30,
+        fantasyPoints: {
+          fixture: 9
+        }
+      },
+      {
+        idFromAPI: 31,
+        fantasyPoints: {
+          fixture: 3
+        }
+      },
+      {
+        idFromAPI: 32,
+        fantasyPoints: {
+          fixture: 0
+        }
+      },
+      {
+        idFromAPI: 33,
+        fantasyPoints: {
+          fixture: 7
+        }
+      }
+    ]
+  }),
+  fourthClub = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Better than Mayberry',
+    manager: 'Mark Enders',
+    points: 18,
+    wins: 5,
+    draws: 3,
+    losses: 2,
+    goalsFor: 170,
+    goalsAgainst: 155,
+    goalDifferential: 15,
+    starters: [
+      {
+        idFromAPI: 34,
+        fantasyPoints: {
+          fixture: 7
+        }
+      },
+      {
+        idFromAPI: 35,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 36,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 37,
+        fantasyPoints: {
+          fixture: 4
+        }
+      },
+      {
+        idFromAPI: 38,
+        fantasyPoints: {
+          fixture: 2
+        }
+      },
+      {
+        idFromAPI: 39,
+        fantasyPoints: {
+          fixture: 10
+        }
+      },
+      {
+        idFromAPI: 40,
+        fantasyPoints: {
+          fixture: 11
+        }
+      },
+      {
+        idFromAPI: 41,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 42,
+        fantasyPoints: {
+          fixture: 10
+        }
+      },
+      {
+        idFromAPI: 43,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 44,
+        fantasyPoints: {
+          fixture: 3
+        }
+      }
+    ]
+  }),
+  fifthClub = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Westside Hooligan',
+    manager: 'Shaun Kendall',
+    points: 14,
+    wins: 3,
+    draws: 5,
+    losses: 2,
+    goalsFor: 145,
+    goalsAgainst: 160,
+    goalDifferential: -15,
+    starters: [
+      {
+        idFromAPI: 45,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 46,
+        fantasyPoints: {
+          fixture: 4
+        }
+      },
+      {
+        idFromAPI: 47,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 48,
+        fantasyPoints: {
+          fixture: 7
+        }
+      },
+      {
+        idFromAPI: 49,
+        fantasyPoints: {
+          fixture: 8
+        }
+      },
+      {
+        idFromAPI: 50,
+        fantasyPoints: {
+          fixture: 2
+        }
+      },
+      {
+        idFromAPI: 51,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 52,
+        fantasyPoints: {
+          fixture: 14
+        }
+      },
+      {
+        idFromAPI: 53,
+        fantasyPoints: {
+          fixture: 1
+        }
+      },
+      {
+        idFromAPI: 54,
+        fantasyPoints: {
+          fixture: 9
+        }
+      },
+      {
+        idFromAPI: 55,
+        fantasyPoints: {
+          fixture: 6
+        }
+      }
+    ]
+  }),
+  sixthClub = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Average',
+    manager: 'N/A',
+    points: 9,
+    wins: 2,
+    draws: 3,
+    losses: 5,
+    goalsFor: 100,
+    goalsAgainst: 280,
+    goalDifferential: -180,
+  });
 
 module.exports = {
 	mongoose,
@@ -196,5 +609,11 @@ module.exports = {
 	testPlayer2,
 	testPlayer3,
 	fantasyLeagueId,
-	fantasyLeagueName
+	fantasyLeagueName,
+	firstClub,
+	secondClub,
+	thirdClub,
+	fourthClub,
+	fifthClub,
+	sixthClub
 };

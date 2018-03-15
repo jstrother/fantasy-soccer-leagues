@@ -1,9 +1,5 @@
-const chai = require('chai'),
-	chaiHTTP = require('chai-http'),
-	should = chai.should(),
-	expect = chai.expect,
-	userRouter = require('../../server/user-routes.js').userRouter,
-	{ mongoose, dbTestConnection, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
+const userRouter = require('../../server/user-routes.js').userRouter,
+	{ mongoose, chai, chaiHTTP, should, expect, dbTestConnection, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
   User = require('../../models/user_model.js'),
   { app } = require('../../server/server.js');
 

@@ -1,12 +1,8 @@
 const mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
 
-	fantasyScheduleSchema = mongoose.Schema({
-		fantasyLeague: Array,
-		numLeagueSeasonMatches: Number,
-		fantasyLeagueCup: Array,
-		leagueCupRound: String,
-		fantasyChampsLeague: Array,
-		champsLeagueRound: String
+	fantasyScheduleSchema = Schema({
+		weeklyMatches: [{type: Schema.Types.ObjectId, ref: 'WeeklyMatches'}]
 	}),
 
 	FantasySchedule = mongoose.model('FantasySchedule', fantasyScheduleSchema);

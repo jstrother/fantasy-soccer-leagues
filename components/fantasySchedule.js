@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars, no-console*/
 // components/fantasySchedule.js
 
 import React from 'react';
@@ -8,9 +8,17 @@ import FantasyMatch from './fantasyMatch.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
+import { populateSchedule, populateMatches, createSchedule, getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
+	componentDidMount() {
+		this.props.dispatch(getSchedule());
+		console.log('fantasySchedule:', this.props.fantasySchedule);
+    if (this.props.fantasySchedule.matches.weeklyMatches.length === 0) {
+			this.props.dispatch(createSchedule());
+		}
+  }
 	render() {
 		const rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 		return(
@@ -37,7 +45,8 @@ const mapScheduleStateToProps = state => ({
 	defenders: state.fantasyClubReducer.defenders,
 	midfielders: state.fantasyClubReducer.midfielders,
 	forwards: state.fantasyClubReducer.forwards,
-	accessToken: state.userReducer.accessToken
+	accessToken: state.userReducer.accessToken,
+	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
 });
 
 const FantasySchedule = connect(

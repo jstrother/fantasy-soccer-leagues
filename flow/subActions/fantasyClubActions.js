@@ -218,7 +218,7 @@ export const getClub = accessToken => dispatch => {
     return res.json();
   })
   .then(data => {
-    dispatch(getClubSuccess(data));
+    dispatch(getClubSuccess(data, 200));
   })
   .catch(error => {
     throw new Error(error);

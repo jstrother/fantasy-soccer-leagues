@@ -3,16 +3,17 @@ const express = require('express'),
 	passport = require('passport'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
-	userRouter = express.Router(),
-	localhost = `https://${process.env.IP}${config.PORT}/user/auth/google/callback`,
+  userRouter = express.Router(),
+	localhost = `https://${process.env.IP}:${config.PORT}/user/auth/google/callback`,
 	cloud9host = `https://${process.env.C9_HOSTNAME}/user/auth/google/callback`,
-  	{ updateData } = require("./programFunctions/updateData_function.js"),
-  	User = require('../models/user_model.js'); // set to expire after 12 hours
+	host = process.env.C9_HOSTNAME ? cloud9host : localhost,
+  { updateData } = require("./programFunctions/updateData_function.js"),
+  User = require('../models/user_model.js'); // set to expire after 12 hours
 
 passport.use(new gStrategy({
 	clientID: config.CLIENT_ID,
 	clientSecret: config.CLIENT_SECRET,
-	callbackURL: localhost
+	callbackURL:  host
 },
 	(accessToken, refreshToken, profile, callback) => {
 		updateData({

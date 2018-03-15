@@ -1,12 +1,13 @@
 const mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
 
-	fantasyMatchSchema = mongoose.Schema({
-	  matchId: {type: Number, required: true},
-    homeClub: { type: mongoose.Schema.Types.ObjectId, ref: 'FantasyClub', required: true },
+	fantasyMatchSchema = Schema({
+	  _id: Schema.Types.ObjectId,
+    homeClub: { type: Schema.Types.ObjectId, ref: 'FantasyClub', required: true },
     homeScore: { type: Number, required: true },
-    awayClub: { type: mongoose.Schema.Types.ObjectId, ref: 'FantasyClub', required: true },
+    awayClub: { type: Schema.Types.ObjectId, ref: 'FantasyClub', required: true },
     awayScore: { type: Number, required: true },
-    leagueType: { type: String, required: true }  //regular league, league cup, or champions league
+    final: { type: Boolean, required: true }
 	}),
 
 	FantasyMatch = mongoose.model('FantasyMatch', fantasyMatchSchema);
