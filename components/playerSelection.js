@@ -39,7 +39,7 @@ export class Selection extends React.Component {
 				}
 			},
 			roster = [],
-			clubCount;
+			clubCount = [];
 		// we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 		roster.push.apply(roster, this.props.goalkeepers);
 		roster.push.apply(roster, this.props.defenders);
@@ -51,6 +51,7 @@ export class Selection extends React.Component {
 				return true;
 			}
 		});
+		console.log('playerSelection.js clubCount:', clubCount);
 		
 		// we first check to see if there are less than 4 instances of a particular clubName as a user can only have a max of 4 players from any one clubName
 		if (clubCount.length < 4) {
@@ -105,7 +106,7 @@ export class Selection extends React.Component {
 					className={rosterLength === 23 ? styles.hidden : styles.playerSelection}>
 					<p>Select players for your roster.</p>
 					<h5>You must select 23 players, no more than 4 from any one club.</h5>
-					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward.</h5>
+					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards.</h5>
 					<h5>Click on a player's name to add them to your roster.</h5>
 					<Warning />
 					<table>

@@ -84,15 +84,21 @@ export class Display extends React.Component {
 			};
 		
 		if (this.props.benchwarmers.length < 7 ) {
-			if (this.props.starters.length > 0) {
-				this.props.starters.forEach(p => {
-					if (player.idFromAPI !== p.idFromAPI) {
-						this.props.dispatch(addBench(this.props.accessToken, player));
-					}
-				});
-			} else {
-				this.props.dispatch(addBench(this.props.accessToken, player));
-			}
+			// checking whether player is already a starter, can't have a player be a starter and on bench at same time
+			this.props.starters.forEach(starter => {
+				console.log('selected player:', player.idFromAPI);
+				console.log('starter:', starter.idFromAPI);
+				if (player.idFromAPI === starter.idFromAPI) {
+					console.log('idFromAPI matches');
+				} else {
+					console.log('idFromAPI does not match');
+				}
+				// if (player.idFromAPI !== starter.idFromAPI) {
+				// 	this.props.dispatch(addBench(this.props.accessToken, player));
+				// } else {
+				// 	this.props.dispatch(warning('This player is already in your starting eleven.'));
+				// }
+			});
 		} else {
 			this.props.dispatch(warning('You already have 7 players on the bench.'));
 		}

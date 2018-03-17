@@ -61,11 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-<<<<<<< HEAD
-/******/ 	var hotCurrentHash = "d7c02af95ad72a55be08"; // eslint-disable-line no-unused-vars
-=======
-/******/ 	var hotCurrentHash = "aef5c35469136cb8464a"; // eslint-disable-line no-unused-vars
->>>>>>> master
+/******/ 	var hotCurrentHash = "9f7a4a533a4397675e1b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -40835,7 +40831,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"link":"loginPage__link__2Wfk_"};
+module.exports = {"link":"loginPage__link__3qoZW"};
 
 /***/ }),
 /* 481 */
@@ -41309,7 +41305,7 @@ module.exports = {"link":"loginPage__link__2Wfk_"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"toolbar":"header__toolbar__DJpGU","title":"header__title__tXrjT","userSection":"header__userSection__17SgM","userName":"header__userName__6g55A","userPhoto":"header__userPhoto__1b7iu"};
+module.exports = {"toolbar":"header__toolbar__1Evjs","title":"header__title__19n9o","userSection":"header__userSection__1vBlL","userName":"header__userName__2mr9b","userPhoto":"header__userPhoto__3AS2d"};
 
 /***/ }),
 /* 483 */
@@ -41638,7 +41634,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
-      console.log('fantasySchedule:', this.props.fantasySchedule);
+      console.log('fantasySchedule.js:', this.props.fantasySchedule);
 
       if (this.props.fantasySchedule.matches.weeklyMatches.length === 0) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
@@ -41836,7 +41832,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"startingEleven":"startingEleven__startingEleven__1Cu9J","pointer":"startingEleven__pointer__2JCjg","hidden":"startingEleven__hidden__UwMNs"};
+module.exports = {"startingEleven":"startingEleven__startingEleven__7MfxE","pointer":"startingEleven__pointer__2Hebq","hidden":"startingEleven__hidden__1-AwT"};
 
 /***/ }),
 /* 489 */
@@ -41947,21 +41943,21 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"benchPlayers":"benchPlayers__benchPlayers__3vX8Q","pointer":"benchPlayers__pointer__jwxoo","hidden":"benchPlayers__hidden__2iyUw"};
+module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","pointer":"benchPlayers__pointer__3hGpZ","hidden":"benchPlayers__hidden__3dASr"};
 
 /***/ }),
 /* 491 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterWarning":"warning__rosterWarning__Wm1tf","hidden":"warning__hidden__1NO0k"};
+module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warning__hidden__IUqCI"};
 
 /***/ }),
 /* 492 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"fantasySchedule__hidden__1Lcua"};
+module.exports = {"hidden":"fantasySchedule__hidden__KG9ET"};
 
 /***/ }),
 /* 493 */
@@ -42116,7 +42112,7 @@ function (_React$Component) {
         }
       },
           roster = [],
-          clubCount; // we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
+          clubCount = []; // we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 
       roster.push.apply(roster, this.props.goalkeepers);
       roster.push.apply(roster, this.props.defenders);
@@ -42126,7 +42122,8 @@ function (_React$Component) {
         if (player.clubName === p.clubName) {
           return true;
         }
-      }); // we first check to see if there are less than 4 instances of a particular clubName as a user can only have a max of 4 players from any one clubName
+      });
+      console.log('playerSelection.js clubCount:', clubCount); // we first check to see if there are less than 4 instances of a particular clubName as a user can only have a max of 4 players from any one clubName
 
       if (clubCount.length < 4) {
         // next, check to see if the roster has room for new players
@@ -42181,7 +42178,7 @@ function (_React$Component) {
         var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
         return _react.default.createElement("div", {
           className: rosterLength === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
-        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forward."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
           defaultValue: "allPositions",
           onChange: this.handlePositionChange.bind(this)
@@ -42301,7 +42298,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__qkBA1","playerName":"playerSelection__playerName__bEPf8","playerRemove":"playerSelection__playerRemove__1Qhcf","hidden":"playerSelection__hidden__3ZKZF"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","hidden":"playerSelection__hidden__1wvZE"};
 
 /***/ }),
 /* 496 */
@@ -42424,8 +42421,6 @@ function (_React$Component) {
   }, {
     key: "addBench",
     value: function addBench(event) {
-      var _this2 = this;
-
       var dataSet = event.target.dataset,
           player = {
         idFromAPI: parseInt(dataSet.id, 10),
@@ -42439,15 +42434,22 @@ function (_React$Component) {
       };
 
       if (this.props.benchwarmers.length < 7) {
-        if (this.props.starters.length > 0) {
-          this.props.starters.forEach(function (p) {
-            if (player.idFromAPI !== p.idFromAPI) {
-              _this2.props.dispatch((0, _fantasyClubActions.addBench)(_this2.props.accessToken, player));
-            }
-          });
-        } else {
-          this.props.dispatch((0, _fantasyClubActions.addBench)(this.props.accessToken, player));
-        }
+        // checking whether player is already a starter, can't have a player be a starter and on bench at same time
+        this.props.starters.forEach(function (starter) {
+          console.log('selected player:', player.idFromAPI);
+          console.log('starter:', starter.idFromAPI);
+
+          if (player.idFromAPI === starter.idFromAPI) {
+            console.log('idFromAPI matches');
+          } else {
+            console.log('idFromAPI does not match');
+          } // if (player.idFromAPI !== starter.idFromAPI) {
+          // 	this.props.dispatch(addBench(this.props.accessToken, player));
+          // } else {
+          // 	this.props.dispatch(warning('This player is already in your starting eleven.'));
+          // }
+
+        });
       } else {
         this.props.dispatch((0, _warningActions.warning)('You already have 7 players on the bench.'));
       }
@@ -42461,7 +42463,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       // this is to create a single list to more easily map over in tbody below
       var roster = [];
@@ -42478,21 +42480,21 @@ function (_React$Component) {
         }, _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
-          onClick: _this3.showPlayerStats.bind(_this3)
+          onClick: _this2.showPlayerStats.bind(_this2)
         }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
           "data-position": p.position,
-          onClick: _this3.addStarter.bind(_this3)
+          onClick: _this2.addStarter.bind(_this2)
         }, "Make Starter"), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
           "data-position": p.position,
-          onClick: _this3.addBench.bind(_this3)
+          onClick: _this2.addBench.bind(_this2)
         }, "Have on Bench"), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
@@ -42501,7 +42503,7 @@ function (_React$Component) {
           "data-position": p.position,
           "data-clubname": p.clubName,
           "data-points": p.fantasyPoints.fixture,
-          onClick: _this3.handleRosterRemove.bind(_this3)
+          onClick: _this2.handleRosterRemove.bind(_this2)
         }, "Remove"));
       }))));
     }
@@ -42535,14 +42537,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","pointer":"rosterDisplay__pointer__13PhS"};
+module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__MFLah","pointer":"rosterDisplay__pointer__3UeiZ"};
 
 /***/ }),
 /* 498 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__d7NzF"};
+module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P"};
 
 /***/ }),
 /* 499 */
@@ -42600,7 +42602,7 @@ exports.default = FantasyLeague;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasyClub":"fantasyClub__fantasyClub__1TYnD","hidden":"fantasyClub__hidden__3PXwD"};
+module.exports = {"fantasyClub":"fantasyClub__fantasyClub__3Imxb","hidden":"fantasyClub__hidden__1gn0Z"};
 
 /***/ }),
 /* 501 */
@@ -42801,14 +42803,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"player":"player__player__ygdIC","playerHeader":"player__playerHeader__MT9AF","playerName":"player__playerName__3ybbH","clubName":"player__clubName__2a_jY","pointsDiv":"player__pointsDiv__2Z_Fo","playerStats":"player__playerStats__3Kg6O","statsHeader":"player__statsHeader__2Gp4_","playerDataClose":"player__playerDataClose__2LbOY","hidden":"player__hidden__38TLQ"};
+module.exports = {"player":"player__player__3DvLK","playerHeader":"player__playerHeader__3IuDQ","playerName":"player__playerName__1UQZ8","clubName":"player__clubName__1u7CU","pointsDiv":"player__pointsDiv__xbFoX","playerStats":"player__playerStats__3ql3R","statsHeader":"player__statsHeader__1LCyX","playerDataClose":"player__playerDataClose__2Y0_j","hidden":"player__hidden__XtzsF"};
 
 /***/ }),
 /* 503 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"welcome":"home__welcome__2FCv3","club":"home__club__13dMS","player":"home__player__2pPuN","hidden":"home__hidden__3o7WK"};
+module.exports = {"welcome":"home__welcome__29INR","club":"home__club__1Uihs","player":"home__player__2TUK8","hidden":"home__hidden__2vh0m"};
 
 /***/ }),
 /* 504 */

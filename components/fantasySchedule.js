@@ -14,7 +14,7 @@ import styles from '../scss/fantasySchedule.scss';
 export class Schedule extends React.Component {
 	componentDidMount() {
 		this.props.dispatch(getSchedule());
-		console.log('fantasySchedule:', this.props.fantasySchedule);
+		console.log('fantasySchedule.js:', this.props.fantasySchedule);
     if (this.props.fantasySchedule.matches.weeklyMatches.length === 0) {
 			this.props.dispatch(createSchedule());
 		}
