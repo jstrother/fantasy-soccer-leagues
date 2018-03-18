@@ -10,7 +10,8 @@ fantasyScheduleRouter.get('/',
     FantasySchedule
     .find()
     .then(data => {
-      res.json(data.matches);
+      // console.log('fantasySchedule-routes.js matches:', data.matches);
+      res.json(data);
     })
     .catch(error => {
       throw new Error(error);

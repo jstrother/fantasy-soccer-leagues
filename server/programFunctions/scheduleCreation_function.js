@@ -23,74 +23,84 @@ function standingsCalculator(clubArray) {
 
 // matchArray will be filled by getting schedule.matches.weeklyMatches from fantasySchedule-routes.js
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
-function matchResolver(matchArray) {
+function matchResolver(weeklyMatches, clubArray) {
+  const today = new Date().getTime();
   let allScores = 0,
-    counter = 0;
-  // first calculate fantasyPoints for each team run by a human
-  matchArray.forEach(match => {
-    if (match.final === false) {
-      if (match.homeClub.clubName !== 'Average') {
-        match.homeClub.starters.forEach(starter => {
-          match.homeScore += starter.fantasyPoints.fixture;
-          counter++;
-        });
-      }
-      if (match.awayClub.clubName !== 'Average') {
-        match.awayClub.starters.forEach(starter => {
-          match.awayScore += starter.fantasyPoints.fixture;
-          counter++;
-        });
-      }
-      match.final = true;
-      
-      match.homeClub.goalsFor += match.homeScore;
-      match.homeClub.goalsAgainst += match.awayScore;
-      match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
-      allScores += match.homeScore;
-      
-      match.awayClub.goalsFor += match.awayScore;
-      match.awayClub.goalsAgainst += match.homeScore;
-      match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-      allScores += match.awayScore;
-    }
-  });
-  // then calculate the points for averageClub if present
-  matchArray.forEach(match => {
-    if(match.homeClub.clubName === 'Average') {
-      match.homeScore = allScores / counter;
-    }
-    if(match.awayClub.clubName === 'Average') {
-      match.awayScore = allScores / counter;
-    }
-  });
-  // finally, compare scores and add 1 to correct "column" (W, D, L)
-  matchArray.forEach(match => {
-    if (match.homeScore > match.awayScore) {
-      match.homeClub.wins += 1;
-      match.homeClub.points += 3;
-      match.awayClub.losses += 1;
-    }
-    if (match.awayScore > match.homeScore) {
-      match.awayClub.wins += 1;
-      match.awayClub.points += 3;
-      match.homeClub.losses += 1;
-    }
-    if (match.homeScore === match.awayScore) {
-      match.homeClub.draws += 1;
-      match.homeClub.points += 1;
-      match.awayClub.draws += 1;
-      match.awayClub.points += 1;
-    }
-  });
+    counter = 0,
+    matchArray = weeklyMatches.matches;
   
-  return matchArray;
+  if (weeklyMatches.matchesResolved === false && today > weeklyMatches.datesToRun) {
+    // first calculate fantasyPoints for each team run by a human
+    matchArray.forEach(match => {
+      if (match.final === false) {
+        if (match.homeClub.clubName !== 'Average') {
+          match.homeClub.starters.forEach(starter => {
+            match.homeScore += starter.fantasyPoints.fixture;
+            counter++;
+          });
+        }
+        if (match.awayClub.clubName !== 'Average') {
+          match.awayClub.starters.forEach(starter => {
+            match.awayScore += starter.fantasyPoints.fixture;
+            counter++;
+          });
+        }
+        match.final = true;
+        
+        match.homeClub.goalsFor += match.homeScore;
+        match.homeClub.goalsAgainst += match.awayScore;
+        match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+        allScores += match.homeScore;
+        
+        match.awayClub.goalsFor += match.awayScore;
+        match.awayClub.goalsAgainst += match.homeScore;
+        match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+        allScores += match.awayScore;
+      }
+    });
+    // then calculate the points for averageClub if present
+    matchArray.forEach(match => {
+      if(match.homeClub.clubName === 'Average') {
+        match.homeScore = allScores / counter;
+      }
+      if(match.awayClub.clubName === 'Average') {
+        match.awayScore = allScores / counter;
+      }
+    });
+    // finally, compare scores and add 1 to correct "column" (W, D, L)
+    matchArray.forEach(match => {
+      if (match.homeScore > match.awayScore) {
+        match.homeClub.wins += 1;
+        match.homeClub.points += 3;
+        match.awayClub.losses += 1;
+      }
+      if (match.awayScore > match.homeScore) {
+        match.awayClub.wins += 1;
+        match.awayClub.points += 3;
+        match.homeClub.losses += 1;
+      }
+      if (match.homeScore === match.awayScore) {
+        match.homeClub.draws += 1;
+        match.homeClub.points += 1;
+        match.awayClub.draws += 1;
+        match.awayClub.points += 1;
+      }
+    });
+    weeklyMatches.matchesResolved = true;
+  }
+  
+  standingsCalculator(clubArray);
+  return weeklyMatches;
 }
 
 // clubArray will be filled by getting all clubs from fantasyClubs-router.js
 // can use loopArray_function.js to run scheduleCreator() once a year
 function scheduleCreator(clubArray) {
+  const year = new Date().getUTCFullYear(),
+    seasonStart = new Date().setUTCFullYear(year, 2, 1);
   let schedule = new FantasySchedule({
-    weeklyMatches: []
+    weeklyMatches: [],
+    startDate: new Date().setTime(seasonStart) // sets season start to March 1st every year, but this should in reality be pulled from API once I can afford to get it going again
   }),
   numberOfWeeks = 38;
   
@@ -121,11 +131,14 @@ function scheduleCreator(clubArray) {
   // this function goes over clubArray and sets up a match between each pair
   function arrayParser (clubArray, roundNumber) {
     const controlNumber = clubArray.length / 2,
-      controlClub = clubArray[controlNumber];
+      controlClub = clubArray[controlNumber],
+      thisWeek = 1000 * 60 * 60 * 24 * (roundNumber + 1); // number of milliseconds of each weekly set of matches up to 38
     let weeklyMatches = new WeeklyMatches({
       _id: new mongoose.Types.ObjectId(),
       name: `Round ${roundNumber + 1}`,
-      matches: []
+      matches: [],
+      matchesResolved: false,
+      datesToRun: new Date().setTime(schedule.startDate + thisWeek)
     });
     
     schedule.weeklyMatches.push(weeklyMatches._id);
@@ -133,6 +146,7 @@ function scheduleCreator(clubArray) {
     do {
       let firstTwoClubs = clubArray.slice(0, 2),
         match = matchCreator(firstTwoClubs[0], firstTwoClubs[1]);
+        
       weeklyMatches.matches.push(match._id);
       // we take what was originally the first club in the list and move it to the end so a new set of pairs results and we don't end up making the same set of matches for each week, and also that we don't lose any clubs in the process
       let clubToEnd = clubArray.shift();

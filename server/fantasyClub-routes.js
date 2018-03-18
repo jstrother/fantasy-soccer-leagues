@@ -3,8 +3,6 @@ const express = require('express'),
   { updateData } = require("./programFunctions/updateData_function.js"),
 	fantasyClubRouter = express.Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
-	
-	let clubArray;
 
 fantasyClubRouter.get('/', 
   (req, res) => {

@@ -4,7 +4,9 @@ const mongoose = require("mongoose"),
   weeklyMatchesSchema = Schema({
     _id: Schema.Types.ObjectId,
     name: String,
-    matches: [{type: Schema.Types.ObjectId, ref: 'FantasyMatch'}]
+    matches: [{type: Schema.Types.ObjectId, ref: 'FantasyMatch'}],
+    matchesResolved: Boolean,
+    datesToRun: Number
   }),
   
   WeeklyMatches = mongoose.model('WeeklyMatches', weeklyMatchesSchema);

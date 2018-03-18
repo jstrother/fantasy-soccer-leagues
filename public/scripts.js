@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1899fe40742364a8fe50"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e7b37a5517aaed9d21d9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18146,7 +18146,6 @@ exports.createScheduleFail = createScheduleFail;
 var getSchedule = function getSchedule() {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
-      // console.log('res 1:', res);
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(getScheduleFail(res.status));
@@ -18155,12 +18154,10 @@ var getSchedule = function getSchedule() {
 
         dispatch(getScheduleFail(500));
         throw new Error(res.statusText);
-      } // console.log('res.body:', res.body);
-
+      }
 
       return res.json();
     }).then(function (data) {
-      // console.log('data:', data);
       dispatch(getScheduleSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -41636,7 +41633,7 @@ function (_React$Component) {
       this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
       console.log('fantasySchedule.js:', this.props.fantasySchedule);
 
-      if (this.props.fantasySchedule.matches.weeklyMatches.length === 0) {
+      if (this.props.fantasySchedule.matches.length === 0) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
       }
     }
