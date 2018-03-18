@@ -46,10 +46,10 @@ export class Display extends React.Component {
 		let dataSet = event.target.dataset,
 			player = {
 				idFromAPI: parseInt(dataSet.id, 10),
-				firstName: dataSet.firstname,
-				lastName: dataSet.lastname,
+				firstName: dataSet.firstname, // note: the dataSet dot notation does not use camelCase
+				lastName: dataSet.lastname, // note: the dataSet dot notation does not use camelCase
 				position: dataSet.position,
-				clubName: dataSet.clubname,
+				clubName: dataSet.clubname, // note: the dataSet dot notation does not use camelCase
 				fantasyPoints: {
 					fixture: parseInt(dataSet.points, 10)
 				}
@@ -76,10 +76,10 @@ export class Display extends React.Component {
 		let dataSet = event.target.dataset,
 			player = {
 				idFromAPI: parseInt(dataSet.id, 10),
-				firstName: dataSet.firstname,
-				lastName: dataSet.lastname,
+				firstName: dataSet.firstname, // note: the dataSet dot notation does not use camelCase
+				lastName: dataSet.lastname, // note: the dataSet dot notation does not use camelCase
 				position: dataSet.position,
-				clubName: dataSet.clubname,
+				clubName: dataSet.clubname, // note: the dataSet dot notation does not use camelCase
 				fantasyPoints: {
 					fixture: parseInt(dataSet.points, 10)
 				}

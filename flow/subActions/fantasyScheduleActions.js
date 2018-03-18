@@ -31,6 +31,19 @@ export const createScheduleFail = statusCode => ({
   statusCode
 });
 
+export const CHECK_SCHEDULE_SUCCESS = 'CHECK_SCHEDULE_SUCCESS';
+export const checkScheduleSuccess = (matches, statusCode) => ({
+  type: CHECK_SCHEDULE_SUCCESS,
+  matches,
+  statusCode
+});
+
+export const CHECK_SCHEDULE_FAIL = 'CHECK_SCHEDULE_FAIL';
+export const checkScheduleFail = (statusCode) => ({
+  type: CHECK_SCHEDULE_FAIL,
+  statusCode
+});
+
 export const getSchedule = () => dispatch => {
   return fetch(`${thisURL}`)
   .then(res => {
@@ -69,6 +82,27 @@ export const createSchedule = () => dispatch => {
   })
   .then(data => {
     dispatch(createScheduleSuccess(data, 200));
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const checkSchedule = () => dispatch => {
+  return fetch(`${thisURL}`)
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(checkScheduleSuccess(res.status));
+        return;
+      }
+      dispatch(checkScheduleFail(500));
+      throw new Error(res.statusText);
+    }
+    res.json();
+  })
+  .then(data => {
+    dispatch(checkScheduleSuccess(data, 200));
   })
   .catch(error => {
     throw new Error(error);
