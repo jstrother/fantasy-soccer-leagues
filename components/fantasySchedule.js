@@ -15,7 +15,7 @@ export class Schedule extends React.Component {
 	componentDidMount() {
 		this.props.dispatch(getSchedule());
 		console.log('fantasySchedule.js:', this.props.fantasySchedule);
-    if (this.props.fantasySchedule.matches.length === 0) {
+    if (this.props.fantasySchedule.length === 0) {
 			this.props.dispatch(createSchedule());
 		}
   }
