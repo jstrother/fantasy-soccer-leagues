@@ -31,7 +31,7 @@ export class Schedule extends React.Component {
 					<StartingEleven />
 				</div>
 				<div>
-					Players Available on Bench:
+					Players Available on Bench (7 required):
 					<BenchPlayers />
 				</div>
 				<FantasyMatch />

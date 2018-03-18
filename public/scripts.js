@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9f7a4a533a4397675e1b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1899fe40742364a8fe50"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41646,7 +41646,7 @@ function (_React$Component) {
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
       return _react.default.createElement("div", {
         className: rosterLength < 23 ? _fantasySchedule.default.hidden : _fantasySchedule.default.fantasySchedule
-      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench:", _react.default.createElement(_benchPlayers.default, null)), _react.default.createElement(_fantasyMatch.default, null));
+      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null)), _react.default.createElement(_fantasyMatch.default, null));
     }
   }]);
 
@@ -42388,8 +42388,8 @@ function (_React$Component) {
       }
     }
   }, {
-    key: "addStarter",
-    value: function addStarter(event) {
+    key: "addStartingPlayer",
+    value: function addStartingPlayer(event) {
       var _this = this;
 
       var dataSet = event.target.dataset,
@@ -42404,14 +42404,17 @@ function (_React$Component) {
         }
       };
 
-      if (this.props.starters.length < 11) {
-        if (this.props.benchwarmers.length > 0) {
-          this.props.benchwarmers.forEach(function (p) {
-            if (player.idFromAPI !== p.idFromAPI) {
-              _this.props.dispatch((0, _fantasyClubActions.addStarter)(_this.props.accessToken, player));
-            }
-          });
-        } else {
+      if (this.props.starters && this.props.starters.length < 11) {
+        // checking whether player is already a bench player, can't have a player be a starter and on bench at same time
+        var benchPlayerCheck = this.props.benchwarmers.filter(function (benchPlayer) {
+          if (player.idFromAPI === benchPlayer.idFromAPI) {
+            _this.props.dispatch((0, _warningActions.warning)('This player is already on your bench.'));
+
+            return true;
+          }
+        }); // if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
+
+        if (benchPlayerCheck.length === 0) {
           this.props.dispatch((0, _fantasyClubActions.addStarter)(this.props.accessToken, player));
         }
       } else {
@@ -42419,8 +42422,10 @@ function (_React$Component) {
       }
     }
   }, {
-    key: "addBench",
-    value: function addBench(event) {
+    key: "addBenchPlayer",
+    value: function addBenchPlayer(event) {
+      var _this2 = this;
+
       var dataSet = event.target.dataset,
           player = {
         idFromAPI: parseInt(dataSet.id, 10),
@@ -42433,23 +42438,19 @@ function (_React$Component) {
         }
       };
 
-      if (this.props.benchwarmers.length < 7) {
+      if (this.props.benchwarmers && this.props.benchwarmers.length < 7) {
         // checking whether player is already a starter, can't have a player be a starter and on bench at same time
-        this.props.starters.forEach(function (starter) {
-          console.log('selected player:', player.idFromAPI);
-          console.log('starter:', starter.idFromAPI);
-
+        var starterCheck = this.props.starters.filter(function (starter) {
           if (player.idFromAPI === starter.idFromAPI) {
-            console.log('idFromAPI matches');
-          } else {
-            console.log('idFromAPI does not match');
-          } // if (player.idFromAPI !== starter.idFromAPI) {
-          // 	this.props.dispatch(addBench(this.props.accessToken, player));
-          // } else {
-          // 	this.props.dispatch(warning('This player is already in your starting eleven.'));
-          // }
+            _this2.props.dispatch((0, _warningActions.warning)('This player is already in your starting eleven.'));
 
-        });
+            return true;
+          }
+        }); // if the player is not a starter, then starterCheck will not have anything in it and a length of 0
+
+        if (starterCheck.length === 0) {
+          this.props.dispatch((0, _fantasyClubActions.addBench)(this.props.accessToken, player));
+        }
       } else {
         this.props.dispatch((0, _warningActions.warning)('You already have 7 players on the bench.'));
       }
@@ -42463,7 +42464,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       // this is to create a single list to more easily map over in tbody below
       var roster = [];
@@ -42480,21 +42481,21 @@ function (_React$Component) {
         }, _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
-          onClick: _this2.showPlayerStats.bind(_this2)
+          onClick: _this3.showPlayerStats.bind(_this3)
         }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
           "data-position": p.position,
-          onClick: _this2.addStarter.bind(_this2)
+          onClick: _this3.addStartingPlayer.bind(_this3)
         }, "Make Starter"), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
           "data-position": p.position,
-          onClick: _this2.addBench.bind(_this2)
+          onClick: _this3.addBenchPlayer.bind(_this3)
         }, "Have on Bench"), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
           "data-id": p.idFromAPI,
@@ -42503,7 +42504,7 @@ function (_React$Component) {
           "data-position": p.position,
           "data-clubname": p.clubName,
           "data-points": p.fantasyPoints.fixture,
-          onClick: _this2.handleRosterRemove.bind(_this2)
+          onClick: _this3.handleRosterRemove.bind(_this3)
         }, "Remove"));
       }))));
     }

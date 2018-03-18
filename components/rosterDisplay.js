@@ -42,7 +42,7 @@ export class Display extends React.Component {
 		}
   }
   
-	addStarter(event) {
+	addStartingPlayer(event) {
 		let dataSet = event.target.dataset,
 			player = {
 				idFromAPI: parseInt(dataSet.id, 10),
@@ -55,14 +55,16 @@ export class Display extends React.Component {
 				}
 			};
 		
-		if (this.props.starters.length < 11) {
-			if (this.props.benchwarmers.length > 0) {
-				this.props.benchwarmers.forEach(p => {
-					if (player.idFromAPI !== p.idFromAPI) {
-						this.props.dispatch(addStarter(this.props.accessToken, player));
-					}
-				});
-			} else {
+		if (this.props.starters && this.props.starters.length < 11) {
+			// checking whether player is already a bench player, can't have a player be a starter and on bench at same time
+			let benchPlayerCheck = this.props.benchwarmers.filter(benchPlayer => {
+				if (player.idFromAPI === benchPlayer.idFromAPI) {
+					this.props.dispatch(warning('This player is already on your bench.'));
+					return true;
+				}
+			});
+			// if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
+			if (benchPlayerCheck.length === 0) {
 				this.props.dispatch(addStarter(this.props.accessToken, player));
 			}
 		} else {
@@ -70,7 +72,7 @@ export class Display extends React.Component {
 		}
 	}
 	
-	addBench(event) {
+	addBenchPlayer(event) {
 		let dataSet = event.target.dataset,
 			player = {
 				idFromAPI: parseInt(dataSet.id, 10),
@@ -83,22 +85,18 @@ export class Display extends React.Component {
 				}
 			};
 		
-		if (this.props.benchwarmers.length < 7 ) {
+		if (this.props.benchwarmers && this.props.benchwarmers.length < 7 ) {
 			// checking whether player is already a starter, can't have a player be a starter and on bench at same time
-			this.props.starters.forEach(starter => {
-				console.log('selected player:', player.idFromAPI);
-				console.log('starter:', starter.idFromAPI);
+			let starterCheck = this.props.starters.filter(starter => {
 				if (player.idFromAPI === starter.idFromAPI) {
-					console.log('idFromAPI matches');
-				} else {
-					console.log('idFromAPI does not match');
+					this.props.dispatch(warning('This player is already in your starting eleven.'));
+					return true;
 				}
-				// if (player.idFromAPI !== starter.idFromAPI) {
-				// 	this.props.dispatch(addBench(this.props.accessToken, player));
-				// } else {
-				// 	this.props.dispatch(warning('This player is already in your starting eleven.'));
-				// }
 			});
+			// if the player is not a starter, then starterCheck will not have anything in it and a length of 0
+			if (starterCheck.length === 0) {
+				this.props.dispatch(addBench(this.props.accessToken, player));
+			}
 		} else {
 			this.props.dispatch(warning('You already have 7 players on the bench.'));
 		}
@@ -176,7 +174,7 @@ export class Display extends React.Component {
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
 											data-position={p.position}
-											onClick={this.addStarter.bind(this)}>
+											onClick={this.addStartingPlayer.bind(this)}>
 											Make Starter
 										</td>
 										<td
@@ -185,7 +183,7 @@ export class Display extends React.Component {
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
 											data-position={p.position}
-											onClick={this.addBench.bind(this)}>
+											onClick={this.addBenchPlayer.bind(this)}>
 											Have on Bench
 										</td>
 										<td

@@ -1,5 +1,5 @@
 /*eslint-disable no-console, no-unused-vars*/
-// components/startingEleven.js
+// components/benchPlayers.js
 
 import React from 'react';
 import { connect } from 'react-redux';
