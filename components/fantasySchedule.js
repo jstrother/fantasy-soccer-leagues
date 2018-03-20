@@ -8,12 +8,12 @@ import FantasyMatch from './fantasyMatch.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { populateSchedule, populateMatches, checkSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { populateSchedule, populateMatches, getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(checkSchedule());
+		this.props.dispatch(getSchedule());
   }
 	render() {
 		const rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;

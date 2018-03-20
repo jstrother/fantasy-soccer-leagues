@@ -32,9 +32,10 @@ export const createScheduleFail = statusCode => ({
 });
 
 export const CHECK_SCHEDULE_SUCCESS = 'CHECK_SCHEDULE_SUCCESS';
-export const checkScheduleSuccess = (matches, statusCode) => ({
+export const checkScheduleSuccess = (matches, timeout, statusCode) => ({
   type: CHECK_SCHEDULE_SUCCESS,
   matches,
+  timeout,
   statusCode
 });
 
@@ -57,8 +58,8 @@ export const getSchedule = () => dispatch => {
     }
     return res.json();
   })
-  .then(data => {
-    dispatch(getScheduleSuccess(data, 200));
+  .then(matches => {
+    dispatch(getScheduleSuccess(matches, 200));
   })
   .catch(error => {
     throw new Error(error);
@@ -80,8 +81,8 @@ export const createSchedule = () => dispatch => {
     }
     return res.json();
   })
-  .then(data => {
-    dispatch(createScheduleSuccess(data, 200));
+  .then(matches => {
+    dispatch(createScheduleSuccess(matches, 200));
   })
   .catch(error => {
     throw new Error(error);
@@ -99,10 +100,11 @@ export const checkSchedule = () => dispatch => {
       dispatch(checkScheduleFail(500));
       throw new Error(res.statusText);
     }
-    res.json();
+    return res.json();
   })
-  .then(data => {
-    dispatch(checkScheduleSuccess(data, 200));
+  .then(matches => {
+    console.log('actions file - matches:', matches);
+    dispatch(checkScheduleSuccess(matches, 200));
   })
   .catch(error => {
     throw new Error(error);

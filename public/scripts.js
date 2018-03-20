@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0d94d04f2e724fcf0709"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d9946a0f3e3a8aeeebda"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11999,10 +11999,11 @@ exports.createScheduleFail = createScheduleFail;
 var CHECK_SCHEDULE_SUCCESS = 'CHECK_SCHEDULE_SUCCESS';
 exports.CHECK_SCHEDULE_SUCCESS = CHECK_SCHEDULE_SUCCESS;
 
-var checkScheduleSuccess = function checkScheduleSuccess(matches, statusCode) {
+var checkScheduleSuccess = function checkScheduleSuccess(matches, timeout, statusCode) {
   return {
     type: CHECK_SCHEDULE_SUCCESS,
     matches: matches,
+    timeout: timeout,
     statusCode: statusCode
   };
 };
@@ -12034,8 +12035,8 @@ var getSchedule = function getSchedule() {
       }
 
       return res.json();
-    }).then(function (data) {
-      dispatch(getScheduleSuccess(data, 200));
+    }).then(function (matches) {
+      dispatch(getScheduleSuccess(matches, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -12060,8 +12061,8 @@ var createSchedule = function createSchedule() {
       }
 
       return res.json();
-    }).then(function (data) {
-      dispatch(createScheduleSuccess(data, 200));
+    }).then(function (matches) {
+      dispatch(createScheduleSuccess(matches, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -12083,9 +12084,10 @@ var checkSchedule = function checkSchedule() {
         throw new Error(res.statusText);
       }
 
-      res.json();
-    }).then(function (data) {
-      dispatch(checkScheduleSuccess(data, 200));
+      return res.json();
+    }).then(function (matches) {
+      console.log('actions file - matches:', matches);
+      dispatch(checkScheduleSuccess(matches, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -41675,7 +41677,7 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.dispatch((0, _fantasyScheduleActions.checkSchedule)());
+      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
     }
   }, {
     key: "render",
@@ -42138,8 +42140,6 @@ function (_React$Component) {
     value: function handleRosterAdd(event) {
       var _this = this;
 
-      console.log('clubName:', this.props.clubName);
-
       if (this.props.clubName !== 'Average') {
         var rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
             dataSet = event.target.dataset,
@@ -42183,7 +42183,6 @@ function (_React$Component) {
                     return true;
                   }
                 });
-                console.log('goalkeepersCheck:', goalkeepersCheck);
 
                 if (goalkeepersCheck.length === 0) {
                   this.props.dispatch((0, _fantasyClubActions.addGoalkeeper)(this.props.accessToken, player));
@@ -42927,20 +42926,36 @@ var _reduxThunk = _interopRequireDefault(__webpack_require__(512));
 
 var _reduxLogger = __webpack_require__(513);
 
-var _warningFade = __webpack_require__(514);
+var _fantasyScheduleActions = __webpack_require__(103);
 
-var _fantasyScheduleCheck = __webpack_require__(515);
+var _warningFade = __webpack_require__(514);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console */
 // flow/store.js
 // imported into ../components/index.js
 var logger = (0, _reduxLogger.createLogger)(),
     devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware, _fantasyScheduleCheck.fantasyScheduleCheckMiddleware);
+    middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware),
+    selectMatches = function selectMatches(state) {
+  return state.fantasyScheduleReducer.fantasySchedule.matches;
+},
+    handleMatchesChange = function handleMatchesChange() {
+  var matches = selectMatches(store.getState());
+  console.log('handleChange() matches:', matches);
 
-var _default = (0, _redux.createStore)(_reducers.reducers, devTools, middleware);
+  if (Array.isArray(matches) && matches.length === 0) {
+    store.dispatch((0, _fantasyScheduleActions.createSchedule)());
+  }
+},
+    store = (0, _redux.createStore)(_reducers.reducers, devTools, middleware),
+    unsubscribe = store.subscribe(handleMatchesChange);
 
+setTimeout(function () {
+  return unsubscribe();
+}, 2000);
+var _default = store;
 exports.default = _default;
 
 /***/ }),
@@ -43317,7 +43332,7 @@ var _fantasyScheduleActions = __webpack_require__(103);
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     fantasySchedule: {
-      matches: []
+      matches: undefined
     }
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -43408,53 +43423,15 @@ var warningFadeMiddleware = function warningFadeMiddleware(store) {
         action.timeout = setTimeout(function () {
           return store.dispatch((0, _warningActions.hideWarning)());
         }, 7000);
-      } else {
-        clearTimeout(action.timeout);
       }
 
+      clearTimeout(action.timeout);
       next(action);
     };
   };
 };
 
 exports.warningFadeMiddleware = warningFadeMiddleware;
-
-/***/ }),
-/* 515 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fantasyScheduleCheckMiddleware = void 0;
-
-var _fantasyScheduleActions = __webpack_require__(103);
-
-/* eslint-disable no-console */
-var fantasyScheduleCheckMiddleware = function fantasyScheduleCheckMiddleware(store) {
-  return function (next) {
-    return function (action) {
-      console.log('action.matches:', action.matches);
-
-      if (action.type === _fantasyScheduleActions.CHECK_SCHEDULE_SUCCESS && action.matches) {
-        action.timeout = setTimeout(function () {
-          return store.dispatch((0, _fantasyScheduleActions.getSchedule)());
-        }, 7000);
-      } else {
-        action.timeout = setTimeout(function () {
-          return store.dispatch((0, _fantasyScheduleActions.createSchedule)());
-        }, 7000);
-      }
-
-      next(action);
-    };
-  };
-};
-
-exports.fantasyScheduleCheckMiddleware = fantasyScheduleCheckMiddleware;
 
 /***/ })
 /******/ ]);

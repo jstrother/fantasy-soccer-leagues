@@ -26,7 +26,6 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		console.log('clubName:', this.props.clubName);
 		if (this.props.clubName !== 'Average') {
 			let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
 				dataSet = event.target.dataset,
@@ -68,7 +67,6 @@ export class Selection extends React.Component {
 									return true;
 								}
 							});
-							console.log('goalkeepersCheck:', goalkeepersCheck);
 							if (goalkeepersCheck.length === 0) {
 								this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
 							}
