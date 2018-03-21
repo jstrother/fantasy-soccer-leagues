@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const mongoose = require('mongoose'),
   FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
@@ -112,6 +113,7 @@ function scheduleCreator(clubArray) {
   });
   
   if (clubArray.length % 2 !== 0) {
+    // this checks to make sure that there is only one averageClub in the clubArray
     let averageCheck = clubArray.filter(club => {
       if (club.clubName === 'Average') {
         return true;
@@ -129,6 +131,7 @@ function scheduleCreator(clubArray) {
     }
   }
   
+  console.log('clubArray:', clubArray);
   arrayParser(clubArray, schedule.weeklyMatches.length);
   
   return save(schedule)

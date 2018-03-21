@@ -8,7 +8,7 @@ import FantasyMatch from './fantasyMatch.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { populateSchedule, populateMatches, getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
@@ -37,6 +37,7 @@ export class Schedule extends React.Component {
 }
 
 const mapScheduleStateToProps = state => ({
+	clubName: state.fantasyClubReducer.clubName,
 	goalkeepers: state.fantasyClubReducer.goalkeepers,
 	defenders: state.fantasyClubReducer.defenders,
 	midfielders: state.fantasyClubReducer.midfielders,

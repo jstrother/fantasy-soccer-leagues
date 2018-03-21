@@ -21,13 +21,12 @@ const logger = createLogger(),
     let matches = selectMatches(store.getState());
     console.log('handleChange() matches:', matches);
     if (Array.isArray(matches) && matches.length === 0) {
-      store.dispatch(createSchedule());
+      setTimeout(() => store.dispatch(createSchedule()), 7000);
     }
   },
   
-  store = createStore(reducers, devTools, middleware),
-  unsubscribe = store.subscribe(handleMatchesChange);
+  store = createStore(reducers, devTools, middleware);
 
-setTimeout(() => unsubscribe(), 2000);
+store.subscribe(handleMatchesChange);
 
 export default store;

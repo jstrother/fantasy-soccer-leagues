@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d9946a0f3e3a8aeeebda"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3f4679b0cd4e6d91826f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41696,6 +41696,7 @@ exports.Schedule = Schedule;
 
 var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
   return {
+    clubName: state.fantasyClubReducer.clubName,
     goalkeepers: state.fantasyClubReducer.goalkeepers,
     defenders: state.fantasyClubReducer.defenders,
     midfielders: state.fantasyClubReducer.midfielders,
@@ -42946,15 +42947,14 @@ var logger = (0, _reduxLogger.createLogger)(),
   console.log('handleChange() matches:', matches);
 
   if (Array.isArray(matches) && matches.length === 0) {
-    store.dispatch((0, _fantasyScheduleActions.createSchedule)());
+    setTimeout(function () {
+      return store.dispatch((0, _fantasyScheduleActions.createSchedule)());
+    }, 7000);
   }
 },
-    store = (0, _redux.createStore)(_reducers.reducers, devTools, middleware),
-    unsubscribe = store.subscribe(handleMatchesChange);
+    store = (0, _redux.createStore)(_reducers.reducers, devTools, middleware);
 
-setTimeout(function () {
-  return unsubscribe();
-}, 2000);
+store.subscribe(handleMatchesChange);
 var _default = store;
 exports.default = _default;
 
