@@ -70,7 +70,7 @@ function matchResolver(allWeeklyMatches, clubArray) {
           match.awayScore = allScores / counter;
         }
       });
-      // finally, compare scores and add 1 to correct "column" (W, D, L)
+      // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
         if (match.homeScore > match.awayScore) {
           match.homeClub.wins += 1;

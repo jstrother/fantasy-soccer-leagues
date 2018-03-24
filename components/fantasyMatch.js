@@ -21,10 +21,7 @@ export class FantasyGame extends React.Component {
 }
 
 const mapMatchesStateToProps = state => ({
-	homeClub: state.fantasyMatchReducer.homeClub,
-	homeScore: state.fantasyMatchReducer.homeScore,
-	awayClub: state.fantasyMatchReducer.awayClub,
-	awayScore: state.fantasyMatchReducer.awayScore
+	weeklyMatches: state.fantasyMatchReducer.weeklyMatches
 });
 
 const FantasyMatch = connect(

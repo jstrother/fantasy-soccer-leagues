@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0be4b1919d26eedd6d89"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c13b719f3ba81fdb6e1a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41729,10 +41729,7 @@ exports.FantasyGame = FantasyGame;
 
 var mapMatchesStateToProps = function mapMatchesStateToProps(state) {
   return {
-    homeClub: state.fantasyMatchReducer.homeClub,
-    homeScore: state.fantasyMatchReducer.homeScore,
-    awayClub: state.fantasyMatchReducer.awayClub,
-    awayScore: state.fantasyMatchReducer.awayScore
+    weeklyMatches: state.fantasyMatchReducer.weeklyMatches
   };
 };
 
@@ -43369,11 +43366,7 @@ var _fantasyMatchActions = __webpack_require__(514);
 // imported into ./flow/reducers.js
 var fantasyMatchReducer = function fantasyMatchReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    fantasySchedule: {
-      matches: {
-        weeklyMatches: []
-      }
-    }
+    weeklyMatches: []
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 

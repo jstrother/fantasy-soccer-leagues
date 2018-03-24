@@ -3,7 +3,7 @@
 
 import { MATCH_RESOLUTION_SUCCESS, MATCH_RESOLUTION_FAIL } from '../subActions/fantasyMatchActions.js';
 
-export const fantasyMatchReducer = (state = {fantasySchedule: {matches: {weeklyMatches: []}}}, action) => {
+export const fantasyMatchReducer = (state = {weeklyMatches: []}, action) => {
   switch (action.type) {
     case MATCH_RESOLUTION_SUCCESS: 
       return Object.assign({}, state,

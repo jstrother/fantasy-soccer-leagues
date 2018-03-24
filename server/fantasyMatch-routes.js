@@ -7,29 +7,8 @@ fantasyMatchRouter.post('/matchResolution',
   (req, res) => {
     WeeklyMatches
     .find()
-    .then(data => {
-      matchResolver(data)
-      .then(weeklyMatches => {
-        WeeklyMatches
-        .findById(weeklyMatches._id)
-        .populate({
-          path: 'matches',
-          model: 'FantasyMatch',
-          populate: {
-            path: 'homeClub awayClub',
-            model: 'FantasyClub'
-          }
-        })
-        .exec((error, resolvedMatches) => {
-          if (error) {
-            return () => {throw new Error(error)};
-          }
-          res.json(resolvedMatches);
-        });
-      })
-      .catch(error => {
-        throw new Error(error);
-      });
+    .then(allWeeklyMatches => {
+      matchResolver(allWeeklyMatches);
     })
     .catch(error => {
       throw new Error(error);
