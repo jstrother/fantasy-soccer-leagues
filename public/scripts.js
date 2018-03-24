@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3f4679b0cd4e6d91826f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8b99f3f3b831502ef0d1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41540,7 +41540,7 @@ function (_React$Component) {
   _createClass(FantasyTeam, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (!this.props.manager) {
+      if (!this.props.manager && this.props.clubName !== 'Average') {
         this.props.dispatch((0, _fantasyClubActions.addManager)(this.props.accessToken, this.props.displayName));
       }
 
@@ -42933,9 +42933,10 @@ var _warningFade = __webpack_require__(514);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 // flow/store.js
 // imported into ../components/index.js
+// import { fantasyScheduleCheckMiddleware } from './middleware/fantasyScheduleCheck.js';
 var logger = (0, _reduxLogger.createLogger)(),
     devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware),
@@ -42944,17 +42945,18 @@ var logger = (0, _reduxLogger.createLogger)(),
 },
     handleMatchesChange = function handleMatchesChange() {
   var matches = selectMatches(store.getState());
-  console.log('handleChange() matches:', matches);
 
-  if (Array.isArray(matches) && matches.length === 0) {
-    setTimeout(function () {
-      return store.dispatch((0, _fantasyScheduleActions.createSchedule)());
-    }, 7000);
+  if (Array.isArray(matches) && matches.length < 38) {
+    store.dispatch((0, _fantasyScheduleActions.createSchedule)());
   }
 },
-    store = (0, _redux.createStore)(_reducers.reducers, devTools, middleware);
+    store = (0, _redux.createStore)(_reducers.reducers, devTools, middleware),
+    unsubscribe = store.subscribe(handleMatchesChange);
 
-store.subscribe(handleMatchesChange);
+unsubscribe();
+setInterval(function () {
+  return handleMatchesChange();
+}, 1000);
 var _default = store;
 exports.default = _default;
 

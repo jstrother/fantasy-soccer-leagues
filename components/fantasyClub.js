@@ -13,7 +13,7 @@ import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		if (!(this.props.manager)) {
+		if (!(this.props.manager) && this.props.clubName !== 'Average') {
 			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
     }
     this.props.dispatch(getClub(this.props.accessToken));

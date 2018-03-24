@@ -3,7 +3,6 @@ const mongoose = require('mongoose'),
   FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js"),
-  AverageClub = require("../../models/averageClub_model.js"),
   WeeklyMatches = require("../../models/weeklyMatches.js");
 
 function standingsCalculator(clubArray) {
@@ -106,10 +105,10 @@ function scheduleCreator(clubArray) {
   }),
   numberOfWeeks = 38;
   
-  const averageClub = new AverageClub({
+  const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
-    averageClubName: 'Average',
-    averageClubManager: 'N/A'
+    clubName: 'Average',
+    manager: 'N/A'
   });
   
   if (clubArray.length % 2 !== 0) {
@@ -131,7 +130,6 @@ function scheduleCreator(clubArray) {
     }
   }
   
-  console.log('clubArray:', clubArray);
   arrayParser(clubArray, schedule.weeklyMatches.length);
   
   return save(schedule)

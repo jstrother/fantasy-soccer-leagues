@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 // flow/store.js
 // imported into ../components/index.js
 
@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { createSchedule } from './subActions/fantasyScheduleActions.js';
 import { warningFadeMiddleware } from './middleware/warningFade.js';
+// import { fantasyScheduleCheckMiddleware } from './middleware/fantasyScheduleCheck.js';
 
 const logger = createLogger(),
   devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
@@ -19,14 +20,15 @@ const logger = createLogger(),
   
   handleMatchesChange = () => {
     let matches = selectMatches(store.getState());
-    console.log('handleChange() matches:', matches);
-    if (Array.isArray(matches) && matches.length === 0) {
-      setTimeout(() => store.dispatch(createSchedule()), 7000);
+    if (Array.isArray(matches) && matches.length < 38) {
+      store.dispatch(createSchedule());
     }
   },
   
-  store = createStore(reducers, devTools, middleware);
+  store = createStore(reducers, devTools, middleware),
+  unsubscribe = store.subscribe(handleMatchesChange);
 
-store.subscribe(handleMatchesChange);
+unsubscribe();
+setInterval(() => handleMatchesChange(), 1000);
 
 export default store;
