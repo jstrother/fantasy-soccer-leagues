@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 

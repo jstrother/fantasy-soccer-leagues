@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -28,20 +26,6 @@ export const createScheduleSuccess = (matches, statusCode) => ({
 export const CREATE_SCHEDULE_FAIL = 'CREATE_SCHEDULE_FAIL';
 export const createScheduleFail = statusCode => ({
   type: CREATE_SCHEDULE_FAIL,
-  statusCode
-});
-
-export const CHECK_SCHEDULE_SUCCESS = 'CHECK_SCHEDULE_SUCCESS';
-export const checkScheduleSuccess = (matches, timeout, statusCode) => ({
-  type: CHECK_SCHEDULE_SUCCESS,
-  matches,
-  timeout,
-  statusCode
-});
-
-export const CHECK_SCHEDULE_FAIL = 'CHECK_SCHEDULE_FAIL';
-export const checkScheduleFail = (statusCode) => ({
-  type: CHECK_SCHEDULE_FAIL,
   statusCode
 });
 
@@ -83,28 +67,6 @@ export const createSchedule = () => dispatch => {
   })
   .then(matches => {
     dispatch(createScheduleSuccess(matches, 200));
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
-export const checkSchedule = () => dispatch => {
-  return fetch(`${thisURL}`)
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 400) {
-        dispatch(checkScheduleSuccess(res.status));
-        return;
-      }
-      dispatch(checkScheduleFail(500));
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(matches => {
-    console.log('actions file - matches:', matches);
-    dispatch(checkScheduleSuccess(matches, 200));
   })
   .catch(error => {
     throw new Error(error);

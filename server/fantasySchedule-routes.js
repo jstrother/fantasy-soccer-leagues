@@ -2,7 +2,6 @@ const express = require("express"),
   fantasyScheduleRouter = express.Router(),
   FantasyClub = require("../models/fantasyClub_model.js"),
   FantasySchedule = require("../models/fantasySchedule_model.js"),
-  FantasyMatch = require("../models/fantasyMatch_model.js"),
   { scheduleCreator } = require("./programFunctions/scheduleCreation_function.js");
   
 fantasyScheduleRouter.get('/',

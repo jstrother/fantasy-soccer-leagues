@@ -20,7 +20,7 @@ const logger = createLogger(),
   
   handleMatchesChange = () => {
     let matches = selectMatches(store.getState());
-    if (Array.isArray(matches) && matches.length < 38) {
+    if (Array.isArray(matches) && matches.length === 0) {
       store.dispatch(createSchedule());
     }
   },
