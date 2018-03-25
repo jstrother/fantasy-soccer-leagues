@@ -1,17 +1,17 @@
 // ./flow/subReducers/fantasyMatchReducer.js
 // imported into ./flow/reducers.js
 
-import { MATCH_RESOLUTION_SUCCESS, MATCH_RESOLUTION_FAIL } from '../subActions/fantasyMatchActions.js';
+import { MATCH_RESOLVE_SUCCESS, MATCH_RESOLVE_FAIL } from '../subActions/fantasyMatchActions.js';
 
-export const fantasyMatchReducer = (state = {weeklyMatches: []}, action) => {
+export const fantasyMatchReducer = (state = {resolvedMatches: []}, action) => {
   switch (action.type) {
-    case MATCH_RESOLUTION_SUCCESS: 
+    case MATCH_RESOLVE_SUCCESS:
       return Object.assign({}, state,
         {
-          weeklyMatches: action.weeklyMatches
+          resolvedMatches: action.resolvedMatches
         }
       );
-    case MATCH_RESOLUTION_FAIL:
+    case MATCH_RESOLVE_FAIL:
     default:
       return state;
   }

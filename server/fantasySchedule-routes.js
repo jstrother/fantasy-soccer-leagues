@@ -41,7 +41,7 @@ fantasyScheduleRouter.post('/scheduleCreator',
           if (error) {
             return () => {throw new Error(error)};
           }
-          res.json(populatedSchedule);
+          return res.json(populatedSchedule);
         });
       })
       .catch(error => {

@@ -1,8 +1,8 @@
 const fantasyMatchRouter = require("express").Router(),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { matchResolver } = require("./programFunctions/scheduleCreation_function.js");
-
-fantasyMatchRouter.post('/matchResolution',
+  
+fantasyMatchRouter.post('/',
   (req, res) => {
     WeeklyMatches
     .find()

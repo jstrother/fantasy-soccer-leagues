@@ -3,12 +3,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { matchResolution } from '../flow/subActions/fantasyScheduleActions.js';
+import { matchResolve } from '../flow/subActions/fantasyMatchActions.js';
 import styles from '../scss/fantasyMatch.scss';
 
 export class FantasyGame extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(matchResolution());
+		this.props.dispatch(matchResolve());
 	}
 	render() {
 		return(
@@ -21,7 +21,7 @@ export class FantasyGame extends React.Component {
 }
 
 const mapMatchesStateToProps = state => ({
-	weeklyMatches: state.fantasyMatchReducer.weeklyMatches
+	resolvedMatches: state.fantasyMatchReducer.resolvedMatches
 });
 
 const FantasyMatch = connect(

@@ -1,41 +1,38 @@
-/* eslint-disable no-console */
-
 import fetch from 'isomorphic-fetch';
-import { DEV_DIRECTORY as url } from '../../server/config.js';
+import {DEV_DIRECTORY as url } from '../../server/config.js';
 
 const thisURL = `${url}/fantasyMatch`;
 
-export const MATCH_RESOLUTION_SUCCESS = 'MATCH_RESOLUTION_SUCCESS';
-export const matchResolutionSuccess = (weeklyMatches, statusCode) => ({
-  type: MATCH_RESOLUTION_SUCCESS,
-  weeklyMatches,
+export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
+export const matchResolveSuccess = (allWeeklyMatches, statusCode) => ({
+  type: MATCH_RESOLVE_SUCCESS,
+  allWeeklyMatches,
   statusCode
 });
 
-export const MATCH_RESOLUTION_FAIL = 'MATCH_RESOLUTION_FAIL';
-export const matchResolutionFail = statusCode => ({
-  type: MATCH_RESOLUTION_FAIL,
+export const MATCH_RESOLVE_FAIL = 'MATCH_RESOLVE_FAIL';
+export const matchResolveFail = statusCode => ({
+  type: MATCH_RESOLVE_FAIL,
   statusCode
 });
 
-export const matchResolution = () => dispatch => {
-  return fetch(`${thisURL}/matchResolution`, {
+export const matchResolve = () => dispatch => {
+  return fetch(`${thisURL}`, {
     method: 'POST'
   })
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(matchResolutionFail(res.status));
+        dispatch(matchResolveFail(res.status));
         return;
       }
-      dispatch(matchResolutionFail(500));
+      dispatch(matchResolveFail(500));
       throw new Error(res.statusText);
     }
     return res.json();
   })
-  .then(weeklyMatches => {
-    console.log('fantasyMatchActions:', weeklyMatches);
-    dispatch(matchResolutionSuccess(weeklyMatches, 200));
+  .then(resolvedMatches => {
+    dispatch(matchResolveSuccess(resolvedMatches, 200));
   })
   .catch(error => {
     throw new Error(error);
