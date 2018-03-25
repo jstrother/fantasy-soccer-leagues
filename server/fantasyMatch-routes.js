@@ -1,5 +1,4 @@
-const express = require("express"),
-  fantasyMatchRouter = express.Router(),
+const fantasyMatchRouter = require("express").Router(),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { matchResolver } = require("./programFunctions/scheduleCreation_function.js");
 

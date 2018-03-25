@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -43,6 +45,7 @@ export const getSchedule = () => dispatch => {
     return res.json();
   })
   .then(matches => {
+    console.log('fantasyScheduleActions:', matches);
     dispatch(getScheduleSuccess(matches, 200));
   })
   .catch(error => {

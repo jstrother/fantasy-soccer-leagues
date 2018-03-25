@@ -1,7 +1,6 @@
-const express = require('express'),
-  passport = require("passport"),
+const passport = require("passport"),
   { updateData } = require("./programFunctions/updateData_function.js"),
-	fantasyClubRouter = express.Router(),
+	fantasyClubRouter = require("express").Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
 
 fantasyClubRouter.get('/', 

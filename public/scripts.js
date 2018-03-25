@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c13b719f3ba81fdb6e1a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e105b8e978a3be6a4b24"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4563,6 +4563,7 @@ var _config = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/*eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasyClub");
 var GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
 exports.GET_CLUB_SUCCESS = GET_CLUB_SUCCESS;
@@ -4929,6 +4930,7 @@ var getClub = function getClub(accessToken) {
 
       return res.json();
     }).then(function (data) {
+      console.log('fantasyClubActions:', data);
       dispatch(getClubSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -7495,6 +7497,7 @@ var _config = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasySchedule");
 var GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 exports.GET_SCHEDULE_SUCCESS = GET_SCHEDULE_SUCCESS;
@@ -7558,6 +7561,7 @@ var getSchedule = function getSchedule() {
 
       return res.json();
     }).then(function (matches) {
+      console.log('fantasyScheduleActions:', matches);
       dispatch(getScheduleSuccess(matches, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -43402,6 +43406,7 @@ var _config = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasyMatch");
 var MATCH_RESOLUTION_SUCCESS = 'MATCH_RESOLUTION_SUCCESS';
 exports.MATCH_RESOLUTION_SUCCESS = MATCH_RESOLUTION_SUCCESS;
@@ -43444,6 +43449,7 @@ var matchResolution = function matchResolution() {
 
       return res.json();
     }).then(function (weeklyMatches) {
+      console.log('fantasyMatchActions:', weeklyMatches);
       dispatch(matchResolutionSuccess(weeklyMatches, 200));
     }).catch(function (error) {
       throw new Error(error);

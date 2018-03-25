@@ -1,5 +1,4 @@
-const express = require('express'),
-	playerRouter = express.Router(),
+const playerRouter = require("express").Router(),
 	Player = require('../models/player_model.js');
 
 // this route is to retrieve player stats from the database

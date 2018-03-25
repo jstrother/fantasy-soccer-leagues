@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -32,6 +34,7 @@ export const matchResolution = () => dispatch => {
     return res.json();
   })
   .then(weeklyMatches => {
+    console.log('fantasyMatchActions:', weeklyMatches);
     dispatch(matchResolutionSuccess(weeklyMatches, 200));
   })
   .catch(error => {
