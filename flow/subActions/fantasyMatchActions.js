@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import fetch from 'isomorphic-fetch';
 import {DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -32,6 +34,7 @@ export const matchResolve = () => dispatch => {
     return res.json();
   })
   .then(resolvedMatches => {
+    console.log('fmActions resolvedMatches:', resolvedMatches);
     dispatch(matchResolveSuccess(resolvedMatches, 200));
   })
   .catch(error => {

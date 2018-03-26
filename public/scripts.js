@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "60a550e9659964b88d9e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3c7a0e11a5555a3afca4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -18139,6 +18139,7 @@ var _config = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasyMatch");
 var MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
 exports.MATCH_RESOLVE_SUCCESS = MATCH_RESOLVE_SUCCESS;
@@ -18181,6 +18182,7 @@ var matchResolve = function matchResolve() {
 
       return res.json();
     }).then(function (resolvedMatches) {
+      console.log('fmActions resolvedMatches:', resolvedMatches);
       dispatch(matchResolveSuccess(resolvedMatches, 200));
     }).catch(function (error) {
       throw new Error(error);
