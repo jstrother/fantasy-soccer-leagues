@@ -9,8 +9,23 @@ fantasyScheduleRouter.get('/',
   (req, res) => {
     FantasySchedule
     .find()
-    .then(data => {
-      res.json(data);
+    .populate({
+      path: 'weeklyMatches',
+      model: 'WeeklyMatches',
+      populate: {
+        path: 'matches',
+        model: 'FantasyMatch',
+        populate: {
+          path: 'homeClub awayClub',
+          model: 'FantasyClub'
+        }
+      }
+    })
+    .exec((error, populatedSchedule) => {
+      if (error) {
+        return () => {throw new Error(error)};
+      }
+      res.json(populatedSchedule);
     })
     .catch(error => {
       throw new Error(error);
