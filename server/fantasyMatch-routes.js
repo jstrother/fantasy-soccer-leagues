@@ -6,8 +6,19 @@ fantasyMatchRouter.post('/',
   (req, res) => {
     WeeklyMatches
     .find()
-    .then(allWeeklyMatches => {
-      matchResolver(allWeeklyMatches);
+    .populate({
+      path: 'matches',
+      model: 'FantasyMatch',
+      populate: {
+        path: 'homeClub awayClub',
+        model: 'FantasyClub'
+      }
+    })
+    .exec((error, allWeeklyMatches) => {
+      if (error) {
+        return () => {throw new Error(error)};
+      }
+      res.json(matchResolver(allWeeklyMatches));
     })
     .catch(error => {
       throw new Error(error);
