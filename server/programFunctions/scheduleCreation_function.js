@@ -24,7 +24,7 @@ function standingsCalculator(clubArray) {
 
 // matchArray will be filled by getting schedule.matches.weeklyMatches from fantasySchedule-routes.js
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
-function matchResolver(allWeeklyMatches, clubArray) {
+function matchResolver(allWeeklyMatches) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database and not hitting the fantasySchedule portion at all
   const today = new Date().getTime();
   let allScores = 0,
@@ -94,7 +94,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
     save(weeklyMatches);
   });
   
-  standingsCalculator(clubArray);
   return allWeeklyMatches;
 }
 
