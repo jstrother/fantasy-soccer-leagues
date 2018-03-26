@@ -4,9 +4,9 @@ import {DEV_DIRECTORY as url } from '../../server/config.js';
 const thisURL = `${url}/fantasyMatch`;
 
 export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
-export const matchResolveSuccess = (allWeeklyMatches, statusCode) => ({
+export const matchResolveSuccess = (resolvedMatches, statusCode) => ({
   type: MATCH_RESOLVE_SUCCESS,
-  allWeeklyMatches,
+  resolvedMatches,
   statusCode
 });
 

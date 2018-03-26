@@ -14,21 +14,21 @@ const logger = createLogger(),
   devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   middleware = applyMiddleware(logger, thunk, warningFadeMiddleware),
   
-  selectMatches = state => {
-    return state.fantasyScheduleReducer.fantasySchedule.matches;
+  selectSchedule = state => {
+    return state.fantasyScheduleReducer.fantasySchedule;
   },
   
-  handleMatchesChange = () => {
-    let matches = selectMatches(store.getState());
-    if (Array.isArray(matches) && matches.length === 0) {
+  handleScheduleChange = () => {
+    let fantasySchedule = selectSchedule(store.getState());
+    if (Array.isArray(fantasySchedule) && fantasySchedule.length === 0) {
       store.dispatch(createSchedule());
     }
   },
   
   store = createStore(reducers, devTools, middleware),
-  unsubscribe = store.subscribe(handleMatchesChange);
+  unsubscribe = store.subscribe(handleScheduleChange);
 
 unsubscribe();
-setInterval(() => handleMatchesChange(), 1000);
+setInterval(() => handleScheduleChange(), 1000);
 
 export default store;

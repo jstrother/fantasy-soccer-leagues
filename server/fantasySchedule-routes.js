@@ -1,6 +1,8 @@
 const fantasyScheduleRouter = require("express").Router(),
   FantasyClub = require("../models/fantasyClub_model.js"),
   FantasySchedule = require("../models/fantasySchedule_model.js"),
+  FantasyMatch = require("../models/fantasyClub_model.js"),
+  WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { scheduleCreator } = require("./programFunctions/scheduleCreation_function.js");
   
 fantasyScheduleRouter.get('/',
@@ -24,7 +26,7 @@ fantasyScheduleRouter.post('/scheduleCreator',
       scheduleCreator(data)
       .then(schedule => {
         FantasySchedule
-        .findById(schedule._id)
+        .find()
         .populate({
           path: 'weeklyMatches',
           model: 'WeeklyMatches',
@@ -41,7 +43,7 @@ fantasyScheduleRouter.post('/scheduleCreator',
           if (error) {
             return () => {throw new Error(error)};
           }
-          return res.json(populatedSchedule);
+          res.json(populatedSchedule);
         });
       })
       .catch(error => {

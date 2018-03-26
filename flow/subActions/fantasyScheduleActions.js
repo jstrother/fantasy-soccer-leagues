@@ -6,9 +6,9 @@ import { DEV_DIRECTORY as url } from '../../server/config.js';
 const thisURL = `${url}/fantasySchedule`;
 
 export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
-export const getScheduleSuccess = (matches, statusCode) => ({
+export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: GET_SCHEDULE_SUCCESS,
-  matches,
+  fantasySchedule,
   statusCode
 });
 
@@ -19,9 +19,9 @@ export const getScheduleFail = statusCode => ({
 });
 
 export const CREATE_SCHEDULE_SUCCESS = 'CREATE_SCHEDULE_SUCCESS';
-export const createScheduleSuccess = (matches, statusCode) => ({
+export const createScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: CREATE_SCHEDULE_SUCCESS,
-  matches,
+  fantasySchedule,
   statusCode
 });
 
@@ -44,9 +44,9 @@ export const getSchedule = () => dispatch => {
     }
     return res.json();
   })
-  .then(matches => {
-    console.log('fantasyScheduleActions:', matches);
-    dispatch(getScheduleSuccess(matches, 200));
+  .then(fantasySchedule => {
+    console.log('fsActions fantasySchedule:', fantasySchedule);
+    dispatch(getScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
     throw new Error(error);
@@ -68,8 +68,8 @@ export const createSchedule = () => dispatch => {
     }
     return res.json();
   })
-  .then(matches => {
-    dispatch(createScheduleSuccess(matches, 200));
+  .then(fantasySchedule => {
+    dispatch(createScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
     throw new Error(error);

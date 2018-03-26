@@ -1,5 +1,3 @@
-/*eslint-disable no-console */
-
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -218,7 +216,6 @@ export const getClub = accessToken => dispatch => {
     return res.json();
   })
   .then(data => {
-    console.log('fantasyClubActions:', data);
     dispatch(getClubSuccess(data, 200));
   })
   .catch(error => {

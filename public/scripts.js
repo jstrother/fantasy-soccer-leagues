@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "50a271c9fa4f997442a2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "60a550e9659964b88d9e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4563,7 +4563,6 @@ var _config = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasyClub");
 var GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
 exports.GET_CLUB_SUCCESS = GET_CLUB_SUCCESS;
@@ -4930,7 +4929,6 @@ var getClub = function getClub(accessToken) {
 
       return res.json();
     }).then(function (data) {
-      console.log('fantasyClubActions:', data);
       dispatch(getClubSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -11954,10 +11952,10 @@ var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasySchedule");
 var GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 exports.GET_SCHEDULE_SUCCESS = GET_SCHEDULE_SUCCESS;
 
-var getScheduleSuccess = function getScheduleSuccess(matches, statusCode) {
+var getScheduleSuccess = function getScheduleSuccess(fantasySchedule, statusCode) {
   return {
     type: GET_SCHEDULE_SUCCESS,
-    matches: matches,
+    fantasySchedule: fantasySchedule,
     statusCode: statusCode
   };
 };
@@ -11977,10 +11975,10 @@ exports.getScheduleFail = getScheduleFail;
 var CREATE_SCHEDULE_SUCCESS = 'CREATE_SCHEDULE_SUCCESS';
 exports.CREATE_SCHEDULE_SUCCESS = CREATE_SCHEDULE_SUCCESS;
 
-var createScheduleSuccess = function createScheduleSuccess(matches, statusCode) {
+var createScheduleSuccess = function createScheduleSuccess(fantasySchedule, statusCode) {
   return {
     type: CREATE_SCHEDULE_SUCCESS,
-    matches: matches,
+    fantasySchedule: fantasySchedule,
     statusCode: statusCode
   };
 };
@@ -12012,9 +12010,9 @@ var getSchedule = function getSchedule() {
       }
 
       return res.json();
-    }).then(function (matches) {
-      console.log('fantasyScheduleActions:', matches);
-      dispatch(getScheduleSuccess(matches, 200));
+    }).then(function (fantasySchedule) {
+      console.log('fsActions fantasySchedule:', fantasySchedule);
+      dispatch(getScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -12039,8 +12037,8 @@ var createSchedule = function createSchedule() {
       }
 
       return res.json();
-    }).then(function (matches) {
-      dispatch(createScheduleSuccess(matches, 200));
+    }).then(function (fantasySchedule) {
+      dispatch(createScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -18145,10 +18143,10 @@ var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasyMatch");
 var MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
 exports.MATCH_RESOLVE_SUCCESS = MATCH_RESOLVE_SUCCESS;
 
-var matchResolveSuccess = function matchResolveSuccess(allWeeklyMatches, statusCode) {
+var matchResolveSuccess = function matchResolveSuccess(resolvedMatches, statusCode) {
   return {
     type: MATCH_RESOLVE_SUCCESS,
-    allWeeklyMatches: allWeeklyMatches,
+    resolvedMatches: resolvedMatches,
     statusCode: statusCode
   };
 };
@@ -42995,22 +42993,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var logger = (0, _reduxLogger.createLogger)(),
     devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware),
-    selectMatches = function selectMatches(state) {
-  return state.fantasyScheduleReducer.fantasySchedule.matches;
+    selectSchedule = function selectSchedule(state) {
+  return state.fantasyScheduleReducer.fantasySchedule;
 },
-    handleMatchesChange = function handleMatchesChange() {
-  var matches = selectMatches(store.getState());
+    handleScheduleChange = function handleScheduleChange() {
+  var fantasySchedule = selectSchedule(store.getState());
 
-  if (Array.isArray(matches) && matches.length === 0) {
+  if (Array.isArray(fantasySchedule) && fantasySchedule.length === 0) {
     store.dispatch((0, _fantasyScheduleActions.createSchedule)());
   }
 },
     store = (0, _redux.createStore)(_reducers.reducers, devTools, middleware),
-    unsubscribe = store.subscribe(handleMatchesChange);
+    unsubscribe = store.subscribe(handleScheduleChange);
 
 unsubscribe();
 setInterval(function () {
-  return handleMatchesChange();
+  return handleScheduleChange();
 }, 1000);
 var _default = store;
 exports.default = _default;
@@ -43391,25 +43389,19 @@ var _fantasyScheduleActions = __webpack_require__(103);
 // imported into ./flow/reducers.js
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    fantasySchedule: {
-      matches: undefined
-    }
+    fantasySchedule: null
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _fantasyScheduleActions.GET_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: {
-          matches: action.matches
-        }
+        fantasySchedule: action.fantasySchedule
       });
 
     case _fantasyScheduleActions.CREATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: {
-          matches: action.matches
-        }
+        fantasySchedule: action.fantasySchedule
       });
 
     case _fantasyScheduleActions.GET_SCHEDULE_FAIL:
