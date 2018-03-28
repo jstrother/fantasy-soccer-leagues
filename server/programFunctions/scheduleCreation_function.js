@@ -111,7 +111,6 @@ function scheduleCreator(clubArray) {
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Average',
-    manager: 'Manager Bob',
     // we are adding the "players" below to help keep a user's selected players from ending up as part of this team
     goalkeepers: ['gk1', 'gk2', 'gk3', 'gk4'],
     defenders: ['def1', 'def2', 'def3', 'def4', 'def5', 'def6', 'def7'],

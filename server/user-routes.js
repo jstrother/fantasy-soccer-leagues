@@ -84,8 +84,21 @@ userRouter.get('/',
 		familyName: req.user.familyName,
 		userPhoto: req.user.userPhoto,
 		fantasyLeagueId: req.user.fantasyLeagueId,
-		fantasyLeagueName: req.user.fantasyLeagueName
+		fantasyLeagueName: req.user.fantasyLeagueName,
+		fantasyClub: req.user.fantasyClub
 	})
+);
+
+// adds user's fantasy club
+userRouter.put(`/addClub`,
+	passport.authenticate('bearer', {session: false}),
+	(req, res) => updateData(req.params.googleId,
+		{
+			fantasyClub: req.body.fantasyClub
+		}, User)
+		.then(data => {
+			res.json(data);
+		})
 );
 
 // adds user's selected league

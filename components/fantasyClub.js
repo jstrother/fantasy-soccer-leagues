@@ -13,6 +13,7 @@ import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
+		// console.log('fantasyClubId:', this.props.fantasyClubId);
 		if (!(this.props.manager) && this.props.clubName !== 'Average') {
 			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
     }
@@ -78,6 +79,7 @@ export class FantasyTeam extends React.Component {
 }
 
 const mapFantasyClubStateToProps = state => ({
+	fantasyClubId: state.fantasyClubReducer.fantasyClubId,
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
 	clubName: state.fantasyClubReducer.clubName,

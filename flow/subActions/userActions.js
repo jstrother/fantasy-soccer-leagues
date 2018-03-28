@@ -30,6 +30,11 @@ export const setLeagueFail = statusCode => ({
   statusCode
 });
 
+export const SET_CLUB_SUCCESS = 'SET_CLUB_SUCCESS';
+export const setClubSuccess = (fantasyClub, statusCode) => ({
+  
+});
+
 export const fetchUser = accessToken => dispatch => {
   return fetch(`${thisURL}`, {
     headers: {

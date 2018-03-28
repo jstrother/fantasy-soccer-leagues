@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3290f9c64f0dc8856b9c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4ea1dd8a8c4bb526db79"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41562,6 +41562,7 @@ function (_React$Component) {
   _createClass(FantasyTeam, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      // console.log('fantasyClubId:', this.props.fantasyClubId);
       if (!this.props.manager && this.props.clubName !== 'Average') {
         this.props.dispatch((0, _fantasyClubActions.addManager)(this.props.accessToken, this.props.displayName));
       }
@@ -41627,6 +41628,7 @@ exports.FantasyTeam = FantasyTeam;
 
 var mapFantasyClubStateToProps = function mapFantasyClubStateToProps(state) {
   return {
+    fantasyClubId: state.fantasyClubReducer.fantasyClubId,
     accessToken: state.userReducer.accessToken,
     displayName: state.userReducer.displayName,
     clubName: state.fantasyClubReducer.clubName,
@@ -43224,6 +43226,7 @@ var fantasyClubReducer = function fantasyClubReducer() {
   switch (action.type) {
     case _fantasyClubActions.GET_CLUB_SUCCESS:
       return Object.assign({}, state, {
+        fantasyClubId: action.fantasyClub._id,
         manager: action.fantasyClub.manager,
         clubName: action.fantasyClub.clubName,
         goalkeepers: action.fantasyClub.goalkeepers,
@@ -43232,10 +43235,13 @@ var fantasyClubReducer = function fantasyClubReducer() {
         forwards: action.fantasyClub.forwards,
         starters: action.fantasyClub.starters,
         benchwarmers: action.fantasyClub.benchwarmers,
-        league: action.fantasyClub.league,
-        division: action.fantasyClub.division,
-        champsLeague: action.fantasyClub.champsLeague,
-        schedule: action.fantasyClub.schedule
+        points: action.fantasyClub.points,
+        wins: action.fantasyClub.wins,
+        draws: action.fantasyClub.draws,
+        losses: action.fantasyClub.losses,
+        goalsFor: action.fantasyClub.goalsFor,
+        goalsAgainst: action.fantasyClub.goalsAgainst,
+        goalDifferential: action.fantasyClub.goalDifferential
       });
 
     case _fantasyClubActions.SET_MANAGER_SUCCESS:

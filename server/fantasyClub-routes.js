@@ -5,9 +5,13 @@ const passport = require("passport"),
 
 fantasyClubRouter.get('/', 
   (req, res) => {
-    FantasyClub.findOne({name: req.params.name})
+    FantasyClub
+    .find()
     .then(data => {
-      res.json(data);
+      console.log('fcRoutes data:11', data);
+      data.forEach(fClub => {
+        
+      });
     })
     .catch(error => {
       throw new Error(error);
@@ -18,6 +22,7 @@ fantasyClubRouter.get('/',
 fantasyClubRouter.get('/',
   passport.authenticate('bearer', {session: false}),
   (req, res) => res.json({
+    fantasyClubId: req.body._id,
     manager: req.body.manager,
     clubName: req.body.clubName,
     goalkeepers: req.body.goalkeepers,
@@ -26,11 +31,13 @@ fantasyClubRouter.get('/',
     forwards: req.body.forwards,
     starters: req.body.starters,
     benchwarmers: req.body.benchwarmers,
-    reserves: req.body.reserves,
-    league: req.body.league,
-    division: req.body.division,
-    champsLeague: req.body.champsLeague,
-    schedule: req.body.schedule
+    points: req.body.points,
+    wins: req.body.wins,
+    draws: req.body.draws,
+    losses: req.body.losses,
+    goalsFor: req.body.goalsFor,
+    goalsAgainst: req.body.goalsAgainst,
+    goalDifferential: req.body.goalDifferential
   })
 );
 

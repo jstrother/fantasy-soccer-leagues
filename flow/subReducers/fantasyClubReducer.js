@@ -8,6 +8,7 @@ export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midf
     case GET_CLUB_SUCCESS:
       return Object.assign({}, state,
         {
+          fantasyClubId: action.fantasyClub._id,
           manager: action.fantasyClub.manager,
           clubName: action.fantasyClub.clubName,
           goalkeepers: action.fantasyClub.goalkeepers,
@@ -16,10 +17,13 @@ export const fantasyClubReducer = (state = {goalkeepers: [], defenders: [], midf
           forwards: action.fantasyClub.forwards,
           starters: action.fantasyClub.starters,
           benchwarmers: action.fantasyClub.benchwarmers,
-          league: action.fantasyClub.league,
-          division: action.fantasyClub.division,
-          champsLeague: action.fantasyClub.champsLeague,
-          schedule: action.fantasyClub.schedule
+          points: action.fantasyClub.points,
+          wins: action.fantasyClub.wins,
+          draws: action.fantasyClub.draws,
+          losses: action.fantasyClub.losses,
+          goalsFor: action.fantasyClub.goalsFor,
+          goalsAgainst: action.fantasyClub.goalsAgainst,
+          goalDifferential: action.fantasyClub.goalDifferential
         }
       );
     case SET_MANAGER_SUCCESS:
