@@ -77,6 +77,7 @@ userRouter.get('/auth/logout',
 userRouter.get('/', 
 	passport.authenticate('bearer', {session: false}), 
 	(req, res) => res.json({
+		userId: req.user._id,
 		accessToken: req.user.accessToken,
 		googleId: req.user.googleId,
 		displayName: req.user.displayName,
@@ -92,13 +93,21 @@ userRouter.get('/',
 // adds user's fantasy club
 userRouter.put(`/addClub`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => updateData(req.params.googleId,
-		{
-			fantasyClub: req.body.fantasyClub
-		}, User)
+	(req, res) => {
+		User
+		.findOneAndUpdate(req.params.googleId, {fantasyClub: req.body.fantasyClub}, {new: true, upsert: true})
+		.populate({
+			path: 'fantasyClub',
+			model: 'FantasyClub'
+		})
 		.then(data => {
 			res.json(data);
 		})
+		.catch(error => {
+			throw new Error(error);
+		});
+	}
+		
 );
 
 // adds user's selected league

@@ -9,15 +9,16 @@ import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
 import { addClubName, addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
+import { addClub } from '../flow/subActions/userActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		// console.log('fantasyClubId:', this.props.fantasyClubId);
-		if (!(this.props.manager) && this.props.clubName !== 'Average') {
-			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName));
+		this.props.dispatch(getClub(this.props.accessToken));
+		if ((!this.props.manager) && (this.props.userId === this.props.managerId)) {
+			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
+			this.props.dispatch(getClub(this.props.accessToken));
     }
-    this.props.dispatch(getClub(this.props.accessToken));
   }
   
 	_handleKeyPress(event) {
@@ -79,7 +80,8 @@ export class FantasyTeam extends React.Component {
 }
 
 const mapFantasyClubStateToProps = state => ({
-	fantasyClubId: state.fantasyClubReducer.fantasyClubId,
+	userId: state.userReducer.userId,
+	managerId: state.fantasyClubReducer.userId,
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
 	clubName: state.fantasyClubReducer.clubName,

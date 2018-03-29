@@ -8,7 +8,7 @@ fantasyClubRouter.get('/',
     FantasyClub
     .find()
     .then(data => {
-      console.log('fcRoutes data:11', data);
+      // console.log('fcRoutes data:11', data);
       data.forEach(fClub => {
         
       });
@@ -22,7 +22,7 @@ fantasyClubRouter.get('/',
 fantasyClubRouter.get('/',
   passport.authenticate('bearer', {session: false}),
   (req, res) => res.json({
-    fantasyClubId: req.body._id,
+    userId: req.body.userId,
     manager: req.body.manager,
     clubName: req.body.clubName,
     goalkeepers: req.body.goalkeepers,
@@ -359,7 +359,8 @@ fantasyClubRouter.put('/addClubName',
 fantasyClubRouter.put('/addManager',
   (req, res) => updateData(req.params.manager,
     {
-      manager: req.body.manager
+      manager: req.body.manager,
+      userId: req.body.userId
     }, FantasyClub)
     .then(data => {
       res.json(data);

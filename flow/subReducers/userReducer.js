@@ -3,11 +3,12 @@
 
 import { SET_USER_FAIL, SET_USER_SUCCESS, SET_LEAGUE_SUCCESS, SET_LEAGUE_FAIL, SET_CLUB_SUCCESS, SET_CLUB_FAIL } from '../subActions/userActions.js';
 
-export const userReducer = (state = {}, action) => {
+export const userReducer = (state = {accessToken: null, userId: null, googleId: null, displayName: null, givenName: null, familyName: null, userPhoto: null, fantasyLeagueId: null, fantasyLeagueName: null}, action) => {
   switch (action.type) {
     case SET_USER_SUCCESS:
       return Object.assign({}, state, 
         {
+          userId: action.currentUser.userId,
           accessToken: action.currentUser.accessToken,
           googleId: action.currentUser.googleId,
           displayName: action.currentUser.displayName,

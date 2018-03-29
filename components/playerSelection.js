@@ -26,7 +26,7 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		if (this.props.clubName !== 'Average') {
+		if (this.props.userId === this.props.managerId) {
 			let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
 				dataSet = event.target.dataset,
 				player = {
@@ -254,6 +254,8 @@ export class Selection extends React.Component {
 }
 
 const mapSelectionStateToProps = state => ({
+	userId: state.userReducer.userId,
+	managerId: state.fantasyClubReducer.userId,
   accessToken: state.userReducer.accessToken,
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   playerList: state.leagueReducer.playerList,

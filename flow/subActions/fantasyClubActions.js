@@ -186,9 +186,10 @@ export const removeBenchwarmerFail = statusCode => ({
 });
 
 export const SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
-export const setManagerSuccess = (manager, statusCode) => ({
+export const setManagerSuccess = (manager, userId, statusCode) => ({
   type: SET_MANAGER_SUCCESS,
   manager,
+  userId,
   statusCode
 });
 
@@ -215,8 +216,8 @@ export const getClub = accessToken => dispatch => {
     }
     return res.json();
   })
-  .then(data => {
-    dispatch(getClubSuccess(data, 200));
+  .then(fantasyClub => {
+    dispatch(getClubSuccess(fantasyClub, 200));
   })
   .catch(error => {
     throw new Error(error);
@@ -595,7 +596,7 @@ export const removeBench = (accessToken, player) => dispatch => {
   });
 };
 
-export const addManager = (accessToken, manager) => dispatch => {
+export const addManager = (accessToken, manager, userId) => dispatch => {
   return fetch(`${thisURL}/addManager`, {
     method: 'PUT',
     headers: {
@@ -603,7 +604,8 @@ export const addManager = (accessToken, manager) => dispatch => {
       'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
-      manager
+      manager,
+      userId
     })
   })
   .then(res => {
@@ -618,7 +620,7 @@ export const addManager = (accessToken, manager) => dispatch => {
     return res.json();
   })
   .then(data => {
-    dispatch(setManagerSuccess(data.manager, 200));
+    dispatch(setManagerSuccess(data.manager, data.userId, 200));
     return;
   })
   .catch(error => {

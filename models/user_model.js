@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+	Schema = mongoose.Schema(),
 
 	userSchema = mongoose.Schema({
 		displayName: String,
@@ -9,10 +10,7 @@ const mongoose = require('mongoose'),
 		accessToken: {type: String, required: true},
 		googleId: {type: String, required: true},
 		fantasyLeagueId: Number,
-		fantasyLeagueName: String,
-		fantasyClub: Array,
-		fantasyDivision: String,
-		fantasyChampsLeague: String
+		fantasyLeagueName: String
 	}),
 
 	User = mongoose.model('User', userSchema);

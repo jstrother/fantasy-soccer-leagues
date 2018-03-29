@@ -32,7 +32,15 @@ export const setLeagueFail = statusCode => ({
 
 export const SET_CLUB_SUCCESS = 'SET_CLUB_SUCCESS';
 export const setClubSuccess = (fantasyClub, statusCode) => ({
-  
+  type: SET_CLUB_SUCCESS,
+  fantasyClub,
+  statusCode
+});
+
+export const SET_CLUB_FAIL = 'SET_CLUB_FAIL';
+export const setClubFail = statusCode => ({
+  type: SET_CLUB_FAIL,
+  statusCode
 });
 
 export const fetchUser = accessToken => dispatch => {
@@ -87,6 +95,35 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
   .then(data => {
     dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
     return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const addClub = (accessToken, fantasyClub) => dispatch => {
+  return fetch(`${thisURL}/addclub`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      fantasyClub
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setClubFail(res.status));
+        return;
+      }
+      dispatch(setClubFail(500));
+      throw new Error(res.statusText);
+    }
+  })
+  .then(data => {
+    dispatch(setClubSuccess(data.fantasyClub, 200));
   })
   .catch(error => {
     throw new Error(error);
