@@ -4,15 +4,15 @@
 import { SET_USER_FAIL, SET_USER_SUCCESS, SET_LEAGUE_SUCCESS, SET_LEAGUE_FAIL } from '../subActions/userActions.js';
 
 const initialState = {
-  accessToken: null, 
-  userId: null, 
-  googleId: null, 
-  displayName: null, 
-  givenName: null, 
-  familyName: null, 
-  userPhoto: null, 
-  fantasyLeagueId: null, 
-  fantasyLeagueName: null
+  accessToken: '', 
+  userId: '', 
+  googleId: '', 
+  displayName: '', 
+  givenName: '', 
+  familyName: '', 
+  userPhoto: '', 
+  fantasyLeagueId: '', 
+  fantasyLeagueName: ''
 };
 
 export const userReducer = (state = initialState, action) => {

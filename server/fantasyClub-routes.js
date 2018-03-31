@@ -1,5 +1,4 @@
-const passport = require("passport"),
-  { updateData } = require("./programFunctions/updateData_function.js"),
+const { updateData } = require("./programFunctions/updateData_function.js"),
 	fantasyClubRouter = require("express").Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
 
@@ -8,7 +7,6 @@ fantasyClubRouter.get('/:userId',
     FantasyClub
     .findOne({userId: req.params.userId})
     .then(data => {
-      console.log('fcRoutes 1st get:', data);
       res.json(data);
     })
     .catch(error => {
@@ -17,29 +15,22 @@ fantasyClubRouter.get('/:userId',
   }
 );
 
-fantasyClubRouter.get('/:userId',
-  passport.authenticate('bearer', {session: false}),
-  (req, res) => res.json({
-    userId: req.body.userId,
-    manager: req.body.manager,
-    clubName: req.body.clubName,
-    points: req.body.points,
-    wins: req.body.wins,
-    draws: req.body.draws,
-    losses: req.body.losses,
-    goalsFor: req.body.goalsFor,
-    goalsAgainst: req.body.goalsAgainst,
-    goalDifferential: req.body.goalDifferential
-  })
-);
-
-fantasyClubRouter.put('/addClubName',
+fantasyClubRouter.put('/:userId/addClubName',
   (req, res) => {
-    updateData(req.params.clubName,
+    console.log('fcRoutes req:', req);
+    FantasyClub
+    .findOneAndUpdate(
+      req.params.userId,
       {
         clubName: req.body.clubName
-      }, FantasyClub)
+      },
+      {
+        new: true, 
+        upsert: true
+      }
+    )
     .then(data => {
+      console.log('fcRoutes addClubName:', data);
       res.json(data);
     })
     .catch(error => {

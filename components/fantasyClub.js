@@ -8,7 +8,8 @@ import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
-import { addClubName, addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
+import { addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
+import { addClubName } from '../flow/subActions/clubNameActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
@@ -16,7 +17,6 @@ export class FantasyTeam extends React.Component {
 		console.log('fcComponent userId:', this.props.userId);
 		if (!this.props.manager) {
 			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
-			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
     }
     if (this.props.manager) {
 			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
@@ -27,13 +27,13 @@ export class FantasyTeam extends React.Component {
 		// makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
+			this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 		}
 	}
   
 	submitClubName(event) {
 		event.preventDefault();
-		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
+		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 	}
 	
 	render() {
@@ -85,7 +85,7 @@ const mapFantasyClubStateToProps = state => ({
 	userId: state.userReducer.userId,
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
-	clubName: state.fantasyClubReducer.clubName,
+	clubName: state.clubNameReducer.clubName,
 	manager: state.fantasyClubReducer.manager,
 	playerDataShow: state.playerReducer.show
 });

@@ -18,19 +18,6 @@ export const getClubFail = statusCode => ({
   statusCode
 });
 
-export const SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
-export const setClubNameSuccess = (clubName, statusCode) => ({
-  type: SET_CLUB_NAME_SUCCESS,
-  clubName,
-  statusCode
-});
-
-export const SET_CLUB_NAME_FAIL = 'SET_CLUB_NAME_FAIL';
-export const setClubNameFail = statusCode => ({
-  type: SET_CLUB_NAME_FAIL,
-  statusCode
-});
-
 export const SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
 export const setManagerSuccess = (manager, userId, statusCode) => ({
   type: SET_MANAGER_SUCCESS,
@@ -46,7 +33,7 @@ export const setManagerFail = statusCode => ({
 });
 
 export const getClub = (accessToken, userId) => dispatch => {
-  return fetch(`${thisURL}/:${userId}`, {
+  return fetch(`${thisURL}/${userId}`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
@@ -60,7 +47,6 @@ export const getClub = (accessToken, userId) => dispatch => {
       dispatch(getClubFail(500));
       throw new Error(res.statusText);
     }
-    // console.log('getClub res.json:', res.json()); // comes back as null
     return res.json();
   })
   .then(fantasyClub => {
@@ -97,37 +83,7 @@ export const addManager = (accessToken, manager, userId) => dispatch => {
   })
   .then(data => {
     dispatch(setManagerSuccess(data.manager, data.userId, 200));
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
-export const addClubName = (accessToken, clubName) => dispatch => {
-  return fetch(`${thisURL}/addClubName`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
-    },
-    body: JSON.stringify({
-      clubName
-    })
-  })
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 400) {
-        dispatch(setClubNameFail(res.status));
-        return;
-      } 
-      dispatch(setClubNameFail(500));
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(data => {
-    console.log('addClubName data:', data);
-    dispatch(setClubNameSuccess(data.clubName, 200));
+    dispatch(getClub(accessToken, userId));
   })
   .catch(error => {
     throw new Error(error);

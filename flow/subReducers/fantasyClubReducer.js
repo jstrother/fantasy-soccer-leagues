@@ -1,11 +1,10 @@
 // ./flow/subReducers/fantasyClubReducer.js
 // imported into ./flow/reducers.js
 
-import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, SET_CLUB_NAME_SUCCESS, SET_CLUB_NAME_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL } from '../subActions/fantasyClubActions.js';
+import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL } from '../subActions/fantasyClubActions.js';
 
 const initialState = {
   manager: null, 
-  clubName: null, 
   userId: null, 
   points: null, 
   wins: null, 
@@ -23,7 +22,6 @@ export const fantasyClubReducer = (state = initialState, action) => {
         {
           userId: action.fantasyClub.userId,
           manager: action.fantasyClub.manager,
-          clubName: action.fantasyClub.clubName,
           points: action.fantasyClub.points,
           wins: action.fantasyClub.wins,
           draws: action.fantasyClub.draws,
@@ -40,14 +38,7 @@ export const fantasyClubReducer = (state = initialState, action) => {
           userId: action.userId
         }
       );
-    case SET_CLUB_NAME_SUCCESS:
-      return Object.assign({}, state,
-        {
-          clubName: action.clubName
-        }
-      );
     case GET_CLUB_FAIL:
-    case SET_CLUB_NAME_FAIL:
     case SET_MANAGER_FAIL:
     default:
       return state;
