@@ -8,7 +8,7 @@ import CSSModules from 'react-css-modules';
 import Warning from './warning.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
-import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
+import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/rosterActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import styles from '../scss/playerSelection.scss';
 
@@ -261,11 +261,11 @@ const mapSelectionStateToProps = state => ({
   playerList: state.leagueReducer.playerList,
   positionSelection: state.leagueReducer.position,
   clubSelection: state.leagueReducer.club,
-  goalkeepers: state.fantasyClubReducer.goalkeepers,
-  defenders: state.fantasyClubReducer.defenders,
-  midfielders: state.fantasyClubReducer.midfielders,
-  forwards: state.fantasyClubReducer.forwards,
-  clubName: state.fantasyClubReducer.clubName
+  goalkeepers: state.rosterReducer.goalkeepers,
+  defenders: state.rosterReducer.defenders,
+  midfielders: state.rosterReducer.midfielders,
+  forwards: state.rosterReducer.forwards,
+  clubName: state.rosterReducer.clubName
 });
 
 const PlayerSelction = connect(

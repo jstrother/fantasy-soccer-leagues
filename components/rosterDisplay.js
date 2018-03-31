@@ -5,7 +5,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
+import { getClub } from '../flow/subActions/fantasyClubActions.js';
+import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/rosterActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import { fetchPlayerData } from '../flow/subActions/playerActions.js';
 import styles from '../scss/rosterDisplay.scss';
@@ -210,12 +211,12 @@ export class Display extends React.Component {
 
 const mapDisplayStateToProps = state => ({
   accessToken: state.userReducer.accessToken,
-  goalkeepers: state.fantasyClubReducer.goalkeepers,
-  defenders: state.fantasyClubReducer.defenders,
-  midfielders: state.fantasyClubReducer.midfielders,
-  forwards: state.fantasyClubReducer.forwards,
-  starters: state.fantasyClubReducer.starters,
-  benchwarmers: state.fantasyClubReducer.benchwarmers
+  goalkeepers: state.rosterReducer.goalkeepers,
+  defenders: state.rosterReducer.defenders,
+  midfielders: state.rosterReducer.midfielders,
+  forwards: state.rosterReducer.forwards,
+  starters: state.rosterReducer.starters,
+  benchwarmers: state.rosterReducer.benchwarmers
 });
 
 const RosterDisplay = connect(

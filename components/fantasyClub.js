@@ -9,19 +9,21 @@ import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
 import { addClubName, addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
-import { addClub } from '../flow/subActions/userActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(getClub(this.props.accessToken));
-		if ((!this.props.manager) && (this.props.userId === this.props.managerId)) {
+		console.log('fcComponent userId:', this.props.userId);
+		if (!this.props.manager) {
 			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
-			this.props.dispatch(getClub(this.props.accessToken));
+			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+    }
+    if (this.props.manager) {
+			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
     }
   }
   
-	_handleKeyPress(event) {
+	handleKeyPress(event) {
 		// makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
 		if (event.key === 'Enter') {
 			event.preventDefault();
@@ -43,7 +45,7 @@ export class FantasyTeam extends React.Component {
 						className={'clubNameForm'}>
 						<input
 							className={'clubNameInput'}
-							onKeyPress={this._handleKeyPress.bind(this)}
+							onKeyPress={this.handleKeyPress.bind(this)}
 							ref={(input) => {this.clubNameInput = input;}}
 							type="text"
 							placeholder="Enter your club's name"/>
@@ -81,7 +83,6 @@ export class FantasyTeam extends React.Component {
 
 const mapFantasyClubStateToProps = state => ({
 	userId: state.userReducer.userId,
-	managerId: state.fantasyClubReducer.userId,
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
 	clubName: state.fantasyClubReducer.clubName,

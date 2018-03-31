@@ -1,9 +1,21 @@
 // ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
 
-import { SET_USER_FAIL, SET_USER_SUCCESS, SET_LEAGUE_SUCCESS, SET_LEAGUE_FAIL, SET_CLUB_SUCCESS, SET_CLUB_FAIL } from '../subActions/userActions.js';
+import { SET_USER_FAIL, SET_USER_SUCCESS, SET_LEAGUE_SUCCESS, SET_LEAGUE_FAIL } from '../subActions/userActions.js';
 
-export const userReducer = (state = {accessToken: null, userId: null, googleId: null, displayName: null, givenName: null, familyName: null, userPhoto: null, fantasyLeagueId: null, fantasyLeagueName: null}, action) => {
+const initialState = {
+  accessToken: null, 
+  userId: null, 
+  googleId: null, 
+  displayName: null, 
+  givenName: null, 
+  familyName: null, 
+  userPhoto: null, 
+  fantasyLeagueId: null, 
+  fantasyLeagueName: null
+};
+
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_SUCCESS:
       return Object.assign({}, state, 
@@ -26,15 +38,8 @@ export const userReducer = (state = {accessToken: null, userId: null, googleId: 
           fantasyLeagueName: action.fantasyLeagueName
         }
       );
-    case SET_CLUB_SUCCESS:
-      return Object.assign({}, state,
-        {
-          fantasyClub: action.fantasyClub
-        }
-      );
     case SET_USER_FAIL:
     case SET_LEAGUE_FAIL:
-    case SET_CLUB_FAIL:
     default:
       return state;
   }

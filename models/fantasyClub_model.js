@@ -3,7 +3,6 @@ const mongoose = require('mongoose'),
 
 			fantasyClubSchema = Schema({
 				_id: Schema.Types.ObjectId,
-				googleId: String,
 				userId: String,
 				clubName: { type: String, required: true },
 				manager: { type: String, required: true },
