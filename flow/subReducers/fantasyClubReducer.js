@@ -4,15 +4,15 @@
 import { SET_MANAGER_SUCCESS, SET_MANAGER_FAIL, GET_CLUB_SUCCESS, GET_CLUB_FAIL } from '../subActions/fantasyClubActions.js';
 
 const initialState = {
-  manager: null, 
-  userId: null, 
-  points: null, 
-  wins: null, 
-  draws: null, 
-  losses: null, 
-  goalsFor: null, 
-  goalsAgainst: null, 
-  goalDifferential: null
+  manager: '', 
+  userId: '', 
+  points: '', 
+  wins: '', 
+  draws: '', 
+  losses: '', 
+  goalsFor: '', 
+  goalsAgainst: '', 
+  goalDifferential: ''
 };
 
 export const fantasyClubReducer = (state = initialState, action) => {

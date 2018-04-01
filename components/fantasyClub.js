@@ -18,9 +18,7 @@ export class FantasyTeam extends React.Component {
 		if (!this.props.manager) {
 			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
     }
-    if (this.props.manager) {
-			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
-    }
+    this.props.dispatch(getClub(this.props.accessToken, this.props.displayName, this.props.userId));
   }
   
 	handleKeyPress(event) {

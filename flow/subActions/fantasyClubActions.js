@@ -32,7 +32,7 @@ export const setManagerFail = statusCode => ({
   statusCode
 });
 
-export const getClub = (accessToken, userId) => dispatch => {
+export const getClub = (accessToken, displayName, userId) => dispatch => {
   return fetch(`${thisURL}/${userId}`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -83,7 +83,6 @@ export const addManager = (accessToken, manager, userId) => dispatch => {
   })
   .then(data => {
     dispatch(setManagerSuccess(data.manager, data.userId, 200));
-    dispatch(getClub(accessToken, userId));
   })
   .catch(error => {
     throw new Error(error);

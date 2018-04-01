@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4e937bfdc65b4e288ce8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2a1d53c95c90fe410703"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4909,7 +4909,7 @@ var setManagerFail = function setManagerFail(statusCode) {
 
 exports.setManagerFail = setManagerFail;
 
-var getClub = function getClub(accessToken, userId) {
+var getClub = function getClub(accessToken, displayName, userId) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(userId), {
       headers: {
@@ -4928,6 +4928,36 @@ var getClub = function getClub(accessToken, userId) {
 
       return res.json();
     }).then(function (fantasyClub) {
+      if (fantasyClub && !fantasyClub.manager) {
+        return (0, _isomorphicFetch.default)("".concat(thisURL, "/addManager"), {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer ".concat(accessToken)
+          },
+          body: JSON.stringify({
+            manager: displayName,
+            userId: userId
+          })
+        }).then(function (res) {
+          if (!res.ok) {
+            if (res.status === 400) {
+              dispatch(setManagerFail(res.status));
+              return;
+            }
+
+            dispatch(setManagerFail(500));
+            throw new Error(res.statusText);
+          }
+
+          return res.json();
+        }).then(function (data) {
+          dispatch(setManagerSuccess(data.manager, data.userId, 200));
+        }).catch(function (error) {
+          throw new Error(error);
+        });
+      }
+
       console.log('getClub fantasyClub:', fantasyClub);
       dispatch(getClubSuccess(fantasyClub, 200));
     }).catch(function (error) {
@@ -4964,7 +4994,6 @@ var addManager = function addManager(accessToken, manager, userId) {
       return res.json();
     }).then(function (data) {
       dispatch(setManagerSuccess(data.manager, data.userId, 200));
-      dispatch(getClub(accessToken, userId));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -41597,15 +41626,11 @@ function (_React$Component) {
   _createClass(FantasyTeam, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('fcComponent userId:', this.props.userId);
+      console.log('fcComponent userId:', this.props.userId); // if (!this.props.manager) {
+      // 	this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
+      //   }
 
-      if (!this.props.manager) {
-        this.props.dispatch((0, _fantasyClubActions.addManager)(this.props.accessToken, this.props.displayName, this.props.userId));
-      }
-
-      if (this.props.manager) {
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
-      }
+      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.displayName, this.props.userId));
     }
   }, {
     key: "handleKeyPress",
@@ -43274,15 +43299,15 @@ var _fantasyClubActions = __webpack_require__(43);
 // ./flow/subReducers/fantasyClubReducer.js
 // imported into ./flow/reducers.js
 var initialState = {
-  manager: null,
-  userId: null,
-  points: null,
-  wins: null,
-  draws: null,
-  losses: null,
-  goalsFor: null,
-  goalsAgainst: null,
-  goalDifferential: null
+  manager: '',
+  userId: '',
+  points: '',
+  wins: '',
+  draws: '',
+  losses: '',
+  goalsFor: '',
+  goalsAgainst: '',
+  goalDifferential: ''
 };
 
 var fantasyClubReducer = function fantasyClubReducer() {
