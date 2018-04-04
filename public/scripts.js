@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2a1d53c95c90fe410703"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b8be6d8e5a777abda677"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4851,7 +4851,7 @@ module.exports = isArrayLike;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addManager = exports.getClub = exports.setManagerFail = exports.SET_MANAGER_FAIL = exports.setManagerSuccess = exports.SET_MANAGER_SUCCESS = exports.getClubFail = exports.GET_CLUB_FAIL = exports.getClubSuccess = exports.GET_CLUB_SUCCESS = void 0;
+exports.newClub = exports.getClub = exports.newClubFail = exports.NEW_CLUB_FAIL = exports.newClubSuccess = exports.NEW_CLUB_SUCCESS = exports.getClubFail = exports.GET_CLUB_FAIL = exports.getClubSuccess = exports.GET_CLUB_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(23));
 
@@ -4884,34 +4884,34 @@ var getClubFail = function getClubFail(statusCode) {
 };
 
 exports.getClubFail = getClubFail;
-var SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
-exports.SET_MANAGER_SUCCESS = SET_MANAGER_SUCCESS;
+var NEW_CLUB_SUCCESS = 'NEW_CLUB_SUCCESS';
+exports.NEW_CLUB_SUCCESS = NEW_CLUB_SUCCESS;
 
-var setManagerSuccess = function setManagerSuccess(manager, userId, statusCode) {
+var newClubSuccess = function newClubSuccess(manager, userId, statusCode) {
   return {
-    type: SET_MANAGER_SUCCESS,
+    type: NEW_CLUB_SUCCESS,
     manager: manager,
     userId: userId,
     statusCode: statusCode
   };
 };
 
-exports.setManagerSuccess = setManagerSuccess;
-var SET_MANAGER_FAIL = 'SET_MANAGER_FAIL';
-exports.SET_MANAGER_FAIL = SET_MANAGER_FAIL;
+exports.newClubSuccess = newClubSuccess;
+var NEW_CLUB_FAIL = 'NEW_CLUB_FAIL';
+exports.NEW_CLUB_FAIL = NEW_CLUB_FAIL;
 
-var setManagerFail = function setManagerFail(statusCode) {
+var newClubFail = function newClubFail(statusCode) {
   return {
-    type: SET_MANAGER_FAIL,
+    type: NEW_CLUB_FAIL,
     statusCode: statusCode
   };
 };
 
-exports.setManagerFail = setManagerFail;
+exports.newClubFail = newClubFail;
 
-var getClub = function getClub(accessToken, displayName, userId) {
+var getClub = function getClub(accessToken) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(userId), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL), {
       headers: {
         'Authorization': "Bearer ".concat(accessToken)
       }
@@ -4924,40 +4924,11 @@ var getClub = function getClub(accessToken, displayName, userId) {
 
         dispatch(getClubFail(500));
         throw new Error(res.statusText);
-      }
+      } // console.log('res.json():', res.json());
+
 
       return res.json();
     }).then(function (fantasyClub) {
-      if (fantasyClub && !fantasyClub.manager) {
-        return (0, _isomorphicFetch.default)("".concat(thisURL, "/addManager"), {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': "Bearer ".concat(accessToken)
-          },
-          body: JSON.stringify({
-            manager: displayName,
-            userId: userId
-          })
-        }).then(function (res) {
-          if (!res.ok) {
-            if (res.status === 400) {
-              dispatch(setManagerFail(res.status));
-              return;
-            }
-
-            dispatch(setManagerFail(500));
-            throw new Error(res.statusText);
-          }
-
-          return res.json();
-        }).then(function (data) {
-          dispatch(setManagerSuccess(data.manager, data.userId, 200));
-        }).catch(function (error) {
-          throw new Error(error);
-        });
-      }
-
       console.log('getClub fantasyClub:', fantasyClub);
       dispatch(getClubSuccess(fantasyClub, 200));
     }).catch(function (error) {
@@ -4968,39 +4939,40 @@ var getClub = function getClub(accessToken, displayName, userId) {
 
 exports.getClub = getClub;
 
-var addManager = function addManager(accessToken, manager, userId) {
+var newClub = function newClub(accessToken, userId) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addManager"), {
+    console.log('userId:', userId);
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/newClub"), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
-        manager: manager,
         userId: userId
       })
     }).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
-          dispatch(setManagerFail(res.status));
+          dispatch(newClubFail(res.status));
           return;
         }
 
-        dispatch(setManagerFail(500));
+        dispatch(newClubFail(500));
         throw new Error(res.statusText);
       }
 
-      return res.json();
-    }).then(function (data) {
-      dispatch(setManagerSuccess(data.manager, data.userId, 200));
-    }).catch(function (error) {
+      console.log('res.json():', res.json()); // return res.json();
+    }) // .then(data => {
+    //   dispatch(newClubSuccess(data.manager, 200));
+    // })
+    .catch(function (error) {
       throw new Error(error);
     });
   };
 };
 
-exports.addManager = addManager;
+exports.newClub = newClub;
 
 /***/ }),
 /* 44 */
@@ -18383,9 +18355,9 @@ var setClubNameFail = function setClubNameFail(statusCode) {
 
 exports.setClubNameFail = setClubNameFail;
 
-var addClubName = function addClubName(accessToken, clubName, userId) {
+var addClubName = function addClubName(accessToken, clubName) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(userId, "/addClubName"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addClubName"), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -41626,11 +41598,11 @@ function (_React$Component) {
   _createClass(FantasyTeam, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('fcComponent userId:', this.props.userId); // if (!this.props.manager) {
-      // 	this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
-      //   }
+      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken));
 
-      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.displayName, this.props.userId));
+      if (!this.props.manager) {
+        this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.props.userId));
+      }
     }
   }, {
     key: "handleKeyPress",
@@ -41638,14 +41610,14 @@ function (_React$Component) {
       // makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
       if (event.key === 'Enter') {
         event.preventDefault();
-        this.props.dispatch((0, _clubNameActions.addClubName)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+        this.props.dispatch((0, _clubNameActions.addClubName)(this.props.accessToken, this.clubNameInput.value));
       }
     }
   }, {
     key: "submitClubName",
     value: function submitClubName(event) {
       event.preventDefault();
-      this.props.dispatch((0, _clubNameActions.addClubName)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+      this.props.dispatch((0, _clubNameActions.addClubName)(this.props.accessToken, this.clubNameInput.value));
     }
   }, {
     key: "render",
@@ -41695,8 +41667,8 @@ var mapFantasyClubStateToProps = function mapFantasyClubStateToProps(state) {
     accessToken: state.userReducer.accessToken,
     displayName: state.userReducer.displayName,
     clubName: state.clubNameReducer.clubName,
-    manager: state.fantasyClubReducer.manager,
-    playerDataShow: state.playerReducer.show
+    playerDataShow: state.playerReducer.show,
+    manager: state.fantasyClubReducer.manager
   };
 };
 
@@ -43147,20 +43119,8 @@ var _userActions = __webpack_require__(101);
 
 // ./flow/subReducers/loginReducer.js
 // imported into ./flow/reducers.js
-var initialState = {
-  accessToken: '',
-  userId: '',
-  googleId: '',
-  displayName: '',
-  givenName: '',
-  familyName: '',
-  userPhoto: '',
-  fantasyLeagueId: '',
-  fantasyLeagueName: ''
-};
-
 var userReducer = function userReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
@@ -43298,20 +43258,8 @@ var _fantasyClubActions = __webpack_require__(43);
 
 // ./flow/subReducers/fantasyClubReducer.js
 // imported into ./flow/reducers.js
-var initialState = {
-  manager: '',
-  userId: '',
-  points: '',
-  wins: '',
-  draws: '',
-  losses: '',
-  goalsFor: '',
-  goalsAgainst: '',
-  goalDifferential: ''
-};
-
 var fantasyClubReducer = function fantasyClubReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
@@ -43328,14 +43276,13 @@ var fantasyClubReducer = function fantasyClubReducer() {
         goalDifferential: action.fantasyClub.goalDifferential
       });
 
-    case _fantasyClubActions.SET_MANAGER_SUCCESS:
+    case _fantasyClubActions.NEW_CLUB_SUCCESS:
       return Object.assign({}, state, {
-        manager: action.manager,
-        userId: action.userId
+        manager: action.manager
       });
 
     case _fantasyClubActions.GET_CLUB_FAIL:
-    case _fantasyClubActions.SET_MANAGER_FAIL:
+    case _fantasyClubActions.NEW_CLUB_FAIL:
     default:
       return state;
   }

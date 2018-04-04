@@ -18,22 +18,22 @@ export const getClubFail = statusCode => ({
   statusCode
 });
 
-export const SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
-export const setManagerSuccess = (manager, userId, statusCode) => ({
-  type: SET_MANAGER_SUCCESS,
+export const NEW_CLUB_SUCCESS = 'NEW_CLUB_SUCCESS';
+export const newClubSuccess = (manager, userId, statusCode) => ({
+  type: NEW_CLUB_SUCCESS,
   manager,
   userId,
   statusCode
 });
 
-export const SET_MANAGER_FAIL = 'SET_MANAGER_FAIL';
-export const setManagerFail = statusCode => ({
-  type: SET_MANAGER_FAIL,
+export const NEW_CLUB_FAIL = 'NEW_CLUB_FAIL';
+export const newClubFail = statusCode => ({
+  type: NEW_CLUB_FAIL,
   statusCode
 });
 
-export const getClub = (accessToken, displayName, userId) => dispatch => {
-  return fetch(`${thisURL}/${userId}`, {
+export const getClub = (accessToken) => dispatch => {
+  return fetch(`${thisURL}`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
@@ -47,6 +47,7 @@ export const getClub = (accessToken, displayName, userId) => dispatch => {
       dispatch(getClubFail(500));
       throw new Error(res.statusText);
     }
+    // console.log('res.json():', res.json());
     return res.json();
   })
   .then(fantasyClub => {
@@ -58,32 +59,33 @@ export const getClub = (accessToken, displayName, userId) => dispatch => {
   });
 };
 
-export const addManager = (accessToken, manager, userId) => dispatch => {
-  return fetch(`${thisURL}/addManager`, {
+export const newClub = (accessToken, userId) => dispatch => {
+  console.log('userId:', userId);
+  return fetch(`${thisURL}/newClub`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
-      manager,
       userId
     })
   })
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(setManagerFail(res.status));
+        dispatch(newClubFail(res.status));
         return;
       } 
-      dispatch(setManagerFail(500));
+      dispatch(newClubFail(500));
       throw new Error(res.statusText);
     }
-    return res.json();
+    console.log('res.json():', res.json());
+    // return res.json();
   })
-  .then(data => {
-    dispatch(setManagerSuccess(data.manager, data.userId, 200));
-  })
+  // .then(data => {
+  //   dispatch(newClubSuccess(data.manager, 200));
+  // })
   .catch(error => {
     throw new Error(error);
   });

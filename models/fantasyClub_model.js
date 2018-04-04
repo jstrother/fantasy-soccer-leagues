@@ -3,9 +3,8 @@ const mongoose = require('mongoose'),
 
 			fantasyClubSchema = Schema({
 				_id: Schema.Types.ObjectId,
-				userId: String,
-				clubName: { type: String, required: true },
-				manager: { type: String, required: true },
+				clubName: String,
+				manager: {type: Schema.Types.ObjectId, ref: 'User'},
 				goalkeepers: Array,
 				defenders: Array,
 				midfielders: Array,

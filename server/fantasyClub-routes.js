@@ -1,11 +1,13 @@
 const { updateData } = require("./programFunctions/updateData_function.js"),
+  mongoose = require("mongoose"),
 	fantasyClubRouter = require("express").Router(),
-	FantasyClub = require('../models/fantasyClub_model.js');
+	FantasyClub = require('../models/fantasyClub_model.js'),
+	User = require("../models/user_model.js");
 
-fantasyClubRouter.get('/:userId', 
+fantasyClubRouter.get('/', 
   (req, res) => {
     FantasyClub
-    .findOne({userId: req.params.userId})
+    .findOne({manager: req.params.userId})
     .then(data => {
       res.json(data);
     })
@@ -15,12 +17,14 @@ fantasyClubRouter.get('/:userId',
   }
 );
 
-fantasyClubRouter.put('/:userId/addClubName',
+fantasyClubRouter.put('/addClubName',
   (req, res) => {
-    console.log('fcRoutes req:', req);
+    // console.log('fcRoutes req:', req);
     FantasyClub
     .findOneAndUpdate(
-      req.params.userId,
+      {
+        manager: req.params.userId
+      },
       {
         clubName: req.body.clubName
       },
@@ -39,18 +43,36 @@ fantasyClubRouter.put('/:userId/addClubName',
   }
 );
 
-fantasyClubRouter.put('/addManager',
-  (req, res) => updateData(req.params.manager,
-    {
-      manager: req.body.manager,
-      userId: req.body.userId
-    }, FantasyClub)
-    .then(data => {
-      res.json(data);
+fantasyClubRouter.put('/newClub',
+  (req, res) => {
+    console.log('req.body:', req.body);
+    const newClub = new FantasyClub({
+      _id: new mongoose.Types.ObjectId(),
+      manager: req.body.userId
+    });
+    
+    newClub
+    .save()
+    .catch(error => {
+      throw new Error(error);
+    });
+    
+    FantasyClub
+    .findOne({_id: newClub._id})
+    .populate({
+      path: 'manager',
+      model: 'User'
+    })
+    .exec((error, populatedClub) => {
+      if (error) {
+        throw new Error(error);
+      }
+      res.json(populatedClub);
     })
     .catch(error => {
       throw new Error(error);
-    })
+    });
+  }
 );
 
 exports.fantasyClubRouter = fantasyClubRouter;

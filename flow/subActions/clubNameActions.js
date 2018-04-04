@@ -18,8 +18,8 @@ export const setClubNameFail = statusCode => ({
   statusCode
 });
 
-export const addClubName = (accessToken, clubName, userId) => dispatch => {
-  return fetch(`${thisURL}/${userId}/addClubName`, {
+export const addClubName = (accessToken, clubName) => dispatch => {
+  return fetch(`${thisURL}/addClubName`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

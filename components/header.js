@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars*/
-// components/home.js
+// components/header.js
 // imported into app.js
 
 import React from 'react';

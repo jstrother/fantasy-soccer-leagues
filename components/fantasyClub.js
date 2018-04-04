@@ -8,30 +8,30 @@ import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
-import { addManager, getClub } from '../flow/subActions/fantasyClubActions.js';
+import { getClub } from '../flow/subActions/fantasyClubActions.js';
+import { newClub } from '../flow/subActions/fantasyClubActions.js';
 import { addClubName } from '../flow/subActions/clubNameActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		console.log('fcComponent userId:', this.props.userId);
+		this.props.dispatch(getClub(this.props.accessToken));
 		if (!this.props.manager) {
-			this.props.dispatch(addManager(this.props.accessToken, this.props.displayName, this.props.userId));
-    }
-    this.props.dispatch(getClub(this.props.accessToken, this.props.displayName, this.props.userId));
+			this.props.dispatch(newClub(this.props.accessToken, this.props.userId));
+		}
   }
   
 	handleKeyPress(event) {
 		// makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+			this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
 		}
 	}
   
 	submitClubName(event) {
 		event.preventDefault();
-		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
 	}
 	
 	render() {
@@ -84,8 +84,8 @@ const mapFantasyClubStateToProps = state => ({
 	accessToken: state.userReducer.accessToken,
 	displayName: state.userReducer.displayName,
 	clubName: state.clubNameReducer.clubName,
-	manager: state.fantasyClubReducer.manager,
-	playerDataShow: state.playerReducer.show
+	playerDataShow: state.playerReducer.show,
+	manager: state.fantasyClubReducer.manager
 });
 
 const FantasyClub = connect(
