@@ -12,10 +12,6 @@ import { fetchPlayerData } from '../flow/subActions/playerActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
-	componentDidMount() {
-		this.props.dispatch(getClub(this.props.accessToken));
-	}
-	
   handleRosterRemove(event) {
     let dataSet = event.target.dataset,
 			player = {

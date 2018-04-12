@@ -8,8 +8,8 @@ export const fantasyClubReducer = (state = {}, action) => {
     case GET_CLUB_SUCCESS:
       return Object.assign({}, state,
         {
-          userId: action.fantasyClub.userId,
           manager: action.fantasyClub.manager,
+          clubName: action.fantasyClub.clubName,
           points: action.fantasyClub.points,
           wins: action.fantasyClub.wins,
           draws: action.fantasyClub.draws,
@@ -22,6 +22,7 @@ export const fantasyClubReducer = (state = {}, action) => {
     case NEW_CLUB_SUCCESS:
       return Object.assign({}, state,
         {
+          clubName: action.clubName,
           manager: action.manager
         }
       );

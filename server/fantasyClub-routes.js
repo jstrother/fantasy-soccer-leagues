@@ -48,7 +48,8 @@ fantasyClubRouter.put('/newClub',
     console.log('req.body:', req.body);
     const newClub = new FantasyClub({
       _id: new mongoose.Types.ObjectId(),
-      manager: req.body.userId
+      manager: req.body.userId,
+      clubName: req.body.clubName
     });
     
     newClub

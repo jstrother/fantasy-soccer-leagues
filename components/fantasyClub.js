@@ -10,28 +10,24 @@ import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import { newClub } from '../flow/subActions/fantasyClubActions.js';
-import { addClubName } from '../flow/subActions/clubNameActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(getClub(this.props.accessToken));
-		if (!this.props.manager) {
-			this.props.dispatch(newClub(this.props.accessToken, this.props.userId));
-		}
+		// this.props.dispatch(getClub(this.props.accessToken));
   }
   
 	handleKeyPress(event) {
 		// makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
+			this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 		}
 	}
   
 	submitClubName(event) {
 		event.preventDefault();
-		this.props.dispatch(addClubName(this.props.accessToken, this.clubNameInput.value));
+		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 	}
 	
 	render() {
@@ -82,9 +78,8 @@ export class FantasyTeam extends React.Component {
 const mapFantasyClubStateToProps = state => ({
 	userId: state.userReducer.userId,
 	accessToken: state.userReducer.accessToken,
-	displayName: state.userReducer.displayName,
-	clubName: state.clubNameReducer.clubName,
 	playerDataShow: state.playerReducer.show,
+	clubName: state.fantasyClubReducer.clubName,
 	manager: state.fantasyClubReducer.manager
 });
 

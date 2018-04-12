@@ -19,10 +19,10 @@ export const getClubFail = statusCode => ({
 });
 
 export const NEW_CLUB_SUCCESS = 'NEW_CLUB_SUCCESS';
-export const newClubSuccess = (manager, userId, statusCode) => ({
+export const newClubSuccess = (clubName, manager, statusCode) => ({
   type: NEW_CLUB_SUCCESS,
+  clubName,
   manager,
-  userId,
   statusCode
 });
 
@@ -59,8 +59,8 @@ export const getClub = (accessToken) => dispatch => {
   });
 };
 
-export const newClub = (accessToken, userId) => dispatch => {
-  console.log('userId:', userId);
+export const newClub = (accessToken, clubName, manager) => dispatch => {
+  console.log('userId:', manager);
   return fetch(`${thisURL}/newClub`, {
     method: 'PUT',
     headers: {
@@ -68,7 +68,8 @@ export const newClub = (accessToken, userId) => dispatch => {
       'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
-      userId
+      clubName,
+      manager
     })
   })
   .then(res => {
@@ -80,12 +81,13 @@ export const newClub = (accessToken, userId) => dispatch => {
       dispatch(newClubFail(500));
       throw new Error(res.statusText);
     }
-    console.log('res.json():', res.json());
-    // return res.json();
+    // console.log('res.json():', res.json());
+    return res.json();
   })
-  // .then(data => {
-  //   dispatch(newClubSuccess(data.manager, 200));
-  // })
+  .then(data => {
+    console.log('newClub data:', data);
+    // dispatch(newClubSuccess(data.clubName, data.manager, 200));
+  })
   .catch(error => {
     throw new Error(error);
   });
