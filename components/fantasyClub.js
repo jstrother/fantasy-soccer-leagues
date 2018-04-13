@@ -8,13 +8,15 @@ import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
 import FantasyLeague from './fantasyLeague.js';
-import { getClub } from '../flow/subActions/fantasyClubActions.js';
-import { newClub } from '../flow/subActions/fantasyClubActions.js';
+import { getClub, newClub } from '../flow/subActions/fantasyClubActions.js';
+import { clubOwner } from '../flow/subActions/userActions.js';
 import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		// this.props.dispatch(getClub(this.props.accessToken));
+		if (this.props.hasClub === true) {
+			this.props.dispatch(getClub(this.props.accessToken));
+		}
   }
   
 	handleKeyPress(event) {
@@ -22,12 +24,14 @@ export class FantasyTeam extends React.Component {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+			this.props.dispatch(clubOwner(this.props.accesstoken, true));
 		}
 	}
   
 	submitClubName(event) {
 		event.preventDefault();
 		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+		this.props.dispatch(clubOwner(this.props.accesstoken, true));
 	}
 	
 	render() {
@@ -78,6 +82,7 @@ export class FantasyTeam extends React.Component {
 const mapFantasyClubStateToProps = state => ({
 	userId: state.userReducer.userId,
 	accessToken: state.userReducer.accessToken,
+	hasClub: state.userReducer.hasClub,
 	playerDataShow: state.playerReducer.show,
 	clubName: state.fantasyClubReducer.clubName,
 	manager: state.fantasyClubReducer.manager

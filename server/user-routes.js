@@ -85,7 +85,8 @@ userRouter.get('/',
 		familyName: req.user.familyName,
 		userPhoto: req.user.userPhoto,
 		fantasyLeagueId: req.user.fantasyLeagueId,
-		fantasyLeagueName: req.user.fantasyLeagueName
+		fantasyLeagueName: req.user.fantasyLeagueName,
+		hasClub: req.user.hasClub
 	})
 );
 
@@ -103,6 +104,21 @@ userRouter.put(`/addLeague`,
 		.catch(error => {
 			throw new Error(error);
 		})
+);
+
+// let's us know whether a user has created a club yet or not
+userRouter.put(`/clubOwner`,
+	passport.authenticate('bearer', {session: false}),
+	(req, res) => updateData(req.params.googleId,
+	{
+		hasClub: req.body.hasClub
+	}, User)
+	.then(data => {
+		res.json(data);
+	})
+	.catch(error => {
+		throw new Error(error);
+	})
 );
 
 exports.userRouter = userRouter;

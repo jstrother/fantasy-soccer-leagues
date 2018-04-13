@@ -1,8 +1,6 @@
 const mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
 	
 	userSchema = mongoose.Schema({
-		// _id: Schema.Types.ObjectId,
 		displayName: String,
 		givenName: String,
 		familyName: String,
@@ -11,7 +9,8 @@ const mongoose = require('mongoose'),
 		accessToken: {type: String, required: true},
 		googleId: {type: String, required: true},
 		fantasyLeagueId: Number,
-		fantasyLeagueName: String
+		fantasyLeagueName: String,
+		hasClub: Boolean
 	}),
 
 	User = mongoose.model('User', userSchema);
