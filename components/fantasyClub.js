@@ -24,14 +24,14 @@ export class FantasyTeam extends React.Component {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
-			this.props.dispatch(clubOwner(this.props.accesstoken, true));
+			this.props.dispatch(clubOwner(this.props.accessToken, true));
 		}
 	}
   
 	submitClubName(event) {
 		event.preventDefault();
 		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
-		this.props.dispatch(clubOwner(this.props.accesstoken, true));
+		this.props.dispatch(clubOwner(this.props.accessToken, true));
 	}
 	
 	render() {

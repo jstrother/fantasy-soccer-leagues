@@ -2,7 +2,6 @@ const rp = require('request-promise'),
   key = require('../config.js').API_KEY,
   baseURL = 'https://soccer.sportmonks.com/api/v2.0',
   toInclude = '&include=',
-  { updateData } = require('./updateData_function.js'),
   loopFunction = require('./loopFunction_function.js'),
   playerStats = require('./playerStats_function.js'),
   Player = require('../../models/player_model.js');
@@ -74,12 +73,16 @@ function playerStatsByLeague(leagueId) {
             playerInfoData.ownGoalCalc();
             playerInfoData.fantasyPointsCalc();
             console.log('playerId from playerInfo:', playerInfoData.idFromAPI);
-            updateData(
+            Player
+            .findOneAndUpdate(
               {
                 idFromAPI: playerInfoData.idFromAPI
               },
               playerInfoData,
-              Player
+              {
+                new: true,
+                upsert: true
+              }
             );
             playerIdList.push(playerInfoData.idFromAPI);
           }
@@ -109,12 +112,16 @@ function playerStatsByLeague(leagueId) {
                 clubId: playerData.data.team.data.id,
                 clubLogo: playerData.data.team.data.logo_path
               };
-              updateData(
+              Player
+              .findOneAndUpdate(
                 {
                   idFromAPI: playerData.idFromAPI
                 },
                 playerInfo,
-                Player
+                {
+                  new: true,
+                  upsert: true
+                }
               );
             })
             .catch(error => {

@@ -6,7 +6,6 @@ const config = require('./config.js'),
 	localhost = `https://${process.env.IP}:${config.PORT}/user/auth/google/callback`,
 	cloud9host = `https://${process.env.C9_HOSTNAME}/user/auth/google/callback`,
 	host = process.env.C9_HOSTNAME ? cloud9host : localhost,
-  { updateData } = require("./programFunctions/updateData_function.js"),
   User = require('../models/user_model.js'); // set to expire after 12 hours
 
 passport.use(new gStrategy({
@@ -15,19 +14,26 @@ passport.use(new gStrategy({
 	callbackURL:  host
 },
 	(accessToken, refreshToken, profile, callback) => {
-		updateData({
-			googleId: profile.id,
-			displayName: profile.displayName,
-			givenName: profile.name.givenName,
-			familyName: profile.name.familyName,
-			userPhoto: profile.photos[0].value
-		},
-    {
-      $set: {
-        accessToken: accessToken,
-        googleId: profile.id
-      }
-    }, User)
+		User
+		.findOneAndUpdate(
+			{
+				googleId: profile.id,
+				displayName: profile.displayName,
+				givenName: profile.name.givenName,
+				familyName: profile.name.familyName,
+				userPhoto: profile.photos[0].value
+			},
+			{
+				$set: {
+					accessToken: accessToken,
+					googleId: profile.id
+				}
+			},
+			{
+				new: true,
+				upsert: true
+			}
+		)
 		.then(user => {
 			callback(null, user);
 		})
@@ -93,11 +99,18 @@ userRouter.get('/',
 // adds user's selected league
 userRouter.put(`/addLeague`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => updateData(req.params.googleId, 
-		{
-			fantasyLeagueId: req.body.fantasyLeagueId,
-			fantasyLeagueName: req.body.fantasyLeagueName
-		}, User)
+	(req, res) => User
+		.findOneAndUpdate(
+			req.params.googleId,
+			{
+				fantasyLeagueId: req.body.fantasyLeagueId,
+				fantasyLeagueName: req.body.fantasyLeagueName
+			},
+			{
+				new: true,
+				upsert: true
+			}
+		)
 		.then(data => {
 			res.json(data);
 		})
@@ -109,10 +122,17 @@ userRouter.put(`/addLeague`,
 // let's us know whether a user has created a club yet or not
 userRouter.put(`/clubOwner`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => updateData(req.params.googleId,
-	{
-		hasClub: req.body.hasClub
-	}, User)
+	(req, res) => User
+		.findOneAndUpdate(
+			req.params.googleId,
+			{
+				hasClub: req.body.hasClub
+			},
+			{
+				new: true,
+				upsert: true
+			}
+		)
 	.then(data => {
 		res.json(data);
 	})

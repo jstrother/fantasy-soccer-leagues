@@ -1,5 +1,4 @@
-const { updateData } = require("./programFunctions/updateData_function.js"),
-  mongoose = require("mongoose"),
+const mongoose = require("mongoose"),
 	fantasyClubRouter = require("express").Router(),
 	FantasyClub = require('../models/fantasyClub_model.js'),
 	User = require("../models/user_model.js");
@@ -17,35 +16,9 @@ fantasyClubRouter.get('/',
   }
 );
 
-fantasyClubRouter.put('/addClubName',
-  (req, res) => {
-    // console.log('fcRoutes req:', req);
-    FantasyClub
-    .findOneAndUpdate(
-      {
-        manager: req.params.userId
-      },
-      {
-        clubName: req.body.clubName
-      },
-      {
-        new: true, 
-        upsert: true
-      }
-    )
-    .then(data => {
-      console.log('fcRoutes addClubName:', data);
-      res.json(data);
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-
 fantasyClubRouter.put('/newClub',
   (req, res) => {
-    console.log('req.body:', req.body);
+    console.log('fcRoutes req.body:', req.body);
     const newClub = new FantasyClub({
       _id: new mongoose.Types.ObjectId(),
       manager: req.body.userId,

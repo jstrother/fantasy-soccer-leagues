@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -104,13 +105,14 @@ export const clubOwner = (accessToken, hasClub) => dispatch => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization':  `Bearer ${accessToken}`
+      'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify({
       hasClub
     })
   })
   .then(res => {
+    console.log('/clubOwner res', res);
     if (!res.ok) {
       if (res.status === 400) {
         dispatch(hasClubFail(res.status));
