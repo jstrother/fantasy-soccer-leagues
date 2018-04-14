@@ -60,7 +60,6 @@ export const getClub = (accessToken) => dispatch => {
 };
 
 export const newClub = (accessToken, clubName, manager) => dispatch => {
-  console.log('userId:', manager);
   return fetch(`${thisURL}/newClub`, {
     method: 'PUT',
     headers: {
@@ -81,12 +80,10 @@ export const newClub = (accessToken, clubName, manager) => dispatch => {
       dispatch(newClubFail(500));
       throw new Error(res.statusText);
     }
-    // console.log('res.json():', res.json());
     return res.json();
   })
   .then(data => {
-    console.log('newClub data:', data);
-    // dispatch(newClubSuccess(data.clubName, data.manager, 200));
+    dispatch(newClubSuccess(data.clubName, data.manager, 200));
   })
   .catch(error => {
     throw new Error(error);

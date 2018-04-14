@@ -15,7 +15,6 @@ export class Header extends React.Component {
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
     if (accessToken) {
-      console.log('accessToken:', accessToken);
       this.props.dispatch(fetchUser(accessToken));
     }
   }

@@ -7,32 +7,6 @@ fantasyClubRouter.get('/',
   (req, res) => {
     FantasyClub
     .findOne({manager: req.params.userId})
-    .then(data => {
-      res.json(data);
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-
-fantasyClubRouter.put('/newClub',
-  (req, res) => {
-    console.log('fcRoutes req.body:', req.body);
-    const newClub = new FantasyClub({
-      _id: new mongoose.Types.ObjectId(),
-      manager: req.body.userId,
-      clubName: req.body.clubName
-    });
-    
-    newClub
-    .save()
-    .catch(error => {
-      throw new Error(error);
-    });
-    
-    FantasyClub
-    .findOne({_id: newClub._id})
     .populate({
       path: 'manager',
       model: 'User'
@@ -42,6 +16,25 @@ fantasyClubRouter.put('/newClub',
         throw new Error(error);
       }
       res.json(populatedClub);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
+fantasyClubRouter.put('/newClub',
+  (req, res) => {
+  const newClub = new FantasyClub({
+      _id: new mongoose.Types.ObjectId(),
+      manager: req.body.manager,
+      clubName: req.body.clubName
+    });
+    
+    newClub
+    .save()
+    .then(function(newClub) {
+      res.json(newClub);
     })
     .catch(error => {
       throw new Error(error);

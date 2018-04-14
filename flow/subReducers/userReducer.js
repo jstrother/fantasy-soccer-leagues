@@ -3,7 +3,7 @@
 
 import { SET_USER_FAIL, SET_USER_SUCCESS, SET_LEAGUE_SUCCESS, SET_LEAGUE_FAIL, HAS_CLUB_SUCCESS, HAS_CLUB_FAIL } from '../subActions/userActions.js';
 
-export const userReducer = (state = {}, action) => {
+export const userReducer = (state = {hasClub: false}, action) => {
   switch (action.type) {
     case SET_USER_SUCCESS:
       return Object.assign({}, state, 
