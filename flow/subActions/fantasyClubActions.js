@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
@@ -32,12 +32,8 @@ export const newClubFail = statusCode => ({
   statusCode
 });
 
-export const getClub = (accessToken) => dispatch => {
-  return fetch(`${thisURL}`, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
+export const getClub = (manager) => dispatch => {
+  return fetch(`${thisURL}/${manager}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -51,21 +47,17 @@ export const getClub = (accessToken) => dispatch => {
     return res.json();
   })
   .then(fantasyClub => {
-    console.log('getClub fantasyClub:', fantasyClub);
     dispatch(getClubSuccess(fantasyClub, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    console.error(error.message);
+    // throw new Error(error);
   });
 };
 
-export const newClub = (accessToken, clubName, manager) => dispatch => {
+export const newClub = (clubName, manager) => dispatch => {
   return fetch(`${thisURL}/newClub`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
-    },
     body: JSON.stringify({
       clubName,
       manager
@@ -86,6 +78,7 @@ export const newClub = (accessToken, clubName, manager) => dispatch => {
     dispatch(newClubSuccess(data.clubName, data.manager, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    console.error(error.message);
+    // throw new Error(error);
   });
 };

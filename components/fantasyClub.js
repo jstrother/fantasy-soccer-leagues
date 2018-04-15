@@ -15,7 +15,7 @@ import styles from '../scss/fantasyClub.scss';
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
 		if (this.props.hasClub === true) {
-			this.props.dispatch(getClub(this.props.accessToken));
+			this.props.dispatch(getClub(this.props.userId));
 		}
   }
   
@@ -25,6 +25,7 @@ export class FantasyTeam extends React.Component {
 			event.preventDefault();
 			this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 			this.props.dispatch(clubOwner(this.props.accessToken, true));
+			this.props.dispatch(getClub(this.props.userId));
 		}
 	}
   
@@ -32,6 +33,7 @@ export class FantasyTeam extends React.Component {
 		event.preventDefault();
 		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 		this.props.dispatch(clubOwner(this.props.accessToken, true));
+		this.props.dispatch(getClub(this.props.userId));
 	}
 	
 	render() {

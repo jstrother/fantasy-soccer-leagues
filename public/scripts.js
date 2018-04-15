@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9923dbff02192e396288"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f2b2a71c1b4733bf49ea"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6435,7 +6435,7 @@ var _config = __webpack_require__(26);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/fantasyClub");
 var GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
 exports.GET_CLUB_SUCCESS = GET_CLUB_SUCCESS;
@@ -6485,13 +6485,9 @@ var newClubFail = function newClubFail(statusCode) {
 
 exports.newClubFail = newClubFail;
 
-var getClub = function getClub(accessToken) {
+var getClub = function getClub(manager) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL), {
-      headers: {
-        'Authorization': "Bearer ".concat(accessToken)
-      }
-    }).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(manager)).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(getClubFail(res.status));
@@ -6505,24 +6501,19 @@ var getClub = function getClub(accessToken) {
 
       return res.json();
     }).then(function (fantasyClub) {
-      console.log('getClub fantasyClub:', fantasyClub);
       dispatch(getClubSuccess(fantasyClub, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.error(error.message); // throw new Error(error);
     });
   };
 };
 
 exports.getClub = getClub;
 
-var newClub = function newClub(accessToken, clubName, manager) {
+var newClub = function newClub(clubName, manager) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/newClub"), {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
-      },
       body: JSON.stringify({
         clubName: clubName,
         manager: manager
@@ -6540,10 +6531,9 @@ var newClub = function newClub(accessToken, clubName, manager) {
 
       return res.json();
     }).then(function (data) {
-      console.log('newClub data:', data);
       dispatch(newClubSuccess(data.clubName, data.manager, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.error(error.message); // throw new Error(error);
     });
   };
 };
@@ -37242,7 +37232,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (this.props.hasClub === true) {
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken));
+        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
       }
     }
   }, {
@@ -37253,6 +37243,7 @@ function (_React$Component) {
         event.preventDefault();
         this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
         this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));
+        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
       }
     }
   }, {
@@ -37261,6 +37252,7 @@ function (_React$Component) {
       event.preventDefault();
       this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
       this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));
+      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
     }
   }, {
     key: "render",

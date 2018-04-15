@@ -1,12 +1,11 @@
 const mongoose = require("mongoose"),
 	fantasyClubRouter = require("express").Router(),
-	FantasyClub = require('../models/fantasyClub_model.js'),
-	User = require("../models/user_model.js");
+	FantasyClub = require('../models/fantasyClub_model.js');
 
-fantasyClubRouter.get('/', 
+fantasyClubRouter.get('/:manager', 
   (req, res) => {
     FantasyClub
-    .findOne({manager: req.params.userId})
+    .findOne({manager: req.params.manager})
     .populate({
       path: 'manager',
       model: 'User'
