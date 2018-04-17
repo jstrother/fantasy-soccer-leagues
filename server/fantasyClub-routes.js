@@ -24,11 +24,11 @@ fantasyClubRouter.get('/:manager',
 
 fantasyClubRouter.put('/newClub',
   (req, res) => {
-  const newClub = new FantasyClub({
-      _id: new mongoose.Types.ObjectId(),
-      manager: req.body.manager,
-      clubName: req.body.clubName
-    });
+    const newClub = new FantasyClub({
+        _id: new mongoose.Types.ObjectId(),
+        manager: req.body.manager,
+        clubName: req.body.clubName
+      });
     
     newClub
     .save()

@@ -32,8 +32,13 @@ export const newClubFail = statusCode => ({
   statusCode
 });
 
-export const getClub = (manager) => dispatch => {
-  return fetch(`${thisURL}/${manager}`)
+export const getClub = (accessToken, manager) => dispatch => {
+  return fetch(`${thisURL}/${manager}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -43,21 +48,23 @@ export const getClub = (manager) => dispatch => {
       dispatch(getClubFail(500));
       throw new Error(res.statusText);
     }
-    // console.log('res.json():', res.json());
     return res.json();
   })
   .then(fantasyClub => {
     dispatch(getClubSuccess(fantasyClub, 200));
   })
   .catch(error => {
-    console.error(error.message);
-    // throw new Error(error);
+    throw new Error(error);
   });
 };
 
-export const newClub = (clubName, manager) => dispatch => {
+export const newClub = (accessToken, clubName, manager) => dispatch => {
   return fetch(`${thisURL}/newClub`, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
     body: JSON.stringify({
       clubName,
       manager

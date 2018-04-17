@@ -10,7 +10,7 @@ const mongoose = require('mongoose'),
 		googleId: {type: String, required: true},
 		fantasyLeagueId: Number,
 		fantasyLeagueName: String,
-		hasClub: Boolean
+		hasClub: {type: Boolean, default: false}
 	}),
 
 	User = mongoose.model('User', userSchema);

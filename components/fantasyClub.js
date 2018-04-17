@@ -15,7 +15,7 @@ import styles from '../scss/fantasyClub.scss';
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
 		if (this.props.hasClub === true) {
-			this.props.dispatch(getClub(this.props.userId));
+			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 		}
   }
   
@@ -25,7 +25,7 @@ export class FantasyTeam extends React.Component {
 			event.preventDefault();
 			this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 			this.props.dispatch(clubOwner(this.props.accessToken, true));
-			this.props.dispatch(getClub(this.props.userId));
+			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 		}
 	}
   
@@ -33,11 +33,11 @@ export class FantasyTeam extends React.Component {
 		event.preventDefault();
 		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 		this.props.dispatch(clubOwner(this.props.accessToken, true));
-		this.props.dispatch(getClub(this.props.userId));
+		this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 	}
 	
 	render() {
-		if (!this.props.clubName) {
+		if (this.props.hasClub === false) {
 			return(
 				<div
 					className={styles.fantasyClub}>
@@ -60,7 +60,7 @@ export class FantasyTeam extends React.Component {
 			);
 		}
 		
-		if(this.props.clubName) {
+		if(this.props.hasClub === true) {
 			return(
 				<div
 					className={this.props.playerDataShow === false ? styles.fantasyClub : styles.hidden}>

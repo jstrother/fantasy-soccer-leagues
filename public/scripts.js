@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f2b2a71c1b4733bf49ea"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6336830c8fe3673121cd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6485,9 +6485,14 @@ var newClubFail = function newClubFail(statusCode) {
 
 exports.newClubFail = newClubFail;
 
-var getClub = function getClub(manager) {
+var getClub = function getClub(accessToken, manager) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(manager)).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(manager), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      }
+    }).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(getClubFail(res.status));
@@ -6496,24 +6501,27 @@ var getClub = function getClub(manager) {
 
         dispatch(getClubFail(500));
         throw new Error(res.statusText);
-      } // console.log('res.json():', res.json());
-
+      }
 
       return res.json();
     }).then(function (fantasyClub) {
       dispatch(getClubSuccess(fantasyClub, 200));
     }).catch(function (error) {
-      console.error(error.message); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
 
 exports.getClub = getClub;
 
-var newClub = function newClub(clubName, manager) {
+var newClub = function newClub(accessToken, clubName, manager) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/newClub"), {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      },
       body: JSON.stringify({
         clubName: clubName,
         manager: manager
@@ -37232,7 +37240,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (this.props.hasClub === true) {
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
+        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
     }
   }, {
@@ -37243,7 +37251,7 @@ function (_React$Component) {
         event.preventDefault();
         this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
         this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
+        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
     }
   }, {
@@ -37252,14 +37260,14 @@ function (_React$Component) {
       event.preventDefault();
       this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
       this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));
-      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
+      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
     }
   }, {
     key: "render",
     value: function render() {
       var _this = this;
 
-      if (!this.props.clubName) {
+      if (this.props.hasClub === false) {
         return _react.default.createElement("div", {
           className: _fantasyClub.default.fantasyClub
         }, _react.default.createElement("form", {
@@ -37279,7 +37287,7 @@ function (_React$Component) {
         }, "Submit")));
       }
 
-      if (this.props.clubName) {
+      if (this.props.hasClub === true) {
         return _react.default.createElement("div", {
           className: this.props.playerDataShow === false ? _fantasyClub.default.fantasyClub : _fantasyClub.default.hidden
         }, _react.default.createElement("div", {
