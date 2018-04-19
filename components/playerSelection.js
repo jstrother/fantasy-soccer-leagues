@@ -120,7 +120,7 @@ export class Selection extends React.Component {
 							}
 						}
 						else {
-							this.props.dispatch(warning('You have reached the maximum number of goalkeepers.'));
+							this.props.dispatch(warning('You have reached the maximum number of forwards.'));
 						}
 					}
 				}
@@ -255,7 +255,7 @@ export class Selection extends React.Component {
 
 const mapSelectionStateToProps = state => ({
 	userId: state.userReducer.userId,
-	managerId: state.fantasyClubReducer.userId,
+	managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
   accessToken: state.userReducer.accessToken,
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   playerList: state.leagueReducer.playerList,
@@ -268,8 +268,8 @@ const mapSelectionStateToProps = state => ({
   clubName: state.rosterReducer.clubName
 });
 
-const PlayerSelction = connect(
+const PlayerSelection = connect(
   mapSelectionStateToProps
 )(Selection);
 
-export default CSSModules(PlayerSelction, styles);
+export default CSSModules(PlayerSelection, styles);

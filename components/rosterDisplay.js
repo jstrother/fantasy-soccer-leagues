@@ -24,17 +24,19 @@ export class Display extends React.Component {
 				}
 			};
 		
-		if (player.position === 'G' || player.position === 'Goalkeeper') {
-			this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
-		}
-		if (player.position === 'D' || player.position === 'Defender') {
-			this.props.dispatch(removeDefender(this.props.accessToken, player));
-		}
-		if (player.position === 'M' || player.position === 'Midfielder') {
-			this.props.dispatch(removeMidfielder(this.props.accessToken, player));
-		}
-		if (player.position === 'F' || player.position === 'Attacker') {
-			this.props.dispatch(removeForward(this.props.accessToken, player));
+		if (this.props.userId === this.props.managerId) {
+			if (player.position === 'G' || player.position === 'Goalkeeper') {
+				this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
+			}
+			if (player.position === 'D' || player.position === 'Defender') {
+				this.props.dispatch(removeDefender(this.props.accessToken, player));
+			}
+			if (player.position === 'M' || player.position === 'Midfielder') {
+				this.props.dispatch(removeMidfielder(this.props.accessToken, player));
+			}
+			if (player.position === 'F' || player.position === 'Attacker') {
+				this.props.dispatch(removeForward(this.props.accessToken, player));
+			}
 		}
   }
   
@@ -51,20 +53,22 @@ export class Display extends React.Component {
 				}
 			};
 		
-		if (this.props.starters && this.props.starters.length < 11) {
-			// checking whether player is already a bench player, can't have a player be a starter and on bench at same time
-			let benchPlayerCheck = this.props.benchwarmers.filter(benchPlayer => {
-				if (player.idFromAPI === benchPlayer.idFromAPI) {
-					this.props.dispatch(warning('This player is already on your bench.'));
-					return true;
+		if (this.props.userId === this.props.managerId) {
+			if (this.props.starters && this.props.starters.length < 11) {
+				// checking whether player is already a bench player, can't have a player be a starter and on bench at same time
+				let benchPlayerCheck = this.props.benchwarmers.filter(benchPlayer => {
+					if (player.idFromAPI === benchPlayer.idFromAPI) {
+						this.props.dispatch(warning('This player is already on your bench.'));
+						return true;
+					}
+				});
+				// if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
+				if (benchPlayerCheck.length === 0) {
+					this.props.dispatch(addStarter(this.props.accessToken, player));
 				}
-			});
-			// if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
-			if (benchPlayerCheck.length === 0) {
-				this.props.dispatch(addStarter(this.props.accessToken, player));
+			} else {
+				this.props.dispatch(warning('You already have 11 starters.'));
 			}
-		} else {
-			this.props.dispatch(warning('You already have 11 starters.'));
 		}
 	}
 	
@@ -81,20 +85,22 @@ export class Display extends React.Component {
 				}
 			};
 		
-		if (this.props.benchwarmers && this.props.benchwarmers.length < 7 ) {
-			// checking whether player is already a starter, can't have a player be a starter and on bench at same time
-			let starterCheck = this.props.starters.filter(starter => {
-				if (player.idFromAPI === starter.idFromAPI) {
-					this.props.dispatch(warning('This player is already in your starting eleven.'));
-					return true;
+		if (this.props.userId === this.props.managerId) {
+			if (this.props.benchwarmers && this.props.benchwarmers.length < 7 ) {
+				// checking whether player is already a starter, can't have a player be a starter and on bench at same time
+				let starterCheck = this.props.starters.filter(starter => {
+					if (player.idFromAPI === starter.idFromAPI) {
+						this.props.dispatch(warning('This player is already in your starting eleven.'));
+						return true;
+					}
+				});
+				// if the player is not a starter, then starterCheck will not have anything in it and a length of 0
+				if (starterCheck.length === 0) {
+					this.props.dispatch(addBench(this.props.accessToken, player));
 				}
-			});
-			// if the player is not a starter, then starterCheck will not have anything in it and a length of 0
-			if (starterCheck.length === 0) {
-				this.props.dispatch(addBench(this.props.accessToken, player));
+			} else {
+				this.props.dispatch(warning('You already have 7 players on the bench.'));
 			}
-		} else {
-			this.props.dispatch(warning('You already have 7 players on the bench.'));
 		}
 	}
 	
@@ -205,6 +211,8 @@ export class Display extends React.Component {
 }
 
 const mapDisplayStateToProps = state => ({
+	userId: state.userReducer.userId,
+	managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
   accessToken: state.userReducer.accessToken,
   goalkeepers: state.rosterReducer.goalkeepers,
   defenders: state.rosterReducer.defenders,

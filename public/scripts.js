@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e97da76a99f602b55c53"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "db91308edf9fea185f8e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38118,7 +38118,7 @@ exports.Selection = Selection;
 var mapSelectionStateToProps = function mapSelectionStateToProps(state) {
   return {
     userId: state.userReducer.userId,
-    managerId: state.fantasyClubReducer.userId,
+    managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
     accessToken: state.userReducer.accessToken,
     fantasyLeagueId: state.userReducer.fantasyLeagueId,
     playerList: state.leagueReducer.playerList,
@@ -38132,9 +38132,9 @@ var mapSelectionStateToProps = function mapSelectionStateToProps(state) {
   };
 };
 
-var PlayerSelction = (0, _reactRedux.connect)(mapSelectionStateToProps)(Selection);
+var PlayerSelection = (0, _reactRedux.connect)(mapSelectionStateToProps)(Selection);
 
-var _default = (0, _reactCssModules.default)(PlayerSelction, _playerSelection.default);
+var _default = (0, _reactCssModules.default)(PlayerSelection, _playerSelection.default);
 
 exports.default = _default;
 
@@ -38213,20 +38213,22 @@ function (_React$Component) {
         }
       };
 
-      if (player.position === 'G' || player.position === 'Goalkeeper') {
-        this.props.dispatch((0, _rosterActions.removeGoalkeeper)(this.props.accessToken, player));
-      }
+      if (this.props.userId === this.props.managerId) {
+        if (player.position === 'G' || player.position === 'Goalkeeper') {
+          this.props.dispatch((0, _rosterActions.removeGoalkeeper)(this.props.accessToken, player));
+        }
 
-      if (player.position === 'D' || player.position === 'Defender') {
-        this.props.dispatch((0, _rosterActions.removeDefender)(this.props.accessToken, player));
-      }
+        if (player.position === 'D' || player.position === 'Defender') {
+          this.props.dispatch((0, _rosterActions.removeDefender)(this.props.accessToken, player));
+        }
 
-      if (player.position === 'M' || player.position === 'Midfielder') {
-        this.props.dispatch((0, _rosterActions.removeMidfielder)(this.props.accessToken, player));
-      }
+        if (player.position === 'M' || player.position === 'Midfielder') {
+          this.props.dispatch((0, _rosterActions.removeMidfielder)(this.props.accessToken, player));
+        }
 
-      if (player.position === 'F' || player.position === 'Attacker') {
-        this.props.dispatch((0, _rosterActions.removeForward)(this.props.accessToken, player));
+        if (player.position === 'F' || player.position === 'Attacker') {
+          this.props.dispatch((0, _rosterActions.removeForward)(this.props.accessToken, player));
+        }
       }
     }
   }, {
@@ -38249,21 +38251,23 @@ function (_React$Component) {
         }
       };
 
-      if (this.props.starters && this.props.starters.length < 11) {
-        // checking whether player is already a bench player, can't have a player be a starter and on bench at same time
-        var benchPlayerCheck = this.props.benchwarmers.filter(function (benchPlayer) {
-          if (player.idFromAPI === benchPlayer.idFromAPI) {
-            _this.props.dispatch((0, _warningActions.warning)('This player is already on your bench.'));
+      if (this.props.userId === this.props.managerId) {
+        if (this.props.starters && this.props.starters.length < 11) {
+          // checking whether player is already a bench player, can't have a player be a starter and on bench at same time
+          var benchPlayerCheck = this.props.benchwarmers.filter(function (benchPlayer) {
+            if (player.idFromAPI === benchPlayer.idFromAPI) {
+              _this.props.dispatch((0, _warningActions.warning)('This player is already on your bench.'));
 
-            return true;
+              return true;
+            }
+          }); // if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
+
+          if (benchPlayerCheck.length === 0) {
+            this.props.dispatch((0, _rosterActions.addStarter)(this.props.accessToken, player));
           }
-        }); // if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
-
-        if (benchPlayerCheck.length === 0) {
-          this.props.dispatch((0, _rosterActions.addStarter)(this.props.accessToken, player));
+        } else {
+          this.props.dispatch((0, _warningActions.warning)('You already have 11 starters.'));
         }
-      } else {
-        this.props.dispatch((0, _warningActions.warning)('You already have 11 starters.'));
       }
     }
   }, {
@@ -38286,21 +38290,23 @@ function (_React$Component) {
         }
       };
 
-      if (this.props.benchwarmers && this.props.benchwarmers.length < 7) {
-        // checking whether player is already a starter, can't have a player be a starter and on bench at same time
-        var starterCheck = this.props.starters.filter(function (starter) {
-          if (player.idFromAPI === starter.idFromAPI) {
-            _this2.props.dispatch((0, _warningActions.warning)('This player is already in your starting eleven.'));
+      if (this.props.userId === this.props.managerId) {
+        if (this.props.benchwarmers && this.props.benchwarmers.length < 7) {
+          // checking whether player is already a starter, can't have a player be a starter and on bench at same time
+          var starterCheck = this.props.starters.filter(function (starter) {
+            if (player.idFromAPI === starter.idFromAPI) {
+              _this2.props.dispatch((0, _warningActions.warning)('This player is already in your starting eleven.'));
 
-            return true;
+              return true;
+            }
+          }); // if the player is not a starter, then starterCheck will not have anything in it and a length of 0
+
+          if (starterCheck.length === 0) {
+            this.props.dispatch((0, _rosterActions.addBench)(this.props.accessToken, player));
           }
-        }); // if the player is not a starter, then starterCheck will not have anything in it and a length of 0
-
-        if (starterCheck.length === 0) {
-          this.props.dispatch((0, _rosterActions.addBench)(this.props.accessToken, player));
+        } else {
+          this.props.dispatch((0, _warningActions.warning)('You already have 7 players on the bench.'));
         }
-      } else {
-        this.props.dispatch((0, _warningActions.warning)('You already have 7 players on the bench.'));
       }
     }
   }, {
@@ -38365,6 +38371,8 @@ exports.Display = Display;
 
 var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   return {
+    userId: state.userReducer.userId,
+    managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
     accessToken: state.userReducer.accessToken,
     goalkeepers: state.rosterReducer.goalkeepers,
     defenders: state.rosterReducer.defenders,

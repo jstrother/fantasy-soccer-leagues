@@ -5,7 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import PlayerSelction from './playerSelection.js';
+import PlayerSelection from './playerSelection.js';
 import RosterDisplay from './rosterDisplay.js';
 import styles from '../scss/roster.scss';
 
@@ -14,7 +14,7 @@ export class Roster extends React.Component {
 		return(
 			<div
 				className={styles.rosterComponent}>
-				<PlayerSelction />
+				<PlayerSelection />
 				<RosterDisplay />
 			</div>
 		);
