@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -64,7 +66,8 @@ export const fetchUser = accessToken => dispatch => {
     dispatch(setUserSuccess(currentUser, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    console.log(error);
+    // throw new Error(error);
   });
 };
 

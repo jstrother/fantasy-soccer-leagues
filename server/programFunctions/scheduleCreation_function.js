@@ -110,8 +110,7 @@ function scheduleCreator(clubArray) {
   
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
-    clubName: 'Average',
-    manager: 'N/A'
+    clubName: 'Average'
   });
   
   if (clubArray.length % 2 !== 0) {

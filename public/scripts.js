@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6336830c8fe3673121cd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e97da76a99f602b55c53"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6250,6 +6250,7 @@ var _config = __webpack_require__(26);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console */
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/user");
 var SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 exports.SET_USER_SUCCESS = SET_USER_SUCCESS;
@@ -6343,7 +6344,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.log(error); // throw new Error(error);
     });
   };
 };
@@ -16510,7 +16511,7 @@ exports.fetchLeague = fetchLeague;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactDom = _interopRequireDefault(__webpack_require__(179));
+var _reactDom = __webpack_require__(179);
 
 var _reactRedux = __webpack_require__(10);
 
@@ -16526,8 +16527,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // components/index.js
 // top-level react component
 (0, _reactTapEventPlugin.default)();
-
-_reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
+(0, _reactDom.render)(_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
 }, _react.default.createElement(_app.default, null)), document.getElementById('app'));
 
@@ -37386,7 +37386,11 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+      var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
+          defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
+          midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielder.length,
+          forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
+      var rosterLength = goalkeepers + defenders + midfielders + forwards;
       return _react.default.createElement("div", {
         className: rosterLength < 23 ? _fantasySchedule.default.hidden : _fantasySchedule.default.fantasySchedule
       }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null)), _react.default.createElement(_fantasyMatch.default, null));
@@ -37568,7 +37572,9 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      if (this.props.starters.length > 0) {
+      var starters = this.props.starters === undefined ? 0 : this.props.starters.length;
+
+      if (starters > 0) {
         return _react.default.createElement("div", {
           className: _startingEleven.default.startingEleven
         }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Starting 11?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
@@ -37681,7 +37687,9 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      if (this.props.benchwarmers.length > 0) {
+      var benchwarmers = this.props.benchwarmers === undefined ? 0 : this.props.benchwarmers.length;
+
+      if (benchwarmers > 0) {
         return _react.default.createElement("div", {
           className: _benchPlayers.default.benchPlayers
         }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Bench?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
