@@ -34,7 +34,7 @@ export const matchResolve = () => dispatch => {
     return res.json();
   })
   .then(resolvedMatches => {
-    console.log('fmActions resolvedMatches:', resolvedMatches);
+    // console.log('fmActions resolvedMatches:', resolvedMatches);
     dispatch(matchResolveSuccess(resolvedMatches, 200));
   })
   .catch(error => {

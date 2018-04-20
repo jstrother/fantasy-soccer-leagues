@@ -8,9 +8,14 @@ import CSSModules from 'react-css-modules';
 import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/rosterActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import { fetchPlayerData } from '../flow/subActions/playerActions.js';
+import { fetchRoster } from '../flow/subActions/rosterActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
+	componentDidMount() {
+		this.props.dispatch(fetchRoster(this.props.accessToken, this.props.userId));
+	}
+	
   handleRosterRemove(event) {
     let dataSet = event.target.dataset,
 			player = {
@@ -212,7 +217,6 @@ export class Display extends React.Component {
 
 const mapDisplayStateToProps = state => ({
 	userId: state.userReducer.userId,
-	managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
   accessToken: state.userReducer.accessToken,
   goalkeepers: state.rosterReducer.goalkeepers,
   defenders: state.rosterReducer.defenders,

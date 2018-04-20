@@ -1,4 +1,4 @@
-import { SET_GOALKEEPER_SUCCESS, SET_GOALKEEPER_FAIL, SET_DEFENDER_SUCCESS, SET_DEFENDER_FAIL, SET_MIDFIELDER_SUCCESS, SET_MIDFIELDER_FAIL, SET_FORWARD_SUCCESS, SET_FORWARD_FAIL, REMOVE_GOALKEEPER_SUCCESS, REMOVE_GOALKEEPER_FAIL, REMOVE_DEFENDER_SUCCESS, REMOVE_DEFENDER_FAIL, REMOVE_MIDFIELDER_SUCCESS, REMOVE_MIDFIELDER_FAIL, REMOVE_FORWARD_SUCCESS, REMOVE_FORWARD_FAIL, ADD_STARTER_SUCCESS, ADD_STARTER_FAIL, ADD_BENCHWARMER_SUCCESS, ADD_BENCHWARMER_FAIL, REMOVE_STARTER_SUCCESS, REMOVE_STARTER_FAIL, REMOVE_BENCHWARMER_SUCCESS, REMOVE_BENCHWARMER_FAIL } from '../subActions/rosterActions.js';
+import { GET_ROSTER_SUCCESS, GET_ROSTER_FAIL, SET_GOALKEEPER_SUCCESS, SET_GOALKEEPER_FAIL, SET_DEFENDER_SUCCESS, SET_DEFENDER_FAIL, SET_MIDFIELDER_SUCCESS, SET_MIDFIELDER_FAIL, SET_FORWARD_SUCCESS, SET_FORWARD_FAIL, REMOVE_GOALKEEPER_SUCCESS, REMOVE_GOALKEEPER_FAIL, REMOVE_DEFENDER_SUCCESS, REMOVE_DEFENDER_FAIL, REMOVE_MIDFIELDER_SUCCESS, REMOVE_MIDFIELDER_FAIL, REMOVE_FORWARD_SUCCESS, REMOVE_FORWARD_FAIL, ADD_STARTER_SUCCESS, ADD_STARTER_FAIL, ADD_BENCHWARMER_SUCCESS, ADD_BENCHWARMER_FAIL, REMOVE_STARTER_SUCCESS, REMOVE_STARTER_FAIL, REMOVE_BENCHWARMER_SUCCESS, REMOVE_BENCHWARMER_FAIL } from '../subActions/rosterActions.js';
 
 const initialState = {
   goalkeepers: [], 
@@ -11,6 +11,17 @@ const initialState = {
 
 export const rosterReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_ROSTER_SUCCESS:
+      return Object.assign({}, state,
+        {
+          goalkeepers: action.roster.goalkeepers,
+          defenders: action.roster.defenders,
+          midfielders: action.roster.midfielders,
+          forwards: action.roster.forwards,
+          starters: action.roster.starters,
+          benchwarmers: action.roster.benchwarmers
+        }
+      );
     case SET_GOALKEEPER_SUCCESS:
       return Object.assign({}, state,
         {
@@ -83,6 +94,7 @@ export const rosterReducer = (state = initialState, action) => {
           benchwarmers: action.benchwarmer
         }
       );
+    case GET_ROSTER_FAIL:
     case SET_GOALKEEPER_FAIL:
     case REMOVE_GOALKEEPER_FAIL:
     case SET_DEFENDER_FAIL:

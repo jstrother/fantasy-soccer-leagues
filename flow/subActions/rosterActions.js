@@ -3,6 +3,19 @@ import { DEV_DIRECTORY as url } from '../../server/config.js';
 
 const thisURL = `${url}/roster`;
 
+export const GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
+export const getRosterSuccess = (roster, statusCode) => ({
+  type: GET_ROSTER_SUCCESS,
+  roster,
+  statusCode
+});
+
+export const GET_ROSTER_FAIL = 'GET_ROSTER_FAIL';
+export const getRosterFail = statusCode => ({
+  type: GET_ROSTER_FAIL,
+  statusCode
+});
+
 export const SET_GOALKEEPER_SUCCESS = 'SET_GOALKEEPER_SUCCESS';
 export const setGoalkeeperSuccess = (goalkeeper, statusCode) => ({
   type: SET_GOALKEEPER_SUCCESS,
@@ -158,6 +171,32 @@ export const removeBenchwarmerFail = statusCode => ({
   type: REMOVE_BENCHWARMER_FAIL,
   statusCode
 });
+
+export const fetchRoster = (accessToken, managerId) => dispatch => {
+  return fetch(`${thisURL}/${managerId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(getRosterFail(res.status));
+        return;
+      }
+      dispatch(getRosterFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(roster => {
+    dispatch(getRosterSuccess(roster, 200));
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
 
 export const addGoalkeeper = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/addGoalkeeper`, {

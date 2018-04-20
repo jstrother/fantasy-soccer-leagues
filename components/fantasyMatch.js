@@ -8,7 +8,9 @@ import styles from '../scss/fantasyMatch.scss';
 
 export class FantasyGame extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(matchResolve());
+		if (this.props.fantasySchedule !== null) {
+			this.props.dispatch(matchResolve());
+		}
 	}
 	render() {
 		return(
@@ -21,7 +23,8 @@ export class FantasyGame extends React.Component {
 }
 
 const mapMatchesStateToProps = state => ({
-	resolvedMatches: state.fantasyMatchReducer.resolvedMatches
+	resolvedMatches: state.fantasyMatchReducer.resolvedMatches,
+	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
 });
 
 const FantasyMatch = connect(

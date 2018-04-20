@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "db91308edf9fea185f8e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0c09d89117c8c33cb97e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -6344,7 +6344,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      console.log(error); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
@@ -10513,7 +10513,7 @@ exports.createSchedule = createSchedule;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeBench = exports.addBench = exports.removeStarter = exports.addStarter = exports.removeForward = exports.addForward = exports.removeMidfielder = exports.addMidfielder = exports.removeDefender = exports.addDefender = exports.removeGoalkeeper = exports.addGoalkeeper = exports.removeBenchwarmerFail = exports.REMOVE_BENCHWARMER_FAIL = exports.removeBenchwarmerSuccess = exports.REMOVE_BENCHWARMER_SUCCESS = exports.addBenchwarmerFail = exports.ADD_BENCHWARMER_FAIL = exports.addBenchwarmerSuccess = exports.ADD_BENCHWARMER_SUCCESS = exports.removeStarterFail = exports.REMOVE_STARTER_FAIL = exports.removeStarterSuccess = exports.REMOVE_STARTER_SUCCESS = exports.addStarterFail = exports.ADD_STARTER_FAIL = exports.addStarterSuccess = exports.ADD_STARTER_SUCCESS = exports.removeForwardFail = exports.REMOVE_FORWARD_FAIL = exports.removeForwardSuccess = exports.REMOVE_FORWARD_SUCCESS = exports.setForwardFail = exports.SET_FORWARD_FAIL = exports.setForwardSuccess = exports.SET_FORWARD_SUCCESS = exports.removeMidfielderFail = exports.REMOVE_MIDFIELDER_FAIL = exports.removeMidfielderSuccess = exports.REMOVE_MIDFIELDER_SUCCESS = exports.setMidfielderFail = exports.SET_MIDFIELDER_FAIL = exports.setMidfielderSuccess = exports.SET_MIDFIELDER_SUCCESS = exports.removeDefenderFail = exports.REMOVE_DEFENDER_FAIL = exports.removeDefenderSuccess = exports.REMOVE_DEFENDER_SUCCESS = exports.setDefenderFail = exports.SET_DEFENDER_FAIL = exports.setDefenderSuccess = exports.SET_DEFENDER_SUCCESS = exports.removeGoalkeeperFail = exports.REMOVE_GOALKEEPER_FAIL = exports.removeGoalkeeperSuccess = exports.REMOVE_GOALKEEPER_SUCCESS = exports.setGoalkeeperFail = exports.SET_GOALKEEPER_FAIL = exports.setGoalkeeperSuccess = exports.SET_GOALKEEPER_SUCCESS = void 0;
+exports.removeBench = exports.addBench = exports.removeStarter = exports.addStarter = exports.removeForward = exports.addForward = exports.removeMidfielder = exports.addMidfielder = exports.removeDefender = exports.addDefender = exports.removeGoalkeeper = exports.addGoalkeeper = exports.fetchRoster = exports.removeBenchwarmerFail = exports.REMOVE_BENCHWARMER_FAIL = exports.removeBenchwarmerSuccess = exports.REMOVE_BENCHWARMER_SUCCESS = exports.addBenchwarmerFail = exports.ADD_BENCHWARMER_FAIL = exports.addBenchwarmerSuccess = exports.ADD_BENCHWARMER_SUCCESS = exports.removeStarterFail = exports.REMOVE_STARTER_FAIL = exports.removeStarterSuccess = exports.REMOVE_STARTER_SUCCESS = exports.addStarterFail = exports.ADD_STARTER_FAIL = exports.addStarterSuccess = exports.ADD_STARTER_SUCCESS = exports.removeForwardFail = exports.REMOVE_FORWARD_FAIL = exports.removeForwardSuccess = exports.REMOVE_FORWARD_SUCCESS = exports.setForwardFail = exports.SET_FORWARD_FAIL = exports.setForwardSuccess = exports.SET_FORWARD_SUCCESS = exports.removeMidfielderFail = exports.REMOVE_MIDFIELDER_FAIL = exports.removeMidfielderSuccess = exports.REMOVE_MIDFIELDER_SUCCESS = exports.setMidfielderFail = exports.SET_MIDFIELDER_FAIL = exports.setMidfielderSuccess = exports.SET_MIDFIELDER_SUCCESS = exports.removeDefenderFail = exports.REMOVE_DEFENDER_FAIL = exports.removeDefenderSuccess = exports.REMOVE_DEFENDER_SUCCESS = exports.setDefenderFail = exports.SET_DEFENDER_FAIL = exports.setDefenderSuccess = exports.SET_DEFENDER_SUCCESS = exports.removeGoalkeeperFail = exports.REMOVE_GOALKEEPER_FAIL = exports.removeGoalkeeperSuccess = exports.REMOVE_GOALKEEPER_SUCCESS = exports.setGoalkeeperFail = exports.SET_GOALKEEPER_FAIL = exports.setGoalkeeperSuccess = exports.SET_GOALKEEPER_SUCCESS = exports.getRosterFail = exports.GET_ROSTER_FAIL = exports.getRosterSuccess = exports.GET_ROSTER_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(25));
 
@@ -10522,6 +10522,29 @@ var _config = __webpack_require__(26);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var thisURL = "".concat(_config.DEV_DIRECTORY, "/roster");
+var GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
+exports.GET_ROSTER_SUCCESS = GET_ROSTER_SUCCESS;
+
+var getRosterSuccess = function getRosterSuccess(roster, statusCode) {
+  return {
+    type: GET_ROSTER_SUCCESS,
+    roster: roster,
+    statusCode: statusCode
+  };
+};
+
+exports.getRosterSuccess = getRosterSuccess;
+var GET_ROSTER_FAIL = 'GET_ROSTER_FAIL';
+exports.GET_ROSTER_FAIL = GET_ROSTER_FAIL;
+
+var getRosterFail = function getRosterFail(statusCode) {
+  return {
+    type: GET_ROSTER_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.getRosterFail = getRosterFail;
 var SET_GOALKEEPER_SUCCESS = 'SET_GOALKEEPER_SUCCESS';
 exports.SET_GOALKEEPER_SUCCESS = SET_GOALKEEPER_SUCCESS;
 
@@ -10798,6 +10821,35 @@ var removeBenchwarmerFail = function removeBenchwarmerFail(statusCode) {
 };
 
 exports.removeBenchwarmerFail = removeBenchwarmerFail;
+
+var fetchRoster = function fetchRoster(accessToken, managerId) {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(managerId), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      }
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(getRosterFail(res.status));
+          return;
+        }
+
+        dispatch(getRosterFail(500));
+        throw new Error(res.statusText);
+      }
+
+      return res.json();
+    }).then(function (roster) {
+      dispatch(getRosterSuccess(roster, 200));
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.fetchRoster = fetchRoster;
 
 var addGoalkeeper = function addGoalkeeper(accessToken, player) {
   return function (dispatch) {
@@ -16327,7 +16379,7 @@ var matchResolve = function matchResolve() {
 
       return res.json();
     }).then(function (resolvedMatches) {
-      console.log('fmActions resolvedMatches:', resolvedMatches);
+      // console.log('fmActions resolvedMatches:', resolvedMatches);
       dispatch(matchResolveSuccess(resolvedMatches, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -37381,14 +37433,22 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
+      var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
+          defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
+          midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
+          forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
+      var rosterLength = goalkeepers + defenders + midfielders + forwards;
+
+      if (rosterLength === 23) {
+        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
+      }
     }
   }, {
     key: "render",
     value: function render() {
       var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
           defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
-          midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielder.length,
+          midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
           forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
       var rosterLength = goalkeepers + defenders + midfielders + forwards;
       return _react.default.createElement("div", {
@@ -37472,7 +37532,9 @@ function (_React$Component) {
   _createClass(FantasyGame, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.dispatch((0, _fantasyMatchActions.matchResolve)());
+      if (this.props.fantasySchedule !== null) {
+        this.props.dispatch((0, _fantasyMatchActions.matchResolve)());
+      }
     }
   }, {
     key: "render",
@@ -37490,7 +37552,8 @@ exports.FantasyGame = FantasyGame;
 
 var mapMatchesStateToProps = function mapMatchesStateToProps(state) {
   return {
-    resolvedMatches: state.fantasyMatchReducer.resolvedMatches
+    resolvedMatches: state.fantasyMatchReducer.resolvedMatches,
+    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
   };
 };
 
@@ -37998,7 +38061,7 @@ function (_React$Component) {
                   this.props.dispatch((0, _rosterActions.addForward)(this.props.accessToken, player));
                 }
               } else {
-                this.props.dispatch((0, _warningActions.warning)('You have reached the maximum number of goalkeepers.'));
+                this.props.dispatch((0, _warningActions.warning)('You have reached the maximum number of forwards.'));
               }
             }
           }
@@ -38199,6 +38262,11 @@ function (_React$Component) {
   }
 
   _createClass(Display, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.dispatch((0, _rosterActions.fetchRoster)(this.props.accessToken, this.props.userId));
+    }
+  }, {
     key: "handleRosterRemove",
     value: function handleRosterRemove(event) {
       var dataSet = event.target.dataset,
@@ -38372,7 +38440,6 @@ exports.Display = Display;
 var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   return {
     userId: state.userReducer.userId,
-    managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
     accessToken: state.userReducer.accessToken,
     goalkeepers: state.rosterReducer.goalkeepers,
     defenders: state.rosterReducer.defenders,
@@ -38702,7 +38769,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable no-console, no-unused-vars */
 // flow/store.js
 // imported into ../components/index.js
-// import { fantasyScheduleCheckMiddleware } from './middleware/fantasyScheduleCheck.js';
 var logger = (0, _reduxLogger.createLogger)(),
     devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware),
@@ -39116,6 +39182,16 @@ var rosterReducer = function rosterReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case _rosterActions.GET_ROSTER_SUCCESS:
+      return Object.assign({}, state, {
+        goalkeepers: action.roster.goalkeepers,
+        defenders: action.roster.defenders,
+        midfielders: action.roster.midfielders,
+        forwards: action.roster.forwards,
+        starters: action.roster.starters,
+        benchwarmers: action.roster.benchwarmers
+      });
+
     case _rosterActions.SET_GOALKEEPER_SUCCESS:
       return Object.assign({}, state, {
         goalkeepers: action.goalkeeper
@@ -39176,6 +39252,7 @@ var rosterReducer = function rosterReducer() {
         benchwarmers: action.benchwarmer
       });
 
+    case _rosterActions.GET_ROSTER_FAIL:
     case _rosterActions.SET_GOALKEEPER_FAIL:
     case _rosterActions.REMOVE_GOALKEEPER_FAIL:
     case _rosterActions.SET_DEFENDER_FAIL:

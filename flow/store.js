@@ -8,7 +8,6 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { createSchedule } from './subActions/fantasyScheduleActions.js';
 import { warningFadeMiddleware } from './middleware/warningFade.js';
-// import { fantasyScheduleCheckMiddleware } from './middleware/fantasyScheduleCheck.js';
 
 const logger = createLogger(),
   devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
