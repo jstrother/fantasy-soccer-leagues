@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e3c0a678ff5369c3108d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2deda573447f51125f53"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37908,8 +37908,6 @@ function (_React$Component) {
   }, {
     key: "handleRosterAdd",
     value: function handleRosterAdd(event) {
-      var _this = this;
-
       if (this.props.userId === this.props.managerId) {
         var rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
             dataSet = event.target.dataset,
@@ -37944,76 +37942,19 @@ function (_React$Component) {
           if (rosterTotal < 23) {
             // in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
             if (player.position === 'G' || player.position === 'Goalkeeper') {
-              if (this.props.goalkeepers.length < 4) {
-                // this filter function, and the others below, check to see if the player is already on the roster
-                var goalkeepersCheck = this.props.goalkeepers.filter(function (gk) {
-                  if (player.idFromAPI === gk.idFromAPI) {
-                    _this.props.dispatch((0, _warningActions.warning)('This player is already on your roster.'));
-
-                    return true;
-                  }
-                });
-
-                if (goalkeepersCheck.length === 0) {
-                  this.props.dispatch((0, _fantasyClubActions.addGoalkeeper)(this.props.accessToken, player));
-                }
-              } else {
-                this.props.dispatch((0, _warningActions.warning)('You have reached the maximum number of goalkeepers.'));
-              }
+              positionChecker(player, this.props.goalkeepers, _fantasyClubActions.addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken);
             }
 
             if (player.position === 'D' || player.position === 'Defender') {
-              if (this.props.defenders.length < 7) {
-                var defendersCheck = this.props.defenders.filter(function (d) {
-                  if (player.idFromAPI === d.idFromAPI) {
-                    _this.props.dispatch((0, _warningActions.warning)('This player is already on your roster.'));
-
-                    return true;
-                  }
-                });
-
-                if (defendersCheck.length === 0) {
-                  this.props.dispatch((0, _fantasyClubActions.addDefender)(this.props.accessToken, player));
-                }
-              } else {
-                this.props.dispatch((0, _warningActions.warning)('You have reached the maximum number of defenders.'));
-              }
+              positionChecker(player, this.props.defenders, _fantasyClubActions.addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken);
             }
 
             if (player.position === 'M' || player.position === 'Midfielder') {
-              if (this.props.midfielders.length < 7) {
-                var midfieldersCheck = this.props.midfielders.filter(function (m) {
-                  if (player.idFromAPI === m.idFromAPI) {
-                    _this.props.dispatch((0, _warningActions.warning)('This player is already on your roster.'));
-
-                    return true;
-                  }
-                });
-
-                if (midfieldersCheck.length === 0) {
-                  this.props.dispatch((0, _fantasyClubActions.addMidfielder)(this.props.accessToken, player));
-                }
-              } else {
-                this.props.dispatch((0, _warningActions.warning)('You have reached the maximum number of midfielders.'));
-              }
+              positionChecker(player, this.props.midfielders, _fantasyClubActions.addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken);
             }
 
             if (player.position === 'F' || player.position === 'Attacker') {
-              if (this.props.forwards.length < 5) {
-                var forwardsCheck = this.props.forwards.filter(function (f) {
-                  if (player.idFromAPI === f.idFromAPI) {
-                    _this.props.dispatch((0, _warningActions.warning)('This player is already on your roster.'));
-
-                    return true;
-                  }
-                });
-
-                if (forwardsCheck.length === 0) {
-                  this.props.dispatch((0, _fantasyClubActions.addForward)(this.props.accessToken, player));
-                }
-              } else {
-                this.props.dispatch((0, _warningActions.warning)('You have reached the maximum number of forwards.'));
-              }
+              positionChecker(player, this.props.forwards, _fantasyClubActions.addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
             }
           }
         } else {
@@ -38021,32 +37962,32 @@ function (_React$Component) {
         }
       }
 
-      function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName) {
-        var _this2 = this;
+      function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken) {
+        if (positionProps.length < maxLength) {
+          // this filter function checks to see if the player is already on the roster
+          var positionCheck = positionProps.filter(function (p) {
+            if (playerArg.idFromAPI === p.idFromAPI) {
+              dispatch((0, _warningActions.warning)('This player is already on your roster.'));
+              return true;
+            }
+          });
 
-        var positionCheck = positionProps.filiter(function (p) {
-          if (playerArg.idFromAPI === p.idFromAPI) {
-            _this2.props.dispatch((0, _warningActions.warning)('This player is already on your roster.'));
-
-            return true;
+          if (positionCheck.length === 0) {
+            dispatch(positionAsyncAdd(accessToken, playerArg));
           }
-        });
-
-        if (positionCheck.length === 0) {
-          this.props.dispatch(positionAsyncAdd(this.props.accessToken, playerArg));
         } else {
-          this.props.dispatch((0, _warningActions.warning)("You have reached the maximum number of ".concat(positionName, "s")));
+          dispatch((0, _warningActions.warning)("You have reached the maximum number of ".concat(positionName, "s.")));
         }
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this = this;
 
       if (this.props.playerList) {
         var league = _league_ids_names.LEAGUE_IDS_NAMES.find(function (l) {
-          return l.id === _this3.props.fantasyLeagueId;
+          return l.id === _this.props.fantasyLeagueId;
         });
 
         var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
@@ -38089,39 +38030,39 @@ function (_React$Component) {
           }, c.name);
         }))), _react.default.createElement("th", null, "Points Last Match"))), _react.default.createElement("tbody", null, this.props.playerList.filter(function (player) {
           // this is a hack to account for the fact that the db doesn't have a consistent method
-          if (_this3.props.positionSelection === 'forwards') {
+          if (_this.props.positionSelection === 'forwards') {
             if (player.position === 'F' || player.position === 'Attacker') {
               return true;
             }
           }
 
-          if (_this3.props.positionSelection === 'midfielders') {
+          if (_this.props.positionSelection === 'midfielders') {
             if (player.position === 'M' || player.position === 'Midfielder') {
               return true;
             }
           }
 
-          if (_this3.props.positionSelection === 'defenders') {
+          if (_this.props.positionSelection === 'defenders') {
             if (player.position === 'D' || player.position === 'Defender') {
               return true;
             }
           }
 
-          if (_this3.props.positionSelection === 'goalkeepers') {
+          if (_this.props.positionSelection === 'goalkeepers') {
             if (player.position === 'G' || player.position === 'Goalkeeper') {
               return true;
             }
           }
 
-          if (_this3.props.positionSelection === 'allPositions') {
+          if (_this.props.positionSelection === 'allPositions') {
             return true;
           }
         }).filter(function (player) {
-          if (_this3.props.clubSelection === player.clubName) {
+          if (_this.props.clubSelection === player.clubName) {
             return true;
           }
 
-          if (_this3.props.clubSelection === 'allClubs') {
+          if (_this.props.clubSelection === 'allClubs') {
             return true;
           }
         }).map(function (p) {
@@ -38137,7 +38078,7 @@ function (_React$Component) {
             "data-position": p.position,
             "data-clubname": p.clubName,
             "data-points": p.fantasyPoints.fixture,
-            onClick: _this3.handleRosterAdd.bind(_this3)
+            onClick: _this.handleRosterAdd.bind(_this)
           }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, p.position), _react.default.createElement("td", null, p.clubName), _react.default.createElement("td", null, p.fantasyPoints.fixture));
         }))));
       } else {

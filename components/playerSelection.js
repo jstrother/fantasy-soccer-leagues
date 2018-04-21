@@ -59,69 +59,16 @@ export class Selection extends React.Component {
 				if (rosterTotal < 23) {
 					// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
 					if (player.position === 'G' || player.position === 'Goalkeeper') {
-						if (this.props.goalkeepers.length < 4) {
-							// this filter function, and the others below, check to see if the player is already on the roster
-							let goalkeepersCheck = this.props.goalkeepers.filter(gk => {
-								if (player.idFromAPI === gk.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (goalkeepersCheck.length === 0) {
-								this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of goalkeepers.'));
-						}
+						positionChecker(player, this.props.goalkeepers, addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken);
 					}
 					if (player.position === 'D' || player.position === 'Defender') {
-						if (this.props.defenders.length < 7) {
-							let defendersCheck = this.props.defenders.filter(d => {
-								if (player.idFromAPI === d.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (defendersCheck.length === 0) {
-								this.props.dispatch(addDefender(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of defenders.'));
-						}
+						positionChecker(player, this.props.defenders, addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken);
 					}
 					if (player.position === 'M' || player.position === 'Midfielder') {
-						if (this.props.midfielders.length < 7) {
-							let midfieldersCheck = this.props.midfielders.filter(m => {
-								if (player.idFromAPI === m.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (midfieldersCheck.length === 0) {
-								this.props.dispatch(addMidfielder(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of midfielders.'));
-						}
+						positionChecker(player, this.props.midfielders, addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken);
 					}
 					if (player.position === 'F' || player.position === 'Attacker') {
-						if (this.props.forwards.length < 5) {
-							let forwardsCheck = this.props.forwards.filter(f => {
-								if (player.idFromAPI === f.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (forwardsCheck.length === 0) {
-								this.props.dispatch(addForward(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of forwards.'));
-						}
+						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
 					}
 				}
 			}
@@ -130,18 +77,21 @@ export class Selection extends React.Component {
 			}
 		}
 		
-		function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName) {
-			let positionCheck = positionProps.filiter(p => {
-				if (playerArg.idFromAPI === p.idFromAPI) {
-					this.props.dispatch(warning('This player is already on your roster.'));
-					return true;
+		function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken) {
+			if (positionProps.length < maxLength) {
+				// this filter function checks to see if the player is already on the roster
+				let positionCheck = positionProps.filter(p => {
+					if (playerArg.idFromAPI === p.idFromAPI) {
+						dispatch(warning('This player is already on your roster.'));
+						return true;
+					}
+				});
+				if (positionCheck.length === 0) {
+					dispatch(positionAsyncAdd(accessToken, playerArg));
 				}
-			});
-			if (positionCheck.length === 0) {
-				this.props.dispatch(positionAsyncAdd(this.props.accessToken, playerArg));
 			}
 			else {
-				this.props.dispatch(warning(`You have reached the maximum number of ${positionName}s`));
+				dispatch(warning(`You have reached the maximum number of ${positionName}s.`));
 			}
 		}
 	}
