@@ -9,7 +9,6 @@ import { fantasyClubReducer } from './subReducers/fantasyClubReducer.js';
 import { warningReducer } from './subReducers/warningReducer.js';
 import { fantasyScheduleReducer } from './subReducers/fantasyScheduleReducer.js';
 import { fantasyMatchReducer } from './subReducers/fantasyMatchReducer.js';
-import { rosterReducer } from './subReducers/rosterReducer.js';
 
 export const reducers = combineReducers({
   userReducer,
@@ -18,6 +17,5 @@ export const reducers = combineReducers({
   fantasyClubReducer,
   warningReducer,
   fantasyScheduleReducer,
-  fantasyMatchReducer,
-  rosterReducer
+  fantasyMatchReducer
 });

@@ -5,7 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/rosterActions.js';
+import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import { fetchPlayerData } from '../flow/subActions/playerActions.js';
 import styles from '../scss/rosterDisplay.scss';
