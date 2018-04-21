@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c09d89117c8c33cb97e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "47869f122d40d6131286"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -10513,7 +10513,7 @@ exports.createSchedule = createSchedule;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeBench = exports.addBench = exports.removeStarter = exports.addStarter = exports.removeForward = exports.addForward = exports.removeMidfielder = exports.addMidfielder = exports.removeDefender = exports.addDefender = exports.removeGoalkeeper = exports.addGoalkeeper = exports.fetchRoster = exports.removeBenchwarmerFail = exports.REMOVE_BENCHWARMER_FAIL = exports.removeBenchwarmerSuccess = exports.REMOVE_BENCHWARMER_SUCCESS = exports.addBenchwarmerFail = exports.ADD_BENCHWARMER_FAIL = exports.addBenchwarmerSuccess = exports.ADD_BENCHWARMER_SUCCESS = exports.removeStarterFail = exports.REMOVE_STARTER_FAIL = exports.removeStarterSuccess = exports.REMOVE_STARTER_SUCCESS = exports.addStarterFail = exports.ADD_STARTER_FAIL = exports.addStarterSuccess = exports.ADD_STARTER_SUCCESS = exports.removeForwardFail = exports.REMOVE_FORWARD_FAIL = exports.removeForwardSuccess = exports.REMOVE_FORWARD_SUCCESS = exports.setForwardFail = exports.SET_FORWARD_FAIL = exports.setForwardSuccess = exports.SET_FORWARD_SUCCESS = exports.removeMidfielderFail = exports.REMOVE_MIDFIELDER_FAIL = exports.removeMidfielderSuccess = exports.REMOVE_MIDFIELDER_SUCCESS = exports.setMidfielderFail = exports.SET_MIDFIELDER_FAIL = exports.setMidfielderSuccess = exports.SET_MIDFIELDER_SUCCESS = exports.removeDefenderFail = exports.REMOVE_DEFENDER_FAIL = exports.removeDefenderSuccess = exports.REMOVE_DEFENDER_SUCCESS = exports.setDefenderFail = exports.SET_DEFENDER_FAIL = exports.setDefenderSuccess = exports.SET_DEFENDER_SUCCESS = exports.removeGoalkeeperFail = exports.REMOVE_GOALKEEPER_FAIL = exports.removeGoalkeeperSuccess = exports.REMOVE_GOALKEEPER_SUCCESS = exports.setGoalkeeperFail = exports.SET_GOALKEEPER_FAIL = exports.setGoalkeeperSuccess = exports.SET_GOALKEEPER_SUCCESS = exports.getRosterFail = exports.GET_ROSTER_FAIL = exports.getRosterSuccess = exports.GET_ROSTER_SUCCESS = void 0;
+exports.removeBench = exports.addBench = exports.removeStarter = exports.addStarter = exports.removeForward = exports.addForward = exports.removeMidfielder = exports.addMidfielder = exports.removeDefender = exports.addDefender = exports.removeGoalkeeper = exports.addGoalkeeper = exports.removeBenchwarmerFail = exports.REMOVE_BENCHWARMER_FAIL = exports.removeBenchwarmerSuccess = exports.REMOVE_BENCHWARMER_SUCCESS = exports.addBenchwarmerFail = exports.ADD_BENCHWARMER_FAIL = exports.addBenchwarmerSuccess = exports.ADD_BENCHWARMER_SUCCESS = exports.removeStarterFail = exports.REMOVE_STARTER_FAIL = exports.removeStarterSuccess = exports.REMOVE_STARTER_SUCCESS = exports.addStarterFail = exports.ADD_STARTER_FAIL = exports.addStarterSuccess = exports.ADD_STARTER_SUCCESS = exports.removeForwardFail = exports.REMOVE_FORWARD_FAIL = exports.removeForwardSuccess = exports.REMOVE_FORWARD_SUCCESS = exports.setForwardFail = exports.SET_FORWARD_FAIL = exports.setForwardSuccess = exports.SET_FORWARD_SUCCESS = exports.removeMidfielderFail = exports.REMOVE_MIDFIELDER_FAIL = exports.removeMidfielderSuccess = exports.REMOVE_MIDFIELDER_SUCCESS = exports.setMidfielderFail = exports.SET_MIDFIELDER_FAIL = exports.setMidfielderSuccess = exports.SET_MIDFIELDER_SUCCESS = exports.removeDefenderFail = exports.REMOVE_DEFENDER_FAIL = exports.removeDefenderSuccess = exports.REMOVE_DEFENDER_SUCCESS = exports.setDefenderFail = exports.SET_DEFENDER_FAIL = exports.setDefenderSuccess = exports.SET_DEFENDER_SUCCESS = exports.removeGoalkeeperFail = exports.REMOVE_GOALKEEPER_FAIL = exports.removeGoalkeeperSuccess = exports.REMOVE_GOALKEEPER_SUCCESS = exports.setGoalkeeperFail = exports.SET_GOALKEEPER_FAIL = exports.setGoalkeeperSuccess = exports.SET_GOALKEEPER_SUCCESS = exports.getRosterFail = exports.GET_ROSTER_FAIL = exports.getRosterSuccess = exports.GET_ROSTER_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(25));
 
@@ -10821,35 +10821,6 @@ var removeBenchwarmerFail = function removeBenchwarmerFail(statusCode) {
 };
 
 exports.removeBenchwarmerFail = removeBenchwarmerFail;
-
-var fetchRoster = function fetchRoster(accessToken, managerId) {
-  return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(managerId), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
-      }
-    }).then(function (res) {
-      if (!res.ok) {
-        if (res.status === 400) {
-          dispatch(getRosterFail(res.status));
-          return;
-        }
-
-        dispatch(getRosterFail(500));
-        throw new Error(res.statusText);
-      }
-
-      return res.json();
-    }).then(function (roster) {
-      dispatch(getRosterSuccess(roster, 200));
-    }).catch(function (error) {
-      throw new Error(error);
-    });
-  };
-};
-
-exports.fetchRoster = fetchRoster;
 
 var addGoalkeeper = function addGoalkeeper(accessToken, player) {
   return function (dispatch) {
@@ -37436,8 +37407,8 @@ function (_React$Component) {
       var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
           defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
           midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-          forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
-      var rosterLength = goalkeepers + defenders + midfielders + forwards;
+          forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+          rosterLength = goalkeepers + defenders + midfielders + forwards;
 
       if (rosterLength === 23) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
@@ -37449,8 +37420,8 @@ function (_React$Component) {
       var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
           defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
           midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-          forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
-      var rosterLength = goalkeepers + defenders + midfielders + forwards;
+          forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+          rosterLength = goalkeepers + defenders + midfielders + forwards;
       return _react.default.createElement("div", {
         className: rosterLength < 23 ? _fantasySchedule.default.hidden : _fantasySchedule.default.fantasySchedule
       }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null)), _react.default.createElement(_fantasyMatch.default, null));
@@ -38080,7 +38051,11 @@ function (_React$Component) {
           return l.id === _this2.props.fantasyLeagueId;
         });
 
-        var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+        var goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
+            defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
+            midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
+            forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+            rosterLength = goalkeepers + defenders + midfielders + forwards;
         return _react.default.createElement("div", {
           className: rosterLength === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
         }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
@@ -38191,7 +38166,7 @@ var mapSelectionStateToProps = function mapSelectionStateToProps(state) {
     defenders: state.rosterReducer.defenders,
     midfielders: state.rosterReducer.midfielders,
     forwards: state.rosterReducer.forwards,
-    clubName: state.rosterReducer.clubName
+    clubName: state.fantasyClubReducer.clubName
   };
 };
 
@@ -38262,11 +38237,6 @@ function (_React$Component) {
   }
 
   _createClass(Display, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.dispatch((0, _rosterActions.fetchRoster)(this.props.accessToken, this.props.userId));
-    }
-  }, {
     key: "handleRosterRemove",
     value: function handleRosterRemove(event) {
       var dataSet = event.target.dataset,
@@ -38441,12 +38411,12 @@ var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   return {
     userId: state.userReducer.userId,
     accessToken: state.userReducer.accessToken,
-    goalkeepers: state.rosterReducer.goalkeepers,
-    defenders: state.rosterReducer.defenders,
-    midfielders: state.rosterReducer.midfielders,
-    forwards: state.rosterReducer.forwards,
-    starters: state.rosterReducer.starters,
-    benchwarmers: state.rosterReducer.benchwarmers
+    goalkeepers: state.fantasyClubReducer.goalkeepers,
+    defenders: state.fantasyClubReducer.defenders,
+    midfielders: state.fantasyClubReducer.midfielders,
+    forwards: state.fantasyClubReducer.forwards,
+    starters: state.fantasyClubReducer.starters,
+    benchwarmers: state.fantasyClubReducer.benchwarmers
   };
 };
 
@@ -39010,6 +38980,12 @@ var fantasyClubReducer = function fantasyClubReducer() {
         manager: action.fantasyClub.manager,
         clubName: action.fantasyClub.clubName,
         points: action.fantasyClub.points,
+        goalkeepers: action.fantasyClub.goalkeepers,
+        defenders: action.fantasyClub.defenders,
+        midfielders: action.fantasyClub.midfielders,
+        forwards: action.fantasyClub.forwards,
+        starters: action.fantasyClub.starters,
+        benchwarmers: action.fantasyClub.benchwarmers,
         wins: action.fantasyClub.wins,
         draws: action.fantasyClub.draws,
         losses: action.fantasyClub.losses,
@@ -39168,30 +39144,11 @@ exports.rosterReducer = void 0;
 
 var _rosterActions = __webpack_require__(91);
 
-var initialState = {
-  goalkeepers: [],
-  defenders: [],
-  midfielders: [],
-  forwards: [],
-  starters: [],
-  benchwarmers: []
-};
-
 var rosterReducer = function rosterReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _rosterActions.GET_ROSTER_SUCCESS:
-      return Object.assign({}, state, {
-        goalkeepers: action.roster.goalkeepers,
-        defenders: action.roster.defenders,
-        midfielders: action.roster.midfielders,
-        forwards: action.roster.forwards,
-        starters: action.roster.starters,
-        benchwarmers: action.roster.benchwarmers
-      });
-
     case _rosterActions.SET_GOALKEEPER_SUCCESS:
       return Object.assign({}, state, {
         goalkeepers: action.goalkeeper
@@ -39252,7 +39209,6 @@ var rosterReducer = function rosterReducer() {
         benchwarmers: action.benchwarmer
       });
 
-    case _rosterActions.GET_ROSTER_FAIL:
     case _rosterActions.SET_GOALKEEPER_FAIL:
     case _rosterActions.REMOVE_GOALKEEPER_FAIL:
     case _rosterActions.SET_DEFENDER_FAIL:

@@ -8,14 +8,9 @@ import CSSModules from 'react-css-modules';
 import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/rosterActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import { fetchPlayerData } from '../flow/subActions/playerActions.js';
-import { fetchRoster } from '../flow/subActions/rosterActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
-	componentDidMount() {
-		this.props.dispatch(fetchRoster(this.props.accessToken, this.props.userId));
-	}
-	
   handleRosterRemove(event) {
     let dataSet = event.target.dataset,
 			player = {
@@ -218,12 +213,12 @@ export class Display extends React.Component {
 const mapDisplayStateToProps = state => ({
 	userId: state.userReducer.userId,
   accessToken: state.userReducer.accessToken,
-  goalkeepers: state.rosterReducer.goalkeepers,
-  defenders: state.rosterReducer.defenders,
-  midfielders: state.rosterReducer.midfielders,
-  forwards: state.rosterReducer.forwards,
-  starters: state.rosterReducer.starters,
-  benchwarmers: state.rosterReducer.benchwarmers
+  goalkeepers: state.fantasyClubReducer.goalkeepers,
+  defenders: state.fantasyClubReducer.defenders,
+  midfielders: state.fantasyClubReducer.midfielders,
+  forwards: state.fantasyClubReducer.forwards,
+  starters: state.fantasyClubReducer.starters,
+  benchwarmers: state.fantasyClubReducer.benchwarmers
 });
 
 const RosterDisplay = connect(

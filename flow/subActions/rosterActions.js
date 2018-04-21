@@ -172,32 +172,6 @@ export const removeBenchwarmerFail = statusCode => ({
   statusCode
 });
 
-export const fetchRoster = (accessToken, managerId) => dispatch => {
-  return fetch(`${thisURL}/${managerId}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 400) {
-        dispatch(getRosterFail(res.status));
-        return;
-      }
-      dispatch(getRosterFail(500));
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(roster => {
-    dispatch(getRosterSuccess(roster, 200));
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
 export const addGoalkeeper = (accessToken, player) => dispatch => {
   return fetch(`${thisURL}/addGoalkeeper`, {
     method: 'POST',

@@ -3,20 +3,6 @@
 const rosterRouter = require("express").Router(),
   FantasyClub = require("../models/fantasyClub_model.js");
   
-rosterRouter.get('/:managerId',
-  (req, res) => {
-    FantasyClub
-    .findOne({manager: req.params.mangerId})
-    .then(data => {
-      console.log('rRoutes get:', data);
-      // res.json(data);
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-  
 rosterRouter.post('/addGoalkeeper',
   (req, res) => {
     FantasyClub

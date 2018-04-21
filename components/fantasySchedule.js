@@ -16,8 +16,8 @@ export class Schedule extends React.Component {
 		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
 			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
 			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
-		const rosterLength = goalkeepers + defenders + midfielders + forwards;
+			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+			rosterLength = goalkeepers + defenders + midfielders + forwards;
 		if (rosterLength === 23) {
 			this.props.dispatch(getSchedule());
 		}
@@ -26,8 +26,8 @@ export class Schedule extends React.Component {
 		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
 			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
 			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length;
-		const rosterLength = goalkeepers + defenders + midfielders + forwards;
+			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+			rosterLength = goalkeepers + defenders + midfielders + forwards;
 		return(
 			<div
 				className={rosterLength < 23 ? styles.hidden : styles.fantasySchedule}>

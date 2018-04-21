@@ -134,7 +134,11 @@ export class Selection extends React.Component {
   render() {
     if (this.props.playerList) {
       const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
-      let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+      let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
+				defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
+				midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
+				forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+				rosterLength = goalkeepers + defenders + midfielders + forwards;
       return(
         <div
 					className={rosterLength === 23 ? styles.hidden : styles.playerSelection}>
@@ -265,7 +269,7 @@ const mapSelectionStateToProps = state => ({
   defenders: state.rosterReducer.defenders,
   midfielders: state.rosterReducer.midfielders,
   forwards: state.rosterReducer.forwards,
-  clubName: state.rosterReducer.clubName
+  clubName: state.fantasyClubReducer.clubName
 });
 
 const PlayerSelection = connect(
