@@ -129,6 +129,21 @@ export class Selection extends React.Component {
 				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}`));
 			}
 		}
+		
+		function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName) {
+			let positionCheck = positionProps.filiter(p => {
+				if (playerArg.idFromAPI === p.idFromAPI) {
+					this.props.dispatch(warning('This player is already on your roster.'));
+					return true;
+				}
+			});
+			if (positionCheck.length === 0) {
+				this.props.dispatch(positionAsyncAdd(this.props.accessToken, playerArg));
+			}
+			else {
+				this.props.dispatch(warning(`You have reached the maximum number of ${positionName}s`));
+			}
+		}
 	}
   
   render() {
