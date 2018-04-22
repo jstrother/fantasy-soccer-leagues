@@ -73,7 +73,7 @@ export class Selection extends React.Component {
 				}
 			}
 			else {
-				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}`));
+				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}.`));
 			}
 		}
 		

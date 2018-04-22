@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2deda573447f51125f53"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f7eba3072ebdfc380d05"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37958,7 +37958,7 @@ function (_React$Component) {
             }
           }
         } else {
-          this.props.dispatch((0, _warningActions.warning)("You have reached the maximum number of players from ".concat(player.clubName)));
+          this.props.dispatch((0, _warningActions.warning)("You have reached the maximum number of players from ".concat(player.clubName, ".")));
         }
       }
 
@@ -38666,7 +38666,7 @@ var _reduxLogger = __webpack_require__(471);
 
 var _fantasyScheduleActions = __webpack_require__(90);
 
-var _warningFade = __webpack_require__(472);
+var _warningFadeMiddleware = __webpack_require__(472);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38675,7 +38675,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // imported into ../components/index.js
 var logger = (0, _reduxLogger.createLogger)(),
     devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFade.warningFadeMiddleware),
+    middleware = (0, _redux.applyMiddleware)(logger, _reduxThunk.default, _warningFadeMiddleware.warningFadeMiddleware),
     selectSchedule = function selectSchedule(state) {
   return state.fantasyScheduleReducer.fantasySchedule;
 },
@@ -39189,11 +39189,10 @@ var warningFadeMiddleware = function warningFadeMiddleware(store) {
     return function (action) {
       if (action.type === _warningActions.SHOW_WARNING) {
         action.timeout = setTimeout(function () {
-          return store.dispatch((0, _warningActions.hideWarning)());
+          store.dispatch((0, _warningActions.hideWarning)());
         }, 7000);
       }
 
-      clearTimeout(action.timeout);
       next(action);
     };
   };
