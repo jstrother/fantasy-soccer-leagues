@@ -31,8 +31,12 @@ export const createScheduleFail = statusCode => ({
   statusCode
 });
 
-export const getSchedule = () => dispatch => {
-  return fetch(`${thisURL}`)
+export const getSchedule = accessToken => dispatch => {
+  return fetch(`${thisURL}`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -53,9 +57,12 @@ export const getSchedule = () => dispatch => {
   });
 };
 
-export const createSchedule = () => dispatch => {
+export const createSchedule = accessToken => dispatch => {
   return fetch(`${thisURL}/scheduleCreator`, {
-    method: 'POST'
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
   })
   .then(res => {
     if (!res.ok) {

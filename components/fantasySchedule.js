@@ -12,17 +12,6 @@ import { getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
-	componentDidMount() {
-		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
-			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
-			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-			rosterLength = goalkeepers + defenders + midfielders + forwards;
-		console.log('rosterLength:', rosterLength);
-		if (rosterLength === 23) {
-			this.props.dispatch(getSchedule());
-		}
-  }
 	render() {
 		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
 			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
