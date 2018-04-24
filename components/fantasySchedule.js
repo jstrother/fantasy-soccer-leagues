@@ -18,6 +18,7 @@ export class Schedule extends React.Component {
 			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
 			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
 			rosterLength = goalkeepers + defenders + midfielders + forwards;
+		console.log('rosterLength:', rosterLength);
 		if (rosterLength === 23) {
 			this.props.dispatch(getSchedule());
 		}
