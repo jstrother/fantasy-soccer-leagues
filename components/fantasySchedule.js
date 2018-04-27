@@ -8,7 +8,7 @@ import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { getSchedule, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
@@ -17,8 +17,15 @@ export class Schedule extends React.Component {
 			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
 			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
 			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-			scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.length,
+			scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.weeklyMatches.length,
 			rosterLength = goalkeepers + defenders + midfielders + forwards;
+		console.log('goalkeepers:', goalkeepers);
+		console.log('defenders:', defenders);
+		console.log('midfielders:', midfielders);
+		console.log('forwards:', forwards);
+		console.log('scheduleLength:', scheduleLength);
+		console.log('rosterLength:', rosterLength);
+		console.log('conditional:', rosterLength === 23 && scheduleLength === 0);
 		if (rosterLength === 23 && scheduleLength === 0) {
 			this.props.dispatch(createSchedule());
 		}

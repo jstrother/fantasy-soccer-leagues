@@ -41,7 +41,8 @@ export class Selection extends React.Component {
 					}
 				},
 				roster = [],
-				clubCount = [];
+				clubCount = [],
+				scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length;
 			// we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 			roster.push.apply(roster, this.props.goalkeepers);
 			roster.push.apply(roster, this.props.defenders);
@@ -72,7 +73,7 @@ export class Selection extends React.Component {
 						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
 					}
 				} 
-				// else if (rosterTotal === 23) {
+				// else if (rosterTotal === 23 && scheduleLength < 1) {
 				// 	this.props.dispatch(createSchedule());
 				// }
 			}
@@ -238,7 +239,8 @@ const mapSelectionStateToProps = state => ({
   defenders: state.fantasyClubReducer.defenders,
   midfielders: state.fantasyClubReducer.midfielders,
   forwards: state.fantasyClubReducer.forwards,
-  clubName: state.fantasyClubReducer.clubName
+  clubName: state.fantasyClubReducer.clubName,
+  fantasyScheduleReducer: state.fantasyScheduleReducer.fantasySchedule
 });
 
 const PlayerSelection = connect(

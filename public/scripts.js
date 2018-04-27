@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8d078495b90b4bffad64"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3e930b60afa44736681e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37421,8 +37421,15 @@ function (_React$Component) {
           defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
           midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
           forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-          scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.length,
+          scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.weeklyMatches.length,
           rosterLength = goalkeepers + defenders + midfielders + forwards;
+      console.log('goalkeepers:', goalkeepers);
+      console.log('defenders:', defenders);
+      console.log('midfielders:', midfielders);
+      console.log('forwards:', forwards);
+      console.log('scheduleLength:', scheduleLength);
+      console.log('rosterLength:', rosterLength);
+      console.log('conditional:', rosterLength === 23 && scheduleLength === 0);
 
       if (rosterLength === 23 && scheduleLength === 0) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
@@ -38070,7 +38077,8 @@ function (_React$Component) {
           }
         },
             roster = [],
-            clubCount = []; // we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
+            clubCount = [],
+            scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length; // we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 
         roster.push.apply(roster, this.props.goalkeepers);
         roster.push.apply(roster, this.props.defenders);
@@ -38101,7 +38109,7 @@ function (_React$Component) {
             if (player.position === 'F' || player.position === 'Attacker') {
               positionChecker(player, this.props.forwards, _fantasyClubActions.addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
             }
-          } // else if (rosterTotal === 23) {
+          } // else if (rosterTotal === 23 && scheduleLength < 1) {
           // 	this.props.dispatch(createSchedule());
           // }
 
@@ -38255,7 +38263,8 @@ var mapSelectionStateToProps = function mapSelectionStateToProps(state) {
     defenders: state.fantasyClubReducer.defenders,
     midfielders: state.fantasyClubReducer.midfielders,
     forwards: state.fantasyClubReducer.forwards,
-    clubName: state.fantasyClubReducer.clubName
+    clubName: state.fantasyClubReducer.clubName,
+    fantasyScheduleReducer: state.fantasyScheduleReducer.fantasySchedule
   };
 };
 
@@ -39237,7 +39246,9 @@ var _fantasyScheduleActions = __webpack_require__(90);
 // imported into ./flow/reducers.js
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    fantasySchedule: null
+    fantasySchedule: {
+      weeklyMatches: []
+    }
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -39249,7 +39260,9 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
 
     case _fantasyScheduleActions.CREATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: action.fantasySchedule
+        fantasySchedule: {
+          weeklyMatches: action.fantasySchedule.weeklyMatches
+        }
       });
 
     case _fantasyScheduleActions.GET_SCHEDULE_FAIL:

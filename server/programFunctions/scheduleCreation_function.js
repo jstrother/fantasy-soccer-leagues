@@ -103,7 +103,6 @@ function scheduleCreator(clubArray) {
   const year = new Date().getUTCFullYear(),
     seasonStart = new Date().setUTCFullYear(year, 2, 1);
   let schedule = new FantasySchedule({
-    weeklyMatches: [],
     startDate: new Date().setTime(seasonStart) // sets season start to March 1st every year, but this should in reality be pulled from API once I can afford to get it going again
   }),
   numberOfWeeks = 38;
