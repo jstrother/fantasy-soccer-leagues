@@ -10,7 +10,7 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
-import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+// import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/playerSelection.scss';
 
 export class Selection extends React.Component {
@@ -71,9 +71,10 @@ export class Selection extends React.Component {
 					if (player.position === 'F' || player.position === 'Attacker') {
 						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
 					}
-				} else if (rosterTotal === 23) {
-					this.props.dispatch(createSchedule(this.props.accessToken));
-				}
+				} 
+				// else if (rosterTotal === 23) {
+				// 	this.props.dispatch(createSchedule());
+				// }
 			}
 			else {
 				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}.`));

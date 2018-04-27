@@ -6,7 +6,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { reducers } from './reducers.js';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { createSchedule } from './subActions/fantasyScheduleActions.js';
 import { warningFadeMiddleware } from './middleware/warningFadeMiddleware.js';
 
 const logger = createLogger(),
@@ -17,17 +16,6 @@ const logger = createLogger(),
     return state.fantasyScheduleReducer.fantasySchedule;
   },
   
-  handleScheduleChange = () => {
-    let fantasySchedule = selectSchedule(store.getState());
-    if (Array.isArray(fantasySchedule) && fantasySchedule.length === 0) {
-      store.dispatch(createSchedule());
-    }
-  },
-  
-  store = createStore(reducers, devTools, middleware),
-  unsubscribe = store.subscribe(handleScheduleChange);
-
-unsubscribe();
-setInterval(() => handleScheduleChange(), 1000);
+  store = createStore(reducers, devTools, middleware);
 
 export default store;

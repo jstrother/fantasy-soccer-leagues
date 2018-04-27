@@ -4,14 +4,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import FantasyMatch from './fantasyMatch.js';
+import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { getSchedule, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
+	componentDidUpdate(prevProps, prevState) {
+		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
+			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
+			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
+			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+			scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.length,
+			rosterLength = goalkeepers + defenders + midfielders + forwards;
+		if (rosterLength === 23 && scheduleLength === 0) {
+			this.props.dispatch(createSchedule());
+		}
+	}
 	render() {
 		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
 			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
@@ -31,7 +42,7 @@ export class Schedule extends React.Component {
 					Players Available on Bench (7 required):
 					<BenchPlayers />
 				</div>
-				<FantasyMatch />
+				<ScheduleDisplay />
 			</div>
 		);
 	}
