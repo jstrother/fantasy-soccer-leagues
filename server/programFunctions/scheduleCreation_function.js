@@ -100,12 +100,19 @@ function matchResolver(allWeeklyMatches) {
 // clubArray will be filled by getting all clubs from fantasyClubs-router.js
 // can use loopArray_function.js to run scheduleCreator() once a year
 function scheduleCreator(clubArray) {
-  const year = new Date().getUTCFullYear(),
-    seasonStart = new Date().setUTCFullYear(year, 2, 1);
+  const today = new Date(),
+    year = today.getUTCFullYear(),
+    startDate = new Date().setUTCFullYear(year, 2, 1);
   let schedule = new FantasySchedule({
-    startDate: new Date().setTime(seasonStart) // sets season start to March 1st every year, but this should in reality be pulled from API once I can afford to get it going again
+    weeklyMatches: [],
+    startDate // sets season start to March 1st every year, but this should in reality be pulled from API once I can afford to get it going again
   }),
   numberOfWeeks = 38;
+  
+  console.log('today:', today);
+  console.log('year:', year);
+  console.log('startDate:', startDate);
+  console.log('schedule.startDate:', schedule.startDate.getTime());
   
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
@@ -133,6 +140,7 @@ function scheduleCreator(clubArray) {
   
   arrayParser(clubArray, schedule.weeklyMatches.length);
   
+  schedule.markModified('startDate');
   return save(schedule)
     .catch(error => {
       throw new Error(error);
@@ -142,15 +150,17 @@ function scheduleCreator(clubArray) {
   function arrayParser (clubArray, roundNumber) {
     const controlNumber = clubArray.length / 2,
       controlClub = clubArray[controlNumber],
-      thisWeek = 1000 * 60 * 60 * 24 * (roundNumber + 1); // number of milliseconds of each weekly set of matches up to 38
+      sevenDays = 1000 * 60 * 60 * 24 * 7 * (roundNumber + 1); // number of milliseconds of each weekly set of matches up to 38
     let weeklyMatches = new WeeklyMatches({
       _id: new mongoose.Types.ObjectId(),
       name: `Round ${roundNumber + 1}`,
       matches: [],
       matchesResolved: false,
-      datesToRun: new Date().setTime(schedule.startDate + thisWeek)
+      datesToRun: new Date().setTime(schedule.startDate.getTime() + sevenDays)
     });
     
+    console.log('sevenDays:', sevenDays);
+    console.log('datesToRun:', weeklyMatches.datesToRun);
     schedule.weeklyMatches.push(weeklyMatches._id);
     
     do {
@@ -163,6 +173,7 @@ function scheduleCreator(clubArray) {
       clubArray.push(clubToEnd);
     } while (controlClub !== clubArray[0]);
     
+    weeklyMatches.markModified('datesToRun');
     save(weeklyMatches);
     
     if (schedule.weeklyMatches.length < numberOfWeeks) {

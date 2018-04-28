@@ -6,7 +6,7 @@ const mongoose = require("mongoose"),
     name: String,
     matches: [{type: Schema.Types.ObjectId, ref: 'FantasyMatch'}],
     matchesResolved: Boolean,
-    datesToRun: Number
+    datesToRun: Date
   }),
   
   WeeklyMatches = mongoose.model('WeeklyMatches', weeklyMatchesSchema);

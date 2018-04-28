@@ -17,7 +17,7 @@ export class Schedule extends React.Component {
 			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
 			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
 			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-			scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.weeklyMatches.length,
+			scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length,
 			rosterLength = goalkeepers + defenders + midfielders + forwards;
 		console.log('goalkeepers:', goalkeepers);
 		console.log('defenders:', defenders);

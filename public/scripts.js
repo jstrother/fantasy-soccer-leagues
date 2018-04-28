@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3e930b60afa44736681e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "91f0d7509bd9d9b7a596"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37421,7 +37421,7 @@ function (_React$Component) {
           defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
           midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
           forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-          scheduleLength = this.props.fantasySchedule === null ? 0 : this.props.fantasySchedule.weeklyMatches.length,
+          scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length,
           rosterLength = goalkeepers + defenders + midfielders + forwards;
       console.log('goalkeepers:', goalkeepers);
       console.log('defenders:', defenders);
