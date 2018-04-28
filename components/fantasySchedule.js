@@ -8,7 +8,7 @@ import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { getSchedule, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
@@ -28,6 +28,7 @@ export class Schedule extends React.Component {
 		console.log('conditional:', rosterLength === 23 && scheduleLength === 0);
 		if (rosterLength === 23 && scheduleLength === 0) {
 			this.props.dispatch(createSchedule());
+			this.props.dispatch(getSchedule());
 		}
 	}
 	render() {

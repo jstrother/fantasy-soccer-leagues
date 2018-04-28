@@ -22,7 +22,7 @@ function standingsCalculator(clubArray) {
   }
 }
 
-// matchArray will be filled by getting schedule.matches.weeklyMatches from fantasySchedule-routes.js
+// matchArray will be filled by getting schedule.weeklyMatches from fantasySchedule-routes.js
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 function matchResolver(allWeeklyMatches) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database and not hitting the fantasySchedule portion at all
@@ -30,9 +30,13 @@ function matchResolver(allWeeklyMatches) {
   let allScores = 0,
     counter = 0;
   
+  console.log('matchResolver allWeeklyMatches:', allWeeklyMatches);
+  
   allWeeklyMatches.forEach(weeklyMatches => {
     let matchArray = weeklyMatches.matches;
-    if (weeklyMatches.matchesResolved === false && today > weeklyMatches.datesToRun) {
+    console.log('matchResolver today:', today);
+    console.log('weeklyMatches.datesToRun:', weeklyMatches.datesToRun);
+    if (weeklyMatches.matchesResolved === false && today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
       matchArray.forEach(match => {
         if (match.final === false) {
@@ -109,11 +113,6 @@ function scheduleCreator(clubArray) {
   }),
   numberOfWeeks = 38;
   
-  console.log('today:', today);
-  console.log('year:', year);
-  console.log('startDate:', startDate);
-  console.log('schedule.startDate:', schedule.startDate.getTime());
-  
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Average'
@@ -159,8 +158,6 @@ function scheduleCreator(clubArray) {
       datesToRun: new Date().setTime(schedule.startDate.getTime() + sevenDays)
     });
     
-    console.log('sevenDays:', sevenDays);
-    console.log('datesToRun:', weeklyMatches.datesToRun);
     schedule.weeklyMatches.push(weeklyMatches._id);
     
     do {

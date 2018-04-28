@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { matchResolve } from '../flow/subActions/fantasyMatchActions.js';
+import { matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasyMatch.scss';
 
 export class FantasyGame extends React.Component {
@@ -23,7 +23,6 @@ export class FantasyGame extends React.Component {
 }
 
 const mapMatchesStateToProps = state => ({
-	resolvedMatches: state.fantasyMatchReducer.resolvedMatches,
 	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
 });
 

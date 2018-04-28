@@ -31,12 +31,21 @@ export const createScheduleFail = statusCode => ({
   statusCode
 });
 
-export const getSchedule = accessToken => dispatch => {
-  return fetch(`${thisURL}`, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
+export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
+export const matchResolveSuccess = (fantasySchedule, statusCode) => ({
+  type: MATCH_RESOLVE_SUCCESS,
+  fantasySchedule,
+  statusCode
+});
+
+export const MATCH_RESOLVE_FAIL = 'MATCH_RESOLVE_FAIL';
+export const matchResolveFail = statusCode => ({
+  type: MATCH_RESOLVE_FAIL,
+  statusCode
+});
+
+export const getSchedule = () => dispatch => {
+  return fetch(`${thisURL}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -57,12 +66,9 @@ export const getSchedule = accessToken => dispatch => {
   });
 };
 
-export const createSchedule = accessToken => dispatch => {
+export const createSchedule = () => dispatch => {
   return fetch(`${thisURL}/scheduleCreator`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
+    method: 'POST'
   })
   .then(res => {
     if (!res.ok) {
@@ -77,6 +83,29 @@ export const createSchedule = accessToken => dispatch => {
   })
   .then(fantasySchedule => {
     dispatch(createScheduleSuccess(fantasySchedule, 200));
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const matchResolve = () => dispatch => {
+  return fetch(`${thisURL}/matchResolver`, {
+    method: 'POST'
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(matchResolveFail(res.status));
+        return;
+      }
+      dispatch(matchResolveFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(fantasySchedule => {
+    dispatch(matchResolveSuccess(fantasySchedule, 200));
   })
   .catch(error => {
     throw new Error(error);
