@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9f2d60325a0c8b1d8979"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9654ecbf32f8e6328339"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4744,7 +4744,7 @@ var getClub = function getClub(accessToken, manager) {
     }).then(function (fantasyClub) {
       dispatch(getClubSuccess(fantasyClub, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.error(error); // throw new Error(error);
     });
   };
 };
@@ -7170,8 +7170,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      // throw new Error(error);
-      console.error(error);
+      throw new Error(error);
     });
   };
 };
@@ -11189,7 +11188,7 @@ var getSchedule = function getSchedule() {
       console.log('fsActions fantasySchedule:', fantasySchedule);
       dispatch(getScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.error(error); // throw new Error(error);
     });
   };
 };
@@ -37397,18 +37396,20 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length; // console.log('goalkeepers:', this.props.goalkeepers.length);
-      // console.log('defenders:', this.props.defenders.length);
-      // console.log('midfielders:', this.props.midfielders.length);
-      // console.log('forwards:', this.props.forwards.length);
+      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+      console.log('fsComponent goalkeepers:', this.props.goalkeepers.length);
+      console.log('fsComponent defenders:', this.props.defenders.length);
+      console.log('fsComponent midfielders:', this.props.midfielders.length);
+      console.log('fsComponent forwards:', this.props.forwards.length);
+      console.log('fsComponent fantasySchedule:', this.props.fantasySchedule);
+      console.log('fsComponent scheduleLength:', this.props.weeklyMatches.length);
+      console.log('fsComponent rosterLength:', rosterLength);
+      console.log('fsComponent conditional:', rosterLength === 23 && this.props.weeklyMatches.length === 0);
 
-      console.log('fantasySchedule:', this.props.fantasySchedule); // console.log('scheduleLength:', this.props.weeklyMatches.length);
-      // console.log('rosterLength:', rosterLength);
-      // console.log('conditional:', rosterLength === 23 && this.props.weeklyMatches.length === 0);
-      // if (rosterLength === 23 && this.props.weeklyMatches.length === 0) {
-      // 	this.props.dispatch(createSchedule());
-      // 	this.props.dispatch(getSchedule());
-      // }
+      if (rosterLength === 23 && this.props.weeklyMatches.length === 0) {
+        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
+        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
+      }
     }
   }, {
     key: "render",

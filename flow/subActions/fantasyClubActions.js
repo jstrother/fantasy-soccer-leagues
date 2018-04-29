@@ -223,7 +223,8 @@ export const getClub = (accessToken, manager) => dispatch => {
     dispatch(getClubSuccess(fantasyClub, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    console.error(error);
+    // throw new Error(error);
   });
 };
 
