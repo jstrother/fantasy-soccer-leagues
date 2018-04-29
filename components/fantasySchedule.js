@@ -9,34 +9,32 @@ import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
 import { getSchedule, createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
-	componentDidUpdate(prevProps, prevState) {
-		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
-			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
-			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-			scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length,
-			rosterLength = goalkeepers + defenders + midfielders + forwards;
-		console.log('goalkeepers:', goalkeepers);
-		console.log('defenders:', defenders);
-		console.log('midfielders:', midfielders);
-		console.log('forwards:', forwards);
-		console.log('scheduleLength:', scheduleLength);
-		console.log('rosterLength:', rosterLength);
-		console.log('conditional:', rosterLength === 23 && scheduleLength === 0);
-		if (rosterLength === 23 && scheduleLength === 0) {
-			this.props.dispatch(createSchedule());
-			this.props.dispatch(getSchedule());
+	componentDidMount() {
+		if (this.props.fantasySchedule.weeklyMatches.length > 0) {
+			this.props.dispatch(matchResolve());
 		}
 	}
+	componentDidUpdate() {
+			let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+		// console.log('goalkeepers:', this.props.goalkeepers.length);
+		// console.log('defenders:', this.props.defenders.length);
+		// console.log('midfielders:', this.props.midfielders.length);
+		// console.log('forwards:', this.props.forwards.length);
+		console.log('fantasySchedule:', this.props.fantasySchedule);
+		// console.log('scheduleLength:', this.props.weeklyMatches.length);
+		// console.log('rosterLength:', rosterLength);
+		// console.log('conditional:', rosterLength === 23 && this.props.weeklyMatches.length === 0);
+		// if (rosterLength === 23 && this.props.weeklyMatches.length === 0) {
+		// 	this.props.dispatch(createSchedule());
+		// 	this.props.dispatch(getSchedule());
+		// }
+	}
 	render() {
-		let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
-			defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
-			midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
-			forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
-			rosterLength = goalkeepers + defenders + midfielders + forwards;
+		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 		return(
 			<div
 				className={rosterLength < 23 ? styles.hidden : styles.fantasySchedule}>
@@ -63,7 +61,8 @@ const mapScheduleStateToProps = state => ({
 	midfielders: state.fantasyClubReducer.midfielders,
 	forwards: state.fantasyClubReducer.forwards,
 	accessToken: state.userReducer.accessToken,
-	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
+	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
+	weeklyMatches: state.fantasyScheduleReducer.fantasySchedule.weeklyMatches
 });
 
 const FantasySchedule = connect(

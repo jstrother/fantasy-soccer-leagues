@@ -32,9 +32,9 @@ export const createScheduleFail = statusCode => ({
 });
 
 export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
-export const matchResolveSuccess = (fantasySchedule, statusCode) => ({
+export const matchResolveSuccess = (weeklyMatches, statusCode) => ({
   type: MATCH_RESOLVE_SUCCESS,
-  fantasySchedule,
+  weeklyMatches,
   statusCode
 });
 
@@ -104,8 +104,9 @@ export const matchResolve = () => dispatch => {
     }
     return res.json();
   })
-  .then(fantasySchedule => {
-    dispatch(matchResolveSuccess(fantasySchedule, 200));
+  .then(weeklyMatches => {
+    console.log('fsActions weeklyMatches:', weeklyMatches);
+    dispatch(matchResolveSuccess(weeklyMatches, 200));
   })
   .catch(error => {
     throw new Error(error);

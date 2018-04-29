@@ -3,7 +3,13 @@
 
 import { CREATE_SCHEDULE_SUCCESS, CREATE_SCHEDULE_FAIL, GET_SCHEDULE_SUCCESS, GET_SCHEDULE_FAIL, MATCH_RESOLVE_SUCCESS, MATCH_RESOLVE_FAIL } from '../subActions/fantasyScheduleActions.js';
 
-export const fantasyScheduleReducer = (state = {fantasySchedule: {weeklyMatches: []}}, action) => {
+const initialState = {
+  fantasySchedule: {
+    weeklyMatches: []
+  }
+};
+
+export const fantasyScheduleReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SCHEDULE_SUCCESS:
       return Object.assign({}, state,
@@ -14,16 +20,14 @@ export const fantasyScheduleReducer = (state = {fantasySchedule: {weeklyMatches:
     case CREATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state,
         {
-          fantasySchedule: {
-            weeklyMatches: action.fantasySchedule.weeklyMatches
-          }
+          fantasySchedule: action.fantasySchedule
         }
       );
     case MATCH_RESOLVE_SUCCESS:
       return Object.assign({}, state,
         {
           fantasySchedule: {
-            weeklyMatches: action.fantasySchedule.weeklyMatches
+            weeklyMatches: action.weeklyMatches
           }
         }
       );

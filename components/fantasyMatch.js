@@ -3,15 +3,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/fantasyMatch.scss';
 
 export class FantasyGame extends React.Component {
-	componentDidMount() {
-		if (this.props.fantasySchedule !== null) {
-			this.props.dispatch(matchResolve());
-		}
-	}
 	render() {
 		return(
 			<div
@@ -23,7 +17,7 @@ export class FantasyGame extends React.Component {
 }
 
 const mapMatchesStateToProps = state => ({
-	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
+	state
 });
 
 const FantasyMatch = connect(
