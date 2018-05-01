@@ -4,9 +4,7 @@
 import { CREATE_SCHEDULE_SUCCESS, CREATE_SCHEDULE_FAIL, GET_SCHEDULE_SUCCESS, GET_SCHEDULE_FAIL, MATCH_RESOLVE_SUCCESS, MATCH_RESOLVE_FAIL } from '../subActions/fantasyScheduleActions.js';
 
 const initialState = {
-  fantasySchedule: {
-    weeklyMatches: []
-  }
+  fantasySchedule: {}
 };
 
 export const fantasyScheduleReducer = (state = initialState, action) => {

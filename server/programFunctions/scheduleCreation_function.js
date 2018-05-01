@@ -106,12 +106,12 @@ function matchResolver(allWeeklyMatches) {
 function scheduleCreator(clubArray) {
   const today = new Date(),
     year = today.getUTCFullYear(),
-    startDate = new Date().setUTCFullYear(year, 2, 1);
+    startDate = new Date().setUTCFullYear(year, 2, 1),
+    numberOfWeeks = 38;
   let schedule = new FantasySchedule({
     weeklyMatches: [],
     startDate // sets season start to March 1st every year, but this should in reality be pulled from API once I can afford to get it going again
-  }),
-  numberOfWeeks = 38;
+  });
   
   const averageClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
@@ -159,6 +159,11 @@ function scheduleCreator(clubArray) {
     });
     
     schedule.weeklyMatches.push(weeklyMatches._id);
+    
+    // we do this so each club can be associated with a schedule to make record tracking easier
+    clubArray.forEach(club => {
+      club.leagueSchedule.push(schedule._id);
+    });
     
     do {
       let firstTwoClubs = clubArray.slice(0, 2),

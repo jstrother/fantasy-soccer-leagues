@@ -6,11 +6,13 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import FantasyMatch from './fantasyMatch.js';
 import { getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/scheduleDisplay.scss';
 
 export class DisplaySchedule extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(getSchedule());
+  componentDidUpdate() {
+    this.props.dispatch(getSchedule(this.props.leagueScheduleId));
+    this.props.dispatch(matchResolve());
   }
   
   render() {
@@ -30,7 +32,8 @@ export class DisplaySchedule extends React.Component {
 }
 
 const mapDisplayStateToProps = state => ({
-  fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
+  fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
+	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
 });
 
 const ScheduleDisplay = connect(

@@ -44,8 +44,8 @@ export const matchResolveFail = statusCode => ({
   statusCode
 });
 
-export const getSchedule = () => dispatch => {
-  return fetch(`${thisURL}`)
+export const getSchedule = leagueScheduleId => dispatch => {
+  return fetch(`${thisURL}/${leagueScheduleId}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -58,7 +58,7 @@ export const getSchedule = () => dispatch => {
     return res.json();
   })
   .then(fantasySchedule => {
-    console.log('fsActions fantasySchedule:', fantasySchedule);
+    console.log('fsActions getSchedule:', fantasySchedule);
     dispatch(getScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
@@ -83,6 +83,7 @@ export const createSchedule = () => dispatch => {
     return res.json();
   })
   .then(fantasySchedule => {
+    console.log('fsActions scheduleCreator:', fantasySchedule);
     dispatch(createScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {

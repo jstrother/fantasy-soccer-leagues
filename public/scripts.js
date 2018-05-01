@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9654ecbf32f8e6328339"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2376c7fed4b4716baf05"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7170,7 +7170,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.error(error); // throw new Error(error);
     });
   };
 };
@@ -11170,9 +11170,9 @@ var matchResolveFail = function matchResolveFail(statusCode) {
 
 exports.matchResolveFail = matchResolveFail;
 
-var getSchedule = function getSchedule() {
+var getSchedule = function getSchedule(leagueScheduleId) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(leagueScheduleId)).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(getScheduleFail(res.status));
@@ -11185,7 +11185,7 @@ var getSchedule = function getSchedule() {
 
       return res.json();
     }).then(function (fantasySchedule) {
-      console.log('fsActions fantasySchedule:', fantasySchedule);
+      console.log('fsActions getSchedule:', fantasySchedule);
       dispatch(getScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
       console.error(error); // throw new Error(error);
@@ -11212,6 +11212,7 @@ var createSchedule = function createSchedule() {
 
       return res.json();
     }).then(function (fantasySchedule) {
+      console.log('fsActions scheduleCreator:', fantasySchedule);
       dispatch(createScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -37387,29 +37388,17 @@ function (_React$Component) {
   }
 
   _createClass(Schedule, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.fantasySchedule.weeklyMatches.length > 0) {
-        this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
-      }
-    }
-  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-      console.log('fsComponent goalkeepers:', this.props.goalkeepers.length);
-      console.log('fsComponent defenders:', this.props.defenders.length);
-      console.log('fsComponent midfielders:', this.props.midfielders.length);
-      console.log('fsComponent forwards:', this.props.forwards.length);
-      console.log('fsComponent fantasySchedule:', this.props.fantasySchedule);
-      console.log('fsComponent scheduleLength:', this.props.weeklyMatches.length);
       console.log('fsComponent rosterLength:', rosterLength);
-      console.log('fsComponent conditional:', rosterLength === 23 && this.props.weeklyMatches.length === 0);
-
-      if (rosterLength === 23 && this.props.weeklyMatches.length === 0) {
-        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
-        this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
-      }
+      console.log('fsComponent this.props.fantasySchedule 1:', this.props.fantasySchedule);
+      console.log('fsComponent rosterLength === 23:', rosterLength === 23);
+      console.log('fsComponent this.props.fantasySchedule === {}:', this.props.fantasySchedule === {});
+      console.log('fsComponent this.props.fantasySchedule instanceof Object:', this.props.fantasySchedule instanceof Object);
+      console.log('fsComponent this.props.fantasySchedule 2:', this.props.fantasySchedule); // if (rosterLength === 23 && this.props.fantasySchedule === {}) {
+      // 	this.props.dispatch(createSchedule());
+      // }
     }
   }, {
     key: "render",
@@ -37436,8 +37425,7 @@ var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
     midfielders: state.fantasyClubReducer.midfielders,
     forwards: state.fantasyClubReducer.forwards,
     accessToken: state.userReducer.accessToken,
-    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
-    weeklyMatches: state.fantasyScheduleReducer.fantasySchedule.weeklyMatches
+    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
   };
 };
 
@@ -37501,9 +37489,10 @@ function (_React$Component) {
   }
 
   _createClass(DisplaySchedule, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)());
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
+      this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
     }
   }, {
     key: "render",
@@ -37521,7 +37510,8 @@ exports.DisplaySchedule = DisplaySchedule;
 
 var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   return {
-    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
+    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
+    leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
   };
 };
 
@@ -39053,6 +39043,7 @@ var fantasyClubReducer = function fantasyClubReducer() {
         manager: action.fantasyClub.manager,
         clubName: action.fantasyClub.clubName,
         points: action.fantasyClub.points,
+        leagueScheduleId: action.fantasyClub.leagueSchedule,
         goalkeepers: action.fantasyClub.goalkeepers,
         defenders: action.fantasyClub.defenders,
         midfielders: action.fantasyClub.midfielders,
@@ -39214,9 +39205,7 @@ var _fantasyScheduleActions = __webpack_require__(90);
 // ./flow/subReducers/fantasyScheduleReducer.js
 // imported into ./flow/reducers.js
 var initialState = {
-  fantasySchedule: {
-    weeklyMatches: []
-  }
+  fantasySchedule: {}
 };
 
 var fantasyScheduleReducer = function fantasyScheduleReducer() {

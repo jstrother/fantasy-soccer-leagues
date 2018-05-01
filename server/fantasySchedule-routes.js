@@ -4,10 +4,10 @@ const fantasyScheduleRouter = require("express").Router(),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { scheduleCreator, matchResolver } = require("./programFunctions/scheduleCreation_function.js");
   
-fantasyScheduleRouter.get('/',
+fantasyScheduleRouter.get('/:leagueScheduleId',
   (req, res) => {
     FantasySchedule
-    .find()
+    .findOne({_id: req.params.leagueScheduleId})
     .populate({
       path: 'weeklyMatches',
       model: 'WeeklyMatches',
@@ -36,11 +36,11 @@ fantasyScheduleRouter.post('/scheduleCreator',
   (req, res) => {
     FantasyClub
     .find()
-    .then(data => {
-      scheduleCreator(data)
+    .then(clubArray => {
+      scheduleCreator(clubArray)
       .then(schedule => {
         FantasySchedule
-        .find()
+        .findOne({_id: schedule._id})
         .populate({
           path: 'weeklyMatches',
           model: 'WeeklyMatches',
