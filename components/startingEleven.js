@@ -20,7 +20,8 @@ export class Starters extends React.Component {
     this.props.dispatch(removeStarter(this.props.accessToken, player));
   }
   render () {
-    if (this.props.starters.length > 0) {
+    let starters = this.props.starters === undefined ? 0 : this.props.starters.length;
+    if (starters > 0) {
       return(
         <div
           className={styles.startingEleven}>

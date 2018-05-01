@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'),
-
+	
 	userSchema = mongoose.Schema({
 		displayName: String,
 		givenName: String,
@@ -10,9 +10,7 @@ const mongoose = require('mongoose'),
 		googleId: {type: String, required: true},
 		fantasyLeagueId: Number,
 		fantasyLeagueName: String,
-		fantasyClub: Array,
-		fantasyDivision: String,
-		fantasyChampsLeague: String
+		hasClub: {type: Boolean, default: false}
 	}),
 
 	User = mongoose.model('User', userSchema);

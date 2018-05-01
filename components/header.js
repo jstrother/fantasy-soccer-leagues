@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars*/
-// components/home.js
+/* eslint-disable no-unused-vars, no-console*/
+// components/header.js
 // imported into app.js
 
 import React from 'react';
@@ -57,7 +57,10 @@ export class Header extends React.Component {
             <img 
               className={styles.userPhoto}
               src={this.props.userPhoto} 
-              alt={`${this.props.displayName} picture`}/>
+              alt={`${this.props.displayName}'s picture`}/>
+            <p>
+              <a href={'/user/auth/logout'} className={styles.link}>Log Out</a>
+            </p>
           </section>
         </header>
       );

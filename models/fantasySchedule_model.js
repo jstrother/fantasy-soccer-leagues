@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
 
 	fantasyScheduleSchema = Schema({
 		weeklyMatches: [{type: Schema.Types.ObjectId, ref: 'WeeklyMatches'}],
-		startDate: Number
+		startDate: Date
 	}),
 
 	FantasySchedule = mongoose.model('FantasySchedule', fantasyScheduleSchema);

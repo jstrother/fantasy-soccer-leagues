@@ -1,13 +1,11 @@
-const express = require('express'),
-	config = require('./config.js'),
+const config = require('./config.js'),
 	passport = require('passport'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
-  userRouter = express.Router(),
+  userRouter = require("express").Router(),
 	localhost = `https://${process.env.IP}:${config.PORT}/user/auth/google/callback`,
 	cloud9host = `https://${process.env.C9_HOSTNAME}/user/auth/google/callback`,
 	host = process.env.C9_HOSTNAME ? cloud9host : localhost,
-  { updateData } = require("./programFunctions/updateData_function.js"),
   User = require('../models/user_model.js'); // set to expire after 12 hours
 
 passport.use(new gStrategy({
@@ -16,19 +14,26 @@ passport.use(new gStrategy({
 	callbackURL:  host
 },
 	(accessToken, refreshToken, profile, callback) => {
-		updateData({
-			googleId: profile.id,
-			displayName: profile.displayName,
-			givenName: profile.name.givenName,
-			familyName: profile.name.familyName,
-			userPhoto: profile.photos[0].value
-		},
-    {
-      $set: {
-        accessToken: accessToken,
-        googleId: profile.id
-      }
-    }, User)
+		User
+		.findOneAndUpdate(
+			{
+				googleId: profile.id,
+				displayName: profile.displayName,
+				givenName: profile.name.givenName,
+				familyName: profile.name.familyName,
+				userPhoto: profile.photos[0].value
+			},
+			{
+				$set: {
+					accessToken: accessToken,
+					googleId: profile.id
+				}
+			},
+			{
+				new: true,
+				upsert: true
+			}
+		)
 		.then(user => {
 			callback(null, user);
 		})
@@ -78,6 +83,7 @@ userRouter.get('/auth/logout',
 userRouter.get('/', 
 	passport.authenticate('bearer', {session: false}), 
 	(req, res) => res.json({
+		userId: req.user._id,
 		accessToken: req.user.accessToken,
 		googleId: req.user.googleId,
 		displayName: req.user.displayName,
@@ -85,24 +91,54 @@ userRouter.get('/',
 		familyName: req.user.familyName,
 		userPhoto: req.user.userPhoto,
 		fantasyLeagueId: req.user.fantasyLeagueId,
-		fantasyLeagueName: req.user.fantasyLeagueName
+		fantasyLeagueName: req.user.fantasyLeagueName,
+		hasClub: req.user.hasClub
 	})
 );
 
 // adds user's selected league
 userRouter.put(`/addLeague`,
 	passport.authenticate('bearer', {session: false}),
-	(req, res) => updateData(req.params.googleId, 
-		{
-			fantasyLeagueId: req.body.fantasyLeagueId,
-			fantasyLeagueName: req.body.fantasyLeagueName
-		}, User)
+	(req, res) => User
+		.findOneAndUpdate(
+			req.params.googleId,
+			{
+				fantasyLeagueId: req.body.fantasyLeagueId,
+				fantasyLeagueName: req.body.fantasyLeagueName
+			},
+			{
+				new: true,
+				upsert: true
+			}
+		)
 		.then(data => {
 			res.json(data);
 		})
 		.catch(error => {
 			throw new Error(error);
 		})
+);
+
+// let's us know whether a user has created a club yet or not
+userRouter.put(`/clubOwner`,
+	passport.authenticate('bearer', {session: false}),
+	(req, res) => User
+		.findOneAndUpdate(
+			req.params.googleId,
+			{
+				hasClub: req.body.hasClub
+			},
+			{
+				new: true,
+				upsert: true
+			}
+		)
+	.then(data => {
+		res.json(data);
+	})
+	.catch(error => {
+		throw new Error(error);
+	})
 );
 
 exports.userRouter = userRouter;

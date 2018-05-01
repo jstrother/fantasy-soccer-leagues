@@ -6,9 +6,9 @@ import { DEV_DIRECTORY as url } from '../../server/config.js';
 const thisURL = `${url}/fantasySchedule`;
 
 export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
-export const getScheduleSuccess = (matches, statusCode) => ({
+export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: GET_SCHEDULE_SUCCESS,
-  matches,
+  fantasySchedule,
   statusCode
 });
 
@@ -19,9 +19,9 @@ export const getScheduleFail = statusCode => ({
 });
 
 export const CREATE_SCHEDULE_SUCCESS = 'CREATE_SCHEDULE_SUCCESS';
-export const createScheduleSuccess = (matches, statusCode) => ({
+export const createScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: CREATE_SCHEDULE_SUCCESS,
-  matches,
+  fantasySchedule,
   statusCode
 });
 
@@ -31,22 +31,21 @@ export const createScheduleFail = statusCode => ({
   statusCode
 });
 
-export const CHECK_SCHEDULE_SUCCESS = 'CHECK_SCHEDULE_SUCCESS';
-export const checkScheduleSuccess = (matches, timeout, statusCode) => ({
-  type: CHECK_SCHEDULE_SUCCESS,
-  matches,
-  timeout,
+export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
+export const matchResolveSuccess = (weeklyMatches, statusCode) => ({
+  type: MATCH_RESOLVE_SUCCESS,
+  weeklyMatches,
   statusCode
 });
 
-export const CHECK_SCHEDULE_FAIL = 'CHECK_SCHEDULE_FAIL';
-export const checkScheduleFail = (statusCode) => ({
-  type: CHECK_SCHEDULE_FAIL,
+export const MATCH_RESOLVE_FAIL = 'MATCH_RESOLVE_FAIL';
+export const matchResolveFail = statusCode => ({
+  type: MATCH_RESOLVE_FAIL,
   statusCode
 });
 
-export const getSchedule = () => dispatch => {
-  return fetch(`${thisURL}`)
+export const getSchedule = leagueScheduleId => dispatch => {
+  return fetch(`${thisURL}/${leagueScheduleId}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -58,11 +57,13 @@ export const getSchedule = () => dispatch => {
     }
     return res.json();
   })
-  .then(matches => {
-    dispatch(getScheduleSuccess(matches, 200));
+  .then(fantasySchedule => {
+    console.log('fsActions getSchedule:', fantasySchedule);
+    dispatch(getScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    console.error(error);
+    // throw new Error(error);
   });
 };
 
@@ -81,30 +82,33 @@ export const createSchedule = () => dispatch => {
     }
     return res.json();
   })
-  .then(matches => {
-    dispatch(createScheduleSuccess(matches, 200));
+  .then(fantasySchedule => {
+    console.log('fsActions scheduleCreator:', fantasySchedule);
+    dispatch(createScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
     throw new Error(error);
   });
 };
 
-export const checkSchedule = () => dispatch => {
-  return fetch(`${thisURL}`)
+export const matchResolve = () => dispatch => {
+  return fetch(`${thisURL}/matchResolver`, {
+    method: 'POST'
+  })
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(checkScheduleSuccess(res.status));
+        dispatch(matchResolveFail(res.status));
         return;
       }
-      dispatch(checkScheduleFail(500));
+      dispatch(matchResolveFail(500));
       throw new Error(res.statusText);
     }
     return res.json();
   })
-  .then(matches => {
-    console.log('actions file - matches:', matches);
-    dispatch(checkScheduleSuccess(matches, 200));
+  .then(weeklyMatches => {
+    console.log('fsActions weeklyMatches:', weeklyMatches);
+    dispatch(matchResolveSuccess(weeklyMatches, 200));
   })
   .catch(error => {
     throw new Error(error);

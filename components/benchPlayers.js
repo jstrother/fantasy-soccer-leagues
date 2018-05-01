@@ -20,7 +20,8 @@ export class Bench extends React.Component {
     this.props.dispatch(removeBench(this.props.accessToken, player));
   }
   render () {
-    if (this.props.benchwarmers.length > 0) {
+		let benchwarmers = this.props.benchwarmers === undefined ? 0 : this.props.benchwarmers.length;
+    if (benchwarmers > 0) {
 			return(
 				<div
 					className={styles.benchPlayers}>

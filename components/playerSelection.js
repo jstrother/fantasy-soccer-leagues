@@ -10,6 +10,7 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
+// import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/playerSelection.scss';
 
 export class Selection extends React.Component {
@@ -26,7 +27,7 @@ export class Selection extends React.Component {
   }
 	
 	handleRosterAdd(event) {
-		if (this.props.clubName !== 'Average') {
+		if (this.props.userId === this.props.managerId) {
 			let rosterTotal = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length,
 				dataSet = event.target.dataset,
 				player = {
@@ -40,7 +41,8 @@ export class Selection extends React.Component {
 					}
 				},
 				roster = [],
-				clubCount = [];
+				clubCount = [],
+				scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length;
 			// we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 			roster.push.apply(roster, this.props.goalkeepers);
 			roster.push.apply(roster, this.props.defenders);
@@ -59,74 +61,42 @@ export class Selection extends React.Component {
 				if (rosterTotal < 23) {
 					// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
 					if (player.position === 'G' || player.position === 'Goalkeeper') {
-						if (this.props.goalkeepers.length < 4) {
-							// this filter function, and the others below, check to see if the player is already on the roster
-							let goalkeepersCheck = this.props.goalkeepers.filter(gk => {
-								if (player.idFromAPI === gk.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (goalkeepersCheck.length === 0) {
-								this.props.dispatch(addGoalkeeper(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of goalkeepers.'));
-						}
+						positionChecker(player, this.props.goalkeepers, addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken);
 					}
 					if (player.position === 'D' || player.position === 'Defender') {
-						if (this.props.defenders.length < 7) {
-							let defendersCheck = this.props.defenders.filter(d => {
-								if (player.idFromAPI === d.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (defendersCheck.length === 0) {
-								this.props.dispatch(addDefender(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of defenders.'));
-						}
+						positionChecker(player, this.props.defenders, addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken);
 					}
 					if (player.position === 'M' || player.position === 'Midfielder') {
-						if (this.props.midfielders.length < 7) {
-							let midfieldersCheck = this.props.midfielders.filter(m => {
-								if (player.idFromAPI === m.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (midfieldersCheck.length === 0) {
-								this.props.dispatch(addMidfielder(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of midfielders.'));
-						}
+						positionChecker(player, this.props.midfielders, addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken);
 					}
 					if (player.position === 'F' || player.position === 'Attacker') {
-						if (this.props.forwards.length < 5) {
-							let forwardsCheck = this.props.forwards.filter(f => {
-								if (player.idFromAPI === f.idFromAPI) {
-									this.props.dispatch(warning('This player is already on your roster.'));
-									return true;
-								}
-							});
-							if (forwardsCheck.length === 0) {
-								this.props.dispatch(addForward(this.props.accessToken, player));
-							}
-						}
-						else {
-							this.props.dispatch(warning('You have reached the maximum number of goalkeepers.'));
-						}
+						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
 					}
+				} 
+				// else if (rosterTotal === 23 && scheduleLength < 1) {
+				// 	this.props.dispatch(createSchedule());
+				// }
+			}
+			else {
+				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}.`));
+			}
+		}
+		
+		function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken) {
+			if (positionProps.length < maxLength) {
+				// this filter function checks to see if the player is already on the roster
+				let positionCheck = positionProps.filter(p => {
+					if (playerArg.idFromAPI === p.idFromAPI) {
+						dispatch(warning('This player is already on your roster.'));
+						return true;
+					}
+				});
+				if (positionCheck.length === 0) {
+					dispatch(positionAsyncAdd(accessToken, playerArg));
 				}
 			}
 			else {
-				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}`));
+				dispatch(warning(`You have reached the maximum number of ${positionName}s.`));
 			}
 		}
 	}
@@ -134,7 +104,11 @@ export class Selection extends React.Component {
   render() {
     if (this.props.playerList) {
       const league = LEAGUE_IDS_NAMES.find(l => l.id === this.props.fantasyLeagueId);
-      let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+      let goalkeepers = this.props.goalkeepers === undefined ? 0 : this.props.goalkeepers.length,
+				defenders = this.props.defenders === undefined ? 0 : this.props.defenders.length,
+				midfielders = this.props.midfielders === undefined ? 0 : this.props.midfielders.length,
+				forwards = this.props.forwards === undefined ? 0 : this.props.forwards.length,
+				rosterLength = goalkeepers + defenders + midfielders + forwards;
       return(
         <div
 					className={rosterLength === 23 ? styles.hidden : styles.playerSelection}>
@@ -254,6 +228,8 @@ export class Selection extends React.Component {
 }
 
 const mapSelectionStateToProps = state => ({
+	userId: state.userReducer.userId,
+	managerId: state.fantasyClubReducer.manager === undefined ? 0 : state.fantasyClubReducer.manager._id,
   accessToken: state.userReducer.accessToken,
   fantasyLeagueId: state.userReducer.fantasyLeagueId,
   playerList: state.leagueReducer.playerList,
@@ -263,11 +239,12 @@ const mapSelectionStateToProps = state => ({
   defenders: state.fantasyClubReducer.defenders,
   midfielders: state.fantasyClubReducer.midfielders,
   forwards: state.fantasyClubReducer.forwards,
-  clubName: state.fantasyClubReducer.clubName
+  clubName: state.fantasyClubReducer.clubName,
+  fantasyScheduleReducer: state.fantasyScheduleReducer.fantasySchedule
 });
 
-const PlayerSelction = connect(
+const PlayerSelection = connect(
   mapSelectionStateToProps
 )(Selection);
 
-export default CSSModules(PlayerSelction, styles);
+export default CSSModules(PlayerSelection, styles);

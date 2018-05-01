@@ -1,14 +1,20 @@
-const express = require('express'),
-  passport = require("passport"),
-  { updateData } = require("./programFunctions/updateData_function.js"),
-	fantasyClubRouter = express.Router(),
+const mongoose = require("mongoose"),
+	fantasyClubRouter = require("express").Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
 
-fantasyClubRouter.get('/', 
+fantasyClubRouter.get('/:manager', 
   (req, res) => {
-    FantasyClub.findOne({name: req.params.name})
-    .then(data => {
-      res.json(data);
+    FantasyClub
+    .findOne({manager: req.params.manager})
+    .populate({
+      path: 'manager',
+      model: 'User'
+    })
+    .exec((error, populatedClub) => {
+      if (error) {
+        throw new Error(error);
+      }
+      res.json(populatedClub);
     })
     .catch(error => {
       throw new Error(error);
@@ -16,23 +22,23 @@ fantasyClubRouter.get('/',
   }
 );
 
-fantasyClubRouter.get('/',
-  passport.authenticate('bearer', {session: false}),
-  (req, res) => res.json({
-    manager: req.body.manager,
-    clubName: req.body.clubName,
-    goalkeepers: req.body.goalkeepers,
-    defenders: req.body.defenders,
-    midfielders: req.body.midfielders,
-    forwards: req.body.forwards,
-    starters: req.body.starters,
-    benchwarmers: req.body.benchwarmers,
-    reserves: req.body.reserves,
-    league: req.body.league,
-    division: req.body.division,
-    champsLeague: req.body.champsLeague,
-    schedule: req.body.schedule
-  })
+fantasyClubRouter.put('/newClub',
+  (req, res) => {
+    const newClub = new FantasyClub({
+        _id: new mongoose.Types.ObjectId(),
+        manager: req.body.manager,
+        clubName: req.body.clubName
+      });
+    
+    newClub
+    .save()
+    .then(function(newClub) {
+      res.json(newClub);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
 );
 
 fantasyClubRouter.post('/addGoalkeeper',
@@ -333,34 +339,6 @@ fantasyClubRouter.post('/removeBench',
       throw new Error(error);
     });
   }
-);
-
-fantasyClubRouter.put('/addClubName',
-  (req, res) => {
-    updateData(req.params.clubName,
-      {
-        clubName: req.body.clubName
-      }, FantasyClub)
-    .then(data => {
-      res.json(data);
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-
-fantasyClubRouter.put('/addManager',
-  (req, res) => updateData(req.params.manager,
-    {
-      manager: req.body.manager
-    }, FantasyClub)
-    .then(data => {
-      res.json(data);
-    })
-    .catch(error => {
-      throw new Error(error);
-    })
 );
 
 exports.fantasyClubRouter = fantasyClubRouter;

@@ -5,16 +5,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { getClub, removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench } from '../flow/subActions/fantasyClubActions.js';
+import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench, removeStarter, removeBench } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import { fetchPlayerData } from '../flow/subActions/playerActions.js';
 import styles from '../scss/rosterDisplay.scss';
 
 export class Display extends React.Component {
-	componentDidMount() {
-		this.props.dispatch(getClub(this.props.accessToken));
-	}
-	
   handleRosterRemove(event) {
     let dataSet = event.target.dataset,
 			player = {
@@ -40,6 +36,18 @@ export class Display extends React.Component {
 		if (player.position === 'F' || player.position === 'Attacker') {
 			this.props.dispatch(removeForward(this.props.accessToken, player));
 		}
+		this.props.starters.filter(p => {
+			let sListId = parseInt(p.idFromAPI, 10);
+			if (sListId === player.idFromAPI) {
+				this.props.dispatch(removeStarter(this.props.accessToken, p));
+			}
+		});
+		this.props.benchwarmers.filter(p => {
+			let bListId = parseInt(p.idFromAPI, 10);
+			if (bListId === player.idFromAPI) {
+				this.props.dispatch(removeBench(this.props.accessToken, p));
+			}
+		});
   }
   
 	addStartingPlayer(event) {
@@ -209,6 +217,7 @@ export class Display extends React.Component {
 }
 
 const mapDisplayStateToProps = state => ({
+	userId: state.userReducer.userId,
   accessToken: state.userReducer.accessToken,
   goalkeepers: state.fantasyClubReducer.goalkeepers,
   defenders: state.fantasyClubReducer.defenders,

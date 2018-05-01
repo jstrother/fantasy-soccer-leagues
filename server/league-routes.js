@@ -1,5 +1,4 @@
-const express = require('express'),
-	leagueRouter = express.Router(),
+const leagueRouter = require("express").Router(),
 	Player = require('../models/player_model.js');
 	
 // this route is to retrieve a list of players from database based upon league id

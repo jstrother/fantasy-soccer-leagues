@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
@@ -18,16 +18,30 @@ export const getClubFail = statusCode => ({
   statusCode
 });
 
-export const SET_CLUB_NAME_SUCCESS = 'SET_CLUB_NAME_SUCCESS';
-export const setClubNameSuccess = (clubName, statusCode) => ({
-  type: SET_CLUB_NAME_SUCCESS,
+export const NEW_CLUB_SUCCESS = 'NEW_CLUB_SUCCESS';
+export const newClubSuccess = (clubName, manager, statusCode) => ({
+  type: NEW_CLUB_SUCCESS,
   clubName,
+  manager,
   statusCode
 });
 
-export const SET_CLUB_NAME_FAIL = 'SET_CLUB_NAME_FAIL';
-export const setClubNameFail = statusCode => ({
-  type: SET_CLUB_NAME_FAIL,
+export const NEW_CLUB_FAIL = 'NEW_CLUB_FAIL';
+export const newClubFail = statusCode => ({
+  type: NEW_CLUB_FAIL,
+  statusCode
+});
+
+export const GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
+export const getRosterSuccess = (roster, statusCode) => ({
+  type: GET_ROSTER_SUCCESS,
+  roster,
+  statusCode
+});
+
+export const GET_ROSTER_FAIL = 'GET_ROSTER_FAIL';
+export const getRosterFail = statusCode => ({
+  type: GET_ROSTER_FAIL,
   statusCode
 });
 
@@ -187,22 +201,10 @@ export const removeBenchwarmerFail = statusCode => ({
   statusCode
 });
 
-export const SET_MANAGER_SUCCESS = 'SET_MANAGER_SUCCESS';
-export const setManagerSuccess = (manager, statusCode) => ({
-  type: SET_MANAGER_SUCCESS,
-  manager,
-  statusCode
-});
-
-export const SET_MANAGER_FAIL = 'SET_MANAGER_FAIL';
-export const setManagerFail = statusCode => ({
-  type: SET_MANAGER_FAIL,
-  statusCode
-});
-
-export const getClub = accessToken => dispatch => {
-  return fetch(`${thisURL}`, {
+export const getClub = (accessToken, manager) => dispatch => {
+  return fetch(`${thisURL}/${manager}`, {
     headers: {
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
     }
   })
@@ -217,11 +219,44 @@ export const getClub = accessToken => dispatch => {
     }
     return res.json();
   })
-  .then(data => {
-    dispatch(getClubSuccess(data, 200));
+  .then(fantasyClub => {
+    dispatch(getClubSuccess(fantasyClub, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    console.error(error);
+    // throw new Error(error);
+  });
+};
+
+export const newClub = (accessToken, clubName, manager) => dispatch => {
+  return fetch(`${thisURL}/newClub`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      clubName,
+      manager
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(newClubFail(res.status));
+        return;
+      } 
+      dispatch(newClubFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(newClubSuccess(data.clubName, data.manager, 200));
+  })
+  .catch(error => {
+    console.error(error.message);
+    // throw new Error(error);
   });
 };
 
@@ -249,7 +284,6 @@ export const addGoalkeeper = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(setGoalkeeperSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -280,7 +314,6 @@ export const removeGoalkeeper = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeGoalkeeperSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -311,7 +344,6 @@ export const addDefender = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(setDefenderSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -342,7 +374,6 @@ export const removeDefender = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeDefenderSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -373,7 +404,6 @@ export const addMidfielder = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(setMidfielderSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -404,7 +434,6 @@ export const removeMidfielder = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeMidfielderSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -435,7 +464,6 @@ export const addForward = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(setForwardSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -466,7 +494,6 @@ export const removeForward = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeForwardSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -497,7 +524,6 @@ export const addStarter = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(addStarterSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -528,7 +554,6 @@ export const removeStarter = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeStarterSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -559,7 +584,6 @@ export const addBench = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(addBenchwarmerSuccess(data, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);
@@ -590,69 +614,6 @@ export const removeBench = (accessToken, player) => dispatch => {
   })
   .then(data => {
     dispatch(removeBenchwarmerSuccess(data, 200));
-    return;
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
-export const addManager = (accessToken, manager) => dispatch => {
-  return fetch(`${thisURL}/addManager`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
-    },
-    body: JSON.stringify({
-      manager
-    })
-  })
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 400) {
-        dispatch(setManagerFail(res.status));
-        return;
-      } 
-      dispatch(setManagerFail(500));
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(data => {
-    dispatch(setManagerSuccess(data.manager, 200));
-    return;
-  })
-  .catch(error => {
-    throw new Error(error);
-  });
-};
-
-export const addClubName = (accessToken, clubName) => dispatch => {
-  return fetch(`${thisURL}/addClubName`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
-    },
-    body: JSON.stringify({
-      clubName
-    })
-  })
-  .then(res => {
-    if (!res.ok) {
-      if (res.status === 400) {
-        dispatch(setClubNameFail(res.status));
-        return;
-      } 
-      dispatch(setClubNameFail(500));
-      throw new Error(res.statusText);
-    }
-    return res.json();
-  })
-  .then(data => {
-    dispatch(setClubNameSuccess(data.clubName, 200));
-    return;
   })
   .catch(error => {
     throw new Error(error);

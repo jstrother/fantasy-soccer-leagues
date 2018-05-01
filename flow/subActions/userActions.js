@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
 
@@ -30,6 +32,19 @@ export const setLeagueFail = statusCode => ({
   statusCode
 });
 
+export const HAS_CLUB_SUCCESS = 'HAS_CLUB_SUCCESS';
+export const hasClubSuccess = (hasClub, statusCode) => ({
+  type: HAS_CLUB_SUCCESS,
+  hasClub,
+  statusCode
+});
+
+export const HAS_CLUB_FAIL = 'HAS_CLUB_FAIL';
+export const hasClubFail = statusCode => ({
+  type: HAS_CLUB_FAIL,
+  statusCode
+});
+
 export const fetchUser = accessToken => dispatch => {
   return fetch(`${thisURL}`, {
     headers: {
@@ -38,7 +53,7 @@ export const fetchUser = accessToken => dispatch => {
   })
   .then(res => {
     if (!res.ok) {
-      if (res.status === 401) {
+      if (res.status === 400) {
         dispatch(setUserFail(res.status));
         return;
       } 
@@ -49,10 +64,10 @@ export const fetchUser = accessToken => dispatch => {
   })
   .then(currentUser => {
     dispatch(setUserSuccess(currentUser, 200));
-    return;
   })
   .catch(error => {
-    throw new Error(error);
+    console.error(error);
+    // throw new Error(error);
   });
 };
 
@@ -81,7 +96,36 @@ export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => di
   })
   .then(data => {
     dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
-    return;
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
+export const clubOwner = (accessToken, hasClub) => dispatch => {
+  return fetch(`${thisURL}/clubOwner`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      hasClub
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(hasClubFail(res.status));
+        return;
+      }
+      dispatch(hasClubFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    dispatch(hasClubSuccess(data.hasClub, 200));
   })
   .catch(error => {
     throw new Error(error);
