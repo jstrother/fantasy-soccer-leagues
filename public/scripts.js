@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2376c7fed4b4716baf05"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "35a251c2df6801fa9cd0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37390,15 +37390,16 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-      console.log('fsComponent rosterLength:', rosterLength);
-      console.log('fsComponent this.props.fantasySchedule 1:', this.props.fantasySchedule);
-      console.log('fsComponent rosterLength === 23:', rosterLength === 23);
-      console.log('fsComponent this.props.fantasySchedule === {}:', this.props.fantasySchedule === {});
-      console.log('fsComponent this.props.fantasySchedule instanceof Object:', this.props.fantasySchedule instanceof Object);
-      console.log('fsComponent this.props.fantasySchedule 2:', this.props.fantasySchedule); // if (rosterLength === 23 && this.props.fantasySchedule === {}) {
-      // 	this.props.dispatch(createSchedule());
-      // }
+      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length; // console.log('fsComponent rosterLength:', rosterLength);
+      // console.log('fsComponent this.props.fantasySchedule:', this.props.fantasySchedule);
+      // console.log('fsComponent rosterLength === 23:', rosterLength === 23);
+      // console.log('fsComponent Object.keys(this.props.fantasySchedule).length === 0:', Object.keys(this.props.fantasySchedule).length === 0);
+      // console.log('fsComponent this.props.fantasySchedule instanceof Object:', this.props.fantasySchedule instanceof Object);
+      // console.log('fsComponent double-check this.props.fantasySchedule:', this.props.fantasySchedule);
+
+      if (rosterLength === 23 && Object.keys(this.props.fantasySchedule).length === 0) {
+        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
+      }
     }
   }, {
     key: "render",
@@ -39043,7 +39044,7 @@ var fantasyClubReducer = function fantasyClubReducer() {
         manager: action.fantasyClub.manager,
         clubName: action.fantasyClub.clubName,
         points: action.fantasyClub.points,
-        leagueScheduleId: action.fantasyClub.leagueSchedule,
+        leagueScheduleId: action.fantasyClub.leagueScheduleId,
         goalkeepers: action.fantasyClub.goalkeepers,
         defenders: action.fantasyClub.defenders,
         midfielders: action.fantasyClub.midfielders,

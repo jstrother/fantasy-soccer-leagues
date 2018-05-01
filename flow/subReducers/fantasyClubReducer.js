@@ -20,7 +20,7 @@ export const fantasyClubReducer = (state = initialState, action) => {
           manager: action.fantasyClub.manager,
           clubName: action.fantasyClub.clubName,
           points: action.fantasyClub.points,
-          leagueScheduleId: action.fantasyClub.leagueSchedule,
+          leagueScheduleId: action.fantasyClub.leagueScheduleId,
           goalkeepers: action.fantasyClub.goalkeepers,
           defenders: action.fantasyClub.defenders,
           midfielders: action.fantasyClub.midfielders,

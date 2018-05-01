@@ -30,12 +30,8 @@ function matchResolver(allWeeklyMatches) {
   let allScores = 0,
     counter = 0;
   
-  console.log('matchResolver allWeeklyMatches:', allWeeklyMatches);
-  
   allWeeklyMatches.forEach(weeklyMatches => {
     let matchArray = weeklyMatches.matches;
-    console.log('matchResolver today:', today);
-    console.log('weeklyMatches.datesToRun:', weeklyMatches.datesToRun);
     if (weeklyMatches.matchesResolved === false && today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
       matchArray.forEach(match => {
@@ -162,7 +158,7 @@ function scheduleCreator(clubArray) {
     
     // we do this so each club can be associated with a schedule to make record tracking easier
     clubArray.forEach(club => {
-      club.leagueSchedule.push(schedule._id);
+      club.leagueScheduleId = schedule._id;
     });
     
     do {
