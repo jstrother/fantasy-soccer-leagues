@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f2753430e00491964ec8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "455ef6b6c49aa0bd1858"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7170,7 +7170,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      console.error(error); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
@@ -11212,7 +11212,6 @@ var createSchedule = function createSchedule() {
 
       return res.json();
     }).then(function (fantasySchedule) {
-      console.log('fsActions scheduleCreator:', fantasySchedule);
       dispatch(createScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -11239,7 +11238,6 @@ var matchResolve = function matchResolve() {
 
       return res.json();
     }).then(function (weeklyMatches) {
-      console.log('fsActions weeklyMatches:', weeklyMatches);
       dispatch(matchResolveSuccess(weeklyMatches, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -37356,6 +37354,8 @@ var _warning = _interopRequireDefault(__webpack_require__(159));
 
 var _fantasyScheduleActions = __webpack_require__(90);
 
+var _once_function = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../server/programFunctions/once_function.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
 var _fantasySchedule = _interopRequireDefault(__webpack_require__(450));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -37390,15 +37390,10 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length; // console.log('fsComponent rosterLength:', rosterLength);
-      // console.log('fsComponent this.props.fantasySchedule:', this.props.fantasySchedule);
-      // console.log('fsComponent rosterLength === 23:', rosterLength === 23);
-      // console.log('fsComponent Object.keys(this.props.fantasySchedule).length === 0:', Object.keys(this.props.fantasySchedule).length === 0);
-      // console.log('fsComponent this.props.fantasySchedule instanceof Object:', this.props.fantasySchedule instanceof Object);
-      // console.log('fsComponent double-check this.props.fantasySchedule:', this.props.fantasySchedule);
+      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 
-      if (rosterLength === 23 && Object.keys(this.props.fantasySchedule).length === 0) {
-        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
+      if (rosterLength === 23 && !this.props.leagueScheduleId) {
+        (0, _once_function.once)(this.props.dispatch((0, _fantasyScheduleActions.createSchedule)()));
       }
     }
   }, {
@@ -37426,7 +37421,8 @@ var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
     midfielders: state.fantasyClubReducer.midfielders,
     forwards: state.fantasyClubReducer.forwards,
     accessToken: state.userReducer.accessToken,
-    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule
+    fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
+    leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
   };
 };
 
@@ -37457,6 +37453,8 @@ var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 var _fantasyMatch = _interopRequireDefault(__webpack_require__(442));
 
 var _fantasyScheduleActions = __webpack_require__(90);
+
+var _once_function = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../server/programFunctions/once_function.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 var _scheduleDisplay = _interopRequireDefault(__webpack_require__(444));
 
@@ -37492,8 +37490,10 @@ function (_React$Component) {
   _createClass(DisplaySchedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
-      this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+      if (this.props.leagueScheduleId) {
+        (0, _once_function.once)(this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId)));
+        this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+      }
     }
   }, {
     key: "render",
@@ -39031,7 +39031,8 @@ var initialState = {
   midfielders: [],
   forwards: [],
   starters: [],
-  benchwarmers: []
+  benchwarmers: [],
+  leagueScheduleId: null
 };
 
 var fantasyClubReducer = function fantasyClubReducer() {

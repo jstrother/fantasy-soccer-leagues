@@ -11,8 +11,10 @@ import styles from '../scss/scheduleDisplay.scss';
 
 export class DisplaySchedule extends React.Component {
   componentDidUpdate() {
-    this.props.dispatch(getSchedule(this.props.leagueScheduleId));
-    this.props.dispatch(matchResolve());
+    if (this.props.leagueScheduleId) {
+      this.props.dispatch(getSchedule(this.props.leagueScheduleId));
+      this.props.dispatch(matchResolve());
+    }
   }
   
   render() {

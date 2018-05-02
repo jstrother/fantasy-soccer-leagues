@@ -66,8 +66,7 @@ export const fetchUser = accessToken => dispatch => {
     dispatch(setUserSuccess(currentUser, 200));
   })
   .catch(error => {
-    console.error(error);
-    // throw new Error(error);
+    throw new Error(error);
   });
 };
 

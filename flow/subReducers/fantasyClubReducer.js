@@ -9,7 +9,8 @@ const initialState = {
   midfielders: [],
   forwards: [],
   starters: [],
-  benchwarmers: []
+  benchwarmers: [],
+  leagueScheduleId: null
 };
 
 export const fantasyClubReducer = (state = initialState, action) => {

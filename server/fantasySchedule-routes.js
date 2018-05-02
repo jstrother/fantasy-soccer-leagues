@@ -86,7 +86,6 @@ fantasyScheduleRouter.post('/matchResolver',
       if (error) {
         return () => {throw new Error(error)};
       }
-      console.log('fmRoutes allWeeklyMatches:', allWeeklyMatches);
       res.json(matchResolver(allWeeklyMatches));
     })
     .catch(error => {

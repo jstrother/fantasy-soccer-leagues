@@ -83,7 +83,6 @@ export const createSchedule = () => dispatch => {
     return res.json();
   })
   .then(fantasySchedule => {
-    console.log('fsActions scheduleCreator:', fantasySchedule);
     dispatch(createScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
@@ -107,7 +106,6 @@ export const matchResolve = () => dispatch => {
     return res.json();
   })
   .then(weeklyMatches => {
-    console.log('fsActions weeklyMatches:', weeklyMatches);
     dispatch(matchResolveSuccess(weeklyMatches, 200));
   })
   .catch(error => {

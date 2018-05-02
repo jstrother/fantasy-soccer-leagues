@@ -133,6 +133,12 @@ function scheduleCreator(clubArray) {
     }
   }
   
+  // we do this so each club can be associated with a schedule to make record tracking easier
+  clubArray.forEach(club => {
+    club.leagueScheduleId = schedule._id;
+    club.save();
+  });
+  
   arrayParser(clubArray, schedule.weeklyMatches.length);
   
   schedule.markModified('startDate');
@@ -155,11 +161,6 @@ function scheduleCreator(clubArray) {
     });
     
     schedule.weeklyMatches.push(weeklyMatches._id);
-    
-    // we do this so each club can be associated with a schedule to make record tracking easier
-    clubArray.forEach(club => {
-      club.leagueScheduleId = schedule._id;
-    });
     
     do {
       let firstTwoClubs = clubArray.slice(0, 2),
