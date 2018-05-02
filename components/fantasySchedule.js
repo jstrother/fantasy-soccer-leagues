@@ -9,13 +9,15 @@ import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
 import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidUpdate() {
 			let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-		if (rosterLength === 23 && !this.props.leagueScheduleId) {
+		if (rosterLength === 23 && Object.keys(this.props.fantasySchedule).length === 0) {
 			this.props.dispatch(createSchedule());
+			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 		}
 	}
 	render() {
@@ -40,6 +42,7 @@ export class Schedule extends React.Component {
 }
 
 const mapScheduleStateToProps = state => ({
+	userId: state.userReducer.userId,
 	clubName: state.fantasyClubReducer.clubName,
 	goalkeepers: state.fantasyClubReducer.goalkeepers,
 	defenders: state.fantasyClubReducer.defenders,
