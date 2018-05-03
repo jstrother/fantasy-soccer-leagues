@@ -5,8 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import FantasyMatch from './fantasyMatch.js';
-import { getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
-import { matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
+import { getSchedule, matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import styles from '../scss/scheduleDisplay.scss';
 
 export class DisplaySchedule extends React.Component {

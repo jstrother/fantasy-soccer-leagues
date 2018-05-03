@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f873682e80dbd1cdd81d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dcd5d1facaf13c15803c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37417,12 +37417,12 @@ exports.Schedule = Schedule;
 var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
   return {
     userId: state.userReducer.userId,
+    accessToken: state.userReducer.accessToken,
     clubName: state.fantasyClubReducer.clubName,
     goalkeepers: state.fantasyClubReducer.goalkeepers,
     defenders: state.fantasyClubReducer.defenders,
     midfielders: state.fantasyClubReducer.midfielders,
     forwards: state.fantasyClubReducer.forwards,
-    accessToken: state.userReducer.accessToken,
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
   };
