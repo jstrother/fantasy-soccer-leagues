@@ -15,7 +15,7 @@ import styles from '../scss/fantasySchedule.scss';
 export class Schedule extends React.Component {
 	componentDidUpdate() {
 		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-		if (rosterLength === 23 && Object.keys(this.props.fantasySchedule).length === 0) {
+		if (this.props.scheduleCreated === false && Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
 			this.props.dispatch(createSchedule());
 			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 		}
@@ -50,7 +50,8 @@ const mapScheduleStateToProps = state => ({
 	midfielders: state.fantasyClubReducer.midfielders,
 	forwards: state.fantasyClubReducer.forwards,
 	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
-	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
+	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
+	scheduleCreated: state.fantasyScheduleReducer.scheduleCreated
 });
 
 const FantasySchedule = connect(

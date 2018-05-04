@@ -9,6 +9,7 @@ export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: GET_SCHEDULE_SUCCESS,
   fantasySchedule,
+  scheduleFetched: true,
   statusCode
 });
 
@@ -22,6 +23,7 @@ export const CREATE_SCHEDULE_SUCCESS = 'CREATE_SCHEDULE_SUCCESS';
 export const createScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: CREATE_SCHEDULE_SUCCESS,
   fantasySchedule,
+  scheduleCreated: true,
   statusCode
 });
 
@@ -62,8 +64,7 @@ export const getSchedule = leagueScheduleId => dispatch => {
     dispatch(getScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
-    console.error(error);
-    // throw new Error(error);
+    throw new Error(error);
   });
 };
 

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dcd5d1facaf13c15803c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9b76d0bc68a5ec59b235"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3797,7 +3797,7 @@ var getClub = function getClub(accessToken, manager) {
     }).then(function (fantasyClub) {
       dispatch(getClubSuccess(fantasyClub, 200));
     }).catch(function (error) {
-      console.error(error); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
@@ -11107,6 +11107,7 @@ var getScheduleSuccess = function getScheduleSuccess(fantasySchedule, statusCode
   return {
     type: GET_SCHEDULE_SUCCESS,
     fantasySchedule: fantasySchedule,
+    scheduleFetched: true,
     statusCode: statusCode
   };
 };
@@ -11130,6 +11131,7 @@ var createScheduleSuccess = function createScheduleSuccess(fantasySchedule, stat
   return {
     type: CREATE_SCHEDULE_SUCCESS,
     fantasySchedule: fantasySchedule,
+    scheduleCreated: true,
     statusCode: statusCode
   };
 };
@@ -11188,7 +11190,7 @@ var getSchedule = function getSchedule(leagueScheduleId) {
       console.log('fsActions getSchedule:', fantasySchedule);
       dispatch(getScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
-      console.error(error); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
@@ -37392,7 +37394,7 @@ function (_React$Component) {
     value: function componentDidUpdate() {
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 
-      if (rosterLength === 23 && Object.keys(this.props.fantasySchedule).length === 0) {
+      if (this.props.scheduleCreated === false && Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
         this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
         this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
@@ -37424,7 +37426,8 @@ var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
     midfielders: state.fantasyClubReducer.midfielders,
     forwards: state.fantasyClubReducer.forwards,
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
-    leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
+    leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
+    scheduleCreated: state.fantasyScheduleReducer.scheduleCreated
   };
 };
 
@@ -37490,7 +37493,7 @@ function (_React$Component) {
   _createClass(DisplaySchedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (this.props.leagueScheduleId) {
+      if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
         this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
       }
@@ -37512,7 +37515,8 @@ exports.DisplaySchedule = DisplaySchedule;
 var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
   return {
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
-    leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
+    leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
+    scheduleFetched: state.fantasyScheduleReducer.scheduleFetched
   };
 };
 
@@ -39207,7 +39211,9 @@ var _fantasyScheduleActions = __webpack_require__(90);
 // ./flow/subReducers/fantasyScheduleReducer.js
 // imported into ./flow/reducers.js
 var initialState = {
-  fantasySchedule: {}
+  fantasySchedule: {},
+  scheduleFetched: false,
+  scheduleCreated: false
 };
 
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
@@ -39217,12 +39223,14 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
   switch (action.type) {
     case _fantasyScheduleActions.GET_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: action.fantasySchedule
+        fantasySchedule: action.fantasySchedule,
+        scheduleFetched: action.scheduleFetched
       });
 
     case _fantasyScheduleActions.CREATE_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: action.fantasySchedule
+        fantasySchedule: action.fantasySchedule,
+        scheduleCreated: action.scheduleCreated
       });
 
     case _fantasyScheduleActions.MATCH_RESOLVE_SUCCESS:

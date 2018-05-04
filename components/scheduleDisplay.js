@@ -10,7 +10,7 @@ import styles from '../scss/scheduleDisplay.scss';
 
 export class DisplaySchedule extends React.Component {
   componentDidUpdate() {
-    if (this.props.leagueScheduleId) {
+    if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
       this.props.dispatch(getSchedule(this.props.leagueScheduleId));
       this.props.dispatch(matchResolve());
     }
@@ -34,7 +34,8 @@ export class DisplaySchedule extends React.Component {
 
 const mapDisplayStateToProps = state => ({
   fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
-	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId
+	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
+	scheduleFetched: state.fantasyScheduleReducer.scheduleFetched
 });
 
 const ScheduleDisplay = connect(
