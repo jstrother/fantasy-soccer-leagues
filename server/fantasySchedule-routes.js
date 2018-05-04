@@ -3,6 +3,19 @@ const fantasyScheduleRouter = require("express").Router(),
   FantasySchedule = require("../models/fantasySchedule_model.js"),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { scheduleCreator, matchResolver } = require("./programFunctions/scheduleCreation_function.js");
+
+fantasyScheduleRouter.get('/',
+  (req, res) => {
+    FantasySchedule
+    .find()
+    .then(schedules => {
+      res.json(schedules);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
   
 fantasyScheduleRouter.get('/:leagueScheduleId',
   (req, res) => {

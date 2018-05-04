@@ -46,6 +46,39 @@ export const matchResolveFail = statusCode => ({
   statusCode
 });
 
+export const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
+export const fetchScheduleSuccess = statusCode => ({
+  type: FETCH_SCHEDULE_SUCCESS,
+  statusCode
+});
+
+export const FETCH_SCHEDULE_FAIL = 'FETCH_SCHEDULE_FAIL';
+export const fetchScheduleFail = statusCode => ({
+  type: FETCH_SCHEDULE_FAIL,
+  statusCode
+});
+
+export const fetchSchedule = () => dispatch => {
+  return fetch(`${thisURL}`)
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(fetchScheduleFail(res.status));
+        return;
+      }
+      dispatch(fetchScheduleFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    console.log('fsActions fetchSchedule data:', data);
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
+};
+
 export const getSchedule = leagueScheduleId => dispatch => {
   return fetch(`${thisURL}/${leagueScheduleId}`)
   .then(res => {
@@ -60,7 +93,6 @@ export const getSchedule = leagueScheduleId => dispatch => {
     return res.json();
   })
   .then(fantasySchedule => {
-    console.log('fsActions getSchedule:', fantasySchedule);
     dispatch(getScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {

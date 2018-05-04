@@ -6,7 +6,7 @@ import { CREATE_SCHEDULE_SUCCESS, CREATE_SCHEDULE_FAIL, GET_SCHEDULE_SUCCESS, GE
 const initialState = {
   fantasySchedule: {},
   scheduleFetched: false,
-  scheduleCreated: false
+  scheduleCreated: null
 };
 
 export const fantasyScheduleReducer = (state = initialState, action) => {

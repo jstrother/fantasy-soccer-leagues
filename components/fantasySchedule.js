@@ -8,16 +8,20 @@ import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { createSchedule, fetchSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidUpdate() {
+		this.props.dispatch(fetchSchedule());
+		// console.log('this.props.scheduleCreated:', this.props.scheduleCreated);
 		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-		if (this.props.scheduleCreated === false && Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
-			this.props.dispatch(createSchedule());
-			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+		if (Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
+			if (this.props.scheduleCreated === false) {
+				this.props.dispatch(createSchedule());
+				this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+			}
 		}
 	}
 	render() {

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9b76d0bc68a5ec59b235"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fd18c3ee1abd4928055e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11090,7 +11090,7 @@ exports.LEAGUE_IDS_NAMES = [{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.matchResolve = exports.createSchedule = exports.getSchedule = exports.matchResolveFail = exports.MATCH_RESOLVE_FAIL = exports.matchResolveSuccess = exports.MATCH_RESOLVE_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
+exports.matchResolve = exports.createSchedule = exports.getSchedule = exports.fetchSchedule = exports.fetchScheduleFail = exports.FETCH_SCHEDULE_FAIL = exports.fetchScheduleSuccess = exports.FETCH_SCHEDULE_SUCCESS = exports.matchResolveFail = exports.MATCH_RESOLVE_FAIL = exports.matchResolveSuccess = exports.MATCH_RESOLVE_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(37));
 
@@ -11171,6 +11171,52 @@ var matchResolveFail = function matchResolveFail(statusCode) {
 };
 
 exports.matchResolveFail = matchResolveFail;
+var FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
+exports.FETCH_SCHEDULE_SUCCESS = FETCH_SCHEDULE_SUCCESS;
+
+var fetchScheduleSuccess = function fetchScheduleSuccess(statusCode) {
+  return {
+    type: FETCH_SCHEDULE_SUCCESS,
+    statusCode: statusCode
+  };
+};
+
+exports.fetchScheduleSuccess = fetchScheduleSuccess;
+var FETCH_SCHEDULE_FAIL = 'FETCH_SCHEDULE_FAIL';
+exports.FETCH_SCHEDULE_FAIL = FETCH_SCHEDULE_FAIL;
+
+var fetchScheduleFail = function fetchScheduleFail(statusCode) {
+  return {
+    type: FETCH_SCHEDULE_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.fetchScheduleFail = fetchScheduleFail;
+
+var fetchSchedule = function fetchSchedule() {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(fetchScheduleFail(res.status));
+          return;
+        }
+
+        dispatch(fetchScheduleFail(500));
+        throw new Error(res.statusText);
+      }
+
+      return res.json();
+    }).then(function (data) {
+      console.log('fsActions fetchSchedule data:', data);
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.fetchSchedule = fetchSchedule;
 
 var getSchedule = function getSchedule(leagueScheduleId) {
   return function (dispatch) {
@@ -11187,7 +11233,6 @@ var getSchedule = function getSchedule(leagueScheduleId) {
 
       return res.json();
     }).then(function (fantasySchedule) {
-      console.log('fsActions getSchedule:', fantasySchedule);
       dispatch(getScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
       throw new Error(error);
@@ -37392,11 +37437,15 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      this.props.dispatch((0, _fantasyScheduleActions.fetchSchedule)()); // console.log('this.props.scheduleCreated:', this.props.scheduleCreated);
+
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 
-      if (this.props.scheduleCreated === false && Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
-        this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+      if (Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
+        if (this.props.scheduleCreated === false) {
+          this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
+          this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+        }
       }
     }
   }, {
@@ -37493,6 +37542,7 @@ function (_React$Component) {
   _createClass(DisplaySchedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      // console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
       if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
         this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
@@ -39213,7 +39263,7 @@ var _fantasyScheduleActions = __webpack_require__(90);
 var initialState = {
   fantasySchedule: {},
   scheduleFetched: false,
-  scheduleCreated: false
+  scheduleCreated: null
 };
 
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
