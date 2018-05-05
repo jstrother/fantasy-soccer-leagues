@@ -81,7 +81,6 @@ export const wasScheduleCreated = () => dispatch => {
     return res.json();
   })
   .then(data => {
-    console.log('fsActions wasScheduleCreated data:', data);
     if (data.length === 0) {
       dispatch(scheduleCreatedFalseSuccess(200));
     }

@@ -15,7 +15,6 @@ import styles from '../scss/fantasySchedule.scss';
 export class Schedule extends React.Component {
 	componentDidUpdate() {
 		this.props.dispatch(wasScheduleCreated());
-		console.log('this.props.scheduleCreated:', this.props.scheduleCreated);
 		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 		if (Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
 			if (this.props.scheduleUpdate === false && this.props.scheduleCreated === false) {
