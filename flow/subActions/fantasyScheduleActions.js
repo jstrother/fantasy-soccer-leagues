@@ -46,33 +46,45 @@ export const matchResolveFail = statusCode => ({
   statusCode
 });
 
-export const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
-export const fetchScheduleSuccess = statusCode => ({
-  type: FETCH_SCHEDULE_SUCCESS,
+export const SCHEDULE_CREATED_FALSE_SUCCESS = 'SCHEDULE_CREATED_FALSE_SUCCESS';
+export const scheduleCreatedFalseSuccess = statusCode => ({
+  type: SCHEDULE_CREATED_FALSE_SUCCESS,
+  scheduleCreated: false,
+  scheduleFetched: false,
   statusCode
 });
 
-export const FETCH_SCHEDULE_FAIL = 'FETCH_SCHEDULE_FAIL';
-export const fetchScheduleFail = statusCode => ({
-  type: FETCH_SCHEDULE_FAIL,
+export const SCHEDULE_CREATED_FAIL = 'SCHEDULE_CREATED_FAIL';
+export const scheduleCreatedFail = statusCode => ({
+  type: SCHEDULE_CREATED_FAIL,
   statusCode
 });
 
-export const fetchSchedule = () => dispatch => {
+export const SCHEDULE_UPDATING = 'SCHEDULE_UPDATING';
+export const scheduleUpdating = statusCode => ({
+  type: SCHEDULE_UPDATING,
+  scheduleUpdate: true,
+  statusCode
+});
+
+export const wasScheduleCreated = () => dispatch => {
   return fetch(`${thisURL}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
-        dispatch(fetchScheduleFail(res.status));
+        dispatch(scheduleCreatedFail(res.status));
         return;
       }
-      dispatch(fetchScheduleFail(500));
+      dispatch(scheduleCreatedFail(500));
       throw new Error(res.statusText);
     }
     return res.json();
   })
   .then(data => {
-    console.log('fsActions fetchSchedule data:', data);
+    console.log('fsActions wasScheduleCreated data:', data);
+    if (data.length === 0) {
+      dispatch(scheduleCreatedFalseSuccess(200));
+    }
   })
   .catch(error => {
     throw new Error(error);
@@ -101,6 +113,7 @@ export const getSchedule = leagueScheduleId => dispatch => {
 };
 
 export const createSchedule = () => dispatch => {
+  dispatch(scheduleUpdating(200));
   return fetch(`${thisURL}/scheduleCreator`, {
     method: 'POST'
   })

@@ -10,7 +10,7 @@ import styles from '../scss/scheduleDisplay.scss';
 
 export class DisplaySchedule extends React.Component {
   componentDidUpdate() {
-    // console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
+    console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
     if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
       this.props.dispatch(getSchedule(this.props.leagueScheduleId));
       this.props.dispatch(matchResolve());

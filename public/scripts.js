@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fd18c3ee1abd4928055e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a11f508f5f5a570d4eca"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11090,7 +11090,7 @@ exports.LEAGUE_IDS_NAMES = [{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.matchResolve = exports.createSchedule = exports.getSchedule = exports.fetchSchedule = exports.fetchScheduleFail = exports.FETCH_SCHEDULE_FAIL = exports.fetchScheduleSuccess = exports.FETCH_SCHEDULE_SUCCESS = exports.matchResolveFail = exports.MATCH_RESOLVE_FAIL = exports.matchResolveSuccess = exports.MATCH_RESOLVE_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
+exports.matchResolve = exports.createSchedule = exports.getSchedule = exports.wasScheduleCreated = exports.scheduleUpdating = exports.SCHEDULE_UPDATING = exports.scheduleCreatedFail = exports.SCHEDULE_CREATED_FAIL = exports.scheduleCreatedFalseSuccess = exports.SCHEDULE_CREATED_FALSE_SUCCESS = exports.matchResolveFail = exports.MATCH_RESOLVE_FAIL = exports.matchResolveSuccess = exports.MATCH_RESOLVE_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(37));
 
@@ -11171,52 +11171,70 @@ var matchResolveFail = function matchResolveFail(statusCode) {
 };
 
 exports.matchResolveFail = matchResolveFail;
-var FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
-exports.FETCH_SCHEDULE_SUCCESS = FETCH_SCHEDULE_SUCCESS;
+var SCHEDULE_CREATED_FALSE_SUCCESS = 'SCHEDULE_CREATED_FALSE_SUCCESS';
+exports.SCHEDULE_CREATED_FALSE_SUCCESS = SCHEDULE_CREATED_FALSE_SUCCESS;
 
-var fetchScheduleSuccess = function fetchScheduleSuccess(statusCode) {
+var scheduleCreatedFalseSuccess = function scheduleCreatedFalseSuccess(statusCode) {
   return {
-    type: FETCH_SCHEDULE_SUCCESS,
+    type: SCHEDULE_CREATED_FALSE_SUCCESS,
+    scheduleCreated: false,
+    scheduleFetched: false,
     statusCode: statusCode
   };
 };
 
-exports.fetchScheduleSuccess = fetchScheduleSuccess;
-var FETCH_SCHEDULE_FAIL = 'FETCH_SCHEDULE_FAIL';
-exports.FETCH_SCHEDULE_FAIL = FETCH_SCHEDULE_FAIL;
+exports.scheduleCreatedFalseSuccess = scheduleCreatedFalseSuccess;
+var SCHEDULE_CREATED_FAIL = 'SCHEDULE_CREATED_FAIL';
+exports.SCHEDULE_CREATED_FAIL = SCHEDULE_CREATED_FAIL;
 
-var fetchScheduleFail = function fetchScheduleFail(statusCode) {
+var scheduleCreatedFail = function scheduleCreatedFail(statusCode) {
   return {
-    type: FETCH_SCHEDULE_FAIL,
+    type: SCHEDULE_CREATED_FAIL,
     statusCode: statusCode
   };
 };
 
-exports.fetchScheduleFail = fetchScheduleFail;
+exports.scheduleCreatedFail = scheduleCreatedFail;
+var SCHEDULE_UPDATING = 'SCHEDULE_UPDATING';
+exports.SCHEDULE_UPDATING = SCHEDULE_UPDATING;
 
-var fetchSchedule = function fetchSchedule() {
+var scheduleUpdating = function scheduleUpdating(statusCode) {
+  return {
+    type: SCHEDULE_UPDATING,
+    scheduleUpdate: true,
+    statusCode: statusCode
+  };
+};
+
+exports.scheduleUpdating = scheduleUpdating;
+
+var wasScheduleCreated = function wasScheduleCreated() {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
-          dispatch(fetchScheduleFail(res.status));
+          dispatch(scheduleCreatedFail(res.status));
           return;
         }
 
-        dispatch(fetchScheduleFail(500));
+        dispatch(scheduleCreatedFail(500));
         throw new Error(res.statusText);
       }
 
       return res.json();
     }).then(function (data) {
-      console.log('fsActions fetchSchedule data:', data);
+      console.log('fsActions wasScheduleCreated data:', data);
+
+      if (data.length === 0) {
+        dispatch(scheduleCreatedFalseSuccess(200));
+      }
     }).catch(function (error) {
       throw new Error(error);
     });
   };
 };
 
-exports.fetchSchedule = fetchSchedule;
+exports.wasScheduleCreated = wasScheduleCreated;
 
 var getSchedule = function getSchedule(leagueScheduleId) {
   return function (dispatch) {
@@ -11244,6 +11262,7 @@ exports.getSchedule = getSchedule;
 
 var createSchedule = function createSchedule() {
   return function (dispatch) {
+    dispatch(scheduleUpdating(200));
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/scheduleCreator"), {
       method: 'POST'
     }).then(function (res) {
@@ -37437,12 +37456,12 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      this.props.dispatch((0, _fantasyScheduleActions.fetchSchedule)()); // console.log('this.props.scheduleCreated:', this.props.scheduleCreated);
-
+      this.props.dispatch((0, _fantasyScheduleActions.wasScheduleCreated)());
+      console.log('this.props.scheduleCreated:', this.props.scheduleCreated);
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 
       if (Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
-        if (this.props.scheduleCreated === false) {
+        if (this.props.scheduleUpdate === false && this.props.scheduleCreated === false) {
           this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
           this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
         }
@@ -37476,7 +37495,8 @@ var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
     forwards: state.fantasyClubReducer.forwards,
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
-    scheduleCreated: state.fantasyScheduleReducer.scheduleCreated
+    scheduleCreated: state.fantasyScheduleReducer.scheduleCreated,
+    scheduleUpdate: state.fantasyScheduleReducer.scheduleUpdate
   };
 };
 
@@ -37542,7 +37562,8 @@ function (_React$Component) {
   _createClass(DisplaySchedule, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      // console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
+      console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
+
       if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
         this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
@@ -39262,8 +39283,9 @@ var _fantasyScheduleActions = __webpack_require__(90);
 // imported into ./flow/reducers.js
 var initialState = {
   fantasySchedule: {},
-  scheduleFetched: false,
-  scheduleCreated: null
+  scheduleFetched: null,
+  scheduleCreated: null,
+  scheduleUpdate: false
 };
 
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
@@ -39290,6 +39312,18 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
         }
       });
 
+    case _fantasyScheduleActions.SCHEDULE_CREATED_FALSE_SUCCESS:
+      return Object.assign({}, state, {
+        scheduleCreated: action.scheduleCreated,
+        scheduleFetched: action.scheduleFetched
+      });
+
+    case _fantasyScheduleActions.SCHEDULE_UPDATING:
+      return Object.assign({}, state, {
+        scheduleUpdate: action.scheduleUpdate
+      });
+
+    case _fantasyScheduleActions.SCHEDULE_CREATED_FAIL:
     case _fantasyScheduleActions.MATCH_RESOLVE_FAIL:
     case _fantasyScheduleActions.GET_SCHEDULE_FAIL:
     case _fantasyScheduleActions.CREATE_SCHEDULE_FAIL:
