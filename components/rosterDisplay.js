@@ -39,13 +39,13 @@ export class Display extends React.Component {
 		this.props.starters.filter(p => {
 			let sListId = parseInt(p.idFromAPI, 10);
 			if (sListId === player.idFromAPI) {
-				this.props.dispatch(removeStarter(this.props.accessToken, p));
+				this.props.dispatch(removeStarter(this.props.accessToken, this.props.userId, p));
 			}
 		});
 		this.props.benchwarmers.filter(p => {
 			let bListId = parseInt(p.idFromAPI, 10);
 			if (bListId === player.idFromAPI) {
-				this.props.dispatch(removeBench(this.props.accessToken, p));
+				this.props.dispatch(removeBench(this.props.accessToken, this.props.userId, p));
 			}
 		});
   }
@@ -73,7 +73,7 @@ export class Display extends React.Component {
 			});
 			// if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
 			if (benchPlayerCheck.length === 0) {
-				this.props.dispatch(addStarter(this.props.accessToken, player));
+				this.props.dispatch(addStarter(this.props.accessToken, this.props.userId, player));
 			}
 		} else {
 			this.props.dispatch(warning('You already have 11 starters.'));
@@ -103,7 +103,7 @@ export class Display extends React.Component {
 			});
 			// if the player is not a starter, then starterCheck will not have anything in it and a length of 0
 			if (starterCheck.length === 0) {
-				this.props.dispatch(addBench(this.props.accessToken, player));
+				this.props.dispatch(addBench(this.props.accessToken, this.props.userId, player));
 			}
 		} else {
 			this.props.dispatch(warning('You already have 7 players on the bench.'));

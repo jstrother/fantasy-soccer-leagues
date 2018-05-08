@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f17ddfa7aafd43a3906e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "19630b206b22b323554d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3549,9 +3549,9 @@ var removeForward = function removeForward(accessToken, player) {
 
 exports.removeForward = removeForward;
 
-var addStarter = function addStarter(accessToken, player) {
+var addStarter = function addStarter(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addStarter"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addStarter/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3582,9 +3582,9 @@ var addStarter = function addStarter(accessToken, player) {
 
 exports.addStarter = addStarter;
 
-var removeStarter = function removeStarter(accessToken, player) {
+var removeStarter = function removeStarter(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeStarter"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeStarter/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3615,9 +3615,9 @@ var removeStarter = function removeStarter(accessToken, player) {
 
 exports.removeStarter = removeStarter;
 
-var addBench = function addBench(accessToken, player) {
+var addBench = function addBench(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addBench"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addBench/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3648,9 +3648,9 @@ var addBench = function addBench(accessToken, player) {
 
 exports.addBench = addBench;
 
-var removeBench = function removeBench(accessToken, player) {
+var removeBench = function removeBench(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeBench"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeBench/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37566,9 +37566,11 @@ function (_React$Component) {
 
       this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       setTimeout(function () {
-        _this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(_this.props.leagueScheduleId));
+        if (_this.props.leagueScheduleId !== undefined) {
+          _this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(_this.props.leagueScheduleId));
 
-        _this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+          _this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+        }
       }, 2000);
     }
   }, {
@@ -37774,6 +37776,7 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
+      console.log('this.props.starters:', this.props.starters);
       var starters = this.props.starters === undefined ? 0 : this.props.starters.length;
 
       if (starters > 0) {
@@ -38157,10 +38160,7 @@ function (_React$Component) {
             if (player.position === 'F' || player.position === 'Attacker') {
               positionChecker(player, this.props.forwards, _fantasyClubActions.addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
             }
-          } // else if (rosterTotal === 23 && scheduleLength < 1) {
-          // 	this.props.dispatch(createSchedule());
-          // }
-
+          }
         } else {
           this.props.dispatch((0, _warningActions.warning)("You have reached the maximum number of players from ".concat(player.clubName, ".")));
         }
@@ -38421,14 +38421,14 @@ function (_React$Component) {
         var sListId = parseInt(p.idFromAPI, 10);
 
         if (sListId === player.idFromAPI) {
-          _this.props.dispatch((0, _fantasyClubActions.removeStarter)(_this.props.accessToken, p));
+          _this.props.dispatch((0, _fantasyClubActions.removeStarter)(_this.props.accessToken, _this.props.userId, p));
         }
       });
       this.props.benchwarmers.filter(function (p) {
         var bListId = parseInt(p.idFromAPI, 10);
 
         if (bListId === player.idFromAPI) {
-          _this.props.dispatch((0, _fantasyClubActions.removeBench)(_this.props.accessToken, p));
+          _this.props.dispatch((0, _fantasyClubActions.removeBench)(_this.props.accessToken, _this.props.userId, p));
         }
       });
     }
@@ -38463,7 +38463,7 @@ function (_React$Component) {
         }); // if the player is not a bench player, then benchPlayerCheck will not have anything in it and a length of 0
 
         if (benchPlayerCheck.length === 0) {
-          this.props.dispatch((0, _fantasyClubActions.addStarter)(this.props.accessToken, player));
+          this.props.dispatch((0, _fantasyClubActions.addStarter)(this.props.accessToken, this.props.userId, player));
         }
       } else {
         this.props.dispatch((0, _warningActions.warning)('You already have 11 starters.'));
@@ -38500,7 +38500,7 @@ function (_React$Component) {
         }); // if the player is not a starter, then starterCheck will not have anything in it and a length of 0
 
         if (starterCheck.length === 0) {
-          this.props.dispatch((0, _fantasyClubActions.addBench)(this.props.accessToken, player));
+          this.props.dispatch((0, _fantasyClubActions.addBench)(this.props.accessToken, this.props.userId, player));
         }
       } else {
         this.props.dispatch((0, _warningActions.warning)('You already have 7 players on the bench.'));
@@ -39126,7 +39126,8 @@ var initialState = {
   forwards: [],
   starters: [],
   benchwarmers: [],
-  leagueScheduleId: null
+  leagueScheduleId: null,
+  clubFetched: false
 };
 
 var fantasyClubReducer = function fantasyClubReducer() {

@@ -241,11 +241,11 @@ fantasyClubRouter.post('/removeMidfielder',
   }
 );
 
-fantasyClubRouter.post('/addStarter', 
+fantasyClubRouter.post('/addStarter/:userId', 
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.starters,
+      {manager: req.params.userId},
       {$addToSet: {starters: req.body.player}}
     )
     .then(data => {
@@ -266,11 +266,11 @@ fantasyClubRouter.post('/addStarter',
   }
 );
 
-fantasyClubRouter.post('/removeStarter', 
+fantasyClubRouter.post('/removeStarter/:userId', 
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.starters,
+      {manager: req.params.userId},
       {$pull: {starters: req.body.player}}
     )
     .then(data => {
@@ -291,11 +291,11 @@ fantasyClubRouter.post('/removeStarter',
   }
 );
 
-fantasyClubRouter.post('/addBench', 
+fantasyClubRouter.post('/addBench/:userId', 
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.benchwarmers,
+      {manager: req.params.userId},
       {$addToSet: {benchwarmers: req.body.player}}
     )
     .then(data => {
@@ -316,11 +316,11 @@ fantasyClubRouter.post('/addBench',
   }
 );
 
-fantasyClubRouter.post('/removeBench', 
+fantasyClubRouter.post('/removeBench/:userId', 
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.benchwarmers,
+      {manager: req.params.userId},
       {$pull: {benchwarmers: req.body.player}}
     )
     .then(data => {

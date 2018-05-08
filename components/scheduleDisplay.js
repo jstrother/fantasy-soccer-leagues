@@ -13,8 +13,10 @@ export class DisplaySchedule extends React.Component {
   componentDidMount() {
     this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
     setTimeout(() => {
-      this.props.dispatch(getSchedule(this.props.leagueScheduleId));
-      this.props.dispatch(matchResolve());
+      if (this.props.leagueScheduleId !== undefined) {
+        this.props.dispatch(getSchedule(this.props.leagueScheduleId));
+        this.props.dispatch(matchResolve());
+      }
     }, 2000);
   }
   componentDidUpdate() {

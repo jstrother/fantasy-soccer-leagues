@@ -72,10 +72,7 @@ export class Selection extends React.Component {
 					if (player.position === 'F' || player.position === 'Attacker') {
 						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
 					}
-				} 
-				// else if (rosterTotal === 23 && scheduleLength < 1) {
-				// 	this.props.dispatch(createSchedule());
-				// }
+				}
 			}
 			else {
 				this.props.dispatch(warning(`You have reached the maximum number of players from ${player.clubName}.`));

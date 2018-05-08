@@ -499,8 +499,8 @@ export const removeForward = (accessToken, player) => dispatch => {
   });
 };
 
-export const addStarter = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addStarter`, {
+export const addStarter = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/addStarter/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -529,8 +529,8 @@ export const addStarter = (accessToken, player) => dispatch => {
   });
 };
 
-export const removeStarter = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/removeStarter`, {
+export const removeStarter = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/removeStarter/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -559,8 +559,8 @@ export const removeStarter = (accessToken, player) => dispatch => {
   });
 };
 
-export const addBench = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addBench`, {
+export const addBench = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/addBench/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -589,8 +589,8 @@ export const addBench = (accessToken, player) => dispatch => {
   });
 };
 
-export const removeBench = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/removeBench`, {
+export const removeBench = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/removeBench/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
