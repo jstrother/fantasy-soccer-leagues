@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "88461f7669bb3309912b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f17ddfa7aafd43a3906e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11107,6 +11107,7 @@ var getScheduleSuccess = function getScheduleSuccess(fantasySchedule, statusCode
   return {
     type: GET_SCHEDULE_SUCCESS,
     fantasySchedule: fantasySchedule,
+    scheduleCreated: true,
     scheduleFetched: true,
     statusCode: statusCode
   };
@@ -37561,21 +37562,27 @@ function (_React$Component) {
   _createClass(DisplaySchedule, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
-      this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
-      this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+      var _this = this;
+
+      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+      setTimeout(function () {
+        _this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(_this.props.leagueScheduleId));
+
+        _this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+      }, 2000);
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      console.log('this.props.userId:', this.props.userId);
       console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
       console.log('this.props.leagueScheduleId:', this.props.leagueScheduleId);
 
       if (!this.props.leagueScheduleId) {
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.userId));
+        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
 
-      if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
+      if (this.props.leagueScheduleId !== undefined && this.props.scheduleFetched === false) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
         this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
       }
@@ -39308,6 +39315,7 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
     case _fantasyScheduleActions.GET_SCHEDULE_SUCCESS:
       return Object.assign({}, state, {
         fantasySchedule: action.fantasySchedule,
+        scheduleCreated: action.scheduleCreated,
         scheduleFetched: action.scheduleFetched
       });
 

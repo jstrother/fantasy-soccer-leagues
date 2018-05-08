@@ -16,6 +16,7 @@ export const fantasyScheduleReducer = (state = initialState, action) => {
       return Object.assign({}, state,
         {
           fantasySchedule: action.fantasySchedule,
+          scheduleCreated: action.scheduleCreated,
           scheduleFetched: action.scheduleFetched
         }
       );

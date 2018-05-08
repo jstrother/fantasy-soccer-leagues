@@ -11,16 +11,20 @@ import styles from '../scss/scheduleDisplay.scss';
 
 export class DisplaySchedule extends React.Component {
   componentDidMount() {
-    this.props.dispatch(getSchedule(this.props.leagueScheduleId));
-    this.props.dispatch(matchResolve());
+    this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+    setTimeout(() => {
+      this.props.dispatch(getSchedule(this.props.leagueScheduleId));
+      this.props.dispatch(matchResolve());
+    }, 2000);
   }
   componentDidUpdate() {
+    console.log('this.props.userId:', this.props.userId);
     console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
     console.log('this.props.leagueScheduleId:', this.props.leagueScheduleId);
     if (!this.props.leagueScheduleId) {
-      this.props.dispatch(getClub(this.props.userId));
+      this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
     }
-    if (this.props.leagueScheduleId && this.props.scheduleFetched === false) {
+    if (this.props.leagueScheduleId !== undefined && this.props.scheduleFetched === false) {
       this.props.dispatch(getSchedule(this.props.leagueScheduleId));
       this.props.dispatch(matchResolve());
     }

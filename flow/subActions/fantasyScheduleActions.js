@@ -9,6 +9,7 @@ export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
   type: GET_SCHEDULE_SUCCESS,
   fantasySchedule,
+  scheduleCreated: true,
   scheduleFetched: true,
   statusCode
 });
