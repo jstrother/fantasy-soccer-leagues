@@ -143,13 +143,13 @@ export class Display extends React.Component {
 								Points Last Match
 							</th>
 							<th>
-								Make Starter?
+								Starter?
 							</th>
 							<th>
-								Have on Bench?
+								Reserve?
 							</th>
 							<th>
-								Remove from Roster
+								Remove
 							</th>
 						</tr>
 					</thead>
