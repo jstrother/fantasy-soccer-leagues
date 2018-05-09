@@ -61,16 +61,16 @@ export class Selection extends React.Component {
 				if (rosterTotal < 23) {
 					// in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
 					if (player.position === 'G' || player.position === 'Goalkeeper') {
-						positionChecker(player, this.props.goalkeepers, addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken);
+						positionChecker(player, this.props.goalkeepers, addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken, this.props.userId);
 					}
 					if (player.position === 'D' || player.position === 'Defender') {
-						positionChecker(player, this.props.defenders, addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken);
+						positionChecker(player, this.props.defenders, addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken, this.props.userId);
 					}
 					if (player.position === 'M' || player.position === 'Midfielder') {
-						positionChecker(player, this.props.midfielders, addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken);
+						positionChecker(player, this.props.midfielders, addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken, this.props.userId);
 					}
 					if (player.position === 'F' || player.position === 'Attacker') {
-						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
+						positionChecker(player, this.props.forwards, addForward, 'forward', 5, this.props.dispatch, this.props.accessToken, this.props.userId);
 					}
 				}
 			}
@@ -79,7 +79,7 @@ export class Selection extends React.Component {
 			}
 		}
 		
-		function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken) {
+		function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken, userId) {
 			if (positionProps.length < maxLength) {
 				// this filter function checks to see if the player is already on the roster
 				let positionCheck = positionProps.filter(p => {
@@ -89,7 +89,7 @@ export class Selection extends React.Component {
 					}
 				});
 				if (positionCheck.length === 0) {
-					dispatch(positionAsyncAdd(accessToken, playerArg));
+					dispatch(positionAsyncAdd(accessToken, userId, playerArg));
 				}
 			}
 			else {

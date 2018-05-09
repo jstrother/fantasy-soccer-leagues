@@ -20,9 +20,6 @@ export class DisplaySchedule extends React.Component {
     }, 2000);
   }
   componentDidUpdate() {
-    console.log('this.props.userId:', this.props.userId);
-    console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
-    console.log('this.props.leagueScheduleId:', this.props.leagueScheduleId);
     if (!this.props.leagueScheduleId) {
       this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
     }

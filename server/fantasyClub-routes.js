@@ -2,10 +2,10 @@ const mongoose = require("mongoose"),
 	fantasyClubRouter = require("express").Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');
 
-fantasyClubRouter.get('/:manager', 
+fantasyClubRouter.get('/:userId', 
   (req, res) => {
     FantasyClub
-    .findOne({manager: req.params.manager})
+    .findOne({manager: req.params.userId})
     .populate({
       path: 'manager',
       model: 'User'
@@ -41,17 +41,17 @@ fantasyClubRouter.put('/newClub',
   }
 );
 
-fantasyClubRouter.post('/addGoalkeeper',
+fantasyClubRouter.post('/addGoalkeeper/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.goalkeepers,
+      {manager: req.params.userId},
       {$addToSet: {goalkeepers: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.goalkeepers  
+        {manager: req.params.userId}  
       )
       .then(data => {
         res.json(data.goalkeepers);
@@ -66,17 +66,17 @@ fantasyClubRouter.post('/addGoalkeeper',
   }
 );
 
-fantasyClubRouter.post('/removeGoalkeeper',
+fantasyClubRouter.post('/removeGoalkeeper/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.goalkeepers,
+      {manager: req.params.userId},
       {$pull: {goalkeepers: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.goalkeepers
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.goalkeepers);
@@ -91,17 +91,17 @@ fantasyClubRouter.post('/removeGoalkeeper',
   }
 );
 
-fantasyClubRouter.post('/addDefender',
+fantasyClubRouter.post('/addDefender/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.defenders,
+      {manager: req.params.userId},
       {$addToSet: {defenders: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.defenders  
+        {manager: req.params.userId}  
       )
       .then(data => {
         res.json(data.defenders);
@@ -116,17 +116,17 @@ fantasyClubRouter.post('/addDefender',
   }
 );
 
-fantasyClubRouter.post('/removeDefender',
+fantasyClubRouter.post('/removeDefender/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.defenders,
+      {manager: req.params.userId},
       {$pull: {defenders: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.defenders
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.defenders);
@@ -141,17 +141,17 @@ fantasyClubRouter.post('/removeDefender',
   }
 );
 
-fantasyClubRouter.post('/addForward',
+fantasyClubRouter.post('/addForward/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.forwards,
+      {manager: req.params.userId},
       {$addToSet: {forwards: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.forwards  
+        {manager: req.params.userId}  
       )
       .then(data => {
         res.json(data.forwards);
@@ -166,17 +166,17 @@ fantasyClubRouter.post('/addForward',
   }
 );
 
-fantasyClubRouter.post('/removeForward',
+fantasyClubRouter.post('/removeForward/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.forwards,
+      {manager: req.params.userId},
       {$pull: {forwards: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.forwards  
+        {manager: req.params.userId}  
       )
       .then(data => {
         res.json(data.forwards);
@@ -191,17 +191,17 @@ fantasyClubRouter.post('/removeForward',
   }
 );
 
-fantasyClubRouter.post('/addMidfielder',
+fantasyClubRouter.post('/addMidfielder/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.midfielders,
+      {manager: req.params.userId},
       {$addToSet: {midfielders: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.midfielders  
+        {manager: req.params.userId}  
       )
       .then(data => {
         res.json(data.midfielders);
@@ -216,17 +216,17 @@ fantasyClubRouter.post('/addMidfielder',
   }
 );
 
-fantasyClubRouter.post('/removeMidfielder',
+fantasyClubRouter.post('/removeMidfielder/:userId{manager: req.params.userId}',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
-      req.params.midfielders,
+      {manager: req.params.userId},
       {$pull: {midfielders: req.body.player}}
     )
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.midfielders
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.midfielders);
@@ -251,7 +251,7 @@ fantasyClubRouter.post('/addStarter/:userId',
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.starters
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.starters);
@@ -276,7 +276,7 @@ fantasyClubRouter.post('/removeStarter/:userId',
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.starters
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.starters);
@@ -301,7 +301,7 @@ fantasyClubRouter.post('/addBench/:userId',
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.benchwarmers
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.benchwarmers);
@@ -326,7 +326,7 @@ fantasyClubRouter.post('/removeBench/:userId',
     .then(data => {
       FantasyClub
       .findOne(
-        req.params.benchwarmers
+        {manager: req.params.userId}
       )
       .then(data => {
         res.json(data.benchwarmers);

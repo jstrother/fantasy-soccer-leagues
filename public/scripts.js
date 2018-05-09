@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "19630b206b22b323554d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1477b8444632d454bf12"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37576,10 +37576,6 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      console.log('this.props.userId:', this.props.userId);
-      console.log('this.props.scheduleFetched:', this.props.scheduleFetched);
-      console.log('this.props.leagueScheduleId:', this.props.leagueScheduleId);
-
       if (!this.props.leagueScheduleId) {
         this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
@@ -38146,19 +38142,19 @@ function (_React$Component) {
           if (rosterTotal < 23) {
             // in each of the if blocks below, we check for position to add to the correct array, then check that array's length to make sure we are not exceeding the max number of players for that position
             if (player.position === 'G' || player.position === 'Goalkeeper') {
-              positionChecker(player, this.props.goalkeepers, _fantasyClubActions.addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken);
+              positionChecker(player, this.props.goalkeepers, _fantasyClubActions.addGoalkeeper, 'goalkeeper', 4, this.props.dispatch, this.props.accessToken, this.props.userId);
             }
 
             if (player.position === 'D' || player.position === 'Defender') {
-              positionChecker(player, this.props.defenders, _fantasyClubActions.addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken);
+              positionChecker(player, this.props.defenders, _fantasyClubActions.addDefender, 'defender', 7, this.props.dispatch, this.props.accessToken, this.props.userId);
             }
 
             if (player.position === 'M' || player.position === 'Midfielder') {
-              positionChecker(player, this.props.midfielders, _fantasyClubActions.addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken);
+              positionChecker(player, this.props.midfielders, _fantasyClubActions.addMidfielder, 'midfielder', 7, this.props.dispatch, this.props.accessToken, this.props.userId);
             }
 
             if (player.position === 'F' || player.position === 'Attacker') {
-              positionChecker(player, this.props.forwards, _fantasyClubActions.addForward, 'forward', 5, this.props.dispatch, this.props.accessToken);
+              positionChecker(player, this.props.forwards, _fantasyClubActions.addForward, 'forward', 5, this.props.dispatch, this.props.accessToken, this.props.userId);
             }
           }
         } else {
@@ -38166,7 +38162,7 @@ function (_React$Component) {
         }
       }
 
-      function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken) {
+      function positionChecker(playerArg, positionProps, positionAsyncAdd, positionName, maxLength, dispatch, accessToken, userId) {
         if (positionProps.length < maxLength) {
           // this filter function checks to see if the player is already on the roster
           var positionCheck = positionProps.filter(function (p) {
@@ -38177,7 +38173,7 @@ function (_React$Component) {
           });
 
           if (positionCheck.length === 0) {
-            dispatch(positionAsyncAdd(accessToken, playerArg));
+            dispatch(positionAsyncAdd(accessToken, userId, playerArg));
           }
         } else {
           dispatch((0, _warningActions.warning)("You have reached the maximum number of ".concat(positionName, "s.")));
@@ -38402,19 +38398,19 @@ function (_React$Component) {
       };
 
       if (player.position === 'G' || player.position === 'Goalkeeper') {
-        this.props.dispatch((0, _fantasyClubActions.removeGoalkeeper)(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeGoalkeeper)(this.props.accessToken, this.props.userId, player));
       }
 
       if (player.position === 'D' || player.position === 'Defender') {
-        this.props.dispatch((0, _fantasyClubActions.removeDefender)(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeDefender)(this.props.accessToken, this.props.userId, player));
       }
 
       if (player.position === 'M' || player.position === 'Midfielder') {
-        this.props.dispatch((0, _fantasyClubActions.removeMidfielder)(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeMidfielder)(this.props.accessToken, this.props.userId, player));
       }
 
       if (player.position === 'F' || player.position === 'Attacker') {
-        this.props.dispatch((0, _fantasyClubActions.removeForward)(this.props.accessToken, player));
+        this.props.dispatch((0, _fantasyClubActions.removeForward)(this.props.accessToken, this.props.userId, player));
       }
 
       this.props.starters.filter(function (p) {

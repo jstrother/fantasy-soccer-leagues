@@ -25,16 +25,16 @@ export class Display extends React.Component {
 			};
 		
 		if (player.position === 'G' || player.position === 'Goalkeeper') {
-			this.props.dispatch(removeGoalkeeper(this.props.accessToken, player));
+			this.props.dispatch(removeGoalkeeper(this.props.accessToken, this.props.userId, player));
 		}
 		if (player.position === 'D' || player.position === 'Defender') {
-			this.props.dispatch(removeDefender(this.props.accessToken, player));
+			this.props.dispatch(removeDefender(this.props.accessToken, this.props.userId, player));
 		}
 		if (player.position === 'M' || player.position === 'Midfielder') {
-			this.props.dispatch(removeMidfielder(this.props.accessToken, player));
+			this.props.dispatch(removeMidfielder(this.props.accessToken, this.props.userId, player));
 		}
 		if (player.position === 'F' || player.position === 'Attacker') {
-			this.props.dispatch(removeForward(this.props.accessToken, player));
+			this.props.dispatch(removeForward(this.props.accessToken, this.props.userId, player));
 		}
 		this.props.starters.filter(p => {
 			let sListId = parseInt(p.idFromAPI, 10);
