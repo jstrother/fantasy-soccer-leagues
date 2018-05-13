@@ -31,80 +31,93 @@ export class DisplaySchedule extends React.Component {
   }
   
   render() {
-    return(
-      <div>
-        <p>Previous Match:</p>
-        <FantasyMatch />
-        <br />
-        <p>Next Match:</p>
-        <FantasyMatch />
-        <br />
-        {/*schedule display needs to be its own component*/}
-        <p>Schedule:</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Home</th>
-              <th>Away</th>
-              <th>Date/Result</th>
-            </tr>
-          </thead>
-          {
-            this.props.fantasySchedule.weeklyMatches
-            // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
-            .sort((a, b) => compare(a.name, b.name))
-            .map(round => {
-              const matches = round.matches;
-              // create a table body for each round of the season
-              return(
-                <tbody
-                  key={round._id}
-                  id={`rnd-${round._id}`}>
-                  <tr>
-                    {round.name}
-                  </tr>
-                  {
-                    matches
-                    .map(match => {
-                      if (match.final === false) {
-                        return (
-                          <tr>
-                            <td>
-                              {match.homeClub}
-                            </td>
-                            <td>
-                              {match.awayClub}
-                            </td>
-                            <td>
-                              {round.datesToRun.toDateString()}
-                            </td>
-                          </tr>
-                        );
-                      }
-                      if (match.final === true) {
-                        return (
-                          <tr>
-                            <td>
-                              {match.homeClub}
-                            </td>
-                            <td>
-                              {match.awayClub}
-                            </td>
-                            <td>
-                              {match.homeScore}:{match.awayScore}
-                            </td>
-                          </tr>
-                        );
-                      }
-                    })
-                  }
-                </tbody>
-              );
-            })
-          }
-        </table>
-      </div>
-    );
+    if (this.props.fantasySchedule.weeklyMatches !== undefined) {
+      return(
+        <div>
+          <p>Previous Match:</p>
+          <FantasyMatch />
+          <br />
+          <p>Next Match:</p>
+          <FantasyMatch />
+          <br />
+          {/*schedule display needs to be its own component*/}
+          <p>Schedule:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Home</th>
+                <th>Away</th>
+                <th>Date/Result</th>
+              </tr>
+            </thead>
+            {
+              this.props.fantasySchedule.weeklyMatches
+              // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+              .sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in descending order
+              .map(round => {
+                const matches = round.matches;
+                // create a table body for each round of the season
+                return(
+                  <tbody
+                    key={round._id}
+                    id={`rnd-${round._id}`}>
+                    <tr>
+                      <td>
+                        {`Round ${round.roundNumber}`}
+                      </td>
+                    </tr>
+                    {
+                      matches
+                      .map(match => {
+                        if (match.final === false) {
+                          return (
+                            <tr
+                              key={round._id + match.homeClub._id}>
+                              <td>
+                                {match.homeClub.clubName}
+                              </td>
+                              <td>
+                                {match.awayClub.clubName}
+                              </td>
+                              <td>
+                                {round.datesToRun}
+                              </td>
+                            </tr>
+                          );
+                        }
+                        if (match.final === true) {
+                          return (
+                            <tr
+                              key={round._id + match.homeClub._id}>
+                              <td>
+                                {match.homeClub.clubName}
+                              </td>
+                              <td>
+                                {match.awayClub.clubName}
+                              </td>
+                              <td>
+                                {match.homeScore}:{match.awayScore}
+                              </td>
+                            </tr>
+                          );
+                        }
+                      })
+                    }
+                  </tbody>
+                );
+              })
+            }
+          </table>
+        </div>
+      );
+    }
+    else {
+      return(
+        <div>
+          <p>No schedule yet.</p>
+        </div>
+      );
+    }
   }
 }
 

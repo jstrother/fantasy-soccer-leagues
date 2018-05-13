@@ -125,9 +125,9 @@ export class Selection extends React.Component {
 										onChange={this.handlePositionChange.bind(this)}>
 										<option key={"1"} value={"allPositions"}>All Positions</option>
 										<option key={"2"} value={"forwards"}>Forwards</option>
-										<option key={"3"} value={"midfielders"}>Midfielders</option>
-										<option key={"4"} value={"defenders"}>Defenders</option>
-										<option key={"5"} value={"goalkeepers"}>Goalkeepers</option>
+										<option key={"3"} value={"midfielders"}>Midfielder</option>
+										<option key={"4"} value={"defenders"}>Defender</option>
+										<option key={"5"} value={"goalkeepers"}>Goalkeeper</option>
 									</select>
 								</th>
 								<th>

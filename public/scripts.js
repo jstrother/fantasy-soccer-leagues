@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "87b854dbdfd7aeddcc9d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e69209a66df107056a40"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3285,9 +3285,9 @@ var newClub = function newClub(accessToken, clubName, manager) {
 
 exports.newClub = newClub;
 
-var addGoalkeeper = function addGoalkeeper(accessToken, player) {
+var addGoalkeeper = function addGoalkeeper(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addGoalkeeper"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addGoalkeeper/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3318,9 +3318,9 @@ var addGoalkeeper = function addGoalkeeper(accessToken, player) {
 
 exports.addGoalkeeper = addGoalkeeper;
 
-var removeGoalkeeper = function removeGoalkeeper(accessToken, player) {
+var removeGoalkeeper = function removeGoalkeeper(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeGoalkeeper"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeGoalkeeper/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3351,9 +3351,9 @@ var removeGoalkeeper = function removeGoalkeeper(accessToken, player) {
 
 exports.removeGoalkeeper = removeGoalkeeper;
 
-var addDefender = function addDefender(accessToken, player) {
+var addDefender = function addDefender(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addDefender"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addDefender/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3384,9 +3384,9 @@ var addDefender = function addDefender(accessToken, player) {
 
 exports.addDefender = addDefender;
 
-var removeDefender = function removeDefender(accessToken, player) {
+var removeDefender = function removeDefender(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeDefender"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeDefender/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3417,9 +3417,9 @@ var removeDefender = function removeDefender(accessToken, player) {
 
 exports.removeDefender = removeDefender;
 
-var addMidfielder = function addMidfielder(accessToken, player) {
+var addMidfielder = function addMidfielder(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addMidfielder"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addMidfielder/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3450,9 +3450,9 @@ var addMidfielder = function addMidfielder(accessToken, player) {
 
 exports.addMidfielder = addMidfielder;
 
-var removeMidfielder = function removeMidfielder(accessToken, player) {
+var removeMidfielder = function removeMidfielder(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeMidfielder"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeMidfielder/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3483,9 +3483,9 @@ var removeMidfielder = function removeMidfielder(accessToken, player) {
 
 exports.removeMidfielder = removeMidfielder;
 
-var addForward = function addForward(accessToken, player) {
+var addForward = function addForward(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addForward"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addForward/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -3516,9 +3516,9 @@ var addForward = function addForward(accessToken, player) {
 
 exports.addForward = addForward;
 
-var removeForward = function removeForward(accessToken, player) {
+var removeForward = function removeForward(accessToken, userId, player) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeForward"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/removeForward/").concat(userId), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37590,25 +37590,34 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
-      .sort(function (a, b) {
-        return (0, _compare_function.compare)(a.name, b.name);
-      }).map(function (round) {
-        var matches = round.matches; // create a table body for each round of the season
+      if (this.props.fantasySchedule.weeklyMatches !== undefined) {
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+        .sort(function (a, b) {
+          return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
+        }) // it is this way to sort in descending order
+        .map(function (round) {
+          var matches = round.matches; // create a table body for each round of the season
 
-        return _react.default.createElement("tbody", {
-          key: round._id,
-          id: "rnd-".concat(round._id)
-        }, _react.default.createElement("tr", null, round.name), matches.map(function (match) {
-          if (match.final === false) {
-            return _react.default.createElement("tr", null, _react.default.createElement("td", null, match.homeClub), _react.default.createElement("td", null, match.awayClub), _react.default.createElement("td", null, round.datesToRun.toDateString()));
-          }
+          return _react.default.createElement("tbody", {
+            key: round._id,
+            id: "rnd-".concat(round._id)
+          }, _react.default.createElement("tr", null, _react.default.createElement("td", null, "Round ".concat(round.roundNumber))), matches.map(function (match) {
+            if (match.final === false) {
+              return _react.default.createElement("tr", {
+                key: round._id + match.homeClub._id
+              }, _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, round.datesToRun));
+            }
 
-          if (match.final === true) {
-            return _react.default.createElement("tr", null, _react.default.createElement("td", null, match.homeClub), _react.default.createElement("td", null, match.awayClub), _react.default.createElement("td", null, match.homeScore, ":", match.awayScore));
-          }
-        }));
-      })));
+            if (match.final === true) {
+              return _react.default.createElement("tr", {
+                key: round._id + match.homeClub._id
+              }, _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, match.homeScore, ":", match.awayScore));
+            }
+          }));
+        })));
+      } else {
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "No schedule yet."));
+      }
     }
   }]);
 
@@ -37738,7 +37747,9 @@ function compare(a, b) {
   }
 }
 
-module.exports = compare;
+module.exports = {
+  compare: compare
+};
 
 /***/ }),
 /* 445 */
@@ -38253,13 +38264,13 @@ function (_React$Component) {
         }, "Forwards"), _react.default.createElement("option", {
           key: "3",
           value: "midfielders"
-        }, "Midfielders"), _react.default.createElement("option", {
+        }, "Midfielder"), _react.default.createElement("option", {
           key: "4",
           value: "defenders"
-        }, "Defenders"), _react.default.createElement("option", {
+        }, "Defender"), _react.default.createElement("option", {
           key: "5",
           value: "goalkeepers"
-        }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, "Goalkeeper"))), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "clubsList",
           defaultValue: "allClubs",
           onChange: this.handleClubChange.bind(this)

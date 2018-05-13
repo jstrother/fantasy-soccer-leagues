@@ -3,7 +3,7 @@ const mongoose = require("mongoose"),
   
   weeklyMatchesSchema = Schema({
     _id: Schema.Types.ObjectId,
-    name: String,
+    roundNumber: Number,
     matches: [{type: Schema.Types.ObjectId, ref: 'FantasyMatch'}],
     matchesResolved: Boolean,
     datesToRun: Date

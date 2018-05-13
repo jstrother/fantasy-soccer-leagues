@@ -259,8 +259,8 @@ export const newClub = (accessToken, clubName, manager) => dispatch => {
   });
 };
 
-export const addGoalkeeper = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addGoalkeeper`, {
+export const addGoalkeeper = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/addGoalkeeper/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -289,8 +289,8 @@ export const addGoalkeeper = (accessToken, player) => dispatch => {
   });
 };
 
-export const removeGoalkeeper = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/removeGoalkeeper`, {
+export const removeGoalkeeper = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/removeGoalkeeper/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -319,8 +319,8 @@ export const removeGoalkeeper = (accessToken, player) => dispatch => {
   });
 };
 
-export const addDefender = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addDefender`, {
+export const addDefender = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/addDefender/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -349,8 +349,8 @@ export const addDefender = (accessToken, player) => dispatch => {
   });
 };
 
-export const removeDefender = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/removeDefender`, {
+export const removeDefender = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/removeDefender/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -379,8 +379,8 @@ export const removeDefender = (accessToken, player) => dispatch => {
   });
 };
 
-export const addMidfielder = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addMidfielder`, {
+export const addMidfielder = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/addMidfielder/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -409,8 +409,8 @@ export const addMidfielder = (accessToken, player) => dispatch => {
   });
 };
 
-export const removeMidfielder = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/removeMidfielder`, {
+export const removeMidfielder = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/removeMidfielder/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -439,8 +439,8 @@ export const removeMidfielder = (accessToken, player) => dispatch => {
   });
 };
 
-export const addForward = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/addForward`, {
+export const addForward = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/addForward/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -469,8 +469,8 @@ export const addForward = (accessToken, player) => dispatch => {
   });
 };
 
-export const removeForward = (accessToken, player) => dispatch => {
-  return fetch(`${thisURL}/removeForward`, {
+export const removeForward = (accessToken, userId, player) => dispatch => {
+  return fetch(`${thisURL}/removeForward/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

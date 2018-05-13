@@ -10,4 +10,6 @@ function compare(a, b) {
   }
 }
 
-module.exports = compare;
+module.exports = {
+  compare
+};

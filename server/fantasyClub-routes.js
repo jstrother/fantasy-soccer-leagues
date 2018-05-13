@@ -216,7 +216,7 @@ fantasyClubRouter.post('/addMidfielder/:userId',
   }
 );
 
-fantasyClubRouter.post('/removeMidfielder/:userId{manager: req.params.userId}',
+fantasyClubRouter.post('/removeMidfielder/:userId',
   (req, res) => {
     FantasyClub
     .findOneAndUpdate(
