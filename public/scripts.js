@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e69209a66df107056a40"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1963cae918fd2f189da4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1524,25 +1524,6 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(263);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(126);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(271);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
-
-
-
-
-
-
-/***/ }),
-/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1923,6 +1904,25 @@ var ReactComponentTreeHook = {
 
 module.exports = ReactComponentTreeHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(271);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
+
+
+
+
+
 
 /***/ }),
 /* 11 */
@@ -11252,7 +11252,8 @@ var getSchedule = function getSchedule(leagueScheduleId) {
     }).then(function (fantasySchedule) {
       dispatch(getScheduleSuccess(fantasySchedule, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      // throw new Error(error);
+      console.error(error);
     });
   };
 };
@@ -11743,7 +11744,7 @@ module.exports = getIteratorFn;
 
 
 var ReactCurrentOwner = __webpack_require__(14);
-var ReactComponentTreeHook = __webpack_require__(10);
+var ReactComponentTreeHook = __webpack_require__(9);
 var ReactElement = __webpack_require__(21);
 
 var checkReactTypeSpec = __webpack_require__(167);
@@ -16397,7 +16398,7 @@ exports.default = exports.Alert = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -16563,7 +16564,7 @@ var _react = _interopRequireDefault(__webpack_require__(4));
 
 var _reactDom = __webpack_require__(177);
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactTapEventPlugin = _interopRequireDefault(__webpack_require__(301));
 
@@ -17337,7 +17338,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
+  ReactComponentTreeHook = __webpack_require__(9);
 }
 
 var loggedTypeFailures = {};
@@ -17379,7 +17380,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(10);
+            ReactComponentTreeHook = __webpack_require__(9);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -20397,7 +20398,7 @@ module.exports = ReactOwner;
 
 var ReactInvalidSetStateWarningHook = __webpack_require__(189);
 var ReactHostOperationHistoryHook = __webpack_require__(190);
-var ReactComponentTreeHook = __webpack_require__(10);
+var ReactComponentTreeHook = __webpack_require__(9);
 var ExecutionEnvironment = __webpack_require__(7);
 
 var performanceNow = __webpack_require__(191);
@@ -24476,7 +24477,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
+  ReactComponentTreeHook = __webpack_require__(9);
 }
 
 function instantiateChild(childInstances, child, name, selfDebugID) {
@@ -24484,7 +24485,7 @@ function instantiateChild(childInstances, child, name, selfDebugID) {
   var keyUnique = childInstances[name] === undefined;
   if (process.env.NODE_ENV !== 'production') {
     if (!ReactComponentTreeHook) {
-      ReactComponentTreeHook = __webpack_require__(10);
+      ReactComponentTreeHook = __webpack_require__(9);
     }
     if (!keyUnique) {
       process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -25537,7 +25538,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
+  ReactComponentTreeHook = __webpack_require__(9);
 }
 
 var loggedTypeFailures = {};
@@ -25579,7 +25580,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(10);
+            ReactComponentTreeHook = __webpack_require__(9);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -25745,7 +25746,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(10);
+  ReactComponentTreeHook = __webpack_require__(9);
 }
 
 /**
@@ -25761,7 +25762,7 @@ function flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID
     var keyUnique = result[name] === undefined;
     if (process.env.NODE_ENV !== 'production') {
       if (!ReactComponentTreeHook) {
-        ReactComponentTreeHook = __webpack_require__(10);
+        ReactComponentTreeHook = __webpack_require__(9);
       }
       if (!keyUnique) {
         process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -28801,7 +28802,7 @@ module.exports = ReactMount.renderSubtreeIntoContainer;
 
 var DOMProperty = __webpack_require__(19);
 var EventPluginRegistry = __webpack_require__(41);
-var ReactComponentTreeHook = __webpack_require__(10);
+var ReactComponentTreeHook = __webpack_require__(9);
 
 var warning = __webpack_require__(2);
 
@@ -28915,7 +28916,7 @@ module.exports = ReactDOMUnknownPropertyHook;
 
 
 
-var ReactComponentTreeHook = __webpack_require__(10);
+var ReactComponentTreeHook = __webpack_require__(9);
 
 var warning = __webpack_require__(2);
 
@@ -28963,7 +28964,7 @@ module.exports = ReactDOMNullInputValuePropHook;
 
 
 var DOMProperty = __webpack_require__(19);
-var ReactComponentTreeHook = __webpack_require__(10);
+var ReactComponentTreeHook = __webpack_require__(9);
 
 var warning = __webpack_require__(2);
 
@@ -36275,7 +36276,7 @@ exports.default = exports.Header = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var Cookies = _interopRequireWildcard(__webpack_require__(433));
 
@@ -37122,7 +37123,7 @@ exports.default = exports.Home = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -37259,7 +37260,7 @@ exports.default = exports.FantasyTeam = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -37405,7 +37406,7 @@ exports.default = exports.Schedule = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -37518,7 +37519,7 @@ exports.default = exports.DisplaySchedule = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -37551,6 +37552,9 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+
+var sevenDays = 1000 * 60 * 60 * 24 * 7,
+    today = Date.now();
 
 var DisplaySchedule =
 /*#__PURE__*/
@@ -37590,8 +37594,23 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+        var previousRound = this.props.fantasySchedule.weeklyMatches.filter(function (round) {
+          var matchDates = new Date(round.datesToRun);
+
+          if (today - sevenDays <= matchDates.getTime() < today) {
+            return round;
+          }
+        });
+        var previousMatch = previousRound.filter(function (match) {
+          if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
+            return match;
+          }
+        });
+        console.log('previousMatch:', previousMatch[0]);
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
         }) // it is this way to sort in descending order
@@ -37605,7 +37624,7 @@ function (_React$Component) {
             if (match.final === false) {
               return _react.default.createElement("tr", {
                 key: round._id + match.homeClub._id
-              }, _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, round.datesToRun));
+              }, _react.default.createElement("td", null), _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, round.datesToRun));
             }
 
             if (match.final === true) {
@@ -37653,11 +37672,9 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.FantasyGame = void 0;
+exports.default = exports.FantasyMatch = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
-
-var _reactRedux = __webpack_require__(9);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -37683,38 +37700,30 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
 
-var FantasyGame =
+var FantasyMatch =
 /*#__PURE__*/
 function (_React$Component) {
-  function FantasyGame() {
-    _classCallCheck(this, FantasyGame);
+  function FantasyMatch() {
+    _classCallCheck(this, FantasyMatch);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FantasyGame).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(FantasyMatch).apply(this, arguments));
   }
 
-  _createClass(FantasyGame, [{
+  _createClass(FantasyMatch, [{
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
         className: _fantasyMatch.default.fantasyMatch
-      }, "Fantasy Match");
+      });
     }
   }]);
 
-  _inherits(FantasyGame, _React$Component);
+  _inherits(FantasyMatch, _React$Component);
 
-  return FantasyGame;
+  return FantasyMatch;
 }(_react.default.Component);
 
-exports.FantasyGame = FantasyGame;
-
-var mapMatchesStateToProps = function mapMatchesStateToProps(state) {
-  return {
-    state: state
-  };
-};
-
-var FantasyMatch = (0, _reactRedux.connect)(mapMatchesStateToProps)(FantasyGame);
+exports.FantasyMatch = FantasyMatch;
 
 var _default = (0, _reactCssModules.default)(FantasyMatch, _fantasyMatch.default);
 
@@ -37772,7 +37781,7 @@ exports.default = exports.Starters = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -37826,7 +37835,6 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      console.log('this.props.starters:', this.props.starters);
       var starters = this.props.starters === undefined ? 0 : this.props.starters.length;
 
       if (starters > 0) {
@@ -37892,7 +37900,7 @@ exports.default = exports.Bench = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -38025,7 +38033,7 @@ exports.default = exports.Roster = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -38098,7 +38106,7 @@ exports.default = exports.Selection = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -38393,7 +38401,7 @@ exports.default = exports.Display = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -38729,7 +38737,7 @@ exports.default = exports.Teammate = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(4));
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(10);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 

@@ -20,7 +20,6 @@ export class Starters extends React.Component {
     this.props.dispatch(removeStarter(this.props.accessToken, player));
   }
   render () {
-    console.log('this.props.starters:', this.props.starters);
     let starters = this.props.starters === undefined ? 0 : this.props.starters.length;
     if (starters > 0) {
       return(

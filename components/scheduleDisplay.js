@@ -10,6 +10,9 @@ import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import { compare } from '../server/programFunctions/compare_function.js';
 import styles from '../scss/scheduleDisplay.scss';
 
+const sevenDays = 1000 * 60 * 60 * 24 * 7,
+  today = Date.now();
+
 export class DisplaySchedule extends React.Component {
   componentDidMount() {
     this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
@@ -32,6 +35,18 @@ export class DisplaySchedule extends React.Component {
   
   render() {
     if (this.props.fantasySchedule.weeklyMatches !== undefined) {
+      const previousRound = this.props.fantasySchedule.weeklyMatches.filter(round => {
+        const matchDates = new Date(round.datesToRun);
+        if ((today - sevenDays) <= matchDates.getTime() < today) {
+          return round;
+        }
+      });
+      const previousMatch = previousRound.filter(match => {
+        if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
+          return match;
+        }
+      });
+      console.log('previousMatch:', previousMatch[0]);
       return(
         <div>
           <p>Previous Match:</p>
@@ -40,11 +55,11 @@ export class DisplaySchedule extends React.Component {
           <p>Next Match:</p>
           <FantasyMatch />
           <br />
-          {/*schedule display needs to be its own component*/}
           <p>Schedule:</p>
           <table>
             <thead>
               <tr>
+                <th>Round</th>
                 <th>Home</th>
                 <th>Away</th>
                 <th>Date/Result</th>
@@ -73,6 +88,7 @@ export class DisplaySchedule extends React.Component {
                           return (
                             <tr
                               key={round._id + match.homeClub._id}>
+                              <td></td>
                               <td>
                                 {match.homeClub.clubName}
                               </td>
