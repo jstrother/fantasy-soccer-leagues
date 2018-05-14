@@ -138,11 +138,10 @@ function scheduleCreator(clubArray) {
   // this function goes over clubArray and sets up a match between each pair
   function arrayParser (clubArray, roundNumber) {
     const controlClub = clubArray[clubArray.length / 2], // selects the club halfway down the array
-      adjustedRoundNumber = roundNumber + 1, // roundNumber starts at 0, rounds in real life start at 1
-      sevenDays = 1000 * 60 * 60 * 24 * 7 * (adjustedRoundNumber); // number of milliseconds of each weekly set of matches up to 38
+      sevenDays = 1000 * 60 * 60 * 24 * 7 * roundNumber; // number of milliseconds of each weekly set of matches up to 38
     let weeklyMatches = new WeeklyMatches({
       _id: new mongoose.Types.ObjectId(),
-      roundNumber: adjustedRoundNumber,
+      roundNumber: roundNumber + 1, // roundNumber starts at 0, rounds in real life start at 1
       matches: [],
       matchesResolved: false,
       datesToRun: new Date().setTime(schedule.startDate.getTime() + sevenDays)

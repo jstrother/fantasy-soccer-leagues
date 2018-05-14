@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1963cae918fd2f189da4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1aca7f3d0f7d2fd3f575"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37597,19 +37597,28 @@ function (_React$Component) {
       var _this2 = this;
 
       if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-        var previousRound = this.props.fantasySchedule.weeklyMatches.filter(function (round) {
+        var previousMatch, nextMatch;
+        this.props.fantasySchedule.weeklyMatches.forEach(function (round) {
           var matchDates = new Date(round.datesToRun);
 
-          if (today - sevenDays <= matchDates.getTime() < today) {
-            return round;
+          if (today - sevenDays <= matchDates.getTime() && matchDates.getTime() < today) {
+            round.matches.forEach(function (match) {
+              if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
+                previousMatch = match;
+              }
+            });
+          }
+
+          if (today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
+            round.matches.forEach(function (match) {
+              if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
+                nextMatch = match;
+              }
+            });
           }
         });
-        var previousMatch = previousRound.filter(function (match) {
-          if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
-            return match;
-          }
-        });
-        console.log('previousMatch:', previousMatch[0]);
+        console.log('previousMatch:', previousMatch);
+        console.log('nextMatch:', nextMatch);
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);

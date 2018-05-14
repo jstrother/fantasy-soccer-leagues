@@ -35,18 +35,27 @@ export class DisplaySchedule extends React.Component {
   
   render() {
     if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-      const previousRound = this.props.fantasySchedule.weeklyMatches.filter(round => {
+      let previousMatch,
+        nextMatch;
+      this.props.fantasySchedule.weeklyMatches.forEach(round => {
         const matchDates = new Date(round.datesToRun);
-        if ((today - sevenDays) <= matchDates.getTime() < today) {
-          return round;
+        if ((today - sevenDays) <= matchDates.getTime() && matchDates.getTime() < today) {
+          round.matches.forEach(match => {
+            if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
+              previousMatch = match;
+            }
+          });
+        }
+        if(today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
+          round.matches.forEach(match => {
+            if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
+              nextMatch = match;
+            }
+          });
         }
       });
-      const previousMatch = previousRound.filter(match => {
-        if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
-          return match;
-        }
-      });
-      console.log('previousMatch:', previousMatch[0]);
+      console.log('previousMatch:', previousMatch);
+      console.log('nextMatch:', nextMatch);
       return(
         <div>
           <p>Previous Match:</p>
