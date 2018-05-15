@@ -108,8 +108,7 @@ export const getSchedule = leagueScheduleId => dispatch => {
     dispatch(getScheduleSuccess(fantasySchedule, 200));
   })
   .catch(error => {
-    // throw new Error(error);
-    console.error(error);
+    throw new Error(error);
   });
 };
 

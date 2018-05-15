@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import FantasySchedule from './fantasySchedule.js';
 import Roster from './roster.js';
-import FantasyLeague from './fantasyLeague.js';
+import FantasyStandings from './fantasyStandings.js';
 import { getClub, newClub } from '../flow/subActions/fantasyClubActions.js';
 import { clubOwner } from '../flow/subActions/userActions.js';
 import styles from '../scss/fantasyClub.scss';
