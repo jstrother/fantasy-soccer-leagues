@@ -36,10 +36,13 @@ export class DisplaySchedule extends React.Component {
   render() {
     if (this.props.fantasySchedule.weeklyMatches !== undefined) {
       let previousMatch,
-        nextMatch;
+        previousRound,
+        nextMatch,
+        nextRound;
       this.props.fantasySchedule.weeklyMatches.forEach(round => {
         const matchDates = new Date(round.datesToRun);
         if ((today - sevenDays) <= matchDates.getTime() && matchDates.getTime() < today) {
+          previousRound = round;
           round.matches.forEach(match => {
             if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
               previousMatch = match;
@@ -47,6 +50,7 @@ export class DisplaySchedule extends React.Component {
           });
         }
         if(today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
+          nextRound = round;
           round.matches.forEach(match => {
             if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
               nextMatch = match;
@@ -54,15 +58,23 @@ export class DisplaySchedule extends React.Component {
           });
         }
       });
-      console.log('previousMatch:', previousMatch);
-      console.log('nextMatch:', nextMatch);
       return(
         <div>
           <p>Previous Match:</p>
-          <FantasyMatch />
+          <FantasyMatch 
+            homeClub={previousMatch.homeClub.clubName}
+            awayClub={previousMatch.awayClub.clubName}
+            homeScore={previousMatch.homeScore}
+            awayScore={previousMatch.awayScore}
+            matchDate={previousRound.datesToRun}/>
           <br />
           <p>Next Match:</p>
-          <FantasyMatch />
+          <FantasyMatch 
+            homeClub={nextMatch.homeClub.clubName}
+            awayClub={nextMatch.awayClub.clubName}
+            homeScore={null}
+            awayScore={null}
+            matchDate={nextRound.datesToRun}/>
           <br />
           <p>Schedule:</p>
           <table>

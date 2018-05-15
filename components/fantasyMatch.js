@@ -9,8 +9,16 @@ export class FantasyMatch extends React.Component {
 		return(
 			<div
 				className={styles.fantasyMatch}>
-				{/*{`Home: ${this.props.homeClub.clubName}`}*/}
-				{/*{`Away: ${this.props.awayClub.clubName}`}*/}
+				<p
+					className='homeClub'>{`Home: ${this.props.homeClub}`}</p>
+				<p
+					className={this.props.homeScore !== null ? 'homeScore' : styles.null}>{this.props.homeScore}</p>
+				<p
+					className='awayClub'>{`Away: ${this.props.awayClub}`}</p>
+				<p
+					className={this.props.awayScore !== null ? 'awayScore' : styles.null}>{this.props.awayScore}</p>
+				<p
+					className='matchDate'>{this.props.matchDate}</p>
 			</div>
 		);
 	}
