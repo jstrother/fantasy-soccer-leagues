@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5a6c9ac5c142b775debe"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ef3087fa5de58da6c186"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38742,7 +38742,7 @@ function (_React$Component) {
   _createClass(FantasyTable, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "Fantasy League Standings:");
+      return _react.default.createElement("div", null, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "Pts"))), _react.default.createElement("tbody", null)));
     }
   }]);
 

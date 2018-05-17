@@ -73,7 +73,7 @@ export class FantasyTeam extends React.Component {
 					</div>
 					<div
             className={styles.league}>
-            <FantasyLeague />
+            <FantasyStandings />
           </div>
 				</div>
 			);
