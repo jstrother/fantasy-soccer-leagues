@@ -19,10 +19,12 @@ function matchResolver(allWeeklyMatches) {
     counter = 0;
   
   allWeeklyMatches.forEach(weeklyMatches => {
+    // getting into this forEach block <--- IMPORTANT
     let matchArray = weeklyMatches.matches;
     if (today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
       matchArray.forEach(match => {
+        // not getting into this forEach block <--- IMPORTANT
         if (match.final === false) {
           if (match.homeClub.clubName !== 'Average') {
             match.homeClub.starters.forEach(starter => {
