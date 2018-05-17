@@ -13,7 +13,7 @@ function standingsCalculator(clubArray) {
 
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 function matchResolver(allWeeklyMatches) {
-  // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database and not hitting the fantasySchedule portion at all
+  // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
   const today = new Date().getTime();
   let allScores = 0,
     counter = 0;
@@ -55,9 +55,15 @@ function matchResolver(allWeeklyMatches) {
       matchArray.forEach(match => {
         if(match.homeClub.clubName === 'Average') {
           match.homeScore = allScores / counter;
+          match.homeClub.goalsFor += match.homeScore;
+          match.homeClub.goalsAgainst += match.awayScore;
+          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
         }
         if(match.awayClub.clubName === 'Average') {
           match.awayScore = allScores / counter;
+          match.awayClub.goalsFor += match.awayScore;
+          match.awayClub.goalsAgainst += match.homeScore;
+          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
         }
       });
       // finally, compare scores and add to correct "column" (W, D, L)
