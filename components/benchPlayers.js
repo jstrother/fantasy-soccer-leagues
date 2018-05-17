@@ -17,7 +17,7 @@ export class Bench extends React.Component {
         position: dataSet.position
       };
     
-    this.props.dispatch(removeBench(this.props.accessToken, player));
+    this.props.dispatch(removeBench(this.props.accessToken, this.props.userId, player));
   }
   render () {
 		let benchwarmers = this.props.benchwarmers === undefined ? 0 : this.props.benchwarmers.length;
@@ -82,6 +82,7 @@ export class Bench extends React.Component {
 }
 
 const mapBenchStateToProps = state => ({
+	userId: state.userReducer.userId,
 	accessToken: state.userReducer.accessToken,
   benchwarmers: state.fantasyClubReducer.benchwarmers
 });

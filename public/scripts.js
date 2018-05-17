@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ef3087fa5de58da6c186"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d0e59c172a57ea35011b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37362,7 +37362,7 @@ function (_React$Component) {
           className: _fantasyClub.default.rosterDiv
         }, _react.default.createElement(_roster.default, null)), _react.default.createElement("div", null, _react.default.createElement(_fantasySchedule.default, null)), _react.default.createElement("div", {
           className: _fantasyClub.default.league
-        }, _react.default.createElement(FantasyLeague, null)));
+        }, _react.default.createElement(_fantasyStandings.default, null)));
       }
     }
   }]);
@@ -37859,7 +37859,7 @@ function (_React$Component) {
         lastName: dataSet.lastname,
         position: dataSet.position
       };
-      this.props.dispatch((0, _fantasyClubActions.removeStarter)(this.props.accessToken, player));
+      this.props.dispatch((0, _fantasyClubActions.removeStarter)(this.props.accessToken, this.props.userId, player));
     }
   }, {
     key: "render",
@@ -37899,6 +37899,7 @@ exports.Starters = Starters;
 
 var mapStartersStateToProps = function mapStartersStateToProps(state) {
   return {
+    userId: state.userReducer.userId,
     accessToken: state.userReducer.accessToken,
     starters: state.fantasyClubReducer.starters
   };
@@ -37978,7 +37979,7 @@ function (_React$Component) {
         lastName: dataSet.lastname,
         position: dataSet.position
       };
-      this.props.dispatch((0, _fantasyClubActions.removeBench)(this.props.accessToken, player));
+      this.props.dispatch((0, _fantasyClubActions.removeBench)(this.props.accessToken, this.props.userId, player));
     }
   }, {
     key: "render",
@@ -38018,6 +38019,7 @@ exports.Bench = Bench;
 
 var mapBenchStateToProps = function mapBenchStateToProps(state) {
   return {
+    userId: state.userReducer.userId,
     accessToken: state.userReducer.accessToken,
     benchwarmers: state.fantasyClubReducer.benchwarmers
   };

@@ -20,7 +20,7 @@ function matchResolver(allWeeklyMatches) {
   
   allWeeklyMatches.forEach(weeklyMatches => {
     let matchArray = weeklyMatches.matches;
-    if (weeklyMatches.matchesResolved === false && today > weeklyMatches.datesToRun.getTime()) {
+    if (today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
       matchArray.forEach(match => {
         if (match.final === false) {

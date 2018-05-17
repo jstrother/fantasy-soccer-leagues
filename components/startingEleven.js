@@ -17,7 +17,7 @@ export class Starters extends React.Component {
         position: dataSet.position
       };
     
-    this.props.dispatch(removeStarter(this.props.accessToken, player));
+    this.props.dispatch(removeStarter(this.props.accessToken, this.props.userId, player));
   }
   render () {
     let starters = this.props.starters === undefined ? 0 : this.props.starters.length;
@@ -82,6 +82,7 @@ export class Starters extends React.Component {
 }
 
 const mapStartersStateToProps = state => ({
+  userId: state.userReducer.userId,
   accessToken: state.userReducer.accessToken,
   starters: state.fantasyClubReducer.starters
 });
