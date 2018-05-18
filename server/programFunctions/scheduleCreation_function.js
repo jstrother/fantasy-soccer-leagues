@@ -15,51 +15,47 @@ function standingsCalculator(clubArray) {
 function matchResolver(allWeeklyMatches) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
   const today = new Date().getTime();
-  let allScores = 0,
-    counter = 0;
   
   allWeeklyMatches.forEach(weeklyMatches => {
-    let matchArray = weeklyMatches.matches;
+    let allScores = 0,
+      matchArray = weeklyMatches.matches;
     if (today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
       matchArray.forEach(match => {
         if (match.final === false) {
           if (match.homeClub.clubName !== 'Average') {
             match.homeClub.starters.forEach(starter => {
-              console.log('starter:', starter);
               match.homeScore += starter.fantasyPoints.fixture;
-              counter++;
+              match.homeClub.goalsFor += match.homeScore;
+              match.homeClub.goalsAgainst += match.awayScore;
+              match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+              allScores += match.homeScore;
+              match.final = true;
             });
           }
           if (match.awayClub.clubName !== 'Average') {
             match.awayClub.starters.forEach(starter => {
               match.awayScore += starter.fantasyPoints.fixture;
-              counter++;
+              match.awayClub.goalsFor += match.awayScore;
+              match.awayClub.goalsAgainst += match.homeScore;
+              match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+              allScores += match.awayScore;
+              match.final = true;
             });
           }
-          match.final = true;
-          
-          match.homeClub.goalsFor += match.homeScore;
-          match.homeClub.goalsAgainst += match.awayScore;
-          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
-          allScores += match.homeScore;
-          
-          match.awayClub.goalsFor += match.awayScore;
-          match.awayClub.goalsAgainst += match.homeScore;
-          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-          allScores += match.awayScore;
         }
       });
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
         if(match.homeClub.clubName === 'Average') {
-          match.homeScore = allScores / counter;
+          console.log('allScores:', allScores);
+          match.homeScore = allScores / (matchArray.length - 1);
           match.homeClub.goalsFor += match.homeScore;
           match.homeClub.goalsAgainst += match.awayScore;
           match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
         }
         if(match.awayClub.clubName === 'Average') {
-          match.awayScore = allScores / counter;
+          match.awayScore = allScores / (matchArray.length - 1);
           match.awayClub.goalsFor += match.awayScore;
           match.awayClub.goalsAgainst += match.homeScore;
           match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;

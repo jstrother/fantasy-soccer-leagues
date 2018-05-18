@@ -1,4 +1,4 @@
-// components/fantasyLeague.js
+// components/fantasyStandings.js
 
 import React from 'react';
 import { connect } from 'react-redux';

@@ -4,7 +4,7 @@ const fantasyScheduleRouter = require("express").Router(),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { scheduleCreator, matchResolver } = require("./programFunctions/scheduleCreation_function.js");
 
-fantasyScheduleRouter.get('/matchResolver',
+fantasyScheduleRouter.post('/matchResolver',
   (req, res) => {
     WeeklyMatches
     .find()

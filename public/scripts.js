@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "97b396e56a18202497b9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "976cc08a2cf3f707e6a2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11288,7 +11288,9 @@ exports.createSchedule = createSchedule;
 
 var matchResolve = function matchResolve() {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/matchResolver")).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/matchResolver"), {
+      method: 'POST'
+    }).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(matchResolveFail(res.status));
