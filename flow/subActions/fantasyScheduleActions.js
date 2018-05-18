@@ -137,9 +137,7 @@ export const createSchedule = () => dispatch => {
 };
 
 export const matchResolve = () => dispatch => {
-  return fetch(`${thisURL}/matchResolver`, {
-    method: 'POST'
-  })
+  return fetch(`${thisURL}/matchResolver`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {

@@ -4,6 +4,30 @@ const fantasyScheduleRouter = require("express").Router(),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   { scheduleCreator, matchResolver } = require("./programFunctions/scheduleCreation_function.js");
 
+fantasyScheduleRouter.get('/matchResolver',
+  (req, res) => {
+    WeeklyMatches
+    .find()
+    .populate({
+      path: 'matches',
+      model: 'FantasyMatch',
+      populate: {
+        path: 'homeClub awayClub',
+        model: 'FantasyClub'
+      }
+    })
+    .exec((error, allWeeklyMatches) => {
+      if (error) {
+        return () => {throw new Error(error)};
+      }
+      res.json(matchResolver(allWeeklyMatches));
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
+
 fantasyScheduleRouter.get('/',
   (req, res) => {
     FantasySchedule
@@ -76,30 +100,6 @@ fantasyScheduleRouter.post('/scheduleCreator',
       .catch(error => {
         throw new Error(error);
       });
-    })
-    .catch(error => {
-      throw new Error(error);
-    });
-  }
-);
-
-fantasyScheduleRouter.post('/matchResolver',
-  (req, res) => {
-    WeeklyMatches
-    .find()
-    .populate({
-      path: 'matches',
-      model: 'FantasyMatch',
-      populate: {
-        path: 'homeClub awayClub',
-        model: 'FantasyClub'
-      }
-    })
-    .exec((error, allWeeklyMatches) => {
-      if (error) {
-        return () => {throw new Error(error)};
-      }
-      res.json(matchResolver(allWeeklyMatches));
     })
     .catch(error => {
       throw new Error(error);

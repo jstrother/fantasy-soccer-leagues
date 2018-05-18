@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d0e59c172a57ea35011b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "97b396e56a18202497b9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11288,9 +11288,7 @@ exports.createSchedule = createSchedule;
 
 var matchResolve = function matchResolve() {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/matchResolver"), {
-      method: 'POST'
-    }).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/matchResolver")).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(matchResolveFail(res.status));
@@ -38630,6 +38628,7 @@ function (_React$Component) {
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
           "data-position": p.position,
+          "data-points": p.fantasyPoints.fixture,
           onClick: _this4.addStartingPlayer.bind(_this4)
         }, "Make Starter"), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,
@@ -38637,6 +38636,7 @@ function (_React$Component) {
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
           "data-position": p.position,
+          "data-points": p.fantasyPoints.fixture,
           onClick: _this4.addBenchPlayer.bind(_this4)
         }, "Have on Bench"), _react.default.createElement("td", {
           className: _rosterDisplay.default.pointer,

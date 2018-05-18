@@ -182,6 +182,7 @@ export class Display extends React.Component {
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
 											data-position={p.position}
+											data-points={p.fantasyPoints.fixture}
 											onClick={this.addStartingPlayer.bind(this)}>
 											Make Starter
 										</td>
@@ -191,6 +192,7 @@ export class Display extends React.Component {
 											data-firstname={p.firstName}
 											data-lastname={p.lastName}
 											data-position={p.position}
+											data-points={p.fantasyPoints.fixture}
 											onClick={this.addBenchPlayer.bind(this)}>
 											Have on Bench
 										</td>
