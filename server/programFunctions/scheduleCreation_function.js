@@ -14,9 +14,12 @@ function standingsCalculator(clubArray) {
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 function matchResolver(allWeeklyMatches) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
+  // console.log('allWeeklyMatches:', allWeeklyMatches);
   const today = new Date().getTime();
+    // console.log('first week:', allWeeklyMatches[0].matches);
   
   allWeeklyMatches.forEach(weeklyMatches => {
+    // weeklyMatches is one week's worth of matches
     let allScores = 0,
       matchArray = weeklyMatches.matches;
     if (today > weeklyMatches.datesToRun.getTime()) {
@@ -26,22 +29,24 @@ function matchResolver(allWeeklyMatches) {
           if (match.homeClub.clubName !== 'Average') {
             match.homeClub.starters.forEach(starter => {
               match.homeScore += starter.fantasyPoints.fixture;
-              match.homeClub.goalsFor += match.homeScore;
-              match.homeClub.goalsAgainst += match.awayScore;
-              match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
-              allScores += match.homeScore;
-              match.final = true;
             });
+            match.homeClub.goalsFor += match.homeScore;
+            match.homeClub.goalsAgainst += match.awayScore;
+            match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+            allScores += match.homeScore;
+            console.log('homeClub allScores:', allScores);
+            match.final = true;
           }
           if (match.awayClub.clubName !== 'Average') {
             match.awayClub.starters.forEach(starter => {
               match.awayScore += starter.fantasyPoints.fixture;
-              match.awayClub.goalsFor += match.awayScore;
-              match.awayClub.goalsAgainst += match.homeScore;
-              match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-              allScores += match.awayScore;
-              match.final = true;
             });
+            match.awayClub.goalsFor += match.awayScore;
+            match.awayClub.goalsAgainst += match.homeScore;
+            match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+            allScores += match.awayScore;
+            console.log('awayClub allScores:', allScores);
+            match.final = true;
           }
         }
       });
