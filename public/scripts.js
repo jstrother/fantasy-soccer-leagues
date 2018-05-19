@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9a2adb5db57cf1974f29"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7ec364e95de0e4749166"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37574,7 +37574,9 @@ function (_React$Component) {
         if (_this.props.leagueScheduleId !== undefined) {
           _this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(_this.props.leagueScheduleId));
 
-          _this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+          if (_this.props.starters.length + _this.props.benchwarmers.length === 18) {
+            _this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+          }
         }
       }, 2000);
     }
@@ -37587,7 +37589,10 @@ function (_React$Component) {
 
       if (this.props.leagueScheduleId !== undefined && this.props.scheduleFetched === false) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
-        this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+
+        if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+          this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+        }
       }
     }
   }, {
@@ -37672,7 +37677,9 @@ var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
     userId: state.userReducer.userId,
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
-    scheduleFetched: state.fantasyScheduleReducer.scheduleFetched
+    scheduleFetched: state.fantasyScheduleReducer.scheduleFetched,
+    starters: state.fantasyClubReducer.starters,
+    benchwarmers: state.fantasyClubReducer.benchwarmers
   };
 };
 
@@ -39245,7 +39252,13 @@ var initialState = {
   starters: [],
   benchwarmers: [],
   leagueScheduleId: null,
-  clubFetched: false
+  clubFetched: false,
+  wins: 0,
+  draws: 0,
+  losses: 0,
+  goalsFor: 0,
+  goalsAgainst: 0,
+  goalDifferential: 0
 };
 
 var fantasyClubReducer = function fantasyClubReducer() {

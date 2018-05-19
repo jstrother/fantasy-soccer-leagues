@@ -50,6 +50,8 @@ function matchResolver(allWeeklyMatches, clubArray) {
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
+        console.log('homeClub goalsFor:', match.homeClub.goalsFor);
+        console.log('awayClub goalsFor:', match.awayClub.goalsFor);
         match.homeClub.goalsFor += match.homeScore;
         match.homeClub.goalsAgainst += match.awayScore;
         match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
@@ -74,8 +76,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
           match.awayClub.draws += 1;
           match.awayClub.points += 1;
         }
-        console.log('homeClub:', match.homeClub);
-        console.log('awayClub:', match.awayClub);
         match.final = true;
       });
       weeklyMatches.matchesResolved = true;
