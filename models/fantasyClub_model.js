@@ -18,7 +18,7 @@ const mongoose = require('mongoose'),
 		goalsFor: Number,
 		goalsAgainst: Number,
 		goalDifferential: Number
-		// ranking starts with points, then goalDifferential, then goalsFor
+		// ranking starts with points, then goalDifferential, then goalsFor, finally goalsAgainst
 	}),
 
 	FantasyClub = mongoose.model('FantasyClub', fantasyClubSchema);

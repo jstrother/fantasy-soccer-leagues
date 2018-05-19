@@ -7,16 +7,14 @@ const mongoose = require('mongoose'),
   { compare } = require("../../server/programFunctions/compare_function.js");
 
 function standingsCalculator(clubArray) {
-  clubArray.sort((a, b) => compare(a.points, b.points) || compare(a.goalDifferential, b.goalDifferential) || compare(a.goalsFor, b.goalsFor));
+  clubArray.sort((a, b) => compare(a.points, b.points) || compare(a.goalDifferential, b.goalDifferential) || compare(a.goalsFor, b.goalsFor) || compare(b.goalsAgainst, a.goalsAgainst));
   return clubArray;
 }
 
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
-function matchResolver(allWeeklyMatches) {
+function matchResolver(allWeeklyMatches, clubArray) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
-  // console.log('allWeeklyMatches:', allWeeklyMatches);
   const today = new Date().getTime();
-    // console.log('first week:', allWeeklyMatches[0].matches);
   
   allWeeklyMatches.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
@@ -30,44 +28,36 @@ function matchResolver(allWeeklyMatches) {
             match.homeClub.starters.forEach(starter => {
               match.homeScore += starter.fantasyPoints.fixture;
             });
-            match.homeClub.goalsFor += match.homeScore;
-            match.homeClub.goalsAgainst += match.awayScore;
-            match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
             allScores += match.homeScore;
-            console.log('homeClub allScores:', allScores);
-            match.final = true;
           }
           if (match.awayClub.clubName !== 'Average') {
             match.awayClub.starters.forEach(starter => {
               match.awayScore += starter.fantasyPoints.fixture;
             });
-            match.awayClub.goalsFor += match.awayScore;
-            match.awayClub.goalsAgainst += match.homeScore;
-            match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
             allScores += match.awayScore;
-            console.log('awayClub allScores:', allScores);
-            match.final = true;
           }
         }
       });
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
+        // we take one less than the total clubArray.length as we need the average of all human-operated fantasyClubs
         if(match.homeClub.clubName === 'Average') {
-          console.log('allScores:', allScores);
-          match.homeScore = allScores / (matchArray.length - 1);
-          match.homeClub.goalsFor += match.homeScore;
-          match.homeClub.goalsAgainst += match.awayScore;
-          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+          match.homeScore = allScores / (clubArray.length - 1);
         }
         if(match.awayClub.clubName === 'Average') {
-          match.awayScore = allScores / (matchArray.length - 1);
-          match.awayClub.goalsFor += match.awayScore;
-          match.awayClub.goalsAgainst += match.homeScore;
-          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+          match.awayScore = allScores / (clubArray.length - 1);
         }
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
+        match.homeClub.goalsFor += match.homeScore;
+        match.homeClub.goalsAgainst += match.awayScore;
+        match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+        
+        match.awayClub.goalsFor += match.awayScore;
+        match.awayClub.goalsAgainst += match.homeScore;
+        match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+        
         if (match.homeScore > match.awayScore) {
           match.homeClub.wins += 1;
           match.homeClub.points += 3;
@@ -84,6 +74,9 @@ function matchResolver(allWeeklyMatches) {
           match.awayClub.draws += 1;
           match.awayClub.points += 1;
         }
+        console.log('homeClub:', match.homeClub);
+        console.log('awayClub:', match.awayClub);
+        match.final = true;
       });
       weeklyMatches.matchesResolved = true;
     }
