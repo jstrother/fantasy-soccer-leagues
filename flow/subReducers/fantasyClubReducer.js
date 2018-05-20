@@ -40,7 +40,8 @@ export const fantasyClubReducer = (state = initialState, action) => {
           losses: action.fantasyClub.losses,
           goalsFor: action.fantasyClub.goalsFor,
           goalsAgainst: action.fantasyClub.goalsAgainst,
-          goalDifferential: action.fantasyClub.goalDifferential
+          goalDifferential: action.fantasyClub.goalDifferential,
+          clubFetched: action.clubFetched
         }
       );
     case NEW_CLUB_SUCCESS:

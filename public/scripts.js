@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7ec364e95de0e4749166"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9c22e8ad5cee3cab22c0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -2882,6 +2882,7 @@ var getClubSuccess = function getClubSuccess(fantasyClub, statusCode) {
   return {
     type: GET_CLUB_SUCCESS,
     fantasyClub: fantasyClub,
+    clubFetched: true,
     statusCode: statusCode
   };
 };
@@ -2893,6 +2894,7 @@ exports.GET_CLUB_FAIL = GET_CLUB_FAIL;
 var getClubFail = function getClubFail(statusCode) {
   return {
     type: GET_CLUB_FAIL,
+    clubFetched: false,
     statusCode: statusCode
   };
 };
@@ -37569,7 +37571,10 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this = this;
 
-      this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+      if (this.props.clubFetched === false) {
+        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+      }
+
       setTimeout(function () {
         if (_this.props.leagueScheduleId !== undefined) {
           _this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(_this.props.leagueScheduleId));
@@ -37583,7 +37588,7 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.leagueScheduleId) {
+      if (!this.props.leagueScheduleId && this.props.clubFetched === false) {
         this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
 
@@ -37679,7 +37684,8 @@ var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
     scheduleFetched: state.fantasyScheduleReducer.scheduleFetched,
     starters: state.fantasyClubReducer.starters,
-    benchwarmers: state.fantasyClubReducer.benchwarmers
+    benchwarmers: state.fantasyClubReducer.benchwarmers,
+    clubFetched: state.fantasyClubReducer.clubFetched
   };
 };
 
@@ -39283,7 +39289,8 @@ var fantasyClubReducer = function fantasyClubReducer() {
         losses: action.fantasyClub.losses,
         goalsFor: action.fantasyClub.goalsFor,
         goalsAgainst: action.fantasyClub.goalsAgainst,
-        goalDifferential: action.fantasyClub.goalDifferential
+        goalDifferential: action.fantasyClub.goalDifferential,
+        clubFetched: action.clubFetched
       });
 
     case _fantasyClubActions.NEW_CLUB_SUCCESS:

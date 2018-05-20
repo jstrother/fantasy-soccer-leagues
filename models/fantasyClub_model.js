@@ -12,12 +12,12 @@ const mongoose = require('mongoose'),
 		forwards: Array,
 		starters: Array,
 		benchwarmers: Array,
-		wins: Number,
-		draws: Number,
-		losses: Number,
-		goalsFor: Number,
-		goalsAgainst: Number,
-		goalDifferential: Number
+		wins: {type: Number, default: 0},
+		draws: {type: Number, default: 0},
+		losses: {type: Number, default: 0},
+		goalsFor: {type: Number, default: 0},
+		goalsAgainst: {type: Number, default: 0},
+		goalDifferential: {type: Number, default: 0}
 		// ranking starts with points, then goalDifferential, then goalsFor, finally goalsAgainst
 	}),
 

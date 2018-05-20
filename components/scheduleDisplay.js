@@ -15,7 +15,9 @@ const sevenDays = 1000 * 60 * 60 * 24 * 7,
 
 export class DisplaySchedule extends React.Component {
   componentDidMount() {
-    this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+    if (this.props.clubFetched === false) {
+      this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+    }
     setTimeout(() => {
       if (this.props.leagueScheduleId !== undefined) {
         this.props.dispatch(getSchedule(this.props.leagueScheduleId));
@@ -26,7 +28,7 @@ export class DisplaySchedule extends React.Component {
     }, 2000);
   }
   componentDidUpdate() {
-    if (!this.props.leagueScheduleId) {
+    if (!this.props.leagueScheduleId && this.props.clubFetched === false) {
       this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
     }
     if (this.props.leagueScheduleId !== undefined && this.props.scheduleFetched === false) {
@@ -168,7 +170,8 @@ const mapDisplayStateToProps = state => ({
 	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
 	scheduleFetched: state.fantasyScheduleReducer.scheduleFetched,
 	starters: state.fantasyClubReducer.starters,
-	benchwarmers: state.fantasyClubReducer.benchwarmers
+	benchwarmers: state.fantasyClubReducer.benchwarmers,
+	clubFetched: state.fantasyClubReducer.clubFetched
 });
 
 const ScheduleDisplay = connect(

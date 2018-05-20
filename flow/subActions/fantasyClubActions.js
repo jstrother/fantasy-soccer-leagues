@@ -9,12 +9,14 @@ export const GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
 export const getClubSuccess = (fantasyClub, statusCode) => ({
   type: GET_CLUB_SUCCESS,
   fantasyClub,
+  clubFetched: true,
   statusCode
 });
 
 export const GET_CLUB_FAIL = 'GET_CLUB_FAIL';
 export const getClubFail = statusCode => ({
   type: GET_CLUB_FAIL,
+  clubFetched: false,
   statusCode
 });
 

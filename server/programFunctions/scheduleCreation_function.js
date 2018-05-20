@@ -36,6 +36,16 @@ function matchResolver(allWeeklyMatches, clubArray) {
             });
             allScores += match.awayScore;
           }
+          
+          match.homeClub.goalsFor += match.homeScore;
+          match.homeClub.goalsAgainst += match.awayScore;
+          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+          
+          match.awayClub.goalsFor += match.awayScore;
+          match.awayClub.goalsAgainst += match.homeScore;
+          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+          
+          match.final = true;
         }
       });
       // then calculate the points for averageClub if present
@@ -47,11 +57,7 @@ function matchResolver(allWeeklyMatches, clubArray) {
         if(match.awayClub.clubName === 'Average') {
           match.awayScore = allScores / (clubArray.length - 1);
         }
-      });
-      // finally, compare scores and add to correct "column" (W, D, L)
-      matchArray.forEach(match => {
-        console.log('homeClub goalsFor:', match.homeClub.goalsFor);
-        console.log('awayClub goalsFor:', match.awayClub.goalsFor);
+          
         match.homeClub.goalsFor += match.homeScore;
         match.homeClub.goalsAgainst += match.awayScore;
         match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
@@ -59,7 +65,9 @@ function matchResolver(allWeeklyMatches, clubArray) {
         match.awayClub.goalsFor += match.awayScore;
         match.awayClub.goalsAgainst += match.homeScore;
         match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-        
+      });
+      // finally, compare scores and add to correct "column" (W, D, L)
+      matchArray.forEach(match => {
         if (match.homeScore > match.awayScore) {
           match.homeClub.wins += 1;
           match.homeClub.points += 3;
@@ -76,7 +84,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
           match.awayClub.draws += 1;
           match.awayClub.points += 1;
         }
-        match.final = true;
       });
       weeklyMatches.matchesResolved = true;
     }
