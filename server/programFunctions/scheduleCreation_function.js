@@ -29,22 +29,19 @@ function matchResolver(allWeeklyMatches, clubArray) {
               match.homeScore += starter.fantasyPoints.fixture;
             });
             allScores += match.homeScore;
+            match.homeClub.goalsFor += match.homeScore;
+            match.homeClub.goalsAgainst += match.awayScore;
+            match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
           }
           if (match.awayClub.clubName !== 'Average') {
             match.awayClub.starters.forEach(starter => {
               match.awayScore += starter.fantasyPoints.fixture;
             });
             allScores += match.awayScore;
+            match.awayClub.goalsFor += match.awayScore;
+            match.awayClub.goalsAgainst += match.homeScore;
+            match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
           }
-          
-          match.homeClub.goalsFor += match.homeScore;
-          match.homeClub.goalsAgainst += match.awayScore;
-          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
-          
-          match.awayClub.goalsFor += match.awayScore;
-          match.awayClub.goalsAgainst += match.homeScore;
-          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-          
           match.final = true;
         }
       });
@@ -53,18 +50,16 @@ function matchResolver(allWeeklyMatches, clubArray) {
         // we take one less than the total clubArray.length as we need the average of all human-operated fantasyClubs
         if(match.homeClub.clubName === 'Average') {
           match.homeScore = allScores / (clubArray.length - 1);
+          match.homeClub.goalsFor += match.homeScore;
+          match.homeClub.goalsAgainst += match.awayScore;
+          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
         }
         if(match.awayClub.clubName === 'Average') {
           match.awayScore = allScores / (clubArray.length - 1);
+          match.awayClub.goalsFor += match.awayScore;
+          match.awayClub.goalsAgainst += match.homeScore;
+          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
         }
-          
-        match.homeClub.goalsFor += match.homeScore;
-        match.homeClub.goalsAgainst += match.awayScore;
-        match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
-        
-        match.awayClub.goalsFor += match.awayScore;
-        match.awayClub.goalsAgainst += match.homeScore;
-        match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
