@@ -10,7 +10,7 @@ import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/subActions/leagueActions.js';
 import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
-// import { createSchedule } from '../flow/subActions/fantasyScheduleActions.js';
+import { compare } from '../server/programFunctions/compare_function.js';
 import styles from '../scss/playerSelection.scss';
 
 export class Selection extends React.Component {
@@ -181,6 +181,11 @@ export class Selection extends React.Component {
 										return true;
 									}
 								})
+								.sort((a,b) => compare(b.clubName, a.clubName) || 
+									compare(a.position, b.position) || 
+									compare(b.lastName, a.lastName) || 
+									compare(b.firstName, a.firstName) || 
+									compare(b.fantasyPoints.fixture, a.fantasyPoints.fixture))
 								.map(p => {
 									// creating a table row for each player that makes it through the filters
 									return(

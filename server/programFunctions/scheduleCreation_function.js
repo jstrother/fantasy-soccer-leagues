@@ -19,6 +19,7 @@ function matchResolver(allWeeklyMatches, clubArray) {
   allWeeklyMatches.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
     let allScores = 0,
+      gamesPlayed = 0,
       matchArray = weeklyMatches.matches;
     if (today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
@@ -38,6 +39,10 @@ function matchResolver(allWeeklyMatches, clubArray) {
           }
           match.final = true;
         }
+        // console.log('wins:', match.homeClub.wins);
+        // console.log('draws:', match.homeClub.draws);
+        // console.log('losses:', match.homeClub.losses);
+        gamesPlayed = match.homeClub.wins + match.homeClub.draws + match.homeClub.losses;
       });
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
@@ -51,73 +56,77 @@ function matchResolver(allWeeklyMatches, clubArray) {
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        if (match.homeScore > match.awayScore) {
-          match.homeClub.wins += 1;
-          match.homeClub.points += 3;
-          match.awayClub.losses += 1;
-        }
-        if (match.awayScore > match.homeScore) {
-          match.awayClub.wins += 1;
-          match.awayClub.points += 3;
-          match.homeClub.losses += 1;
-        }
-        if (match.homeScore === match.awayScore) {
-          match.homeClub.draws += 1;
-          match.homeClub.points += 1;
-          match.awayClub.draws += 1;
-          match.awayClub.points += 1;
-        }
-        match.homeClub.goalsFor += match.homeScore;
-        match.homeClub.goalsAgainst += match.awayScore;
-        match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
-        
-        match.awayClub.goalsFor += match.awayScore;
-        match.awayClub.goalsAgainst += match.homeScore;
-        match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-        // update fantasyMatch in the database
-        FantasyMatch
-        .findByIdAndUpdate(
-          match._id,
-          {
-            homeScore: match.homeScore,
-            awayScore: match.awayScore
+        console.log('gamesPlayed:', gamesPlayed);
+        console.log('roundNumber:', weeklyMatches.roundNumber);
+        if (gamesPlayed < weeklyMatches.roundNumber) {
+          if (match.homeScore > match.awayScore) {
+            match.homeClub.wins += 1;
+            match.homeClub.points += 3;
+            match.awayClub.losses += 1;
           }
-        )
-        .catch(error => {
-          throw new Error(error);
-        });
-        // update the home fantasyClub in the database
-        FantasyClub
-        .findByIdAndUpdate(
-          match.homeClub._id,
-          {
-            wins: match.homeClub.wins,
-            draws: match.homeClub.draws,
-            losses: match.homeClub.losses,
-            goalsFor: match.homeClub.goalsFor,
-            goalsAgainst: match.homeClub.goalsAgainst,
-            goalDifferential: match.homeClub.goalDifferential
+          if (match.awayScore > match.homeScore) {
+            match.awayClub.wins += 1;
+            match.awayClub.points += 3;
+            match.homeClub.losses += 1;
           }
-        )
-        .catch(error => {
-          throw new Error(error);
-        });
-        // update the away fantasyClub in the database
-        FantasyClub
-        .findByIdAndUpdate(
-          match.awayClub._id,
-          {
-            wins: match.awayClub.wins,
-            draws: match.awayClub.draws,
-            losses: match.awayClub.losses,
-            goalsFor: match.awayClub.goalsFor,
-            goalsAgainst: match.awayClub.goalsAgainst,
-            goalDifferential: match.awayClub.goalDifferential
+          if (match.homeScore === match.awayScore) {
+            match.homeClub.draws += 1;
+            match.homeClub.points += 1;
+            match.awayClub.draws += 1;
+            match.awayClub.points += 1;
           }
-        )
-        .catch(error => {
-          throw new Error(error);
-        });
+          match.homeClub.goalsFor += match.homeScore;
+          match.homeClub.goalsAgainst += match.awayScore;
+          match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
+          
+          match.awayClub.goalsFor += match.awayScore;
+          match.awayClub.goalsAgainst += match.homeScore;
+          match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
+          // update fantasyMatch in the database
+          FantasyMatch
+          .findByIdAndUpdate(
+            match._id,
+            {
+              homeScore: match.homeScore,
+              awayScore: match.awayScore
+            }
+          )
+          .catch(error => {
+            throw new Error(error);
+          });
+          // update the home fantasyClub in the database
+          FantasyClub
+          .findByIdAndUpdate(
+            match.homeClub._id,
+            {
+              wins: match.homeClub.wins,
+              draws: match.homeClub.draws,
+              losses: match.homeClub.losses,
+              goalsFor: match.homeClub.goalsFor,
+              goalsAgainst: match.homeClub.goalsAgainst,
+              goalDifferential: match.homeClub.goalDifferential
+            }
+          )
+          .catch(error => {
+            throw new Error(error);
+          });
+          // update the away fantasyClub in the database
+          FantasyClub
+          .findByIdAndUpdate(
+            match.awayClub._id,
+            {
+              wins: match.awayClub.wins,
+              draws: match.awayClub.draws,
+              losses: match.awayClub.losses,
+              goalsFor: match.awayClub.goalsFor,
+              goalsAgainst: match.awayClub.goalsAgainst,
+              goalDifferential: match.awayClub.goalDifferential
+            }
+          )
+          .catch(error => {
+            throw new Error(error);
+          });
+        }
       });
       weeklyMatches.matchesResolved = true;
     }
