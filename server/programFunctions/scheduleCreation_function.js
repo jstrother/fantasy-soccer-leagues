@@ -14,12 +14,13 @@ function standingsCalculator(clubArray) {
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 function matchResolver(allWeeklyMatches, clubArray) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
-  const today = new Date().getTime();
+  const today = new Date().getTime(),
+    clubArrayLength = clubArray.length;
+  let gamesPlayed = 0;
   
   allWeeklyMatches.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
     let allScores = 0,
-      gamesPlayed = 0,
       matchArray = weeklyMatches.matches;
     if (today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
@@ -38,27 +39,25 @@ function matchResolver(allWeeklyMatches, clubArray) {
             allScores += match.awayScore;
           }
           match.final = true;
+          gamesPlayed = match.homeClub.wins + match.homeClub.draws + match.homeClub.losses;
+          console.log('gamesPlayed1:', gamesPlayed);
         }
-        // console.log('wins:', match.homeClub.wins);
-        // console.log('draws:', match.homeClub.draws);
-        // console.log('losses:', match.homeClub.losses);
-        gamesPlayed = match.homeClub.wins + match.homeClub.draws + match.homeClub.losses;
       });
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
         // we take one less than the total clubArray.length as we need the average of all human-operated fantasyClubs
         if(match.homeClub.clubName === 'Average' && match.homeScore === 0) {
-          match.homeScore = allScores / (clubArray.length - 1);
+          match.homeScore = allScores / (clubArrayLength - 1);
         }
         if(match.awayClub.clubName === 'Average' && match.awayScore === 0) {
-          match.awayScore = allScores / (clubArray.length - 1);
+          match.awayScore = allScores / (clubArrayLength - 1);
         }
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        console.log('gamesPlayed:', gamesPlayed);
+        console.log('gamesPlayed2:', gamesPlayed);
         console.log('roundNumber:', weeklyMatches.roundNumber);
-        if (gamesPlayed < weeklyMatches.roundNumber) {
+        if (gamesPlayed <= weeklyMatches.roundNumber) {
           if (match.homeScore > match.awayScore) {
             match.homeClub.wins += 1;
             match.homeClub.points += 3;
@@ -88,7 +87,8 @@ function matchResolver(allWeeklyMatches, clubArray) {
             match._id,
             {
               homeScore: match.homeScore,
-              awayScore: match.awayScore
+              awayScore: match.awayScore,
+              final: match.final
             }
           )
           .catch(error => {
