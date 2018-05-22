@@ -21,9 +21,6 @@ export class DisplaySchedule extends React.Component {
     setTimeout(() => {
       if (this.props.leagueScheduleId !== undefined) {
         this.props.dispatch(getSchedule(this.props.leagueScheduleId));
-        if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-          this.props.dispatch(matchResolve());
-        }
       }
     }, 2000);
   }
@@ -33,9 +30,6 @@ export class DisplaySchedule extends React.Component {
     }
     if (this.props.leagueScheduleId !== undefined && this.props.scheduleFetched === false) {
       this.props.dispatch(getSchedule(this.props.leagueScheduleId));
-      if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-        this.props.dispatch(matchResolve());
-      }
     }
   }
   
@@ -169,8 +163,6 @@ const mapDisplayStateToProps = state => ({
   fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
 	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
 	scheduleFetched: state.fantasyScheduleReducer.scheduleFetched,
-	starters: state.fantasyClubReducer.starters,
-	benchwarmers: state.fantasyClubReducer.benchwarmers,
 	clubFetched: state.fantasyClubReducer.clubFetched
 });
 

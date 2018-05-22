@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bb3449a5f50234562430"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b210a1e58006d1a88a5b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37480,6 +37480,13 @@ function (_React$Component) {
   }
 
   _createClass(Schedule, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+        this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+      }
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       this.props.dispatch((0, _fantasyScheduleActions.wasScheduleCreated)());
@@ -37489,6 +37496,10 @@ function (_React$Component) {
         if (this.props.scheduleUpdate === false && this.props.scheduleCreated === false) {
           this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
           this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+        }
+
+        if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+          this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
         }
       }
     }
@@ -37518,6 +37529,8 @@ var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
     defenders: state.fantasyClubReducer.defenders,
     midfielders: state.fantasyClubReducer.midfielders,
     forwards: state.fantasyClubReducer.forwards,
+    starters: state.fantasyClubReducer.starters,
+    benchwarmers: state.fantasyClubReducer.benchwarmers,
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
     scheduleCreated: state.fantasyScheduleReducer.scheduleCreated,
@@ -37603,10 +37616,6 @@ function (_React$Component) {
       setTimeout(function () {
         if (_this.props.leagueScheduleId !== undefined) {
           _this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(_this.props.leagueScheduleId));
-
-          if (_this.props.starters.length + _this.props.benchwarmers.length === 18) {
-            _this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
-          }
         }
       }, 2000);
     }
@@ -37619,10 +37628,6 @@ function (_React$Component) {
 
       if (this.props.leagueScheduleId !== undefined && this.props.scheduleFetched === false) {
         this.props.dispatch((0, _fantasyScheduleActions.getSchedule)(this.props.leagueScheduleId));
-
-        if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-          this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
-        }
       }
     }
   }, {
@@ -37708,8 +37713,6 @@ var mapDisplayStateToProps = function mapDisplayStateToProps(state) {
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
     scheduleFetched: state.fantasyScheduleReducer.scheduleFetched,
-    starters: state.fantasyClubReducer.starters,
-    benchwarmers: state.fantasyClubReducer.benchwarmers,
     clubFetched: state.fantasyClubReducer.clubFetched
   };
 };
@@ -38320,13 +38323,13 @@ function (_React$Component) {
         }, "Forwards"), _react.default.createElement("option", {
           key: "3",
           value: "midfielders"
-        }, "Midfielder"), _react.default.createElement("option", {
+        }, "Midfielders"), _react.default.createElement("option", {
           key: "4",
           value: "defenders"
-        }, "Defender"), _react.default.createElement("option", {
+        }, "Defenders"), _react.default.createElement("option", {
           key: "5",
           value: "goalkeepers"
-        }, "Goalkeeper"))), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, "Goalkeepers"))), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "clubsList",
           defaultValue: "allClubs",
           onChange: this.handleClubChange.bind(this)
@@ -38376,7 +38379,7 @@ function (_React$Component) {
             return true;
           }
         }).sort(function (a, b) {
-          return (0, _compare_function.compare)(b.clubName, a.clubName) || (0, _compare_function.compare)(a.position, b.position) || (0, _compare_function.compare)(b.lastName, a.lastName) || (0, _compare_function.compare)(b.firstName, a.firstName) || (0, _compare_function.compare)(b.fantasyPoints.fixture, a.fantasyPoints.fixture);
+          return (0, _compare_function.compare)(b.clubName, a.clubName) || (0, _compare_function.compare)(b.position, a.position) || (0, _compare_function.compare)(a.fantasyPoints.fixture, b.fantasyPoints.fixture) || (0, _compare_function.compare)(b.lastName, a.lastName) || (0, _compare_function.compare)(b.firstName, a.firstName);
         }).map(function (p) {
           // creating a table row for each player that makes it through the filters
           return _react.default.createElement("tr", {

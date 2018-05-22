@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js"),
   WeeklyMatches = require("../../models/weeklyMatches_model.js"),
+  User = require("../../models/user_model.js"),
   { compare } = require("../../server/programFunctions/compare_function.js");
 
 function standingsCalculator(clubArray) {
@@ -38,7 +39,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
             });
             allScores += match.awayScore;
           }
-          match.final = true;
           gamesPlayed = match.homeClub.wins + match.homeClub.draws + match.homeClub.losses;
           console.log('gamesPlayed1:', gamesPlayed);
         }
@@ -46,17 +46,20 @@ function matchResolver(allWeeklyMatches, clubArray) {
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
         // we take one less than the total clubArray.length as we need the average of all human-operated fantasyClubs
-        if(match.homeClub.clubName === 'Average' && match.homeScore === 0) {
-          match.homeScore = allScores / (clubArrayLength - 1);
-        }
-        if(match.awayClub.clubName === 'Average' && match.awayScore === 0) {
-          match.awayScore = allScores / (clubArrayLength - 1);
+        if (match.final === false) {
+          if(match.homeClub.clubName === 'Average' && match.homeScore === 0) {
+            match.homeScore = allScores / (clubArrayLength - 1);
+          }
+          if(match.awayClub.clubName === 'Average' && match.awayScore === 0) {
+            match.awayScore = allScores / (clubArrayLength - 1);
+          }
         }
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
         console.log('gamesPlayed2:', gamesPlayed);
         console.log('roundNumber:', weeklyMatches.roundNumber);
+        match.final = true;
         if (gamesPlayed <= weeklyMatches.roundNumber) {
           if (match.homeScore > match.awayScore) {
             match.homeClub.wins += 1;

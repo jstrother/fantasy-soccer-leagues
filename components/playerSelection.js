@@ -125,9 +125,9 @@ export class Selection extends React.Component {
 										onChange={this.handlePositionChange.bind(this)}>
 										<option key={"1"} value={"allPositions"}>All Positions</option>
 										<option key={"2"} value={"forwards"}>Forwards</option>
-										<option key={"3"} value={"midfielders"}>Midfielder</option>
-										<option key={"4"} value={"defenders"}>Defender</option>
-										<option key={"5"} value={"goalkeepers"}>Goalkeeper</option>
+										<option key={"3"} value={"midfielders"}>Midfielders</option>
+										<option key={"4"} value={"defenders"}>Defenders</option>
+										<option key={"5"} value={"goalkeepers"}>Goalkeepers</option>
 									</select>
 								</th>
 								<th>
@@ -182,10 +182,10 @@ export class Selection extends React.Component {
 									}
 								})
 								.sort((a,b) => compare(b.clubName, a.clubName) || 
-									compare(a.position, b.position) || 
+									compare(b.position, a.position) ||
+									compare(a.fantasyPoints.fixture, b.fantasyPoints.fixture) || 
 									compare(b.lastName, a.lastName) || 
-									compare(b.firstName, a.firstName) || 
-									compare(b.fantasyPoints.fixture, a.fantasyPoints.fixture))
+									compare(b.firstName, a.firstName))
 								.map(p => {
 									// creating a table row for each player that makes it through the filters
 									return(

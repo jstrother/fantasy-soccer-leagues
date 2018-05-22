@@ -8,11 +8,16 @@ import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { createSchedule, wasScheduleCreated } from '../flow/subActions/fantasyScheduleActions.js';
+import { createSchedule, wasScheduleCreated, matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
+	componentDidMount() {
+		if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+      this.props.dispatch(matchResolve());
+    }
+	}
 	componentDidUpdate() {
 		this.props.dispatch(wasScheduleCreated());
 		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
@@ -20,6 +25,9 @@ export class Schedule extends React.Component {
 			if (this.props.scheduleUpdate === false && this.props.scheduleCreated === false) {
 				this.props.dispatch(createSchedule());
 				this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+			}
+			if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+        this.props.dispatch(matchResolve());
 			}
 		}
 	}
@@ -52,6 +60,8 @@ const mapScheduleStateToProps = state => ({
 	defenders: state.fantasyClubReducer.defenders,
 	midfielders: state.fantasyClubReducer.midfielders,
 	forwards: state.fantasyClubReducer.forwards,
+	starters: state.fantasyClubReducer.starters,
+	benchwarmers: state.fantasyClubReducer.benchwarmers,
 	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
 	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
 	scheduleCreated: state.fantasyScheduleReducer.scheduleCreated,
