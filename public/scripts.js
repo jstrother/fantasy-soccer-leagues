@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b210a1e58006d1a88a5b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5af36ffdd7ee02229842"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37690,7 +37690,7 @@ function (_React$Component) {
             if (match.final === true) {
               return _react.default.createElement("tr", {
                 key: round._id + match.homeClub._id
-              }, _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, match.homeScore, ":", match.awayScore));
+              }, _react.default.createElement("td", null), _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, match.homeScore, ":", match.awayScore));
             }
           }));
         })));
@@ -38379,7 +38379,7 @@ function (_React$Component) {
             return true;
           }
         }).sort(function (a, b) {
-          return (0, _compare_function.compare)(b.clubName, a.clubName) || (0, _compare_function.compare)(b.position, a.position) || (0, _compare_function.compare)(a.fantasyPoints.fixture, b.fantasyPoints.fixture) || (0, _compare_function.compare)(b.lastName, a.lastName) || (0, _compare_function.compare)(b.firstName, a.firstName);
+          return (0, _compare_function.compare)(b.clubName, a.clubName) || (0, _compare_function.compare)(a.fantasyPoints.fixture, b.fantasyPoints.fixture) || (0, _compare_function.compare)(b.position, a.position) || (0, _compare_function.compare)(b.lastName, a.lastName) || (0, _compare_function.compare)(b.firstName, a.firstName);
         }).map(function (p) {
           // creating a table row for each player that makes it through the filters
           return _react.default.createElement("tr", {
@@ -39271,7 +39271,8 @@ var initialState = {
   losses: 0,
   goalsFor: 0,
   goalsAgainst: 0,
-  goalDifferential: 0
+  goalDifferential: 0,
+  gamesPlayed: 0
 };
 
 var fantasyClubReducer = function fantasyClubReducer() {
@@ -39297,6 +39298,7 @@ var fantasyClubReducer = function fantasyClubReducer() {
         goalsFor: action.fantasyClub.goalsFor,
         goalsAgainst: action.fantasyClub.goalsAgainst,
         goalDifferential: action.fantasyClub.goalDifferential,
+        gamesPlayed: action.fantasyClub.gamesPlayed,
         clubFetched: action.clubFetched
       });
 

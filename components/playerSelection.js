@@ -182,8 +182,8 @@ export class Selection extends React.Component {
 									}
 								})
 								.sort((a,b) => compare(b.clubName, a.clubName) || 
-									compare(b.position, a.position) ||
 									compare(a.fantasyPoints.fixture, b.fantasyPoints.fixture) || 
+									compare(b.position, a.position) ||
 									compare(b.lastName, a.lastName) || 
 									compare(b.firstName, a.firstName))
 								.map(p => {

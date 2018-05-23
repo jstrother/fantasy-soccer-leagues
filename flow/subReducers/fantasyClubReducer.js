@@ -17,7 +17,8 @@ const initialState = {
   losses: 0,
   goalsFor: 0,
   goalsAgainst: 0,
-  goalDifferential: 0
+  goalDifferential: 0,
+  gamesPlayed: 0
 };
 
 export const fantasyClubReducer = (state = initialState, action) => {
@@ -41,6 +42,7 @@ export const fantasyClubReducer = (state = initialState, action) => {
           goalsFor: action.fantasyClub.goalsFor,
           goalsAgainst: action.fantasyClub.goalsAgainst,
           goalDifferential: action.fantasyClub.goalDifferential,
+          gamesPlayed: action.fantasyClub.gamesPlayed,
           clubFetched: action.clubFetched
         }
       );

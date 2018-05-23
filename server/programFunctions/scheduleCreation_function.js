@@ -17,7 +17,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
   const today = new Date().getTime(),
     clubArrayLength = clubArray.length;
-  let gamesPlayed = 0;
   
   allWeeklyMatches.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
@@ -39,8 +38,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
             });
             allScores += match.awayScore;
           }
-          gamesPlayed = match.homeClub.wins + match.homeClub.draws + match.homeClub.losses;
-          console.log('gamesPlayed1:', gamesPlayed);
         }
       });
       // then calculate the points for averageClub if present
@@ -57,10 +54,10 @@ function matchResolver(allWeeklyMatches, clubArray) {
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        console.log('gamesPlayed2:', gamesPlayed);
-        console.log('roundNumber:', weeklyMatches.roundNumber);
         match.final = true;
-        if (gamesPlayed <= weeklyMatches.roundNumber) {
+        console.log('gamesPlayed:', match.homeClub.gamesPlayed);
+        console.log('roundNumber:', weeklyMatches.roundNumber);
+        if (match.homeClub.gamesPlayed < weeklyMatches.roundNumber) {
           if (match.homeScore > match.awayScore) {
             match.homeClub.wins += 1;
             match.homeClub.points += 3;
@@ -77,10 +74,12 @@ function matchResolver(allWeeklyMatches, clubArray) {
             match.awayClub.draws += 1;
             match.awayClub.points += 1;
           }
+          match.homeClub.gamesPlayed += 1;
           match.homeClub.goalsFor += match.homeScore;
           match.homeClub.goalsAgainst += match.awayScore;
           match.homeClub.goalDifferential = match.homeClub.goalsFor - match.homeClub.goalsAgainst;
           
+          match.awayClub.gamesPlayed += 1;
           match.awayClub.goalsFor += match.awayScore;
           match.awayClub.goalsAgainst += match.homeScore;
           match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
@@ -107,7 +106,8 @@ function matchResolver(allWeeklyMatches, clubArray) {
               losses: match.homeClub.losses,
               goalsFor: match.homeClub.goalsFor,
               goalsAgainst: match.homeClub.goalsAgainst,
-              goalDifferential: match.homeClub.goalDifferential
+              goalDifferential: match.homeClub.goalDifferential,
+              gamesPlayed: match.homeClub.gamesPlayed
             }
           )
           .catch(error => {
@@ -123,7 +123,8 @@ function matchResolver(allWeeklyMatches, clubArray) {
               losses: match.awayClub.losses,
               goalsFor: match.awayClub.goalsFor,
               goalsAgainst: match.awayClub.goalsAgainst,
-              goalDifferential: match.awayClub.goalDifferential
+              goalDifferential: match.awayClub.goalDifferential,
+              gamesPlayed: match.awayClub.gamesPlayed
             }
           )
           .catch(error => {

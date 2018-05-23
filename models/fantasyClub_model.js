@@ -17,7 +17,8 @@ const mongoose = require('mongoose'),
 		losses: {type: Number, default: 0},
 		goalsFor: {type: Number, default: 0},
 		goalsAgainst: {type: Number, default: 0},
-		goalDifferential: {type: Number, default: 0}
+		goalDifferential: {type: Number, default: 0},
+		gamesPlayed: {type: Number, default: 0}
 		// ranking starts with points, then goalDifferential, then goalsFor, finally goalsAgainst
 	}),
 

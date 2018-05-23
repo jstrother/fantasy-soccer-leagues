@@ -126,6 +126,7 @@ export class DisplaySchedule extends React.Component {
                           return (
                             <tr
                               key={round._id + match.homeClub._id}>
+                              <td></td>
                               <td>
                                 {match.homeClub.clubName}
                               </td>
