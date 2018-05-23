@@ -54,10 +54,11 @@ function matchResolver(allWeeklyMatches, clubArray) {
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        match.final = true;
-        console.log('gamesPlayed:', match.homeClub.gamesPlayed);
+        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
+        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
         console.log('roundNumber:', weeklyMatches.roundNumber);
         if (match.homeClub.gamesPlayed < weeklyMatches.roundNumber) {
+          match.final = true;
           if (match.homeScore > match.awayScore) {
             match.homeClub.wins += 1;
             match.homeClub.points += 3;
@@ -93,6 +94,9 @@ function matchResolver(allWeeklyMatches, clubArray) {
               final: match.final
             }
           )
+          .then((data) => {
+            console.log('match updated', data);
+          })
           .catch(error => {
             throw new Error(error);
           });
@@ -110,6 +114,9 @@ function matchResolver(allWeeklyMatches, clubArray) {
               gamesPlayed: match.homeClub.gamesPlayed
             }
           )
+          .then((data) => {
+            console.log('homeClub updated', data);
+          })
           .catch(error => {
             throw new Error(error);
           });
@@ -127,6 +134,9 @@ function matchResolver(allWeeklyMatches, clubArray) {
               gamesPlayed: match.awayClub.gamesPlayed
             }
           )
+          .then((data) => {
+            console.log('awayClub updated', data);
+          })
           .catch(error => {
             throw new Error(error);
           });
