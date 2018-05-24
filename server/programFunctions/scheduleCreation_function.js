@@ -16,7 +16,8 @@ function standingsCalculator(clubArray) {
 function matchResolver(allWeeklyMatches, clubArray) {
   // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
   const today = new Date().getTime(),
-    clubArrayLength = clubArray.length;
+    clubArrayLength = clubArray.length,
+    updatedMatches = [];
   
   allWeeklyMatches.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
@@ -54,9 +55,9 @@ function matchResolver(allWeeklyMatches, clubArray) {
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
-        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
-        console.log('roundNumber:', weeklyMatches.roundNumber);
+        // console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
+        // console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
+        // console.log('roundNumber:', weeklyMatches.roundNumber);
         if (match.homeClub.gamesPlayed < weeklyMatches.roundNumber) {
           match.final = true;
           if (match.homeScore > match.awayScore) {
@@ -84,67 +85,75 @@ function matchResolver(allWeeklyMatches, clubArray) {
           match.awayClub.goalsFor += match.awayScore;
           match.awayClub.goalsAgainst += match.homeScore;
           match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-          // update fantasyMatch in the database
-          FantasyMatch
-          .findByIdAndUpdate(
-            match._id,
-            {
-              homeScore: match.homeScore,
-              awayScore: match.awayScore,
-              final: match.final
-            }
-          )
-          .then((data) => {
-            console.log('match updated', data);
-          })
-          .catch(error => {
-            throw new Error(error);
-          });
-          // update the home fantasyClub in the database
-          FantasyClub
-          .findByIdAndUpdate(
-            match.homeClub._id,
-            {
-              wins: match.homeClub.wins,
-              draws: match.homeClub.draws,
-              losses: match.homeClub.losses,
-              goalsFor: match.homeClub.goalsFor,
-              goalsAgainst: match.homeClub.goalsAgainst,
-              goalDifferential: match.homeClub.goalDifferential,
-              gamesPlayed: match.homeClub.gamesPlayed
-            }
-          )
-          .then((data) => {
-            console.log('homeClub updated', data);
-          })
-          .catch(error => {
-            throw new Error(error);
-          });
-          // update the away fantasyClub in the database
-          FantasyClub
-          .findByIdAndUpdate(
-            match.awayClub._id,
-            {
-              wins: match.awayClub.wins,
-              draws: match.awayClub.draws,
-              losses: match.awayClub.losses,
-              goalsFor: match.awayClub.goalsFor,
-              goalsAgainst: match.awayClub.goalsAgainst,
-              goalDifferential: match.awayClub.goalDifferential,
-              gamesPlayed: match.awayClub.gamesPlayed
-            }
-          )
-          .then((data) => {
-            console.log('awayClub updated', data);
-          })
-          .catch(error => {
-            throw new Error(error);
-          });
+          
+          updatedMatches.push(match);
         }
       });
       weeklyMatches.matchesResolved = true;
     }
     save(weeklyMatches);
+  });
+  
+  console.log('updatedMatches:', updatedMatches);
+  updatedMatches.forEach(match => {
+    // update fantasyMatch in the database
+    FantasyMatch
+    .findByIdAndUpdate(
+      match._id,
+      {
+        homeScore: match.homeScore,
+        awayScore: match.awayScore,
+        final: match.final
+      }
+    )
+    .then((data) => {
+      console.log('match updated', data);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+    // update the home fantasyClub in the database
+    FantasyClub
+    .findByIdAndUpdate(
+      match.homeClub._id,
+      {
+        wins: match.homeClub.wins,
+        draws: match.homeClub.draws,
+        losses: match.homeClub.losses,
+        points: match.homeClub.points,
+        goalsFor: match.homeClub.goalsFor,
+        goalsAgainst: match.homeClub.goalsAgainst,
+        goalDifferential: match.homeClub.goalDifferential,
+        gamesPlayed: match.homeClub.gamesPlayed
+      }
+    )
+    .then((data) => {
+      console.log('homeClub updated', data);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+    // update the away fantasyClub in the database
+    FantasyClub
+    .findByIdAndUpdate(
+      match.awayClub._id,
+      {
+        wins: match.awayClub.wins,
+        draws: match.awayClub.draws,
+        losses: match.awayClub.losses,
+        points: match.awayClub.points,
+        goalsFor: match.awayClub.goalsFor,
+        goalsAgainst: match.awayClub.goalsAgainst,
+        goalDifferential: match.awayClub.goalDifferential,
+        gamesPlayed: match.awayClub.gamesPlayed
+      }
+    )
+    .then((data) => {
+      console.log('awayClub updated', data);
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
   });
   
   return allWeeklyMatches;

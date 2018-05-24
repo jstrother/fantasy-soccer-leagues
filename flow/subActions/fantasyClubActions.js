@@ -203,8 +203,8 @@ export const removeBenchwarmerFail = statusCode => ({
   statusCode
 });
 
-export const getClub = (accessToken, manager) => dispatch => {
-  return fetch(`${thisURL}/${manager}`, {
+export const getClub = (accessToken, userId) => dispatch => {
+  return fetch(`${thisURL}/${userId}`, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`

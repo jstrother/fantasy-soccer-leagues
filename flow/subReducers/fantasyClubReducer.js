@@ -15,6 +15,7 @@ const initialState = {
   wins: 0,
   draws: 0,
   losses: 0,
+  points: 0,
   goalsFor: 0,
   goalsAgainst: 0,
   goalDifferential: 0,

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "551be097bb78c58259b8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "122878f2294352a00a7f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3224,9 +3224,9 @@ var removeBenchwarmerFail = function removeBenchwarmerFail(statusCode) {
 
 exports.removeBenchwarmerFail = removeBenchwarmerFail;
 
-var getClub = function getClub(accessToken, manager) {
+var getClub = function getClub(accessToken, userId) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(manager), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(userId), {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "Bearer ".concat(accessToken)
@@ -39269,6 +39269,7 @@ var initialState = {
   wins: 0,
   draws: 0,
   losses: 0,
+  points: 0,
   goalsFor: 0,
   goalsAgainst: 0,
   goalDifferential: 0,
