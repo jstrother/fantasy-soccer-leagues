@@ -58,7 +58,7 @@ function matchResolver(allWeeklyMatches, clubArray) {
         // console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
         // console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
         // console.log('roundNumber:', weeklyMatches.roundNumber);
-        if (match.homeClub.gamesPlayed < weeklyMatches.roundNumber) {
+        if (match.final === false) {
           match.final = true;
           if (match.homeScore > match.awayScore) {
             match.homeClub.wins += 1;
@@ -94,7 +94,7 @@ function matchResolver(allWeeklyMatches, clubArray) {
     save(weeklyMatches);
   });
   
-  console.log('updatedMatches:', updatedMatches);
+  console.log('updatedMatches length:', updatedMatches.length);
   updatedMatches.forEach(match => {
     // update fantasyMatch in the database
     FantasyMatch
@@ -127,8 +127,8 @@ function matchResolver(allWeeklyMatches, clubArray) {
         gamesPlayed: match.homeClub.gamesPlayed
       }
     )
-    .then((data) => {
-      console.log('homeClub updated', data);
+    .then(() => {
+      console.log('homeClub updated');
     })
     .catch(error => {
       throw new Error(error);
@@ -148,8 +148,8 @@ function matchResolver(allWeeklyMatches, clubArray) {
         gamesPlayed: match.awayClub.gamesPlayed
       }
     )
-    .then((data) => {
-      console.log('awayClub updated', data);
+    .then(() => {
+      console.log('awayClub updated');
     })
     .catch(error => {
       throw new Error(error);
