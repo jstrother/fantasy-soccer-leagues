@@ -18,14 +18,14 @@ describe('Matches Resolver', () => {
   });
   
   it.only('should resolve matches that have already happened', () => {
-    const accessToken = 1234567890;
     
     let firstManager = new User({
       _id: new mongoose.Types.ObjectId(),
       displayName: 'Jim Strother',
       givenName: 'Jim',
       familyName: 'Strother',
-      googleId: 1977
+      googleId: 1977,
+      accessToken: 123456789
     });
     
     let secondManager = new User({
@@ -33,7 +33,8 @@ describe('Matches Resolver', () => {
       displayName: 'Bob Dylan',
       givenName: 'Bob',
       familyName: 'Dylan',
-      googleId: 1968
+      googleId: 1968,
+      accessToken: 987654321
     });
     
     let firstClub = new FantasyClub({
