@@ -1,9 +1,9 @@
 /*eslint-disable no-console*/
 
-function pureMatchResolver(fullSchedule, clubArray) {
+function basicMatchResolver(fullSchedule, clubArray) {
   const today = new Date().getTime(),
     clubArrayLength = clubArray.length,
-    updatedMatches = [];
+    resolvedMatches = [];
   
   fullSchedule.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
@@ -14,6 +14,7 @@ function pureMatchResolver(fullSchedule, clubArray) {
       matchArray.forEach(match => {
         if (match.final === false) {
           if (match.homeClub.clubName !== 'Average' && match.homeScore === 0) {
+            console.log('match1a:', match);
             match.homeClub.starters.forEach(starter => {
               match.homeScore += starter.fantasyPoints.fixture;
             });
@@ -26,6 +27,7 @@ function pureMatchResolver(fullSchedule, clubArray) {
             allScores += match.awayScore;
           }
         }
+        console.log('match1:', match);
       });
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
@@ -38,9 +40,11 @@ function pureMatchResolver(fullSchedule, clubArray) {
             match.awayScore = allScores / (clubArrayLength - 1);
           }
         }
+        console.log('match2:', match);
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
+        console.log('match3:', match);
         if (match.final === false) {
           match.final = true;
           if (match.homeScore > match.awayScore) {
@@ -68,24 +72,23 @@ function pureMatchResolver(fullSchedule, clubArray) {
           match.awayClub.goalsFor += match.awayScore;
           match.awayClub.goalsAgainst += match.homeScore;
           match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
-          
-          updatedMatches.push(match);
+          resolvedMatches.push(match);
         }
       });
     }
-    return updatedMatches;
+    return resolvedMatches;
   });
 }
 
 module.exports = {
-  pureMatchResolver
+  basicMatchResolver
 };
 
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
 // function matchResolver(fullSchedule, clubArray) {
 //   const today = new Date().getTime(),
 //     clubArrayLength = clubArray.length,
-//     updatedMatches = [];
+//     resolvedMatches = [];
   
 //   fullSchedule.forEach(weeklyMatches => {
 //     // weeklyMatches is one week's worth of matches
@@ -151,15 +154,15 @@ module.exports = {
 //           match.awayClub.goalsAgainst += match.homeScore;
 //           match.awayClub.goalDifferential = match.awayClub.goalsFor - match.awayClub.goalsAgainst;
           
-//           updatedMatches.push(match);
+//           resolvedMatches.push(match);
 //         }
 //       });
 //     }
 //     save(weeklyMatches);
 //   });
   
-//   console.log('updatedMatches length:', updatedMatches.length);
-//   updatedMatches.forEach(match => {
+//   console.log('resolvedMatches length:', resolvedMatches.length);
+//   resolvedMatches.forEach(match => {
 //     // update fantasyMatch in the database
 //     FantasyMatch
 //     .findByIdAndUpdate(

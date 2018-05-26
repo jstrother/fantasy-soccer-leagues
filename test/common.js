@@ -12,6 +12,7 @@ const mongoose = require('mongoose'),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
   User = require("../models/user_model.js"),
 	testCurrentUser = {
+	  _id: new mongoose.Types.ObjectId(),
   	accessToken: 1974,
 	  displayName: 'Clint Dempsey',
 	  givenName: 'Clint',
@@ -196,11 +197,35 @@ const mongoose = require('mongoose'),
   }),
   secondManager = new User({
     _id: new mongoose.Types.ObjectId(),
-    displayName: 'Bob Dylan',
-    givenName: 'Bob',
-    familyName: 'Dylan',
-    googleId: 1968,
+    displayName: 'Daniel Mayberry',
+    givenName: 'Daniel',
+    familyName: 'Mayberry',
+    googleId: 1978,
     accessToken: 987654321
+  }),
+  thirdManager = new User({
+    _id: new mongoose.Types.ObjectId(),
+    displayName: 'Ryan Pritchett',
+    givenName: 'Ryan',
+    familyName: 'Pritchett',
+    googleId: 1979,
+    accessToken: 1597532648
+  }),
+  fourthManager = new User({
+    _id: new mongoose.Types.ObjectId(),
+    displayName: 'Mark Enders',
+    givenName: 'Mark',
+    familyName: 'Enders',
+    googleId: 1980,
+    accessToken: 9513578462
+  }),
+  fifthManager = new User({
+    _id: new mongoose.Types.ObjectId(),
+    displayName: 'Shaun Kendall',
+    givenName: 'Shaun',
+    familyName: 'Kendall',
+    googleId: 1981,
+    accessToken: 3579514682
   }),
   firstClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
@@ -365,7 +390,7 @@ const mongoose = require('mongoose'),
   thirdClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'ThunderTurtleUnited',
-    manager: 'Ryan Pritchett',
+    manager: thirdManager._id,
     points: 15,
     wins: 4,
     draws: 3,
@@ -445,7 +470,7 @@ const mongoose = require('mongoose'),
   fourthClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Better than Mayberry',
-    manager: 'Mark Enders',
+    manager: fourthManager._id,
     points: 18,
     wins: 5,
     draws: 3,
@@ -525,7 +550,7 @@ const mongoose = require('mongoose'),
   fifthClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Westside Hooligan',
-    manager: 'Shaun Kendall',
+    manager: fifthManager._id,
     points: 14,
     wins: 3,
     draws: 5,
@@ -605,7 +630,6 @@ const mongoose = require('mongoose'),
   sixthClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Average',
-    manager: 'N/A',
     points: 9,
     wins: 2,
     draws: 3,
@@ -614,34 +638,180 @@ const mongoose = require('mongoose'),
     goalsAgainst: 280,
     goalDifferential: -180,
   }),
+  clubOne = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Strikers \'87',
+    manager: firstManager._id,
+    starters: [
+      {
+        idFromAPI: 1,
+        fantasyPoints: {
+          fixture: 8
+        }
+      },
+      {
+        idFromAPI: 2,
+        fantasyPoints: {
+          fixture: 3
+        }
+      },
+      {
+        idFromAPI: 3,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 4,
+        fantasyPoints: {
+          fixture: 10
+        }
+      },
+      {
+        idFromAPI: 5,
+        fantasyPoints: {
+          fixture: 0
+        }
+      },
+      {
+        idFromAPI: 6,
+        fantasyPoints: {
+          fixture: 11
+        }
+      },
+      {
+        idFromAPI: 7,
+        fantasyPoints: {
+          fixture: 3
+        }
+      },
+      {
+        idFromAPI: 8,
+        fantasyPoints: {
+          fixture: 1
+        }
+      },
+      {
+        idFromAPI: 9,
+        fantasyPoints: {
+          fixture: 4
+        }
+      },
+      {
+        idFromAPI: 10,
+        fantasyPoints: {
+          fixture: 0
+        }
+      },
+      {
+        idFromAPI: 11,
+        fantasyPoints: {
+          fixture: 7
+        }
+      }
+    ]
+  }),
+  clubTwo = new FantasyClub({
+    _id: new mongoose.Types.ObjectId(),
+    clubName: 'Team RamRod',
+    manager: secondManager._id,
+    starters: [
+      {
+        idFromAPI: 12,
+        fantasyPoints: {
+          fixture: 4
+        }
+      },
+      {
+        idFromAPI: 13,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 14,
+        fantasyPoints: {
+          fixture: 7
+        }
+      },
+      {
+        idFromAPI: 15,
+        fantasyPoints: {
+          fixture: 6
+        }
+      },
+      {
+        idFromAPI: 16,
+        fantasyPoints: {
+          fixture: 2
+        }
+      },
+      {
+        idFromAPI: 17,
+        fantasyPoints: {
+          fixture: 8
+        }
+      },
+      {
+        idFromAPI: 18,
+        fantasyPoints: {
+          fixture: 14
+        }
+      },
+      {
+        idFromAPI: 19,
+        fantasyPoints: {
+          fixture: 5
+        }
+      },
+      {
+        idFromAPI: 20,
+        fantasyPoints: {
+          fixture: 9
+        }
+      },
+      {
+        idFromAPI: 21,
+        fantasyPoints: {
+          fixture: 1
+        }
+      },
+      {
+        idFromAPI: 22,
+        fantasyPoints: {
+          fixture: 6
+        }
+      }
+    ]
+  }),
   firstMatch = new FantasyMatch({
     _id: new mongoose.Types.ObjectId(),
-    homeClub: firstClub._id,
-    awayClub: secondClub._id,
+    homeClub: clubOne._id,
+    awayClub: clubTwo._id,
     homeScore: 0,
     awayScore: 0,
     final: false
   }),
   secondMatch = new FantasyMatch({
     _id: new mongoose.Types.ObjectId(),
-    homeClub: secondClub._id,
-    awayClub: firstClub._id,
+    homeClub: clubTwo._id,
+    awayClub: clubOne._id,
     homeScore: 0,
     awayScore: 0,
     final: false
   }),
   thirdMatch = new FantasyMatch({
     _id: new mongoose.Types.ObjectId(),
-    homeClub: firstClub._id,
-    awayClub: secondClub._id,
+    homeClub: clubOne._id,
+    awayClub: clubTwo._id,
     homeScore: 0,
     awayScore: 0,
     final: false
   }),
   fourthMatch = new FantasyMatch({
     _id: new mongoose.Types.ObjectId(),
-    homeClub: secondClub._id,
-    awayClub: firstClub._id,
+    homeClub: clubTwo._id,
+    awayClub: clubOne._id,
     homeScore: 0,
     awayScore: 0,
     final: false
@@ -655,21 +825,21 @@ const mongoose = require('mongoose'),
   }),
   secondWeek = new WeeklyMatches({
     _id: new mongoose.Types.ObjectId(),
-    roundNumber: 1,
+    roundNumber: 2,
     matches: [secondMatch._id],
     matchesResolved: false,
     datesToRun: new Date(2018, 02, 08)
   }),
   thirdWeek = new WeeklyMatches({
     _id: new mongoose.Types.ObjectId(),
-    roundNumber: 1,
+    roundNumber: 3,
     matches: [thirdMatch._id],
     matchesResolved: false,
     datesToRun: new Date(2018, 02, 15)
   }),
   fourthWeek = new WeeklyMatches({
     _id: new mongoose.Types.ObjectId(),
-    roundNumber: 1,
+    roundNumber: 4,
     matches: [fourthMatch._id],
     matchesResolved: false,
     datesToRun: new Date(2018, 02, 22)
@@ -691,8 +861,13 @@ module.exports = {
 	fantasyLeagueName,
 	firstManager,
 	secondManager,
+	thirdManager,
+	fourthManager,
+	fifthManager,
 	firstClub,
 	secondClub,
+	clubOne,
+	clubTwo,
 	thirdClub,
 	fourthClub,
 	fifthClub,
