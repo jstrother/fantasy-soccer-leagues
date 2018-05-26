@@ -7,6 +7,10 @@ const mongoose = require('mongoose'),
 	dbUser = 'gameUser',
 	dbPassword = 'gamePassword',
 	dbTestConnection = `mongodb://${dbUser}:${dbPassword}@ds137271.mlab.com:37271/fantasy-soccer-db-test`,
+  FantasyMatch = require("../models/fantasyMatch_model.js"),
+  FantasyClub = require("../models/fantasyClub_model.js"),
+  WeeklyMatches = require("../models/weeklyMatches_model.js"),
+  User = require("../models/user_model.js"),
 	testCurrentUser = {
   	accessToken: 1974,
 	  displayName: 'Clint Dempsey',
@@ -182,11 +186,26 @@ const mongoose = require('mongoose'),
   },
   fantasyLeagueId = 779,
   fantasyLeagueName = 'Major League Soccer (USA)',
-  FantasyClub = require("../models/fantasyClub_model.js"),
+  firstManager = new User({
+    _id: new mongoose.Types.ObjectId(),
+    displayName: 'Jim Strother',
+    givenName: 'Jim',
+    familyName: 'Strother',
+    googleId: 1977,
+    accessToken: 123456789
+  }),
+  secondManager = new User({
+    _id: new mongoose.Types.ObjectId(),
+    displayName: 'Bob Dylan',
+    givenName: 'Bob',
+    familyName: 'Dylan',
+    googleId: 1968,
+    accessToken: 987654321
+  }),
   firstClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Strikers \'87',
-    manager: 'Jim Strother',
+    manager: firstManager._id,
     points: 17,
     wins: 5,
     draws: 2,
@@ -266,7 +285,7 @@ const mongoose = require('mongoose'),
   secondClub = new FantasyClub({
     _id: new mongoose.Types.ObjectId(),
     clubName: 'Team RamRod',
-    manager: 'Daniel Mayberry',
+    manager: secondManager._id,
     points: 15,
     wins: 4,
     draws: 3,
@@ -594,6 +613,66 @@ const mongoose = require('mongoose'),
     goalsFor: 100,
     goalsAgainst: 280,
     goalDifferential: -180,
+  }),
+  firstMatch = new FantasyMatch({
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: firstClub._id,
+    awayClub: secondClub._id,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  }),
+  secondMatch = new FantasyMatch({
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: secondClub._id,
+    awayClub: firstClub._id,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  }),
+  thirdMatch = new FantasyMatch({
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: firstClub._id,
+    awayClub: secondClub._id,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  }),
+  fourthMatch = new FantasyMatch({
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: secondClub._id,
+    awayClub: firstClub._id,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  }),
+  firstWeek = new WeeklyMatches({
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 1,
+    matches: [firstMatch._id],
+    matchesResolved: false,
+    datesToRun: new Date(2018, 02, 01)
+  }),
+  secondWeek = new WeeklyMatches({
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 1,
+    matches: [secondMatch._id],
+    matchesResolved: false,
+    datesToRun: new Date(2018, 02, 08)
+  }),
+  thirdWeek = new WeeklyMatches({
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 1,
+    matches: [thirdMatch._id],
+    matchesResolved: false,
+    datesToRun: new Date(2018, 02, 15)
+  }),
+  fourthWeek = new WeeklyMatches({
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 1,
+    matches: [fourthMatch._id],
+    matchesResolved: false,
+    datesToRun: new Date(2018, 02, 22)
   });
 
 module.exports = {
@@ -610,10 +689,20 @@ module.exports = {
 	testPlayer3,
 	fantasyLeagueId,
 	fantasyLeagueName,
+	firstManager,
+	secondManager,
 	firstClub,
 	secondClub,
 	thirdClub,
 	fourthClub,
 	fifthClub,
-	sixthClub
+	sixthClub,
+	firstMatch,
+	secondMatch,
+	thirdMatch,
+	fourthMatch,
+	firstWeek,
+	secondWeek,
+	thirdWeek,
+	fourthWeek
 };

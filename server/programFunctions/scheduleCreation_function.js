@@ -4,22 +4,20 @@ const mongoose = require('mongoose'),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js"),
   WeeklyMatches = require("../../models/weeklyMatches_model.js"),
-  User = require("../../models/user_model.js"),
   { compare } = require("../../server/programFunctions/compare_function.js");
 
 function standingsCalculator(clubArray) {
-  clubArray.sort((a, b) => compare(a.points, b.points) || compare(a.goalDifferential, b.goalDifferential) || compare(a.goalsFor, b.goalsFor) || compare(b.goalsAgainst, a.goalsAgainst));
+  clubArray.sort((a, b) => compare(a.points, b.points) || compare(a.goalDifferential, b.goalDifferential) || compare(a.goalsFor, b.goalsFor));
   return clubArray;
 }
 
 // can use loopArray_function.js to run matchResolver() once a week on the correct index in matchArray
-function matchResolver(allWeeklyMatches, clubArray) {
-  // it's 'allWeeklyMatches' because we are grabbing all of the weeklyMatches from the database
+function matchResolver(fullSchedule, clubArray) {
   const today = new Date().getTime(),
     clubArrayLength = clubArray.length,
     updatedMatches = [];
   
-  allWeeklyMatches.forEach(weeklyMatches => {
+  fullSchedule.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
     let allScores = 0,
       matchArray = weeklyMatches.matches;
@@ -55,9 +53,6 @@ function matchResolver(allWeeklyMatches, clubArray) {
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        // console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
-        // console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
-        // console.log('roundNumber:', weeklyMatches.roundNumber);
         if (match.final === false) {
           match.final = true;
           if (match.homeScore > match.awayScore) {
@@ -156,7 +151,7 @@ function matchResolver(allWeeklyMatches, clubArray) {
     });
   });
   
-  return allWeeklyMatches;
+  return fullSchedule;
 }
 
 // clubArray will be filled by getting all clubs from fantasyClubs-router.js
@@ -205,9 +200,9 @@ function scheduleCreator(clubArray) {
   
   schedule.markModified('startDate');
   return save(schedule)
-    .catch(error => {
-      throw new Error(error);
-    });
+  .catch(error => {
+    throw new Error(error);
+  });
   
   // this function goes over clubArray and sets up a match between each pair
   function arrayParser (clubArray, roundNumber) {
