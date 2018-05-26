@@ -5,7 +5,6 @@ const mongoose = require("mongoose"),
     _id: Schema.Types.ObjectId,
     roundNumber: Number,
     matches: [{type: Schema.Types.ObjectId, ref: 'FantasyMatch'}],
-    matchesResolved: Boolean,
     datesToRun: Date
   }),
   

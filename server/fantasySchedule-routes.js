@@ -19,11 +19,11 @@ fantasyScheduleRouter.post('/matchResolver',
           model: 'FantasyClub'
         }
       })
-      .exec((error, allWeeklyMatches) => {
+      .exec((error, fullSchedule) => {
         if (error) {
           return () => {throw new Error(error)};
         }
-        res.json(matchResolver(allWeeklyMatches, clubArray));
+        res.json(matchResolver(fullSchedule, clubArray));
       })
       .catch(error => {
         throw new Error(error);

@@ -1,4 +1,6 @@
-const {scheduleCreator, matchResolver, save} = require("../../server/programFunctions/scheduleCreation_function.js"),
+const {scheduleCreator, matchResolver} = require("../../server/programFunctions/scheduleCreation_function.js"),
+  {pureMatchResolver} = require("../../server/programFunctions/pureMatchResolver_function.js"),
+  {save} = require("../../server/programFunctions/save_function.js"),
   {chai, chaiHTTP, dbTestConnection, mongoose, firstClub, secondClub, firstManager, secondManager, firstMatch, secondMatch, thirdMatch, fourthMatch, firstWeek, secondWeek, thirdWeek, fourthWeek} = require("../common.js");
 
 chai.use(chaiHTTP);
@@ -21,9 +23,7 @@ describe('Matches Resolver', () => {
     });
   });
   
-  it.only('should resolve matches that have already happened', () => {
-    const clubArray = [firstClub, secondClub];
-    
+  it.skip('should resolve matches that have already happened 1', () => {
     Promise.all([
       save(firstManager),
       save(secondManager),
@@ -31,6 +31,7 @@ describe('Matches Resolver', () => {
       save(secondClub)
     ])
     .then(() => {
+      const clubArray = [firstClub, secondClub];
       scheduleCreator(clubArray)
       .then((schedule) => {
         console.log('schedule:', schedule);
@@ -39,6 +40,23 @@ describe('Matches Resolver', () => {
     })
     .catch(error => {
       throw new Error(error);
+    });
+  });
+  
+  it.only('should resolve matches that have already happened 2', () => {
+    Promise.all([
+      save(firstManager),
+      save(secondManager),
+      save(firstClub),
+      save(secondClub)
+    ])
+    .then(() => {
+      const clubArray = [firstClub, secondClub];
+      scheduleCreator(clubArray)
+      .then((schedule) => {
+        console.log('schedule:', schedule);
+        pureMatchResolver(schedule.weeklyMatches, clubArray);
+      });
     });
   });
 });
