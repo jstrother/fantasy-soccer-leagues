@@ -4,7 +4,7 @@ function basicMatchResolver(fullSchedule, clubArray) {
   const today = new Date().getTime(),
     clubArrayLength = clubArray.length,
     resolvedMatches = [];
-  
+    
   fullSchedule.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
     let allScores = 0,
@@ -14,7 +14,6 @@ function basicMatchResolver(fullSchedule, clubArray) {
       matchArray.forEach(match => {
         if (match.final === false) {
           if (match.homeClub.clubName !== 'Average' && match.homeScore === 0) {
-            console.log('match1a:', match);
             match.homeClub.starters.forEach(starter => {
               match.homeScore += starter.fantasyPoints.fixture;
             });
@@ -27,7 +26,6 @@ function basicMatchResolver(fullSchedule, clubArray) {
             allScores += match.awayScore;
           }
         }
-        console.log('match1:', match);
       });
       // then calculate the points for averageClub if present
       matchArray.forEach(match => {
@@ -40,11 +38,9 @@ function basicMatchResolver(fullSchedule, clubArray) {
             match.awayScore = allScores / (clubArrayLength - 1);
           }
         }
-        console.log('match2:', match);
       });
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
-        console.log('match3:', match);
         if (match.final === false) {
           match.final = true;
           if (match.homeScore > match.awayScore) {
@@ -76,8 +72,8 @@ function basicMatchResolver(fullSchedule, clubArray) {
         }
       });
     }
-    return resolvedMatches;
   });
+  return resolvedMatches;
 }
 
 module.exports = {

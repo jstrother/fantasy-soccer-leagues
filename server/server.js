@@ -38,9 +38,6 @@ const runServer = (port = PORT, database = DATABASE) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
 		mongoose.connect(database,
-		{
-			useMongoClient: true
-		},
 		error => {
 			if (error) {
 				return reject(error);
