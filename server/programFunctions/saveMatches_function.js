@@ -7,10 +7,8 @@ const options = {
 };
 
 function saveMatches(resolvedMatches) {
-  console.log('saveMatches length:', resolvedMatches.length);
-  let savedMatches = [];
-  resolvedMatches.forEach(match => {
-    FantasyMatch
+  let matches = resolvedMatches.map(match => {
+    return FantasyMatch
     .findByIdAndUpdate(
       match._id,
       {
@@ -22,14 +20,11 @@ function saveMatches(resolvedMatches) {
       },
       options
     )
-    .then(savedMatch => {
-      savedMatches.push(savedMatch);
-    })
     .catch(error => {
       throw new Error(error);
     });
   });
-  return savedMatches;
+  return Promise.all(matches);
 }
 
 module.exports = {

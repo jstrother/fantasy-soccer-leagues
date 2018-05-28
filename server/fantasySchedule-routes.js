@@ -2,7 +2,8 @@ const fantasyScheduleRouter = require("express").Router(),
   FantasyClub = require("../models/fantasyClub_model.js"),
   FantasySchedule = require("../models/fantasySchedule_model.js"),
   WeeklyMatches = require("../models/weeklyMatches_model.js"),
-  { scheduleCreator, matchResolver } = require("./programFunctions/scheduleCreation_function.js");
+  { scheduleCreator } = require("./programFunctions/scheduleCreation_function.js"),
+  {fullMatchResolver} = require("./programFunctions/fullMatchResolver_function.js");
 
 fantasyScheduleRouter.post('/matchResolver',
   (req, res) => {
@@ -23,7 +24,7 @@ fantasyScheduleRouter.post('/matchResolver',
         if (error) {
           return () => {throw new Error(error)};
         }
-        res.json(matchResolver(fullSchedule, clubArray));
+        res.json(fullMatchResolver(fullSchedule, clubArray));
       })
       .catch(error => {
         throw new Error(error);

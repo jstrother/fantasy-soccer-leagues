@@ -1,12 +1,16 @@
 const mongoose = require('mongoose'),
 	chai = require('chai'), // if you need expect or should, then you need to import chai also
 	chaiHTTP = require('chai-http'),
+	chaiAsPromised = require("chai-as-promised"),
 	should = chai.should(),
 	{basicMatchResolver} = require("../../server/programFunctions/basicMatchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
+	{saveHomeClubs} = require("../../server/programFunctions/saveHomeClubs_function.js"),
+	{saveAwayClubs} = require("../../server/programFunctions/saveAwayClubs_function.js"),
   {dbTestConnection} = require("../common.js");
 
 chai.use(chaiHTTP);
+chai.use(chaiAsPromised);
 mongoose.Promise = Promise;
 
 describe('Matches Resolver', () => {
@@ -371,14 +375,20 @@ describe('Matches Resolver', () => {
   const fullSchedule = [firstWeek, secondWeek, thirdWeek],
     clubArray = [clubOne, clubTwo, clubThree, averageClub],
     resolvedMatches = basicMatchResolver(fullSchedule, clubArray),
-    matchesInDB = saveMatches(resolvedMatches);
+    savedMatches = saveMatches(resolvedMatches),
+    savedHomeClubs = saveHomeClubs(resolvedMatches),
+    savedAwayClubs = saveAwayClubs(resolvedMatches);
   
   it('should resolve matches that have already happened', () => {
     resolvedMatches.should.exist;
   });
   it('should add resolved matches to the database', () => {
-    console.log('matchesInDB:', matchesInDB);
-    matchesInDB.should.exist;
-    matchesInDB.length.should.equal(6);
+    return savedMatches.should.eventually.exist;
+  });
+  it('should add homeClubs to database with updated stats', () => {
+    return savedHomeClubs.should.eventually.exist;
+  });
+  it('should add awayClubs to database with updated stats', () => {
+    return savedAwayClubs.should.eventually.exist;
   });
 });
