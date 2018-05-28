@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "df1271df40f70eae99b8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e8b80241a66ff0fb4ff6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3280,7 +3280,7 @@ var newClub = function newClub(accessToken, clubName, manager) {
     }).then(function (data) {
       dispatch(newClubSuccess(data.clubName, data.manager, 200));
     }).catch(function (error) {
-      console.error(error.message); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
@@ -37343,17 +37343,20 @@ function (_React$Component) {
   }, {
     key: "handleKeyPress",
     value: function handleKeyPress(event) {
-      // makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
+      // makes sure that the clubName gets saved, but when pressing Enter key
       if (event.key === 'Enter') {
-        event.preventDefault();
-        this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
-        this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));
-        this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
+        this.setClubName(event);
       }
     }
   }, {
     key: "submitClubName",
     value: function submitClubName(event) {
+      // makes sure that the clubName gets saved, but when clicking submit button
+      this.setClubName(event);
+    }
+  }, {
+    key: "setClubName",
+    value: function setClubName(event) {
       event.preventDefault();
       this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
       this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));

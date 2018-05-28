@@ -256,8 +256,7 @@ export const newClub = (accessToken, clubName, manager) => dispatch => {
     dispatch(newClubSuccess(data.clubName, data.manager, 200));
   })
   .catch(error => {
-    console.error(error.message);
-    // throw new Error(error);
+    throw new Error(error);
   });
 };
 

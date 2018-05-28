@@ -20,16 +20,18 @@ export class FantasyTeam extends React.Component {
   }
   
 	handleKeyPress(event) {
-		// makes sure that the same thing happens as submitClubName(), but for pressing Enter key instead
+		// makes sure that the clubName gets saved, but when pressing Enter key
 		if (event.key === 'Enter') {
-			event.preventDefault();
-			this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
-			this.props.dispatch(clubOwner(this.props.accessToken, true));
-			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
+			this.setClubName(event);
 		}
 	}
   
 	submitClubName(event) {
+		// makes sure that the clubName gets saved, but when clicking submit button
+		this.setClubName(event);
+	}
+	
+	setClubName(event) {
 		event.preventDefault();
 		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
 		this.props.dispatch(clubOwner(this.props.accessToken, true));

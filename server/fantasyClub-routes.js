@@ -10,11 +10,7 @@ fantasyClubRouter.get('/:userId',
       path: 'manager',
       model: 'User'
     })
-    .exec((error, populatedClub) => {
-      if (error) {
-        throw new Error(error);
-      }
-      console.log('populatedClub:', populatedClub);
+    .then(populatedClub => {
       res.json(populatedClub);
     })
     .catch(error => {
@@ -33,7 +29,7 @@ fantasyClubRouter.put('/newClub',
     
     newClub
     .save()
-    .then(function(newClub) {
+    .then(newClub => {
       res.json(newClub);
     })
     .catch(error => {

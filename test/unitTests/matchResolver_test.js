@@ -5,8 +5,6 @@ const mongoose = require('mongoose'),
 	should = chai.should(),
 	{basicMatchResolver} = require("../../server/programFunctions/basicMatchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
-	{saveHomeClubs} = require("../../server/programFunctions/saveHomeClubs_function.js"),
-	{saveAwayClubs} = require("../../server/programFunctions/saveAwayClubs_function.js"),
   {dbTestConnection} = require("../common.js");
 
 chai.use(chaiHTTP);
@@ -375,20 +373,12 @@ describe('Matches Resolver', () => {
   const fullSchedule = [firstWeek, secondWeek, thirdWeek],
     clubArray = [clubOne, clubTwo, clubThree, averageClub],
     resolvedMatches = basicMatchResolver(fullSchedule, clubArray),
-    savedMatches = saveMatches(resolvedMatches),
-    savedHomeClubs = saveHomeClubs(resolvedMatches),
-    savedAwayClubs = saveAwayClubs(resolvedMatches);
+    savedMatches = saveMatches(resolvedMatches);
   
   it('should resolve matches that have already happened', () => {
     resolvedMatches.should.exist;
   });
   it('should add resolved matches to the database', () => {
     return savedMatches.should.eventually.exist;
-  });
-  it('should add homeClubs to database with updated stats', () => {
-    return savedHomeClubs.should.eventually.exist;
-  });
-  it('should add awayClubs to database with updated stats', () => {
-    return savedAwayClubs.should.eventually.exist;
   });
 });
