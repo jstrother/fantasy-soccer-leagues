@@ -18,14 +18,14 @@ describe('Matches Resolver', () => {
     return mongoose.connect(dbTestConnection);
   });
   
-  // after(() => {
-  //   return mongoose.connection.db.dropDatabase(dbTestConnection)
-  //   .then(() => {
-  //     mongoose.connection.close(() => {
-  //       console.log('connection closed');
-  //     });
-  //   });
-  // });
+  after(() => {
+    return mongoose.connection.db.dropDatabase(dbTestConnection)
+    .then(() => {
+      mongoose.connection.close(() => {
+        console.log('connection closed');
+      });
+    });
+  });
   
   let firstManager = {
     _id: new mongoose.Types.ObjectId(),

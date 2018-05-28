@@ -14,6 +14,7 @@ fantasyClubRouter.get('/:userId',
       if (error) {
         throw new Error(error);
       }
+      console.log('populatedClub:', populatedClub);
       res.json(populatedClub);
     })
     .catch(error => {
