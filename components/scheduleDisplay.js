@@ -34,26 +34,34 @@ export class DisplaySchedule extends React.Component {
   }
   
   render() {
+    let previousHomeClub,
+      previousHomeScore,
+      previousAwayClub,
+      previousAwayScore,
+      previousRoundDates,
+      nextHomeClub,
+      nextAwayClub,
+      nextRoundDates;
     if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-      let previousMatch,
-        previousRound,
-        nextMatch,
-        nextRound;
       this.props.fantasySchedule.weeklyMatches.forEach(round => {
         const matchDates = new Date(round.datesToRun);
         if ((today - sevenDays) <= matchDates.getTime() && matchDates.getTime() < today) {
-          previousRound = round;
+          previousRoundDates = round.datesToRun;
           round.matches.forEach(match => {
             if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
-              previousMatch = match;
+              previousHomeClub = match.homeClub.clubName;
+              previousHomeScore = match.homeScore;
+              previousAwayClub = match.awayClub.clubName;
+              previousAwayScore = match.awayScore;
             }
           });
         }
         if(today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
-          nextRound = round;
+          nextRoundDates = round.datesToRun;
           round.matches.forEach(match => {
             if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
-              nextMatch = match;
+              nextHomeClub = match.homeClub.clubName;
+              nextAwayClub = match.awayClub.clubName;
             }
           });
         }
@@ -62,19 +70,19 @@ export class DisplaySchedule extends React.Component {
         <div>
           <p>Previous Match:</p>
           <FantasyMatch 
-            homeClub={previousMatch.homeClub.clubName}
-            awayClub={previousMatch.awayClub.clubName}
-            homeScore={previousMatch.homeScore}
-            awayScore={previousMatch.awayScore}
-            matchDate={previousRound.datesToRun}/>
+            homeClub={previousHomeClub}
+            awayClub={previousAwayClub}
+            homeScore={previousHomeScore}
+            awayScore={previousAwayScore}
+            matchDate={previousRoundDates}/>
           <br />
           <p>Next Match:</p>
           <FantasyMatch 
-            homeClub={nextMatch.homeClub.clubName}
-            awayClub={nextMatch.awayClub.clubName}
+            homeClub={nextHomeClub}
+            awayClub={nextAwayClub}
             homeScore={null}
             awayScore={null}
-            matchDate={nextRound.datesToRun}/>
+            matchDate={nextRoundDates}/>
           <br />
           <p>Schedule:</p>
           <table>

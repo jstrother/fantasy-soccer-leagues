@@ -7,7 +7,9 @@ const mongoose = require('mongoose'),
     homeScore: { type: Number, required: true },
     awayClub: { type: Schema.Types.ObjectId, ref: 'FantasyClub', required: true },
     awayScore: { type: Number, required: true },
-    final: { type: Boolean, required: true }
+    final: { type: Boolean, required: true },
+    homeClubName: String, // delete these lines after testing
+    awayClubName: String // delete these lines after testing
 	}),
 
 	FantasyMatch = mongoose.model('FantasyMatch', fantasyMatchSchema);

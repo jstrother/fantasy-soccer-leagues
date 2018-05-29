@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e8b80241a66ff0fb4ff6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0a1d3d19f2fe10fc7549"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7172,7 +7172,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.log('userActions.js:69 error:', error); // throw new Error(error);
     });
   };
 };
@@ -37640,41 +37640,46 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var previousHomeClub, previousHomeScore, previousAwayClub, previousAwayScore, previousRoundDates, nextHomeClub, nextAwayClub, nextRoundDates;
+
       if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-        var previousMatch, previousRound, nextMatch, nextRound;
         this.props.fantasySchedule.weeklyMatches.forEach(function (round) {
           var matchDates = new Date(round.datesToRun);
 
           if (today - sevenDays <= matchDates.getTime() && matchDates.getTime() < today) {
-            previousRound = round;
+            previousRoundDates = round.datesToRun;
             round.matches.forEach(function (match) {
               if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
-                previousMatch = match;
+                previousHomeClub = match.homeClub.clubName;
+                previousHomeScore = match.homeScore;
+                previousAwayClub = match.awayClub.clubName;
+                previousAwayScore = match.awayScore;
               }
             });
           }
 
           if (today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
-            nextRound = round;
+            nextRoundDates = round.datesToRun;
             round.matches.forEach(function (match) {
               if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
-                nextMatch = match;
+                nextHomeClub = match.homeClub.clubName;
+                nextAwayClub = match.awayClub.clubName;
               }
             });
           }
         });
         return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, {
-          homeClub: previousMatch.homeClub.clubName,
-          awayClub: previousMatch.awayClub.clubName,
-          homeScore: previousMatch.homeScore,
-          awayScore: previousMatch.awayScore,
-          matchDate: previousRound.datesToRun
+          homeClub: previousHomeClub,
+          awayClub: previousAwayClub,
+          homeScore: previousHomeScore,
+          awayScore: previousAwayScore,
+          matchDate: previousRoundDates
         }), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, {
-          homeClub: nextMatch.homeClub.clubName,
-          awayClub: nextMatch.awayClub.clubName,
+          homeClub: nextHomeClub,
+          awayClub: nextAwayClub,
           homeScore: null,
           awayScore: null,
-          matchDate: nextRound.datesToRun
+          matchDate: nextRoundDates
         }), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
@@ -39453,7 +39458,9 @@ var _fantasyScheduleActions = __webpack_require__(90);
 // ./flow/subReducers/fantasyScheduleReducer.js
 // imported into ./flow/reducers.js
 var initialState = {
-  fantasySchedule: {},
+  fantasySchedule: {
+    weeklyMatches: []
+  },
   scheduleFetched: null,
   scheduleCreated: null,
   scheduleUpdate: false

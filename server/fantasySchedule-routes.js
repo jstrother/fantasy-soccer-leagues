@@ -62,10 +62,7 @@ fantasyScheduleRouter.get('/:leagueScheduleId',
         }
       }
     })
-    .exec((error, populatedSchedule) => {
-      if (error) {
-        return () => {throw new Error(error)};
-      }
+    .then(populatedSchedule => {
       res.json(populatedSchedule);
     })
     .catch(error => {
@@ -95,10 +92,7 @@ fantasyScheduleRouter.post('/scheduleCreator',
             }
           }
         })
-        .exec((error, populatedSchedule) => {
-          if (error) {
-            return () => {throw new Error(error)};
-          }
+        .then(populatedSchedule => {
           res.json(populatedSchedule);
         });
       })

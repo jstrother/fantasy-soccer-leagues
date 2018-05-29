@@ -13,13 +13,13 @@ function basicMatchResolver(fullSchedule, clubArray) {
       // first calculate fantasyPoints for each team run by a human
       matchArray.forEach(match => {
         if (match.final === false) {
-          if (match.homeClub.clubName !== 'Average' && match.homeScore === 0) {
+          if (match.homeClub.clubName !== 'Average') {
             match.homeClub.starters.forEach(starter => {
               match.homeScore += starter.fantasyPoints.fixture;
             });
             allScores += match.homeScore;
           }
-          if (match.awayClub.clubName !== 'Average' && match.awayScore === 0) {
+          if (match.awayClub.clubName !== 'Average') {
             match.awayClub.starters.forEach(starter => {
               match.awayScore += starter.fantasyPoints.fixture;
             });
@@ -31,10 +31,10 @@ function basicMatchResolver(fullSchedule, clubArray) {
       matchArray.forEach(match => {
         // we take one less than the total clubArray.length as we need the average of all human-operated fantasyClubs
         if (match.final === false) {
-          if(match.homeClub.clubName === 'Average' && match.homeScore === 0) {
+          if(match.homeClub.clubName === 'Average') {
             match.homeScore = allScores / (clubArrayLength - 1);
           }
-          if(match.awayClub.clubName === 'Average' && match.awayScore === 0) {
+          if(match.awayClub.clubName === 'Average') {
             match.awayScore = allScores / (clubArrayLength - 1);
           }
         }

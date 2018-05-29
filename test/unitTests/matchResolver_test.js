@@ -16,14 +16,14 @@ describe('Matches Resolver', () => {
     return mongoose.connect(dbTestConnection);
   });
   
-  after(() => {
-    return mongoose.connection.db.dropDatabase(dbTestConnection)
-    .then(() => {
-      mongoose.connection.close(() => {
-        console.log('connection closed');
-      });
-    });
-  });
+  // after(() => {
+  //   return mongoose.connection.db.dropDatabase(dbTestConnection)
+  //   .then(() => {
+  //     mongoose.connection.close(() => {
+  //       console.log('connection closed');
+  //     });
+  //   });
+  // });
   
   let firstManager = {
     _id: new mongoose.Types.ObjectId(),
@@ -304,7 +304,7 @@ describe('Matches Resolver', () => {
     goalDifferential: 0,
     gamesPlayed: 0
   },
-  firstMatch1 = {
+  week1Match1 = {
     _id: new mongoose.Types.ObjectId(),
     homeClub: clubOne,
     awayClub: clubTwo,
@@ -312,7 +312,7 @@ describe('Matches Resolver', () => {
     awayScore: 0,
     final: false
   },
-  firstMatch2 = {
+  week1Match2 = {
     _id: new mongoose.Types.ObjectId(),
     homeClub: clubThree,
     awayClub: averageClub,
@@ -320,7 +320,7 @@ describe('Matches Resolver', () => {
     awayScore: 0,
     final: false
   },
-  secondMatch1 = {
+  week2Match1 = {
     _id: new mongoose.Types.ObjectId(),
     homeClub: clubTwo,
     awayClub: clubThree,
@@ -328,7 +328,7 @@ describe('Matches Resolver', () => {
     awayScore: 0,
     final: false
   },
-  secondMatch2 = {
+  week2Match2 = {
     _id: new mongoose.Types.ObjectId(),
     homeClub: averageClub,
     awayClub: clubOne,
@@ -336,7 +336,7 @@ describe('Matches Resolver', () => {
     awayScore: 0,
     final: false
   },
-  thirdMatch1 = {
+  week3Match1 = {
     _id: new mongoose.Types.ObjectId(),
     homeClub: clubOne,
     awayClub: clubThree,
@@ -344,7 +344,7 @@ describe('Matches Resolver', () => {
     awayScore: 0,
     final: false
   },
-  thirdMatch2 = {
+  week3Match2 = {
     _id: new mongoose.Types.ObjectId(),
     homeClub: clubTwo,
     awayClub: averageClub,
@@ -352,25 +352,794 @@ describe('Matches Resolver', () => {
     awayScore: 0,
     final: false
   },
-  firstWeek = {
+  week4Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week4Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week5Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week5Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week6Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week6Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week7Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week7Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week8Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week8Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week9Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week9Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week10Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week10Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week11Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week11Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week12Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week12Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week13Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+  },
+  week13Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week14Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week14Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week15Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week15Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week16Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week16Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week17Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week17Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week18Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week18Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week19Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week19Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week20Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week20Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week21Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week21Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week22Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week22Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week23Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week23Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week24Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week24Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week25Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week25Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week26Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week26Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week27Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week27Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week28Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week28Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week29Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week29Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week30Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week30Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week31Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week31Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week32Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week32Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week33Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week33Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week34Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week34Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week35Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week35Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week36Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week36Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week37Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubOne,
+    awayClub: clubTwo,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week37Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubThree,
+    awayClub: averageClub,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week38Match1 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: clubTwo,
+    awayClub: clubThree,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week38Match2 = {
+    _id: new mongoose.Types.ObjectId(),
+    homeClub: averageClub,
+    awayClub: clubOne,
+    homeScore: 0,
+    awayScore: 0,
+    final: false
+  },
+  week1 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 1,
-    matches: [firstMatch1, firstMatch2],
+    matches: [week1Match1, week1Match2],
     datesToRun: new Date(2018, 02, 01)
   },
-  secondWeek = {
+  week2 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 2,
-    matches: [secondMatch1, secondMatch2],
+    matches: [week2Match1, week2Match2],
     datesToRun: new Date(2018, 02, 08)
   },
-  thirdWeek = {
+  week3 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 3,
-    matches: [thirdMatch1, thirdMatch2],
+    matches: [week3Match1, week3Match2],
     datesToRun: new Date(2018, 02, 15)
+  },
+  week4 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 4,
+    matches: [week4Match1, week4Match2],
+    datesToRun: new Date(2018, 02, 22)
+  },
+  week5 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 5,
+    matches: [week5Match1, week5Match2],
+    datesToRun: new Date(2018, 02, 29)
+  },
+  week6 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 6,
+    matches: [week6Match1, week6Match2],
+    datesToRun: new Date(2018, 03, 05)
+  },
+  week7 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 7,
+    matches: [week7Match1, week7Match2],
+    datesToRun: new Date(2018, 03, 12)
+  },
+  week8 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 8,
+    matches: [week8Match1, week8Match2],
+    datesToRun: new Date(2018, 03, 19)
+  },
+  week9 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 9,
+    matches: [week9Match1, week9Match2],
+    datesToRun: new Date(2018, 03, 26)
+  },
+  week10 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 10,
+    matches: [week10Match1, week10Match2],
+    datesToRun: new Date(2018, 04, 03)
+  },
+  week11 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 11,
+    matches: [week11Match1, week11Match2],
+    datesToRun: new Date(2018, 04, 10)
+  },
+  week12 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 12,
+    matches: [week12Match1, week12Match2],
+    datesToRun: new Date(2018, 04, 17)
+  },
+  week13 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 13,
+    matches: [week13Match1, week13Match2],
+    datesToRun: new Date(2018, 04, 24)
+  },
+  week14 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 14,
+    matches: [week14Match1, week14Match2],
+    datesToRun: new Date(2018, 04, 31)
+  },
+  week15 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 15,
+    matches: [week15Match1, week15Match2],
+    datesToRun: new Date(2018, 05, 07)
+  },
+  week16 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 16,
+    matches: [week16Match1, week16Match2],
+    datesToRun: new Date(2018, 05, 14)
+  },
+  week17 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 17,
+    matches: [week17Match1, week17Match2],
+    datesToRun: new Date(2018, 05, 21)
+  },
+  week18 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 18,
+    matches: [week18Match1, week18Match2],
+    datesToRun: new Date(2018, 05, 28)
+  },
+  week19 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 19,
+    matches: [week19Match1, week19Match2],
+    datesToRun: new Date(2018, 06, 05)
+  },
+  week20 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 20,
+    matches: [week20Match1, week20Match2],
+    datesToRun: new Date(2018, 06, 12)
+  },
+  week21 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 21,
+    matches: [week21Match1, week21Match2],
+    datesToRun: new Date(2018, 06, 19)
+  },
+  week22 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 22,
+    matches: [week22Match1, week22Match2],
+    datesToRun: new Date(2018, 06, 26)
+  },
+  week23 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 23,
+    matches: [week23Match1, week23Match2],
+    datesToRun: new Date(2018, 07, 02)
+  },
+  week24 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 24,
+    matches: [week24Match1, week24Match2],
+    datesToRun: new Date(2018, 07, 09)
+  },
+  week25 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 25,
+    matches: [week25Match1, week25Match2],
+    datesToRun: new Date(2018, 07, 16)
+  },
+  week26 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 26,
+    matches: [week26Match1, week26Match2],
+    datesToRun: new Date(2018, 07, 23)
+  },
+  week27 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 27,
+    matches: [week27Match1, week27Match2],
+    datesToRun: new Date(2018, 07, 30)
+  },
+  week28 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 28,
+    matches: [week28Match1, week28Match2],
+    datesToRun: new Date(2018, 08, 06)
+  },
+  week29 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 29,
+    matches: [week29Match1, week29Match2],
+    datesToRun: new Date(2018, 08, 13)
+  },
+  week30 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 30,
+    matches: [week30Match1, week30Match2],
+    datesToRun: new Date(2018, 08, 20)
+  },
+  week31 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 31,
+    matches: [week31Match1, week31Match2],
+    datesToRun: new Date(2018, 08, 27)
+  },
+  week32 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 32,
+    matches: [week32Match1, week32Match2],
+    datesToRun: new Date(2018, 09, 04)
+  },
+  week33 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 33,
+    matches: [week33Match1, week33Match2],
+    datesToRun: new Date(2018, 09, 11)
+  },
+  week34 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 34,
+    matches: [week34Match1, week34Match2],
+    datesToRun: new Date(2018, 09, 18)
+  },
+  week35 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 35,
+    matches: [week35Match1, week35Match2],
+    datesToRun: new Date(2018, 09, 25)
+  },
+  week36 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 36,
+    matches: [week36Match1, week36Match2],
+    datesToRun: new Date(2018, 10, 01)
+  },
+  week37 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 37,
+    matches: [week37Match1, week37Match2],
+    datesToRun: new Date(2018, 10, 08)
+  },
+  week38 = {
+    _id: new mongoose.Types.ObjectId(),
+    roundNumber: 38,
+    matches: [week38Match1, week38Match2],
+    datesToRun: new Date(2018, 10, 15)
   };
-  const fullSchedule = [firstWeek, secondWeek, thirdWeek],
+  const fullSchedule = [week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15, week16, week17, week18, week19, week20, week21, week22, week23, week24, week25, week26, week27, week28, week29, week30, week31, week32, week33, week34, week35, week36, week37, week38],
     clubArray = [clubOne, clubTwo, clubThree, averageClub],
     resolvedMatches = basicMatchResolver(fullSchedule, clubArray),
     savedMatches = saveMatches(resolvedMatches);
