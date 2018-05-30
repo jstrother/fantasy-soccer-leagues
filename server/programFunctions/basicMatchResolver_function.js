@@ -1,44 +1,20 @@
 /*eslint-disable no-console*/
+const {humanClubScoreCalc} = require("./humanClubScoreCalc_function.js");
 
 function basicMatchResolver(fullSchedule, clubArray) {
   const today = new Date().getTime(),
-    clubArrayLength = clubArray.length,
-    resolvedMatches = [];
+    clubArrayLength = clubArray.length;
+  
+  let resolvedMatches = [];
     
   fullSchedule.forEach(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
-    let allScores = 0,
-      matchArray = weeklyMatches.matches;
+    let matchArray = weeklyMatches.matches;
     if (today > weeklyMatches.datesToRun.getTime()) {
       // first calculate fantasyPoints for each team run by a human
-      matchArray.forEach(match => {
-        if (match.final === false) {
-          if (match.homeClub.clubName !== 'Average') {
-            match.homeClub.starters.forEach(starter => {
-              match.homeScore += starter.fantasyPoints.fixture;
-            });
-            allScores += match.homeScore;
-          }
-          if (match.awayClub.clubName !== 'Average') {
-            match.awayClub.starters.forEach(starter => {
-              match.awayScore += starter.fantasyPoints.fixture;
-            });
-            allScores += match.awayScore;
-          }
-        }
-      });
+      let humanClubScores = humanClubScoreCalc(matchArray);
       // then calculate the points for averageClub if present
-      matchArray.forEach(match => {
-        // we take one less than the total clubArray.length as we need the average of all human-operated fantasyClubs
-        if (match.final === false) {
-          if(match.homeClub.clubName === 'Average') {
-            match.homeScore = allScores / (clubArrayLength - 1);
-          }
-          if(match.awayClub.clubName === 'Average') {
-            match.awayScore = allScores / (clubArrayLength - 1);
-          }
-        }
-      });
+      
       // finally, compare scores and add to correct "column" (W, D, L)
       matchArray.forEach(match => {
         if (match.final === false) {

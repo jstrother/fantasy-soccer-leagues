@@ -5,6 +5,7 @@ const mongoose = require('mongoose'),
 	should = chai.should(),
 	{basicMatchResolver} = require("../../server/programFunctions/basicMatchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
+	{humanClubScoreCalc} = require("../../server/programFunctions/humanClubScoreCalc_function.js"),
   {dbTestConnection} = require("../common.js");
 
 chai.use(chaiHTTP);
@@ -16,14 +17,14 @@ describe('Matches Resolver', () => {
     return mongoose.connect(dbTestConnection);
   });
   
-  // after(() => {
-  //   return mongoose.connection.db.dropDatabase(dbTestConnection)
-  //   .then(() => {
-  //     mongoose.connection.close(() => {
-  //       console.log('connection closed');
-  //     });
-  //   });
-  // });
+  after(() => {
+    return mongoose.connection.db.dropDatabase(dbTestConnection)
+    .then(() => {
+      mongoose.connection.close(() => {
+        console.log('connection closed');
+      });
+    });
+  });
   
   let firstManager = {
     _id: new mongoose.Types.ObjectId(),
@@ -1141,13 +1142,18 @@ describe('Matches Resolver', () => {
   };
   const fullSchedule = [week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15, week16, week17, week18, week19, week20, week21, week22, week23, week24, week25, week26, week27, week28, week29, week30, week31, week32, week33, week34, week35, week36, week37, week38],
     clubArray = [clubOne, clubTwo, clubThree, averageClub],
-    resolvedMatches = basicMatchResolver(fullSchedule, clubArray),
-    savedMatches = saveMatches(resolvedMatches);
+    // resolvedMatches = basicMatchResolver(fullSchedule, clubArray),
+    // savedMatches = saveMatches(resolvedMatches),
+    humanClubScores = humanClubScoreCalc(week1.matches);
   
-  it('should resolve matches that have already happened', () => {
-    resolvedMatches.should.exist;
+  it('should resolve matches that are run by human players', () => {
+    console.log('humanClubScores:', humanClubScores);
+    humanClubScores.should.exist;
   });
-  it('should add resolved matches to the database', () => {
-    return savedMatches.should.eventually.exist;
-  });
+  // it('should resolve matches that have already happened', () => {
+  //   resolvedMatches.should.exist;
+  // });
+  // it('should add resolved matches to the database', () => {
+  //   return savedMatches.should.eventually.exist;
+  // });
 });
