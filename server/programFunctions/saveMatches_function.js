@@ -9,6 +9,7 @@ const options = {
 
 function saveMatches(resolvedMatches) {
   let finalizedMatches = [];
+  
   let matches = resolvedMatches.map(match => {
     return FantasyMatch
     .findByIdAndUpdate(
@@ -28,6 +29,7 @@ function saveMatches(resolvedMatches) {
       throw new Error(error);
     });
   });
+  
   let homeClubs = resolvedMatches.map(match => {
     return FantasyClub
     .findByIdAndUpdate(
@@ -49,6 +51,7 @@ function saveMatches(resolvedMatches) {
       throw new Error(error);
     });
   });
+  
   let awayClubs = resolvedMatches.map(match => {
     return FantasyClub
     .findByIdAndUpdate(
@@ -70,9 +73,11 @@ function saveMatches(resolvedMatches) {
       throw new Error(error);
     });
   });
+  
   finalizedMatches.push.apply(finalizedMatches, matches);
   finalizedMatches.push.apply(finalizedMatches, homeClubs);
   finalizedMatches.push.apply(finalizedMatches, awayClubs);
+  
   return Promise.all(finalizedMatches);
 }
 

@@ -11,6 +11,9 @@ function humanClubScoreCalc(matchArray) {
     }
     resolvedMatchArray.push(match);
   });
+  
+  return resolvedMatchArray;
+  
   function scoreCalc(club) {
     let score = 0;
     club.starters.forEach(starter => {
@@ -18,8 +21,6 @@ function humanClubScoreCalc(matchArray) {
     });
     return score;
   }
-  console.log('resolvedMatchArray:', resolvedMatchArray);
-  return resolvedMatchArray;
 }
 
 module.exports = {
