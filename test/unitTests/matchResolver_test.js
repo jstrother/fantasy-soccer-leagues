@@ -57,19 +57,21 @@ describe('Matches Resolver', () => {
     const savedMatches = saveMatches(standingsStatsCalc(fullSchedule[0].matches));
     return savedMatches.should.eventually.exist;
   });
-  it.only('should resolve matches that have already happened', () => {
+  it('should resolve matches that have already happened', () => {
     const resolvedMatches = matchResolver(fullSchedule, clubArray),
-      resolvedLength = resolvedMatches.length;
-    console.log('resolvedLength:', resolvedLength);
-    FantasyClub
-    .findOne(
-      {
-        clubName: 'Strikers \'87'
-      }
-    )
-    .catch(error => {
-      throw new Error(error);
-    })
-    .should.eventually.have.property({gamesPlayed: resolvedLength});
+      resolvedLength = resolvedMatches.length,
+      resolvedClub = FantasyClub
+                      .findOne(
+                        {
+                          clubName: 'Strikers \'87'
+                        }
+                      )
+                      .catch(error => {
+                        throw new Error(error);
+                      });
+    console.log('resolvedMatches:', resolvedMatches);
+    console.log('resolvedLength:', resolvedLength);  // we use this to double-check how many test matches have been run as even the test matches have dates attached
+    
+    resolvedClub.should.eventually.have.property({gamesPlayed: resolvedLength});
   });
 });

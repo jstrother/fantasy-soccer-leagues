@@ -15,8 +15,9 @@ function matchResolver(fullSchedule, clubArray) {
       datesToRun = weeklyMatches.datesToRun.getTime();
     
     if (today > datesToRun && gamesPlayed < roundNumber) {
-      // console.log('gamesPlayed:', gamesPlayed);
-      // console.log('roundNumber:', roundNumber);
+      console.log('gamesPlayed:', gamesPlayed);
+      console.log('roundNumber:', roundNumber);
+      console.log('');
       resolvedMatches.push(saveMatches(standingsStatsCalc(matchArray)));
     }
   });
