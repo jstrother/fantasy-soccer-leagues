@@ -7,7 +7,6 @@ function computerClubScoreCalc(matchArray) {
   let resolvedMatchArray = [];
   
   matchArrayHumanClubScores.forEach(match => {
-    // we take one less than the total totalNumberClubs as we need the average of all human-operated fantasyClubs
     if (match.final === false) {
       if(match.homeClub.clubName === 'Average') {
         match.homeScore = clubScore();
@@ -22,7 +21,7 @@ function computerClubScoreCalc(matchArray) {
   return resolvedMatchArray;
   
   function allScoresCalc(humanClubScores) {
-    // humanClubScores is an array of matches with the scores filled in for any club run by a real person
+    // humanClubScores is an array of matches with the scores already calculated for any club run by a real person
     let scores = 0;
     humanClubScores.forEach(match => {
       scores += match.homeScore;

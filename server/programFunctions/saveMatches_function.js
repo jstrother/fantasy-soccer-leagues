@@ -2,11 +2,6 @@
 const FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasyClub = require("../../models/fantasyClub_model.js");
 
-const options = {
-  new: true,
-  upsert: true
-}; // delete these lines after testing
-
 function saveMatches(resolvedMatches) {
   let finalizedMatches = [];
   
@@ -15,15 +10,10 @@ function saveMatches(resolvedMatches) {
     .findByIdAndUpdate(
       match._id,
       {
-        homeClub: match.homeClub._id, // delete these lines after testing
-        awayClub: match.awayClub._id, // delete these lines after testing
-        homeClubName: match.homeClub.clubName, // delete these lines after testing
-        awayClubName: match.awayClub.clubName, // delete these lines after testing
         homeScore: match.homeScore,
         awayScore: match.awayScore,
         final: match.final
-      },
-      options // delete these lines after testing
+      }
     )
     .catch(error => {
       throw new Error(error);
@@ -35,7 +25,6 @@ function saveMatches(resolvedMatches) {
     .findByIdAndUpdate(
       match.homeClub._id,
       {
-        clubName: match.homeClub.clubName, // delete these lines after testing
         wins: match.homeClub.wins,
         draws: match.homeClub.draws,
         losses: match.homeClub.losses,
@@ -44,8 +33,7 @@ function saveMatches(resolvedMatches) {
         goalsAgainst: match.homeClub.goalsAgainst,
         goalDifferential: match.homeClub.goalDifferential,
         gamesPlayed: match.homeClub.gamesPlayed
-      },
-      options // delete these lines after testing
+      }
     )
     .catch(error => {
       throw new Error(error);
@@ -57,7 +45,6 @@ function saveMatches(resolvedMatches) {
     .findByIdAndUpdate(
       match.awayClub._id,
       {
-        clubName: match.awayClub.clubName, // delete these lines after testing
         wins: match.awayClub.wins,
         draws: match.awayClub.draws,
         losses: match.awayClub.losses,
@@ -66,8 +53,7 @@ function saveMatches(resolvedMatches) {
         goalsAgainst: match.awayClub.goalsAgainst,
         goalDifferential: match.awayClub.goalDifferential,
         gamesPlayed: match.awayClub.gamesPlayed
-      },
-      options // delete these lines after testing
+      }
     )
     .catch(error => {
       throw new Error(error);

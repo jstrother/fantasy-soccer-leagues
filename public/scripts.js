@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "14f8ed983b557e374d22"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "00b65eef1412898cc4ad"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11307,7 +11307,7 @@ var matchResolve = function matchResolve() {
     }).then(function (weeklyMatches) {
       dispatch(matchResolveSuccess(weeklyMatches, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      console.error('fsActions matchResolve:', error); // throw new Error(error);
     });
   };
 };
@@ -37497,7 +37497,7 @@ function (_React$Component) {
       this.props.dispatch((0, _fantasyScheduleActions.wasScheduleCreated)());
       var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
 
-      if (Object.keys(this.props.fantasySchedule).length === 0 && rosterLength === 23) {
+      if (rosterLength === 23) {
         if (this.props.scheduleUpdate === false && this.props.scheduleCreated === false) {
           this.props.dispatch((0, _fantasyScheduleActions.createSchedule)());
           this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
