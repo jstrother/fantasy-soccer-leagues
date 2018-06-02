@@ -1,22 +1,46 @@
-const {humanClubScoreCalc} = require("./humanClubScoreCalc_function.js");
+const {humanHomeClubScoreCalc} = require("./humanHomeClubScoreCalc_function.js"),
+  {humanAwayClubScoreCalc} = require("./humanAwayClubScoreCalc_function.js");
 
 function computerClubScoreCalc(matchArray) {
-  const matchArrayHumanClubScores = humanClubScoreCalc(matchArray),
+  const matchArrayHumanClubScores = humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray)),
     allScores = allScoresCalc(matchArrayHumanClubScores),
     totalHumanClubs = humanClubCounter(matchArray);
+  console.log('matchArrayHumanClubScores:', matchArrayHumanClubScores);
   let resolvedMatchArray = matchArrayHumanClubScores.map(match => {
     if (match.final === false) {
-      if(match.homeClub.clubName === 'Average') {
+      if (match.homeClub.clubName === 'Average') {
         return (
           {
-            homeScore: clubScore()
+            _id: match._id,
+            homeClub: match.homeClub,
+            awayClub: match.awayClub,
+            homeScore: clubScore(),
+            awayScore: match.awayScore,
+            final: match.final
           }
         );
       }
-      if(match.awayClub.clubName === 'Average') {
+      if (match.awayClub.clubName === 'Average') {
         return (
           {
-            awayScore: clubScore()
+            _id: match._id,
+            homeClub: match.homeClub,
+            awayClub: match.awayClub,
+            homeScore: match.homeScore,
+            awayScore: clubScore(),
+            final: match.final
+          }
+        );
+      }
+      if (match.homeClub.clubName !== 'Average' && match.awayClub.clubName !== 'Average') {
+        return (
+          {
+            _id: match._id,
+            homeClub: match.homeClub,
+            awayClub: match.awayClub,
+            homeScore: match.homeScore,
+            awayScore: match.awayScore,
+            final: match.final
           }
         );
       }

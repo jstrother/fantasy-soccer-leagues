@@ -5,7 +5,8 @@ const mongoose = require('mongoose'),
 	should = chai.should(),
 	{matchResolver} = require("../../server/programFunctions/matchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
-	{humanClubScoreCalc} = require("../../server/programFunctions/humanClubScoreCalc_function.js"),
+	{humanHomeClubScoreCalc} = require("../../server/programFunctions/humanHomeClubScoreCalc_function.js"),
+	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
 	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
   {dbTestConnection, fullSchedule, clubArray} = require("../common.js"),
@@ -30,12 +31,17 @@ describe('Matches Resolver', () => {
     });
   });
   
-  it('should resolve matches that are run by human players', () => {
-    const humanClubScores = humanClubScoreCalc(fullSchedule[0].matches);
-    humanClubScores.should.exist;
-    humanClubScores[0].awayScore.should.equal(67);
+  it('should resolve a matche\'s homeScore for clubs that are run by human players', () => {
+    const humanHomeClubScores = humanHomeClubScoreCalc(fullSchedule[0].matches);
+    humanHomeClubScores.should.exist;
+    humanHomeClubScores[0].homeScore.should.equal(53);
   });
-  it('should resolve matches that are run by the computer', () => {
+  it('should resolve a matche\'s awayScore for clubs that are run by human players', () => {
+    const humanAwayClubScores = humanAwayClubScoreCalc(fullSchedule[0].matches);
+    humanAwayClubScores.should.exist;
+    humanAwayClubScores[0].awayScore.should.equal(67);
+  });
+  it.only('should resolve matches that are run by the computer', () => {
     const computerClubScores = computerClubScoreCalc(fullSchedule[0].matches);
     computerClubScores.should.exist;
     computerClubScores[1].awayScore.should.equal(58);
@@ -57,7 +63,7 @@ describe('Matches Resolver', () => {
     const savedMatches = saveMatches(standingsStatsCalc(fullSchedule[0].matches));
     return savedMatches.should.eventually.exist;
   });
-  it.only('should resolve matches that have already happened', () => {
+  it('should resolve matches that have already happened', () => {
     const resolvedMatches = matchResolver(fullSchedule, clubArray),
       resolvedLength = resolvedMatches.length,
       resolvedClub = FantasyClub
