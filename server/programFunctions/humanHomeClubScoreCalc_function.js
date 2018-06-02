@@ -16,25 +16,12 @@ function humanHomeClubScoreCalc(matchArray) {
         );
       }
       if (match.homeClub.clubName === 'Average') {
-        return (
-          {
-            _id: match._id,
-            homeClub: match.homeClub,
-            awayClub: match.awayClub,
-            homeScore: match.homeScore,
-            awayScore: match.awayScore,
-            final: match.final
-          }
-        );
+        return match;
       }
     }
     if (match.final === true) {
       // we aren't worried about checking for the averageClub here as the match has already been calculated at this point
-      return (
-        {
-          homeScore: match.homeScore
-        }
-      );
+      return match;
     }
   });
   

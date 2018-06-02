@@ -5,7 +5,12 @@ const FantasyMatch = require("../../models/fantasyMatch_model.js"),
 function saveMatches(resolvedMatches) {
   let finalizedMatches = [];
   
+  const options = {
+    new: true
+  };
+  
   let matches = resolvedMatches.map(match => {
+    console.log('match._id:', match._id);
     return FantasyMatch
     .findByIdAndUpdate(
       match._id,
@@ -13,7 +18,8 @@ function saveMatches(resolvedMatches) {
         homeScore: match.homeScore,
         awayScore: match.awayScore,
         final: match.final
-      }
+      },
+      options
     )
     .catch(error => {
       throw new Error(error);
@@ -33,7 +39,8 @@ function saveMatches(resolvedMatches) {
         goalsAgainst: match.homeClub.goalsAgainst,
         goalDifferential: match.homeClub.goalDifferential,
         gamesPlayed: match.homeClub.gamesPlayed
-      }
+      },
+      options
     )
     .catch(error => {
       throw new Error(error);
@@ -53,7 +60,8 @@ function saveMatches(resolvedMatches) {
         goalsAgainst: match.awayClub.goalsAgainst,
         goalDifferential: match.awayClub.goalDifferential,
         gamesPlayed: match.awayClub.gamesPlayed
-      }
+      },
+      options
     )
     .catch(error => {
       throw new Error(error);
@@ -64,7 +72,6 @@ function saveMatches(resolvedMatches) {
   finalizedMatches.push.apply(finalizedMatches, homeClubs);
   finalizedMatches.push.apply(finalizedMatches, awayClubs);
   
-  console.log('saveMatches:', finalizedMatches);
   return Promise.all(finalizedMatches);
 }
 

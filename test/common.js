@@ -670,7 +670,7 @@ const mongoose = require('mongoose'),
       {
         idFromAPI: 1,
         fantasyPoints: {
-          fixture: 8
+          fixture: 9
         }
       },
       {

@@ -1,12 +1,7 @@
-const {humanHomeClubScoreCalc} = require("./humanHomeClubScoreCalc_function.js"),
-  {humanAwayClubScoreCalc} = require("./humanAwayClubScoreCalc_function.js");
-
 function computerClubScoreCalc(matchArray) {
-  const matchArrayHumanClubScores = humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray)),
-    allScores = allScoresCalc(matchArrayHumanClubScores),
+  const allScores = allScoresCalc(matchArray),
     totalHumanClubs = humanClubCounter(matchArray);
-  console.log('matchArrayHumanClubScores:', matchArrayHumanClubScores);
-  let resolvedMatchArray = matchArrayHumanClubScores.map(match => {
+  let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.homeClub.clubName === 'Average') {
         return (
@@ -47,7 +42,7 @@ function computerClubScoreCalc(matchArray) {
     }
   });
   
-  console.log('computerClubScoreCalc:', resolvedMatchArray);
+  console.log('computerClubScoreCalc:', resolvedMatchArray[0]._id);
   return resolvedMatchArray;
   
   function allScoresCalc(humanClubScores) {
@@ -61,7 +56,7 @@ function computerClubScoreCalc(matchArray) {
   }
   
   function clubScore() {
-    return (allScores / totalHumanClubs);
+    return Math.round(allScores / totalHumanClubs);
   }
   
   function humanClubCounter(matchArray) {

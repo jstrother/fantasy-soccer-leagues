@@ -6,6 +6,9 @@ function standingsStatsCalc(matchArray) {
     if (match.final === false) {
       return (
         {
+          _id: match._id,
+          homeScore: match.homeScore,
+          awayScore: match.awayScore,
           final:  true,
           homeClub: clubStats(match.homeClub, match.homeScore, match.awayScore),
           awayClub: clubStats(match.awayClub, match.awayScore, match.homeScore) 
@@ -13,17 +16,11 @@ function standingsStatsCalc(matchArray) {
       );
     }
     if (match.final === true) {
-      return (
-        {
-          final: match.final,
-          homeClub: match.homeClub,
-          awayClub: match.awayClub
-        }
-      );
+      return match;
     }
   });
   
-  console.log('standingsStatsCalc:', resolvedMatchArray);
+  console.log('standingsStatsCalc:', resolvedMatchArray[0]._id);
   return resolvedMatchArray;
   
   function clubStats(club, clubScore, opponentScore) {

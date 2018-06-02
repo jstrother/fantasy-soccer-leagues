@@ -9,7 +9,7 @@ const mongoose = require('mongoose'),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
 	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
-  {dbTestConnection, fullSchedule, clubArray} = require("../common.js"),
+  {dbTestConnection, fullSchedule} = require("../common.js"),
   FantasyClub = require("../../models/fantasyClub_model.js");
 
 chai.use(chaiHTTP);
@@ -34,20 +34,20 @@ describe('Matches Resolver', () => {
   it('should resolve a matche\'s homeScore for clubs that are run by human players', () => {
     const humanHomeClubScores = humanHomeClubScoreCalc(fullSchedule[0].matches);
     humanHomeClubScores.should.exist;
-    humanHomeClubScores[0].homeScore.should.equal(53);
+    humanHomeClubScores[0].homeScore.should.equal(54);
   });
   it('should resolve a matche\'s awayScore for clubs that are run by human players', () => {
     const humanAwayClubScores = humanAwayClubScoreCalc(fullSchedule[0].matches);
     humanAwayClubScores.should.exist;
     humanAwayClubScores[0].awayScore.should.equal(67);
   });
-  it.only('should resolve matches that are run by the computer', () => {
-    const computerClubScores = computerClubScoreCalc(fullSchedule[0].matches);
+  it('should resolve matches that are run by the computer', () => {
+    const computerClubScores = computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)));
     computerClubScores.should.exist;
     computerClubScores[1].awayScore.should.equal(58);
   });
   it('should resolve standings statistics for each match', () => {
-    const standingsStats = standingsStatsCalc(fullSchedule[0].matches),
+    const standingsStats = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
       club = standingsStats[0].awayClub;
     standingsStats.should.exist;
     club.gamesPlayed.should.equal(1);
@@ -56,16 +56,16 @@ describe('Matches Resolver', () => {
     club.losses.should.equal(0);
     club.points.should.equal(3);
     club.goalsFor.should.equal(67);
-    club.goalsAgainst.should.equal(53);
-    club.goalDifferential.should.equal(14);
+    club.goalsAgainst.should.equal(54);
+    club.goalDifferential.should.equal(13);
   });
   it('should add resolved matches to the database', () => {
-    const savedMatches = saveMatches(standingsStatsCalc(fullSchedule[0].matches));
+    const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));
     return savedMatches.should.eventually.exist;
   });
-  it('should resolve matches that have already happened', () => {
-    const resolvedMatches = matchResolver(fullSchedule, clubArray),
-      resolvedLength = resolvedMatches.length,
+  it.only('should resolve matches that have already happened', () => {
+    const resolvedSchedule = matchResolver(fullSchedule),
+      resolvedLength = resolvedSchedule.length,
       resolvedClub = FantasyClub
                       .findOne(
                         {
@@ -75,9 +75,9 @@ describe('Matches Resolver', () => {
                       .catch(error => {
                         throw new Error(error);
                       });
-    console.log('resolvedMatches:', resolvedMatches);
+    console.log('resolvedSchedule:', resolvedSchedule);
     console.log('resolvedLength:', resolvedLength);  // we use this to double-check how many test matches have been run as even the test matches have dates attached
-    
-    resolvedClub.should.eventually.have.property({gamesPlayed: resolvedLength});
+    resolvedSchedule.should.eventually.exist;
+    resolvedClub.should.eventually.have.deep.property({gamesPlayed: resolvedLength});
   });
 });
