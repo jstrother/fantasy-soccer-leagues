@@ -4,20 +4,26 @@ function computerClubScoreCalc(matchArray) {
   const matchArrayHumanClubScores = humanClubScoreCalc(matchArray),
     allScores = allScoresCalc(matchArrayHumanClubScores),
     totalHumanClubs = humanClubCounter(matchArray);
-  let resolvedMatchArray = [];
-  
-  matchArrayHumanClubScores.forEach(match => {
+  let resolvedMatchArray = matchArrayHumanClubScores.map(match => {
     if (match.final === false) {
       if(match.homeClub.clubName === 'Average') {
-        match.homeScore = clubScore();
+        return (
+          {
+            homeScore: clubScore()
+          }
+        );
       }
       if(match.awayClub.clubName === 'Average') {
-        match.awayScore = clubScore();
+        return (
+          {
+            awayScore: clubScore()
+          }
+        );
       }
     }
-    resolvedMatchArray.push(match);
   });
   
+  console.log('computerClubScoreCalc:', resolvedMatchArray);
   return resolvedMatchArray;
   
   function allScoresCalc(humanClubScores) {

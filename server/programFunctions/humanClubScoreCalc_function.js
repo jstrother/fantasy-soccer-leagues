@@ -1,17 +1,24 @@
 function humanClubScoreCalc(matchArray) {
-  let resolvedMatchArray = [];
-  matchArray.forEach(match => {
+  let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.homeClub.clubName !== 'Average') {
-        match.homeScore = scoreCalc(match.homeClub);
+        return (
+          {
+            homeScore: scoreCalc(match.homeClub)
+          }
+        );
       }
       if (match.awayClub.clubName !== 'Average') {
-        match.awayScore = scoreCalc(match.awayClub);
+        return (
+          {
+            awayScore: scoreCalc(match.awayClub)
+          }
+        );
       }
     }
-    resolvedMatchArray.push(match);
   });
   
+  console.log('humanClubScoreCalc:', resolvedMatchArray);
   return resolvedMatchArray;
   
   function scoreCalc(club) {

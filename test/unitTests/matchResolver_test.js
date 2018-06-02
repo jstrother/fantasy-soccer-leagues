@@ -57,7 +57,7 @@ describe('Matches Resolver', () => {
     const savedMatches = saveMatches(standingsStatsCalc(fullSchedule[0].matches));
     return savedMatches.should.eventually.exist;
   });
-  it('should resolve matches that have already happened', () => {
+  it.only('should resolve matches that have already happened', () => {
     const resolvedMatches = matchResolver(fullSchedule, clubArray),
       resolvedLength = resolvedMatches.length,
       resolvedClub = FantasyClub

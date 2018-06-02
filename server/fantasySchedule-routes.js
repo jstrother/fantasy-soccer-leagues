@@ -7,25 +7,18 @@ const fantasyScheduleRouter = require("express").Router(),
 
 fantasyScheduleRouter.post('/matchResolver',
   (req, res) => {
-    FantasyClub
+    WeeklyMatches
     .find()
-    .then(clubArray => {
-      WeeklyMatches
-      .find()
-      .populate({
-        path: 'matches',
-        model: 'FantasyMatch',
-        populate: {
-          path: 'homeClub awayClub',
-          model: 'FantasyClub'
-        }
-      })
-      .then(fullSchedule => {
-        res.json(matchResolver(fullSchedule, clubArray));
-      })
-      .catch(error => {
-        throw new Error(error);
-      });
+    .populate({
+      path: 'matches',
+      model: 'FantasyMatch',
+      populate: {
+        path: 'homeClub awayClub',
+        model: 'FantasyClub'
+      }
+    })
+    .then(fullSchedule => {
+      res.json(matchResolver(fullSchedule));
     })
     .catch(error => {
       throw new Error(error);

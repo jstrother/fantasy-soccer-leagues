@@ -64,6 +64,7 @@ function saveMatches(resolvedMatches) {
   finalizedMatches.push.apply(finalizedMatches, homeClubs);
   finalizedMatches.push.apply(finalizedMatches, awayClubs);
   
+  console.log('saveMatches:', finalizedMatches);
   return Promise.all(finalizedMatches);
 }
 
