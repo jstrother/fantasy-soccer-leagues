@@ -41,7 +41,7 @@ describe('Matches Resolver', () => {
     humanAwayClubScores.should.exist;
     humanAwayClubScores[0].awayScore.should.equal(67);
   });
-  it.only('should resolve a matche\'s scores for clubs that are run by the computer', () => {
+  it('should resolve a matche\'s scores for clubs that are run by the computer', () => {
     const computerClubScores = computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)));
     computerClubScores.should.exist;
     computerClubScores[1].awayScore.should.equal(58); // score of club run by computer
