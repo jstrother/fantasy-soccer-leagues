@@ -1115,6 +1115,7 @@ const mongoose = require('mongoose'),
     awayClub: clubTwo,
     homeScore: 0,
     awayScore: 0,
+    final: false
   },
   week13Match2 = {
     _id: new mongoose.Types.ObjectId(),

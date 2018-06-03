@@ -1,6 +1,4 @@
 function computerClubScoreCalc(matchArray) {
-  const allScores = allScoresCalc(matchArray),
-    totalHumanClubs = humanClubCounter(matchArray);
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.homeClub.clubName === 'Average') {
@@ -42,24 +40,22 @@ function computerClubScoreCalc(matchArray) {
     }
   });
   
-  console.log('computerClubScoreCalc:', resolvedMatchArray[0]._id);
   return resolvedMatchArray;
   
-  function allScoresCalc(humanClubScores) {
-    // humanClubScores is an array of matches with the scores already calculated for any club run by a real person
+  function clubScore() {
+    return Math.round(allScoresCalc() / humanClubCounter());
+  }
+  
+  function allScoresCalc() {
     let scores = 0;
-    humanClubScores.forEach(match => {
+    matchArray.forEach(match => {
       scores += match.homeScore;
       scores += match.awayScore;
     });
     return scores;
   }
   
-  function clubScore() {
-    return Math.round(allScores / totalHumanClubs);
-  }
-  
-  function humanClubCounter(matchArray) {
+  function humanClubCounter() {
     let total = 0;
     matchArray.forEach(match => {
       if (match.homeClub.clubName !== 'Average') {

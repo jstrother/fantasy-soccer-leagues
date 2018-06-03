@@ -10,7 +10,6 @@ function saveMatches(resolvedMatches) {
   };
   
   let matches = resolvedMatches.map(match => {
-    console.log('match._id:', match._id);
     return FantasyMatch
     .findByIdAndUpdate(
       match._id,

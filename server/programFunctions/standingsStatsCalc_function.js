@@ -20,7 +20,6 @@ function standingsStatsCalc(matchArray) {
     }
   });
   
-  console.log('standingsStatsCalc:', resolvedMatchArray[0]._id);
   return resolvedMatchArray;
   
   function clubStats(club, clubScore, opponentScore) {

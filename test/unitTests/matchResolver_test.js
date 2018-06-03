@@ -41,10 +41,10 @@ describe('Matches Resolver', () => {
     humanAwayClubScores.should.exist;
     humanAwayClubScores[0].awayScore.should.equal(67);
   });
-  it('should resolve matches that are run by the computer', () => {
+  it.only('should resolve a matche\'s scores for clubs that are run by the computer', () => {
     const computerClubScores = computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)));
     computerClubScores.should.exist;
-    computerClubScores[1].awayScore.should.equal(58);
+    computerClubScores[1].awayScore.should.equal(58); // score of club run by computer
   });
   it('should resolve standings statistics for each match', () => {
     const standingsStats = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
@@ -63,21 +63,10 @@ describe('Matches Resolver', () => {
     const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));
     return savedMatches.should.eventually.exist;
   });
-  it.only('should resolve matches that have already happened', () => {
+  it('should resolve matches that have already happened', () => {
     const resolvedSchedule = matchResolver(fullSchedule),
-      resolvedLength = resolvedSchedule.length,
-      resolvedClub = FantasyClub
-                      .findOne(
-                        {
-                          clubName: 'Strikers \'87'
-                        }
-                      )
-                      .catch(error => {
-                        throw new Error(error);
-                      });
-    console.log('resolvedSchedule:', resolvedSchedule);
-    console.log('resolvedLength:', resolvedLength);  // we use this to double-check how many test matches have been run as even the test matches have dates attached
-    resolvedSchedule.should.eventually.exist;
-    resolvedClub.should.eventually.have.deep.property({gamesPlayed: resolvedLength});
+      scheduleLength = resolvedSchedule.length;
+    resolvedSchedule.should.exist;
+    scheduleLength.should.equal(38);
   });
 });

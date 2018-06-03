@@ -15,10 +15,6 @@ function matchResolver(fullSchedule) {
       gamesPlayed = matchArray[0].homeClub.gamesPlayed,
       datesToRun = weeklyMatches.datesToRun.getTime();
     
-    console.log('');
-    console.log('round:', roundNumber);
-    console.log('matchResolver matchArray:', matchArray[0]._id);
-    
     if (today >= datesToRun && gamesPlayed < roundNumber) {
       return (
         {
@@ -31,7 +27,6 @@ function matchResolver(fullSchedule) {
     }
   });
   
-  console.log('matchResolver:', resolvedSchedule);
   return resolvedSchedule;
 }
 
