@@ -1,5 +1,4 @@
 function computerClubScoreCalc(matchArray) {
-  console.log('computerClubScoreCalc matchArray:', matchArray);
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.homeClub.clubName === 'Average') {

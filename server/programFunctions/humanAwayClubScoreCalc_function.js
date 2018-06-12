@@ -1,7 +1,6 @@
 const {humanScoreCalc} = require("./humanScoreCalc_function.js");
 
 function humanAwayClubScoreCalc(matchArray) {
-  // console.log('humanAwayClubScoreCalc matchArray:', matchArray);
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.awayClub.clubName !== 'Average') {
@@ -25,7 +24,6 @@ function humanAwayClubScoreCalc(matchArray) {
       return match;
     }
   });
-  console.log('humanAwayClubScoreCalc resolvedMatchArray:', resolvedMatchArray);
   return resolvedMatchArray;
 }
 

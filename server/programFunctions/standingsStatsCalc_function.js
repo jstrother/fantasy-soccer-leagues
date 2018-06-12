@@ -40,6 +40,7 @@ function standingsStatsCalc(matchArray) {
     club.goalsFor += clubScore;
     club.goalsAgainst += opponentScore;
     club.goalDifferential = club.goalsFor - club.goalsAgainst;
+    console.log('club:', club);
     return club;
   }
 }

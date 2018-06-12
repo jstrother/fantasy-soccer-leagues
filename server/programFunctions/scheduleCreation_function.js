@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose'),
-  FantasyMatch = require("../../models/fantasyMatch_model.js"),
   FantasySchedule = require("../../models/fantasySchedule_model.js"),
-  FantasyClub = require("../../models/fantasyClub_model.js"),
   WeeklyMatches = require("../../models/weeklyMatches_model.js"),
   {matchCreator} = require("./matchCreator_function.js"),
+  {clubArrayLengthCheck} = require("./clubArrayLengthCheck_function.js"),
   {save} = require("./save_function.js");
 
 // clubArray will be filled by getting all clubs from fantasyClubs-router.js
@@ -19,29 +18,7 @@ function scheduleCreator(clubArray) {
     startDate // sets season start to March 1st every year, but this should in reality be pulled from API once I can afford to get it going again
   });
   
-  const averageClub = new FantasyClub({
-    _id: new mongoose.Types.ObjectId(),
-    clubName: 'Average'
-  });
-  
-  if (clubArray.length % 2 !== 0) {
-    // this checks to make sure that there is only one averageClub in the clubArray
-    let averageCheck = clubArray.filter(club => {
-      if (club.clubName === 'Average') {
-        return true;
-      }
-    });
-    if (averageCheck.length === 0) {
-      // we do this so there is an even number of clubs in clubArray and it's score will always be equal to the average weekly score of all other clubs in clubArray
-      averageClub
-      .save()
-      .catch(error => {
-        throw new Error(error);
-      });
-      
-      clubArray.push(averageClub);
-    }
-  }
+  clubArrayLengthCheck(clubArray);
   
   // we do this so each club can be associated with a schedule to make record tracking easier
   clubArray.forEach(club => {
