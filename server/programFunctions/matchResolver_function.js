@@ -18,12 +18,20 @@ function matchResolver(fullSchedule) {
     if (today >= datesToRun && gamesPlayed < roundNumber) {
       return (
         {
-          weeklyMatches: saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray)))))
+          weeklyMatches: {
+            matches: [
+              saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray)))))
+            ]
+          }
         }
       );
     }
     if (today < datesToRun || gamesPlayed >= roundNumber) {
-      return weeklyMatches;
+      return (
+        {
+          weeklyMatches
+        }
+      );
     }
   });
   

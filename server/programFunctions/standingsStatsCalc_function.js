@@ -1,8 +1,7 @@
-const {computerClubScoreCalc} = require("./computerClubScoreCalc_function.js");
-
 function standingsStatsCalc(matchArray) {
-  const matchArrayAllScores = computerClubScoreCalc(matchArray);
-  let resolvedMatchArray = matchArrayAllScores.map(match => {
+  console.log('standingsStatsCalc matchArray:', matchArray);
+  let resolvedMatchArray = matchArray.map(match => {
+    console.log('standingsStatsCalc match:', match);
     if (match.final === false) {
       return (
         {
