@@ -1,50 +1,36 @@
 function computerClubScoreCalc(matchArray) {
-  console.log('computerClubScoreCalc matchArray:', matchArray);
   let resolvedMatchArray = matchArray.map(match => {
-    console.log('match check:', match);
     if (match.final === false) {
-      console.log('unfinalized match:', match);
       if (match.homeClub.clubName === 'Average') {
-        return (
-          {
-            _id: match._id,
-            homeClub: match.homeClub,
-            awayClub: match.awayClub,
-            homeScore: clubScore(),
-            awayScore: match.awayScore,
-            final: match.final
-          }
-        );
+        let resolvedMatch = {
+          _id: match._id,
+          homeClub: match.homeClub,
+          homeScore: clubScore(),
+          awayClub: match.awayClub,
+          awayScore: match.awayScore,
+          final: match.final
+        };
+        return resolvedMatch;
       }
       if (match.awayClub.clubName === 'Average') {
-        return (
-          {
-            _id: match._id,
-            homeClub: match.homeClub,
-            awayClub: match.awayClub,
-            homeScore: match.homeScore,
-            awayScore: clubScore(),
-            final: match.final
-          }
-        );
+        let resolvedMatch = {
+          _id: match._id,
+          homeClub: match.homeClub,
+          homeScore: match.homeScore,
+          awayClub: match.awayClub,
+          awayScore: clubScore(),
+          final: match.final
+        };
+        return resolvedMatch;
       }
       if (match.homeClub.clubName !== 'Average' && match.awayClub.clubName !== 'Average') {
-        return (
-          {
-            match
-          }
-        );
+        return match;
       }
     }
     if (match.final === true) {
-      return (
-        {
-          match
-        }
-      );
+      return match;
     }
   });
-  console.log('computerClubScoreCalc resolvedMatchArray:', resolvedMatchArray);
   return resolvedMatchArray;
   
   function clubScore() {

@@ -16,22 +16,18 @@ function matchResolver(fullSchedule) {
       datesToRun = weeklyMatches.datesToRun.getTime();
     
     if (today >= datesToRun && gamesPlayed < roundNumber) {
-      return (
-        {
-          weeklyMatches: {
-            matches: [
-              saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray)))))
-            ]
-          }
-        }
-      );
+      let  resolvedMatchArray = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray))));
+      let resolvedWeek = {
+        _id: weeklyMatches._id,
+        roundNumber: weeklyMatches.roundNumber,
+        datesToRun: weeklyMatches.datesToRun,
+        matches: resolvedMatchArray
+      };
+      saveMatches(resolvedMatchArray);
+      return resolvedWeek;
     }
     if (today < datesToRun || gamesPlayed >= roundNumber) {
-      return (
-        {
-          weeklyMatches
-        }
-      );
+      return weeklyMatches;
     }
   });
   

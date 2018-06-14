@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "41b317817c52a75536d6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3363e55db65b8130b37b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7172,7 +7172,8 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      // throw new Error(error);
+      console.log('userActions.js:69 error:', error);
     });
   };
 };
@@ -37643,12 +37644,13 @@ function (_React$Component) {
       var previousHomeClub, previousHomeScore, previousAwayClub, previousAwayScore, previousRoundDates, nextHomeClub, nextAwayClub, nextRoundDates;
 
       if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-        this.props.fantasySchedule.weeklyMatches.forEach(function (round) {
-          var matchDates = new Date(round.datesToRun);
+        this.props.fantasySchedule.weeklyMatches.forEach(function (week) {
+          console.log('frontEnd week:', week);
+          var matchDates = new Date(week.datesToRun).getTime();
 
-          if (today - sevenDays <= matchDates.getTime() && matchDates.getTime() < today) {
-            previousRoundDates = round.datesToRun;
-            round.matches.forEach(function (match) {
+          if (today - sevenDays <= matchDates && matchDates < today) {
+            previousRoundDates = week.datesToRun;
+            week.matches.forEach(function (match) {
               if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
                 previousHomeClub = match.homeClub.clubName;
                 previousHomeScore = match.homeScore;
@@ -37658,9 +37660,9 @@ function (_React$Component) {
             });
           }
 
-          if (today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
-            nextRoundDates = round.datesToRun;
-            round.matches.forEach(function (match) {
+          if (today <= matchDates && matchDates < today + sevenDays) {
+            nextRoundDates = week.datesToRun;
+            week.matches.forEach(function (match) {
               if (match.homeClub.manager === _this2.props.userId || match.awayClub.manager === _this2.props.userId) {
                 nextHomeClub = match.homeClub.clubName;
                 nextAwayClub = match.awayClub.clubName;
@@ -37684,23 +37686,37 @@ function (_React$Component) {
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
         }) // it is this way to sort in descending order
-        .map(function (round) {
-          var matches = round.matches; // create a table body for each round of the season
+        .map(function (week) {
+          var matches = week.matches; // create a table body for each round of the season
 
           return _react.default.createElement("tbody", {
-            key: round._id,
-            id: "rnd-".concat(round._id)
-          }, _react.default.createElement("tr", null, _react.default.createElement("td", null, "Round ".concat(round.roundNumber))), matches.map(function (match) {
+            key: week._id,
+            id: "rnd-".concat(week._id)
+          }, _react.default.createElement("tr", null, _react.default.createElement("td", {
+            key: "round".concat(week.roundNumber)
+          }, "Round ".concat(week.roundNumber))), matches.map(function (match) {
             if (match.final === false) {
               return _react.default.createElement("tr", {
-                key: round._id + match.homeClub._id
-              }, _react.default.createElement("td", null), _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, round.datesToRun));
+                key: "".concat(week._id).concat(match._id)
+              }, _react.default.createElement("td", null), _react.default.createElement("td", {
+                key: "".concat(week._id).concat(match._id).concat(match.homeClub._id)
+              }, match.homeClub.clubName), _react.default.createElement("td", {
+                key: "".concat(week._id).concat(match._id).concat(match.awayClub._id)
+              }, match.awayClub.clubName), _react.default.createElement("td", {
+                key: "".concat(week._id).concat(match._id, "dates")
+              }, week.datesToRun));
             }
 
             if (match.final === true) {
               return _react.default.createElement("tr", {
-                key: round._id + match.homeClub._id
-              }, _react.default.createElement("td", null), _react.default.createElement("td", null, match.homeClub.clubName), _react.default.createElement("td", null, match.awayClub.clubName), _react.default.createElement("td", null, match.homeScore, ":", match.awayScore));
+                key: "".concat(week._id).concat(match._id)
+              }, _react.default.createElement("td", null), _react.default.createElement("td", {
+                key: "".concat(week._id).concat(match._id).concat(match.homeClub._id)
+              }, match.homeClub.clubName), _react.default.createElement("td", {
+                key: "".concat(week._id).concat(match._id).concat(match.awayClub._id)
+              }, match.awayClub.clubName), _react.default.createElement("td", {
+                key: "".concat(week._id).concat(match._id, "scores")
+              }, match.homeScore, ":", match.awayScore));
             }
           }));
         })));

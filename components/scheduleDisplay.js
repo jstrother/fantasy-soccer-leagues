@@ -43,11 +43,12 @@ export class DisplaySchedule extends React.Component {
       nextAwayClub,
       nextRoundDates;
     if (this.props.fantasySchedule.weeklyMatches !== undefined) {
-      this.props.fantasySchedule.weeklyMatches.forEach(round => {
-        const matchDates = new Date(round.datesToRun);
-        if ((today - sevenDays) <= matchDates.getTime() && matchDates.getTime() < today) {
-          previousRoundDates = round.datesToRun;
-          round.matches.forEach(match => {
+      this.props.fantasySchedule.weeklyMatches.forEach(week => {
+        console.log('frontEnd week:', week);
+        const matchDates = new Date(week.datesToRun).getTime();
+        if ((today - sevenDays) <= matchDates && matchDates < today) {
+          previousRoundDates = week.datesToRun;
+          week.matches.forEach(match => {
             if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
               previousHomeClub = match.homeClub.clubName;
               previousHomeScore = match.homeScore;
@@ -56,9 +57,9 @@ export class DisplaySchedule extends React.Component {
             }
           });
         }
-        if(today <= matchDates.getTime() && matchDates.getTime() < today + sevenDays) {
-          nextRoundDates = round.datesToRun;
-          round.matches.forEach(match => {
+        if(today <= matchDates && matchDates < today + sevenDays) {
+          nextRoundDates = week.datesToRun;
+          week.matches.forEach(match => {
             if (match.homeClub.manager === this.props.userId || match.awayClub.manager === this.props.userId) {
               nextHomeClub = match.homeClub.clubName;
               nextAwayClub = match.awayClub.clubName;
@@ -98,16 +99,17 @@ export class DisplaySchedule extends React.Component {
               this.props.fantasySchedule.weeklyMatches
               // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
               .sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in descending order
-              .map(round => {
-                const matches = round.matches;
+              .map(week => {
+                const matches = week.matches;
                 // create a table body for each round of the season
                 return(
                   <tbody
-                    key={round._id}
-                    id={`rnd-${round._id}`}>
+                    key={week._id}
+                    id={`rnd-${week._id}`}>
                     <tr>
-                      <td>
-                        {`Round ${round.roundNumber}`}
+                      <td
+                        key={`round${week.roundNumber}`}>
+                        {`Round ${week.roundNumber}`}
                       </td>
                     </tr>
                     {
@@ -116,16 +118,19 @@ export class DisplaySchedule extends React.Component {
                         if (match.final === false) {
                           return (
                             <tr
-                              key={round._id + match.homeClub._id}>
+                              key={`${week._id}${match._id}`}>
                               <td></td>
-                              <td>
+                              <td
+                                key={`${week._id}${match._id}${match.homeClub._id}`}>
                                 {match.homeClub.clubName}
                               </td>
-                              <td>
+                              <td
+                                key={`${week._id}${match._id}${match.awayClub._id}`}>
                                 {match.awayClub.clubName}
                               </td>
-                              <td>
-                                {round.datesToRun}
+                              <td
+                                key={`${week._id}${match._id}dates`}>
+                                {week.datesToRun}
                               </td>
                             </tr>
                           );
@@ -133,15 +138,18 @@ export class DisplaySchedule extends React.Component {
                         if (match.final === true) {
                           return (
                             <tr
-                              key={round._id + match.homeClub._id}>
+                              key={`${week._id}${match._id}`}>
                               <td></td>
-                              <td>
+                              <td
+                                key={`${week._id}${match._id}${match.homeClub._id}`}>
                                 {match.homeClub.clubName}
                               </td>
-                              <td>
+                              <td
+                                key={`${week._id}${match._id}${match.awayClub._id}`}>
                                 {match.awayClub.clubName}
                               </td>
-                              <td>
+                              <td
+                                key={`${week._id}${match._id}scores`}>
                                 {match.homeScore}:{match.awayScore}
                               </td>
                             </tr>

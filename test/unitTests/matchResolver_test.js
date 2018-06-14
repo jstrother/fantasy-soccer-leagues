@@ -37,7 +37,7 @@ describe('Matches Resolver', () => {
     humanHomeClubScores[0].homeScore.should.equal(54);
   });
   it('should resolve a match\'s awayScore for clubs that are run by human players', () => {
-    const humanAwayClubScores = humanAwayClubScoreCalc(fullSchedule[0].matches);
+    const humanAwayClubScores = humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches));
     humanAwayClubScores.should.exist;
     humanAwayClubScores[0].awayScore.should.equal(67);
   });
