@@ -1,109 +1,58 @@
 function standingsStatsCalc(matchArray) {
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
-      let resolvedMatch = {
-        _id: match._id,
-        homeScore: match.homeScore,
-        awayScore: match.awayScore,
-        final:  true,
-        homeClub: clubStats(match.homeClub, match.homeScore, match.awayScore),
-        awayClub: clubStats(match.awayClub, match.awayScore, match.homeScore)
-      };
+      let resolvedMatch = JSON.parse(JSON.stringify(match));
+      resolvedMatch.final = true;
+      resolvedMatch.homeClub = clubStats(match.homeClub, match.homeScore, match.awayScore);
+      resolvedMatch.awayClub = clubStats(match.awayClub, match.awayScore, match.homeScore);
       return resolvedMatch;
     }
     if (match.final === true) {
       return match;
     }
   });
-  console.log('standingsStatsCalc resolvedMatchArray:', resolvedMatchArray);
+  // console.log('standingsStatsCalc resolvedMatchArray:', resolvedMatchArray);
   return resolvedMatchArray;
   
   function clubStats(club, clubScore, opponentScore) {
     let clubArray = [club];
+    console.log('clubScore:', clubScore);
+    console.log('opponentScore:', opponentScore);
     
     let updatedClubArray = clubArray.map(club => {
       if (clubScore > opponentScore) {
-        let updatedClub = {
-          _id: club._id,
-          clubName: club.clubName,
-          manager: club.manager,
-          leagueScheduleId: club.leagueScheduleId,
-          goalkeepers: club.goalkeepers,
-          defenders: club.defenders,
-          midfielders: club.midfielders,
-          forwards: club.forwards,
-          starters: club.starters,
-          benchwarmers: club.benchwarmers,
-          wins: club.wins + 1,
-          draws: club.draws,
-          losses: club.losses,
-          points: club.points + 3,
-          goalsFor: club.goalsFor + clubScore,
-          goalsAgainst: club.goalsAgainst + opponentScore,
-          goalDifferential: club.goalDifferential,
-          gamesPlayed: club.gamesPlayed + 1
-        };
-        
+        let updatedClub = JSON.parse(JSON.stringify(club));
+        updatedClub.wins += 1;
+        updatedClub.points += 3;
+        updatedClub.goalsFor += clubScore;
+        updatedClub.goalsAgainst += opponentScore;
         updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
-        
+        updatedClub.gamesPlayed += 1;
         return updatedClub;
       }
       
       if (opponentScore > clubScore) {
-        let updatedClub = {
-          _id: club._id,
-          clubName: club.clubName,
-          manager: club.manager,
-          leagueScheduleId: club.leagueScheduleId,
-          goalkeepers: club.goalkeepers,
-          defenders: club.defenders,
-          midfielders: club.midfielders,
-          forwards: club.forwards,
-          starters: club.starters,
-          benchwarmers: club.benchwarmers,
-          wins: club.wins,
-          draws: club.draws,
-          losses: club.losses + 1,
-          points: club.points,
-          goalsFor: club.goalsFor + clubScore,
-          goalsAgainst: club.goalsAgainst + opponentScore,
-          goalDifferential: club.goalDifferential,
-          gamesPlayed: club.gamesPlayed + 1
-        };
-        
+        let updatedClub = JSON.parse(JSON.stringify(club));
+        updatedClub.losses += 1;
+        updatedClub.goalsFor += clubScore;
+        updatedClub.goalsAgainst += opponentScore;
         updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
-        
+        updatedClub.gamesPlayed += 1;
         return updatedClub;
       }
       
       if (clubScore === opponentScore) {
-        let updatedClub = {
-          _id: club._id,
-          clubName: club.clubName,
-          manager: club.manager,
-          leagueScheduleId: club.leagueScheduleId,
-          goalkeepers: club.goalkeepers,
-          defenders: club.defenders,
-          midfielders: club.midfielders,
-          forwards: club.forwards,
-          starters: club.starters,
-          benchwarmers: club.benchwarmers,
-          wins: club.wins,
-          draws: club.draws + 1,
-          losses: club.losses,
-          points: club.points + 1,
-          goalsFor: club.goalsFor + clubScore,
-          goalsAgainst: club.goalsAgainst + opponentScore,
-          goalDifferential: club.goalDifferential,
-          gamesPlayed: club.gamesPlayed + 1
-        };
-        
+        let updatedClub = JSON.parse(JSON.stringify(club));
+        updatedClub.draws += 1;
+        updatedClub.points += 1;
+        updatedClub.goalsFor += clubScore;
+        updatedClub.goalsAgainst += opponentScore;
         updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
-        
+        updatedClub.gamesPlayed += 1;
         return updatedClub;
       }
     });
-    
+    console.log('updatedClub:', updatedClubArray[0]);
     return updatedClubArray[0];
   }
 }

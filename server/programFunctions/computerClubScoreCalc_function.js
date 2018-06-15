@@ -2,25 +2,13 @@ function computerClubScoreCalc(matchArray) {
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.homeClub.clubName === 'Average') {
-        let resolvedMatch = {
-          _id: match._id,
-          homeClub: match.homeClub,
-          homeScore: clubScore(),
-          awayClub: match.awayClub,
-          awayScore: match.awayScore,
-          final: match.final
-        };
+        let resolvedMatch = JSON.parse(JSON.stringify(match));
+        resolvedMatch.homeScore = clubScore();
         return resolvedMatch;
       }
       if (match.awayClub.clubName === 'Average') {
-        let resolvedMatch = {
-          _id: match._id,
-          homeClub: match.homeClub,
-          homeScore: match.homeScore,
-          awayClub: match.awayClub,
-          awayScore: clubScore(),
-          final: match.final
-        };
+        let resolvedMatch = JSON.parse(JSON.stringify(match));
+        resolvedMatch.awayScore = clubScore();
         return resolvedMatch;
       }
       if (match.homeClub.clubName !== 'Average' && match.awayClub.clubName !== 'Average') {

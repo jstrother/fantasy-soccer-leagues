@@ -4,14 +4,8 @@ function humanHomeClubScoreCalc(matchArray) {
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       if (match.homeClub.clubName !== 'Average') {
-        let resolvedMatch = {
-          _id: match._id,
-          homeClub: match.homeClub,
-          homeScore: humanScoreCalc(match.homeClub),
-          awayClub: match.awayClub,
-          awayScore: match.awayScore,
-          final: match.final
-        };
+        let resolvedMatch = JSON.parse(JSON.stringify(match));
+        resolvedMatch.homeScore = humanScoreCalc(match.homeClub);
         return resolvedMatch;
       }
       if (match.homeClub.clubName === 'Average') {

@@ -11,22 +11,16 @@ function matchResolver(fullSchedule) {
     // weeklyMatches is one week's worth of matches
     let matchArray = weeklyMatches.matches;
     
-    const roundNumber = weeklyMatches.roundNumber,
-      gamesPlayed = matchArray[0].homeClub.gamesPlayed,
-      datesToRun = weeklyMatches.datesToRun.getTime();
+    const datesToRun = weeklyMatches.datesToRun.getTime();
     
-    if (today >= datesToRun && gamesPlayed < roundNumber) {
+    if (today >= datesToRun) {
       let  resolvedMatchArray = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray))));
-      let resolvedWeek = {
-        _id: weeklyMatches._id,
-        roundNumber: weeklyMatches.roundNumber,
-        datesToRun: weeklyMatches.datesToRun,
-        matches: resolvedMatchArray
-      };
+      let resolvedWeek = JSON.parse(JSON.stringify(weeklyMatches));
+      resolvedWeek.matches = resolvedMatchArray;
       saveMatches(resolvedMatchArray);
       return resolvedWeek;
     }
-    if (today < datesToRun || gamesPlayed >= roundNumber) {
+    if (today < datesToRun) {
       return weeklyMatches;
     }
   });
