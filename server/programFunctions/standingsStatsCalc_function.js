@@ -11,13 +11,11 @@ function standingsStatsCalc(matchArray) {
       return match;
     }
   });
-  // console.log('standingsStatsCalc resolvedMatchArray:', resolvedMatchArray);
+  
   return resolvedMatchArray;
   
   function clubStats(club, clubScore, opponentScore) {
     let clubArray = [club];
-    console.log('clubScore:', clubScore);
-    console.log('opponentScore:', opponentScore);
     
     let updatedClubArray = clubArray.map(club => {
       if (clubScore > opponentScore) {
@@ -52,7 +50,6 @@ function standingsStatsCalc(matchArray) {
         return updatedClub;
       }
     });
-    console.log('updatedClub:', updatedClubArray[0]);
     return updatedClubArray[0];
   }
 }

@@ -10,13 +10,14 @@ function saveMatches(resolvedMatches) {
   };
   
   let matches = resolvedMatches.map(match => {
+    let resolvedMatch = JSON.parse(JSON.stringify(match));
     return FantasyMatch
     .findByIdAndUpdate(
-      match._id,
+      resolvedMatch._id,
       {
-        homeScore: match.homeScore,
-        awayScore: match.awayScore,
-        final: match.final
+        homeScore: resolvedMatch.homeScore,
+        awayScore: resolvedMatch.awayScore,
+        final: resolvedMatch.final
       },
       options
     )
@@ -26,18 +27,22 @@ function saveMatches(resolvedMatches) {
   });
   
   let homeClubs = resolvedMatches.map(match => {
+    let club = JSON.parse(JSON.stringify(match.homeClub));
+    if (club.clubName === 'Strikers \'87') {
+      console.log('saveMatches awayClub:', club);
+    }
     return FantasyClub
     .findByIdAndUpdate(
-      match.homeClub._id,
+      club._id,
       {
-        wins: match.homeClub.wins,
-        draws: match.homeClub.draws,
-        losses: match.homeClub.losses,
-        points: match.homeClub.points,
-        goalsFor: match.homeClub.goalsFor,
-        goalsAgainst: match.homeClub.goalsAgainst,
-        goalDifferential: match.homeClub.goalDifferential,
-        gamesPlayed: match.homeClub.gamesPlayed
+        wins: club.wins,
+        draws: club.draws,
+        losses: club.losses,
+        points: club.points,
+        goalsFor: club.goalsFor,
+        goalsAgainst: club.goalsAgainst,
+        goalDifferential: club.goalDifferential,
+        gamesPlayed: club.gamesPlayed
       },
       options
     )
@@ -47,18 +52,22 @@ function saveMatches(resolvedMatches) {
   });
   
   let awayClubs = resolvedMatches.map(match => {
+    let club = JSON.parse(JSON.stringify(match.awayClub));
+    if (club.clubName === 'Strikers \'87') {
+      console.log('saveMatches awayClub:', club);
+    }
     return FantasyClub
     .findByIdAndUpdate(
-      match.awayClub._id,
+      club._id,
       {
-        wins: match.awayClub.wins,
-        draws: match.awayClub.draws,
-        losses: match.awayClub.losses,
-        points: match.awayClub.points,
-        goalsFor: match.awayClub.goalsFor,
-        goalsAgainst: match.awayClub.goalsAgainst,
-        goalDifferential: match.awayClub.goalDifferential,
-        gamesPlayed: match.awayClub.gamesPlayed
+        wins: club.wins,
+        draws: club.draws,
+        losses: club.losses,
+        points: club.points,
+        goalsFor: club.goalsFor,
+        goalsAgainst: club.goalsAgainst,
+        goalDifferential: club.goalDifferential,
+        gamesPlayed: club.gamesPlayed
       },
       options
     )
