@@ -5,6 +5,7 @@ const mongoose = require('mongoose'),
 	should = chai.should(),
 	{matchResolver} = require("../../server/programFunctions/matchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
+	{saveClubs} = require("../../server/programFunctions/saveClubs_function.js"),
 	{humanHomeClubScoreCalc} = require("../../server/programFunctions/humanHomeClubScoreCalc_function.js"),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
@@ -59,14 +60,20 @@ describe('Matches Resolver', () => {
   //   club.goalsAgainst.should.equal(54);
   //   club.goalDifferential.should.equal(13);
   // });
+  it('should add the home club of resolved matches to the database', () => {
+    const resolvedMatches = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
+      savedClub = saveClubs(resolvedMatches[0].homeClub);
+    console.log('resolvedMatches:', resolvedMatches[0]);
+    // return savedClub.should.eventually.exist;
+  });
   // it('should add resolved matches to the database', () => {
   //   const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));
   //   return savedMatches.should.eventually.exist;
   // });
-  it('should resolve matches that have already happened', () => {
-    const resolvedSchedule = matchResolver(fullSchedule),
-      scheduleLength = resolvedSchedule.length;
-    resolvedSchedule.should.exist;
-    scheduleLength.should.equal(38);
-  });
+  // it('should resolve matches that have already happened', () => {
+  //   const resolvedSchedule = matchResolver(fullSchedule),
+  //     scheduleLength = resolvedSchedule.length;
+  //   resolvedSchedule.should.exist;
+  //   scheduleLength.should.equal(38);
+  // });
 });

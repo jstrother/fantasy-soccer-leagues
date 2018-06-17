@@ -1,10 +1,12 @@
+const {saveClubs} = require("./saveClubs_function.js");
+
 function standingsStatsCalc(matchArray) {
   let resolvedMatchArray = matchArray.map(match => {
     if (match.final === false) {
       let resolvedMatch = JSON.parse(JSON.stringify(match));
       resolvedMatch.final = true;
-      resolvedMatch.homeClub = clubStats(match.homeClub, match.homeScore, match.awayScore);
-      resolvedMatch.awayClub = clubStats(match.awayClub, match.awayScore, match.homeScore);
+      resolvedMatch.homeClub = saveClubs(clubStats(match.homeClub, match.homeScore, match.awayScore));
+      resolvedMatch.awayClub = saveClubs(clubStats(match.awayClub, match.awayScore, match.homeScore));
       return resolvedMatch;
     }
     if (match.final === true) {
