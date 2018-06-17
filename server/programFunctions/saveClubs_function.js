@@ -1,12 +1,9 @@
 /*eslint-disable no-console*/
 const FantasyClub = require("../../models/fantasyClub_model.js");
 
-async function saveClubs(club) {
-  const options = {
-    new: true
-  };
+function saveClubs(club) {
   
-  let updatedClub = await FantasyClub
+  let savedClub = FantasyClub
   .findByIdAndUpdate(
     club._id,
     {
@@ -18,14 +15,13 @@ async function saveClubs(club) {
       goalsAgainst: club.goalsAgainst,
       goalDifferential: club.goalDifferential,
       gamesPlayed: club.gamesPlayed
-    },
-    options
+    }
   )
   .catch(error => {
     throw new Error(error);
   });
   
-  return updatedClub;
+  return Promise.resolve(savedClub);
 }
 
 module.exports = {

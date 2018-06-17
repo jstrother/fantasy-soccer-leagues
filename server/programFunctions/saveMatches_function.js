@@ -2,11 +2,8 @@
 const FantasyMatch = require("../../models/fantasyMatch_model.js");
 
 function saveMatches(resolvedMatches) {
-  const options = {
-    new: true
-  };
   
-  let matches = resolvedMatches.map(match => {
+  let savedMatches = resolvedMatches.map(match => {
     return FantasyMatch
     .findByIdAndUpdate(
       match._id,
@@ -14,15 +11,14 @@ function saveMatches(resolvedMatches) {
         homeScore: match.homeScore,
         awayScore: match.awayScore,
         final: match.final
-      },
-      options
+      }
     )
     .catch(error => {
       throw new Error(error);
     });
   });
   
-  return Promise.all(matches);
+  return Promise.all(savedMatches);
 }
 
 module.exports = {
