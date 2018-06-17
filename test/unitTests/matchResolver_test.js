@@ -63,17 +63,18 @@ describe('Matches Resolver', () => {
   it('should add a club of resolved matches to the database', () => {
     const resolvedMatches = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
       savedClub = saveClubs(resolvedMatches[0].homeClub);
-    console.log('resolvedMatches:', resolvedMatches);
+    // console.log('resolvedMatches:', resolvedMatches);
     return savedClub.should.eventually.exist;
   });
   it('should add resolved matches to the database', () => {
     const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));
     return savedMatches.should.eventually.exist;
   });
-  it('should resolve matches that have already happened', () => {
+  it('should resolve matches that have already happened', (done) => {
     const resolvedSchedule = matchResolver(fullSchedule),
       scheduleLength = resolvedSchedule.length;
     resolvedSchedule.should.exist;
     scheduleLength.should.equal(38);
+    done();
   });
 });

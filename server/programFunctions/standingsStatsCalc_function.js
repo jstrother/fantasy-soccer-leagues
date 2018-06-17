@@ -1,4 +1,4 @@
-const {saveClubs} = require("./saveClubs_function.js");
+const {clubStats} = require("./clubStats_function.js");
 
 function standingsStatsCalc(matchArray) {
   let resolvedMatchArray = matchArray.map(match => {
@@ -13,48 +13,8 @@ function standingsStatsCalc(matchArray) {
       return match;
     }
   });
-  
+  // console.log('resolvedMatchArray:', resolvedMatchArray);
   return resolvedMatchArray;
-  
-  function clubStats(club, clubScore, opponentScore) {
-    let clubArray = [club];
-    
-    let updatedClubArray = clubArray.map(club => {
-      if (clubScore > opponentScore) {
-        let updatedClub = JSON.parse(JSON.stringify(club));
-        updatedClub.wins += 1;
-        updatedClub.points += 3;
-        updatedClub.goalsFor += clubScore;
-        updatedClub.goalsAgainst += opponentScore;
-        updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
-        updatedClub.gamesPlayed += 1;
-        return updatedClub;
-      }
-      
-      if (opponentScore > clubScore) {
-        let updatedClub = JSON.parse(JSON.stringify(club));
-        updatedClub.losses += 1;
-        updatedClub.goalsFor += clubScore;
-        updatedClub.goalsAgainst += opponentScore;
-        updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
-        updatedClub.gamesPlayed += 1;
-        return updatedClub;
-      }
-      
-      if (clubScore === opponentScore) {
-        let updatedClub = JSON.parse(JSON.stringify(club));
-        updatedClub.draws += 1;
-        updatedClub.points += 1;
-        updatedClub.goalsFor += clubScore;
-        updatedClub.goalsAgainst += opponentScore;
-        updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
-        updatedClub.gamesPlayed += 1;
-        return updatedClub;
-      }
-    });
-    saveClubs(updatedClubArray[0]);
-    return updatedClubArray[0];
-  }
 }
 
 module.exports = {
