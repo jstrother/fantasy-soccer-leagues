@@ -21,8 +21,7 @@ fantasyScheduleRouter.post('/matchResolver',
       res.json(matchResolver(fullSchedule));
     })
     .catch(error => {
-      console.error('fsRoutes error:', error);
-      // throw new Error(error);
+      throw new Error(error);
     });
   }
 );

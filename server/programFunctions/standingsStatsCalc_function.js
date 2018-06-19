@@ -13,7 +13,6 @@ function standingsStatsCalc(matchArray) {
       return match;
     }
   });
-  console.log('resolvedMatchArray:', resolvedMatchArray);
   return resolvedMatchArray;
 }
 

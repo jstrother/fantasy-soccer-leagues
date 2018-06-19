@@ -34,7 +34,7 @@ app.get('*', (req, res) => {
 
 mongoose.Promise = Promise;
 
-const runServer = (port = PORT, database = DATABASE) => {
+const runServer = (database = DATABASE, port = PORT) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
 		mongoose.connect(database,

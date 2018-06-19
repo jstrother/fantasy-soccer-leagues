@@ -1,5 +1,5 @@
 const leagueRouter = require('../../server/league-routes.js').leagueRouter,
-  { mongoose, dbTestConnection, chai, chaiHTTP, should, expect, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
+  { mongoose, chai, chaiHTTP, expect, testPlayer, testPlayer2, testPlayer3, fantasyLeagueId } = require('../common.js'),
   Player = require('../../models/player_model.js'),
   { app } = require('../../server/server.js');
 

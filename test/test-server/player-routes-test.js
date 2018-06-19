@@ -1,5 +1,5 @@
 const playerRouter = require('../../server/player-routes.js').playerRouter,
-  { mongoose, dbTestConnection, chai, chaiHTTP, should, expect, testPlayer } = require('../common.js'),
+  { mongoose, dbTestConnection, chai, chaiHTTP, expect, testPlayer } = require('../common.js'),
   Player = require('../../models/player_model.js'),
   { app } = require('../../server/server.js');
 

@@ -23,7 +23,6 @@ function matchResolver(fullSchedule) {
               humanHomeClubScoreCalc(matchArray))));
       
       saveMatches(resolvedWeek.matches);
-      console.log('resolvedWeek:', resolvedWeek);  
       return resolvedWeek;
     }
     if (today < datesToRun) {

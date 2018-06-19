@@ -1,5 +1,5 @@
 const userRouter = require('../../server/user-routes.js').userRouter,
-	{ mongoose, chai, chaiHTTP, should, expect, dbTestConnection, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
+	{ mongoose, chai, chaiHTTP, should, testCurrentUser, fantasyLeagueId, fantasyLeagueName } = require('../common.js'),
   User = require('../../models/user_model.js'),
   { app } = require('../../server/server.js');
 

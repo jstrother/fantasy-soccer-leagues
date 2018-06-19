@@ -10,26 +10,13 @@ const mongoose = require('mongoose'),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
 	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
-  {dbTestConnection, fullSchedule} = require("../common.js");
+  {fullSchedule} = require("../common.js");
 
 chai.use(chaiHTTP);
 chai.use(chaiAsPromised);
 mongoose.Promise = Promise;
 
 describe('Matches Resolver', () => {
-  before(() => {
-    return mongoose.connect(dbTestConnection);
-  });
-  
-  afterEach(() => {
-    return mongoose.connection.db.dropDatabase(dbTestConnection);
-  });
-  
-  after(() => {
-    return mongoose.connection.close((dbTestConnection) => {
-      console.log('connection closed');
-    });
-  });
   
   it('should resolve a match\'s homeScore for clubs that are run by human players', () => {
     const humanHomeClubScores = humanHomeClubScoreCalc(fullSchedule[0].matches);
