@@ -10,8 +10,7 @@ const mongoose = require('mongoose'),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
 	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
-  {dbTestConnection, fullSchedule} = require("../common.js"),
-  FantasyClub = require("../../models/fantasyClub_model.js");
+  {dbTestConnection, fullSchedule} = require("../common.js");
 
 chai.use(chaiHTTP);
 chai.use(chaiAsPromised);
@@ -61,8 +60,7 @@ describe('Matches Resolver', () => {
     club.goalDifferential.should.equal(13);
   });
   it('should add a club from resolved matches to the database', () => {
-    const resolvedMatches = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
-      savedClub = resolvedMatches[0].homeClub;
+    const savedClub = saveClubs(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))[0].homeClub);
     savedClub.should.exist;
   });
   it('should add resolved matches to the database', () => {
