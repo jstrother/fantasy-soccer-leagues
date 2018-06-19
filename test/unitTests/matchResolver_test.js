@@ -60,11 +60,10 @@ describe('Matches Resolver', () => {
     club.goalsAgainst.should.equal(54);
     club.goalDifferential.should.equal(13);
   });
-  it('should add a club of resolved matches to the database', () => {
+  it('should add a club from resolved matches to the database', () => {
     const resolvedMatches = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
-      savedClub = saveClubs(resolvedMatches[0].homeClub);
-    // console.log('resolvedMatches:', resolvedMatches);
-    return savedClub.should.eventually.exist;
+      savedClub = resolvedMatches[0].homeClub;
+    savedClub.should.exist;
   });
   it('should add resolved matches to the database', () => {
     const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));

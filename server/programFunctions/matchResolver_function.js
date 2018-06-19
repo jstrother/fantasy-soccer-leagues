@@ -14,8 +14,16 @@ function matchResolver(fullSchedule) {
     const datesToRun = weeklyMatches.datesToRun.getTime();
     
     if (today >= datesToRun) {
-      let resolvedWeek = weeklyMatches;
-      resolvedWeek.matches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(matchArray)))));
+      let resolvedWeek = JSON.parse(JSON.stringify(weeklyMatches));
+      
+      resolvedWeek.matches = 
+        standingsStatsCalc(
+          computerClubScoreCalc(
+            humanAwayClubScoreCalc(
+              humanHomeClubScoreCalc(matchArray))));
+      
+      saveMatches(resolvedWeek.matches);
+      console.log('resolvedWeek:', resolvedWeek);  
       return resolvedWeek;
     }
     if (today < datesToRun) {
