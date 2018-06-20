@@ -17,6 +17,7 @@ function humanAwayClubScoreCalc(matchArray) {
       return match;
     }
   });
+  // console.log('humanAwayClubScoreCalc:', resolvedMatchArray);
   return resolvedMatchArray;
 }
 

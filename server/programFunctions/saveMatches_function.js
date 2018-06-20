@@ -2,7 +2,7 @@
 const FantasyMatch = require("../../models/fantasyMatch_model.js");
 
 function saveMatches(resolvedMatches) {
-  
+  // console.log('resolvedMatch:', resolvedMatches[0]);
   let savedMatches = resolvedMatches.map(match => {
     return FantasyMatch
     .findByIdAndUpdate(
@@ -13,12 +13,24 @@ function saveMatches(resolvedMatches) {
         final: match.final
       }
     )
+    .then(data => {
+      console.log('FantasyMatch:', data);
+    })
     .catch(error => {
       throw new Error(error);
     });
   });
-  
-  return Promise.all(savedMatches);
+  // savedMatches[0]
+  // .then(data => {
+  //   console.log('savedMatch:', data);
+  // })
+  // .catch(error => {
+  //   throw new Error(error);
+  // });
+  return Promise.all(savedMatches)
+    .then(data => {
+      console.log('savedMatch:', data);
+    });
 }
 
 module.exports = {

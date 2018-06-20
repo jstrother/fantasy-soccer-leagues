@@ -20,7 +20,7 @@ function computerClubScoreCalc(matchArray) {
       return match;
     }
   });
-  
+  // console.log('computerClubScoreCalc:', resolvedMatchArray);
   return resolvedMatchArray;
   
   function clubScore() {

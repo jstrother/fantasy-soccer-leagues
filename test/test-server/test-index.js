@@ -5,7 +5,7 @@ mongoose.Promise = Promise;
 chai.use(chaiAsPromised);
 
 before(() => {
-	runServer(dbTestConnection);
+	runServer(dbTestConnection, 8081);
 });
 
 after(() => {
@@ -18,8 +18,8 @@ describe('All Tests', function() {
   // importTest('Player Routes Test', './player-routes-test.js');
   // importTest('League Routes Test', './league-routes-test.js');
   // importTest('Schedule Creation Test', './scheduleCreation-test.js');
-  // importTest('Match Resolution Tests', './matchResolver_test.js');
-  importTest('Fantasy Schedule Routes Test', './fantasySchedule-routes-test.js');
+  importTest('Match Resolution Tests', './matchResolver_test.js');
+  // importTest('Fantasy Schedule Routes Test', './fantasySchedule-routes-test.js');
 });
 	
 function importTest(name, path) {

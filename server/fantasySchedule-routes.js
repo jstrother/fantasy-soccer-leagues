@@ -18,6 +18,7 @@ fantasyScheduleRouter.post('/matchResolver',
       }
     })
     .then(fullSchedule => {
+      console.log('fullSchedule:', fullSchedule);
       res.json(matchResolver(fullSchedule));
     })
     .catch(error => {

@@ -21,6 +21,13 @@ function saveClubs(club) {
     throw new Error(error);
   });
   
+  // savedClub
+  // .then(data => {
+  //   console.log('savedClub:', data);
+  // })
+  // .catch(error => {
+  //   throw new Error(error);
+  // });
   return savedClub;
 }
 
