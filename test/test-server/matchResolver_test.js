@@ -3,14 +3,14 @@ const mongoose = require('mongoose'),
 	chaiHTTP = require('chai-http'),
 	chaiAsPromised = require("chai-as-promised"),
 	should = chai.should(),
+  {scheduleRetriever} = require("../../server/programFunctions/scheduleRetriever_function.js"),
 	{matchResolver} = require("../../server/programFunctions/matchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
 	{saveClubs} = require("../../server/programFunctions/saveClubs_function.js"),
 	{humanHomeClubScoreCalc} = require("../../server/programFunctions/humanHomeClubScoreCalc_function.js"),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
-	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
-  {fullSchedule} = require("../common.js");
+	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js");
 
 chai.use(chaiHTTP);
 chai.use(chaiAsPromised);
@@ -18,6 +18,16 @@ mongoose.Promise = Promise;
 
 describe('Matches Resolver', () => {
   
+  it('should retrieve from the database a full fantasy schedule', () => {
+    const retrievedSchedule = scheduleRetriever();
+    retrievedSchedule.should.exist;
+    console.log('retrievedSchedule:', retrievedSchedule);
+  });
+  // it('should resolve a schedule', () => {
+  //   const resolvedSchedule = matchResolver(scheduleRetriever());
+  //   resolvedSchedule.should.exist;
+  //   console.log('resolvedSchedule:', resolvedSchedule);
+  // });
   // it('should resolve a match\'s homeScore for clubs that are run by human players', () => {
   //   const humanHomeClubScores = humanHomeClubScoreCalc(fullSchedule[0].matches);
   //   humanHomeClubScores.should.exist;
@@ -50,10 +60,10 @@ describe('Matches Resolver', () => {
   //   const savedClub = saveClubs(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))[0].homeClub);
   //   savedClub.should.exist;
   // });
-  it('should add resolved matches to the database', () => {
-    const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));
-    return savedMatches.should.eventually.exist;
-  });
+  // it('should add resolved matches to the database', () => {
+  //   const savedMatches = saveMatches(standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))));
+  //   return savedMatches.should.eventually.exist;
+  // });
   // it('should resolve matches that have already happened', (done) => {
   //   const resolvedSchedule = matchResolver(fullSchedule),
   //     scheduleLength = resolvedSchedule.length;
