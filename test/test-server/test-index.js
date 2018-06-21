@@ -13,11 +13,11 @@ chai.use(chaiAsPromised);
 before(() => {
 	return runServer(dbTestConnection, 8081)
 	.then(() => {
-	  User.insertMany(managerArray);
-	  FantasyClub.insertMany(clubArray);
-	  FantasyMatch.insertMany(matchesArray);
-	  WeeklyMatches.insertMany(weeklyArray);
-	  FantasySchedule.create(fullSchedule);
+    User.insertMany(managerArray);
+    FantasyClub.insertMany(clubArray);
+    FantasyMatch.insertMany(matchesArray);
+    WeeklyMatches.insertMany(weeklyArray);
+    FantasySchedule.create(fullSchedule);
 	});
 });
 
