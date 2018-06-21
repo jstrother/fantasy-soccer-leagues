@@ -13,27 +13,17 @@ chai.use(chaiAsPromised);
 before(() => {
 	return runServer(dbTestConnection, 8081)
 	.then(() => {
-	  managerArray.forEach(manager => {
-	    User.create(manager);
-	  });
-	  clubArray.forEach(club => {
-	    FantasyClub.create(club);
-	  });
-	  matchesArray.forEach(match => {
-	    FantasyMatch.create(match);
-	  });
-	  weeklyArray.forEach(week => {
-	    WeeklyMatches.create(week);
-	  });
+	  User.insertMany(managerArray);
+	  FantasyClub.insertMany(clubArray);
+	  FantasyMatch.insertMany(matchesArray);
+	  WeeklyMatches.insertMany(weeklyArray);
 	  FantasySchedule.create(fullSchedule);
 	});
 });
 
 after(() => {
-  return closeServer()
-  .then(() => {
-    mongoose.connection.db.dropDatabase(dbTestConnection);
-  });
+  mongoose.connection.db.dropDatabase(dbTestConnection);
+  return closeServer();
 });
 
 describe('All Tests', function() {
