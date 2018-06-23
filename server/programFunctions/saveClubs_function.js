@@ -15,19 +15,14 @@ function saveClubs(club) {
       goalsAgainst: club.goalsAgainst,
       goalDifferential: club.goalDifferential,
       gamesPlayed: club.gamesPlayed
+    },
+    {
+      new: true
     }
   )
   .catch(error => {
     throw new Error(error);
   });
-  
-  // savedClub
-  // .then(data => {
-  //   console.log('savedClub:', data);
-  // })
-  // .catch(error => {
-  //   throw new Error(error);
-  // });
   return savedClub;
 }
 

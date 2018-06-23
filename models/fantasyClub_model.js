@@ -4,22 +4,51 @@ const mongoose = require('mongoose'),
 	fantasyClubSchema = Schema({
 		_id: Schema.Types.ObjectId,
 		clubName: String,
-		manager: {type: Schema.Types.ObjectId, ref: 'User'},
-		leagueScheduleId: {type: Schema.Types.ObjectId, ref: 'FantasySchedule'},
+		manager: {
+			type: Schema.Types.ObjectId, 
+			ref: 'User'
+		},
+		leagueScheduleId: {
+			type: Schema.Types.ObjectId, 
+			ref: 'FantasySchedule'
+		},
 		goalkeepers: Array,
 		defenders: Array,
 		midfielders: Array,
 		forwards: Array,
 		starters: Array,
 		benchwarmers: Array,
-		wins: {type: Number, default: 0},
-		draws: {type: Number, default: 0},
-		losses: {type: Number, default: 0},
-		points: {type: Number, default: 0},
-		goalsFor: {type: Number, default: 0},
-		goalsAgainst: {type: Number, default: 0},
-		goalDifferential: {type: Number, default: 0},
-		gamesPlayed: {type: Number, default: 0}
+		wins: {
+			type: Number, 
+			default: 0
+		},
+		draws: {
+			type: Number, 
+			default: 0
+		},
+		losses: {
+			type: Number, 
+			default: 0
+		},
+		points: {
+			type: Number, 
+			default: 0
+		},
+		goalsFor: {
+			type: Number, 
+			default: 0
+		},
+		goalsAgainst: {
+			type: Number, 
+			default: 0
+		},
+		goalDifferential: {
+			type: Number, 
+			default: 0
+		},
+		gamesPlayed: {
+			type: Number, 
+			default: 0}
 		// ranking starts with points, then goalDifferential, then goalsFor, finally goalsAgainst
 	}),
 

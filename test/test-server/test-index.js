@@ -13,19 +13,19 @@ chai.use(chaiAsPromised);
 before(() => {
 	return runServer(dbTestConnection, 8081)
 	.then(() => {
-    User.insertMany(managerArray);
-	})
-	.then(() => {
-	  FantasyClub.insertMany(clubArray);
-	})
-	.then(() => {
-	  FantasyMatch.insertMany(matchesArray);
-	})
-	.then(() => {
-	  WeeklyMatches.insertMany(weeklyArray);
-	})
-	.then(() => {
-	  FantasySchedule.create(fullSchedule);
+    return FantasySchedule.create(fullSchedule)
+    .then(() => {
+      return WeeklyMatches.insertMany(weeklyArray)
+      .then(() => {
+        return FantasyMatch.insertMany(matchesArray)
+        .then(() => {
+          return FantasyClub.insertMany(clubArray)
+          .then(() => {
+            return User.insertMany(managerArray);
+          });
+        });
+      });
+    });
 	});
 });
 
