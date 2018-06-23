@@ -11,26 +11,30 @@ mongoose.Promise = Promise;
 chai.use(chaiAsPromised);
 
 before(() => {
-	return runServer(dbTestConnection, 8081)
-	.then(() => {
-    return FantasySchedule.create(fullSchedule)
+	return runServer(dbTestConnection, 8081);
+});
+
+beforeEach(() => {
+  return FantasySchedule.create(fullSchedule)
+  .then(() => {
+    return WeeklyMatches.insertMany(weeklyArray)
     .then(() => {
-      return WeeklyMatches.insertMany(weeklyArray)
+      return FantasyMatch.insertMany(matchesArray)
       .then(() => {
-        return FantasyMatch.insertMany(matchesArray)
+        return FantasyClub.insertMany(clubArray)
         .then(() => {
-          return FantasyClub.insertMany(clubArray)
-          .then(() => {
-            return User.insertMany(managerArray);
-          });
+          return User.insertMany(managerArray);
         });
       });
     });
-	});
+  });
+});
+
+afterEach(() => {
+  return mongoose.connection.db.dropDatabase(dbTestConnection);
 });
 
 after(() => {
-  mongoose.connection.db.dropDatabase(dbTestConnection);
   return closeServer();
 });
 
