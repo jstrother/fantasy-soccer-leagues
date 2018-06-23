@@ -14,10 +14,18 @@ before(() => {
 	return runServer(dbTestConnection, 8081)
 	.then(() => {
     User.insertMany(managerArray);
-    FantasyClub.insertMany(clubArray);
-    FantasyMatch.insertMany(matchesArray);
-    WeeklyMatches.insertMany(weeklyArray);
-    FantasySchedule.create(fullSchedule);
+	})
+	.then(() => {
+	  FantasyClub.insertMany(clubArray);
+	})
+	.then(() => {
+	  FantasyMatch.insertMany(matchesArray);
+	})
+	.then(() => {
+	  WeeklyMatches.insertMany(weeklyArray);
+	})
+	.then(() => {
+	  FantasySchedule.create(fullSchedule);
 	});
 });
 
