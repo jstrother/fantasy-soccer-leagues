@@ -4,7 +4,6 @@ function computerClubScoreCalc(matchArray) {
       if (match.homeClub.clubName === 'Average') {
         let resolvedMatch = JSON.parse(JSON.stringify(match));
         resolvedMatch.homeScore = clubScore();
-        // console.log('computerClubScoreCalc club:', match.homeClub);
         return resolvedMatch;
       }
       if (match.awayClub.clubName === 'Average') {
@@ -20,7 +19,6 @@ function computerClubScoreCalc(matchArray) {
       return match;
     }
   });
-  // console.log('computerClubScoreCalc:', resolvedMatchArray);
   return resolvedMatchArray;
   
   function clubScore() {

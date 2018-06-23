@@ -115,10 +115,17 @@ describe('Matches Resolver', () => {
       return standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches))));
     })
     .then(resolvedSchedule => {
-      console.log('resolvedSchedule:', resolvedSchedule);
       return saveMatches(resolvedSchedule)
       .then(savedMatches => {
-        console.log('savedMatches:', savedMatches);
+        console.log('savedMatches_test:', savedMatches);
+        return FantasyMatch
+        .findById(savedMatches[0]._id)
+        .then(matchFromDB => {
+          matchFromDB.should.exist;
+          matchFromDB.homeScore.should.equal(54);
+          matchFromDB.awayScore.should.equal(67);
+          matchFromDB.final.should.equal(true);
+        });
       });
     });
   });
