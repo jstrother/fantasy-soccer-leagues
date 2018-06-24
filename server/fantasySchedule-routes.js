@@ -5,27 +5,27 @@ const fantasyScheduleRouter = require("express").Router(),
   {scheduleCreator} = require("./programFunctions/scheduleCreation_function.js"),
   {matchResolver} = require("./programFunctions/matchResolver_function.js");
 
-// fantasyScheduleRouter.post('/matchResolver',
-//   (req, res) => {
-//     WeeklyMatches
-//     .find()
-//     .populate({
-//       path: 'matches',
-//       model: 'FantasyMatch',
-//       populate: {
-//         path: 'homeClub awayClub',
-//         model: 'FantasyClub'
-//       }
-//     })
-//     .then(fullSchedule => {
-//       console.log('fullSchedule:', fullSchedule);
-//       res.json(matchResolver(fullSchedule));
-//     })
-//     .catch(error => {
-//       throw new Error(error);
-//     });
-//   }
-// );
+fantasyScheduleRouter.post('/matchResolver',
+  (req, res) => {
+    WeeklyMatches
+    .find()
+    .populate({
+      path: 'matches',
+      model: 'FantasyMatch',
+      populate: {
+        path: 'homeClub awayClub',
+        model: 'FantasyClub'
+      }
+    })
+    .then(fullSchedule => {
+      console.log('fullSchedule:', fullSchedule);
+      res.json(matchResolver(fullSchedule));
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
 
 fantasyScheduleRouter.get('/',
   (req, res) => {

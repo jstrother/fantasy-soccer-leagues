@@ -149,23 +149,56 @@ describe('Matches Resolver', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
       const computerScore = computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)));
-      computerScore[1].awayScore.should.equal(58);
+      computerScore[1].awayScore.should.equal(58); // this should be the computer club
     });
   });
   
-  // it('should resolve standings statistics for each match', () => {
-  //   const standingsStats = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
-  //     club = standingsStats[0].awayClub;
-  //   standingsStats.should.exist;
-  //   club.gamesPlayed.should.equal(1);
-  //   club.wins.should.equal(1);
-  //   club.draws.should.equal(0);
-  //   club.losses.should.equal(0);
-  //   club.points.should.equal(3);
-  //   club.goalsFor.should.equal(67);
-  //   club.goalsAgainst.should.equal(54);
-  //   club.goalDifferential.should.equal(13);
-  // });
+  it('should resolve standings statistics for each match', () => {
+    return scheduleRetriever()
+    .then(fullSchedule => {
+      const standingsStats = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
+        firstHomeClub = standingsStats[0].homeClub,
+        firstAwayClub = standingsStats[0].awayClub,
+        secondHomeClub = standingsStats[1].homeClub,
+        secondAwayClub = standingsStats[1].awayClub;
+        
+      firstHomeClub.wins.should.equal(0);
+      firstHomeClub.draws.should.equal(0);
+      firstHomeClub.losses.should.equal(1);
+      firstHomeClub.points.should.equal(0);
+      firstHomeClub.goalsFor.should.equal(54);
+      firstHomeClub.goalsAgainst.should.equal(67);
+      firstHomeClub.goalDifferential.should.equal(-13);
+      firstHomeClub.gamesPlayed.should.equal(1);
+      
+      firstAwayClub.wins.should.equal(1);
+      firstAwayClub.draws.should.equal(0);
+      firstAwayClub.losses.should.equal(0);
+      firstAwayClub.points.should.equal(3);
+      firstAwayClub.goalsFor.should.equal(67);
+      firstAwayClub.goalsAgainst.should.equal(54);
+      firstAwayClub.goalDifferential.should.equal(13);
+      firstAwayClub.gamesPlayed.should.equal(1);
+      
+      secondHomeClub.wins.should.equal(0);
+      secondHomeClub.draws.should.equal(0);
+      secondHomeClub.losses.should.equal(1);
+      secondHomeClub.points.should.equal(0);
+      secondHomeClub.goalsFor.should.equal(54);
+      secondHomeClub.goalsAgainst.should.equal(58);
+      secondHomeClub.goalDifferential.should.equal(-4);
+      secondHomeClub.gamesPlayed.should.equal(1);
+      
+      secondAwayClub.wins.should.equal(1);
+      secondAwayClub.draws.should.equal(0);
+      secondAwayClub.losses.should.equal(0);
+      secondAwayClub.points.should.equal(3);
+      secondAwayClub.goalsFor.should.equal(58);
+      secondAwayClub.goalsAgainst.should.equal(54);
+      secondAwayClub.goalDifferential.should.equal(4);
+      secondAwayClub.gamesPlayed.should.equal(1);
+    });
+  });
   
   it('should add a club from resolved matches to the database', () => {
     return WeeklyMatches
