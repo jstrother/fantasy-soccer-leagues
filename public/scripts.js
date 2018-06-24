@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2232b1b5839b04b1c22f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "52712c9ba00b7a1697a7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7172,8 +7172,7 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      // throw new Error(error);
-      console.log('userActions.js:69 error:', error);
+      throw new Error(error);
     });
   };
 };

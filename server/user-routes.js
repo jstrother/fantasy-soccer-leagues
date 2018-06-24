@@ -44,13 +44,12 @@ passport.use(new gStrategy({
 ));
 
 passport.use(new bStrategy((token, done) => {
-	User.find({
+	User.findOne({
 		accessToken: token
 	}, (error, user) => {
 		if (error) return done(error);
 		if (!user) return done(null, false);
-		//user gets returned as an array of one, make sure to select properly
-		return done(null, user[0]);
+		return done(null, user, {scope: 'all'});
 	});
 }));
 
@@ -117,9 +116,9 @@ userRouter.put(`/addLeague`,
 		.catch(error => {
 			throw new Error(error);
 		})
-);
+	);
 
-// let's us know whether a user has created a club yet or not
+// lets us know whether a user has created a club yet or not
 userRouter.put(`/clubOwner`,
 	passport.authenticate('bearer', {session: false}),
 	(req, res) => User
