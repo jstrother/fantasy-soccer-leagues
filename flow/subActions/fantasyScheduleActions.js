@@ -35,9 +35,9 @@ export const createScheduleFail = statusCode => ({
 });
 
 export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
-export const matchResolveSuccess = (weeklyMatches, statusCode) => ({
+export const matchResolveSuccess = statusCode => ({
   type: MATCH_RESOLVE_SUCCESS,
-  weeklyMatches,
+  matchesResolved: true,
   statusCode
 });
 
@@ -136,10 +136,8 @@ export const createSchedule = () => dispatch => {
   });
 };
 
-export const matchResolve = () => dispatch => {
-  return fetch(`${thisURL}/matchResolver`, {
-    method: 'POST'
-  })
+export const wereMatchesResolved = () => dispatch => {
+  return fetch(`${thisURL}`)
   .then(res => {
     if (!res.ok) {
       if (res.status === 400) {
@@ -151,8 +149,13 @@ export const matchResolve = () => dispatch => {
     }
     return res.json();
   })
-  .then(weeklyMatches => {
-    dispatch(matchResolveSuccess(weeklyMatches, 200));
+  .then(data => {
+    console.log('matchesResolved?', data);
+    if (data.length > 0) {
+      dispatch(matchResolveSuccess(200));
+      // emit an event here?
+      // also need a way to reset this once a week or the state will never change
+    }
   })
   .catch(error => {
     throw new Error(error);

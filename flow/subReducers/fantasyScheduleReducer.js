@@ -9,7 +9,8 @@ const initialState = {
   },
   scheduleFetched: null,
   scheduleCreated: null,
-  scheduleUpdate: false
+  scheduleUpdate: false,
+  matchesResolved: false
 };
 
 export const fantasyScheduleReducer = (state = initialState, action) => {
@@ -32,9 +33,7 @@ export const fantasyScheduleReducer = (state = initialState, action) => {
     case MATCH_RESOLVE_SUCCESS:
       return Object.assign({}, state,
         {
-          fantasySchedule: {
-            weeklyMatches: action.weeklyMatches
-          }
+          matchesResolved: action.matchesResolved
         }
       );
     case SCHEDULE_CREATED_FALSE_SUCCESS:

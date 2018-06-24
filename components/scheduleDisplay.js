@@ -44,7 +44,6 @@ export class DisplaySchedule extends React.Component {
       nextRoundDates;
     if (this.props.fantasySchedule.weeklyMatches !== undefined) {
       this.props.fantasySchedule.weeklyMatches.forEach(week => {
-        console.log('frontEnd week:', week);
         const matchDates = new Date(week.datesToRun).getTime();
         if ((today - sevenDays) <= matchDates && matchDates < today) {
           previousRoundDates = week.datesToRun;

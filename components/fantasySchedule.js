@@ -8,15 +8,17 @@ import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { createSchedule, wasScheduleCreated, matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
+import { createSchedule, wasScheduleCreated, matchResolve, wereMatchesResolved } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidMount() {
-		if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-      this.props.dispatch(matchResolve());
-    }
+		if (this.props.matchesResolved === false) {
+			if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+				this.props.dispatch(wereMatchesResolved());
+			}
+		}
 	}
 	componentDidUpdate() {
 		this.props.dispatch(wasScheduleCreated());
@@ -26,8 +28,10 @@ export class Schedule extends React.Component {
 				this.props.dispatch(createSchedule());
 				this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 			}
-			if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-        this.props.dispatch(matchResolve());
+			if (this.props.matchesResolved === false) {
+				if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+					this.props.dispatch(wereMatchesResolved());
+				}
 			}
 		}
 	}
@@ -65,7 +69,8 @@ const mapScheduleStateToProps = state => ({
 	fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
 	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
 	scheduleCreated: state.fantasyScheduleReducer.scheduleCreated,
-	scheduleUpdate: state.fantasyScheduleReducer.scheduleUpdate
+	scheduleUpdate: state.fantasyScheduleReducer.scheduleUpdate,
+	matchesResolved: state.fantasyScheduleReducer.matchesResolved
 });
 
 const FantasySchedule = connect(

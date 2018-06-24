@@ -15,6 +15,8 @@ const config = require('./config.js'),
 	{ leagueRouter } = require('./league-routes.js'),
 	{ fantasyClubRouter } = require('./fantasyClub-routes.js'),
 	{ fantasyScheduleRouter } = require('./fantasySchedule-routes.js'),
+	{matchResolver} = require("./programFunctions/matchResolver_function.js"),
+	{scheduleRetriever} = require("./programFunctions/scheduleRetriever_function.js"),
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
@@ -47,6 +49,10 @@ const runServer = (database = DATABASE, port = PORT) => {
 				console.log(`Listening on port: ${port}`);
 			});
 			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
+			scheduleRetriever()
+			.then(fullSchedule => {
+				matchResolver(fullSchedule);
+			}); // put this in an event listener?
 			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
 			console.log('No longer using API as cost jumped to $200/month. Can\'t afford that as a student.');
 		})

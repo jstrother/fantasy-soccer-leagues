@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "52712c9ba00b7a1697a7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4728fcd3a523f1840ac8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11092,7 +11092,7 @@ exports.LEAGUE_IDS_NAMES = [{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.matchResolve = exports.createSchedule = exports.getSchedule = exports.wasScheduleCreated = exports.scheduleUpdating = exports.SCHEDULE_UPDATING = exports.scheduleCreatedFail = exports.SCHEDULE_CREATED_FAIL = exports.scheduleCreatedFalseSuccess = exports.SCHEDULE_CREATED_FALSE_SUCCESS = exports.matchResolveFail = exports.MATCH_RESOLVE_FAIL = exports.matchResolveSuccess = exports.MATCH_RESOLVE_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
+exports.wereMatchesResolved = exports.createSchedule = exports.getSchedule = exports.wasScheduleCreated = exports.scheduleUpdating = exports.SCHEDULE_UPDATING = exports.scheduleCreatedFail = exports.SCHEDULE_CREATED_FAIL = exports.scheduleCreatedFalseSuccess = exports.SCHEDULE_CREATED_FALSE_SUCCESS = exports.matchResolveFail = exports.MATCH_RESOLVE_FAIL = exports.matchResolveSuccess = exports.MATCH_RESOLVE_SUCCESS = exports.createScheduleFail = exports.CREATE_SCHEDULE_FAIL = exports.createScheduleSuccess = exports.CREATE_SCHEDULE_SUCCESS = exports.getScheduleFail = exports.GET_SCHEDULE_FAIL = exports.getScheduleSuccess = exports.GET_SCHEDULE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(37));
 
@@ -11154,10 +11154,10 @@ exports.createScheduleFail = createScheduleFail;
 var MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
 exports.MATCH_RESOLVE_SUCCESS = MATCH_RESOLVE_SUCCESS;
 
-var matchResolveSuccess = function matchResolveSuccess(weeklyMatches, statusCode) {
+var matchResolveSuccess = function matchResolveSuccess(statusCode) {
   return {
     type: MATCH_RESOLVE_SUCCESS,
-    weeklyMatches: weeklyMatches,
+    matchesResolved: true,
     statusCode: statusCode
   };
 };
@@ -11288,11 +11288,9 @@ var createSchedule = function createSchedule() {
 
 exports.createSchedule = createSchedule;
 
-var matchResolve = function matchResolve() {
+var wereMatchesResolved = function wereMatchesResolved() {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/matchResolver"), {
-      method: 'POST'
-    }).then(function (res) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL)).then(function (res) {
       if (!res.ok) {
         if (res.status === 400) {
           dispatch(matchResolveFail(res.status));
@@ -11304,15 +11302,19 @@ var matchResolve = function matchResolve() {
       }
 
       return res.json();
-    }).then(function (weeklyMatches) {
-      dispatch(matchResolveSuccess(weeklyMatches, 200));
+    }).then(function (data) {
+      console.log('matchesResolved?', data);
+
+      if (data.length > 0) {
+        dispatch(matchResolveSuccess(200));
+      }
     }).catch(function (error) {
-      console.error('fsActions matchResolve:', error); // throw new Error(error);
+      throw new Error(error);
     });
   };
 };
 
-exports.matchResolve = matchResolve;
+exports.wereMatchesResolved = wereMatchesResolved;
 
 /***/ }),
 /* 91 */
@@ -37487,8 +37489,10 @@ function (_React$Component) {
   _createClass(Schedule, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-        this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+      if (this.props.matchesResolved === false) {
+        if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+          this.props.dispatch((0, _fantasyScheduleActions.wereMatchesResolved)());
+        }
       }
     }
   }, {
@@ -37503,8 +37507,10 @@ function (_React$Component) {
           this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
         }
 
-        if (this.props.starters.length + this.props.benchwarmers.length === 18) {
-          this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
+        if (this.props.matchesResolved === false) {
+          if (this.props.starters.length + this.props.benchwarmers.length === 18) {
+            this.props.dispatch((0, _fantasyScheduleActions.wereMatchesResolved)());
+          }
         }
       }
     }
@@ -37537,7 +37543,8 @@ var mapScheduleStateToProps = function mapScheduleStateToProps(state) {
     fantasySchedule: state.fantasyScheduleReducer.fantasySchedule,
     leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
     scheduleCreated: state.fantasyScheduleReducer.scheduleCreated,
-    scheduleUpdate: state.fantasyScheduleReducer.scheduleUpdate
+    scheduleUpdate: state.fantasyScheduleReducer.scheduleUpdate,
+    matchesResolved: state.fantasyScheduleReducer.matchesResolved
   };
 };
 
@@ -37644,7 +37651,6 @@ function (_React$Component) {
 
       if (this.props.fantasySchedule.weeklyMatches !== undefined) {
         this.props.fantasySchedule.weeklyMatches.forEach(function (week) {
-          console.log('frontEnd week:', week);
           var matchDates = new Date(week.datesToRun).getTime();
 
           if (today - sevenDays <= matchDates && matchDates < today) {
@@ -39478,7 +39484,8 @@ var initialState = {
   },
   scheduleFetched: null,
   scheduleCreated: null,
-  scheduleUpdate: false
+  scheduleUpdate: false,
+  matchesResolved: false
 };
 
 var fantasyScheduleReducer = function fantasyScheduleReducer() {
@@ -39501,9 +39508,7 @@ var fantasyScheduleReducer = function fantasyScheduleReducer() {
 
     case _fantasyScheduleActions.MATCH_RESOLVE_SUCCESS:
       return Object.assign({}, state, {
-        fantasySchedule: {
-          weeklyMatches: action.weeklyMatches
-        }
+        matchesResolved: action.matchesResolved
       });
 
     case _fantasyScheduleActions.SCHEDULE_CREATED_FALSE_SUCCESS:
