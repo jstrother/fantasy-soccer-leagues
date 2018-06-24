@@ -155,7 +155,6 @@ export const matchResolve = () => dispatch => {
     dispatch(matchResolveSuccess(weeklyMatches, 200));
   })
   .catch(error => {
-    console.error('fsActions matchResolve:', error);
-    // throw new Error(error);
+    throw new Error(error);
   });
 };
