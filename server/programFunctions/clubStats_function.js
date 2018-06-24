@@ -1,7 +1,6 @@
 const {saveClubs} = require("./saveClubs_function.js");
 
 function clubStats(club, clubScore, opponentScore) {
-  console.log('opponentScore:', opponentScore);
   let clubArray = [club];
   
   let updatedClubArray = clubArray.map(club => {
