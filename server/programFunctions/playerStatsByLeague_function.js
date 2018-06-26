@@ -72,7 +72,6 @@ function playerStatsByLeague(leagueId) {
             let playerInfoData = playerStats(player, fixtureData, ownGoalList);
             playerInfoData.ownGoalCalc();
             playerInfoData.fantasyPointsCalc();
-            console.log('playerId from playerInfo:', playerInfoData.idFromAPI);
             Player
             .findOneAndUpdate(
               {
@@ -92,10 +91,8 @@ function playerStatsByLeague(leagueId) {
           
           function playerIdRetrieve(playerId) {
             if (playerId == undefined) {
-              console.log('playerId is undefined');
               return;
             }
-            console.log(`playerIdRetrieve: ${playerId}`);
             let playerResults = endpointCreator('players', playerId, 'team,position,sidelined,stats');
             
             return rp(playerResults)
@@ -141,7 +138,6 @@ function playerStatsByLeague(leagueId) {
   
   function endpointCreator(specificEndpoint, uniqueId, includes) {
     if (typeof specificEndpoint !== 'string' || typeof uniqueId !== 'number' || typeof includes !== 'string') {
-      console.log('check your types for endpointCreator function args: playerStatsByLeague_function.js');
       return;
     }
     

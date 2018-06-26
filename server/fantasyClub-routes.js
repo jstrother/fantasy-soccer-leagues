@@ -1,3 +1,5 @@
+/*eslint-disable no-unused-vars*/
+
 const mongoose = require("mongoose"),
 	fantasyClubRouter = require("express").Router(),
 	FantasyClub = require('../models/fantasyClub_model.js');

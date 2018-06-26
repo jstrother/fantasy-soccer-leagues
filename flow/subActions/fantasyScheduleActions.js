@@ -2,8 +2,10 @@
 
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
+import { matchResolverEmitter } from '../../server/server.js';
 
-const thisURL = `${url}/fantasySchedule`;
+const thisURL = `${url}/fantasySchedule`,
+  sevenDays = 7 * 24 * 60 * 60 * 1000;
 
 export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
@@ -34,10 +36,17 @@ export const createScheduleFail = statusCode => ({
   statusCode
 });
 
-export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
-export const matchResolveSuccess = statusCode => ({
-  type: MATCH_RESOLVE_SUCCESS,
+export const MATCH_RESOLVE_TRUE = 'MATCH_RESOLVE_TRUE';
+export const matchResolveTrue = statusCode => ({
+  type: MATCH_RESOLVE_TRUE,
   matchesResolved: true,
+  statusCode
+});
+
+export const MATCH_RESOLVE_FALSE = 'MATCH_RESOLVE_FALSE';
+export const matchResolveFalse = statusCode => ({
+  type: MATCH_RESOLVE_FALSE,
+  matchesResolved: false,
   statusCode
 });
 
@@ -152,9 +161,9 @@ export const wereMatchesResolved = () => dispatch => {
   .then(data => {
     console.log('matchesResolved?', data);
     if (data.length > 0) {
-      dispatch(matchResolveSuccess(200));
-      // emit an event here?
-      // also need a way to reset this once a week or the state will never change
+      dispatch(matchResolveTrue(200));
+      matchResolverEmitter.emit('matchResolver');
+      setTimeout(dispatch(matchResolveFalse(200)), sevenDays); // every seven days, this resets the matchesResolved in state so that the matches scheduled for a particular week get resolved
     }
   })
   .catch(error => {
