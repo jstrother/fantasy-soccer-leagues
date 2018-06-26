@@ -39,9 +39,10 @@ app.get('*', (req, res) => {
 
 mongoose.Promise = Promise;
 
-class MatchResolverEmitter extends EventEmitter{}
+class MatchResolverEmitter extends EventEmitter {}
 
 const matchResolverEmitter = new MatchResolverEmitter();
+console.log('matchResolverEmitter:', matchResolverEmitter);
 
 const runServer = (database = DATABASE, port = PORT) => {
 	return new Promise((resolve, reject) => {
@@ -63,10 +64,6 @@ const runServer = (database = DATABASE, port = PORT) => {
 					matchResolver(fullSchedule);
 				});
 			});
-			
-			matchResolverEmitter.error('error', error => {
-				throw new Error(error);
-			}); 
 			
 			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
 			console.log('No longer using API as cost jumped to $200/month. Can\'t afford that as a student.');

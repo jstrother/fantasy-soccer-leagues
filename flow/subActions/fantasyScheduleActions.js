@@ -159,7 +159,6 @@ export const wereMatchesResolved = () => dispatch => {
     return res.json();
   })
   .then(data => {
-    console.log('matchesResolved?', data);
     if (data.length > 0) {
       dispatch(matchResolveTrue(200));
       matchResolverEmitter.emit('matchResolver');
