@@ -11,8 +11,9 @@ const config = require('./config.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	app = express(),
-	EventEmitter = require("events"),
+	// EventEmitter = require("events"),
 	server = require('http').Server(app),
+	io = require("socket.io")(server),
 	{ userRouter } = require('./user-routes.js'),
 	{ playerRouter } = require('./player-routes.js'),
 	{ leagueRouter } = require('./league-routes.js'),
@@ -24,7 +25,7 @@ const config = require('./config.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
 	leagueLoopTime = 30 * 60 * 1000; // first number is number of minutes loop repeats
-	
+
 app.use(jsonParser);
 app.use(express.static('public'));
 app.use(passport.initialize());
@@ -39,10 +40,10 @@ app.get('*', (req, res) => {
 
 mongoose.Promise = Promise;
 
-class MatchResolverEmitter extends EventEmitter {}
+// class MatchResolverEmitter extends EventEmitter {}
 
-const matchResolverEmitter = new MatchResolverEmitter();
-console.log('matchResolverEmitter:', matchResolverEmitter);
+// const matchResolverEmitter = new MatchResolverEmitter();
+// console.log('matchResolverEmitter:', matchResolverEmitter);
 
 const runServer = (database = DATABASE, port = PORT) => {
 	return new Promise((resolve, reject) => {
@@ -58,10 +59,21 @@ const runServer = (database = DATABASE, port = PORT) => {
 			});
 			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
 			
-			matchResolverEmitter.on('matchResolver', () => {
-				scheduleRetriever()
-				.then(fullSchedule => {
-					matchResolver(fullSchedule);
+			// matchResolverEmitter.on('matchResolver', () => {
+			// 	scheduleRetriever()
+			// 	.then(fullSchedule => {
+			// 		matchResolver(fullSchedule);
+			// 	});
+			// });
+			
+			io.on('connection', socket => {
+				console.log('socket connected');
+				socket.on('matchResolver', () => {
+					console.log('matchResolver');
+					scheduleRetriever()
+					.then(fullSchedule => {
+						matchResolver(fullSchedule);
+					});
 				});
 			});
 			
@@ -98,5 +110,5 @@ module.exports = {
 	app,
 	runServer,
 	closeServer,
-	matchResolverEmitter
+	// matchResolverEmitter
 };

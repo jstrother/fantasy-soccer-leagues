@@ -2,10 +2,12 @@
 
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
-import { matchResolverEmitter } from '../../server/server.js';
+// import { matchResolverEmitter } from '../../server/server.js';
+import io from 'socket.io-client';
 
 const thisURL = `${url}/fantasySchedule`,
-  sevenDays = 7 * 24 * 60 * 60 * 1000;
+  sevenDays = 7 * 24 * 60 * 60 * 1000,
+  socket = io('/');
 
 export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
@@ -161,7 +163,8 @@ export const wereMatchesResolved = () => dispatch => {
   .then(data => {
     if (data.length > 0) {
       dispatch(matchResolveTrue(200));
-      matchResolverEmitter.emit('matchResolver');
+      // matchResolverEmitter.emit('matchResolver');
+      socket.emit('matchResolver');
       setTimeout(dispatch(matchResolveFalse(200)), sevenDays); // every seven days, this resets the matchesResolved in state so that the matches scheduled for a particular week get resolved
     }
   })
