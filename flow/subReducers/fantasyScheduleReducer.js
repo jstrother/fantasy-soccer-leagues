@@ -1,7 +1,7 @@
 // ./flow/subReducers/fantasyScheduleReducer.js
 // imported into ./flow/reducers.js
 
-import { CREATE_SCHEDULE_SUCCESS, CREATE_SCHEDULE_FAIL, GET_SCHEDULE_SUCCESS, GET_SCHEDULE_FAIL, MATCH_RESOLVE_TRUE, MATCH_RESOLVE_FALSE, MATCH_RESOLVE_FAIL, SCHEDULE_CREATED_FALSE_SUCCESS, SCHEDULE_CREATED_FAIL, SCHEDULE_UPDATING } from '../subActions/fantasyScheduleActions.js';
+import { CREATE_SCHEDULE_SUCCESS, CREATE_SCHEDULE_FAIL, GET_SCHEDULE_SUCCESS, GET_SCHEDULE_FAIL, MATCH_RESOLVE_SUCCESS, MATCH_RESOLVE_TRUE, MATCH_RESOLVE_FALSE, MATCH_RESOLVE_FAIL, SCHEDULE_CREATED_FALSE_SUCCESS, SCHEDULE_CREATED_FAIL, SCHEDULE_UPDATING } from '../subActions/fantasyScheduleActions.js';
 
 const initialState = {
   fantasySchedule: {
@@ -28,6 +28,14 @@ export const fantasyScheduleReducer = (state = initialState, action) => {
         {
           fantasySchedule: action.fantasySchedule,
           scheduleCreated: action.scheduleCreated
+        }
+      );
+    case MATCH_RESOLVE_SUCCESS:
+      return Object.assign({}, state,
+        {
+          fantasySchedule: {
+            weeklyMatches: action.weeklyMatches
+          }
         }
       );
     case MATCH_RESOLVE_TRUE:
