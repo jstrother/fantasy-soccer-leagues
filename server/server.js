@@ -11,7 +11,6 @@ const config = require('./config.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	app = express(),
-	EventEmitter = require("events"),
 	server = require('http').Server(app),
 	{ userRouter } = require('./user-routes.js'),
 	{ playerRouter } = require('./player-routes.js'),
@@ -39,11 +38,6 @@ app.get('*', (req, res) => {
 
 mongoose.Promise = Promise;
 
-class MatchResolverEmitter extends EventEmitter {}
-
-const matchResolverEmitter = new MatchResolverEmitter();
-console.log('matchResolverEmitter:', matchResolverEmitter);
-
 const runServer = (database = DATABASE, port = PORT) => {
 	return new Promise((resolve, reject) => {
 		console.log('Server Started');
@@ -57,14 +51,6 @@ const runServer = (database = DATABASE, port = PORT) => {
 				console.log(`Listening on port: ${port}`);
 			});
 			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
-			
-			matchResolverEmitter.on('matchResolver', () => {
-				scheduleRetriever()
-				.then(fullSchedule => {
-					matchResolver(fullSchedule);
-				});
-			});
-			
 			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
 			console.log('No longer using API as cost jumped to $200/month. Can\'t afford that as a student.');
 		})
@@ -97,6 +83,5 @@ if (require.main === module) {
 module.exports = {
 	app,
 	runServer,
-	closeServer,
-	matchResolverEmitter
+	closeServer
 };

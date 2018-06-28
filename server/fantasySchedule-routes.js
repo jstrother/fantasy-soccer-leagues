@@ -8,17 +8,17 @@ const fantasyScheduleRouter = require("express").Router(),
   {matchResolver} = require("./programFunctions/matchResolver_function.js"),
   {scheduleRetriever} = require("./programFunctions/scheduleRetriever_function.js");
 
-// fantasyScheduleRouter.post('/matchResolver',
-//   (req, res) => {
-//     scheduleRetriever()
-//     .then(fullSchedule => {
-//       res.json(matchResolver(fullSchedule));
-//     })
-//     .catch(error => {
-//       throw new Error(error);
-//     });
-//   }
-// );
+fantasyScheduleRouter.post('/matchResolver',
+  (req, res) => {
+    scheduleRetriever()
+    .then(fullSchedule => {
+      res.json(matchResolver(fullSchedule));
+    })
+    .catch(error => {
+      throw new Error(error);
+    });
+  }
+);
 
 fantasyScheduleRouter.get('/',
   (req, res) => {

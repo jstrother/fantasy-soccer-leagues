@@ -2,10 +2,8 @@
 
 import fetch from 'isomorphic-fetch';
 import { DEV_DIRECTORY as url } from '../../server/config.js';
-import { matchResolverEmitter } from '../../server/server.js';
 
-const thisURL = `${url}/fantasySchedule`,
-  sevenDays = 7 * 24 * 60 * 60 * 1000;
+const thisURL = `${url}/fantasySchedule`;
 
 export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 export const getScheduleSuccess = (fantasySchedule, statusCode) => ({
@@ -36,12 +34,12 @@ export const createScheduleFail = statusCode => ({
   statusCode
 });
 
-// export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
-// export const matchResolveSuccess = (weeklyMatches, statusCode) => ({
-//   type: MATCH_RESOLVE_SUCCESS,
-//   weeklyMatches,
-//   statusCode
-// });
+export const MATCH_RESOLVE_SUCCESS = 'MATCH_RESOLVE_SUCCESS';
+export const matchResolveSuccess = (weeklyMatches, statusCode) => ({
+  type: MATCH_RESOLVE_SUCCESS,
+  weeklyMatches,
+  statusCode
+});
 
 export const MATCH_RESOLVE_TRUE = 'MATCH_RESOLVE_TRUE';
 export const matchResolveTrue = statusCode => ({
@@ -51,10 +49,9 @@ export const matchResolveTrue = statusCode => ({
 });
 
 export const MATCH_RESOLVE_FALSE = 'MATCH_RESOLVE_FALSE';
-export const matchResolveFalse = statusCode => ({
+export const matchResolveFalse = () => ({
   type: MATCH_RESOLVE_FALSE,
-  matchesResolved: false,
-  statusCode
+  matchesResolved: false
 });
 
 export const MATCH_RESOLVE_FAIL = 'MATCH_RESOLVE_FAIL';
@@ -168,8 +165,6 @@ export const wereMatchesResolved = () => dispatch => {
   .then(data => {
     if (data.length > 0) {
       dispatch(matchResolveTrue(200));
-      matchResolverEmitter.emit('matchResolver');
-      setTimeout(dispatch(matchResolveFalse(200)), sevenDays); // every seven days, this resets the matchesResolved in state so that the matches scheduled for a particular week get resolved
     }
   })
   .catch(error => {
@@ -177,26 +172,26 @@ export const wereMatchesResolved = () => dispatch => {
   });
 };
 
-// export const matchResolve = () => dispatch => {
-//   return fetch(`${thisURL}/matchResolver`, {
-//     method: 'POST'
-//   })
-//   .then(res => {
-//     if (!res.ok) {
-//       if (res.status === 400) {
-//         dispatch(matchResolveFail(res.status));
-//         return;
-//       }
-//       dispatch(matchResolveFail(500));
-//       throw new Error(res.statusText);
-//     }
-//     return res.json();
-//   })
-//   .then(weeklyMatches => {
-//     dispatch(matchResolveSuccess(weeklyMatches, 200));
-//   })
-//   .catch(error => {
-//     console.error('fsActions matchResolve:', error);
-//     // throw new Error(error);
-//   });
-// };
+export const matchResolve = () => dispatch => {
+  return fetch(`${thisURL}/matchResolver`, {
+    method: 'POST'
+  })
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(matchResolveFail(res.status));
+        return;
+      }
+      dispatch(matchResolveFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(weeklyMatches => {
+    dispatch(matchResolveSuccess(weeklyMatches, 200));
+  })
+  .catch(error => {
+    console.error('fsActions matchResolve:', error);
+    // throw new Error(error);
+  });
+};

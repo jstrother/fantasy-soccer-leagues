@@ -9,12 +9,12 @@ function matchResolver(fullSchedule) {
   const today = new Date().getTime();
   let resolvedSchedule = fullSchedule.map(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
-    let matchArray = weeklyMatches.matches;
     
     const datesToRun = weeklyMatches.datesToRun.getTime();
     
     if (today >= datesToRun) {
-      let resolvedWeek = JSON.parse(JSON.stringify(weeklyMatches));
+      let matchArray = weeklyMatches.matches,
+        resolvedWeek = JSON.parse(JSON.stringify(weeklyMatches));
       
       resolvedWeek.matches = 
         standingsStatsCalc(
@@ -22,12 +22,15 @@ function matchResolver(fullSchedule) {
             humanAwayClubScoreCalc(
               humanHomeClubScoreCalc(matchArray))));
       
-      saveMatches(resolvedWeek.matches);
       return resolvedWeek;
     }
     if (today < datesToRun) {
       return weeklyMatches;
     }
+  });
+  
+  resolvedSchedule.forEach(resolvedWeek => {
+    saveMatches(resolvedWeek.matches);
   });
   
   return resolvedSchedule;

@@ -8,15 +8,18 @@ import ScheduleDisplay from './scheduleDisplay.js';
 import StartingEleven from './startingEleven.js';
 import BenchPlayers from './benchPlayers.js';
 import Warning from './warning.js';
-import { createSchedule, wasScheduleCreated, matchResolve, wereMatchesResolved } from '../flow/subActions/fantasyScheduleActions.js';
+import { createSchedule, wasScheduleCreated, matchResolve, wereMatchesResolved, matchResolveFalse } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasySchedule.scss';
 
 export class Schedule extends React.Component {
 	componentDidMount() {
+		const sevenDays = 7 * 24 * 60 * 60 * 1000;
 		if (this.props.matchesResolved === false) {
 			if (this.props.starters.length + this.props.benchwarmers.length === 18) {
 				this.props.dispatch(wereMatchesResolved());
+				this.props.dispatch(matchResolve());
+				setTimeout(this.props.dispatch(matchResolveFalse()), sevenDays); // every seven days, this resets the matchesResolved in state so that the matches scheduled for a particular week get resolved
 			}
 		}
 	}
@@ -31,6 +34,7 @@ export class Schedule extends React.Component {
 			if (this.props.matchesResolved === false) {
 				if (this.props.starters.length + this.props.benchwarmers.length === 18) {
 					this.props.dispatch(wereMatchesResolved());
+					this.props.dispatch(matchResolve());
 				}
 			}
 		}
