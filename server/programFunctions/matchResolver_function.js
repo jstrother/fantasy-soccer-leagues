@@ -3,7 +3,8 @@ const {humanHomeClubScoreCalc} = require("./humanHomeClubScoreCalc_function.js")
   {humanAwayClubScoreCalc} = require("./humanAwayClubScoreCalc_function.js"),
   {computerClubScoreCalc} = require("./computerClubScoreCalc_function.js"),
   {standingsStatsCalc} = require("./standingsStatsCalc_function.js"),
-  {saveMatches} = require("./saveMatches_function.js");
+  {saveMatches} = require("./saveMatches_function.js"),
+  {averageClubScoreCalc} = require("./averageClubScoreCalc_function.js");
 
 function matchResolver(fullSchedule) {
   const today = new Date().getTime();
@@ -14,18 +15,20 @@ function matchResolver(fullSchedule) {
     
     if (today >= datesToRun) {
       let matchArray = weeklyMatches.matches,
+        resolvedMatches = matchArray.map(match => {
+          return standingsStatsCalc(
+            computerClubScoreCalc(
+              averageClubScoreCalc(matchArray), // averageClubScoreCalc and humanAwayClubScoreCalc are both fed into computerClubScoreCalc
+              humanAwayClubScoreCalc(
+                humanHomeClubScoreCalc(match))));
+        }),
         resolvedWeek = JSON.parse(JSON.stringify(weeklyMatches));
       
-      resolvedWeek.matches = 
-        standingsStatsCalc(
-          computerClubScoreCalc(
-            humanAwayClubScoreCalc(
-              humanHomeClubScoreCalc(matchArray))));
-      
+      resolvedWeek.matches = resolvedMatches;
       return resolvedWeek;
     }
     if (today < datesToRun) {
-      return weeklyMatches;
+      return JSON.parse(JSON.stringify(weeklyMatches));
     }
   });
   

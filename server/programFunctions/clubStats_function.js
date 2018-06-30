@@ -4,6 +4,7 @@ function clubStats(club, clubScore, opponentScore) {
   let clubArray = [club];
   
   let updatedClubArray = clubArray.map(club => {
+    // console.log('club:', club);
     if (clubScore > opponentScore) {
       let updatedClub = JSON.parse(JSON.stringify(club));
       updatedClub.wins += 1;
@@ -37,6 +38,9 @@ function clubStats(club, clubScore, opponentScore) {
     }
   });
   saveClubs(updatedClubArray[0]);
+  updatedClubArray.forEach(club => {
+    // console.log('club1:', club);
+  });
   return updatedClubArray[0];
 }
 
