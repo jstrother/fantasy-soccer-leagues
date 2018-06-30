@@ -4,6 +4,7 @@ const {humanHomeClubScoreCalc} = require("./humanHomeClubScoreCalc_function.js")
   {computerClubScoreCalc} = require("./computerClubScoreCalc_function.js"),
   {standingsStatsCalc} = require("./standingsStatsCalc_function.js"),
   {saveMatches} = require("./saveMatches_function.js"),
+  {saveClubs} = require("./saveClubs_function.js"),
   {averageClubScoreCalc} = require("./averageClubScoreCalc_function.js");
 
 function matchResolver(fullSchedule) {
@@ -33,6 +34,10 @@ function matchResolver(fullSchedule) {
   
   resolvedSchedule.forEach(resolvedWeek => {
     saveMatches(resolvedWeek.matches);
+    resolvedWeek.matches.forEach(match => {
+      saveClubs(match.homeClub);
+      saveClubs(match.awayClub);
+    });
   });
   
   return resolvedSchedule;

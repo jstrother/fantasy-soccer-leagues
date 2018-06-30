@@ -23,7 +23,7 @@ chai.use(chaiAsPromised);
 mongoose.Promise = Promise;
 
 describe('Matches Resolver', () => {
-  
+  const todayDate = new Date().getTime();
   it('should retrieve from the database a full fantasy schedule', () => {
     return scheduleRetriever()
     .then(schedule => {
@@ -165,9 +165,9 @@ describe('Matches Resolver', () => {
         humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
           humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
         ],
-        standingsStats1 = standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0])),
-        firstHomeClub = standingsStats1.homeClub,
-        firstAwayClub = standingsStats1.awayClub;
+        standingsStats = standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0])),
+        firstHomeClub = standingsStats.homeClub,
+        firstAwayClub = standingsStats.awayClub;
         
       firstHomeClub.wins.should.equal(0);
       firstHomeClub.draws.should.equal(0);
