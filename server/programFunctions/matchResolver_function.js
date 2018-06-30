@@ -15,12 +15,11 @@ function matchResolver(fullSchedule) {
     
     if (today >= datesToRun) {
       let matchArray = weeklyMatches.matches,
-        resolvedMatches = matchArray.map(match => {
-          return standingsStatsCalc(
-            computerClubScoreCalc(
-              averageClubScoreCalc(matchArray), // averageClubScoreCalc and humanAwayClubScoreCalc are both fed into computerClubScoreCalc
-              humanAwayClubScoreCalc(
-                humanHomeClubScoreCalc(match))));
+        resolvedHumanScores = matchArray.map(match => {
+          return humanAwayClubScoreCalc(humanHomeClubScoreCalc(match));
+        }),
+        resolvedMatches = resolvedHumanScores.map(match => {
+          return standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), match));
         }),
         resolvedWeek = JSON.parse(JSON.stringify(weeklyMatches));
       

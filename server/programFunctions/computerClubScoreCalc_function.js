@@ -10,7 +10,7 @@ function computerClubScoreCalc(averageClubScore, match) {
     return resolvedMatch;
   }
   if (match.homeClub.clubName !== 'Average' && match.awayClub.clubName !== 'Average') {
-    return match;
+    return JSON.parse(JSON.stringify(match));
   }
   
   // let resolvedMatchArray = matchArray.map(match => {

@@ -11,6 +11,7 @@ const mongoose = require('mongoose'),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
 	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
+	{averageClubScoreCalc} = require("../../server/programFunctions/averageClubScoreCalc_function.js"),
 	User = require("../../models/user_model.js"),
 	FantasyClub = require("../../models/fantasyClub_model.js"),
 	FantasyMatch = require("../../models/fantasyMatch_model.js"),
@@ -74,10 +75,7 @@ describe('Matches Resolver', () => {
       const resolvedSchedule = matchResolver(schedule),
         firstMatch = resolvedSchedule[0].matches[0],
         firstHomeClub = firstMatch.homeClub,
-        firstAwayClub = firstMatch.awayClub,
-        secondMatch = resolvedSchedule[0].matches[1],
-        secondHomeClub = secondMatch.homeClub,
-        secondAwayClub = secondMatch.awayClub;
+        firstAwayClub = firstMatch.awayClub;
       
       resolvedSchedule.length.should.equal(38);
       
@@ -102,65 +100,74 @@ describe('Matches Resolver', () => {
       firstAwayClub.goalsAgainst.should.equal(54);
       firstAwayClub.goalDifferential.should.equal(13);
       firstAwayClub.gamesPlayed.should.equal(1);
-      
-      secondMatch.homeScore.should.equal(54);
-      secondMatch.awayScore.should.equal(58);
-      secondMatch.final.should.equal(true);
-      
-      secondHomeClub.wins.should.equal(0);
-      secondHomeClub.draws.should.equal(0);
-      secondHomeClub.losses.should.equal(1);
-      secondHomeClub.points.should.equal(0);
-      secondHomeClub.goalsFor.should.equal(54);
-      secondHomeClub.goalsAgainst.should.equal(58);
-      secondHomeClub.goalDifferential.should.equal(-4);
-      secondHomeClub.gamesPlayed.should.equal(1);
-      
-      secondAwayClub.wins.should.equal(1);
-      secondAwayClub.draws.should.equal(0);
-      secondAwayClub.losses.should.equal(0);
-      secondAwayClub.points.should.equal(3);
-      secondAwayClub.goalsFor.should.equal(58);
-      secondAwayClub.goalsAgainst.should.equal(54);
-      secondAwayClub.goalDifferential.should.equal(4);
-      secondAwayClub.gamesPlayed.should.equal(1);
     });
   });
   
   it('should resolve a match\'s homeScore for clubs that are run by human players', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
-      const homeScores = humanHomeClubScoreCalc(fullSchedule[0].matches);
-      homeScores[0].homeScore.should.equal(54);
-      homeScores[1].homeScore.should.equal(54);
+      const homeClubScore = humanHomeClubScoreCalc(fullSchedule[0].matches[0]);
+      homeClubScore.homeScore.should.equal(54);
     });
   });
   
   it('should resolve a match\'s awayScore for clubs that are run by human players', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
-      const awayScores = humanAwayClubScoreCalc(fullSchedule[0].matches);
-      awayScores[0].awayScore.should.equal(67);
-      awayScores[1].awayScore.should.equal(0); // this should be the computer club
+      const awayClubScore = humanAwayClubScoreCalc(fullSchedule[0].matches[0]);
+      awayClubScore.awayScore.should.equal(67);
     });
+  });
+  
+  it('should calculate the score for a club run by the computer', () => {
+    const matchArray = [
+        {
+          homeScore: 54,
+          awayScore: 67,
+          homeClub: {
+            clubName: 'Strikers \'87'
+          },
+          awayClub: {
+            clubName: 'Team RamRod'
+          }
+        },
+        {
+          homeScore: 54,
+          awayScore: 0,
+          homeClub: {
+            clubName: 'ThunderTurtleUnited'
+          },
+          awayClub: {
+            clubName: 'Average'
+          }
+        }
+      ],
+      averageClubScore = averageClubScoreCalc(matchArray);
+    averageClubScore.should.equal(58);
   });
   
   it('should resolve a match\'s scores for clubs that are run by the computer', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
-      const computerScore = computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)));
-      computerScore[1].awayScore.should.equal(58); // this should be the computer club
+      const resolvedHumanScores = [
+        humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
+          humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
+        ],
+        computerClubScore = computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[1]);
+      computerClubScore.awayScore.should.equal(58); // this should be the computer club
     });
   });
   
-  it('should resolve standings statistics for each match', () => {
+  it('should resolve standings statistics for a match', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
-      const standingsStats = standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches)))),
-        firstHomeClub = standingsStats[0].homeClub,
-        firstAwayClub = standingsStats[0].awayClub,
-        secondHomeClub = standingsStats[1].homeClub,
-        secondAwayClub = standingsStats[1].awayClub;
+      const resolvedHumanScores = [
+        humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
+          humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
+        ],
+        standingsStats1 = standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0])),
+        firstHomeClub = standingsStats1.homeClub,
+        firstAwayClub = standingsStats1.awayClub;
         
       firstHomeClub.wins.should.equal(0);
       firstHomeClub.draws.should.equal(0);
@@ -179,24 +186,6 @@ describe('Matches Resolver', () => {
       firstAwayClub.goalsAgainst.should.equal(54);
       firstAwayClub.goalDifferential.should.equal(13);
       firstAwayClub.gamesPlayed.should.equal(1);
-      
-      secondHomeClub.wins.should.equal(0);
-      secondHomeClub.draws.should.equal(0);
-      secondHomeClub.losses.should.equal(1);
-      secondHomeClub.points.should.equal(0);
-      secondHomeClub.goalsFor.should.equal(54);
-      secondHomeClub.goalsAgainst.should.equal(58);
-      secondHomeClub.goalDifferential.should.equal(-4);
-      secondHomeClub.gamesPlayed.should.equal(1);
-      
-      secondAwayClub.wins.should.equal(1);
-      secondAwayClub.draws.should.equal(0);
-      secondAwayClub.losses.should.equal(0);
-      secondAwayClub.points.should.equal(3);
-      secondAwayClub.goalsFor.should.equal(58);
-      secondAwayClub.goalsAgainst.should.equal(54);
-      secondAwayClub.goalDifferential.should.equal(4);
-      secondAwayClub.gamesPlayed.should.equal(1);
     });
   });
   
@@ -212,9 +201,13 @@ describe('Matches Resolver', () => {
         }
       })
       .then(fullSchedule => {
-        return standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches))));
-      }).then(resolvedSchedule => {
-        return saveClubs(resolvedSchedule[0].homeClub)
+        const resolvedHumanScores = [
+          humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
+            humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
+          ];
+        return standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0]));
+      }).then(resolvedMatch => {
+        return saveClubs(resolvedMatch.homeClub)
         .then(savedClub => {
           return FantasyClub
           .findById(savedClub._id)
@@ -245,7 +238,15 @@ describe('Matches Resolver', () => {
       }
     })
     .then(fullSchedule => {
-      return standingsStatsCalc(computerClubScoreCalc(humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches))));
+      const resolvedHumanScores = [
+        humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
+          humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
+        ],
+        resolvedSchedule = [
+          standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0])),
+          standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[1]))
+        ];
+      return resolvedSchedule;
     })
     .then(resolvedSchedule => {
       return saveMatches(resolvedSchedule)
