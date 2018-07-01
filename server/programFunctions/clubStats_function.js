@@ -8,6 +8,7 @@ function clubStats(club, clubScore, opponentScore) {
     updatedClub.goalsAgainst += opponentScore;
     updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
     updatedClub.gamesPlayed += 1;
+    // console.log('updatedClub.gamesPlayed:', updatedClub.gamesPlayed);
     return updatedClub;
   }
   
@@ -17,6 +18,7 @@ function clubStats(club, clubScore, opponentScore) {
     updatedClub.goalsAgainst += opponentScore;
     updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
     updatedClub.gamesPlayed += 1;
+    // console.log('updatedClub.gamesPlayed:', updatedClub.gamesPlayed);
     return updatedClub;
   }
   
@@ -27,10 +29,9 @@ function clubStats(club, clubScore, opponentScore) {
     updatedClub.goalsAgainst += opponentScore;
     updatedClub.goalDifferential = updatedClub.goalsFor - updatedClub.goalsAgainst;
     updatedClub.gamesPlayed += 1;
+    // console.log('updatedClub.gamesPlayed:', updatedClub.gamesPlayed);
     return updatedClub;
   }
-  
-  return updatedClub;
 }
 
 module.exports = {

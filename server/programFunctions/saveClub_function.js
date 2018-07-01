@@ -1,9 +1,9 @@
 /*eslint-disable no-console*/
 const FantasyClub = require("../../models/fantasyClub_model.js");
 
-function saveClubs(club) {
-  
-  let savedClub = FantasyClub
+function saveClub(club) {
+  // console.log('club:', club.clubName);
+  return FantasyClub
   .findByIdAndUpdate(
     club._id,
     {
@@ -23,9 +23,8 @@ function saveClubs(club) {
   .catch(error => {
     throw new Error(error);
   });
-  return savedClub;
 }
 
 module.exports = {
-  saveClubs
+  saveClub
 };
