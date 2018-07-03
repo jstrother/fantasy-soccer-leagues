@@ -6,7 +6,7 @@ const mongoose = require('mongoose'),
   {scheduleRetriever} = require("../../server/programFunctions/scheduleRetriever_function.js"),
 	{matchResolver} = require("../../server/programFunctions/matchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
-	{saveClubs} = require("../../server/programFunctions/saveClubs_function.js"),
+	{saveClub} = require("../../server/programFunctions/saveClub_function.js"),
 	{humanHomeClubScoreCalc} = require("../../server/programFunctions/humanHomeClubScoreCalc_function.js"),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
@@ -207,7 +207,7 @@ describe('Matches Resolver', () => {
           ];
         return standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0]));
       }).then(resolvedMatch => {
-        return saveClubs(resolvedMatch.homeClub)
+        return saveClub(resolvedMatch.homeClub)
         .then(savedClub => {
           return FantasyClub
           .findById(savedClub._id)

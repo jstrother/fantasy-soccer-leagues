@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bdf76cb085620fb99c32"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "00a983239cd19dfc2925"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16453,9 +16453,7 @@ function compare(a, b) {
     return -1;
   }
 
-  if (a === b) {
-    return 0;
-  }
+  return 0; // if a === b
 }
 
 module.exports = {

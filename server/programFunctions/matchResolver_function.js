@@ -16,10 +16,36 @@ function matchResolver(fullSchedule) {
     }
   });
   
-  resolvedSchedule
-  .map(week => week.matches)
-  .filter(matches => {
-    console.log('matches:', matches);
+  resolvedSchedule.forEach(week => {
+    week.matches.forEach(match => {
+      if (match.final === true) {
+        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
+        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
+      }
+    });
+  });
+  
+  let roundNumbersArray = [];
+  
+  resolvedSchedule.map(week => {
+    let matchArray = week.matches;
+    saveMatches(matchArray);
+    matchArray.filter(match => {
+      if (match.final === true) {
+        roundNumbersArray.push(week.roundNumber);
+      }
+    });
+  });
+  
+  let highestRoundNumber = Math.max(...roundNumbersArray);
+  console.log('highestRoundNumber:', highestRoundNumber);
+  resolvedSchedule.map(week => {
+    if (week.roundNumber === highestRoundNumber) {
+      week.matches.forEach(match => {
+        saveClub(match.homeClub);
+        saveClub(match.awayClub);
+      });
+    }
   });
   
   return resolvedSchedule;
