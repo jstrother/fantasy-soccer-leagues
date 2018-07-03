@@ -16,15 +16,6 @@ function matchResolver(fullSchedule) {
     }
   });
   
-  resolvedSchedule.forEach(week => {
-    week.matches.forEach(match => {
-      if (match.final === true) {
-        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
-        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
-      }
-    });
-  });
-  
   let roundNumbersArray = [];
   
   resolvedSchedule.map(week => {
@@ -32,6 +23,8 @@ function matchResolver(fullSchedule) {
     saveMatches(matchArray);
     matchArray.filter(match => {
       if (match.final === true) {
+        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
+        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
         roundNumbersArray.push(week.roundNumber);
       }
     });
