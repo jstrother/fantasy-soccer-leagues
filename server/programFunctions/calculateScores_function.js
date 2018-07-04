@@ -15,9 +15,7 @@ function calculateScores(weeklyMatches) {
   resolvedWeek.matches = resolvedHumanScores.map(match => {
       return standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), match));
     });
-  // resolvedWeek.matches.forEach(match => {
-  //   console.log("match.homeClub", match.homeClub.gamesPlayed);
-  // });
+  
   return resolvedWeek;
 }
 

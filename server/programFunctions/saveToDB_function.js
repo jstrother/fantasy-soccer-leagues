@@ -9,8 +9,8 @@ function saveToDB(resolvedSchedule) {
     saveMatches(matchArray);
     matchArray.filter(match => {
       if (match.final === true) {
-        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
-        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
+        // console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
+        // console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
         roundNumbersArray.push(week.roundNumber);
       }
     });
