@@ -1527,229 +1527,229 @@ const mongoose = require('mongoose'),
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 1,
     matches: [week1Match1._id, week1Match2._id],
-    datesToRun: new Date(2018, 02, 01)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0000)
   },
   week2 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 2,
     matches: [week2Match1._id, week2Match2._id],
-    datesToRun: new Date(2018, 02, 08)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0005)
   },
   week3 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 3,
     matches: [week3Match1._id, week3Match2._id],
-    datesToRun: new Date(2018, 02, 15)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0010)
   },
   week4 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 4,
     matches: [week4Match1._id, week4Match2._id],
-    datesToRun: new Date(2018, 02, 22)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0015)
   },
   week5 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 5,
     matches: [week5Match1._id, week5Match2._id],
-    datesToRun: new Date(2018, 02, 29)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0020)
   },
   week6 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 6,
     matches: [week6Match1._id, week6Match2._id],
-    datesToRun: new Date(2018, 03, 05)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0025)
   },
   week7 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 7,
     matches: [week7Match1._id, week7Match2._id],
-    datesToRun: new Date(2018, 03, 12)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0030)
   },
   week8 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 8,
     matches: [week8Match1._id, week8Match2._id],
-    datesToRun: new Date(2018, 03, 19)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0035)
   },
   week9 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 9,
     matches: [week9Match1._id, week9Match2._id],
-    datesToRun: new Date(2018, 03, 26)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0040)
   },
   week10 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 10,
     matches: [week10Match1._id, week10Match2._id],
-    datesToRun: new Date(2018, 04, 03)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0045)
   },
   week11 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 11,
     matches: [week11Match1._id, week11Match2._id],
-    datesToRun: new Date(2018, 04, 10)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0050)
   },
   week12 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 12,
     matches: [week12Match1._id, week12Match2._id],
-    datesToRun: new Date(2018, 04, 17)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0055)
   },
   week13 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 13,
     matches: [week13Match1._id, week13Match2._id],
-    datesToRun: new Date(2018, 04, 24)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0060)
   },
   week14 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 14,
     matches: [week14Match1._id, week14Match2._id],
-    datesToRun: new Date(2018, 04, 31)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0065)
   },
   week15 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 15,
     matches: [week15Match1._id, week15Match2._id],
-    datesToRun: new Date(2018, 05, 07)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0070)
   },
   week16 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 16,
     matches: [week16Match1._id, week16Match2._id],
-    datesToRun: new Date(2018, 05, 14)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0075)
   },
   week17 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 17,
     matches: [week17Match1._id, week17Match2._id],
-    datesToRun: new Date(2018, 05, 21)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0080)
   },
   week18 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 18,
     matches: [week18Match1._id, week18Match2._id],
-    datesToRun: new Date(2018, 05, 28)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0085)
   },
   week19 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 19,
     matches: [week19Match1._id, week19Match2._id],
-    datesToRun: new Date(2018, 06, 05)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0090)
   },
   week20 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 20,
     matches: [week20Match1._id, week20Match2._id],
-    datesToRun: new Date(2018, 06, 12)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0095)
   },
   week21 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 21,
     matches: [week21Match1._id, week21Match2._id],
-    datesToRun: new Date(2018, 06, 19)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0100)
   },
   week22 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 22,
     matches: [week22Match1._id, week22Match2._id],
-    datesToRun: new Date(2018, 06, 26)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0105)
   },
   week23 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 23,
     matches: [week23Match1._id, week23Match2._id],
-    datesToRun: new Date(2018, 07, 02)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0110)
   },
   week24 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 24,
     matches: [week24Match1._id, week24Match2._id],
-    datesToRun: new Date(2018, 07, 09)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0115)
   },
   week25 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 25,
     matches: [week25Match1._id, week25Match2._id],
-    datesToRun: new Date(2018, 07, 16)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0120)
   },
   week26 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 26,
     matches: [week26Match1._id, week26Match2._id],
-    datesToRun: new Date(2018, 07, 23)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0125)
   },
   week27 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 27,
     matches: [week27Match1._id, week27Match2._id],
-    datesToRun: new Date(2018, 07, 30)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0130)
   },
   week28 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 28,
     matches: [week28Match1._id, week28Match2._id],
-    datesToRun: new Date(2018, 08, 06)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0135)
   },
   week29 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 29,
     matches: [week29Match1._id, week29Match2._id],
-    datesToRun: new Date(2018, 08, 13)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0140)
   },
   week30 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 30,
     matches: [week30Match1._id, week30Match2._id],
-    datesToRun: new Date(2018, 08, 20)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0145)
   },
   week31 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 31,
     matches: [week31Match1._id, week31Match2._id],
-    datesToRun: new Date(2018, 08, 27)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0150)
   },
   week32 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 32,
     matches: [week32Match1._id, week32Match2._id],
-    datesToRun: new Date(2018, 09, 04)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0155)
   },
   week33 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 33,
     matches: [week33Match1._id, week33Match2._id],
-    datesToRun: new Date(2018, 09, 11)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0160)
   },
   week34 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 34,
     matches: [week34Match1._id, week34Match2._id],
-    datesToRun: new Date(2018, 09, 18)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0165)
   },
   week35 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 35,
     matches: [week35Match1._id, week35Match2._id],
-    datesToRun: new Date(2018, 09, 25)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0170)
   },
   week36 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 36,
     matches: [week36Match1._id, week36Match2._id],
-    datesToRun: new Date(2018, 10, 01)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0175)
   },
   week37 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 37,
     matches: [week37Match1._id, week37Match2._id],
-    datesToRun: new Date(2018, 10, 08)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0180)
   },
   week38 = {
     _id: new mongoose.Types.ObjectId(),
     roundNumber: 38,
     matches: [week38Match1._id, week38Match2._id],
-    datesToRun: new Date(2018, 10, 15)
+    datesToRun: new Date(2018, 02, 01, 13, 15, 30, 0185)
   },
   fullSchedule = {
     weeklyMatches: [week1._id, week2._id, week3._id, week4._id, week5._id, week6._id, week7._id, week8._id, week9._id, week10._id, week11._id, week12._id, week13._id, week14._id, week15._id, week16._id, week17._id, week18._id, week19._id, week20._id, week21._id, week22._id, week23._id, week24._id, week25._id, week26._id, week27._id, week28._id, week29._id, week30._id, week31._id, week32._id, week33._id, week34._id, week35._id, week36._id, week37._id, week38._id]

@@ -1,7 +1,6 @@
 /*eslint-disable no-console*/
-const {saveMatches} = require("./saveMatches_function.js"),
-  {saveClub} = require("./saveClub_function.js"),
-  {calculateScores} = require("./calculateScores_function.js");
+const {calculateScores} = require("./calculateScores_function.js"),
+  {saveToDB} = require("./saveToDB_function.js");
 
 function matchResolver(fullSchedule) {
   const today = new Date().getTime();
@@ -16,30 +15,7 @@ function matchResolver(fullSchedule) {
     }
   });
   
-  let roundNumbersArray = [];
-  
-  resolvedSchedule.map(week => {
-    let matchArray = week.matches;
-    saveMatches(matchArray);
-    matchArray.filter(match => {
-      if (match.final === true) {
-        console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
-        console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
-        roundNumbersArray.push(week.roundNumber);
-      }
-    });
-  });
-  
-  let highestRoundNumber = Math.max(...roundNumbersArray);
-  console.log('highestRoundNumber:', highestRoundNumber);
-  resolvedSchedule.map(week => {
-    if (week.roundNumber === highestRoundNumber) {
-      week.matches.forEach(match => {
-        saveClub(match.homeClub);
-        saveClub(match.awayClub);
-      });
-    }
-  });
+  saveToDB(resolvedSchedule);
   
   return resolvedSchedule;
 }
