@@ -4,7 +4,7 @@
   "description": "A fantasy soccer league that auto-updates via api calls",
   "main": "webpack.config.js",
   "scripts": {
-    "serverTest": "mocha test/test-server/test-index.js",
+    "serverTest": "mocha --exit test/test-server/test-index.js",
     "clientTest": "jest || true",
     "test:watch:test-server": "onchange \"./test/test-server\" -- npm run serverTest",
     "test:watch:test-client": "onchange \"./test/test-client\" -- npm run clientTest",

@@ -1,4 +1,9 @@
-const { mongoose, dbTestConnection, chai, chaiAsPromised, chaiHTTP, should } = require('../common.js'),
+const mongoose = require('mongoose'),
+	chai = require('chai'), // if you need expect or should, then you need to import chai also
+	chaiHTTP = require('chai-http'),
+	chaiAsPromised = require("chai-as-promised"),
+	should = chai.should(),
+	{dbTestConnection} = require("../common.js"),
   { closeServer, runServer } = require('../../server/server.js'),
   WeeklyMatches = require('../../models/weeklyMatches_model.js'),
   FantasyClub = require("../../models/fantasyClub_model.js"),

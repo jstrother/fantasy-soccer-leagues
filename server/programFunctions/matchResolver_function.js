@@ -9,8 +9,8 @@ function matchResolver(fullSchedule) {
     const datesToRun = weeklyMatches.datesToRun.getTime();
     
     if (today >= datesToRun) {
-      console.log('gamesPlayed:', weeklyMatches.matches[0].homeClub.gamesPlayed);
-      console.log('roundNumber:', weeklyMatches.roundNumber);
+      // console.log('gamesPlayed:', weeklyMatches.matches[0].homeClub.gamesPlayed);
+      // console.log('roundNumber:', weeklyMatches.roundNumber);
       return calculateScores(weeklyMatches);
     }
     if (today < datesToRun) {

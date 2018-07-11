@@ -189,6 +189,34 @@ describe('Matches Resolver', () => {
     });
   });
   
+  it.only('should resolve a club\'s full season correctly', () => {
+    return scheduleRetriever()
+    .then(fullSchedule => {
+      const resolvedSchedule = matchResolver(fullSchedule),
+        resolvedClub = resolvedSchedule[37].matches[1].awayClub;
+      
+      resolvedSchedule.forEach(week => {
+        week.matches.forEach(match => {
+          if (match.homeClub.clubName === 'Strikers \'87') {
+            console.log(`Week ${week.roundNumber}`, match.homeClub);
+          }
+          if (match.awayClub.clubName === 'Strikers \'87') {
+            console.log(`Week ${week.roundNumber}`, match.awayClub);
+          }
+        });
+      });
+      
+      // resolvedClub.goalsFor.should.equal(2052);
+      // resolvedClub.goalsAgainst.should.equal(2273);
+      // resolvedClub.goalDifferential.should.equal(-221);
+      // resolvedClub.wins.should.equal(0);
+      // resolvedClub.draws.should.equal(13);
+      // resolvedClub.losses.should.equal(25);
+      // resolvedClub.points.should.equal(13);
+      // resolvedClub.gamesPlayed.should.equal(38);
+    });
+  });
+  
   it('should add a club from resolved matches to the database', () => {
     return WeeklyMatches
       .find()
