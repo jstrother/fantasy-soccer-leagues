@@ -198,22 +198,40 @@ describe('Matches Resolver', () => {
       resolvedSchedule.forEach(week => {
         week.matches.forEach(match => {
           if (match.homeClub.clubName === 'Strikers \'87') {
-            console.log(`Week ${week.roundNumber}`, match.homeClub);
+            console.log(`Week ${week.roundNumber}:`);
+            console.log('goalsFor:', match.homeClub.goalsFor);
+            console.log('goalsAgainst:', match.homeClub.goalsAgainst);
+            console.log('goalDifferential:', match.homeClub.goalDifferential);
+            console.log('wins:', match.homeClub.wins);
+            console.log('draws:', match.homeClub.draws);
+            console.log('losses:', match.homeClub.losses);
+            console.log('points:', match.homeClub.points);
+            console.log('gamesPlayed:', match.homeClub.gamesPlayed);
+            console.log('');
           }
           if (match.awayClub.clubName === 'Strikers \'87') {
-            console.log(`Week ${week.roundNumber}`, match.awayClub);
+            console.log(`Week ${week.roundNumber}:`);
+            console.log('goalsFor:', match.awayClub.goalsFor);
+            console.log('goalsAgainst:', match.awayClub.goalsAgainst);
+            console.log('goalDifferential:', match.awayClub.goalDifferential);
+            console.log('wins:', match.awayClub.wins);
+            console.log('draws:', match.awayClub.draws);
+            console.log('losses:', match.awayClub.losses);
+            console.log('points:', match.awayClub.points);
+            console.log('gamesPlayed:', match.awayClub.gamesPlayed);
+            console.log('');
           }
         });
       });
       
-      // resolvedClub.goalsFor.should.equal(2052);
-      // resolvedClub.goalsAgainst.should.equal(2273);
-      // resolvedClub.goalDifferential.should.equal(-221);
-      // resolvedClub.wins.should.equal(0);
-      // resolvedClub.draws.should.equal(13);
-      // resolvedClub.losses.should.equal(25);
-      // resolvedClub.points.should.equal(13);
-      // resolvedClub.gamesPlayed.should.equal(38);
+      resolvedClub.goalsFor.should.equal(2052);
+      resolvedClub.goalsAgainst.should.equal(2273);
+      resolvedClub.goalDifferential.should.equal(-221);
+      resolvedClub.wins.should.equal(0);
+      resolvedClub.draws.should.equal(13);
+      resolvedClub.losses.should.equal(25);
+      resolvedClub.points.should.equal(13);
+      resolvedClub.gamesPlayed.should.equal(38);
     });
   });
   
