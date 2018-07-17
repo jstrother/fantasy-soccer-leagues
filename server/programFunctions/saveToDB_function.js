@@ -9,25 +9,31 @@ function saveToDB(resolvedSchedule) {
     saveMatches(matchArray);
     matchArray.filter(match => {
       if (match.final === true) {
-        // console.log('homeClub.gamesPlayed:', match.homeClub.gamesPlayed);
-        // console.log('awayClub.gamesPlayed:', match.awayClub.gamesPlayed);
         roundNumbersArray.push(week.roundNumber);
       }
     });
   });
   
-  let highestRoundNumber = Math.max(...roundNumbersArray);
-  // console.log('highestRoundNumber:', highestRoundNumber);
+  const highestRoundNumber = Math.max(...roundNumbersArray);
+  
   let highestRound = resolvedSchedule.filter(week => {
-    // console.log('week:', week);
      return (week.roundNumber === highestRoundNumber);
   });
-  // console.log('highestRound:', highestRound);
   
-  return saveClub(highestRound[0].matches[0].homeClub)
-  .then(() => {
-    return saveClub(highestRound[0].matches[0].awayClub);
+  // return saveClub(highestRound[0].matches[0].homeClub)
+  // .then(() => {
+  //   return saveClub(highestRound[0].matches[0].awayClub);
+  // });
+  
+  let resolvedClubs = highestRound[0].matches.map(match => {
+    return saveClub(match.homeClub)
+    .then(() => {
+      return saveClub(match.awayClub);
+    });
   });
+  
+  // console.log('resolvedClubs:', resolvedClubs);
+  return resolvedClubs;
 }
 
 module.exports = {

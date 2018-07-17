@@ -2,7 +2,6 @@
 const FantasyClub = require("../../models/fantasyClub_model.js");
 
 function saveClub(club) {
-  // console.log('club:', club.clubName);
   return FantasyClub
   .findByIdAndUpdate(
     club._id,
