@@ -15,8 +15,7 @@ function matchResolver(fullSchedule) {
     }
   });
   
-  let resolvedClubs = saveToDB(resolvedSchedule);
-  console.log('resolvedClubs:', resolvedClubs);
+  saveToDB(resolvedSchedule);
   
   return resolvedSchedule;
 }

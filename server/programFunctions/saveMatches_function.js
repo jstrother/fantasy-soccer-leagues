@@ -16,6 +16,7 @@ function saveMatches(resolvedMatches) {
     });
   });
   
+  // for test to work correctly, this must be returned
   return Promise.all(savedMatches);
 }
 

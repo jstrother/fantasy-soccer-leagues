@@ -198,28 +198,28 @@ describe('Matches Resolver', () => {
       resolvedSchedule.forEach(week => {
         week.matches.forEach(match => {
           if (match.homeClub.clubName === 'Strikers \'87') {
-            // console.log(`Week ${week.roundNumber}:`);
-            // console.log('goalsFor:', match.homeClub.goalsFor);
-            // console.log('goalsAgainst:', match.homeClub.goalsAgainst);
-            // console.log('goalDifferential:', match.homeClub.goalDifferential);
-            // console.log('wins:', match.homeClub.wins);
-            // console.log('draws:', match.homeClub.draws);
-            // console.log('losses:', match.homeClub.losses);
-            // console.log('points:', match.homeClub.points);
-            // console.log('gamesPlayed:', match.homeClub.gamesPlayed);
-            // console.log('');
+            console.log(`Week ${week.roundNumber}:`);
+            console.log('goalsFor:', match.homeClub.goalsFor);
+            console.log('goalsAgainst:', match.homeClub.goalsAgainst);
+            console.log('goalDifferential:', match.homeClub.goalDifferential);
+            console.log('wins:', match.homeClub.wins);
+            console.log('draws:', match.homeClub.draws);
+            console.log('losses:', match.homeClub.losses);
+            console.log('points:', match.homeClub.points);
+            console.log('gamesPlayed:', match.homeClub.gamesPlayed);
+            console.log('');
           }
           if (match.awayClub.clubName === 'Strikers \'87') {
-            // console.log(`Week ${week.roundNumber}:`);
-            // console.log('goalsFor:', match.awayClub.goalsFor);
-            // console.log('goalsAgainst:', match.awayClub.goalsAgainst);
-            // console.log('goalDifferential:', match.awayClub.goalDifferential);
-            // console.log('wins:', match.awayClub.wins);
-            // console.log('draws:', match.awayClub.draws);
-            // console.log('losses:', match.awayClub.losses);
-            // console.log('points:', match.awayClub.points);
-            // console.log('gamesPlayed:', match.awayClub.gamesPlayed);
-            // console.log('');
+            console.log(`Week ${week.roundNumber}:`);
+            console.log('goalsFor:', match.awayClub.goalsFor);
+            console.log('goalsAgainst:', match.awayClub.goalsAgainst);
+            console.log('goalDifferential:', match.awayClub.goalDifferential);
+            console.log('wins:', match.awayClub.wins);
+            console.log('draws:', match.awayClub.draws);
+            console.log('losses:', match.awayClub.losses);
+            console.log('points:', match.awayClub.points);
+            console.log('gamesPlayed:', match.awayClub.gamesPlayed);
+            console.log('');
           }
         });
       });

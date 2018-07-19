@@ -16,10 +16,11 @@ function saveToDB(resolvedSchedule) {
   
   const highestRoundNumber = Math.max(...roundNumbersArray);
   
+  // don't forget that filter returns an array!
   let highestRound = resolvedSchedule.filter(week => {
      return (week.roundNumber === highestRoundNumber);
   });
-  
+  console.log('highestRound:', highestRound);
   let resolvedClubs = highestRound[0].matches.map(match => {
     return saveClub(match.homeClub)
     .then(() => {
@@ -27,7 +28,11 @@ function saveToDB(resolvedSchedule) {
     });
   });
   
-  return Promise.all(resolvedClubs);
+  console.log('resolved');
+  Promise.all(resolvedClubs)
+  .then((resolvedData) => {
+    console.log('resolvedClubs:', resolvedData);
+  });
 }
 
 module.exports = {
