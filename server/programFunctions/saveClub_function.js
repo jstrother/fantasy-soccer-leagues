@@ -1,4 +1,3 @@
-/*eslint-disable no-console*/
 const FantasyClub = require("../../models/fantasyClub_model.js");
 
 function saveClub(club) {
@@ -14,9 +13,6 @@ function saveClub(club) {
       goalsAgainst: club.goalsAgainst,
       goalDifferential: club.goalDifferential,
       gamesPlayed: club.gamesPlayed
-    },
-    {
-      new: true
     }
   )
   .catch(error => {

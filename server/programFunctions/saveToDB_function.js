@@ -20,11 +20,6 @@ function saveToDB(resolvedSchedule) {
      return (week.roundNumber === highestRoundNumber);
   });
   
-  // return saveClub(highestRound[0].matches[0].homeClub)
-  // .then(() => {
-  //   return saveClub(highestRound[0].matches[0].awayClub);
-  // });
-  
   let resolvedClubs = highestRound[0].matches.map(match => {
     return saveClub(match.homeClub)
     .then(() => {
@@ -32,8 +27,7 @@ function saveToDB(resolvedSchedule) {
     });
   });
   
-  // console.log('resolvedClubs:', resolvedClubs);
-  return resolvedClubs;
+  return Promise.all(resolvedClubs);
 }
 
 module.exports = {

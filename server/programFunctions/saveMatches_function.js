@@ -1,4 +1,3 @@
-/*eslint-disable no-console*/
 const FantasyMatch = require("../../models/fantasyMatch_model.js");
 
 function saveMatches(resolvedMatches) {
@@ -10,9 +9,6 @@ function saveMatches(resolvedMatches) {
         homeScore: match.homeScore,
         awayScore: match.awayScore,
         final: match.final
-      },
-      {
-        new: true
       }
     )
     .catch(error => {

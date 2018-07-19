@@ -5,7 +5,6 @@ function standingsStatsCalc(match) {
   resolvedMatch.homeClub = clubStats(match.homeClub, match.homeScore, match.awayScore);
   resolvedMatch.awayClub = clubStats(match.awayClub, match.awayScore, match.homeScore);
   resolvedMatch.final = true;
-  // console.log('resolvedMatch.homeClub:', resolvedMatch.homeClub.gamesPlayed);
   return resolvedMatch;
 }
 

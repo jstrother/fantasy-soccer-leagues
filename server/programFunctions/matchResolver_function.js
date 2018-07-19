@@ -1,4 +1,3 @@
-/*eslint-disable no-console*/
 const {calculateScores} = require("./calculateScores_function.js"),
   {saveToDB} = require("./saveToDB_function.js");
 
@@ -17,8 +16,7 @@ function matchResolver(fullSchedule) {
   });
   
   let resolvedClubs = saveToDB(resolvedSchedule);
-  console.log('1st resolvedClub:', resolvedClubs[0]);
-  console.log('2nd resolvedClub:', resolvedClubs[1]);
+  console.log('resolvedClubs:', resolvedClubs);
   
   return resolvedSchedule;
 }
