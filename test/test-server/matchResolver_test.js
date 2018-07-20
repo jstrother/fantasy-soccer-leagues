@@ -275,35 +275,31 @@ describe('Matches Resolver', () => {
     });
   });
   
-  it('should add a club from resolved matches to the database', () => {
+  it.only('should add a club from resolved matches to the database', () => {
     return scheduleRetriever()
       .then(fullSchedule => {
-        const resolvedHumanScores = [
-          humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
-            humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
-          ];
-        return standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0]));
-      }).then(resolvedMatch => {
-        return saveClub(resolvedMatch.homeClub)
-        .then(savedClub => {
-          return FantasyClub
-          .findById(savedClub._id)
-          .then(clubFromDB => {
-            clubFromDB.should.exist;
-            clubFromDB.wins.should.equal(0);
-            clubFromDB.draws.should.equal(0);
-            clubFromDB.losses.should.equal(1);
-            clubFromDB.points.should.equal(0);
-            clubFromDB.goalsFor.should.equal(54);
-            clubFromDB.goalsAgainst.should.equal(67);
-            clubFromDB.goalDifferential.should.equal(-13);
-            clubFromDB.gamesPlayed.should.equal(1);
-          });
-        });
+        return matchResolver(fullSchedule);
+      }).then(resolvedSchedule => {
+        // return saveClub(resolvedMatch.homeClub)
+        // .then(savedClub => {
+        //   return FantasyClub
+        //   .findById(savedClub._id)
+        //   .then(clubFromDB => {
+        //     clubFromDB.should.exist;
+        //     clubFromDB.wins.should.equal(0);
+        //     clubFromDB.draws.should.equal(0);
+        //     clubFromDB.losses.should.equal(1);
+        //     clubFromDB.points.should.equal(0);
+        //     clubFromDB.goalsFor.should.equal(54);
+        //     clubFromDB.goalsAgainst.should.equal(67);
+        //     clubFromDB.goalDifferential.should.equal(-13);
+        //     clubFromDB.gamesPlayed.should.equal(1);
+        //   });
+        // });
       });
   });
   
-  it.only('should add resolved matches to the database', () => {
+  it('should add resolved matches to the database', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
       return matchResolver(fullSchedule);
