@@ -12,6 +12,7 @@ const mongoose = require('mongoose'),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
 	{standingsStatsCalc} = require("../../server/programFunctions/standingsStatsCalc_function.js"),
 	{averageClubScoreCalc} = require("../../server/programFunctions/averageClubScoreCalc_function.js"),
+	{calculateScores} = require("../../server/programFunctions/calculateScores_function.js"),
 	User = require("../../models/user_model.js"),
 	FantasyClub = require("../../models/fantasyClub_model.js"),
 	FantasyMatch = require("../../models/fantasyMatch_model.js"),
@@ -189,7 +190,46 @@ describe('Matches Resolver', () => {
     });
   });
   
-  it.only('should resolve a club\'s full season correctly', () => {
+  it('should resolve a week\'s worth of matches', () => {
+    return scheduleRetriever()
+    .then(fullSchedule => {
+      const week1Matches = calculateScores(fullSchedule[0]),
+        week1Match1 = week1Matches.matches[0],
+        week1Match2 = week1Matches.matches[1],
+        week2Matches = calculateScores(fullSchedule[1]),
+        week2Match1 = week2Matches.matches[0],
+        week2Match2 = week2Matches.matches[1],
+        week18Matches = calculateScores(fullSchedule[17]),
+        week18Match1 = week18Matches.matches[0],
+        week18Match2 = week18Matches.matches[1];
+      
+      week1Match1.homeScore.should.equal(54);
+      week1Match1.awayScore.should.equal(67);
+      week1Match1.final.should.equal(true);
+      
+      week1Match2.homeScore.should.equal(54);
+      week1Match2.awayScore.should.equal(58);
+      week1Match2.final.should.equal(true);
+      
+      week2Match1.homeScore.should.equal(67);
+      week2Match1.awayScore.should.equal(54);
+      week2Match1.final.should.equal(true);
+      
+      week2Match2.homeScore.should.equal(58);
+      week2Match2.awayScore.should.equal(54);
+      week2Match2.final.should.equal(true);
+      
+      week18Match1.homeScore.should.equal(54);
+      week18Match1.awayScore.should.equal(54);
+      week18Match1.final.should.equal(true);
+      
+      week18Match2.homeScore.should.equal(58);
+      week18Match2.awayScore.should.equal(67);
+      week18Match2.final.should.equal(true);
+    });
+  });
+  
+  it.skip('should resolve a club\'s full season correctly', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
       const resolvedSchedule = matchResolver(fullSchedule),
@@ -236,16 +276,7 @@ describe('Matches Resolver', () => {
   });
   
   it('should add a club from resolved matches to the database', () => {
-    return WeeklyMatches
-      .find()
-      .populate({
-        path: 'matches',
-        model: 'FantasyMatch',
-        populate: {
-          path: 'homeClub awayClub',
-          model: 'FantasyClub'
-        }
-      })
+    return scheduleRetriever()
       .then(fullSchedule => {
         const resolvedHumanScores = [
           humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
@@ -272,37 +303,36 @@ describe('Matches Resolver', () => {
       });
   });
   
-  it('should add resolved matches to the database', () => {
-    return WeeklyMatches
-    .find()
-    .populate({
-      path: 'matches',
-      model: 'FantasyMatch',
-      populate: {
-        path: 'homeClub awayClub',
-        model: 'FantasyClub'
-      }
-    })
+  it.only('should add resolved matches to the database', () => {
+    return scheduleRetriever()
     .then(fullSchedule => {
-      const resolvedHumanScores = [
-        humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[0])),
-          humanAwayClubScoreCalc(humanHomeClubScoreCalc(fullSchedule[0].matches[1]))
-        ],
-        resolvedSchedule = [
-          standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[0])),
-          standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), resolvedHumanScores[1]))
-        ];
-      return resolvedSchedule;
+      return matchResolver(fullSchedule);
     })
     .then(resolvedSchedule => {
-      return saveMatches(resolvedSchedule)
+      // console.log('resolvedSchedule:', resolvedSchedule[0]);
+      const week1Matches = resolvedSchedule[0].matches;
+      return saveMatches(week1Matches)
       .then(savedMatches => {
+        const firstSavedMatch = savedMatches[0],
+          secondSavedMatch = savedMatches[1];
+        
         return FantasyMatch
-        .findById(savedMatches[0]._id)
-        .then(matchFromDB => {
-          matchFromDB.homeScore.should.equal(54);
-          matchFromDB.awayScore.should.equal(67);
-          matchFromDB.final.should.equal(true);
+        .findById(firstSavedMatch._id)
+        .then(match1FromDB => {
+          match1FromDB.should.exist;
+          match1FromDB.homeScore.should.equal(54);
+          match1FromDB.awayScore.should.equal(67);
+          match1FromDB.final.should.equal(true);
+        })
+        .then(() => {
+          return FantasyMatch
+          .findById(secondSavedMatch._id)
+          .then(match2FromDB => {
+            match2FromDB.should.exist;
+            match2FromDB.homeScore.should.equal(54);
+            match2FromDB.awayScore.should.equal(58);
+            match2FromDB.final.should.equal(true);
+          });
         });
       });
     });
