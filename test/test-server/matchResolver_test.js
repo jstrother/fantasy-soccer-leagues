@@ -284,51 +284,42 @@ describe('Matches Resolver', () => {
       }).then(resolvedSchedule => {
         const testClubId = resolvedSchedule[0].matches[0].homeClub._id;
         
+        let savedClubs = [];
+        console.log('test club:', resolvedSchedule[0].matches[0].homeClub);
+        console.log('schedule length:', resolvedSchedule.length);
         resolvedSchedule.forEach(week => {
+          // console.log('week number:', week.roundNumber);
           week.matches.forEach(match => {
             if (match.homeClub._id === testClubId) {
-              // console.log(`Week ${week.roundNumber}:`);
               // console.log('home club:', match.homeClub.clubName);
-              // console.log('goalsFor:', match.homeClub.goalsFor);
-              // console.log('goalsAgainst:', match.homeClub.goalsAgainst);
-              // console.log('goalDifferential:', match.homeClub.goalDifferential);
-              // console.log('wins:', match.homeClub.wins);
-              // console.log('draws:', match.homeClub.draws);
-              // console.log('losses:', match.homeClub.losses);
-              // console.log('points:', match.homeClub.points);
-              // console.log('gamesPlayed:', match.homeClub.gamesPlayed);
-              // console.log('');
-              saveClub(match.homeClub);
+              savedClubs.push(saveClub(match.homeClub));
             }
             if (match.awayClub._id === testClubId) {
-              // console.log(`Week ${week.roundNumber}:`);
               // console.log('away club:', match.awayClub.clubName);
-              // console.log('goalsFor:', match.awayClub.goalsFor);
-              // console.log('goalsAgainst:', match.awayClub.goalsAgainst);
-              // console.log('goalDifferential:', match.awayClub.goalDifferential);
-              // console.log('wins:', match.awayClub.wins);
-              // console.log('draws:', match.awayClub.draws);
-              // console.log('losses:', match.awayClub.losses);
-              // console.log('points:', match.awayClub.points);
-              // console.log('gamesPlayed:', match.awayClub.gamesPlayed);
-              // console.log('');
-              saveClub(match.awayClub);
+              savedClubs.push(saveClub(match.awayClub));
             }
           });
         });
         
-        return FantasyClub
-        .findById(testClubId)
-        .then(clubFromDB => {
-          clubFromDB.should.exist;
-          clubFromDB.wins.should.equal(0);
-          clubFromDB.draws.should.equal(12);
-          clubFromDB.losses.should.equal(26);
-          clubFromDB.points.should.equal(12);
-          clubFromDB.goalsFor.should.equal(2052);
-          clubFromDB.goalsAgainst.should.equal(2273);
-          clubFromDB.goalDifferential.should.equal(-221);
-          clubFromDB.gamesPlayed.should.equal(38);
+        return Promise.all(savedClubs)
+        .then(() => {
+          return FantasyClub
+          .findById(testClubId)
+          .then(clubFromDB => {
+            // console.log('clubFromDB:', clubFromDB);
+            clubFromDB.should.exist;
+            clubFromDB.wins.should.equal(0);
+            clubFromDB.draws.should.equal(12);
+            clubFromDB.losses.should.equal(26);
+            clubFromDB.points.should.equal(12);
+            clubFromDB.goalsFor.should.equal(2052);
+            clubFromDB.goalsAgainst.should.equal(2273);
+            clubFromDB.goalDifferential.should.equal(-221);
+            clubFromDB.gamesPlayed.should.equal(38);
+          })
+          .catch(error => {
+            throw new Error(error);
+          });
         });
       });
   });
