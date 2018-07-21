@@ -239,6 +239,7 @@ describe('Matches Resolver', () => {
         week.matches.forEach(match => {
           if (match.homeClub.clubName === 'Strikers \'87') {
             console.log(`Week ${week.roundNumber}:`);
+            console.log('home club:', match.homeClub);
             console.log('goalsFor:', match.homeClub.goalsFor);
             console.log('goalsAgainst:', match.homeClub.goalsAgainst);
             console.log('goalDifferential:', match.homeClub.goalDifferential);
@@ -251,6 +252,7 @@ describe('Matches Resolver', () => {
           }
           if (match.awayClub.clubName === 'Strikers \'87') {
             console.log(`Week ${week.roundNumber}:`);
+            console.log('away club:', match.awayClub);
             console.log('goalsFor:', match.awayClub.goalsFor);
             console.log('goalsAgainst:', match.awayClub.goalsAgainst);
             console.log('goalDifferential:', match.awayClub.goalDifferential);
@@ -280,22 +282,54 @@ describe('Matches Resolver', () => {
       .then(fullSchedule => {
         return matchResolver(fullSchedule);
       }).then(resolvedSchedule => {
-        // return saveClub(resolvedMatch.homeClub)
-        // .then(savedClub => {
-        //   return FantasyClub
-        //   .findById(savedClub._id)
-        //   .then(clubFromDB => {
-        //     clubFromDB.should.exist;
-        //     clubFromDB.wins.should.equal(0);
-        //     clubFromDB.draws.should.equal(0);
-        //     clubFromDB.losses.should.equal(1);
-        //     clubFromDB.points.should.equal(0);
-        //     clubFromDB.goalsFor.should.equal(54);
-        //     clubFromDB.goalsAgainst.should.equal(67);
-        //     clubFromDB.goalDifferential.should.equal(-13);
-        //     clubFromDB.gamesPlayed.should.equal(1);
-        //   });
-        // });
+        const testClubId = resolvedSchedule[0].matches[0].homeClub._id;
+        
+        resolvedSchedule.forEach(week => {
+          week.matches.forEach(match => {
+            if (match.homeClub._id === testClubId) {
+              // console.log(`Week ${week.roundNumber}:`);
+              // console.log('home club:', match.homeClub.clubName);
+              // console.log('goalsFor:', match.homeClub.goalsFor);
+              // console.log('goalsAgainst:', match.homeClub.goalsAgainst);
+              // console.log('goalDifferential:', match.homeClub.goalDifferential);
+              // console.log('wins:', match.homeClub.wins);
+              // console.log('draws:', match.homeClub.draws);
+              // console.log('losses:', match.homeClub.losses);
+              // console.log('points:', match.homeClub.points);
+              // console.log('gamesPlayed:', match.homeClub.gamesPlayed);
+              // console.log('');
+              saveClub(match.homeClub);
+            }
+            if (match.awayClub._id === testClubId) {
+              // console.log(`Week ${week.roundNumber}:`);
+              // console.log('away club:', match.awayClub.clubName);
+              // console.log('goalsFor:', match.awayClub.goalsFor);
+              // console.log('goalsAgainst:', match.awayClub.goalsAgainst);
+              // console.log('goalDifferential:', match.awayClub.goalDifferential);
+              // console.log('wins:', match.awayClub.wins);
+              // console.log('draws:', match.awayClub.draws);
+              // console.log('losses:', match.awayClub.losses);
+              // console.log('points:', match.awayClub.points);
+              // console.log('gamesPlayed:', match.awayClub.gamesPlayed);
+              // console.log('');
+              saveClub(match.awayClub);
+            }
+          });
+        });
+        
+        return FantasyClub
+        .findById(testClubId)
+        .then(clubFromDB => {
+          clubFromDB.should.exist;
+          clubFromDB.wins.should.equal(0);
+          clubFromDB.draws.should.equal(12);
+          clubFromDB.losses.should.equal(26);
+          clubFromDB.points.should.equal(12);
+          clubFromDB.goalsFor.should.equal(2052);
+          clubFromDB.goalsAgainst.should.equal(2273);
+          clubFromDB.goalDifferential.should.equal(-221);
+          clubFromDB.gamesPlayed.should.equal(38);
+        });
       });
   });
   
@@ -305,9 +339,8 @@ describe('Matches Resolver', () => {
       return matchResolver(fullSchedule);
     })
     .then(resolvedSchedule => {
-      // console.log('resolvedSchedule:', resolvedSchedule[0]);
-      const week1Matches = resolvedSchedule[0].matches;
-      return saveMatches(week1Matches)
+      const week38Matches = resolvedSchedule[37].matches;
+      return saveMatches(week38Matches)
       .then(savedMatches => {
         const firstSavedMatch = savedMatches[0],
           secondSavedMatch = savedMatches[1];
@@ -316,8 +349,8 @@ describe('Matches Resolver', () => {
         .findById(firstSavedMatch._id)
         .then(match1FromDB => {
           match1FromDB.should.exist;
-          match1FromDB.homeScore.should.equal(54);
-          match1FromDB.awayScore.should.equal(67);
+          match1FromDB.homeScore.should.equal(67);
+          match1FromDB.awayScore.should.equal(54);
           match1FromDB.final.should.equal(true);
         })
         .then(() => {
@@ -325,8 +358,8 @@ describe('Matches Resolver', () => {
           .findById(secondSavedMatch._id)
           .then(match2FromDB => {
             match2FromDB.should.exist;
-            match2FromDB.homeScore.should.equal(54);
-            match2FromDB.awayScore.should.equal(58);
+            match2FromDB.homeScore.should.equal(58);
+            match2FromDB.awayScore.should.equal(54);
             match2FromDB.final.should.equal(true);
           });
         });

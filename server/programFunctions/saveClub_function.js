@@ -5,14 +5,16 @@ function saveClub(club) {
   .findByIdAndUpdate(
     club._id,
     {
-      wins: club.wins,
-      draws: club.draws,
-      losses: club.losses,
-      points: club.points,
-      goalsFor: club.goalsFor,
-      goalsAgainst: club.goalsAgainst,
-      goalDifferential: club.goalDifferential,
-      gamesPlayed: club.gamesPlayed
+      $inc: {
+        wins: club.wins,
+        draws: club.draws,
+        losses: club.losses,
+        points: club.points,
+        goalsFor: club.goalsFor,
+        goalsAgainst: club.goalsAgainst,
+        goalDifferential: club.goalDifferential,
+        gamesPlayed: club.gamesPlayed
+      }
     }
   )
   .catch(error => {

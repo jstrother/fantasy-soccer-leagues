@@ -29,7 +29,7 @@ function saveToDB(resolvedSchedule) {
   });
   
   // console.log('resolved');
-  Promise.all(resolvedClubs)
+  return Promise.all(resolvedClubs)
   .then((resolvedData) => {
     // console.log('resolvedClubs:', resolvedData);
   });
