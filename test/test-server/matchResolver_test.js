@@ -200,13 +200,23 @@ describe('Matches Resolver', () => {
     });
   });
   
-  it.only('should resolve a club\'s full season correctly', () => {
+  it.skip('should resolve a club\'s full season correctly', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
       return matchResolver(fullSchedule);
     })
     .then(resolvedSchedule => {
-      // console.log('week 38:', resolvedSchedule[37]);
+      // resolvedSchedule.forEach(week => {
+      //   // console.log('week:', week.roundNumber);
+      //   week.matches.forEach(match => {
+      //     if (match.homeClub.clubName === 'Strikers \'87') {
+      //       console.log('draws:', match.homeClub.draws);
+      //     }
+      //     if (match.awayClub.clubName === 'Strikers \'87') {
+      //       console.log('draws:', match.awayClub.draws);
+      //     }
+      //   });
+      // });
       return FantasyClub
       .findById(strikers87Id)
       .then(clubFromDB => {
