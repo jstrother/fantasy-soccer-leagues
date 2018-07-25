@@ -1760,7 +1760,8 @@ const mongoose = require('mongoose'),
   managerArray = [manager1, manager2, manager3],
   clubArray = [clubOne, clubTwo, clubThree, averageClub],
   matchesArray = [week1Match1, week2Match1, week3Match1, week4Match1, week5Match1, week6Match1, week7Match1, week8Match1, week9Match1, week10Match1, week11Match1, week12Match1, week13Match1, week14Match1, week15Match1, week16Match1, week17Match1, week18Match1, week19Match1, week20Match1, week21Match1, week22Match1, week23Match1, week24Match1, week25Match1, week26Match1, week27Match1, week28Match1, week29Match1, week30Match1, week31Match1, week32Match1, week33Match1, week34Match1, week35Match1, week36Match1, week37Match1, week38Match1, week1Match2, week2Match2, week3Match2, week4Match2, week5Match2, week6Match2, week7Match2, week8Match2, week9Match2, week10Match2, week11Match2, week12Match2, week13Match2, week14Match2, week15Match2, week16Match2, week17Match2, week18Match2, week19Match2, week20Match2, week21Match2, week22Match2, week23Match2, week24Match2, week25Match2, week26Match2, week27Match2, week28Match2, week29Match2, week30Match2, week31Match2, week32Match2, week33Match2, week34Match2, week35Match2, week36Match2, week37Match2, week38Match2],
-  weeklyArray = [week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15, week16, week17, week18, week19, week20, week21, week22, week23, week24, week25, week26, week27, week28, week29, week30, week31, week32, week33, week34, week35, week36, week37, week38];
+  weeklyArray = [week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15, week16, week17, week18, week19, week20, week21, week22, week23, week24, week25, week26, week27, week28, week29, week30, week31, week32, week33, week34, week35, week36, week37, week38],
+  strikers87Id = clubOne._id;
 
 module.exports = {
 	mongoose,
@@ -1791,5 +1792,6 @@ module.exports = {
 	managerArray,
 	clubArray,
 	matchesArray,
-	weeklyArray
+	weeklyArray,
+	strikers87Id
 };

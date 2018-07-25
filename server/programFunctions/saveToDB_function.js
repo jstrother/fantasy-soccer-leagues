@@ -2,36 +2,17 @@ const {saveMatches} = require("./saveMatches_function.js"),
   {saveClub} = require("./saveClub_function.js");
   
 function saveToDB(resolvedSchedule) {
-  let roundNumbersArray = [];
-  
   resolvedSchedule.map(week => {
     let matchArray = week.matches;
     saveMatches(matchArray);
-    matchArray.filter(match => {
+    matchArray.map(match => {
       if (match.final === true) {
-        roundNumbersArray.push(week.roundNumber);
+        saveClub(match.homeClub)
+        .then(() => {
+          saveClub(match.awayClub);
+        });
       }
     });
-  });
-  
-  const highestRoundNumber = Math.max(...roundNumbersArray);
-  
-  // don't forget that filter returns an array!
-  let highestRound = resolvedSchedule.filter(week => {
-     return (week.roundNumber === highestRoundNumber);
-  });
-  // console.log('highestRound:', highestRound);
-  let resolvedClubs = highestRound[0].matches.map(match => {
-    return saveClub(match.homeClub)
-    .then(() => {
-      return saveClub(match.awayClub);
-    });
-  });
-  
-  // console.log('resolved');
-  return Promise.all(resolvedClubs)
-  .then((resolvedData) => {
-    // console.log('resolvedClubs:', resolvedData);
   });
 }
 
