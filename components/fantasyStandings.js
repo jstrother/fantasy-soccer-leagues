@@ -35,7 +35,7 @@ export class FantasyTable extends React.Component {
 }
 
 const mapStandingsStateToProps = state => ({
-	state
+	currentStandings: state.leagueStandingsReducer.currentStandings
 });
 
 const FantasyStandings = connect(

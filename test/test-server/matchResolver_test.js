@@ -7,7 +7,7 @@ const mongoose = require('mongoose'),
   {scheduleRetriever} = require("../../server/programFunctions/scheduleRetriever_function.js"),
 	{matchResolver} = require("../../server/programFunctions/matchResolver_function.js"),
 	{saveMatches} = require("../../server/programFunctions/saveMatches_function.js"),
-	{saveClub} = require("../../server/programFunctions/saveClub_function.js"),
+	{compare} = require("../../server/programFunctions/compare_function.js"),
 	{humanHomeClubScoreCalc} = require("../../server/programFunctions/humanHomeClubScoreCalc_function.js"),
 	{humanAwayClubScoreCalc} = require("../../server/programFunctions/humanAwayClubScoreCalc_function.js"),
 	{computerClubScoreCalc} = require("../../server/programFunctions/computerClubScoreCalc_function.js"),
@@ -192,31 +192,13 @@ describe('Matches Resolver', () => {
     });
   });
   
-  it('should add a club from resolved matches to the database', () => {
-    return scheduleRetriever()
-    .then(fullSchedule => {
-      console.log('fullSchedule:', fullSchedule);
-      // const firstMatch = fullSchedule[0]
-    });
-  });
-  
+  // this test is skipped as async issues keep it from correctly determining that the database has all of the correct info as shown below. this test will be revisited at a later point.
   it.skip('should resolve a club\'s full season correctly', () => {
     return scheduleRetriever()
     .then(fullSchedule => {
       return matchResolver(fullSchedule);
     })
     .then(resolvedSchedule => {
-      // resolvedSchedule.forEach(week => {
-      //   // console.log('week:', week.roundNumber);
-      //   week.matches.forEach(match => {
-      //     if (match.homeClub.clubName === 'Strikers \'87') {
-      //       console.log('draws:', match.homeClub.draws);
-      //     }
-      //     if (match.awayClub.clubName === 'Strikers \'87') {
-      //       console.log('draws:', match.awayClub.draws);
-      //     }
-      //   });
-      // });
       return FantasyClub
       .findById(strikers87Id)
       .then(clubFromDB => {
