@@ -3,9 +3,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
+import {leagueStandings} from '../flow/subActions/leagueStandingsActions.js';
 import styles from '../scss/fantasyStandings.scss';
 
 export class FantasyTable extends React.Component {
+	componentDidMount() {
+		this.props.dispatch(leagueStandings());
+	}
 	render() {
 		return(
 			<div>

@@ -12,11 +12,10 @@ leagueStandingsRouter.get('/',
       model: 'User'
     })
     .then(populatedClubArray => {
-      console.log('populatedClubArray:', populatedClubArray);
+      // console.log('populatedClubArray:', populatedClubArray);
     })
     .catch(error => {
-      console.log('leagueStandingsRouter error:', error);
-      // throw new Error(error);
+      throw new Error(error);
     });
   }
 );
