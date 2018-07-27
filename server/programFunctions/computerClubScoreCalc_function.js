@@ -1,4 +1,5 @@
 function computerClubScoreCalc(averageClubScore, match) {
+  console.log('computerClubScoreCalc match.final:', match.final);
   if (match.final === false) {
     if (match.homeClub.clubName === 'Average') {
       let resolvedMatch = JSON.parse(JSON.stringify(match));

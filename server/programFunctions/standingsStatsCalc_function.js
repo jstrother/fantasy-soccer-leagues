@@ -1,6 +1,7 @@
 const {clubStats} = require("./clubStats_function.js");
 
 function standingsStatsCalc(match) {
+  console.log('standingsStatsCalc match.final:', match.final);
   if (match.final === false) {
     let resolvedMatch = JSON.parse(JSON.stringify(match));
     resolvedMatch.homeClub = clubStats(match.homeClub, match.homeScore, match.awayScore);
