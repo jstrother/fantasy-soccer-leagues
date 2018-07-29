@@ -8,9 +8,6 @@ function matchResolver(fullSchedule) {
   let resolvedSchedule = fullSchedule.map(weeklyMatches => {
     // weeklyMatches is one week's worth of matches
     const datesToRun = weeklyMatches.datesToRun.getTime();
-    weeklyMatches.matches.map(match => {
-      console.log('matchResolver match.final:', match.final);
-    });
     if (today >= datesToRun) {
       return calculateScores(weeklyMatches);
     }

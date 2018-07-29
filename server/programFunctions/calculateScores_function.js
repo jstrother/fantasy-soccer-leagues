@@ -13,7 +13,6 @@ function calculateScores(weeklyMatches) {
     });
   // then we calculate the scores for clubs run by a computer AND the stats of all clubs need for league standings and set it all equal to a portion of our deep clone from above
   resolvedWeek.matches = resolvedHumanScores.map(match => {
-    console.log('calculateScores match.final:', match.final);
     return standingsStatsCalc(computerClubScoreCalc(averageClubScoreCalc(resolvedHumanScores), match));
     });
   

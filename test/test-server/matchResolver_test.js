@@ -202,7 +202,7 @@ describe('Matches Resolver', () => {
       return FantasyClub
       .findById(strikers87Id)
       .then(clubFromDB => {
-        console.log('clubFromDB:', clubFromDB);
+        // console.log('clubFromDB:', clubFromDB);
         clubFromDB.should.exist;
         clubFromDB.wins.should.equal(0);
         clubFromDB.draws.should.equal(12);
