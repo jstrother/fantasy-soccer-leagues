@@ -1,7 +1,8 @@
 const mongoose = require("mongoose"),
   leagueStandingsRouter = require("express").Router(),
   FantasyClub = require("../models/fantasyClub_model.js"),
-  {standingsCalculator} = require("../server/programFunctions/standingsCalculator_function.js");
+  FantasyMatch = require("../models/fantasyMatch_model.js"),
+  {standings} = require("./programFunctions/standings_function.js");
 
 leagueStandingsRouter.get('/',
   (req, res) => {
@@ -12,7 +13,9 @@ leagueStandingsRouter.get('/',
       model: 'User'
     })
     .then(populatedClubArray => {
-      // console.log('populatedClubArray:', populatedClubArray);
+      const matchArray = FantasyMatch.find();
+      console.log('matchArray:', matchArray);
+      // console.log('standings:', standings(populatedClubArray));
     })
     .catch(error => {
       throw new Error(error);
