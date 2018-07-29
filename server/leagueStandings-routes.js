@@ -13,9 +13,20 @@ leagueStandingsRouter.get('/',
       model: 'User'
     })
     .then(populatedClubArray => {
-      const matchArray = FantasyMatch.find();
-      console.log('matchArray:', matchArray);
-      // console.log('standings:', standings(populatedClubArray));
+      FantasyMatch
+      .find()
+      .populate({
+        path: 'homeClub awayClub',
+        model: 'FantasyClub'
+      })
+      .then(populatedMatchArray => {
+        standings(populatedClubArray, populatedMatchArray);
+        // console.log('standings:', standings(populatedClubArray, populatedMatchArray));
+      })
+      .catch(error => {
+        // throw new Error(error);
+        console.log('leagueStandingsRouter error:', error);
+      });
     })
     .catch(error => {
       throw new Error(error);

@@ -1,35 +1,24 @@
-const FantasyMatch = require("../../models/fantasyMatch_model.js"),
-  {standingsCalculator} = require("./standingsCalculator_function.js"),
+const {standingsCalculator} = require("./standingsCalculator_function.js"),
   {clubStats} = require("./clubStats_function.js");
 
-function standings(clubArray) {
-  const resolvedClubArray = clubArray.map(club => {
-    return resolvedclubScores(club);
+function standings(clubArray, matchArray) {
+  const resolvedClubs = matchArray.map(match => {
+    if(match.final === true) {
+      clubArray.map(club => {
+        console.log('homeClub:', match.homeClub._id); // this line is logged
+        console.log('awayClub:', match.awayClub._id); // this line is logged
+        console.log('club:', club._id); // this line is logged
+        if(match.homeClub._id === club._id) {
+          console.log('Oscar'); // this line is NOT logged
+        }
+        if(match.awayClub._id === club._id) {
+          console.log('Buster'); // this line is NOT logged
+        }
+      });
+    }
   });
   
-  return standingsCalculator(resolvedClubArray);
-  
-  function resolvedclubScores(club) {
-    const matchArray = FantasyMatch.find();
-    console.log('matchArray:', matchArray);
-    
-    // const finishedMatches = matchArray.map(match => {
-    //   if (match.final === true) {
-    //     return true;
-    //   }
-    // });
-    
-    // const resolvedClubScores = finishedMatches.map(match => {
-    //   if (match.homeClub._id === club._id) {
-    //     return clubStats(club, match.homeScore, match.awayScore);
-    //   }
-    //   if (match.awayClub._id === club._id) {
-    //     return clubStats(club, match.awayScore, match.homeScore);
-    //   }
-    // });
-    
-    // return resolvedClubScores;
-  }
+  return standingsCalculator(resolvedClubs);
 }
 
 module.exports = {
