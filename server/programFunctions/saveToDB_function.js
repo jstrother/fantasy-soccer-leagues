@@ -5,14 +5,15 @@ function saveToDB(resolvedSchedule) {
   resolvedSchedule.map(week => {
     let matchArray = week.matches;
     saveMatches(matchArray);
-    matchArray.map(match => {
-      if (match.final === true) {
-        saveClub(match.homeClub)
-        .then(() => {
-          saveClub(match.awayClub);
-        });
-      }
-    });
+    // the following was commented out due to exponential calculation of what should have been linear
+    // matchArray.map(match => {
+    //   if (match.final === true) {
+    //     saveClub(match.homeClub)
+    //     .then(() => {
+    //       saveClub(match.awayClub);
+    //     });
+    //   }
+    // });
   });
 }
 

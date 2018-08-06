@@ -24,8 +24,7 @@ leagueStandingsRouter.get('/',
         // console.log('standings:', standings(populatedClubArray, populatedMatchArray));
       })
       .catch(error => {
-        // throw new Error(error);
-        console.log('leagueStandingsRouter error:', error);
+        throw new Error(error);
       });
     })
     .catch(error => {
