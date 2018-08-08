@@ -1,11 +1,17 @@
+/*eslint-disable no-console*/
 // components/fantasyStandings.js
 
 import React from 'react';
 import { connect } from 'react-redux';
+import {leagueStandings} from '../flow/subActions/leagueStandingsActions.js';
 import CSSModules from 'react-css-modules';
 import styles from '../scss/fantasyStandings.scss';
 
 export class FantasyTable extends React.Component {
+	componentDidMount() {
+		this.props.dispatch(leagueStandings());
+		console.log('leagueStandings:', this.props.currentStandings);
+	}
 	render() {
 		return(
 			<div>

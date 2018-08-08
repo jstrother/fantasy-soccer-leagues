@@ -20,8 +20,9 @@ leagueStandingsRouter.get('/',
         model: 'FantasyClub'
       })
       .then(populatedMatchArray => {
-        standings(populatedClubArray, populatedMatchArray);
-        // console.log('standings:', standings(populatedClubArray, populatedMatchArray));
+        const leagueStandings = standings(populatedClubArray, populatedMatchArray);
+        console.log('leagueStandingsRouter:', leagueStandings);
+        res.json(leagueStandings);
       })
       .catch(error => {
         throw new Error(error);

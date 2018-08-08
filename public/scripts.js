@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bc3de7016a395214f0c0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f1f9bd753ede14738993"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16547,78 +16547,6 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.leagueStandings = exports.leagueStandingsFail = exports.LEAGUE_STANDINGS_FAIL = exports.leagueStandingsSuccess = exports.LEAGUE_STANDINGS_SUCCESS = void 0;
-
-var _isomorphicFetch = _interopRequireDefault(__webpack_require__(33));
-
-var _config = __webpack_require__(34);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var thisURL = "".concat(_config.DEV_DIRECTORY, "/leagueStandings");
-var LEAGUE_STANDINGS_SUCCESS = 'LEAGUE_STANDINGS_SUCCESS';
-exports.LEAGUE_STANDINGS_SUCCESS = LEAGUE_STANDINGS_SUCCESS;
-
-var leagueStandingsSuccess = function leagueStandingsSuccess(currentStandings, statusCode) {
-  return {
-    type: LEAGUE_STANDINGS_SUCCESS,
-    currentStandings: currentStandings,
-    statusCode: statusCode
-  };
-};
-
-exports.leagueStandingsSuccess = leagueStandingsSuccess;
-var LEAGUE_STANDINGS_FAIL = 'LEAGUE_STANDINGS_FAIL';
-exports.LEAGUE_STANDINGS_FAIL = LEAGUE_STANDINGS_FAIL;
-
-var leagueStandingsFail = function leagueStandingsFail(statusCode) {
-  return {
-    type: LEAGUE_STANDINGS_FAIL,
-    statusCode: statusCode
-  };
-};
-
-exports.leagueStandingsFail = leagueStandingsFail;
-
-var leagueStandings = function leagueStandings(accessToken) {
-  return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
-      }
-    }).then(function (res) {
-      if (!res.ok) {
-        if (res.status === 400) {
-          dispatch(leagueStandingsFail(res.status));
-          return;
-        }
-
-        dispatch(leagueStandingsFail(500));
-        throw new Error(res.statusText);
-      }
-
-      return res.json();
-    }).then(function (currentStandings) {
-      dispatch(leagueStandingsSuccess(currentStandings, 200));
-    }).catch(function (error) {
-      throw new Error(error);
-    });
-  };
-};
-
-exports.leagueStandings = leagueStandings;
-
-/***/ }),
-/* 162 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.fetchLeague = exports.playerClubSelect = exports.PLAYER_CLUB_SELECT = exports.playerPositionSelect = exports.PLAYER_POSITION_SELECT = exports.leagueFail = exports.LEAGUE_FAIL = exports.leagueSuccess = exports.LEAGUE_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(33));
@@ -16699,6 +16627,78 @@ var fetchLeague = function fetchLeague(leagueId) {
 };
 
 exports.fetchLeague = fetchLeague;
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.leagueStandings = exports.leagueStandingsFail = exports.LEAGUE_STANDINGS_FAIL = exports.leagueStandingsSuccess = exports.LEAGUE_STANDINGS_SUCCESS = void 0;
+
+var _isomorphicFetch = _interopRequireDefault(__webpack_require__(33));
+
+var _config = __webpack_require__(34);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var thisURL = "".concat(_config.DEV_DIRECTORY, "/leagueStandings");
+var LEAGUE_STANDINGS_SUCCESS = 'LEAGUE_STANDINGS_SUCCESS';
+exports.LEAGUE_STANDINGS_SUCCESS = LEAGUE_STANDINGS_SUCCESS;
+
+var leagueStandingsSuccess = function leagueStandingsSuccess(currentStandings, statusCode) {
+  return {
+    type: LEAGUE_STANDINGS_SUCCESS,
+    currentStandings: currentStandings,
+    statusCode: statusCode
+  };
+};
+
+exports.leagueStandingsSuccess = leagueStandingsSuccess;
+var LEAGUE_STANDINGS_FAIL = 'LEAGUE_STANDINGS_FAIL';
+exports.LEAGUE_STANDINGS_FAIL = LEAGUE_STANDINGS_FAIL;
+
+var leagueStandingsFail = function leagueStandingsFail(statusCode) {
+  return {
+    type: LEAGUE_STANDINGS_FAIL,
+    statusCode: statusCode
+  };
+};
+
+exports.leagueStandingsFail = leagueStandingsFail;
+
+var leagueStandings = function leagueStandings(accessToken) {
+  return function (dispatch) {
+    return (0, _isomorphicFetch.default)("".concat(thisURL), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ".concat(accessToken)
+      }
+    }).then(function (res) {
+      if (!res.ok) {
+        if (res.status === 400) {
+          dispatch(leagueStandingsFail(res.status));
+          return;
+        }
+
+        dispatch(leagueStandingsFail(500));
+        throw new Error(res.statusText);
+      }
+
+      return res.json();
+    }).then(function (currentStandings) {
+      dispatch(leagueStandingsSuccess(currentStandings, 200));
+    }).catch(function (error) {
+      throw new Error(error);
+    });
+  };
+};
+
+exports.leagueStandings = leagueStandings;
 
 /***/ }),
 /* 163 */
@@ -37569,8 +37569,6 @@ var _warning = _interopRequireDefault(__webpack_require__(160));
 
 var _fantasyScheduleActions = __webpack_require__(90);
 
-var _leagueStandingsActions = __webpack_require__(161);
-
 var _fantasyClubActions = __webpack_require__(20);
 
 var _fantasySchedule = _interopRequireDefault(__webpack_require__(452));
@@ -37615,7 +37613,6 @@ function (_React$Component) {
         if (this.props.starters.length + this.props.benchwarmers.length === 18) {
           this.props.dispatch((0, _fantasyScheduleActions.wereMatchesResolved)());
           this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
-          this.props.dispatch((0, _leagueStandingsActions.leagueStandings)());
           setTimeout(this.props.dispatch((0, _fantasyScheduleActions.matchResolveFalse)()), sevenDays); // every seven days, this resets the matchesResolved in state so that the matches scheduled for a particular week get resolved
         }
       }
@@ -37636,7 +37633,6 @@ function (_React$Component) {
           if (this.props.starters.length + this.props.benchwarmers.length === 18) {
             this.props.dispatch((0, _fantasyScheduleActions.wereMatchesResolved)());
             this.props.dispatch((0, _fantasyScheduleActions.matchResolve)());
-            this.props.dispatch((0, _leagueStandingsActions.leagueStandings)());
           }
         }
       }
@@ -38319,7 +38315,7 @@ var _warning = _interopRequireDefault(__webpack_require__(160));
 
 var _league_ids_names = __webpack_require__(89);
 
-var _leagueActions = __webpack_require__(162);
+var _leagueActions = __webpack_require__(161);
 
 var _fantasyClubActions = __webpack_require__(20);
 
@@ -38886,6 +38882,8 @@ var _react = _interopRequireDefault(__webpack_require__(4));
 
 var _reactRedux = __webpack_require__(9);
 
+var _leagueStandingsActions = __webpack_require__(162);
+
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
 var _fantasyStandings = _interopRequireDefault(__webpack_require__(460));
@@ -38922,6 +38920,12 @@ function (_React$Component) {
   }
 
   _createClass(FantasyTable, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.dispatch((0, _leagueStandingsActions.leagueStandings)());
+      console.log('leagueStandings:', this.props.currentStandings);
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", null, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "Pts"))), _react.default.createElement("tbody", null)));
@@ -39365,7 +39369,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.leagueReducer = void 0;
 
-var _leagueActions = __webpack_require__(162);
+var _leagueActions = __webpack_require__(161);
 
 // ./flow/subReducers/leagueReducer.js
 // imported into ./flow/reducers.js
@@ -39687,7 +39691,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.leagueStandingsReducer = void 0;
 
-var _leagueStandingsActions = __webpack_require__(161);
+var _leagueStandingsActions = __webpack_require__(162);
 
 var initialState = {
   currentStandings: {}
