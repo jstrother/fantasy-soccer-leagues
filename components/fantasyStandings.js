@@ -10,7 +10,6 @@ import styles from '../scss/fantasyStandings.scss';
 export class FantasyTable extends React.Component {
 	componentDidMount() {
 		this.props.dispatch(leagueStandings());
-		console.log('leagueStandings:', this.props.currentStandings);
 	}
 	render() {
 		return(
@@ -22,13 +21,13 @@ export class FantasyTable extends React.Component {
 							<th>Position</th>
 							<th>Club</th>
 							<th>GP</th>
+							<th>Pts</th>
 							<th>W</th>
 							<th>D</th>
 							<th>L</th>
-							<th>GF</th>
-							<th>GA</th>
 							<th>GD</th>
-							<th>Pts</th>
+							<th>GA</th>
+							<th>GF</th>
 						</tr>
 					</thead>
 					<tbody>

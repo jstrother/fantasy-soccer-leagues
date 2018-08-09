@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f1f9bd753ede14738993"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5465ff52d6ede1d56d23"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38923,12 +38923,11 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.dispatch((0, _leagueStandingsActions.leagueStandings)());
-      console.log('leagueStandings:', this.props.currentStandings);
     }
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "Pts"))), _react.default.createElement("tbody", null)));
+      return _react.default.createElement("div", null, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "Pts"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "GA"), _react.default.createElement("th", null, "GF"))), _react.default.createElement("tbody", null)));
     }
   }]);
 
