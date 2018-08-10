@@ -21,7 +21,6 @@ leagueStandingsRouter.get('/',
       })
       .then(populatedMatchArray => {
         const currentStandings = standings(populatedClubArray, populatedMatchArray);
-        console.log('leagueStandingsRouter:', currentStandings[0].clubName);
         res.json(currentStandings);
       })
       .catch(error => {

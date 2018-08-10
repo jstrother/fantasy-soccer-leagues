@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5465ff52d6ede1d56d23"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "30ea5ff4348061e05e2c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7171,7 +7171,8 @@ var fetchUser = function fetchUser(accessToken) {
     }).then(function (currentUser) {
       dispatch(setUserSuccess(currentUser, 200));
     }).catch(function (error) {
-      throw new Error(error);
+      // throw new Error(error);
+      console.error('userActions.js:69-', error);
     });
   };
 };
@@ -38927,7 +38928,18 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "Pts"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "GA"), _react.default.createElement("th", null, "GF"))), _react.default.createElement("tbody", null)));
+      if (this.props.currentStandings) {
+        return _react.default.createElement("div", null, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "Pts"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"))), _react.default.createElement("tbody", null, this.props.currentStandings.map(function (club) {
+          return _react.default.createElement("tr", {
+            key: club._id,
+            id: "club-".concat(club.clubName)
+          }, _react.default.createElement("td", null), _react.default.createElement("td", null, club.clubName), _react.default.createElement("td", null, club.gamesPlayed), _react.default.createElement("td", null, club.points), _react.default.createElement("td", null, club.wins), _react.default.createElement("td", null, club.draws), _react.default.createElement("td", null, club.losses), _react.default.createElement("td", null, club.goalDifferential), _react.default.createElement("td", null, club.goalsFor), _react.default.createElement("td", null, club.goalsAgainst));
+        }))));
+      }
+
+      if (!this.props.currentStandings) {
+        return _react.default.createElement("div", null, _react.default.createElement("p", null, "We're sorry, something went wrong."));
+      }
     }
   }]);
 
@@ -39693,7 +39705,7 @@ exports.leagueStandingsReducer = void 0;
 var _leagueStandingsActions = __webpack_require__(162);
 
 var initialState = {
-  currentStandings: {}
+  currentStandings: []
 };
 
 var leagueStandingsReducer = function leagueStandingsReducer() {

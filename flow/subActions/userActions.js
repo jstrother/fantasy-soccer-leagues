@@ -66,7 +66,8 @@ export const fetchUser = accessToken => dispatch => {
     dispatch(setUserSuccess(currentUser, 200));
   })
   .catch(error => {
-    throw new Error(error);
+    // throw new Error(error);
+    console.error('userActions.js:69-', error);
   });
 };
 

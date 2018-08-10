@@ -1,7 +1,7 @@
 import {LEAGUE_STANDINGS_SUCCESS, LEAGUE_STANDINGS_FAIL} from '../subActions/leagueStandingsActions.js';
 
 const initialState = {
-  currentStandings: {}
+  currentStandings: []
 };
 
 export const leagueStandingsReducer = (state = initialState, action) => {
