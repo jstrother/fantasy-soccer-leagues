@@ -19,7 +19,6 @@ export class FantasyTable extends React.Component {
 					<table>
 						<thead>
 							<tr>
-								<th>Position</th>
 								<th>Club</th>
 								<th>GP</th>
 								<th>Pts</th>
@@ -39,8 +38,6 @@ export class FantasyTable extends React.Component {
 										<tr
 											key={club._id}
 											id={`club-${club.clubName}`}>
-											<td>
-											</td>
 											<td>
 												{club.clubName}
 											</td>
