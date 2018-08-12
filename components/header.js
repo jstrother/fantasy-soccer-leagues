@@ -19,6 +19,18 @@ export class Header extends React.Component {
     }
   }
   
+  rosterShowHide() {
+    
+  }
+  
+  scheduleShowHide() {
+    
+  }
+  
+  standingsShowHide() {
+    
+  }
+  
   render() {
     if (!this.props.displayName) {
       return (
@@ -44,6 +56,24 @@ export class Header extends React.Component {
             className={styles.title}>
             The Fantasy Soccer-Football Super League
           </h2>
+          <section
+            className={this.props.clubName ? styles.clubSection : styles.hidden}>
+            <p
+              className={styles.roster}
+              onclick={this.rosterShowHide}>
+              Roster
+            </p>
+            <p
+              className={styles.schedule}
+              onclick={this.scheduleShowHide}>
+              Schedule
+            </p>
+            <p
+              className={styles.standings}
+              onclick={this.standingsShowHide}>
+              Standings
+            </p>
+          </section>
           <section
             className={styles.userSection}>
             <h3
