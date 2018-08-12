@@ -14,7 +14,8 @@ export class FantasyTable extends React.Component {
 	render() {
 		if(this.props.currentStandings) {
 			return(
-				<div>
+				<div
+					className={this.props.standingsVisible ? styles.fantasySchedule : styles.hidden}>
 					Fantasy League Standings:
 					<table>
 						<thead>
@@ -87,7 +88,8 @@ export class FantasyTable extends React.Component {
 }
 
 const mapStandingsStateToProps = state => ({
-	currentStandings: state.leagueStandingsReducer.currentStandings
+	currentStandings: state.leagueStandingsReducer.currentStandings,
+	standingsVisible: state.displayReducer.standingsVisible
 });
 
 const FantasyStandings = connect(

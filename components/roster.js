@@ -9,16 +9,24 @@ import PlayerSelection from './playerSelection.js';
 import RosterDisplay from './rosterDisplay.js';
 import styles from '../scss/roster.scss';
 
-export class Roster extends React.Component {
+export class TeamRoster extends React.Component {
 	render() {
 		return(
 			<div
-				className={styles.rosterComponent}>
+				className={this.props.rosterVisible ? styles.rosterComponent : styles.hidden}>
 				<PlayerSelection />
 				<RosterDisplay />
 			</div>
 		);
 	}
 }
+
+const mapRosterStateToProps = state => (
+	{
+		rosterVisible: state.displayReducer.rosterVisible
+	}
+);
+
+const Roster = connect(mapRosterStateToProps)(TeamRoster);
 
 export default CSSModules(Roster, styles);

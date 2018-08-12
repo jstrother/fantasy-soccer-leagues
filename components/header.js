@@ -8,7 +8,7 @@ import * as Cookies from 'js-cookie';
 import CSSModules from 'react-css-modules';
 import { LoginPage } from './loginPage.js';
 import { fetchUser } from '../flow/subActions/userActions.js';
-
+import { rosterShow, rosterHide, scheduleShow, scheduleHide, standingsShow, standingsHide } from '../flow/subActions/displayActions.js';
 import styles from '../scss/header.scss';
 
 export class Header extends React.Component {
@@ -19,16 +19,22 @@ export class Header extends React.Component {
     }
   }
   
-  rosterShowHide() {
-    
+  rosterDisplaying() {
+    this.props.dispatch(scheduleHide());
+    this.props.dispatch(standingsHide());
+    this.props.dispatch(rosterShow());
   }
   
-  scheduleShowHide() {
-    
+  scheduleDisplaying() {
+    this.props.dispatch(rosterHide());
+    this.props.dispatch(standingsHide());
+    this.props.dispatch(scheduleShow());
   }
   
-  standingsShowHide() {
-    
+  standingsDisplaying() {
+    this.props.dispatch(rosterHide());
+    this.props.dispatch(scheduleHide());
+    this.props.dispatch(standingsShow());
   }
   
   render() {
@@ -60,17 +66,17 @@ export class Header extends React.Component {
             className={this.props.clubName ? styles.clubSection : styles.hidden}>
             <p
               className={styles.roster}
-              onclick={this.rosterShowHide}>
+              onClick={this.rosterDisplaying.bind(this)}>
               Roster
             </p>
             <p
               className={styles.schedule}
-              onclick={this.scheduleShowHide}>
+              onClick={this.scheduleDisplaying.bind(this)}>
               Schedule
             </p>
             <p
               className={styles.standings}
-              onclick={this.standingsShowHide}>
+              onClick={this.standingsDisplaying.bind(this)}>
               Standings
             </p>
           </section>

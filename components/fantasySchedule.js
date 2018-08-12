@@ -41,9 +41,12 @@ export class Schedule extends React.Component {
 	}
 	render() {
 		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
+		const rosterLengthCheck = rosterLength < 23 ? styles.hidden : styles.fantasySchedule;
+		const elementDisplay = this.props.scheduleVisible ? styles.fantasySchedule : styles.hidden;
+		const multiClassNames = `${rosterLengthCheck} ${elementDisplay}`;
 		return(
 			<div
-				className={rosterLength < 23 ? styles.hidden : styles.fantasySchedule}>
+				className={multiClassNames}>
 				<p>Set your lineup for upcoming matches.</p>
 				<Warning />
 				<div>
@@ -74,7 +77,8 @@ const mapScheduleStateToProps = state => ({
 	leagueScheduleId: state.fantasyClubReducer.leagueScheduleId,
 	scheduleCreated: state.fantasyScheduleReducer.scheduleCreated,
 	scheduleUpdate: state.fantasyScheduleReducer.scheduleUpdate,
-	matchesResolved: state.fantasyScheduleReducer.matchesResolved
+	matchesResolved: state.fantasyScheduleReducer.matchesResolved,
+	scheduleVisible: state.displayReducer.scheduleVisible
 });
 
 const FantasySchedule = connect(
