@@ -4,6 +4,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import StartingEleven from './startingEleven.js';
+import BenchPlayers from './benchPlayers.js';
+import Warning from './warning.js';
 import CSSModules from 'react-css-modules';
 import { removeGoalkeeper, removeDefender, removeMidfielder, removeForward, addStarter, addBench, removeStarter, removeBench } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
@@ -125,94 +128,108 @@ export class Display extends React.Component {
     return(
       <div
 				className={styles.rosterDisplay}>
-				Roster:
-				<h5>Click on a player's name to view their stats.</h5>
-				<table>
-					<thead>
-						<tr>
-							<th>
-								Name
-							</th>
-							<th>
-								Position
-							</th>
-							<th>
-								Club
-							</th>
-							<th>
-								Points Last Match
-							</th>
-							<th>
-								Starter?
-							</th>
-							<th>
-								Reserve?
-							</th>
-							<th>
-								Remove
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{
-							roster
-							.map(p => {
-								return(
-									<tr
-										id={`ros-${p.idFromAPI}`}
-										key={`key-${p.idFromAPI}`}>
-										<td
-											className={styles.pointer}
-											data-id={p.idFromAPI}
-											onClick={this.showPlayerStats.bind(this)}>
-											{`${p.firstName} ${p.lastName}`}
-										</td>
-										<td>
-											{`${p.position}`}
-										</td>
-										<td>
-											{`${p.clubName}`}
-										</td>
-										<td>
-											{`${p.fantasyPoints.fixture}`}
-										</td>
-										<td
-											className={styles.pointer}
-											data-id={p.idFromAPI}
-											data-firstname={p.firstName}
-											data-lastname={p.lastName}
-											data-position={p.position}
-											data-points={p.fantasyPoints.fixture}
-											onClick={this.addStartingPlayer.bind(this)}>
-											Make Starter
-										</td>
-										<td
-											className={styles.pointer}
-											data-id={p.idFromAPI}
-											data-firstname={p.firstName}
-											data-lastname={p.lastName}
-											data-position={p.position}
-											data-points={p.fantasyPoints.fixture}
-											onClick={this.addBenchPlayer.bind(this)}>
-											Have on Bench
-										</td>
-										<td
-											className={styles.pointer}
-											data-id={p.idFromAPI}
-											data-firstname={p.firstName}
-											data-lastname={p.lastName}
-											data-position={p.position}
-											data-clubname={p.clubName}
-											data-points={p.fantasyPoints.fixture}
-											onClick={this.handleRosterRemove.bind(this)}>
-											Remove
-										</td>
-									</tr>
-								);
-							})
-						}
-					</tbody>
-				</table>
+				<div>
+					Roster:
+					<h5>Click on a player's name to view their stats.</h5>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Name
+								</th>
+								<th>
+									Position
+								</th>
+								<th>
+									Club
+								</th>
+								<th>
+									Points Last Match
+								</th>
+								<th>
+									Starter?
+								</th>
+								<th>
+									Reserve?
+								</th>
+								<th>
+									Remove
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								roster
+								.map(p => {
+									return(
+										<tr
+											id={`ros-${p.idFromAPI}`}
+											key={`key-${p.idFromAPI}`}>
+											<td
+												className={styles.pointer}
+												data-id={p.idFromAPI}
+												onClick={this.showPlayerStats.bind(this)}>
+												{`${p.firstName} ${p.lastName}`}
+											</td>
+											<td>
+												{`${p.position}`}
+											</td>
+											<td>
+												{`${p.clubName}`}
+											</td>
+											<td>
+												{`${p.fantasyPoints.fixture}`}
+											</td>
+											<td
+												className={styles.pointer}
+												data-id={p.idFromAPI}
+												data-firstname={p.firstName}
+												data-lastname={p.lastName}
+												data-position={p.position}
+												data-points={p.fantasyPoints.fixture}
+												onClick={this.addStartingPlayer.bind(this)}>
+												Make Starter
+											</td>
+											<td
+												className={styles.pointer}
+												data-id={p.idFromAPI}
+												data-firstname={p.firstName}
+												data-lastname={p.lastName}
+												data-position={p.position}
+												data-points={p.fantasyPoints.fixture}
+												onClick={this.addBenchPlayer.bind(this)}>
+												Have on Bench
+											</td>
+											<td
+												className={styles.pointer}
+												data-id={p.idFromAPI}
+												data-firstname={p.firstName}
+												data-lastname={p.lastName}
+												data-position={p.position}
+												data-clubname={p.clubName}
+												data-points={p.fantasyPoints.fixture}
+												onClick={this.handleRosterRemove.bind(this)}>
+												Remove
+											</td>
+										</tr>
+									);
+								})
+							}
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<p>Set your lineup for upcoming matches.</p>
+					<Warning />
+					<div>
+						Your Starting 11:
+						<StartingEleven />
+					</div>
+					<div>
+						Players Available on Bench (7 required):
+						<BenchPlayers />
+					</div>
+				</div>
 			</div>
     );
   }

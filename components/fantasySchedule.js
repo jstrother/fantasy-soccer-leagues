@@ -5,9 +5,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import ScheduleDisplay from './scheduleDisplay.js';
-import StartingEleven from './startingEleven.js';
-import BenchPlayers from './benchPlayers.js';
-import Warning from './warning.js';
 import { createSchedule, wasScheduleCreated, matchResolve, wereMatchesResolved, matchResolveFalse } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import styles from '../scss/fantasySchedule.scss';
@@ -47,16 +44,6 @@ export class Schedule extends React.Component {
 		return(
 			<div
 				className={multiClassNames}>
-				<p>Set your lineup for upcoming matches.</p>
-				<Warning />
-				<div>
-					Your Starting 11:
-					<StartingEleven />
-				</div>
-				<div>
-					Players Available on Bench (7 required):
-					<BenchPlayers />
-				</div>
 				<ScheduleDisplay />
 			</div>
 		);

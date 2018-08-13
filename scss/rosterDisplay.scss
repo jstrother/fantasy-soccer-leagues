@@ -2,6 +2,9 @@
 @import "myVariables";
 
 .rosterDisplay {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
   width: $tableWidth;
   
   table {

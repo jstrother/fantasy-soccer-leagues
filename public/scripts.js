@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "89ab5f87ce1f8f1f972c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9a64ec46db1648bcdaa9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -16557,7 +16557,7 @@ var _reactRedux = __webpack_require__(9);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
-var _warning = _interopRequireDefault(__webpack_require__(452));
+var _warning = _interopRequireDefault(__webpack_require__(451));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37526,7 +37526,7 @@ var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
 var _fantasySchedule = _interopRequireDefault(__webpack_require__(443));
 
-var _roster = _interopRequireDefault(__webpack_require__(454));
+var _roster = _interopRequireDefault(__webpack_require__(449));
 
 var _fantasyStandings = _interopRequireDefault(__webpack_require__(460));
 
@@ -37675,17 +37675,11 @@ var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
 var _scheduleDisplay = _interopRequireDefault(__webpack_require__(444));
 
-var _startingEleven = _interopRequireDefault(__webpack_require__(448));
-
-var _benchPlayers = _interopRequireDefault(__webpack_require__(450));
-
-var _warning = _interopRequireDefault(__webpack_require__(161));
-
 var _fantasyScheduleActions = __webpack_require__(90);
 
 var _fantasyClubActions = __webpack_require__(20);
 
-var _fantasySchedule = _interopRequireDefault(__webpack_require__(453));
+var _fantasySchedule = _interopRequireDefault(__webpack_require__(448));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37760,7 +37754,7 @@ function (_React$Component) {
       var multiClassNames = "".concat(rosterLengthCheck, " ").concat(elementDisplay);
       return _react.default.createElement("div", {
         className: multiClassNames
-      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null)), _react.default.createElement(_scheduleDisplay.default, null));
+      }, _react.default.createElement(_scheduleDisplay.default, null));
     }
   }]);
 
@@ -38086,260 +38080,13 @@ module.exports = {"hidden":"scheduleDisplay__hidden__3q_Nu"};
 
 /***/ }),
 /* 448 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.Starters = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(4));
-
-var _reactRedux = __webpack_require__(9);
-
-var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
-
-var _fantasyClubActions = __webpack_require__(20);
-
-var _startingEleven = _interopRequireDefault(__webpack_require__(449));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var Starters =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Starters, _React$Component);
-
-  function Starters() {
-    _classCallCheck(this, Starters);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Starters).apply(this, arguments));
-  }
-
-  _createClass(Starters, [{
-    key: "handleMatchdayRemove",
-    value: function handleMatchdayRemove(event) {
-      var dataSet = event.target.dataset,
-          player = {
-        idFromAPI: parseInt(dataSet.id, 10),
-        firstName: dataSet.firstname,
-        lastName: dataSet.lastname,
-        position: dataSet.position
-      };
-      this.props.dispatch((0, _fantasyClubActions.removeStarter)(this.props.accessToken, this.props.userId, player));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      var starters = this.props.starters === undefined ? 0 : this.props.starters.length;
-
-      if (starters > 0) {
-        return _react.default.createElement("div", {
-          className: _startingEleven.default.startingEleven
-        }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Starting 11?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
-          return _react.default.createElement("tr", {
-            id: "s11-".concat(p.idFromAPI),
-            key: "key-".concat(p.idFromAPI)
-          }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", {
-            className: _startingEleven.default.pointer,
-            "data-id": p.idFromAPI,
-            "data-firstname": p.firstName,
-            "data-lastname": p.lastName,
-            "data-position": p.position,
-            onClick: _this.handleMatchdayRemove.bind(_this)
-          }, "Remove"));
-        }))));
-      } else {
-        return _react.default.createElement("div", null, "You have no starting players yet.");
-      }
-    }
-  }]);
-
-  return Starters;
-}(_react.default.Component);
-
-exports.Starters = Starters;
-
-var mapStartersStateToProps = function mapStartersStateToProps(state) {
-  return {
-    userId: state.userReducer.userId,
-    accessToken: state.userReducer.accessToken,
-    starters: state.fantasyClubReducer.starters
-  };
-};
-
-var StartingEleven = (0, _reactRedux.connect)(mapStartersStateToProps)(Starters);
-
-var _default = (0, _reactCssModules.default)(StartingEleven, _startingEleven.default);
-
-exports.default = _default;
-
-/***/ }),
-/* 449 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"startingEleven":"startingEleven__startingEleven__7MfxE","pointer":"startingEleven__pointer__2Hebq","hidden":"startingEleven__hidden__1-AwT"};
-
-/***/ }),
-/* 450 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.Bench = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(4));
-
-var _reactRedux = __webpack_require__(9);
-
-var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
-
-var _fantasyClubActions = __webpack_require__(20);
-
-var _benchPlayers = _interopRequireDefault(__webpack_require__(451));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var Bench =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Bench, _React$Component);
-
-  function Bench() {
-    _classCallCheck(this, Bench);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Bench).apply(this, arguments));
-  }
-
-  _createClass(Bench, [{
-    key: "handleMatchdayRemove",
-    value: function handleMatchdayRemove(event) {
-      var dataSet = event.target.dataset,
-          player = {
-        idFromAPI: parseInt(dataSet.id, 10),
-        firstName: dataSet.firstname,
-        lastName: dataSet.lastname,
-        position: dataSet.position
-      };
-      this.props.dispatch((0, _fantasyClubActions.removeBench)(this.props.accessToken, this.props.userId, player));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      var benchwarmers = this.props.benchwarmers === undefined ? 0 : this.props.benchwarmers.length;
-
-      if (benchwarmers > 0) {
-        return _react.default.createElement("div", {
-          className: _benchPlayers.default.benchPlayers
-        }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Bench?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
-          return _react.default.createElement("tr", {
-            id: "s11-".concat(p.idFromAPI),
-            key: "key-".concat(p.idFromAPI)
-          }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", {
-            className: _benchPlayers.default.pointer,
-            "data-id": p.idFromAPI,
-            "data-firstname": p.firstName,
-            "data-lastname": p.lastName,
-            "data-position": p.position,
-            onClick: _this.handleMatchdayRemove.bind(_this)
-          }, "Remove"));
-        }))));
-      } else {
-        return _react.default.createElement("div", null, "You have no bench players yet.");
-      }
-    }
-  }]);
-
-  return Bench;
-}(_react.default.Component);
-
-exports.Bench = Bench;
-
-var mapBenchStateToProps = function mapBenchStateToProps(state) {
-  return {
-    userId: state.userReducer.userId,
-    accessToken: state.userReducer.accessToken,
-    benchwarmers: state.fantasyClubReducer.benchwarmers
-  };
-};
-
-var BenchPlayers = (0, _reactRedux.connect)(mapBenchStateToProps)(Bench);
-
-var _default = (0, _reactCssModules.default)(BenchPlayers, _benchPlayers.default);
-
-exports.default = _default;
-
-/***/ }),
-/* 451 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","pointer":"benchPlayers__pointer__3hGpZ","hidden":"benchPlayers__hidden__3dASr"};
-
-/***/ }),
-/* 452 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warning__hidden__IUqCI"};
-
-/***/ }),
-/* 453 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"hidden":"fantasySchedule__hidden__KG9ET"};
 
 /***/ }),
-/* 454 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38356,9 +38103,9 @@ var _reactRedux = __webpack_require__(9);
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
-var _playerSelection = _interopRequireDefault(__webpack_require__(455));
+var _playerSelection = _interopRequireDefault(__webpack_require__(450));
 
-var _rosterDisplay = _interopRequireDefault(__webpack_require__(457));
+var _rosterDisplay = _interopRequireDefault(__webpack_require__(453));
 
 var _roster = _interopRequireDefault(__webpack_require__(459));
 
@@ -38420,7 +38167,7 @@ var _default = (0, _reactCssModules.default)(Roster, _roster.default);
 exports.default = _default;
 
 /***/ }),
-/* 455 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38449,7 +38196,7 @@ var _warningActions = __webpack_require__(59);
 
 var _compare_function = __webpack_require__(160);
 
-var _playerSelection = _interopRequireDefault(__webpack_require__(456));
+var _playerSelection = _interopRequireDefault(__webpack_require__(452));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38712,14 +38459,21 @@ var _default = (0, _reactCssModules.default)(PlayerSelection, _playerSelection.d
 exports.default = _default;
 
 /***/ }),
-/* 456 */
+/* 451 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warning__hidden__IUqCI"};
+
+/***/ }),
+/* 452 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","hidden":"playerSelection__hidden__1wvZE"};
 
 /***/ }),
-/* 457 */
+/* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38733,6 +38487,12 @@ exports.default = exports.Display = void 0;
 var _react = _interopRequireDefault(__webpack_require__(4));
 
 var _reactRedux = __webpack_require__(9);
+
+var _startingEleven = _interopRequireDefault(__webpack_require__(454));
+
+var _benchPlayers = _interopRequireDefault(__webpack_require__(456));
+
+var _warning = _interopRequireDefault(__webpack_require__(161));
 
 var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
 
@@ -38916,7 +38676,7 @@ function (_React$Component) {
       roster.push.apply(roster, this.props.forwards);
       return _react.default.createElement("div", {
         className: _rosterDisplay.default.rosterDisplay
-      }, "Roster:", _react.default.createElement("h5", null, "Click on a player's name to view their stats."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove"))), _react.default.createElement("tbody", null, roster.map(function (p) {
+      }, _react.default.createElement("div", null, "Roster:", _react.default.createElement("h5", null, "Click on a player's name to view their stats."), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove"))), _react.default.createElement("tbody", null, roster.map(function (p) {
         return _react.default.createElement("tr", {
           id: "ros-".concat(p.idFromAPI),
           key: "key-".concat(p.idFromAPI)
@@ -38950,7 +38710,7 @@ function (_React$Component) {
           "data-points": p.fantasyPoints.fixture,
           onClick: _this4.handleRosterRemove.bind(_this4)
         }, "Remove"));
-      }))));
+      })))), _react.default.createElement("div", null, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null))));
     }
   }]);
 
@@ -38977,6 +38737,246 @@ var RosterDisplay = (0, _reactRedux.connect)(mapDisplayStateToProps)(Display);
 var _default = (0, _reactCssModules.default)(RosterDisplay, _rosterDisplay.default);
 
 exports.default = _default;
+
+/***/ }),
+/* 454 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.Starters = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(4));
+
+var _reactRedux = __webpack_require__(9);
+
+var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
+
+var _fantasyClubActions = __webpack_require__(20);
+
+var _startingEleven = _interopRequireDefault(__webpack_require__(455));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Starters =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Starters, _React$Component);
+
+  function Starters() {
+    _classCallCheck(this, Starters);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Starters).apply(this, arguments));
+  }
+
+  _createClass(Starters, [{
+    key: "handleMatchdayRemove",
+    value: function handleMatchdayRemove(event) {
+      var dataSet = event.target.dataset,
+          player = {
+        idFromAPI: parseInt(dataSet.id, 10),
+        firstName: dataSet.firstname,
+        lastName: dataSet.lastname,
+        position: dataSet.position
+      };
+      this.props.dispatch((0, _fantasyClubActions.removeStarter)(this.props.accessToken, this.props.userId, player));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var starters = this.props.starters === undefined ? 0 : this.props.starters.length;
+
+      if (starters > 0) {
+        return _react.default.createElement("div", {
+          className: _startingEleven.default.startingEleven
+        }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Starting 11?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
+          return _react.default.createElement("tr", {
+            id: "s11-".concat(p.idFromAPI),
+            key: "key-".concat(p.idFromAPI)
+          }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", {
+            className: _startingEleven.default.pointer,
+            "data-id": p.idFromAPI,
+            "data-firstname": p.firstName,
+            "data-lastname": p.lastName,
+            "data-position": p.position,
+            onClick: _this.handleMatchdayRemove.bind(_this)
+          }, "Remove"));
+        }))));
+      } else {
+        return _react.default.createElement("div", null, "You have no starting players yet.");
+      }
+    }
+  }]);
+
+  return Starters;
+}(_react.default.Component);
+
+exports.Starters = Starters;
+
+var mapStartersStateToProps = function mapStartersStateToProps(state) {
+  return {
+    userId: state.userReducer.userId,
+    accessToken: state.userReducer.accessToken,
+    starters: state.fantasyClubReducer.starters
+  };
+};
+
+var StartingEleven = (0, _reactRedux.connect)(mapStartersStateToProps)(Starters);
+
+var _default = (0, _reactCssModules.default)(StartingEleven, _startingEleven.default);
+
+exports.default = _default;
+
+/***/ }),
+/* 455 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"startingEleven":"startingEleven__startingEleven__7MfxE","pointer":"startingEleven__pointer__2Hebq","hidden":"startingEleven__hidden__1-AwT"};
+
+/***/ }),
+/* 456 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.Bench = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(4));
+
+var _reactRedux = __webpack_require__(9);
+
+var _reactCssModules = _interopRequireDefault(__webpack_require__(8));
+
+var _fantasyClubActions = __webpack_require__(20);
+
+var _benchPlayers = _interopRequireDefault(__webpack_require__(457));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Bench =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Bench, _React$Component);
+
+  function Bench() {
+    _classCallCheck(this, Bench);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Bench).apply(this, arguments));
+  }
+
+  _createClass(Bench, [{
+    key: "handleMatchdayRemove",
+    value: function handleMatchdayRemove(event) {
+      var dataSet = event.target.dataset,
+          player = {
+        idFromAPI: parseInt(dataSet.id, 10),
+        firstName: dataSet.firstname,
+        lastName: dataSet.lastname,
+        position: dataSet.position
+      };
+      this.props.dispatch((0, _fantasyClubActions.removeBench)(this.props.accessToken, this.props.userId, player));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var benchwarmers = this.props.benchwarmers === undefined ? 0 : this.props.benchwarmers.length;
+
+      if (benchwarmers > 0) {
+        return _react.default.createElement("div", {
+          className: _benchPlayers.default.benchPlayers
+        }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Bench?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
+          return _react.default.createElement("tr", {
+            id: "s11-".concat(p.idFromAPI),
+            key: "key-".concat(p.idFromAPI)
+          }, _react.default.createElement("td", null, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", {
+            className: _benchPlayers.default.pointer,
+            "data-id": p.idFromAPI,
+            "data-firstname": p.firstName,
+            "data-lastname": p.lastName,
+            "data-position": p.position,
+            onClick: _this.handleMatchdayRemove.bind(_this)
+          }, "Remove"));
+        }))));
+      } else {
+        return _react.default.createElement("div", null, "You have no bench players yet.");
+      }
+    }
+  }]);
+
+  return Bench;
+}(_react.default.Component);
+
+exports.Bench = Bench;
+
+var mapBenchStateToProps = function mapBenchStateToProps(state) {
+  return {
+    userId: state.userReducer.userId,
+    accessToken: state.userReducer.accessToken,
+    benchwarmers: state.fantasyClubReducer.benchwarmers
+  };
+};
+
+var BenchPlayers = (0, _reactRedux.connect)(mapBenchStateToProps)(Bench);
+
+var _default = (0, _reactCssModules.default)(BenchPlayers, _benchPlayers.default);
+
+exports.default = _default;
+
+/***/ }),
+/* 457 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","pointer":"benchPlayers__pointer__3hGpZ","hidden":"benchPlayers__hidden__3dASr"};
 
 /***/ }),
 /* 458 */

@@ -1,22 +1,19 @@
 // variables for responsive site
 
-$iphoneP: max-width 480px 4 !default;
-$gtIphoneP: min-width 481px 4 !default;
+$iphone: 480px; // max-width
+$gtIphone: 481px; // min-width
 
-$mobile: max-width 640px 4 !default;
-$gtMobile: min-width 641px 12 !default;
+$mobile: 640px; // max-width
+$gtMobile: 641px; // min-width
 
-$tabletP: max-width 768px 12 !default;
-$gtTabletP: min-width 769px 12 !default;
+$tabletP: 768px; // max-width
+$gtTabletP: 769px; // min-width
 
-$tabletPH: max-height 768px 4 !default;
-$gtTabletPH: min-height 769px 4 !default;
+$tabletL: 1024px; // max-width
+$gtTabletL: 1025px; // min-width
 
-$tabletL: max-width 1024px 12 !default;
-$gtTabletL: min-width 1025px 12 !default;
+$desktop: 990px; // max-width
+$gtDesktop: 991px; // min-width
 
-$desktop: max-width 990px 12 !default;
-$gtDesktop: min-width 991px 12 !default;
-
-$cinema: max-width 1400px 12 !default;
-$gtCinema: min-width 1401px 12 !default;
+$cinema: 1400px; // max-width
+$gtCinema: 1401px; // min-width
