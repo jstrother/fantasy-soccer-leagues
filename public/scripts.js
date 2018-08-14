@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9a64ec46db1648bcdaa9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a05e542a9d2f4a0e9842"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -36586,8 +36586,10 @@ function (_React$Component) {
         return _react.default.createElement("header", {
           className: _header.default.toolbar
         }, _react.default.createElement("h2", {
-          className: _header.default.title
-        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("section", {
+          className: _header.default.largeTitle
+        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("h2", {
+          className: _header.default.mobileTitle
+        }, "The FSFSL"), _react.default.createElement("section", {
           className: _header.default.userSection
         }, _react.default.createElement(_loginPage.LoginPage, null)));
       }
@@ -36596,8 +36598,10 @@ function (_React$Component) {
         return _react.default.createElement("header", {
           className: _header.default.toolbar
         }, _react.default.createElement("h2", {
-          className: _header.default.title
-        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("section", {
+          className: _header.default.largeTitle
+        }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("h2", {
+          className: _header.default.mobileTitle
+        }, "The FSFSL"), _react.default.createElement("section", {
           className: this.props.clubName ? _header.default.clubSection : _header.default.hidden
         }, _react.default.createElement("p", {
           className: _header.default.roster,
@@ -36618,10 +36622,10 @@ function (_React$Component) {
           className: _header.default.userPhoto,
           src: this.props.userPhoto,
           alt: "".concat(this.props.displayName, "'s picture")
-        }), _react.default.createElement("p", null, _react.default.createElement("a", {
+        })), _react.default.createElement("a", {
           href: '/user/auth/logout',
           className: _header.default.link
-        }, "Log Out"))));
+        }, "Log Out"));
       }
     }
   }]);
@@ -37367,7 +37371,7 @@ module.exports = {"link":"loginPage__link__3qoZW"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"toolbar":"header__toolbar__1Evjs","title":"header__title__19n9o","userSection":"header__userSection__1vBlL","userName":"header__userName__2mr9b","userPhoto":"header__userPhoto__3AS2d","clubName":"header__clubName__3DGs-","link":"header__link__3EBE4","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","hidden":"header__hidden__ie2J1"};
+module.exports = {"toolbar":"header__toolbar__1Evjs","mobileTitle":"header__mobileTitle__9sMKh","largeTitle":"header__largeTitle__3j3xK","userSection":"header__userSection__1vBlL","userName":"header__userName__2mr9b","userPhoto":"header__userPhoto__3AS2d","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","link":"header__link__3EBE4","clubName":"header__clubName__3DGs-","hidden":"header__hidden__ie2J1"};
 
 /***/ }),
 /* 441 */

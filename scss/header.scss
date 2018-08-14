@@ -1,22 +1,101 @@
 @import "normalize";
 @import "myVariables";
 
-.toolbar {
-  width: 100%;
-  margin: -0.5em -12em 0 -0.5em;
-  padding: 0.5em;
-  background: grey;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-flow: row nowrap;
-  
-  .title{
-    flex: 0 3 auto;
+@media (max-width: $midpoint) {
+  .toolbar {
+    width: 100%;
+    margin: -0.5em -12em 0 -0.5em;
+    padding: 0.5em;
+    background: grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column nowrap;
+    
+    .mobileTitle {
+      flex: 0 3 auto;
+    }
+    
+    .largeTitle {
+      display: none;
+    }
+    
+    .userSection {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around;
+      align-items: center;
+      align-content: center;
+      flex: 0 1 auto;
+      order: 0;
+      
+      .userName {
+        display: none;
+      }
+      
+      .userPhoto {
+        margin-left: 1.5em;
+        height: 4em;
+      }
+    }
+    
+    .clubSection {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around;
+      align-items: center;
+      align-content: center;
+      flex: 0 1 auto;
+      order: 1;
+      
+      .roster {
+        margin-right: 0.5em;
+        cursor: pointer;
+        font-size: 1.15em;
+      }
+      
+      .schedule {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        cursor: pointer;
+        font-size: 1.15em;
+      }
+      
+      .standings {
+        margin-left: 0.5em;
+        cursor: pointer;
+        font-size: 1.15em;
+      }
+    }
+    
+    .link {
+      text-decoration: none;
+      color: black;
+      font-size: 0.75em;
+      margin-left: 0.75em;
+      order: 2;
+      align-self: flex-end;
+    }
   }
-  
-  @media (min-width: $gtMobile) {
-    .title {
+}
+
+@media (min-width: $gtMidpoint) {
+  .toolbar {
+    width: 100%;
+    margin: -0.5em -12em 0 -0.5em;
+    padding: 0.5em;
+    background: grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
+    
+    .mobileTitle {
+      display: none;
+    }
+    
+    .largeTitle {
       flex: 0 3 auto;
     }
     
@@ -40,13 +119,6 @@
       
       .clubName {
         margin-right: -0.5em;
-      }
-      
-      .link {
-        text-decoration: none;
-        color: black;
-        font-size: 0.75em;
-        margin-left: 0.75em;
       }
     }
     
@@ -78,8 +150,15 @@
       }
     }
     
-    .hidden {
-      display: none;
+    .link {
+      text-decoration: none;
+      color: black;
+      font-size: 0.75em;
+      margin-left: 0.75em;
     }
   }
+}
+
+.hidden {
+  display: none;
 }

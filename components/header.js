@@ -43,8 +43,12 @@ export class Header extends React.Component {
         <header
           className={styles.toolbar}>
           <h2
-            className={styles.title}>
+            className={styles.largeTitle}>
             The Fantasy Soccer-Football Super League
+          </h2>
+          <h2
+            className={styles.mobileTitle}>
+            The FSFSL
           </h2>
           <section 
             className={styles.userSection}>
@@ -59,8 +63,12 @@ export class Header extends React.Component {
         <header
           className={styles.toolbar}>
           <h2
-            className={styles.title}>
+            className={styles.largeTitle}>
             The Fantasy Soccer-Football Super League
+          </h2>
+          <h2
+            className={styles.mobileTitle}>
+            The FSFSL
           </h2>
           <section
             className={this.props.clubName ? styles.clubSection : styles.hidden}>
@@ -94,10 +102,8 @@ export class Header extends React.Component {
               className={styles.userPhoto}
               src={this.props.userPhoto} 
               alt={`${this.props.displayName}'s picture`}/>
-            <p>
-              <a href={'/user/auth/logout'} className={styles.link}>Log Out</a>
-            </p>
           </section>
+          <a href={'/user/auth/logout'} className={styles.link}>Log Out</a>
         </header>
       );
     }
