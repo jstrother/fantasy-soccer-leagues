@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a05e542a9d2f4a0e9842"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "33b7abf383f431d5e968"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37371,7 +37371,7 @@ module.exports = {"link":"loginPage__link__3qoZW"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"toolbar":"header__toolbar__1Evjs","mobileTitle":"header__mobileTitle__9sMKh","largeTitle":"header__largeTitle__3j3xK","userSection":"header__userSection__1vBlL","userName":"header__userName__2mr9b","userPhoto":"header__userPhoto__3AS2d","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","link":"header__link__3EBE4","clubName":"header__clubName__3DGs-","hidden":"header__hidden__ie2J1"};
+module.exports = {"toolbar":"header__toolbar__1Evjs","userSection":"header__userSection__1vBlL","userPhoto":"header__userPhoto__3AS2d","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","link":"header__link__3EBE4","hidden":"header__hidden__ie2J1","mobileTitle":"header__mobileTitle__9sMKh","largeTitle":"header__largeTitle__3j3xK","userName":"header__userName__2mr9b","clubName":"header__clubName__3DGs-"};
 
 /***/ }),
 /* 441 */
