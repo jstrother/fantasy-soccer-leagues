@@ -3,10 +3,21 @@
 
 .rosterComponent {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 }
 
 .hidden {
   display: none;
+}
+
+@media (max-width: $midpoint) {
+  .rosterComponent {
+    flex-flow: column nowrap;
+  }
+}
+
+@media (min-width: $gtMidpoint) {
+  .rosterComponent {
+    flex-flow: row nowrap;
+  }
 }

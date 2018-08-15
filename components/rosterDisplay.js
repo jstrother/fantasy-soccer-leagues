@@ -166,7 +166,7 @@ export class Display extends React.Component {
 											id={`ros-${p.idFromAPI}`}
 											key={`key-${p.idFromAPI}`}>
 											<td
-												className={styles.pointer}
+												className={styles.clickable}
 												data-id={p.idFromAPI}
 												onClick={this.showPlayerStats.bind(this)}>
 												{`${p.firstName} ${p.lastName}`}
@@ -181,7 +181,7 @@ export class Display extends React.Component {
 												{`${p.fantasyPoints.fixture}`}
 											</td>
 											<td
-												className={styles.pointer}
+												className={styles.clickable}
 												data-id={p.idFromAPI}
 												data-firstname={p.firstName}
 												data-lastname={p.lastName}
@@ -191,7 +191,7 @@ export class Display extends React.Component {
 												Make Starter
 											</td>
 											<td
-												className={styles.pointer}
+												className={styles.clickable}
 												data-id={p.idFromAPI}
 												data-firstname={p.firstName}
 												data-lastname={p.lastName}
@@ -201,7 +201,7 @@ export class Display extends React.Component {
 												Have on Bench
 											</td>
 											<td
-												className={styles.pointer}
+												className={styles.clickable}
 												data-id={p.idFromAPI}
 												data-firstname={p.firstName}
 												data-lastname={p.lastName}

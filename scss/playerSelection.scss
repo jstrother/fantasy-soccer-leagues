@@ -2,52 +2,77 @@
 @import "myVariables";
 
 .playerSelection {
-  width: $tableWidth;
   
-  table {
-    border: $tableBorder;
-    width: 100%;
-    
-    thead > tr {
-      display: block;
-      position: relative;
-    }
-    
-    tbody {
-      display: block;
-      height: 20em;
-      overflow: auto;
-    }
-    
-    th {
-      width: $tableWidth / 4;
-      
-      &:last-of-type {
-        padding-right: 1em;
-      }
-    }
-    
-    tr {
-      outline: $tableBorder;
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
-    }
-    
-    td {
-      text-align: center;
-      width: $tableWidth / 4;
-    }
-    
-    .playerName {
-      cursor: pointer;
-    }
-    
-    .playerRemove {
-      cursor: pointer;
-    }
+}
+
+table {
+  border: $tableBorder;
+  width: 100%;
+}
+
+thead > tr {
+  display: block;
+  position: relative;
+}
+
+tbody {
+  display: block;
+  height: 20em;
+  overflow: auto;
+}
+
+th {
+  &:last-of-type {
+    padding-right: 1em;
   }
+}
+
+tr {
+  outline: $tableBorder;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+td {
+  text-align: center;
+}
+
+.playerName {
+  cursor: pointer;
+}
+
+.playerRemove {
+  cursor: pointer;
 }
 
 .hidden {
   display: none;
+}
+
+@media (max-width: $midpoint) {
+  .playerSelection {
+    width: $tableWidthMobile;
+  }
+  
+  th {
+    width: $tableWidthMobile / 4;
+  }
+  
+  td {
+    width: $tableWidthMobile / 4;
+  }
+}
+
+@media (min-width: $gtMidpoint) {
+  .playerSelection {
+    width: $tableWidth;
+  }
+  
+  th {
+    width: $tableWidth / 4;
+  }
+  
+  td {
+    width: $tableWidth / 4;
+  }
 }

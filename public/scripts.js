@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "33b7abf383f431d5e968"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "70cfa16ff50de7234850"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38474,7 +38474,7 @@ module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warn
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","hidden":"playerSelection__hidden__1wvZE"};
+module.exports = {"playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","hidden":"playerSelection__hidden__1wvZE","playerSelection":"playerSelection__playerSelection__34mEp"};
 
 /***/ }),
 /* 453 */
@@ -38685,11 +38685,11 @@ function (_React$Component) {
           id: "ros-".concat(p.idFromAPI),
           key: "key-".concat(p.idFromAPI)
         }, _react.default.createElement("td", {
-          className: _rosterDisplay.default.pointer,
+          className: _rosterDisplay.default.clickable,
           "data-id": p.idFromAPI,
           onClick: _this4.showPlayerStats.bind(_this4)
         }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, "".concat(p.position)), _react.default.createElement("td", null, "".concat(p.clubName)), _react.default.createElement("td", null, "".concat(p.fantasyPoints.fixture)), _react.default.createElement("td", {
-          className: _rosterDisplay.default.pointer,
+          className: _rosterDisplay.default.clickable,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
@@ -38697,7 +38697,7 @@ function (_React$Component) {
           "data-points": p.fantasyPoints.fixture,
           onClick: _this4.addStartingPlayer.bind(_this4)
         }, "Make Starter"), _react.default.createElement("td", {
-          className: _rosterDisplay.default.pointer,
+          className: _rosterDisplay.default.clickable,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
@@ -38705,7 +38705,7 @@ function (_React$Component) {
           "data-points": p.fantasyPoints.fixture,
           onClick: _this4.addBenchPlayer.bind(_this4)
         }, "Have on Bench"), _react.default.createElement("td", {
-          className: _rosterDisplay.default.pointer,
+          className: _rosterDisplay.default.clickable,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
           "data-lastname": p.lastName,
@@ -38987,7 +38987,7 @@ module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","pointer":"
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__MFLah","pointer":"rosterDisplay__pointer__3UeiZ"};
+module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__MFLah","clickable":"rosterDisplay__clickable__384vG"};
 
 /***/ }),
 /* 459 */

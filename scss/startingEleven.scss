@@ -3,43 +3,43 @@
 
 .startingEleven {
   width: $tableWidth * 0.667;
+}
+
+table {
+  border: $tableBorder;
+  width: 100%;
+}
+
+thead > tr {
+  display: block;
+  position: relative;
+}
+
+tbody {
+  display: block;
+}
+
+th {
+  width: $tableWidth / 4;
   
-  table {
-    border: $tableBorder;
-    width: 100%;
-    
-    thead > tr {
-      display: block;
-      position: relative;
-    }
-    
-    tbody {
-      display: block;
-    }
-    
-    th {
-      width: $tableWidth / 4;
-      
-      &:last-of-type {
-        padding-right: 1em;
-      }
-    }
-    
-    tr {
-      outline: $tableBorder;
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
-    }
-    
-    td {
-      text-align: center;
-      width: $tableWidth / 4;
-    }
-    
-    .pointer {
-      cursor: pointer;
-    }
+  &:last-of-type {
+    padding-right: 1em;
   }
+}
+
+tr {
+  outline: $tableBorder;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+td {
+  text-align: center;
+  width: $tableWidth / 4;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .hidden {

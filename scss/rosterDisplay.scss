@@ -3,44 +3,55 @@
 
 .rosterDisplay {
   display: flex;
-  flex-flow: row nowrap;
   justify-content: space-between;
   width: $tableWidth;
+}
+
+table {
+  border: $tableBorder;
+  width: 100%;
+}
+
+thead > tr {
+  display: block;
+  position: relative;
+}
+
+tbody {
+  display: block;
+}
+
+th {
+  width: $tableWidth / 4;
   
-  table {
-    border: $tableBorder;
-    width: 100%;
-    
-    thead > tr {
-      display: block;
-      position: relative;
-    }
-    
-    tbody {
-      display: block;
-    }
-    
-    th {
-      width: $tableWidth / 4;
-      
-      &:last-of-type {
-        padding-right: 1em;
-      }
-    }
-    
-    tr {
-      outline: $tableBorder;
-      padding-top: 0.25em;
-      padding-bottom: 0.25em;
-    }
-    
-    td {
-      text-align: center;
-      width: $tableWidth / 4;
-    }
-    
-    .pointer {
-      cursor: pointer;
-    }
+  &:last-of-type {
+    padding-right: 1em;
+  }
+}
+
+tr {
+  outline: $tableBorder;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+td {
+  text-align: center;
+  width: $tableWidth / 4;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+@media (max-width: $midpoint) {
+  .rosterDisplay {
+    flex-flow: column nowrap;
+  }
+}
+
+@media (min-width: $gtMidpoint) {
+  .rosterDisplay {
+    flex-flow: row nowrap;
   }
 }
