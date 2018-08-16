@@ -7,10 +7,10 @@
 
 table {
   border: $tableBorder;
-  width: 100%;
+  // width: 100%;
 }
 
-thead > tr {
+thead tr {
   display: block;
   position: relative;
 }
@@ -31,6 +31,9 @@ tr {
   outline: $tableBorder;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
+  &:nth-of-type(odd) {
+    background: #eeeeee;
+  }
 }
 
 td {
