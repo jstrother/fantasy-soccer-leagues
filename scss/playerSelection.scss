@@ -25,10 +25,10 @@
   
   tr {
     outline: $tableBorder;
-    padding-top: 0.25em;
-    padding-bottom: 0.25em;
+    padding-top: $trPadding;
+    padding-bottom: $trPadding;
     &:nth-of-type(odd) {
-      background: #eee;
+      background: $trColor;
     }
   }
   
@@ -47,7 +47,7 @@
   @media (max-width: $midpoint) {
     /* Force table to not be like tables anymore */
     table, p, h5 {
-      width: 38%;
+      width: 57%;
     }
     
     table, thead, tbody, th, td, tr { 
@@ -89,7 +89,7 @@
       /* Now like a table header */
       position: absolute;
       /* Top/left values mimic padding */
-      top: 0.3em;
+      top: 0.15em;
       left: 0.3em;
       text-align: left;
       padding-right: 2em;
