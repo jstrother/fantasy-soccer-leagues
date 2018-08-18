@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "53fed681a811cfc3c34b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0d292096a6a67b3fbe31"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38256,13 +38256,11 @@ function (_React$Component) {
             dataSet = event.target.dataset,
             player = {
           idFromAPI: parseInt(dataSet.id, 10),
+          // note: the dataSet dot notation does not use camelCase
           firstName: dataSet.firstname,
-          // note: the dataSet dot notation does not use camelCase
           lastName: dataSet.lastname,
-          // note: the dataSet dot notation does not use camelCase
           position: dataSet.position,
           clubName: dataSet.clubname,
-          // note: the dataSet dot notation does not use camelCase
           fantasyPoints: {
             fixture: parseInt(dataSet.points, 10)
           }
@@ -38474,7 +38472,7 @@ module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warn
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","hidden":"playerSelection__hidden__1wvZE"};
+module.exports = {"hidden":"playerSelection__hidden__1wvZE","playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni"};
 
 /***/ }),
 /* 453 */
@@ -38632,13 +38630,11 @@ function (_React$Component) {
       var dataSet = event.target.dataset,
           player = {
         idFromAPI: parseInt(dataSet.id, 10),
+        // note: the dataSet dot notation does not use camelCase
         firstName: dataSet.firstname,
-        // note: the dataSet dot notation does not use camelCase
         lastName: dataSet.lastname,
-        // note: the dataSet dot notation does not use camelCase
         position: dataSet.position,
         clubName: dataSet.clubname,
-        // note: the dataSet dot notation does not use camelCase
         fantasyPoints: {
           fixture: parseInt(dataSet.points, 10)
         }
@@ -39174,22 +39170,25 @@ function (_React$Component) {
           className: this.props.show === false ? _player.default.hidden : _player.default.player
         }, _react.default.createElement("div", {
           className: _player.default.playerHeader
-        }, _react.default.createElement("figure", null, _react.default.createElement("img", {
+        }, _react.default.createElement("figure", {
+          className: _player.default.playerImage
+        }, _react.default.createElement("img", {
           className: _player.default.playerPicture,
           src: this.props.player.picture,
           alt: "".concat(this.props.player.fullName, " Picture")
         }), _react.default.createElement("figcaption", {
           className: _player.default.playerName
         }, "".concat(this.props.player.firstName, " ").concat(this.props.player.lastName), _react.default.createElement("br", null), this.props.player.position)), _react.default.createElement("div", {
-          className: _player.default.PointsDiv
+          className: _player.default.pointsDiv
         }, _react.default.createElement("h3", {
           className: _player.default.pointsHeader
         }, "Fantasy Points:"), _react.default.createElement("p", {
           className: _player.default.fixturePoints
         }, "Most Recent Match: ", this.props.player.fantasyPoints.fixture), _react.default.createElement("p", {
           className: _player.default.seasonPoints
-        }, "Season Total: ", this.props.player.fantasyPoints.season)), _react.default.createElement("figure", null, _react.default.createElement("img", {
-          className: _player.default.clubLogo,
+        }, "Season Total: ", this.props.player.fantasyPoints.season)), _react.default.createElement("figure", {
+          className: _player.default.clubLogo
+        }, _react.default.createElement("img", {
           src: this.props.player.clubLogo,
           alt: "".concat(this.props.player.clubName)
         }), _react.default.createElement("figcaption", {
@@ -39311,7 +39310,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"player":"player__player__3DvLK","playerHeader":"player__playerHeader__3IuDQ","playerName":"player__playerName__1UQZ8","clubName":"player__clubName__1u7CU","pointsDiv":"player__pointsDiv__xbFoX","playerStats":"player__playerStats__3ql3R","statsHeader":"player__statsHeader__1LCyX","playerDataClose":"player__playerDataClose__2Y0_j","hidden":"player__hidden__XtzsF"};
+module.exports = {"player":"player__player__3DvLK","clubLogo":"player__clubLogo__3atZV","playerHeader":"player__playerHeader__3IuDQ","playerName":"player__playerName__1UQZ8","clubName":"player__clubName__1u7CU","pointsDiv":"player__pointsDiv__xbFoX","playerStats":"player__playerStats__3ql3R","statsHeader":"player__statsHeader__1LCyX","playerDataClose":"player__playerDataClose__2Y0_j","hidden":"player__hidden__XtzsF"};
 
 /***/ }),
 /* 465 */

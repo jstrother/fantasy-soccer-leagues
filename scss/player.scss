@@ -2,51 +2,71 @@
 @import "myVariables";
 
 .player {
-  background: #2F88B3;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: 14em 2em repeat(4, 8em);
-  .playerHeader {
-    grid-column: 1 / 9;
+  background: $playerInfoBG;
+  
+  @media (max-width: $midpoint) {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    .playerName, .clubName {
-      display: flex;
-      justify-content: center;
-    }
-    .pointsDiv {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: space-between;
-      .pointsHeader {
-        // display: flex;
-        // width: 100%;
-        // justify-content: center;
-      }
+    flex-flow: column nowrap;
+    align-items: center;
+    text-align: center;
+    
+    .clubLogo {
+      display: none;
     }
   }
   
-  .playerStats {
-    grid-column: 1 / 9;
-    grid-row: 3 / 5;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    .statsHeader {
+  @media (min-width: $gtMidpoint) {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 14em 2em repeat(4, 8em);
+    
+    .playerHeader {
+      grid-column: 1 / 9;
       display: flex;
-      width: 100%;
-      justify-content: center;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      
+      .playerName, .clubName {
+        display: flex;
+        justify-content: center;
+      }
+      
+      .pointsDiv {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        
+        .pointsHeader {
+          // display: flex;
+          // width: 100%;
+          // justify-content: center;
+        }
+      }
     }
-  }
-  .playerDataClose {
-    grid-column: 4 / 6;
-    grid-row: 6 / 7;
-    display: flex;
-    justify-content: center;
-    button {
-      height: 2em;
-      width: 4em;
+    
+    .playerStats {
+      grid-column: 1 / 9;
+      grid-row: 3 / 5;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+      
+      .statsHeader {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    .playerDataClose {
+      grid-column: 4 / 6;
+      grid-row: 6 / 7;
+      display: flex;
+      justify-content: center;
+      
+      button {
+        height: 2em;
+        width: 4em;
+      }
     }
   }
 }

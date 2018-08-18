@@ -32,10 +32,11 @@ export class Selection extends React.Component {
 				dataSet = event.target.dataset,
 				player = {
 					idFromAPI: parseInt(dataSet.id, 10),
-					firstName: dataSet.firstname, // note: the dataSet dot notation does not use camelCase
-					lastName: dataSet.lastname, // note: the dataSet dot notation does not use camelCase
+					// note: the dataSet dot notation does not use camelCase
+					firstName: dataSet.firstname, 
+					lastName: dataSet.lastname,
 					position: dataSet.position,
-					clubName: dataSet.clubname, // note: the dataSet dot notation does not use camelCase
+					clubName: dataSet.clubname,
 					fantasyPoints: {
 						fixture: parseInt(dataSet.points, 10)
 					}

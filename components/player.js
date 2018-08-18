@@ -21,7 +21,8 @@ export class Teammate extends React.Component {
 					className={this.props.show === false ? styles.hidden : styles.player}>
 					<div
 						className={styles.playerHeader}>
-						<figure>
+						<figure
+							className={styles.playerImage}>
 							<img className={styles.playerPicture} src={this.props.player.picture} alt={`${this.props.player.fullName} Picture`} />
 							<figcaption
 								className={styles.playerName}>
@@ -30,13 +31,14 @@ export class Teammate extends React.Component {
 								{this.props.player.position}
 							</figcaption>
 						</figure>
-						<div className={styles.PointsDiv}>
+						<div className={styles.pointsDiv}>
 							<h3 className={styles.pointsHeader}>Fantasy Points:</h3>
 							<p className={styles.fixturePoints}>Most Recent Match: {this.props.player.fantasyPoints.fixture}</p>
 							<p className={styles.seasonPoints}>Season Total: {this.props.player.fantasyPoints.season}</p>
 						</div>
-						<figure>
-							<img className={styles.clubLogo} src={this.props.player.clubLogo} alt={`${this.props.player.clubName}`} />
+						<figure
+							className={styles.clubLogo}>
+							<img src={this.props.player.clubLogo} alt={`${this.props.player.clubName}`} />
 							<figcaption
 								className={styles.clubName}>
 								{this.props.player.clubName}

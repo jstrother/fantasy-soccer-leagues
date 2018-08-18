@@ -1,6 +1,10 @@
 @import "normalize";
 @import "myVariables";
 
+.hidden {
+  display: none;
+}
+
 .playerSelection {
   table {
     border: $tableBorder;
@@ -38,10 +42,6 @@
   
   .playerRemove {
     cursor: pointer;
-  }
-  
-  .hidden {
-    display: none;
   }
   
   @media (max-width: $midpoint) {
@@ -83,6 +83,10 @@
       padding-left: 6em;
       text-align: left;
       border-bottom: 1px solid black;
+      &:last-of-type {
+        border-bottom-style: none;
+        top: 0.15em;
+      }
     }
     
     td:before { 
