@@ -2,7 +2,39 @@
 @import "myVariables";
 
 .fantasySchedule {
-  
+  @media (max-width: $midpoint) {
+    table {
+      display: block;
+      height: 30em;
+      overflow: auto;
+      width: 105.5%;
+      
+      thead {
+        position: absolute;
+        z-index: 2;
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        
+        th {
+          text-align: center;
+          &:last-of-type {
+            padding-right: 0;
+          }
+        }
+      }
+      
+      tbody {
+        &:first-of-type {
+          padding-top: 2em;
+        }
+        tr {
+          background: white;
+        }
+      }
+    }
+  }
 }
 
 .hidden {

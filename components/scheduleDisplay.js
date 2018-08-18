@@ -70,6 +70,7 @@ export class DisplaySchedule extends React.Component {
         <div>
           <p>Previous Match:</p>
           <FantasyMatch 
+            className={styles.previousMatch}
             homeClub={previousHomeClub}
             awayClub={previousAwayClub}
             homeScore={previousHomeScore}
@@ -78,6 +79,7 @@ export class DisplaySchedule extends React.Component {
           <br />
           <p>Next Match:</p>
           <FantasyMatch 
+            className={styles.nextMatch}
             homeClub={nextHomeClub}
             awayClub={nextAwayClub}
             homeScore={null}
@@ -99,7 +101,8 @@ export class DisplaySchedule extends React.Component {
               // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
               .sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in descending order
               .map(week => {
-                const matches = week.matches;
+                const matches = week.matches,
+                  matchDay = new Date(Date.parse(week.datesToRun)).toLocaleDateString();
                 // create a table body for each round of the season
                 return(
                   <tbody
@@ -129,7 +132,7 @@ export class DisplaySchedule extends React.Component {
                               </td>
                               <td
                                 key={`${week._id}${match._id}dates`}>
-                                {week.datesToRun}
+                                {matchDay}
                               </td>
                             </tr>
                           );

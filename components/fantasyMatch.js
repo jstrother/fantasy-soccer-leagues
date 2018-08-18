@@ -6,6 +6,7 @@ import styles from '../scss/fantasyMatch.scss';
 
 export class FantasyMatch extends React.Component {
 	render() {
+		const matchDay = new Date(Date.parse(this.props.matchDate)).toLocaleDateString();
 		return(
 			<div
 				className={styles.fantasyMatch}>
@@ -18,7 +19,7 @@ export class FantasyMatch extends React.Component {
 				<p
 					className={this.props.awayScore !== null ? 'awayScore' : styles.null}>{this.props.awayScore}</p>
 				<p
-					className='matchDate'>{this.props.matchDate}</p>
+					className='matchDate'>{matchDay}</p>
 			</div>
 		);
 	}

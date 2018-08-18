@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0d292096a6a67b3fbe31"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "33de95e6b00f1fc490e1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37931,7 +37931,8 @@ function (_React$Component) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
         }) // it is this way to sort in descending order
         .map(function (week) {
-          var matches = week.matches; // create a table body for each round of the season
+          var matches = week.matches,
+              matchDay = new Date(Date.parse(week.datesToRun)).toLocaleDateString(); // create a table body for each round of the season
 
           return _react.default.createElement("tbody", {
             key: week._id,
@@ -37948,7 +37949,7 @@ function (_React$Component) {
                 key: "".concat(week._id).concat(match._id).concat(match.awayClub._id)
               }, match.awayClub.clubName), _react.default.createElement("td", {
                 key: "".concat(week._id).concat(match._id, "dates")
-              }, week.datesToRun));
+              }, matchDay));
             }
 
             if (match.final === true) {
@@ -38043,6 +38044,7 @@ function (_React$Component) {
   _createClass(FantasyMatch, [{
     key: "render",
     value: function render() {
+      var matchDay = new Date(Date.parse(this.props.matchDate)).toLocaleDateString();
       return _react.default.createElement("div", {
         className: _fantasyMatch.default.fantasyMatch
       }, _react.default.createElement("p", {
@@ -38055,7 +38057,7 @@ function (_React$Component) {
         className: this.props.awayScore !== null ? 'awayScore' : _fantasyMatch.default.null
       }, this.props.awayScore), _react.default.createElement("p", {
         className: "matchDate"
-      }, this.props.matchDate));
+      }, matchDay));
     }
   }]);
 
@@ -38087,7 +38089,7 @@ module.exports = {"hidden":"scheduleDisplay__hidden__3q_Nu"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"fantasySchedule__hidden__KG9ET"};
+module.exports = {"fantasySchedule":"fantasySchedule__fantasySchedule__1REN-","hidden":"fantasySchedule__hidden__KG9ET"};
 
 /***/ }),
 /* 449 */
