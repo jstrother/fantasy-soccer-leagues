@@ -8,6 +8,7 @@ import FantasyMatch from './fantasyMatch.js';
 import { getSchedule, matchResolve } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import { compare } from '../server/programFunctions/compare_function.js';
+import {localeDate} from '../server/programFunctions/localeDate_function.js';
 import styles from '../scss/scheduleDisplay.scss';
 
 const sevenDays = 1000 * 60 * 60 * 24 * 7,
@@ -102,7 +103,7 @@ export class DisplaySchedule extends React.Component {
               .sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in descending order
               .map(week => {
                 const matches = week.matches,
-                  matchDay = new Date(Date.parse(week.datesToRun)).toLocaleDateString();
+                  matchDay = localeDate(week.datesToRun);
                 // create a table body for each round of the season
                 return(
                   <tbody

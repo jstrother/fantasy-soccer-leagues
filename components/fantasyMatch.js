@@ -3,10 +3,11 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from '../scss/fantasyMatch.scss';
+import {localeDate} from '../server/programFunctions/localeDate_function.js';
 
 export class FantasyMatch extends React.Component {
 	render() {
-		const matchDay = new Date(Date.parse(this.props.matchDate)).toLocaleDateString();
+		const matchDay = localeDate(this.props.matchDate);
 		return(
 			<div
 				className={styles.fantasyMatch}>
