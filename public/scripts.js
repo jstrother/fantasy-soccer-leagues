@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7633666d9d40e0955777"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e55ca9186a666aca5e75"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37931,21 +37931,29 @@ function (_React$Component) {
             });
           }
         });
-        return _react.default.createElement("div", null, _react.default.createElement("p", null, "Previous Match:"), _react.default.createElement(_fantasyMatch.default, {
+        return _react.default.createElement("div", {
+          className: _scheduleDisplay.default.scheduleDisplay
+        }, _react.default.createElement("p", {
+          className: _scheduleDisplay.default.header
+        }, "Previous Match"), _react.default.createElement(_fantasyMatch.default, {
           className: _scheduleDisplay.default.previousMatch,
           homeClub: previousHomeClub,
           awayClub: previousAwayClub,
           homeScore: previousHomeScore,
           awayScore: previousAwayScore,
           matchDate: previousRoundDates
-        }), _react.default.createElement("br", null), _react.default.createElement("p", null, "Next Match:"), _react.default.createElement(_fantasyMatch.default, {
+        }), _react.default.createElement("br", null), _react.default.createElement("p", {
+          className: _scheduleDisplay.default.header
+        }, "Next Match"), _react.default.createElement(_fantasyMatch.default, {
           className: _scheduleDisplay.default.nextMatch,
           homeClub: nextHomeClub,
           awayClub: nextAwayClub,
           homeScore: null,
           awayScore: null,
           matchDate: nextRoundDates
-        }), _react.default.createElement("br", null), _react.default.createElement("p", null, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+        }), _react.default.createElement("br", null), _react.default.createElement("p", {
+          className: _scheduleDisplay.default.header
+        }, "Schedule:"), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
         }) // it is this way to sort in descending order
@@ -38069,15 +38077,15 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: _fantasyMatch.default.fantasyMatch
       }, _react.default.createElement("p", {
-        className: "homeClub"
+        className: _fantasyMatch.default.homeClub
       }, "Home: ".concat(this.props.homeClub)), _react.default.createElement("p", {
-        className: this.props.homeScore !== null ? 'homeScore' : _fantasyMatch.default.null
-      }, this.props.homeScore), _react.default.createElement("p", {
-        className: "awayClub"
+        className: this.props.homeScore !== null ? _fantasyMatch.default.homeScore : _fantasyMatch.default.hidden
+      }, "Score: ".concat(this.props.homeScore)), _react.default.createElement("p", {
+        className: _fantasyMatch.default.awayClub
       }, "Away: ".concat(this.props.awayClub)), _react.default.createElement("p", {
-        className: this.props.awayScore !== null ? 'awayScore' : _fantasyMatch.default.null
-      }, this.props.awayScore), _react.default.createElement("p", {
-        className: "matchDate"
+        className: this.props.awayScore !== null ? _fantasyMatch.default.awayScore : _fantasyMatch.default.hidden
+      }, "Score: ".concat(this.props.awayScore)), _react.default.createElement("p", {
+        className: _fantasyMatch.default.matchDate
       }, matchDay));
     }
   }]);
@@ -38096,14 +38104,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"fantasyMatch__hidden__nw6mA"};
+module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__wbOHj","homeClub":"fantasyMatch__homeClub__1HLQP","homeScore":"fantasyMatch__homeScore__6_yr5","awayClub":"fantasyMatch__awayClub__3sCxF","awayScore":"fantasyMatch__awayScore__1Fdf9","matchDate":"fantasyMatch__matchDate__yu2d1","hidden":"fantasyMatch__hidden__nw6mA"};
 
 /***/ }),
 /* 448 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"scheduleDisplay__hidden__3q_Nu"};
+module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__1GZaU","header":"scheduleDisplay__header__3T10i","hidden":"scheduleDisplay__hidden__3q_Nu"};
 
 /***/ }),
 /* 449 */

@@ -2,8 +2,38 @@
 @import "myVariables";
 
 .fantasyMatch {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    'homeClub homeScore awayClub awayScore'
+    'matchDate ........ ........ .........';
   
+  .homeClub {
+    grid-area: homeClub;
+    text-align: center;
+  }
+  
+  .homeScore {
+    grid-area: homeScore;
+    text-align: center;
+  }
+  
+  .awayClub {
+    grid-area: awayClub;
+    text-align: center;
+  }
+  
+  .awayScore {
+    grid-area: awayScore;
+    text-align: center;
+  }
+  
+  .matchDate {
+    grid-area: matchDate;
+  }
 }
+
 .hidden {
   display: none;
 }

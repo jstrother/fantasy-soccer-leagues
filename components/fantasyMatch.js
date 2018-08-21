@@ -12,15 +12,15 @@ export class FantasyMatch extends React.Component {
 			<div
 				className={styles.fantasyMatch}>
 				<p
-					className='homeClub'>{`Home: ${this.props.homeClub}`}</p>
+					className={styles.homeClub}>{`Home: ${this.props.homeClub}`}</p>
 				<p
-					className={this.props.homeScore !== null ? 'homeScore' : styles.null}>{this.props.homeScore}</p>
+					className={this.props.homeScore !== null ? styles.homeScore : styles.hidden}>{`Score: ${this.props.homeScore}`}</p>
 				<p
-					className='awayClub'>{`Away: ${this.props.awayClub}`}</p>
+					className={styles.awayClub}>{`Away: ${this.props.awayClub}`}</p>
 				<p
-					className={this.props.awayScore !== null ? 'awayScore' : styles.null}>{this.props.awayScore}</p>
+					className={this.props.awayScore !== null ? styles.awayScore : styles.hidden}>{`Score: ${this.props.awayScore}`}</p>
 				<p
-					className='matchDate'>{matchDay}</p>
+					className={styles.matchDate}>{matchDay}</p>
 			</div>
 		);
 	}

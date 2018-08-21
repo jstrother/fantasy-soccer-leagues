@@ -2,7 +2,15 @@
 @import "myVariables";
 
 .scheduleDisplay {
-  
+  .header {
+    background-color: $matchHeaderColor;
+    text-align: center;
+  }
+  @media (max-width: $midpoint) {
+    .header {
+      width: 105.5%;
+    }
+  }
 }
 
 .hidden {

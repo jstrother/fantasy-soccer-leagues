@@ -68,8 +68,10 @@ export class DisplaySchedule extends React.Component {
         }
       });
       return(
-        <div>
-          <p>Previous Match:</p>
+        <div
+          className={styles.scheduleDisplay}>
+          <p
+            className={styles.header}>Previous Match</p>
           <FantasyMatch 
             className={styles.previousMatch}
             homeClub={previousHomeClub}
@@ -78,7 +80,8 @@ export class DisplaySchedule extends React.Component {
             awayScore={previousAwayScore}
             matchDate={previousRoundDates}/>
           <br />
-          <p>Next Match:</p>
+          <p
+            className={styles.header}>Next Match</p>
           <FantasyMatch 
             className={styles.nextMatch}
             homeClub={nextHomeClub}
@@ -87,7 +90,8 @@ export class DisplaySchedule extends React.Component {
             awayScore={null}
             matchDate={nextRoundDates}/>
           <br />
-          <p>Schedule:</p>
+          <p
+            className={styles.header}>Schedule:</p>
           <table>
             <thead>
               <tr>
