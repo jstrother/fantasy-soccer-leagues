@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e55ca9186a666aca5e75"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dc5e01f70c9630644352"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38078,13 +38078,21 @@ function (_React$Component) {
         className: _fantasyMatch.default.fantasyMatch
       }, _react.default.createElement("p", {
         className: _fantasyMatch.default.homeClub
-      }, "Home: ".concat(this.props.homeClub)), _react.default.createElement("p", {
+      }, _react.default.createElement("span", {
+        className: _fantasyMatch.default.title
+      }, "Home:"), " ", this.props.homeClub), _react.default.createElement("p", {
         className: this.props.homeScore !== null ? _fantasyMatch.default.homeScore : _fantasyMatch.default.hidden
-      }, "Score: ".concat(this.props.homeScore)), _react.default.createElement("p", {
+      }, _react.default.createElement("span", {
+        className: _fantasyMatch.default.title
+      }, "Score:"), " ", this.props.homeScore), _react.default.createElement("p", {
         className: _fantasyMatch.default.awayClub
-      }, "Away: ".concat(this.props.awayClub)), _react.default.createElement("p", {
+      }, _react.default.createElement("span", {
+        className: _fantasyMatch.default.title
+      }, "Away:"), " ", this.props.awayClub), _react.default.createElement("p", {
         className: this.props.awayScore !== null ? _fantasyMatch.default.awayScore : _fantasyMatch.default.hidden
-      }, "Score: ".concat(this.props.awayScore)), _react.default.createElement("p", {
+      }, _react.default.createElement("span", {
+        className: _fantasyMatch.default.title
+      }, "Score:"), " ", this.props.awayScore), _react.default.createElement("p", {
         className: _fantasyMatch.default.matchDate
       }, matchDay));
     }
@@ -38104,7 +38112,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__wbOHj","homeClub":"fantasyMatch__homeClub__1HLQP","homeScore":"fantasyMatch__homeScore__6_yr5","awayClub":"fantasyMatch__awayClub__3sCxF","awayScore":"fantasyMatch__awayScore__1Fdf9","matchDate":"fantasyMatch__matchDate__yu2d1","hidden":"fantasyMatch__hidden__nw6mA"};
+module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__wbOHj","homeClub":"fantasyMatch__homeClub__1HLQP","homeScore":"fantasyMatch__homeScore__6_yr5","awayClub":"fantasyMatch__awayClub__3sCxF","awayScore":"fantasyMatch__awayScore__1Fdf9","matchDate":"fantasyMatch__matchDate__yu2d1","title":"fantasyMatch__title__3_yQj","hidden":"fantasyMatch__hidden__nw6mA"};
 
 /***/ }),
 /* 448 */
