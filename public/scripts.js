@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dc5e01f70c9630644352"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "80302a05d9b450825d68"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39132,7 +39132,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"fantasyStandings__hidden__1izem"};
+module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3cznF","hidden":"fantasyStandings__hidden__1izem"};
 
 /***/ }),
 /* 463 */
