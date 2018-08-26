@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "80302a05d9b450825d68"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1ccbc8e54393537ddf84"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -36610,9 +36610,7 @@ function (_React$Component) {
       }
 
       if (this.props.displayName) {
-        return _react.default.createElement("header", {
-          className: _header.default.toolbar
-        }, _react.default.createElement("h2", {
+        return _react.default.createElement("header", null, _react.default.createElement("h2", {
           className: _header.default.largeTitle
         }, "The Fantasy Soccer-Football Super League"), _react.default.createElement("h2", {
           className: _header.default.mobileTitle
@@ -37386,7 +37384,7 @@ module.exports = {"link":"loginPage__link__3qoZW"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"toolbar":"header__toolbar__1Evjs","userSection":"header__userSection__1vBlL","userPhoto":"header__userPhoto__3AS2d","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","link":"header__link__3EBE4","hidden":"header__hidden__ie2J1","mobileTitle":"header__mobileTitle__9sMKh","largeTitle":"header__largeTitle__3j3xK","userName":"header__userName__2mr9b","clubName":"header__clubName__3DGs-"};
+module.exports = {"mobileTitle":"header__mobileTitle__9sMKh","largeTitle":"header__largeTitle__3j3xK","userSection":"header__userSection__1vBlL","userPhoto":"header__userPhoto__3AS2d","userName":"header__userName__2mr9b","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","link":"header__link__3EBE4","hidden":"header__hidden__ie2J1","clubName":"header__clubName__3DGs-"};
 
 /***/ }),
 /* 442 */

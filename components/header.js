@@ -60,8 +60,7 @@ export class Header extends React.Component {
     
     if (this.props.displayName) {
       return (
-        <header
-          className={styles.toolbar}>
+        <header>
           <h2
             className={styles.largeTitle}>
             The Fantasy Soccer-Football Super League

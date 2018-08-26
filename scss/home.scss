@@ -2,55 +2,40 @@
 @import "myVariables";
 
 main {
+  max-width: 100%;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-area: 
+    '.... .... welcome .... ....'
+    '.... .... content .... ....';
   
-  * {
-    // border: 1px solid red;
-  }
-}
-
-.welcome {
-  grid-column: 3 / 7;
-  grid-row: 1 / 2;
-  justify-self: center;
-  align-self: center;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-content: center;
-  
-  p {
-    margin: 0.1em;
-    align-self: center;
+  .welcome {
+    grid-area: 'welcome';
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     
-    @media (max-width: $midpoint) {
+    p {
+      margin: 0.1em;
+      align-self: center;
       width: 75%;
       text-align: center;
     }
   }
-}
-
-.club {
-  grid-column: 2 / 7;
-  grid-row: 2 / 6;
-  justify-self: start;
-  align-self: center;
-}
-
-.player {
-  @media (max-width: $midpoint) {
-    grid-column: 2 / 8;
-    grid-row: 1 / 6;
+  
+  .club {
+    grid-area: 'content';
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
   
-  @media (min-width: $gtMidpoint) {
-    grid-column: 3 / 7;
-    grid-row: 1 / 4;
+  .player {
+    grid-area: 'content';
   }
-}
-
-.hidden {
-  display: none;
+  
+  .hidden {
+    display: none;
+  }
 }
