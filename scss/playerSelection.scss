@@ -6,6 +6,9 @@
 }
 
 .playerSelection {
+  max-width: 100%;
+  width: 100%;
+  
   table {
     border: $tableBorder;
   }
@@ -108,8 +111,12 @@
     td:nth-of-type(3):before { content: "Club"; }
     td:nth-of-type(4):before { content: "Points"; }
   }
-  
-  @media (min-width: $gtMidpoint) {
+}
+
+@media (min-width: $gtMidpoint) {
+  .playerSelection {
+    width: $tableWidth;
+    
     th {
       width: $tableWidth / 4;
     }
@@ -118,11 +125,5 @@
       width: $tableWidth / 4;
       text-align: center;
     }
-  }
-}
-
-@media (min-width: $gtMidpoint) {
-  .playerSelection {
-    width: $tableWidth;
   }
 }

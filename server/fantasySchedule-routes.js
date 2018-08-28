@@ -55,6 +55,7 @@ fantasyScheduleRouter.get('/:leagueScheduleId',
     })
     .catch(error => {
       throw new Error(error);
+      // console.error('fs-routes:', error);
     });
   }
 );

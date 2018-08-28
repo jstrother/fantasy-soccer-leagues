@@ -3,6 +3,7 @@
 
 .player {
   background: $playerInfoBG;
+  max-width: 90%;
   
   @media (max-width: $midpoint) {
     display: flex;

@@ -7,12 +7,12 @@
       display: block;
       height: 30em;
       overflow: auto;
-      width: 105.5%;
+      width: 75%;
       
       thead {
         position: absolute;
         z-index: 2;
-        width: 70%;
+        // width: 70%;
         display: flex;
         justify-content: space-between;
         align-content: center;
