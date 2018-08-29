@@ -4,17 +4,12 @@
 .rosterComponent {
   max-width: 100%;
   display: flex;
+  flex-flow: column nowrap;
   justify-content: space-between;
 }
 
 .hidden {
   display: none;
-}
-
-@media (max-width: $midpoint) {
-  .rosterComponent {
-    flex-flow: column nowrap;
-  }
 }
 
 @media (min-width: $gtMidpoint) {
