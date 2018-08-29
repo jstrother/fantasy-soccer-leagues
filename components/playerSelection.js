@@ -115,7 +115,8 @@ export class Selection extends React.Component {
 					<h5>You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards.</h5>
 					<h5>Click on a player's name to add them to your roster.</h5>
 					<Warning />
-					<table>
+					<table
+						className={styles.playerSelectTable}>
 						<thead>
 							<tr>
 								<th>Name</th>

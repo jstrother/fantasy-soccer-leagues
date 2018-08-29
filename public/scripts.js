@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "df6466d8cd6bc4063a4c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b067fa89db7c2991c740"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38376,7 +38376,9 @@ function (_React$Component) {
             rosterLength = goalkeepers + defenders + midfielders + forwards;
         return _react.default.createElement("div", {
           className: rosterLength === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
-        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
+        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", {
+          className: _playerSelection.default.playerSelectTable
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
           defaultValue: "allPositions",
           onChange: this.handlePositionChange.bind(this)
@@ -38509,7 +38511,7 @@ module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warn
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"playerSelection__hidden__1wvZE","playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni"};
+module.exports = {"hidden":"playerSelection__hidden__1wvZE","playerSelection":"playerSelection__playerSelection__34mEp","playerSelectTable":"playerSelection__playerSelectTable__3S07k","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni"};
 
 /***/ }),
 /* 454 */
@@ -38850,7 +38852,9 @@ function (_React$Component) {
       if (starters > 0) {
         return _react.default.createElement("div", {
           className: _startingEleven.default.startingEleven
-        }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Starting 11?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
+        }, _react.default.createElement("table", {
+          className: _startingEleven.default.startersTable
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Starting 11?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
           return _react.default.createElement("tr", {
             id: "s11-".concat(p.idFromAPI),
             key: "key-".concat(p.idFromAPI)
@@ -38893,7 +38897,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"startingEleven":"startingEleven__startingEleven__7MfxE","pointer":"startingEleven__pointer__2Hebq","hidden":"startingEleven__hidden__1-AwT"};
+module.exports = {"startingEleven":"startingEleven__startingEleven__7MfxE","startersTable":"startingEleven__startersTable__15gzN","pointer":"startingEleven__pointer__2Hebq","hidden":"startingEleven__hidden__1-AwT"};
 
 /***/ }),
 /* 457 */
@@ -38970,7 +38974,9 @@ function (_React$Component) {
       if (benchwarmers > 0) {
         return _react.default.createElement("div", {
           className: _benchPlayers.default.benchPlayers
-        }, _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Bench?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
+        }, _react.default.createElement("table", {
+          className: _benchPlayers.default.benchPlayerTable
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Bench?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
           return _react.default.createElement("tr", {
             id: "s11-".concat(p.idFromAPI),
             key: "key-".concat(p.idFromAPI)
@@ -39013,7 +39019,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","pointer":"benchPlayers__pointer__3hGpZ","hidden":"benchPlayers__hidden__3dASr"};
+module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","benchPlayerTable":"benchPlayers__benchPlayerTable__2eaMY","pointer":"benchPlayers__pointer__3hGpZ","hidden":"benchPlayers__hidden__3dASr"};
 
 /***/ }),
 /* 459 */

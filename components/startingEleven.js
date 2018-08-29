@@ -25,7 +25,8 @@ export class Starters extends React.Component {
       return(
         <div
           className={styles.startingEleven}>
-          <table>
+          <table
+            className={styles.startersTable}>
             <thead>
               <tr>
                 <th>

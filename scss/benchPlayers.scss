@@ -6,69 +6,69 @@
   
   @media (max-width: $midpoint) {
     /* Force table to not be like tables anymore */
-    table, p, h5 {
+    .benchPlayerTable, p, h5 {
       width: 57%;
     }
     
-    table, thead, tbody, th, td, tr { 
+    .benchPlayerTable, thead, tbody, th, td, tr { 
     	display: block; 
     }
     
-    /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr { 
-      // position: absolute;
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: center;
-      align-items: center;
+    .benchPlayerTable {
+      /* Hide table headers (but not display: none;, for accessibility) */
+      thead tr { 
+        // position: absolute;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        
+        th {
+          &:first-of-type {
+            display: none;
+          }
+          &:last-of-type {
+            display: none;
+          }
+        }
+      }
       
-      th {
-        &:first-of-type {
-          display: none;
-        }
+      tr { 
+        border: 1px solid #ccc;
+      }
+      
+      td { 
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 6em;
+        text-align: left;
+        border-bottom: 1px solid black;
         &:last-of-type {
-          display: none;
+          border-bottom-style: none;
+          top: 0.15em;
         }
       }
-    }
-    
-    tr { 
-      border: 1px solid #ccc;
-    }
-    
-    td { 
-      /* Behave  like a "row" */
-      border: none;
-      position: relative;
-      padding-left: 6em;
-      text-align: left;
-      border-bottom: 1px solid black;
-      &:last-of-type {
-        border-bottom-style: none;
+      
+      td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
         top: 0.15em;
+        left: 0.3em;
+        text-align: left;
+        padding-right: 2em;
+        white-space: nowrap;
       }
+      
+      /*
+      Label the data
+      */
+      td:nth-of-type(1):before { content: "Name"; }
+      td:nth-of-type(2):before { content: "Position"; }
+      td:nth-of-type(3):before { content: "Remove?"; }
     }
-    
-    td:before { 
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 0.15em;
-      left: 0.3em;
-      text-align: left;
-      padding-right: 2em;
-      white-space: nowrap;
-    }
-    
-    /*
-    Label the data
-    */
-    td:nth-of-type(1):before { content: "Name"; }
-    td:nth-of-type(2):before { content: "Position"; }
-    td:nth-of-type(3):before { content: "Remove"; }
   }
-  
-  
   
   .pointer {
     cursor: pointer;

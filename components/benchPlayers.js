@@ -25,7 +25,8 @@ export class Bench extends React.Component {
 			return(
 				<div
 					className={styles.benchPlayers}>
-					<table>
+					<table
+						className={styles.benchPlayerTable}>
 						<thead>
 							<tr>
 								<th>
