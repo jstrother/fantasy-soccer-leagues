@@ -3,6 +3,7 @@
 @import "table";
 
 .startingEleven {
+  @extend %sharedTable;
   margin-bottom: 2em;
   
   .startersTable, thead, tbody, th, td, tr { 

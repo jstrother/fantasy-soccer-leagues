@@ -7,6 +7,7 @@
 }
 
 .playerSelection {
+  @extend %sharedTable;
   .playerName {
     cursor: pointer;
   }

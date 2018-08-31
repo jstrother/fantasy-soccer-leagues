@@ -2,34 +2,7 @@
 @import "myVariables";
 
 .fantasySchedule {
-  .scheduleTable {
-    thead {
-      position: absolute;
-      z-index: 2;
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: space-between;
-      align-content: center;
-      
-      th {
-        text-align: center;
-        &:last-of-type {
-          padding-right: 0;
-        }
-      }
-    }
-    
-    tbody {
-      height: 1em;
-      overflow: none;
-      &:first-of-type {
-        padding-top: 2em;
-      }
-      tr {
-        background: white;
-      }
-    }
-  }
+  
 }
 
 .hidden {

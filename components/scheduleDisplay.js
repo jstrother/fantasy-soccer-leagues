@@ -102,6 +102,9 @@ export class DisplaySchedule extends React.Component {
                 <th>Date/Result</th>
               </tr>
             </thead>
+            {/*due to the header covering part of the first week's schedule, we are creating a blank row to space out the schedule properly*/}
+            <tr
+              className={styles.blankRow}></tr>
             {
               this.props.fantasySchedule.weeklyMatches
               // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
@@ -119,6 +122,9 @@ export class DisplaySchedule extends React.Component {
                         key={`round${week.roundNumber}`}>
                         {`Round ${week.roundNumber}`}
                       </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                     {
                       matches

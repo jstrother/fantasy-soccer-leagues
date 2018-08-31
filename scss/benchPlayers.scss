@@ -3,6 +3,7 @@
 @import "table";
 
 .benchPlayers {
+  @extend %sharedTable;
   .benchPlayerTable, thead, tbody, th, td, tr { 
   	display: block; 
   }

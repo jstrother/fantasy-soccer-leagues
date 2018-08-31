@@ -3,6 +3,7 @@
 @import "table";
 
 .rosterDisplay {
+  @extend %sharedTable;
   .clickable {
     cursor: pointer;
   }

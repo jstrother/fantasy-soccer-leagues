@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "918c1ab683488ff660d1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d575fd7dce3e687b473d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37954,7 +37954,9 @@ function (_React$Component) {
           className: _scheduleDisplay.default.header
         }, "Schedule:"), _react.default.createElement("table", {
           className: _scheduleDisplay.default.scheduleTable
-        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), _react.default.createElement("tr", {
+          className: _scheduleDisplay.default.blankRow
+        }), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
         }) // it is this way to sort in descending order
@@ -37967,7 +37969,7 @@ function (_React$Component) {
             id: "rnd-".concat(week._id)
           }, _react.default.createElement("tr", null, _react.default.createElement("td", {
             key: "round".concat(week.roundNumber)
-          }, "Round ".concat(week.roundNumber))), matches.map(function (match) {
+          }, "Round ".concat(week.roundNumber)), _react.default.createElement("td", null), _react.default.createElement("td", null), _react.default.createElement("td", null)), matches.map(function (match) {
             if (match.final === false) {
               return _react.default.createElement("tr", {
                 key: "".concat(week._id).concat(match._id)
@@ -38120,14 +38122,14 @@ module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__wbOHj","homeClub":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__1GZaU","header":"scheduleDisplay__header__3T10i","hidden":"scheduleDisplay__hidden__3q_Nu"};
+module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__1GZaU","header":"scheduleDisplay__header__3T10i","scheduleTable":"scheduleDisplay__scheduleTable__XHnr9","blankRow":"scheduleDisplay__blankRow__2vB-H","hidden":"scheduleDisplay__hidden__3q_Nu"};
 
 /***/ }),
 /* 449 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasySchedule":"fantasySchedule__fantasySchedule__1REN-","scheduleTable":"fantasySchedule__scheduleTable__2xXdu","hidden":"fantasySchedule__hidden__KG9ET"};
+module.exports = {"hidden":"fantasySchedule__hidden__KG9ET"};
 
 /***/ }),
 /* 450 */
@@ -38514,7 +38516,7 @@ module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warn
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"playerSelection__hidden__1wvZE","playerSelection":"playerSelection__playerSelection__34mEp","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","playerSelectTable":"playerSelection__playerSelectTable__3S07k"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","hidden":"playerSelection__hidden__1wvZE","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","playerSelectTable":"playerSelection__playerSelectTable__3S07k"};
 
 /***/ }),
 /* 454 */

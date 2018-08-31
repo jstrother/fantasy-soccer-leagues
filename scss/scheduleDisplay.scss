@@ -6,9 +6,48 @@
     background-color: $matchHeaderColor;
     text-align: center;
   }
-  @media (max-width: $midpoint) {
-    .header {
-      width: 105.5%;
+  
+  .scheduleTable {
+    border-collapse: collapse;
+    display: block;
+    height: 30em;
+    overflow: auto;
+    
+    .blankRow {
+      height: 1.5em;
+    }
+    
+    thead {
+      position: absolute;
+      z-index: 2;
+      background-color: $matchHeaderColor;
+      height: 1.5em;
+      // width: $tableWidthMobile;
+      
+      th {
+        text-align: center;
+        &:last-of-type {
+          padding-right: 0;
+        }
+      }
+    }
+    
+    tbody {
+      &:first-of-type {
+        // padding-top: 4em;
+      }
+      &:nth-of-type(odd) {
+        tr {
+          background: $trColor;
+          td {
+            
+          }
+        }
+      }
+      tr {
+        text-align: right;
+        background: white;
+      }
     }
   }
 }
