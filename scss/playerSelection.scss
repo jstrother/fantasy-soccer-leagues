@@ -6,39 +6,6 @@
 }
 
 .playerSelection {
-  max-width: 100%;
-  width: 100%;
-  
-  .playerSelectTable {
-    border: $tableBorder;
-    
-    thead tr {
-      display: block;
-      position: relative;
-    }
-    
-    tbody {
-      display: block;
-      height: 20em;
-      overflow: auto;
-    }
-    
-    th {
-      &:last-of-type {
-        padding-right: 1em;
-      }
-    }
-    
-    tr {
-      outline: $tableBorder;
-      padding-top: $trPadding;
-      padding-bottom: $trPadding;
-      &:nth-of-type(odd) {
-        background: $trColor;
-      }
-    }
-  }
-  
   .playerName {
     cursor: pointer;
   }
@@ -47,75 +14,47 @@
     cursor: pointer;
   }
   
-  @media (max-width: $midpoint) {
-    /* Force table to not be like tables anymore */
-    table, p, h5 {
-      width: 57%;
-    }
-    
-    table, thead, tbody, th, td, tr { 
-    	display: block; 
-    }
-    
-    /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr { 
-      // position: absolute;
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: center;
-      align-items: center;
-      
-      th {
-        &:first-of-type {
-          display: none;
-        }
-        &:last-of-type {
-          display: none;
-        }
-      }
-    }
-    
-    tr { 
-      border: 1px solid #ccc;
-    }
-    
-    td { 
-      /* Behave  like a "row" */
-      border: none;
-      position: relative;
-      padding-left: 6em;
-      text-align: left;
-      border-bottom: 1px solid black;
-      &:last-of-type {
-        border-bottom-style: none;
-        top: 0.15em;
-      }
-    }
-    
-    td:before { 
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 0.15em;
-      left: 0.3em;
-      text-align: left;
-      padding-right: 2em;
-      white-space: nowrap;
-    }
-    
-    /*
-    Label the data
-    */
-    td:nth-of-type(1):before { content: "Name"; }
-    td:nth-of-type(2):before { content: "Position"; }
-    td:nth-of-type(3):before { content: "Club"; }
-    td:nth-of-type(4):before { content: "Points"; }
+  .playerSelectTable, p, h5 {
+    // width: 57%;
   }
-}
-
-@media (min-width: $gtMidpoint) {
-  .playerSelection {
+  
+  .playerSelectTable, thead, tbody, th, td, tr { 
+  	display: block; 
+  }
+  
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    
+    th {
+      &:first-of-type {
+        display: none;
+      }
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
+  
+  /*
+  Label the data
+  */
+  td:nth-of-type(1):before { content: "Name"; }
+  td:nth-of-type(2):before { content: "Position"; }
+  td:nth-of-type(3):before { content: "Club"; }
+  td:nth-of-type(4):before { content: "Points"; }
+  
+  @media (min-width: $gtMidpoint) {
+    border: $tableBorder;
     width: $tableWidth;
+    
+    thead tr {
+      display: block;
+      position: relative;
+    }
     
     th {
       width: $tableWidth / 4;

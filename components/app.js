@@ -4,11 +4,11 @@
 
 import React from 'react';
 import CSSModules from 'react-css-modules';
-
+import styles from '../scss/app.scss';
 import Header from './header.js';
 import Login from './home.js';
 
-export default class App extends React.Component {
+export class App extends React.Component {
 	render() {
 		return(
 			<div>
@@ -18,3 +18,5 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+export default CSSModules(App, styles);

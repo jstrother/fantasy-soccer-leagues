@@ -132,7 +132,8 @@ export class Display extends React.Component {
 				<div>
 					Roster:
 					<h5>Click on a player's name to view their stats.</h5>
-					<table>
+					<table
+						className={styles.rosterTable}>
 						<thead>
 							<tr>
 								<th>

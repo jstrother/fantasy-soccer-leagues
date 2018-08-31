@@ -1,0 +1,42 @@
+@import "normalize";
+@import "myVariables";
+
+table, thead, tbody, th, td, tr { 
+	display: block; 
+}
+
+tbody {
+  height: 20em;
+  overflow: auto;
+}
+
+tr { 
+  border: 1px solid #ccc;
+  &:nth-of-type(odd) {
+    background: $trColor;
+  }
+}
+
+td { 
+  /* Behave  like a "row" */
+  border: none;
+  position: relative;
+  padding-left: 6em;
+  text-align: center;
+  border-bottom: 1px solid black;
+  &:last-of-type {
+    border-bottom: 3px solid black;
+    top: 0.15em;
+  }
+}
+
+td:before { 
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 0.15em;
+  left: 0.3em;
+  text-align: left;
+  padding-right: 2em;
+  white-space: nowrap;
+}
