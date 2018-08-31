@@ -1,5 +1,6 @@
 @import "normalize";
 @import "myVariables";
+@import "table";
 
 .hidden {
   display: none;
@@ -12,10 +13,6 @@
   
   .playerRemove {
     cursor: pointer;
-  }
-  
-  .playerSelectTable, p, h5 {
-    // width: 57%;
   }
   
   .playerSelectTable, thead, tbody, th, td, tr { 

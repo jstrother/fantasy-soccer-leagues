@@ -92,7 +92,8 @@ export class DisplaySchedule extends React.Component {
           <br />
           <p
             className={styles.header}>Schedule:</p>
-          <table>
+          <table
+            className={styles.scheduleTable}>
             <thead>
               <tr>
                 <th>Round</th>

@@ -1,12 +1,8 @@
 @import "normalize";
 @import "myVariables";
+@import "table";
 
 .benchPlayers {
-  
-  .benchPlayerTable, p, h5 {
-    // width: 57%;
-  }
-  
   .benchPlayerTable, thead, tbody, th, td, tr { 
   	display: block; 
   }

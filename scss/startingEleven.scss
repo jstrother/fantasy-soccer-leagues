@@ -1,12 +1,9 @@
 @import "normalize";
 @import "myVariables";
+@import "table";
 
 .startingEleven {
   margin-bottom: 2em;
-  
-  .startersTable, p, h5 {
-    // width: 57%;
-  }
   
   .startersTable, thead, tbody, th, td, tr { 
   	display: block; 

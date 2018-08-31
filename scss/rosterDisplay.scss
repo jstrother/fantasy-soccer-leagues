@@ -1,13 +1,10 @@
 @import "normalize";
 @import "myVariables";
+@import "table";
 
 .rosterDisplay {
   .clickable {
     cursor: pointer;
-  }
-  
-  .rosterTable, p, h5 {
-    // width: 57%;
   }
   
   /* Hide table headers (but not display: none;, for accessibility) */
