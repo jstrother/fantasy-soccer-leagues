@@ -9,8 +9,10 @@
   
   .scheduleTable {
     table-layout: fixed;
-    border: $tableBorder;
-    border-collapse: collapse;
+    border: $tableBorderGrey;
+    border-collapse: separate;
+    empty-cells: show;
+    border-spacing: 0;
     display: flex;
     flex-flow: column nowrap;
     align-content: center;
@@ -19,14 +21,14 @@
     overflow: auto;
     
     .blankRow {
-      height: 1.5em;
+      height: $blankRowHeight;
     }
     
     thead {
       position: absolute;
       z-index: 2;
       background-color: $trColor;
-      height: 1.5em;
+      height: $blankRowHeight;
       width: 95%;
       
       th {
@@ -56,28 +58,23 @@
       }
       tr {
         &:first-of-type {
+          display: flex;
+          align-content: stretch;
           width: 100%;
           td {
+            flex: 1 1 25%;
             &:first-of-type {
-              width: 25%;
-            }
-            &:nth-of-type(2) {
-              width: 25%;
-              content: ' ';
-            }
-            &:nth-of-type(3) {
-              width: 25%;
-              content: ' ';
-            }
-            &:last-of-type {
-              width: 25%;
-              content: ' ';
+              padding-top: 3%;
+              padding-right: 20%;
             }
           }
         }
         &:nth-of-type(2) {
           display: flex;
           justify-content: space-around;
+          td {
+            padding-bottom: 3%;
+          }
         }
         td {
           text-align: center;

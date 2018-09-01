@@ -1,10 +1,13 @@
 @import "myBreakpoints";
 
-$tableBorder: 1px solid black;
-$tableWidth: 45em;
-$tableWidthMobile: $tableWidth / 2;
-
 $trColor: #EEE;
 $trPadding: 0.25em;
+
+$blankRowHeight: 1.5em;
+
+$tableBorderBlack: 1px solid black;
+$tableBorderGrey: 1px solid $trColor;
+$tableWidth: 45em;
+$tableWidthMobile: $tableWidth / 2;
 
 $playerInfoBG: #2F88B3;

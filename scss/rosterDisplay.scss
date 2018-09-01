@@ -32,7 +32,7 @@
     flex-flow: row nowrap;
     width: $tableWidth;
     .rosterTable {
-      border: $tableBorder;
+      border: $tableBorderBlack;
     }
     
     thead tr {
@@ -55,7 +55,7 @@
     }
     
     tr {
-      outline: $tableBorder;
+      outline: $tableBorderBlack;
       padding-top: $trPadding;
       padding-bottom: $trPadding;
       &:nth-of-type(odd) {
