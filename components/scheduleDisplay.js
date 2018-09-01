@@ -102,13 +102,16 @@ export class DisplaySchedule extends React.Component {
                 <th>Date/Result</th>
               </tr>
             </thead>
-            {/*due to the header covering part of the first week's schedule, we are creating a blank row to space out the schedule properly*/}
-            <tr
-              className={styles.blankRow}></tr>
+            <tbody
+              className={styles.placeHolder}>
+              {/*due to the header covering part of the first week's schedule, we are creating a blank row to space out the schedule properly*/}
+              <tr
+                className={styles.blankRow}></tr>
+            </tbody>
             {
               this.props.fantasySchedule.weeklyMatches
               // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
-              .sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in descending order
+              .sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in ascending order, 1 - 38
               .map(week => {
                 const matches = week.matches,
                   matchDay = localeDate(week.datesToRun);
@@ -120,7 +123,7 @@ export class DisplaySchedule extends React.Component {
                     <tr>
                       <td
                         key={`round${week.roundNumber}`}>
-                        {`Round ${week.roundNumber}`}
+                        {`${week.roundNumber}`}
                       </td>
                       <td></td>
                       <td></td>

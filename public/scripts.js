@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d575fd7dce3e687b473d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "09018fb121159c4d97a2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37954,12 +37954,14 @@ function (_React$Component) {
           className: _scheduleDisplay.default.header
         }, "Schedule:"), _react.default.createElement("table", {
           className: _scheduleDisplay.default.scheduleTable
-        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), _react.default.createElement("tr", {
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Round"), _react.default.createElement("th", null, "Home"), _react.default.createElement("th", null, "Away"), _react.default.createElement("th", null, "Date/Result"))), _react.default.createElement("tbody", {
+          className: _scheduleDisplay.default.placeHolder
+        }, _react.default.createElement("tr", {
           className: _scheduleDisplay.default.blankRow
-        }), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+        })), this.props.fantasySchedule.weeklyMatches // we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
         .sort(function (a, b) {
           return (0, _compare_function.compare)(b.roundNumber, a.roundNumber);
-        }) // it is this way to sort in descending order
+        }) // it is this way to sort in ascending order, 1 - 38
         .map(function (week) {
           var matches = week.matches,
               matchDay = (0, _localeDate_function.localeDate)(week.datesToRun); // create a table body for each round of the season
@@ -37969,7 +37971,7 @@ function (_React$Component) {
             id: "rnd-".concat(week._id)
           }, _react.default.createElement("tr", null, _react.default.createElement("td", {
             key: "round".concat(week.roundNumber)
-          }, "Round ".concat(week.roundNumber)), _react.default.createElement("td", null), _react.default.createElement("td", null), _react.default.createElement("td", null)), matches.map(function (match) {
+          }, "".concat(week.roundNumber)), _react.default.createElement("td", null), _react.default.createElement("td", null), _react.default.createElement("td", null)), matches.map(function (match) {
             if (match.final === false) {
               return _react.default.createElement("tr", {
                 key: "".concat(week._id).concat(match._id)
