@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "49a50287bc4e9ee0d23b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "91eb3d7351c5dba97bae"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38124,7 +38124,7 @@ module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__wbOHj","homeClub":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__1GZaU","header":"scheduleDisplay__header__3T10i","scheduleTable":"scheduleDisplay__scheduleTable__XHnr9","blankRow":"scheduleDisplay__blankRow__2vB-H","hidden":"scheduleDisplay__hidden__3q_Nu"};
+module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__1GZaU","scheduleTable":"scheduleDisplay__scheduleTable__XHnr9","header":"scheduleDisplay__header__3T10i","blankRow":"scheduleDisplay__blankRow__2vB-H","hidden":"scheduleDisplay__hidden__3q_Nu"};
 
 /***/ }),
 /* 449 */
@@ -39108,7 +39108,11 @@ function (_React$Component) {
       if (this.props.currentStandings) {
         return _react.default.createElement("div", {
           className: this.props.standingsVisible ? _fantasyStandings.default.fantasySchedule : _fantasyStandings.default.hidden
-        }, "Fantasy League Standings:", _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "Pts"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"))), _react.default.createElement("tbody", null, this.props.currentStandings.map(function (club) {
+        }, "Fantasy League Standings:", _react.default.createElement("table", {
+          className: _fantasyStandings.default.standingsTable
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "Pts"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"))), _react.default.createElement("tbody", null, _react.default.createElement("tr", {
+          className: _fantasyStandings.default.blankRow
+        }), this.props.currentStandings.map(function (club) {
           return _react.default.createElement("tr", {
             key: club._id,
             id: "club-".concat(club.clubName)
@@ -39145,7 +39149,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3cznF","hidden":"fantasyStandings__hidden__1izem"};
+module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3cznF","standingsTable":"fantasyStandings__standingsTable__2JntP","blankRow":"fantasyStandings__blankRow__3FWT5","hidden":"fantasyStandings__hidden__1izem"};
 
 /***/ }),
 /* 463 */

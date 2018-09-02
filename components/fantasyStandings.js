@@ -17,7 +17,8 @@ export class FantasyTable extends React.Component {
 				<div
 					className={this.props.standingsVisible ? styles.fantasySchedule : styles.hidden}>
 					Fantasy League Standings:
-					<table>
+					<table
+						className={styles.standingsTable}>
 						<thead>
 							<tr>
 								<th>Club</th>
@@ -32,6 +33,9 @@ export class FantasyTable extends React.Component {
 							</tr>
 						</thead>
 						<tbody>
+							{/*due to the header covering part of the first week's schedule, we are creating a blank row to space out the schedule properly*/}
+							<tr
+                className={styles.blankRow}></tr>
 							{
 								this.props.currentStandings
 								.map(club => {

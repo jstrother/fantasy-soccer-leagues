@@ -1,0 +1,13 @@
+%sharedTable2 {
+    table-layout: fixed;
+    border: $tableBorderGrey;
+    border-collapse: separate;
+    empty-cells: show;
+    border-spacing: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    height: 30em;
+    width: 100%;
+    overflow: auto;
+}

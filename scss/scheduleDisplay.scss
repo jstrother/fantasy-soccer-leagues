@@ -1,5 +1,6 @@
 @import "normalize";
 @import "myVariables";
+@import "table2";
 
 .scheduleDisplay {
   .header {
@@ -8,17 +9,7 @@
   }
   
   .scheduleTable {
-    table-layout: fixed;
-    border: $tableBorderGrey;
-    border-collapse: separate;
-    empty-cells: show;
-    border-spacing: 0;
-    display: flex;
-    flex-flow: column nowrap;
-    align-content: center;
-    height: 30em;
-    width: 100%;
-    overflow: auto;
+    @extend %sharedTable2;
     
     .blankRow {
       height: $blankRowHeight;
@@ -27,7 +18,7 @@
     thead {
       position: absolute;
       z-index: 2;
-      background-color: $trColor;
+      background: $trColor;
       height: $blankRowHeight;
       width: 95%;
       
