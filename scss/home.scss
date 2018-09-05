@@ -2,13 +2,10 @@
 @import "myVariables";
 
 main {
-  display: grid;
-  grid-template-area: 
-    '.... .... welcome .... ....'
-    '.... .... content .... ....';
+  display: flex;
+  flex-flow: column nowrap;
   
   .welcome {
-    grid-area: 'welcome';
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -24,14 +21,9 @@ main {
   }
   
   .club {
-    grid-area: 'content';
     display: flex;
     justify-content: center;
     align-content: center;
-  }
-  
-  .player {
-    grid-area: 'content';
   }
   
   .hidden {

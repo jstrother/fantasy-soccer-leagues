@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "131b82388d0e65ccc82e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b105a13f959603e5c6ce"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39373,7 +39373,7 @@ module.exports = {"player":"player__player__ygdIC","clubLogo":"player__clubLogo_
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"welcome":"home__welcome__2FCv3","club":"home__club__13dMS","player":"home__player__2pPuN","hidden":"home__hidden__3o7WK"};
+module.exports = {"welcome":"home__welcome__2FCv3","club":"home__club__13dMS","hidden":"home__hidden__3o7WK"};
 
 /***/ }),
 /* 467 */
