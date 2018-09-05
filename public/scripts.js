@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "91eb3d7351c5dba97bae"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "131b82388d0e65ccc82e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5207,7 +5207,7 @@ exports.API_KEY = '?api_token=2GWcdMDb3ppwcmdLrkD8JcXaaR5RmR91dHbgA6TnyCA8ik8kj3
 exports.CLIENT_SECRET = 'yIs-UYd9Rqqe8GVS1DRB5Aij';
 exports.CLIENT_ID = '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com'; // this const to be set to main directory upon deployment
 
-exports.DEV_DIRECTORY = 'https://fantasy-soccer-leagues-jstrother.c9users.io';
+exports.DEV_DIRECTORY = 'http://127.0.0.1:8080';
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -36911,7 +36911,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"link":"loginPage__link__3qoZW"};
+module.exports = {"link":"loginPage__link__2Wfk_"};
 
 /***/ }),
 /* 440 */
@@ -37385,7 +37385,7 @@ module.exports = {"link":"loginPage__link__3qoZW"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"mobileTitle":"header__mobileTitle__9sMKh","largeTitle":"header__largeTitle__3j3xK","userSection":"header__userSection__1vBlL","userPhoto":"header__userPhoto__3AS2d","userName":"header__userName__2mr9b","clubSection":"header__clubSection__1tVTK","roster":"header__roster__8pjpB","schedule":"header__schedule__C1eG6","standings":"header__standings__3ufaF","link":"header__link__3EBE4","hidden":"header__hidden__ie2J1","clubName":"header__clubName__3DGs-"};
+module.exports = {"mobileTitle":"header__mobileTitle__2NAHk","largeTitle":"header__largeTitle__1pKZf","userSection":"header__userSection__17SgM","userPhoto":"header__userPhoto__1b7iu","userName":"header__userName__6g55A","clubSection":"header__clubSection__2bmOD","roster":"header__roster__2Xavw","schedule":"header__schedule__3HPcO","standings":"header__standings__1Qyoo","link":"header__link__1V4d3","hidden":"header__hidden__1Ef2c","clubName":"header__clubName__3gMXR"};
 
 /***/ }),
 /* 442 */
@@ -38117,21 +38117,21 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__wbOHj","homeClub":"fantasyMatch__homeClub__1HLQP","homeScore":"fantasyMatch__homeScore__6_yr5","awayClub":"fantasyMatch__awayClub__3sCxF","awayScore":"fantasyMatch__awayScore__1Fdf9","matchDate":"fantasyMatch__matchDate__yu2d1","title":"fantasyMatch__title__3_yQj","hidden":"fantasyMatch__hidden__nw6mA"};
+module.exports = {"fantasyMatch":"fantasyMatch__fantasyMatch__3x-QT","homeClub":"fantasyMatch__homeClub__13dJ6","homeScore":"fantasyMatch__homeScore__32c-k","awayClub":"fantasyMatch__awayClub__heGhb","awayScore":"fantasyMatch__awayScore__21LdU","matchDate":"fantasyMatch__matchDate__3XhtY","title":"fantasyMatch__title__3vflN","hidden":"fantasyMatch__hidden__QQn79"};
 
 /***/ }),
 /* 448 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__1GZaU","scheduleTable":"scheduleDisplay__scheduleTable__XHnr9","header":"scheduleDisplay__header__3T10i","blankRow":"scheduleDisplay__blankRow__2vB-H","hidden":"scheduleDisplay__hidden__3q_Nu"};
+module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__3nuWb","scheduleTable":"scheduleDisplay__scheduleTable__367AM","header":"scheduleDisplay__header__DBgj9","blankRow":"scheduleDisplay__blankRow__10S17","hidden":"scheduleDisplay__hidden__mqiy0"};
 
 /***/ }),
 /* 449 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"fantasySchedule__hidden__KG9ET"};
+module.exports = {"hidden":"fantasySchedule__hidden__1Lcua"};
 
 /***/ }),
 /* 450 */
@@ -38511,14 +38511,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterWarning":"warning__rosterWarning__SOm2i","hidden":"warning__hidden__IUqCI"};
+module.exports = {"rosterWarning":"warning__rosterWarning__Wm1tf","hidden":"warning__hidden__1NO0k"};
 
 /***/ }),
 /* 453 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__34mEp","hidden":"playerSelection__hidden__1wvZE","playerName":"playerSelection__playerName__2ztOX","playerRemove":"playerSelection__playerRemove__3l8ni","playerSelectTable":"playerSelection__playerSelectTable__3S07k"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__qkBA1","hidden":"playerSelection__hidden__3ZKZF","playerName":"playerSelection__playerName__bEPf8","playerRemove":"playerSelection__playerRemove__1Qhcf","playerSelectTable":"playerSelection__playerSelectTable__3DM7q"};
 
 /***/ }),
 /* 454 */
@@ -38906,7 +38906,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"startingEleven":"startingEleven__startingEleven__7MfxE","startersTable":"startingEleven__startersTable__15gzN","pointer":"startingEleven__pointer__2Hebq","hidden":"startingEleven__hidden__1-AwT"};
+module.exports = {"startingEleven":"startingEleven__startingEleven__1Cu9J","startersTable":"startingEleven__startersTable__24fUO","pointer":"startingEleven__pointer__2JCjg","hidden":"startingEleven__hidden__UwMNs"};
 
 /***/ }),
 /* 457 */
@@ -39028,21 +39028,21 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"benchPlayers":"benchPlayers__benchPlayers__383bU","benchPlayerTable":"benchPlayers__benchPlayerTable__2eaMY","pointer":"benchPlayers__pointer__3hGpZ","hidden":"benchPlayers__hidden__3dASr"};
+module.exports = {"benchPlayers":"benchPlayers__benchPlayers__3vX8Q","benchPlayerTable":"benchPlayers__benchPlayerTable__12TTV","pointer":"benchPlayers__pointer__jwxoo","hidden":"benchPlayers__hidden__2iyUw"};
 
 /***/ }),
 /* 459 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__MFLah","clickable":"rosterDisplay__clickable__384vG","rosterTable":"rosterDisplay__rosterTable__2iKwD"};
+module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","clickable":"rosterDisplay__clickable__3nTYl","rosterTable":"rosterDisplay__rosterTable__1gX8e"};
 
 /***/ }),
 /* 460 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterComponent":"roster__rosterComponent__3Cx_P","hidden":"roster__hidden__1PVPk"};
+module.exports = {"rosterComponent":"roster__rosterComponent__d7NzF","hidden":"roster__hidden__W3kw-"};
 
 /***/ }),
 /* 461 */
@@ -39149,14 +39149,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3cznF","standingsTable":"fantasyStandings__standingsTable__2JntP","blankRow":"fantasyStandings__blankRow__3FWT5","hidden":"fantasyStandings__hidden__1izem"};
+module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3qWh_","standingsTable":"fantasyStandings__standingsTable__1Al2O","blankRow":"fantasyStandings__blankRow__1oQ-J","hidden":"fantasyStandings__hidden__3YF6D"};
 
 /***/ }),
 /* 463 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasyClub":"fantasyClub__fantasyClub__3Imxb","hidden":"fantasyClub__hidden__1gn0Z"};
+module.exports = {"fantasyClub":"fantasyClub__fantasyClub__1TYnD","hidden":"fantasyClub__hidden__3PXwD"};
 
 /***/ }),
 /* 464 */
@@ -39366,14 +39366,14 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"player":"player__player__3DvLK","clubLogo":"player__clubLogo__3atZV","playerHeader":"player__playerHeader__3IuDQ","playerName":"player__playerName__1UQZ8","clubName":"player__clubName__1u7CU","pointsDiv":"player__pointsDiv__xbFoX","playerStats":"player__playerStats__3ql3R","statsHeader":"player__statsHeader__1LCyX","playerDataClose":"player__playerDataClose__2Y0_j","hidden":"player__hidden__XtzsF"};
+module.exports = {"player":"player__player__ygdIC","clubLogo":"player__clubLogo__gU8M7","playerHeader":"player__playerHeader__MT9AF","playerName":"player__playerName__3ybbH","clubName":"player__clubName__2a_jY","pointsDiv":"player__pointsDiv__2Z_Fo","playerStats":"player__playerStats__3Kg6O","statsHeader":"player__statsHeader__2Gp4_","playerDataClose":"player__playerDataClose__2LbOY","hidden":"player__hidden__38TLQ"};
 
 /***/ }),
 /* 466 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"welcome":"home__welcome__29INR","club":"home__club__1Uihs","player":"home__player__2TUK8","hidden":"home__hidden__2vh0m"};
+module.exports = {"welcome":"home__welcome__2FCv3","club":"home__club__13dMS","player":"home__player__2pPuN","hidden":"home__hidden__3o7WK"};
 
 /***/ }),
 /* 467 */
