@@ -46,11 +46,7 @@ alias gitignore="touch .gitignore && echo 'node_modules/
 *.log
 *.zip
 *.pem
-*.ppk
-rethinkdb_data/
-src/scss/bourbon
-src/scss/neat
-src/scss/base' >> .gitignore"
+*.ppk' >> .gitignore"
 
 
 # the following is an alias for npm init
@@ -83,7 +79,7 @@ alias S="i --save"
 alias D="i --save-dev"
 
 
-# the following is an alias to install npm packages globally
+# the following is an alias to install npm packages globally (packages can be specified)
 
 alias G="i -g"
 
