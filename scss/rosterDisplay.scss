@@ -29,7 +29,7 @@
   @media (min-width: $gtMidpoint) {
     display: flex;
     justify-content: space-around;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     width: $tableWidth;
     .rosterTable {
       border: $tableBorderBlack;

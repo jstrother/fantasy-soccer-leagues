@@ -1,66 +1,99 @@
-@import "normalize";
-@import "myVariables";
-@import "table";
+@import 'normalize';
+@import 'myVariables';
+@import 'table';
 
 .hidden {
-  display: none;
+	display: none;
 }
 
 .playerSelection {
-  @extend %sharedTable;
-  .playerName {
-    cursor: pointer;
+	@extend %sharedTable;
+	.playerName {
+		cursor: pointer;
+	}
+
+	.playerRemove {
+		cursor: pointer;
   }
   
-  .playerRemove {
-    cursor: pointer;
-  }
-  
-  .playerSelectTable, thead, tbody, th, td, tr { 
-  	display: block; 
-  }
-  
-  /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    
-    th {
-      &:first-of-type {
-        display: none;
-      }
-      &:last-of-type {
-        display: none;
-      }
-    }
-  }
-  
-  /*
+	thead tr {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+
+		th {
+			&:first-of-type {
+				display: none;
+			}
+			&:last-of-type {
+				display: none;
+			}
+		}
+	}
+
+	tbody {
+		width: 100%;
+	}
+
+	/*
   Label the data
   */
-  td:nth-of-type(1):before { content: "Name"; }
-  td:nth-of-type(2):before { content: "Position"; }
-  td:nth-of-type(3):before { content: "Club"; }
-  td:nth-of-type(4):before { content: "Points"; }
-  
-  @media (min-width: $gtMidpoint) {
-    border: $tableBorderBlack;
+	td:nth-of-type(1):before {
+		content: 'Name';
+	}
+	td:nth-of-type(2):before {
+		content: 'Position';
+	}
+	td:nth-of-type(3):before {
+		content: 'Club';
+	}
+	td:nth-of-type(4):before {
+		content: 'Points';
+	}
+
+	@media (min-width: $gtMidpoint) {
     width: $tableWidth;
     
-    thead tr {
-      display: block;
+    .playerSelectionTable {
+      border: $tableBorderBlack;
+    }
+
+		thead tr {
+      display: flex;
+      flex-flow: row nowrap;
       position: relative;
+      
+      th {
+        width: $tableWidth / 4;
+        &:first-of-type {
+          display: block;
+        }
+        &:last-of-type {
+          display: block;
+        }
+      }
     }
     
-    th {
-      width: $tableWidth / 4;
+    tbody tr {
+      width: $tableWidth - 1em; // to subtract the width of the vertical scrollbar so we don't get a horizontal scrollbar
+      display: flex;
+      flex-flow: row nowrap;
+
+      td {
+        border: none;
+        width: $tableWidth / 4;
+        position: static;
+        text-align: center;
+        padding-left: 0;
+        &:before {
+          display: none;
+          content: '';
+        }
+        &:last-of-type {
+          border: none;
+        }
+      }
     }
-    
-    td {
-      width: $tableWidth / 4;
-      text-align: center;
-    }
-  }
+	}
 }
