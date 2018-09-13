@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c3b85e1089a51ff4ba93"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1ce10b6f6dff32ed2197"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37481,8 +37481,12 @@ function (_React$Component) {
       if (this.props.googleId && !this.props.fantasyLeagueId) {
         return _react.default.createElement("main", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", {
           className: _home.default.welcome
-        }, _react.default.createElement("p", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("p", null, "Which league will be the basis for your fantasy soccer?"), _react.default.createElement("br", null), _react.default.createElement("select", {
-          className: "leagueSelection",
+        }, _react.default.createElement("p", {
+          className: _home.default.welcomeText
+        }, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("p", {
+          className: _home.default.welcomeText
+        }, "Which league will be the basis for your fantasy soccer?"), _react.default.createElement("br", null), _react.default.createElement("select", {
+          className: _home.default.leagueSelection,
           name: "leagueSelection",
           value: 0,
           onChange: this.selectLeagueChange.bind(this)
@@ -37499,7 +37503,11 @@ function (_React$Component) {
           className: _home.default.player
         }, _react.default.createElement(_player.default, null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", {
           className: this.props.playerDataShow === false ? _home.default.welcome : _home.default.hidden
-        }, _react.default.createElement("p", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", null, "You have selected ", this.props.fantasyLeagueName, ".")), _react.default.createElement("br", null), _react.default.createElement("div", {
+        }, _react.default.createElement("p", {
+          className: _home.default.welcomeText
+        }, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", {
+          className: _home.default.welcomeText
+        }, "You have selected ", this.props.fantasyLeagueName, ".")), _react.default.createElement("br", null), _react.default.createElement("div", {
           className: this.props.playerDataShow === false ? _home.default.club : _home.default.hidden
         }, _react.default.createElement(_fantasyClub.default, null)));
       }
@@ -39380,7 +39388,7 @@ module.exports = {"player":"player__player__ygdIC","clubLogo":"player__clubLogo_
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"welcome":"home__welcome__2FCv3","welcomeText":"home__welcomeText__108nF","club":"home__club__13dMS","hidden":"home__hidden__3o7WK"};
+module.exports = {"welcome":"home__welcome__2FCv3","welcomeText":"home__welcomeText__108nF","leagueSelection":"home__leagueSelection__3sdUP","club":"home__club__13dMS","hidden":"home__hidden__3o7WK"};
 
 /***/ }),
 /* 467 */

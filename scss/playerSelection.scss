@@ -62,7 +62,7 @@
 		thead tr {
       display: flex;
       flex-flow: row nowrap;
-      position: relative;
+      position: static;
       
       th {
         width: $tableWidth / 4;

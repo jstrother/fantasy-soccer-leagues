@@ -8,11 +8,13 @@
     cursor: pointer;
   }
   
-  /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr { 
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  @media (max-width: $midpoint) {
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
   }
   
   /*
@@ -41,10 +43,11 @@
       tr {
         display: flex;
         flex-flow: row nowrap;
-        position: relative;
+        justify-content: center;
+        align-items: center;
 
         th {
-          width: $tableWidth / 4;
+          width: $tableWidth / 7;
           
           &:last-of-type {
             padding-right: 1em;
