@@ -220,14 +220,17 @@ export class Display extends React.Component {
 						</tbody>
 					</table>
 				</div>
-				<div>
+				<div
+					className={styles.lineup}>
 					<p>Set your lineup for upcoming matches.</p>
 					<Warning />
-					<div>
+					<div
+						className={styles.startingEleven}>
 						Your Starting 11:
 						<StartingEleven />
 					</div>
-					<div>
+					<div
+						className={styles.benchPlayers}>
 						Players Available on Bench (7 required):
 						<BenchPlayers />
 					</div>

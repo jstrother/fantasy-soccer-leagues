@@ -8,15 +8,6 @@
     cursor: pointer;
   }
   
-  @media (max-width: $midpoint) {
-    /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr { 
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-  }
-  
   /*
   Label the data
   */
@@ -28,63 +19,80 @@
   td:nth-of-type(6):before { content: "On Bench?"; }
   td:nth-of-type(7):before { content: "Remove?"; }
   
+  @media (max-width: $midpoint) {
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  }
+  
   @media (min-width: $gtMidpoint) {
     display: flex;
-    justify-content: space-around;
-    flex-flow: row wrap;
+    justify-content: space-between;
+    flex-flow: row wrap;  
 
     .rosterTable {
       width: $tableWidth;
-    }
-    
-    thead {
-      position: static;
+      thead {
+        position: static;
 
-      tr {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
+        tr {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
 
-        th {
-          width: $tableWidth / 7;
-          
-          &:last-of-type {
-            padding-right: 1em;
+          th {
+            width: $tableWidth / 7;
+            
+            &:last-of-type {
+              padding-right: 1em;
+            }
           }
         }
       }
-    }
-    
-    tbody {
-      display: block;
-      height: 20em;
-      overflow: auto;
 
-      tr {
-        display: flex;
-        flex-flow: row nowrap;
-        outline: $tableBorderBlack;
-        padding-top: $trPadding;
-        padding-bottom: $trPadding;
-        &:nth-of-type(odd) {
-          background: $trColor;
-        }
+      tbody {
+        display: block;
+        height: 20em;
+        overflow: auto;
 
-        td {
-          border: none;
-          width: $tableWidth / 4;
-          position: static;
-          text-align: center;
-          padding-left: 0;
-          &:before {
-            display: none;
-            content: '';
+        tr {
+          display: flex;
+          flex-flow: row nowrap;
+          padding-top: $trPadding;
+          padding-bottom: $trPadding;
+          &:nth-of-type(odd) {
+            background: $trColor;
           }
-          &:last-of-type {
-            border-bottom: none;
+
+          td {
+            border: none;
+            width: $tableWidth / 4;
+            position: static;
+            text-align: center;
+            padding-left: 0;
+            &:before {
+              display: none;
+              content: '';
+            }
+            &:last-of-type {
+              border-bottom: none;
+            }
           }
         }
+      }
+    }  
+
+    .lineup {
+      .startingEleven {
+        
+      }
+
+      .benchPlayers {
+
       }
     }
   }

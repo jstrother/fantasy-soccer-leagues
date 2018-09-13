@@ -70,11 +70,12 @@ export class FantasyTeam extends React.Component {
 						className={styles.rosterDiv}>
 						<Roster />
 					</div>
-					<div>
+					<div
+						className={styles.scheduleDiv}>
 						<FantasySchedule />
 					</div>
 					<div
-            className={styles.league}>
+            className={styles.leagueDiv}>
             <FantasyStandings />
           </div>
 				</div>

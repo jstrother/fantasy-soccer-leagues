@@ -2,12 +2,13 @@
 // @import "myVariables";
 
 .fantasyClub {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  
-  .clubNameForm {
-    
+
+  .rosterDiv {
+    width: 100%;
   }
 }
 

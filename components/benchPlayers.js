@@ -36,7 +36,7 @@ export class Bench extends React.Component {
 									Position
 								</th>
 								<th>
-									Remove from Bench?
+									Remove?
 								</th>
 							</tr>
 						</thead>

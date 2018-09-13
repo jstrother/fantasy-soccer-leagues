@@ -14,8 +14,8 @@
 
 	.playerRemove {
 		cursor: pointer;
-  }
-  
+	}
+
 	thead tr {
 		display: flex;
 		flex-flow: column nowrap;
@@ -53,47 +53,47 @@
 	}
 
 	@media (min-width: $gtMidpoint) {
-    width: $tableWidth;
-    
-    .playerSelectionTable {
-      border: $tableBorderBlack;
-    }
+		width: $tableWidth;
+
+		.playerSelectionTable {
+			border: $tableBorderBlack;
+		}
 
 		thead tr {
-      display: flex;
-      flex-flow: row nowrap;
-      position: static;
-      
-      th {
-        width: $tableWidth / 4;
-        &:first-of-type {
-          display: block;
-        }
-        &:last-of-type {
-          display: block;
-        }
-      }
-    }
-    
-    tbody tr {
-      width: $tableWidth - 1em; // to subtract the width of the vertical scrollbar so we don't get a horizontal scrollbar
-      display: flex;
-      flex-flow: row nowrap;
+			display: flex;
+			flex-flow: row nowrap;
+			position: static;
 
-      td {
-        border: none;
-        width: $tableWidth / 4;
-        position: static;
-        text-align: center;
-        padding-left: 0;
-        &:before {
-          display: none;
-          content: '';
-        }
-        &:last-of-type {
-          border: none;
-        }
-      }
-    }
+			th {
+				width: $tableWidth / 4;
+				&:first-of-type {
+					display: block;
+				}
+				&:last-of-type {
+					display: block;
+				}
+			}
+		}
+
+		tbody tr {
+			width: $tableWidth - 1.2em; // to subtract the width of the vertical scrollbar so we don't get a horizontal scrollbar
+			display: flex;
+			flex-flow: row nowrap;
+
+			td {
+				border: none;
+				width: $tableWidth / 4;
+				position: static;
+				text-align: center;
+				padding-left: 0;
+				&:before {
+					display: none;
+					content: '';
+				}
+				&:last-of-type {
+					border: none;
+				}
+			}
+		}
 	}
 }

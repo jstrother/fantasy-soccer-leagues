@@ -6,10 +6,6 @@
   @extend %sharedTable;
   margin-bottom: 2em;
   
-  .startersTable, thead, tbody, th, td, tr { 
-  	display: block; 
-  }
-  
   .startersTable {
     /* Hide table headers (but not display: none;, for accessibility) */
     thead tr { 
@@ -34,6 +30,24 @@
     td:nth-of-type(1):before { content: "Name"; }
     td:nth-of-type(2):before { content: "Position"; }
     td:nth-of-type(3):before { content: "Remove?"; }
+
+    @media (min-width: $gtMidpoint) {
+      thead tr { 
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        align-items: center;
+        
+        th {
+          &:first-of-type {
+            display: block;
+          }
+          &:last-of-type {
+            display: block;
+          }
+        }
+      }
+    }
   }
   
   .pointer {

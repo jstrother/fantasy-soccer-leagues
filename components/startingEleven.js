@@ -36,7 +36,7 @@ export class Starters extends React.Component {
                   Position
                 </th>
                 <th>
-                  Remove from Starting 11?
+                  Remove?
                 </th>
               </tr>
             </thead>

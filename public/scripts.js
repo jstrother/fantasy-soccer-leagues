@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1ce10b6f6dff32ed2197"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "287d7da03fb64eb13823"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37659,8 +37659,10 @@ function (_React$Component) {
           className: this.props.playerDataShow === false ? _fantasyClub.default.fantasyClub : _fantasyClub.default.hidden
         }, _react.default.createElement("div", {
           className: _fantasyClub.default.rosterDiv
-        }, _react.default.createElement(_roster.default, null)), _react.default.createElement("div", null, _react.default.createElement(_fantasySchedule.default, null)), _react.default.createElement("div", {
-          className: _fantasyClub.default.league
+        }, _react.default.createElement(_roster.default, null)), _react.default.createElement("div", {
+          className: _fantasyClub.default.scheduleDiv
+        }, _react.default.createElement(_fantasySchedule.default, null)), _react.default.createElement("div", {
+          className: _fantasyClub.default.leagueDiv
         }, _react.default.createElement(_fantasyStandings.default, null)));
       }
     }
@@ -38773,7 +38775,13 @@ function (_React$Component) {
           "data-points": p.fantasyPoints.fixture,
           onClick: _this4.handleRosterRemove.bind(_this4)
         }, "Remove"));
-      })))), _react.default.createElement("div", null, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", null, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", null, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null))));
+      })))), _react.default.createElement("div", {
+        className: _rosterDisplay.default.lineup
+      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", {
+        className: _rosterDisplay.default.startingEleven
+      }, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
+        className: _rosterDisplay.default.benchPlayers
+      }, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null))));
     }
   }]);
 
@@ -38878,7 +38886,7 @@ function (_React$Component) {
           className: _startingEleven.default.startingEleven
         }, _react.default.createElement("table", {
           className: _startingEleven.default.startersTable
-        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Starting 11?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove?"))), _react.default.createElement("tbody", null, this.props.starters.map(function (p) {
           return _react.default.createElement("tr", {
             id: "s11-".concat(p.idFromAPI),
             key: "key-".concat(p.idFromAPI)
@@ -39000,7 +39008,7 @@ function (_React$Component) {
           className: _benchPlayers.default.benchPlayers
         }, _react.default.createElement("table", {
           className: _benchPlayers.default.benchPlayerTable
-        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove from Bench?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
+        }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Remove?"))), _react.default.createElement("tbody", null, this.props.benchwarmers.map(function (p) {
           return _react.default.createElement("tr", {
             id: "s11-".concat(p.idFromAPI),
             key: "key-".concat(p.idFromAPI)
@@ -39171,7 +39179,7 @@ module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3qWh_","
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasyClub":"fantasyClub__fantasyClub__1TYnD","hidden":"fantasyClub__hidden__3PXwD"};
+module.exports = {"fantasyClub":"fantasyClub__fantasyClub__1TYnD","rosterDiv":"fantasyClub__rosterDiv__1KGNU","hidden":"fantasyClub__hidden__3PXwD"};
 
 /***/ }),
 /* 464 */
