@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5a7eabef4a4542b6b70b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c7437f6061768d1e6bf3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5205,7 +5205,10 @@ exports.DATABASE_URL = 'mongodb://gameUser:gamePassword@ds059125.mlab.com:59125/
 exports.PORT = process.env.PORT || 8080;
 exports.API_KEY = '?api_token=2GWcdMDb3ppwcmdLrkD8JcXaaR5RmR91dHbgA6TnyCA8ik8kj3jnaUY2Xga3';
 exports.CLIENT_SECRET = 'yIs-UYd9Rqqe8GVS1DRB5Aij';
-exports.CLIENT_ID = '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com'; // this const to be set to main directory upon deployment
+exports.CLIENT_ID = '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com';
+exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop should repeat; also helps limit continuous looping of playerIdArrays to once per league loop
+
+exports.GOOGLE_ACCESSTOKEN = 'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U'; // this const to be set to main directory upon deployment
 
 exports.DEV_DIRECTORY = 'http://127.0.0.1:8080';
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -37466,9 +37469,13 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.props.googleId === undefined || !this.props.googleId) {
-        return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", {
+        return _react.default.createElement("main", null, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", {
           className: _home.default.welcome
-        }, _react.default.createElement("p", null, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", null, "Create your own team and compete against others to prove you are the best at fantasy footy!")));
+        }, _react.default.createElement("p", {
+          className: _home.default.welcomeText
+        }, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", {
+          className: _home.default.welcomeText
+        }, "Create your own team and compete against others to prove you are the best at fantasy footy!")));
       }
 
       if (this.props.googleId && !this.props.fantasyLeagueId) {
@@ -39373,7 +39380,7 @@ module.exports = {"player":"player__player__ygdIC","clubLogo":"player__clubLogo_
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"welcome":"home__welcome__2FCv3","club":"home__club__13dMS","hidden":"home__hidden__3o7WK"};
+module.exports = {"welcome":"home__welcome__2FCv3","welcomeText":"home__welcomeText__108nF","club":"home__club__13dMS","hidden":"home__hidden__3o7WK"};
 
 /***/ }),
 /* 467 */

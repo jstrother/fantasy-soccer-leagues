@@ -31,15 +31,17 @@ export class Home extends React.Component {
   render() {
     if (this.props.googleId === undefined || !this.props.googleId) {
       return (
-        <div>
+        <main>
           <br /><br />
           <div
             className={styles.welcome}>
-            <p>Welcome to the Fantasy Soccer-Football Super League!</p>
+            <p
+              className={styles.welcomeText}>Welcome to the Fantasy Soccer-Football Super League!</p>
             <br />
-            <p>Create your own team and compete against others to prove you are the best at fantasy footy!</p>
+            <p
+              className={styles.welcomeText}>Create your own team and compete against others to prove you are the best at fantasy footy!</p>
           </div>
-        </div>
+        </main>
       );
     } 
     

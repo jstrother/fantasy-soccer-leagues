@@ -1,32 +1,26 @@
-@import "normalize";
-@import "myVariables";
+@import 'normalize';
+@import 'myVariables';
 
 main {
-  display: flex;
-  flex-flow: column nowrap;
-  
-  .welcome {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    
-    p {
-      margin: 0.1em;
-      align-self: center;
-      width: 75%;
+	display: flex;
+	flex-flow: column nowrap;
+
+	.welcome {
+		display: flex;
+    flex-flow: column nowrap;
+
+    .welcomeText {
       text-align: center;
     }
   }
-  
-  .club {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-  }
-  
-  .hidden {
-    display: none;
-  }
+
+	.club {
+		display: flex;
+		justify-content: center;
+		align-content: center;
+	}
+
+	.hidden {
+		display: none;
+	}
 }
