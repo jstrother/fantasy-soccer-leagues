@@ -103,6 +103,10 @@ alias watch="npm run watch"
 
 alias begin="npm run begin"
 
+# the following is an alias for npm run dev
+
+alias dev="npm run dev"
+
 
 # the following is an alias for npm run start
 

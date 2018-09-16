@@ -1,3 +1,5 @@
+/*eslint-disable no-unused-vars*/
+
 const path = require("path"),
   webpack = require("webpack"),
   ExtractTextPlugin = require("extract-text-webpack-plugin"),
@@ -14,7 +16,7 @@ module.exports = {
     contentBase: `${__dirname}/public`,
     proxy: {
 			"/": {
-				target: "https://fantasy-soccer-leagues-jstrother.c9users.io"
+				target: "http://127.0.0.1"
 			}
     },
     hot: true,

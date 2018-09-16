@@ -34,7 +34,8 @@
     flex-flow: row wrap;
 
     .completeRoster {
-      margin-right: 5em;
+      margin-right: 15em;
+      margin-left: 10em;
 
       .rosterTable {
         width: $tableWidth;
@@ -74,7 +75,6 @@
             td {
               border: none;
               width: $tableWidth / 4;
-              position: static;
               text-align: center;
               padding-left: 0;
               &:before {
