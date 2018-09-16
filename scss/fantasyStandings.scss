@@ -1,121 +1,129 @@
-@import "normalize";
-@import "myVariables";
-@import "table2";
+@import 'normalize';
+@import 'myVariables';
+@import 'table2';
 
-.fantasySchedule {
-  .blankRow {
-      height: $blankRowHeight;
+.fantasyStandings {
+	.blankRow {
+		height: $blankRowHeight;
+	}
+
+	.standingsTable {
+		@extend %sharedTable2;
+		border: 0;
+
+		thead {
+			position: absolute;
+			background: $trColor;
+			width: 95%;
+			th {
+				text-align: center;
+				&:first-of-type {
+					//Club
+					width: 15%;
+					padding-left: 3%;
+				}
+				&:nth-of-type(2) {
+					//GP
+					width: 15%;
+					padding-left: 3%;
+				}
+				&:nth-of-type(3) {
+					//Pts
+					width: 15%;
+				}
+				&:nth-of-type(4) {
+					//W
+					width: 8%;
+				}
+				&:nth-of-type(5) {
+					//D
+					width: 8%;
+				}
+				&:nth-of-type(6) {
+					//L
+					width: 8%;
+				}
+				&:nth-of-type(7) {
+					//GD
+					width: 15%;
+				}
+				&:nth-of-type(8) {
+					//GF
+					width: 15%;
+					padding-right: 3%;
+				}
+				&:last-of-type {
+					//GA
+					width: 15%;
+					padding-right: 3%;
+				}
+			}
+		}
+
+		tbody {
+			tr {
+				&:nth-of-type(odd) {
+					background: $trColor;
+				}
+				td {
+					text-align: center;
+					&:first-of-type {
+						//Club
+						width: 15%;
+						padding-left: 3%;
+					}
+					&:nth-of-type(2) {
+						//GP
+						width: 15%;
+						padding-left: 3%;
+					}
+					&:nth-of-type(3) {
+						//Pts
+						width: 15%;
+					}
+					&:nth-of-type(4) {
+						//W
+						width: 8%;
+					}
+					&:nth-of-type(5) {
+						//D
+						width: 8%;
+					}
+					&:nth-of-type(6) {
+						//L
+						width: 8%;
+					}
+					&:nth-of-type(7) {
+						//GD
+						width: 15%;
+					}
+					&:nth-of-type(8) {
+						//GF
+						width: 15%;
+						padding-right: 3%;
+					}
+					&:last-of-type {
+						//GA
+						width: 15%;
+						padding-right: 3%;
+					}
+				}
+			}
     }
-    
-  .standingsTable {
-    @extend %sharedTable2;
-    // margin-left: -5em;
-    border: 0;
-    
-    thead {
-      position: absolute;
-      z-index: 2;
-      background: $trColor;
-      height: $blankRowHeight;
-      width: 95%;
-      th {
-        text-align: center;
-        &:first-of-type {
-          //Club
-          width: 15%;
-          padding-left: 3%;
-        }
-        &:nth-of-type(2) {
-          //GP
-          width: 15%;
-          padding-left: 3%;
-        }
-        &:nth-of-type(3) {
-          //Pts
-          width: 15%;
-        }
-        &:nth-of-type(4) {
-          //W
-          width: 8%;
-        }
-        &:nth-of-type(5) {
-          //D
-          width: 8%;
-        }
-        &:nth-of-type(6) {
-          //L
-          width: 8%;
-        }
-        &:nth-of-type(7) {
-          //GD
-          width: 15%;
-        }
-        &:nth-of-type(8) {
-          //GF
-          width: 15%;
-          padding-right: 3%;
-        }
-        &:last-of-type {
-          //GA
-          width: 15%;
-          padding-right: 3%;
-        }
+
+    @media (max-width: $midpoint) {
+      thead {
+			  z-index: 2;
+			  height: $blankRowHeight;
       }
     }
     
-    tbody {
-      tr {
-        &:nth-of-type(odd) {
-          background: $trColor;
-        }
-        td {
-          text-align: center;
-          &:first-of-type {
-            //Club
-            width: 15%;
-            padding-left: 3%;
-          }
-          &:nth-of-type(2) {
-            //GP
-            width: 15%;
-            padding-left: 3%;
-          }
-          &:nth-of-type(3) {
-            //Pts
-            width: 15%;
-          }
-          &:nth-of-type(4) {
-            //W
-            width: 8%;
-          }
-          &:nth-of-type(5) {
-            //D
-            width: 8%;
-          }
-          &:nth-of-type(6) {
-            //L
-            width: 8%;
-          }
-          &:nth-of-type(7) {
-            //GD
-            width: 15%;
-          }
-          &:nth-of-type(8) {
-            //GF
-            width: 15%;
-            padding-right: 3%;
-          }
-          &:last-of-type {
-            //GA
-            width: 15%;
-            padding-right: 3%;
-          }
-        }
-      }
+    @media (min-width: $gtMidpoint) {
+
     }
   }
 }
 
 .hidden {
-  display: none;
+	display: none;
 }

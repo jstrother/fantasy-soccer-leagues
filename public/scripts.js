@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "525b88398ddf44178652"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "30ba837f5e14c742e291"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37657,13 +37657,7 @@ function (_React$Component) {
       if (this.props.hasClub === true) {
         return _react.default.createElement("div", {
           className: this.props.playerDataShow === false ? _fantasyClub.default.fantasyClub : _fantasyClub.default.hidden
-        }, _react.default.createElement("div", {
-          className: _fantasyClub.default.rosterDiv
-        }, _react.default.createElement(_roster.default, null)), _react.default.createElement("div", {
-          className: _fantasyClub.default.scheduleDiv
-        }, _react.default.createElement(_fantasySchedule.default, null)), _react.default.createElement("div", {
-          className: _fantasyClub.default.leagueDiv
-        }, _react.default.createElement(_fantasyStandings.default, null)));
+        }, _react.default.createElement(_roster.default, null), _react.default.createElement(_fantasySchedule.default, null), _react.default.createElement(_fantasyStandings.default, null));
       }
     }
   }]);
@@ -37783,12 +37777,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-      var rosterLengthCheck = rosterLength < 23 ? _fantasySchedule.default.hidden : _fantasySchedule.default.fantasySchedule;
-      var elementDisplay = this.props.scheduleVisible ? _fantasySchedule.default.fantasySchedule : _fantasySchedule.default.hidden;
-      var multiClassNames = "".concat(rosterLengthCheck, " ").concat(elementDisplay);
       return _react.default.createElement("div", {
-        className: multiClassNames
+        className: this.props.scheduleVisible ? _fantasySchedule.default.fantasySchedule : _fantasySchedule.default.hidden
       }, _react.default.createElement(_scheduleDisplay.default, null));
     }
   }]);
@@ -38148,7 +38138,7 @@ module.exports = {"scheduleDisplay":"scheduleDisplay__scheduleDisplay__3nuWb","s
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"fantasySchedule__hidden__1Lcua"};
+module.exports = {"fantasySchedule":"fantasySchedule__fantasySchedule__17Ie9","hidden":"fantasySchedule__hidden__1Lcua"};
 
 /***/ }),
 /* 450 */
@@ -39132,7 +39122,7 @@ function (_React$Component) {
     value: function render() {
       if (this.props.currentStandings) {
         return _react.default.createElement("div", {
-          className: this.props.standingsVisible ? _fantasyStandings.default.fantasySchedule : _fantasyStandings.default.hidden
+          className: this.props.standingsVisible ? _fantasyStandings.default.fantasyStandings : _fantasyStandings.default.hidden
         }, "Fantasy League Standings:", _react.default.createElement("table", {
           className: _fantasyStandings.default.standingsTable
         }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "GP"), _react.default.createElement("th", null, "Pts"), _react.default.createElement("th", null, "W"), _react.default.createElement("th", null, "D"), _react.default.createElement("th", null, "L"), _react.default.createElement("th", null, "GD"), _react.default.createElement("th", null, "GF"), _react.default.createElement("th", null, "GA"))), _react.default.createElement("tbody", null, _react.default.createElement("tr", {
@@ -39174,7 +39164,7 @@ exports.default = _default;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"fantasySchedule":"fantasyStandings__fantasySchedule__3qWh_","standingsTable":"fantasyStandings__standingsTable__1Al2O","blankRow":"fantasyStandings__blankRow__1oQ-J","hidden":"fantasyStandings__hidden__3YF6D"};
+module.exports = {"fantasyStandings":"fantasyStandings__fantasyStandings___0xcQ","standingsTable":"fantasyStandings__standingsTable__1Al2O","blankRow":"fantasyStandings__blankRow__1oQ-J","hidden":"fantasyStandings__hidden__3YF6D"};
 
 /***/ }),
 /* 463 */

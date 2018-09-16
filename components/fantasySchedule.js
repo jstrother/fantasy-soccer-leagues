@@ -37,13 +37,9 @@ export class Schedule extends React.Component {
 		}
 	}
 	render() {
-		let rosterLength = this.props.goalkeepers.length + this.props.defenders.length + this.props.midfielders.length + this.props.forwards.length;
-		const rosterLengthCheck = rosterLength < 23 ? styles.hidden : styles.fantasySchedule;
-		const elementDisplay = this.props.scheduleVisible ? styles.fantasySchedule : styles.hidden;
-		const multiClassNames = `${rosterLengthCheck} ${elementDisplay}`;
 		return(
 			<div
-				className={multiClassNames}>
+				className={this.props.scheduleVisible ? styles.fantasySchedule : styles.hidden}>
 				<ScheduleDisplay />
 			</div>
 		);
