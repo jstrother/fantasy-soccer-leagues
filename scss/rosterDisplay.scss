@@ -31,69 +31,67 @@
   @media (min-width: $gtMidpoint) {
     display: flex;
     justify-content: space-between;
-    flex-flow: row wrap;  
+    flex-flow: row wrap;
 
-    .rosterTable {
-      width: $tableWidth;
-      thead {
-        position: static;
+    .completeRoster {
+      margin-right: 5em;
 
-        tr {
-          display: flex;
-          flex-flow: row nowrap;
-          justify-content: center;
-          align-items: center;
+      .rosterTable {
+        width: $tableWidth;
+        thead {
+          position: static;
 
-          th {
-            width: $tableWidth / 7;
-            
-            &:last-of-type {
-              padding-right: 1em;
+          tr {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+
+            th {
+              width: $tableWidth / 7;
+              
+              &:last-of-type {
+                padding-right: 1em;
+              }
             }
           }
         }
-      }
 
-      tbody {
-        display: block;
-        height: 20em;
-        overflow: auto;
+        tbody {
+          display: block;
+          height: 20em;
+          overflow: auto;
 
-        tr {
-          display: flex;
-          flex-flow: row nowrap;
-          padding-top: $trPadding;
-          padding-bottom: $trPadding;
-          &:nth-of-type(odd) {
-            background: $trColor;
-          }
-
-          td {
-            border: none;
-            width: $tableWidth / 4;
-            position: static;
-            text-align: center;
-            padding-left: 0;
-            &:before {
-              display: none;
-              content: '';
+          tr {
+            display: flex;
+            flex-flow: row nowrap;
+            padding-top: $trPadding;
+            padding-bottom: $trPadding;
+            &:nth-of-type(odd) {
+              background: $trColor;
             }
-            &:last-of-type {
-              border-bottom: none;
+
+            td {
+              border: none;
+              width: $tableWidth / 4;
+              position: static;
+              text-align: center;
+              padding-left: 0;
+              &:before {
+                display: none;
+                content: '';
+              }
+              &:last-of-type {
+                border-bottom: none;
+              }
             }
           }
         }
-      }
-    }  
+      }  
+    }    
 
     .lineup {
-      .startingEleven {
-        
-      }
-
-      .benchPlayers {
-
-      }
+      margin-left: 5em;
     }
   }
 }

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "287d7da03fb64eb13823"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "61e2494ad57dd00adf9e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38739,7 +38739,9 @@ function (_React$Component) {
       roster.push.apply(roster, this.props.forwards);
       return _react.default.createElement("div", {
         className: _rosterDisplay.default.rosterDisplay
-      }, _react.default.createElement("div", null, "Roster:", _react.default.createElement("h5", null, "Click on a player's name to view their stats."), _react.default.createElement("table", {
+      }, _react.default.createElement("div", {
+        className: _rosterDisplay.default.completeRoster
+      }, "Roster:", _react.default.createElement("h5", null, "Click on a player's name to view their stats."), _react.default.createElement("table", {
         className: _rosterDisplay.default.rosterTable
       }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove"))), _react.default.createElement("tbody", null, roster.map(function (p) {
         return _react.default.createElement("tr", {
@@ -39058,7 +39060,7 @@ module.exports = {"benchPlayers":"benchPlayers__benchPlayers__3vX8Q","benchPlaye
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","clickable":"rosterDisplay__clickable__3nTYl","rosterTable":"rosterDisplay__rosterTable__1gX8e"};
+module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","clickable":"rosterDisplay__clickable__3nTYl","completeRoster":"rosterDisplay__completeRoster__2qxmZ","rosterTable":"rosterDisplay__rosterTable__1gX8e","lineup":"rosterDisplay__lineup__2WwT6"};
 
 /***/ }),
 /* 460 */

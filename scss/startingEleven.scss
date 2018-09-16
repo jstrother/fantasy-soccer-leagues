@@ -32,6 +32,7 @@
     td:nth-of-type(3):before { content: "Remove?"; }
 
     @media (min-width: $gtMidpoint) {
+      width: $tableWidth / 1.5;
       thead tr { 
         display: flex;
         flex-flow: row nowrap;
@@ -44,6 +45,31 @@
           }
           &:last-of-type {
             display: block;
+          }
+        }
+      }
+
+      tbody tr {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        padding-top: $trPadding;
+        padding-bottom: $trPadding;
+
+        td {
+          border: none;
+          width: $tableWidth / 3;
+          padding-left: 0;
+          &:before {
+            display: none;
+            content: '';
+          }
+          &:nth-of-type(2) {
+            padding-left: 1em;
+          }
+          &:last-of-type {
+            border-bottom: none;
+            padding-left: 1.5em;
           }
         }
       }
