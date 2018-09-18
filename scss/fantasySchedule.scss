@@ -2,7 +2,14 @@
 @import "myVariables";
 
 .fantasySchedule {
-  width: 100%
+  width: 100%;
+
+  @media (min-width: $gtMidpoint) {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: $tableWidth;
+  }
 }
 
 .hidden {

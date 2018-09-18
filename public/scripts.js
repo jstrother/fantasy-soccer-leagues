@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b75448541cd430270faa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0188b5301c49d8555a20"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38106,7 +38106,9 @@ function (_React$Component) {
         className: _fantasyMatch.default.title
       }, "Score:"), " ", this.props.awayScore), _react.default.createElement("p", {
         className: _fantasyMatch.default.matchDate
-      }, matchDay));
+      }, _react.default.createElement("span", {
+        className: _fantasyMatch.default.title
+      }, "Date:"), " ", matchDay));
     }
   }]);
 
