@@ -14,7 +14,8 @@
 		"test:watch:flow": "onchange \"./flow\" -- npm run clientTest",
 		"test:watch:all": "concurrently \"npm run test:watch:test-server\" \"npm run test:watch:test-client\" \"npm run test:watch:server\" \"npm run test:watch:pFunctions\" \"npm run test:watch:components\" \"npm run test:watch:flow\"",
 		"test": "npm run serverTest && npm run clientTest && npm run test:watch:all",
-		"start": "nodemon --harmony server/server.js",
+		"start": "node server/server.js",
+		"server": "nodemon --harmony server/server.js",
 		"build": "webpack",
 		"watch:css": "onchange \"./scss\" -- npm run build",
 		"watch:components": "onchange \"./components\" -- npm run build",
@@ -22,7 +23,7 @@
 		"watch:server": "onchange \"./server\" -- npm run build",
 		"watch:pFunctions": "onchange \"./server/programFunctions\" -- npm run build",
 		"watch:wConfig": "onchange \"./webpack.config.js\" -- npm run build",
-		"watch": "concurrently \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run start\"",
+		"watch": "concurrently \"npm run watch:css\" \"npm run watch:components\" \"npm run watch:flow\" \"npm run watch:wConfig\" \"npm run watch:server\" \"npm run watch:pFunctions\" \"npm run server\"",
 		"begin": "npm run build && npm run watch",
 		"dev": "webpack-dev-server"
 	},
