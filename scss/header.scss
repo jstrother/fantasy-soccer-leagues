@@ -1,121 +1,122 @@
-@import "normalize";
-@import "myVariables";
+@import 'normalize';
+@import 'myVariables';
 
 header {
-  max-width: 100%;
-  width: 100%;
-  margin: -0.5em -12em 0 -0.5em;
-  padding: 0.5em;
-  background: grey;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-flow: column nowrap;
-  
-  .mobileTitle {
-    flex: 0 3 auto;
-    order: 0;
-  }
-  
-  .largeTitle {
-    display: none;
-  }
-  
-  .userSection {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-    align-content: center;
-    flex: 0 1 auto;
-    order: 1;
-    
-    .userPhoto {
-      margin-left: 1.5em;
-      height: 4em;
-    }
-    
-    .userName {
-      display: none;
-    }
-  }
-  
-  .clubSection {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-    align-content: center;
-    flex: 0 1 auto;
-    order: 2;
-  }
-    
-  .roster {
-    margin-right: 0.5em;
-    cursor: pointer;
-    font-size: 1.15em;
-  }
-  
-  .schedule {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    cursor: pointer;
-    font-size: 1.15em;
-  }
-  
-  .standings {
-    margin-left: 0.5em;
-    cursor: pointer;
-    font-size: 1.15em;
-  }
-  
-  .link {
-    text-decoration: none;
-    color: black;
-    font-size: 0.75em;
-    margin-left: 0.75em;
-    align-self: flex-end;
-    order: 3;
-  }
+	max-width: 100%;
+	width: 100%;
+	margin: -0.5em -12em 0 -0.5em;
+	padding: 0.5em;
+	background: grey;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-flow: column nowrap;
+
+	.mobileTitle {
+		flex: 0 3 auto;
+		order: 0;
+	}
+
+	.largeTitle {
+		display: none;
+	}
+
+	.userSection {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-around;
+		align-items: center;
+		align-content: center;
+		flex: 0 1 auto;
+		order: 1;
+
+		.userPhoto {
+			margin-left: 1.5em;
+			height: 4em;
+		}
+
+		.userName {
+			display: none;
+		}
+	}
+
+	.clubSection {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-around;
+		align-items: center;
+		align-content: center;
+		flex: 0 1 auto;
+		order: 2;
+	}
+
+	.roster {
+		margin-right: 0.5em;
+		cursor: pointer;
+		font-size: 1.15em;
+	}
+
+	.schedule {
+		margin-left: 0.5em;
+		margin-right: 0.5em;
+		cursor: pointer;
+		font-size: 1.15em;
+	}
+
+	.standings {
+		margin-left: 0.5em;
+		cursor: pointer;
+		font-size: 1.15em;
+	}
+
+	.link {
+		text-decoration: none;
+		color: black;
+		font-size: 0.75em;
+		margin-left: 0.75em;
+		align-self: flex-end;
+		order: 3;
+	}
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
 
 @media (min-width: $gtMidpoint) {
-  header {
-    display: flex;
-    flex-flow: row nowrap;
-    
-    .mobileTitle {
-      display: none;
-    }
-    
-    .largeTitle {
-      display: block;
-      order: 0;
-    }
-    
-    .userSection {
-      order: 2;
-      .clubName {
-        margin-right: -0.5em;
-      }
-      
-      .userName {
-        display: block;
-        font-size: 1.25em;
-        margin-left: 3em;
-      }
-    }
-    
-    .clubSection {
-      order: 1;
-    }
-    
-    .link {
-      order: 3;
-    }
-  }
+	header {
+		display: flex;
+		flex-flow: row nowrap;
+
+		.mobileTitle {
+			display: none;
+		}
+
+		.largeTitle {
+			display: block;
+			order: 0;
+		}
+
+		.userSection {
+			order: 2;
+			.clubName {
+				margin-right: -0.5em;
+			}
+
+			.userName {
+				display: block;
+				font-size: 1.25em;
+				margin-left: 3em;
+			}
+		}
+
+		.clubSection {
+			order: 1;
+		}
+
+		.link {
+			order: 3;
+			margin-left: -30em;
+		}
+	}
 }

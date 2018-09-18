@@ -109,19 +109,48 @@
 					}
 				}
 			}
-    }
+		}
 
-    @media (max-width: $midpoint) {
-      thead {
-			  z-index: 2;
-			  height: $blankRowHeight;
-      }
-    }
-    
-    @media (min-width: $gtMidpoint) {
-      
-    }
-  }
+		@media (max-width: $midpoint) {
+			thead {
+				z-index: 2;
+				height: $blankRowHeight;
+			}
+		}
+
+		@media (min-width: $gtMidpoint) {
+			width: $tableWidth;
+			thead {
+				width: $tableWidth;
+				th {
+					&:first-of-type {
+						padding-left: 0;
+					}
+					&:nth-of-type(2) {
+						padding-left: 3%;
+					}
+					&:nth-of-type(4) {
+						padding-right: 1%;
+					}
+					&:nth-of-type(5) {
+						padding-right: 1%;
+					}
+					&:nth-of-type(6) {
+						padding-right: 1%;
+					}
+					&:nth-of-type(7) {
+						padding-right: 1%;
+					}
+					&:nth-of-type(8) {
+						padding-right: 5%;
+					}
+					&:last-of-type {
+						padding-right: 0;
+					}
+				}
+			}
+		}
+	}
 }
 
 .hidden {
