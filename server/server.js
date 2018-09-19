@@ -23,7 +23,7 @@ const config = require('./config.js'),
 	loopFunction = require('./programFunctions/loopFunction_function.js'),
 	playerStatsByLeague = require('./programFunctions/playerStatsByLeague_function.js'),
 	leagues = require('./league_ids_names.js').LEAGUE_IDS_NAMES,
-	leagueLoopTime = 30 * 60 * 1000; // first number is number of minutes loop repeats
+	leagueLoopTime = `${config.LEAGUE_LOOP_REPEAT_TIME}`;
 
 app.use(jsonParser);
 app.use(express.static('public'));
