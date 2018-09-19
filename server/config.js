@@ -18,4 +18,4 @@ exports.GOOGLE_ACCESSTOKEN =
 
 exports.DEV_DIRECTORY = 'http://127.0.0.1:8080';
 
-exports.PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com/';
+exports.PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
