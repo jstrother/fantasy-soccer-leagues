@@ -3,7 +3,7 @@ const config = require('./config.js'),
 	gStrategy = require('passport-google-oauth20').Strategy,
 	bStrategy = require('passport-http-bearer').Strategy,
 	userRouter = require('express').Router(),
-	callbackURL = `${config.PROD_DIRECTORY}/user/auth/google/callback`, // remember to change this between DEV_DIRECTORY and PROD_DIRECTORY when developing and deploying
+	callbackURL = `${config.DIRECTORY}/user/auth/google/callback`,
 	User = require('../models/user_model.js');
 
 passport.use(

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 exports.DATABASE_URL =
 	'mongodb://gameUser:gamePassword@ds059125.mlab.com:59125/fantasy-soccer-leagues-restore';
 
@@ -16,6 +18,8 @@ exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop sh
 exports.GOOGLE_ACCESSTOKEN =
 	'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U';
 
-exports.DEV_DIRECTORY = 'http://127.0.0.1:8080';
+const DEV_DIRECTORY = 'http://127.0.0.1:8080';
 
-exports.PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
+const PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
+
+exports.DIRECTORY = PROD_DIRECTORY;

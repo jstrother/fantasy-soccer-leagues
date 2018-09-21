@@ -1,6 +1,6 @@
 /* eslint-disable no-console*/
 import fetch from 'isomorphic-fetch';
-import { DEV_DIRECTORY as url } from '../../server/config.js';
+import { DIRECTORY as url } from '../../server/config.js';
 
 const thisURL = `${url}/league`;
 
