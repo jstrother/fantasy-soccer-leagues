@@ -4,6 +4,8 @@ node_modules/
 *.pem
 *.ppk
 rethinkdb_data/
+server/config.js
+config.js
 *.env
 coverage/
 *.map
