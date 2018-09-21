@@ -1,6 +1,5 @@
 const {calculateScores} = require("./calculateScores_function.js"),
-  {saveToDB} = require("./saveToDB_function.js"),
-  FantasyClub = require("../../models/fantasyClub_model.js");
+  {saveToDB} = require("./saveToDB_function.js");
 
 function matchResolver(fullSchedule) {
   const today = new Date().getTime();

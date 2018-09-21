@@ -1,9 +1,8 @@
-/*eslint-disable no-unused-vars*/
+/*eslint-disable no-unused-vars, no-console*/
 
 const fantasyScheduleRouter = require("express").Router(),
   FantasyClub = require("../models/fantasyClub_model.js"),
   FantasySchedule = require("../models/fantasySchedule_model.js"),
-  WeeklyMatches = require("../models/weeklyMatches_model.js"),
   {scheduleCreator} = require("./programFunctions/scheduleCreation_function.js"),
   {matchResolver} = require("./programFunctions/matchResolver_function.js"),
   {scheduleRetriever} = require("./programFunctions/scheduleRetriever_function.js");

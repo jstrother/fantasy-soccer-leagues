@@ -5,10 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import FantasyMatch from './fantasyMatch.js';
-import {
-	getSchedule,
-	matchResolve
-} from '../flow/subActions/fantasyScheduleActions.js';
+import { getSchedule } from '../flow/subActions/fantasyScheduleActions.js';
 import { getClub } from '../flow/subActions/fantasyClubActions.js';
 import { compare } from '../server/programFunctions/compare_function.js';
 import { localeDate } from '../server/programFunctions/localeDate_function.js';

@@ -6,7 +6,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { playerHideSuccess } from '../flow/subActions/playerActions.js';
-import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import styles from '../scss/player.scss';
 
 export class Teammate extends React.Component {
