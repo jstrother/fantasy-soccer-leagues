@@ -53,7 +53,7 @@ const runServer = (database = DATABASE, port = PORT) => {
 				console.log(`Listening on port: ${port}`);
 			});
 			// loopFunction(leagues, playerStatsByLeague, leagueLoopTime, true);
-			console.log('Do not forget to uncomment the loopFunction in server.js: line 43');
+			console.log('Do not forget to uncomment the loopFunction in server.js: line 55');
 			console.log('No longer using API as cost jumped to $200/month. Can\'t afford that as a student.');
 		})
 		.catch(error => {
