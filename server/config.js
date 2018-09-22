@@ -22,4 +22,4 @@ const DEV_DIRECTORY = 'http://127.0.0.1:8080';
 
 const PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
 
-exports.DIRECTORY = DEV_DIRECTORY;
+exports.DIRECTORY = PROD_DIRECTORY;
