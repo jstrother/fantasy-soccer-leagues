@@ -2,6 +2,7 @@
 
 import fetch from 'isomorphic-fetch';
 import { DIRECTORY as url } from '../../server/config.js';
+console.log('directory:', url);
 
 const thisURL = `${url}/user`;
 
