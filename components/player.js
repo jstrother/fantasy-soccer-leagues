@@ -22,7 +22,7 @@ export class Teammate extends React.Component {
 						className={styles.playerHeader}>
 						<figure
 							className={styles.playerImage}>
-							<img className={styles.playerPicture} src={this.props.player.picture} alt={`${this.props.player.fullName} Picture`} />
+							<img className={styles.playerPicture} src={this.props.player.picture} alt={`${this.props.player.fullName}\'s Picture`} />
 							<figcaption
 								className={styles.playerName}>
 								{`${this.props.player.firstName} ${this.props.player.lastName}`}
