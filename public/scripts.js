@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0e80cd8ab2f3439065fb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "12bb7a2ce8dfda339569"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5209,10 +5209,10 @@ exports.CLIENT_SECRET = 'yIs-UYd9Rqqe8GVS1DRB5Aij';
 exports.CLIENT_ID = '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com';
 exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop should repeat; also helps limit continuous looping of playerIdArrays to once per league loop
 
-exports.GOOGLE_ACCESSTOKEN = 'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U'; // const DEV_DIRECTORY = 'http://127.0.0.1:8080';
+exports.GOOGLE_ACCESSTOKEN = 'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U';
+var DEV_DIRECTORY = 'http://127.0.0.1:8080'; // const PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
 
-var PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
-exports.DIRECTORY = PROD_DIRECTORY;
+exports.DIRECTORY = DEV_DIRECTORY;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -38735,7 +38735,7 @@ function (_React$Component) {
         className: _rosterDisplay.default.completeRoster
       }, "Roster:", _react.default.createElement("h5", null, "Click on a player's name to view their stats."), _react.default.createElement("table", {
         className: _rosterDisplay.default.rosterTable
-      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove"))), _react.default.createElement("tbody", null, roster.map(function (p) {
+      }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove?"))), _react.default.createElement("tbody", null, roster.map(function (p) {
         return _react.default.createElement("tr", {
           id: "ros-".concat(p.idFromAPI),
           key: "key-".concat(p.idFromAPI)
@@ -38751,7 +38751,7 @@ function (_React$Component) {
           "data-position": p.position,
           "data-points": p.fantasyPoints.fixture,
           onClick: _this4.addStartingPlayer.bind(_this4)
-        }, "Make Starter"), _react.default.createElement("td", {
+        }, "Starter"), _react.default.createElement("td", {
           className: _rosterDisplay.default.clickable,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
@@ -38759,7 +38759,7 @@ function (_React$Component) {
           "data-position": p.position,
           "data-points": p.fantasyPoints.fixture,
           onClick: _this4.addBenchPlayer.bind(_this4)
-        }, "Have on Bench"), _react.default.createElement("td", {
+        }, "Reserve"), _react.default.createElement("td", {
           className: _rosterDisplay.default.clickable,
           "data-id": p.idFromAPI,
           "data-firstname": p.firstName,
@@ -38773,9 +38773,9 @@ function (_React$Component) {
         className: _rosterDisplay.default.lineup
       }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", {
         className: _rosterDisplay.default.startingEleven
-      }, "Your Starting 11:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
+      }, "Your 11 Starters:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
         className: _rosterDisplay.default.benchPlayers
-      }, "Players Available on Bench (7 required):", _react.default.createElement(_benchPlayers.default, null))));
+      }, "Your 7 Reserves:", _react.default.createElement(_benchPlayers.default, null))));
     }
   }]);
 

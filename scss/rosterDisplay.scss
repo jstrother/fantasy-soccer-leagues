@@ -34,8 +34,9 @@
     flex-flow: row wrap;
 
     .completeRoster {
-      margin-right: 15em;
+      margin-right: 5em;
       margin-left: 10em;
+      padding-top: 1em;
 
       .rosterTable {
         width: $tableWidth;
@@ -91,7 +92,7 @@
     }    
 
     .lineup {
-      margin-left: 5em;
+      margin-left: 5;
     }
   }
 }

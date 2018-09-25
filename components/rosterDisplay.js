@@ -156,7 +156,7 @@ export class Display extends React.Component {
 									Reserve?
 								</th>
 								<th>
-									Remove
+									Remove?
 								</th>
 							</tr>
 						</thead>
@@ -191,7 +191,7 @@ export class Display extends React.Component {
 												data-position={p.position}
 												data-points={p.fantasyPoints.fixture}
 												onClick={this.addStartingPlayer.bind(this)}>
-												Make Starter
+												Starter
 											</td>
 											<td
 												className={styles.clickable}
@@ -201,7 +201,7 @@ export class Display extends React.Component {
 												data-position={p.position}
 												data-points={p.fantasyPoints.fixture}
 												onClick={this.addBenchPlayer.bind(this)}>
-												Have on Bench
+												Reserve
 											</td>
 											<td
 												className={styles.clickable}
@@ -227,12 +227,12 @@ export class Display extends React.Component {
 					<Warning />
 					<div
 						className={styles.startingEleven}>
-						Your Starting 11:
+						Your 11 Starters:
 						<StartingEleven />
 					</div>
 					<div
 						className={styles.benchPlayers}>
-						Players Available on Bench (7 required):
+						Your 7 Reserves:
 						<BenchPlayers />
 					</div>
 				</div>

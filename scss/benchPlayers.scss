@@ -32,6 +32,7 @@
 
     @media (min-width: $gtMidpoint) {
       width: $tableWidth / 1.5;
+      padding-top: $starterBenchPaddingTop;
       thead tr { 
         display: flex;
         flex-flow: row nowrap;
