@@ -15,13 +15,10 @@ exports.CLIENT_ID =
 
 exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop should repeat; also helps limit continuous looping of playerIdArrays to once per league loop
 
-exports.GOOGLE_ACCESSTOKEN =
-	'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U';
+const DEV_DIRECTORY = 'http://127.0.0.1:8080';
 
-// const DEV_DIRECTORY = 'http://127.0.0.1:8080';
+exports.DIRECTORY = DEV_DIRECTORY;
 
-// exports.DIRECTORY = DEV_DIRECTORY;
+// const PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
 
-const PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
-
-exports.DIRECTORY = PROD_DIRECTORY;
+// exports.DIRECTORY = PROD_DIRECTORY;

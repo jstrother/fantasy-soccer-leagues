@@ -8,7 +8,7 @@
   justify-content: space-between;
 
   @media (min-width: $gtMidpoint) {
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: space-around;
   }
 }

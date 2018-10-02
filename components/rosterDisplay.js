@@ -126,6 +126,7 @@ export class Display extends React.Component {
 		roster.push.apply(roster, this.props.defenders);
 		roster.push.apply(roster, this.props.midfielders);
 		roster.push.apply(roster, this.props.forwards);
+		console.log('roster length:', roster.length);
     return(
       <div
 				className={styles.rosterDisplay}>
@@ -222,7 +223,7 @@ export class Display extends React.Component {
 					</table>
 				</div>
 				<div
-					className={styles.lineup}>
+					className={roster.length === 0 ? styles.hidden : styles.lineup}>
 					<p>Set your lineup for upcoming matches.</p>
 					<Warning />
 					<div

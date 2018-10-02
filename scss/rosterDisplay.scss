@@ -2,6 +2,10 @@
 @import "myVariables";
 @import "table";
 
+.hidden {
+  display: none;
+}
+
 .rosterDisplay {
   @extend %sharedTable;
   .clickable {

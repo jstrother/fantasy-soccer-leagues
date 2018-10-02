@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2c754606f5d05009048e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7f6a87b9bf68ee7e3911"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5209,11 +5209,9 @@ exports.CLIENT_SECRET = 'yIs-UYd9Rqqe8GVS1DRB5Aij';
 exports.CLIENT_ID = '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com';
 exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop should repeat; also helps limit continuous looping of playerIdArrays to once per league loop
 
-exports.GOOGLE_ACCESSTOKEN = 'ya29.Gl3vBP_DwCPG10kREzfknjRrfnLpGconcOme8xAf0A3SAREnkP3IMg4S97B1KNn7n5TWyysdj4z3aD9yRPD9z72K0RCtl0OY5ujzij4zN2HR11HWHONXqzujpVQ_T8U'; // const DEV_DIRECTORY = 'http://127.0.0.1:8080';
-// exports.DIRECTORY = DEV_DIRECTORY;
-
-var PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
-exports.DIRECTORY = PROD_DIRECTORY;
+var DEV_DIRECTORY = 'http://127.0.0.1:8080';
+exports.DIRECTORY = DEV_DIRECTORY; // const PROD_DIRECTORY = 'https://the-fsfsl.herokuapp.com';
+// exports.DIRECTORY = PROD_DIRECTORY;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -38730,6 +38728,7 @@ function (_React$Component) {
       roster.push.apply(roster, this.props.defenders);
       roster.push.apply(roster, this.props.midfielders);
       roster.push.apply(roster, this.props.forwards);
+      console.log('roster length:', roster.length);
       return _react.default.createElement("div", {
         className: _rosterDisplay.default.rosterDisplay
       }, _react.default.createElement("div", {
@@ -38771,7 +38770,7 @@ function (_React$Component) {
           onClick: _this4.handleRosterRemove.bind(_this4)
         }, "Remove"));
       })))), _react.default.createElement("div", {
-        className: _rosterDisplay.default.lineup
+        className: roster.length === 0 ? _rosterDisplay.default.hidden : _rosterDisplay.default.lineup
       }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", {
         className: _rosterDisplay.default.startingEleven
       }, "Your 11 Starters:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
@@ -39053,7 +39052,7 @@ module.exports = {"benchPlayers":"benchPlayers__benchPlayers__3vX8Q","benchPlaye
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","clickable":"rosterDisplay__clickable__3nTYl","completeRoster":"rosterDisplay__completeRoster__2qxmZ","rosterTable":"rosterDisplay__rosterTable__1gX8e","lineup":"rosterDisplay__lineup__2WwT6"};
+module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","hidden":"rosterDisplay__hidden__42S86","clickable":"rosterDisplay__clickable__3nTYl","completeRoster":"rosterDisplay__completeRoster__2qxmZ","rosterTable":"rosterDisplay__rosterTable__1gX8e","lineup":"rosterDisplay__lineup__2WwT6"};
 
 /***/ }),
 /* 460 */
