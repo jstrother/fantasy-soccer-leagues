@@ -38,11 +38,10 @@
     flex-flow: row wrap;
 
     .completeRoster {
-      margin-right: 5em;
-      margin-left: 10em;
-      padding-top: 1em;
+      padding-top: 3.5em;
 
       .rosterTable {
+        padding-top: 2em;
         width: $tableWidth;
         thead {
           position: static;
