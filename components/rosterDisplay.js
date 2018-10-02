@@ -223,7 +223,7 @@ export class Display extends React.Component {
 					</table>
 				</div>
 				<div
-					className={roster.length === 0 ? styles.hidden : styles.lineup}>
+					className={this.props.starters.length + this.props.benchwarmers.length === 0 ? styles.hidden : styles.lineup}>
 					<p>Set your lineup for upcoming matches.</p>
 					<Warning />
 					<div

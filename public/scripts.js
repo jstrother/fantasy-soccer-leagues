@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "03e3748124b5a9efb015"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "91b55ea16788b167bf53"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38770,7 +38770,7 @@ function (_React$Component) {
           onClick: _this4.handleRosterRemove.bind(_this4)
         }, "Remove"));
       })))), _react.default.createElement("div", {
-        className: roster.length === 0 ? _rosterDisplay.default.hidden : _rosterDisplay.default.lineup
+        className: this.props.starters.length + this.props.benchwarmers.length === 0 ? _rosterDisplay.default.hidden : _rosterDisplay.default.lineup
       }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", {
         className: _rosterDisplay.default.startingEleven
       }, "Your 11 Starters:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
