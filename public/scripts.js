@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "91b55ea16788b167bf53"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "826d5eee9583825fd627"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37474,7 +37474,9 @@ function (_React$Component) {
           className: _home.default.welcomeText
         }, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", {
           className: _home.default.welcomeText
-        }, "Create your own team and compete against others to prove you are the best at fantasy footy!")));
+        }, "Create your own team and compete against others to prove you are the best at fantasy footy!")), _react.default.createElement("a", {
+          href: "https://www.freepik.com/free-photo/perfect-green-grass_902965.htm"
+        }, "Background by Freestockcenter"));
       }
 
       if (this.props.googleId && !this.props.fantasyLeagueId) {
@@ -37494,7 +37496,9 @@ function (_React$Component) {
             key: league.id,
             value: league.id
           }, league.name);
-        }))));
+        }))), _react.default.createElement("a", {
+          href: "https://www.freepik.com/free-photo/perfect-green-grass_902965.htm"
+        }, "Background by Freestockcenter"));
       }
 
       if (this.props.googleId && this.props.fantasyLeagueId) {
@@ -37508,7 +37512,9 @@ function (_React$Component) {
           className: _home.default.welcomeText
         }, "You have selected ", this.props.fantasyLeagueName, ".")), _react.default.createElement("br", null), _react.default.createElement("div", {
           className: this.props.playerDataShow === false ? _home.default.club : _home.default.hidden
-        }, _react.default.createElement(_fantasyClub.default, null)));
+        }, _react.default.createElement(_fantasyClub.default, null)), _react.default.createElement("a", {
+          href: "https://www.freepik.com/free-photo/perfect-green-grass_902965.htm"
+        }, "Background by Freestockcenter"));
       }
     }
   }]);
@@ -38391,7 +38397,7 @@ function (_React$Component) {
             rosterLength = goalkeepers + defenders + midfielders + forwards;
         return _react.default.createElement("div", {
           className: rosterLength === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
-        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("h5", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("h5", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("h5", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", {
+        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("p", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("p", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("p", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", {
           className: _playerSelection.default.playerSelectTable
         }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
@@ -38733,7 +38739,7 @@ function (_React$Component) {
         className: _rosterDisplay.default.rosterDisplay
       }, _react.default.createElement("div", {
         className: _rosterDisplay.default.completeRoster
-      }, "Roster:", _react.default.createElement("h5", null, "Click on a player's name to view their stats."), _react.default.createElement("table", {
+      }, "Roster:", _react.default.createElement("p", null, "Click on a player's name to view their stats."), _react.default.createElement("table", {
         className: _rosterDisplay.default.rosterTable
       }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove?"))), _react.default.createElement("tbody", null, roster.map(function (p) {
         return _react.default.createElement("tr", {

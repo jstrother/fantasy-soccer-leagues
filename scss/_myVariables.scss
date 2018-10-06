@@ -13,3 +13,36 @@ $tableWidthMobile: $tableWidth / 2;
 $playerInfoBG: #2F88B3;
 
 $starterBenchPaddingTop: 1.665em;
+
+// fonts
+
+@font-face {
+  font-family: "Fira Sans Regular";
+  src: url("/fonts/FiraSans-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Fira Sans Bold";
+  src: url("/fonts/FiraSans-Bold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Fira Sans Black";
+  src: url("/fonts/FiraSans-Black.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Fira Sans Semi-Bold";
+  src: url("/fonts/FiraSans-SemiBold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Fira Sans Thin";
+  src: url("/fonts/FiraSans-Thin.ttf") format("ttf");
+}
+
+$firaSansRegular: "Fira Sans Regular", sans-serif;
+$firaSansBold: "Fira Sans Bold", sans-serif;
+$firaSansBlack: "Fira Sans Black", sans-serif;
+$firaSansSemiBold: "Fira Sans Semi-Bold", sans-serif;
+$firaSansThin: "Fira Sans Thin", sans-serif;

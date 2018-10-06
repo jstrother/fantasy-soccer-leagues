@@ -46,6 +46,7 @@ export class Home extends React.Component {
 							the best at fantasy footy!
 						</p>
 					</div>
+					<a href="https://www.freepik.com/free-photo/perfect-green-grass_902965.htm">Background by Freestockcenter</a>
 				</main>
 			);
 		}
@@ -79,6 +80,7 @@ export class Home extends React.Component {
 							})}
 						</select>
 					</div>
+					<a href="https://www.freepik.com/free-photo/perfect-green-grass_902965.htm">Background by Freestockcenter</a>
 				</main>
 			);
 		}
@@ -112,6 +114,7 @@ export class Home extends React.Component {
 						}>
 						<FantasyClub />
 					</div>
+					<a href="https://www.freepik.com/free-photo/perfect-green-grass_902965.htm">Background by Freestockcenter</a>
 				</main>
 			);
 		}
