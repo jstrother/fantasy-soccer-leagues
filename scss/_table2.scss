@@ -10,4 +10,8 @@
     height: 30em;
     width: 100%;
     overflow: auto;
+    tr { 
+        border: 1px solid #ccc;
+        background-color: #ffffff;
+    }
 }
