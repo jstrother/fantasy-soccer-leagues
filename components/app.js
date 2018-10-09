@@ -5,11 +5,12 @@
 import React from 'react';
 import Header from './header.js';
 import Login from './home.js';
+import styles from '../scss/app.scss';
 
 export default class App extends React.Component {
 	render() {
 		return(
-			<div>
+			<div className={styles.app}>
 	    	<Header />
 	    	<Login />
 			</div>
