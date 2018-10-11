@@ -77,108 +77,111 @@ export class DisplaySchedule extends React.Component {
 				}
 			});
 			return (
-				<div className={styles.scheduleDisplay}>
-					<p className={styles.matchHeader}>Previous Match</p>
-					<FantasyMatch
-						className={styles.previousMatch}
-						homeClub={previousHomeClub}
-						awayClub={previousAwayClub}
-						homeScore={previousHomeScore}
-						awayScore={previousAwayScore}
-						matchDate={previousRoundDates}
-					/>
-					<br />
-					<p className={styles.matchHeader}>Next Match</p>
-					<FantasyMatch
-						className={styles.nextMatch}
-						homeClub={nextHomeClub}
-						awayClub={nextAwayClub}
-						homeScore={null}
-						awayScore={null}
-						matchDate={nextRoundDates}
-					/>
-					<br />
-					<p className={styles.matchHeader}>Schedule:</p>
-					<table className={styles.scheduleTable}>
-						<thead>
-							<tr>
-								<th>Round</th>
-								<th>Home</th>
-								<th>Away</th>
-								<th>Date/Result</th>
-							</tr>
-						</thead>
-						<tbody className={styles.placeHolder}>
-							{/*due to the header covering part of the first week's schedule, we are creating a blank row to space out the schedule properly*/}
-							<tr className={styles.blankRow} />
-						</tbody>
-						{this.props.fantasySchedule.weeklyMatches
-							// we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
-							.sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in ascending order, 1 - 38
-							.map(week => {
-								const matches = week.matches,
-									matchDay = localeDate(week.datesToRun);
-								// create a table body for each round of the season
-								return (
-									<tbody key={week._id} id={`rnd-${week._id}`}>
-										<tr>
-											<td key={`round${week.roundNumber}`}>
-												{`${week.roundNumber}`}
-											</td>
-											<td />
-											<td />
-											<td />
-										</tr>
-										{matches.map(match => {
-											if (match.final === false) {
-												return (
-													<tr key={`${week._id}${match._id}`}>
-														<td />
-														<td
-															key={`${week._id}${match._id}${
-																match.homeClub._id
-															}`}>
-															{match.homeClub.clubName}
-														</td>
-														<td
-															key={`${week._id}${match._id}${
-																match.awayClub._id
-															}`}>
-															{match.awayClub.clubName}
-														</td>
-														<td key={`${week._id}${match._id}dates`}>
-															{matchDay}
-														</td>
-													</tr>
-												);
-											}
-											if (match.final === true) {
-												return (
-													<tr key={`${week._id}${match._id}`}>
-														<td />
-														<td
-															key={`${week._id}${match._id}${
-																match.homeClub._id
-															}`}>
-															{match.homeClub.clubName}
-														</td>
-														<td
-															key={`${week._id}${match._id}${
-																match.awayClub._id
-															}`}>
-															{match.awayClub.clubName}
-														</td>
-														<td key={`${week._id}${match._id}scores`}>
-															{match.homeScore}:{match.awayScore}
-														</td>
-													</tr>
-												);
-											}
-										})}
-									</tbody>
-								);
-							})}
-					</table>
+				<div className={styles.schedulePage}>
+					<div className={styles.matchDisplay}>
+						<h4 className={styles.matchHeader}>Previous Match</h4>
+						<FantasyMatch
+							className={styles.previousMatch}
+							homeClub={previousHomeClub}
+							awayClub={previousAwayClub}
+							homeScore={previousHomeScore}
+							awayScore={previousAwayScore}
+							matchDate={previousRoundDates}
+						/>
+						<br />
+						<h4 className={styles.matchHeader}>Next Match</h4>
+						<FantasyMatch
+							className={styles.nextMatch}
+							homeClub={nextHomeClub}
+							awayClub={nextAwayClub}
+							homeScore={null}
+							awayScore={null}
+							matchDate={nextRoundDates}
+						/>
+					</div>
+					<div className={styles.scheduleDisplay}>
+						<h4 className={styles.scheduleHeader}>Schedule:</h4>
+						<table className={styles.scheduleTable}>
+							<thead>
+								<tr>
+									<th>Round</th>
+									<th>Home</th>
+									<th>Away</th>
+									<th>Date/Result</th>
+								</tr>
+							</thead>
+							<tbody className={styles.placeHolder}>
+								{/*due to the header covering part of the first week's schedule, we are creating a blank row to space out the schedule properly*/}
+								<tr className={styles.blankRow} />
+							</tbody>
+							{this.props.fantasySchedule.weeklyMatches
+								// we sort the array to make sure it gets listed 'round 1, round 2, round 3...' and not 'round 12, round 5, round 28...'
+								.sort((a, b) => compare(b.roundNumber, a.roundNumber)) // it is this way to sort in ascending order, 1 - 38
+								.map(week => {
+									const matches = week.matches,
+										matchDay = localeDate(week.datesToRun);
+									// create a table body for each round of the season
+									return (
+										<tbody key={week._id} id={`rnd-${week._id}`}>
+											<tr>
+												<td key={`round${week.roundNumber}`}>
+													{`${week.roundNumber}`}
+												</td>
+												<td />
+												<td />
+												<td />
+											</tr>
+											{matches.map(match => {
+												if (match.final === false) {
+													return (
+														<tr key={`${week._id}${match._id}`}>
+															<td />
+															<td
+																key={`${week._id}${match._id}${
+																	match.homeClub._id
+																	}`}>
+																{match.homeClub.clubName}
+															</td>
+															<td
+																key={`${week._id}${match._id}${
+																	match.awayClub._id
+																	}`}>
+																{match.awayClub.clubName}
+															</td>
+															<td key={`${week._id}${match._id}dates`}>
+																{matchDay}
+															</td>
+														</tr>
+													);
+												}
+												if (match.final === true) {
+													return (
+														<tr key={`${week._id}${match._id}`}>
+															<td />
+															<td
+																key={`${week._id}${match._id}${
+																	match.homeClub._id
+																	}`}>
+																{match.homeClub.clubName}
+															</td>
+															<td
+																key={`${week._id}${match._id}${
+																	match.awayClub._id
+																	}`}>
+																{match.awayClub.clubName}
+															</td>
+															<td key={`${week._id}${match._id}scores`}>
+																{match.homeScore}:{match.awayScore}
+															</td>
+														</tr>
+													);
+												}
+											})}
+										</tbody>
+									);
+								})}
+						</table>
+					</div>
 				</div>
 			);
 		} else {

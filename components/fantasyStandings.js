@@ -16,7 +16,7 @@ export class FantasyTable extends React.Component {
 			return(
 				<div
 					className={this.props.standingsVisible ? styles.fantasyStandings : styles.hidden}>
-					Fantasy League Standings:
+					<h4 className={styles.standingsHeader}>League Standings:</h4>
 					<table
 						className={styles.standingsTable}>
 						<thead>

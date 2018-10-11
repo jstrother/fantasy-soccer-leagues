@@ -7,6 +7,14 @@
 		height: $blankRowHeight;
 	}
 
+	.standingsHeader {
+		background-color: $trColor;
+		text-align: center;
+		margin-bottom: 0;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+	}
+
 	.standingsTable {
 		@extend %sharedTable2;
 		border: 0;
@@ -14,48 +22,52 @@
 		thead {
 			position: absolute;
 			background: $trColor;
-			width: 95%;
+			width: 81.75vw;
 			th {
-				text-align: center;
 				&:first-of-type {
 					//Club
-					width: 15%;
-					padding-left: 3%;
+					text-align: center;
+					width: 16vw;
 				}
 				&:nth-of-type(2) {
 					//GP
-					width: 15%;
-					padding-left: 3%;
+					text-align: center;
+					width: 8vw;
 				}
 				&:nth-of-type(3) {
 					//Pts
-					width: 15%;
+					text-align: center;
+					width: 8vw;
 				}
 				&:nth-of-type(4) {
 					//W
-					width: 8%;
+					text-align: center;
+					width: 6vw;
 				}
 				&:nth-of-type(5) {
 					//D
-					width: 8%;
+					text-align: center;
+					width: 7vw;
 				}
 				&:nth-of-type(6) {
 					//L
-					width: 8%;
+					text-align: center;
+					width: 7vw;
 				}
 				&:nth-of-type(7) {
 					//GD
-					width: 15%;
+					text-align: center;
+					width: 8vw;
 				}
 				&:nth-of-type(8) {
 					//GF
-					width: 15%;
-					padding-right: 3%;
+					text-align: center;
+					width: 8vw;
 				}
 				&:last-of-type {
 					//GA
-					width: 15%;
-					padding-right: 3%;
+					text-align: center;
+					width: 8vw;
 				}
 			}
 		}
@@ -66,46 +78,50 @@
 					background: $trColor;
 				}
 				td {
-					text-align: center;
 					&:first-of-type {
 						//Club
-						width: 15%;
-						padding-left: 3%;
+						text-align: center;
+						width: 16vw;
 					}
 					&:nth-of-type(2) {
 						//GP
-						width: 15%;
-						padding-left: 3%;
+						text-align: center;
+						width: 8vw;
 					}
 					&:nth-of-type(3) {
 						//Pts
-						width: 15%;
+						text-align: center;
+						width: 8vw;
 					}
 					&:nth-of-type(4) {
 						//W
-						width: 8%;
+						text-align: center;
+						width: 6vw;
 					}
 					&:nth-of-type(5) {
 						//D
-						width: 8%;
+						text-align: center;
+						width: 7vw;
 					}
 					&:nth-of-type(6) {
 						//L
-						width: 8%;
+						text-align: center;
+						width: 7vw;
 					}
 					&:nth-of-type(7) {
 						//GD
-						width: 15%;
+						text-align: center;
+						width: 8vw;
 					}
 					&:nth-of-type(8) {
 						//GF
-						width: 15%;
-						padding-right: 3%;
+						text-align: center;
+						width: 8vw;
 					}
 					&:last-of-type {
 						//GA
-						width: 15%;
-						padding-right: 3%;
+						text-align: center;
+						width: 8vw;
 					}
 				}
 			}
@@ -119,33 +135,70 @@
 		}
 
 		@media (min-width: $gtMidpoint) {
-			width: $tableWidth;
+			width: 50vw;
 			thead {
-				width: $tableWidth;
+				margin-bottom: 0;
+				width: 50vw;
 				th {
+					text-align: center;
 					&:first-of-type {
-						padding-left: 0;
+						width: 15vw;
 					}
 					&:nth-of-type(2) {
-						padding-left: 3%;
+						width: 10vw;
 					}
 					&:nth-of-type(4) {
-						padding-right: 1%;
+						width: 10vw;
 					}
 					&:nth-of-type(5) {
-						padding-right: 1%;
+						width: 10vw;
 					}
 					&:nth-of-type(6) {
-						padding-right: 1%;
+						width: 10vw;
 					}
 					&:nth-of-type(7) {
-						padding-right: 1%;
+						width: 10vw;
 					}
 					&:nth-of-type(8) {
-						padding-right: 5%;
+						width: 10vw;
 					}
 					&:last-of-type {
-						padding-right: 0;
+						width: 10vw;
+					}
+				}
+			}
+
+			tbody {
+				margin-top: 0;
+				tr {
+					&:nth-of-type(odd) {
+						background-color: $trColor;
+					}					
+					td {
+						&:first-of-type {
+							width: 13vw;
+						}
+						&:nth-of-type(2) {
+							width: 10vw;
+						}
+						&:nth-of-type(4) {
+							width: 10vw;
+						}
+						&:nth-of-type(5) {
+							width: 10vw;
+						}
+						&:nth-of-type(6) {
+							width: 10vw;
+						}
+						&:nth-of-type(7) {
+							width: 10vw;
+						}
+						&:nth-of-type(8) {
+							width: 10vw;
+						}
+						&:last-of-type {
+							width: 10vw;
+						}
 					}
 				}
 			}

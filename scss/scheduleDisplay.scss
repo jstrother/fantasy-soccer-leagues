@@ -2,106 +2,128 @@
 @import "myVariables";
 @import "table2";
 
-.scheduleDisplay {
-  .matchHeader {
-    background-color: $trColor;
-    text-align: center;
-  }
-  
-  .scheduleTable {
-    @extend %sharedTable2;
-    
-    .blankRow {
-      height: $blankRowHeight;
-    }
-    
-    thead {
-      position: absolute;
-      background: $trColor;
-      width: 95%;
-      
-      th {
-        text-align: center;
-        &:first-of-type {
-          padding-left: 3%;
-          width: 15%;
-        }
-        &:nth-of-type(2) {
-          width: 30%;
-        }
-        &:nth-of-type(3) {
-          width: 30%;
-        }
-        &:last-of-type {
-          width: 25%;
-          padding-right: 0;
-        }
-      }
-    }
-    
-    tbody {
-      &:nth-of-type(odd) {
-        tr {
-          background: $trColor;
-        }
-      }
-      tr {
-        &:first-of-type {
-          display: flex;
-          align-content: stretch;
-          width: 100%;
-          td {
-            flex: 1 1 25%;
-            &:first-of-type {
-              padding-top: 3%;
-              padding-right: 20%;
-            }
-          }
-        }
-        &:nth-of-type(2) {
-          display: flex;
-          justify-content: space-around;
-          td {
-            padding-bottom: 3%;
-          }
-        }
-        td {
-          text-align: center;
-        }
-      }
-    }
+.schedulePage {
+  display: flex;
+  flex-flow: row;
 
-    @media (max-width: $midpoint) {
-      thead {  
-        z-index: 2;
+  .matchDisplay {
+    margin-right: $scheduleMatchGap;
+    width: 20em;
+
+    .matchHeader {
+      background-color: $trColor;
+      text-align: center;
+      margin-bottom: 0;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+  }
+    
+  .scheduleDisplay {
+    margin-left: $scheduleMatchGap;
+
+    .scheduleHeader {
+      background-color: $trColor;
+      text-align: center;
+      margin-bottom: 0;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    .scheduleTable {
+      @extend %sharedTable2;
+      
+      .blankRow {
         height: $blankRowHeight;
       }
-    }
-
-    @media (min-width: $gtMidpoint) {
-      width: $tableWidth;
+      
       thead {
-        width: $tableWidth;
-        display: flex;
-        align-content: center;
-
+        position: absolute;
+        background: $trColor;
+        width: 95%;
+        
         th {
+          text-align: center;
           &:first-of-type {
-            padding-left: 0;
-            padding-right: 3em;
-            width: $tableWidth / 4;
+            padding-left: 3%;
+            width: 15%;
           }
           &:nth-of-type(2) {
-            padding-right: 4em;
-            width: $tableWidth / 4;
+            width: 30%;
           }
           &:nth-of-type(3) {
-            padding-right: 3em;
-            width: $tableWidth / 4;
+            width: 30%;
           }
           &:last-of-type {
-            padding-right: 3em;
-            width: $tableWidth / 4;
+            width: 25%;
+            padding-right: 0;
+          }
+        }
+      }
+      
+      tbody {
+        &:nth-of-type(odd) {
+          tr {
+            background: $trColor;
+          }
+        }
+        tr {
+          &:first-of-type {
+            display: flex;
+            align-content: stretch;
+            width: 100%;
+            td {
+              flex: 1 1 25%;
+              &:first-of-type {
+                padding-top: 3%;
+                padding-right: 20%;
+              }
+            }
+          }
+          &:nth-of-type(2) {
+            display: flex;
+            justify-content: space-around;
+            td {
+              padding-bottom: 3%;
+            }
+          }
+          td {
+            text-align: center;
+          }
+        }
+      }
+
+      @media (max-width: $midpoint) {
+        thead {  
+          z-index: 2;
+          height: $blankRowHeight;
+        }
+      }
+
+      @media (min-width: $gtMidpoint) {
+        width: $tableWidth;
+        thead {
+          width: $tableWidth;
+          display: flex;
+          align-content: center;
+
+          th {
+            &:first-of-type {
+              padding-left: 0;
+              padding-right: 3em;
+              width: $tableWidth / 4;
+            }
+            &:nth-of-type(2) {
+              padding-right: 4em;
+              width: $tableWidth / 4;
+            }
+            &:nth-of-type(3) {
+              padding-right: 3em;
+              width: $tableWidth / 4;
+            }
+            &:last-of-type {
+              padding-right: 3em;
+              width: $tableWidth / 4;
+            }
           }
         }
       }
