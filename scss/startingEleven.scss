@@ -33,7 +33,6 @@
 
     @media (min-width: $gtMidpoint) {
       width: $tableWidth / 1.5;
-      padding-top: $starterBenchPaddingTop;
       thead tr { 
         display: flex;
         flex-flow: row nowrap;
@@ -50,27 +49,31 @@
         }
       }
 
-      tbody tr {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        padding-top: $trPadding;
-        padding-bottom: $trPadding;
+      tbody {
+        height: 30em;
 
-        td {
-          border: none;
-          width: $tableWidth / 3;
-          padding-left: 0;
-          &:before {
-            display: none;
-            content: '';
-          }
-          &:nth-of-type(2) {
-            padding-left: 1em;
-          }
-          &:last-of-type {
-            border-bottom: none;
-            padding-left: 1.5em;
+        tr {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          padding-top: $trPadding;
+          padding-bottom: $trPadding;
+
+          td {
+            border: none;
+            width: $tableWidth / 3;
+            padding-left: 0;
+            &:before {
+              display: none;
+              content: '';
+            }
+            &:nth-of-type(2) {
+              padding-left: 1em;
+            }
+            &:last-of-type {
+              border-bottom: none;
+              padding-left: 1.5em;
+            }
           }
         }
       }

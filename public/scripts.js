@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bb0dacd7714d2f202fee"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6fbf1cb03664b85cb575"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38399,7 +38399,9 @@ function (_React$Component) {
             rosterLength = goalkeepers + defenders + midfielders + forwards;
         return _react.default.createElement("div", {
           className: rosterLength === 23 ? _playerSelection.default.hidden : _playerSelection.default.playerSelection
-        }, _react.default.createElement("p", null, "Select players for your roster."), _react.default.createElement("p", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("p", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("p", null, "Click on a player's name to add them to your roster."), _react.default.createElement(_warning.default, null), _react.default.createElement("table", {
+        }, _react.default.createElement("div", {
+          className: _playerSelection.default.playerSelectionHeader
+        }, _react.default.createElement("h4", null, "Select players for your roster:"), _react.default.createElement("p", null, "You must select 23 players, no more than 4 from any one club."), _react.default.createElement("p", null, "You must select 4 goalkeepers, 7 defenders, 7 midfielders, and 5 forwards."), _react.default.createElement("p", null, "Click on a player's name to add them to your roster.")), _react.default.createElement(_warning.default, null), _react.default.createElement("table", {
           className: _playerSelection.default.playerSelectTable
         }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, _react.default.createElement("select", {
           className: "positionsList",
@@ -38534,7 +38536,7 @@ module.exports = {"rosterWarning":"warning__rosterWarning__Wm1tf","hidden":"warn
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__qkBA1","hidden":"playerSelection__hidden__3ZKZF","playerName":"playerSelection__playerName__bEPf8","playerRemove":"playerSelection__playerRemove__1Qhcf","playerSelectionTable":"playerSelection__playerSelectionTable__3ro6X"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__qkBA1","hidden":"playerSelection__hidden__3ZKZF","playerName":"playerSelection__playerName__bEPf8","playerSelectionHeader":"playerSelection__playerSelectionHeader__OcAMm","playerRemove":"playerSelection__playerRemove__1Qhcf","playerSelectionTable":"playerSelection__playerSelectionTable__3ro6X"};
 
 /***/ }),
 /* 454 */
@@ -38740,7 +38742,9 @@ function (_React$Component) {
         className: _rosterDisplay.default.rosterDisplay
       }, _react.default.createElement("div", {
         className: _rosterDisplay.default.completeRoster
-      }, "Roster:", _react.default.createElement("p", null, "Click on a player's name to view their stats."), _react.default.createElement("table", {
+      }, _react.default.createElement("div", {
+        className: _rosterDisplay.default.rosterHeader
+      }, _react.default.createElement("h4", null, "Roster:"), _react.default.createElement("p", null, "Click on a player's name to view their stats.")), _react.default.createElement("table", {
         className: _rosterDisplay.default.rosterTable
       }, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Position"), _react.default.createElement("th", null, "Club"), _react.default.createElement("th", null, "Points Last Match"), _react.default.createElement("th", null, "Starter?"), _react.default.createElement("th", null, "Reserve?"), _react.default.createElement("th", null, "Remove?"))), _react.default.createElement("tbody", null, roster.map(function (p) {
         return _react.default.createElement("tr", {
@@ -38778,11 +38782,19 @@ function (_React$Component) {
         }, "Remove"));
       })))), _react.default.createElement("div", {
         className: this.props.starters.length + this.props.benchwarmers.length === 0 ? _rosterDisplay.default.hidden : _rosterDisplay.default.lineup
-      }, _react.default.createElement("p", null, "Set your lineup for upcoming matches."), _react.default.createElement(_warning.default, null), _react.default.createElement("div", {
+      }, _react.default.createElement("h4", {
+        className: _rosterDisplay.default.lineupHeader
+      }, "Set your lineup for upcoming matches."), _react.default.createElement("div", {
+        className: _rosterDisplay.default.lineupHolder
+      }, _react.default.createElement(_warning.default, null), _react.default.createElement("div", {
         className: _rosterDisplay.default.startingEleven
-      }, "Your 11 Starters:", _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
+      }, _react.default.createElement("h4", {
+        className: _rosterDisplay.default.startersHeader
+      }, "Your 11 Starters:"), _react.default.createElement(_startingEleven.default, null)), _react.default.createElement("div", {
         className: _rosterDisplay.default.benchPlayers
-      }, "Your 7 Reserves:", _react.default.createElement(_benchPlayers.default, null))));
+      }, _react.default.createElement("h4", {
+        className: _rosterDisplay.default.benchHeader
+      }, "Your 7 Reserves:"), _react.default.createElement(_benchPlayers.default, null)))));
     }
   }]);
 
@@ -39059,7 +39071,7 @@ module.exports = {"benchPlayers":"benchPlayers__benchPlayers__3vX8Q","benchPlaye
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","hidden":"rosterDisplay__hidden__42S86","clickable":"rosterDisplay__clickable__3nTYl","completeRoster":"rosterDisplay__completeRoster__2qxmZ","rosterTable":"rosterDisplay__rosterTable__1gX8e","lineup":"rosterDisplay__lineup__2WwT6"};
+module.exports = {"rosterDisplay":"rosterDisplay__rosterDisplay__3DPiZ","hidden":"rosterDisplay__hidden__42S86","clickable":"rosterDisplay__clickable__3nTYl","rosterHeader":"rosterDisplay__rosterHeader__2VBnx","lineupHeader":"rosterDisplay__lineupHeader__1MjRK","startersHeader":"rosterDisplay__startersHeader__TNxL-","benchHeader":"rosterDisplay__benchHeader__3pwsY","rosterTable":"rosterDisplay__rosterTable__1gX8e","completeRoster":"rosterDisplay__completeRoster__2qxmZ","lineup":"rosterDisplay__lineup__2WwT6","lineupHolder":"rosterDisplay__lineupHolder__3Ri_t","startingEleven":"rosterDisplay__startingEleven__3BaZf","benchPlayers":"rosterDisplay__benchPlayers__1KWQd"};
 
 /***/ }),
 /* 460 */

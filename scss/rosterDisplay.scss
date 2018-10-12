@@ -11,6 +11,18 @@
   .clickable {
     cursor: pointer;
   }
+
+  .rosterHeader, .lineupHeader, .startersHeader, .benchHeader {
+    background-color: $trColor;
+    text-align: center;
+    margin-bottom: 0;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+  }
+
+  .rosterTable {
+    margin-top: 0;
+  }
   
   /*
   Label the data
@@ -35,10 +47,25 @@
   @media (min-width: $gtMidpoint) {
     display: flex;
     justify-content: space-between;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
 
     .completeRoster {
-      padding-top: 3.5em;
+      margin-right: 2em;
+
+      .rosterHeader {
+        width: $tableWidth;
+        margin-bottom: -2em;
+      }
+
+      .lineupHeader {
+        width: $tableWidth / 2;
+      }
+
+      .startersHeader, .benchHeader {
+        width: $tableWidth / 2;
+        margin-bottom: -2em;
+      }
+    }
 
       .rosterTable {
         padding-top: 2em;
@@ -64,7 +91,7 @@
 
         tbody {
           display: block;
-          height: 20em;
+          height: 24em;
           overflow: auto;
 
           tr {
@@ -95,7 +122,19 @@
     }    
 
     .lineup {
-      margin-left: 5;
+      margin-top: -1.25em;
+      
+      .lineupHolder {
+        display: flex;
+        flex-flow: row nowrap;
+        
+        .startingEleven {
+          margin-right: 0.25em;
+        }
+
+        .benchPlayers {
+          margin-left: 0.25em;
+      }
     }
   }
 }

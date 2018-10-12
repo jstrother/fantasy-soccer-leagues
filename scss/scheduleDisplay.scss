@@ -100,7 +100,7 @@
       }
 
       @media (min-width: $gtMidpoint) {
-        width: $tableWidth;
+        width: $tableWidth; 
         thead {
           width: $tableWidth;
           display: flex;
@@ -125,6 +125,10 @@
               width: $tableWidth / 4;
             }
           }
+        }
+
+        tbody {
+          width: $tableWidth - 0.2em; // this is to take care of the length of the vertical scrollbar so there's no horizontal scrollbar
         }
       }
     }
