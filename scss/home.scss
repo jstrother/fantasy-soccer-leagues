@@ -8,9 +8,10 @@ main {
 	height: 101%;	
 	padding-left: 1em;
 	padding-right: 0.5em;
-	margin-left: -1em;
 	padding-bottom: 1em;
-  background: #FFFFFF url("/img/soccer-field3.jpg") center/cover no-repeat;
+	margin-left: -1em;
+	margin-bottom: -0.15em;
+  background: #FFFFFF url("/img/soccer-field.jpg") center/cover no-repeat;
 
 	.welcome {
 		display: flex;
