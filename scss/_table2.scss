@@ -12,6 +12,7 @@
     overflow: auto;
     tr { 
         border: 1px solid #ccc;
-        background-color: #ffffff;
+        background-color: $trColorEven;
+        padding-left: 0.5em;
     }
 }

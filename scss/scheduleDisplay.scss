@@ -11,7 +11,7 @@
     width: 20em;
 
     .matchHeader {
-      background-color: $trColor;
+      background-color: $trColorOdd;
       text-align: center;
       margin-bottom: 0;
       padding-top: 0.5em;
@@ -23,7 +23,7 @@
     margin-left: $scheduleMatchGap;
 
     .scheduleHeader {
-      background-color: $trColor;
+      background-color: $trColorOdd;
       text-align: center;
       margin-bottom: 0;
       padding-top: 0.5em;
@@ -38,7 +38,7 @@
       
       thead {
         position: absolute;
-        background: $trColor;
+        background: $trColorOdd;
         width: 95%;
         
         th {
@@ -63,7 +63,7 @@
       tbody {
         &:nth-of-type(odd) {
           tr {
-            background: $trColor;
+            background: $trColorOdd;
           }
         }
         tr {

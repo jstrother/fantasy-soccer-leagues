@@ -13,11 +13,12 @@
   
   tr { 
     border: 1px solid #ccc;
+    padding-left: 0.5em;
     &:nth-of-type(even) {
-      background-color: #ffffff;
+      background-color: $trColorEven;
     }
     &:nth-of-type(odd) {
-      background-color: $trColor;
+      background-color: $trColorOdd;
     }
   }
   

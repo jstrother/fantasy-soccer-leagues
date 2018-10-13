@@ -1,14 +1,16 @@
 @import "myBreakpoints";
 
-$headerColor: darken(#007FFF, 10%);
+$azure: #007FFF;
+$headerColor: darken($azure, 10%);
 
-$trColor: #EEE;
+$trColorOdd: lighten($azure, 5%);
+$trColorEven: #ffffff;
 $trPadding: 0.25em;
 
 $blankRowHeight: 1.5em;
 
 $tableBorderBlack: 1px solid black;
-$tableBorderGrey: 1px solid $trColor;
+$tableBorderGrey: 1px solid $trColorOdd;
 $tableWidth: 45em;
 $tableWidthMobile: $tableWidth / 2;
 

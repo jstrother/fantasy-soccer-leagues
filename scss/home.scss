@@ -8,14 +8,20 @@ main {
 	height: 101%;	
 	padding-left: 1em;
 	padding-right: 0.5em;
-	padding-bottom: 1em;
+	padding-bottom: 1.15em;
 	margin-left: -1em;
-	margin-bottom: -0.15em;
   background: #FFFFFF url("/img/soccer-field.jpg") center/cover no-repeat;
 
 	.welcome {
 		display: flex;
-    flex-flow: column nowrap;
+		flex-flow: column nowrap;
+		align-self: center;
+		background-color: $trColorOdd;
+		text-align: center;
+		margin-bottom: 0;
+		width: 100%;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
 
     .welcomeText {
       text-align: center;
@@ -34,6 +40,10 @@ main {
 
 	@media (min-width: $gtMidpoint) {
 		height: 90.3vh;
+		
+		.welcome {
+			width: 30em;
+		}
 	}
 
 	.hidden {

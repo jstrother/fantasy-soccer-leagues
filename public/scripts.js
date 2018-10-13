@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "12e7c3c3b76f64a050ef"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a4260a10ef8b1892652b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -38490,7 +38490,9 @@ function (_React$Component) {
           }, "".concat(p.firstName, " ").concat(p.lastName)), _react.default.createElement("td", null, p.position), _react.default.createElement("td", null, p.clubName), _react.default.createElement("td", null, p.fantasyPoints.fixture));
         }))));
       } else {
-        return _react.default.createElement("p", null, "We're sorry, but something went wrong.");
+        return _react.default.createElement("h6", {
+          className: _playerSelection.default.somethingWrong
+        }, "We're sorry, but something went wrong.");
       }
     }
   }]);
@@ -38536,7 +38538,7 @@ module.exports = {"rosterWarning":"warning__rosterWarning__Wm1tf","hidden":"warn
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"playerSelection":"playerSelection__playerSelection__qkBA1","hidden":"playerSelection__hidden__3ZKZF","playerName":"playerSelection__playerName__bEPf8","playerSelectionHeader":"playerSelection__playerSelectionHeader__OcAMm","playerRemove":"playerSelection__playerRemove__1Qhcf","playerSelectionTable":"playerSelection__playerSelectionTable__3ro6X"};
+module.exports = {"playerSelection":"playerSelection__playerSelection__qkBA1","hidden":"playerSelection__hidden__3ZKZF","somethingWrong":"playerSelection__somethingWrong__2DSKO","playerName":"playerSelection__playerName__bEPf8","playerSelectionHeader":"playerSelection__playerSelectionHeader__OcAMm","playerRemove":"playerSelection__playerRemove__1Qhcf","playerSelectionTable":"playerSelection__playerSelectionTable__3ro6X"};
 
 /***/ }),
 /* 454 */

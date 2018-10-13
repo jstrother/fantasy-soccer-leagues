@@ -8,7 +8,7 @@
 	}
 
 	.standingsHeader {
-		background-color: $trColor;
+		background-color: $trColorOdd;
 		text-align: center;
 		margin-bottom: 0;
 		padding-top: 0.5em;
@@ -21,7 +21,7 @@
 
 		thead {
 			position: absolute;
-			background: $trColor;
+			background: $trColorOdd;
 			width: 81.75vw;
 			th {
 				&:first-of-type {
@@ -75,7 +75,7 @@
 		tbody {
 			tr {
 				&:nth-of-type(odd) {
-					background: $trColor;
+					background: $trColorOdd;
 				}
 				td {
 					&:first-of-type {
@@ -172,7 +172,7 @@
 				margin-top: 0;
 				tr {
 					&:nth-of-type(odd) {
-						background-color: $trColor;
+						background-color: $trColorOdd;
 					}					
 					td {
 						&:first-of-type {

@@ -227,7 +227,7 @@ export class Selection extends React.Component {
     }
     else {
       return(
-        <p>We're sorry, but something went wrong.</p>
+        <h6 className={styles.somethingWrong}>We're sorry, but something went wrong.</h6>
       );
     }
   }

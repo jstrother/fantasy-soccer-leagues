@@ -13,7 +13,7 @@
   }
 
   .rosterHeader, .lineupHeader, .startersHeader, .benchHeader {
-    background-color: $trColor;
+    background-color: $trColorOdd;
     text-align: center;
     margin-bottom: 0;
     padding-top: 0.25em;
@@ -78,6 +78,7 @@
             flex-flow: row nowrap;
             justify-content: center;
             align-items: center;
+            padding-left: 0.5em;
 
             th {
               width: $tableWidth / 7;
@@ -99,8 +100,9 @@
             flex-flow: row nowrap;
             padding-top: $trPadding;
             padding-bottom: $trPadding;
+            padding-left: 0.5em;
             &:nth-of-type(odd) {
-              background: $trColor;
+              background: $trColorOdd;
             }
 
             td {
@@ -118,12 +120,8 @@
             }
           }
         }
-      }  
-    }    
-
-    .lineup {
-      margin-top: -1.25em;
-      
+      }
+    .lineup {      
       .lineupHolder {
         display: flex;
         flex-flow: row nowrap;
@@ -134,7 +132,12 @@
 
         .benchPlayers {
           margin-left: 0.25em;
+        }
       }
     }
+  }
+
+  .lineup {
+    margin-top: -1.25em;
   }
 }
