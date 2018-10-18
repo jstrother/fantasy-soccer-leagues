@@ -13,6 +13,7 @@ main {
   background: #FFFFFF url("/img/soccer-field.jpg") center/cover no-repeat;
 
 	.welcome {
+		opacity: $displayOpacity;
 		display: flex;
 		flex-flow: column nowrap;
 		align-self: center;

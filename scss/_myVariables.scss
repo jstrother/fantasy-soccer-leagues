@@ -1,9 +1,10 @@
 @import "myBreakpoints";
 
 $azure: #007FFF;
+$trGrey: lighten(#cccccc, 5%);
 $headerColor: darken($azure, 10%);
 
-$trColorOdd: lighten($azure, 5%);
+$trColorOdd: $trGrey;
 $trColorEven: #ffffff;
 $trPadding: 0.25em;
 
@@ -19,6 +20,8 @@ $scheduleMatchGap: 3em;
 $playerInfoBG: #2F88B3;
 
 $starterBenchPaddingTop: 1.665em;
+
+$displayOpacity: 0.79;
 
 // fonts
 

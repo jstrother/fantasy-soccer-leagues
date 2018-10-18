@@ -8,6 +8,9 @@
 
 .rosterDisplay {
   @extend %sharedTable;
+
+  opacity: $displayOpacity;
+
   .clickable {
     cursor: pointer;
   }

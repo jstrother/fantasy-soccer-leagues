@@ -7,6 +7,7 @@
 }
 
 .somethingWrong {
+	opacity: $displayOpacity;
 	background-color: $trColorOdd;
 	text-align: center;
 	height: 2em;
@@ -17,6 +18,7 @@
 
 .playerSelection {
 	@extend %sharedTable;
+	opacity: $displayOpacity;
 	.playerName {
 		cursor: pointer;
 	}

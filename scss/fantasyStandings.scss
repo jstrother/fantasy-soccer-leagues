@@ -3,6 +3,7 @@
 @import 'table2';
 
 .fantasyStandings {
+	opacity: $displayOpacity;
 	.blankRow {
 		height: $blankRowHeight;
 	}

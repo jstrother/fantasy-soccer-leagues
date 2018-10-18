@@ -2,6 +2,7 @@
 @import "myVariables";
 
 .fantasySchedule {
+  opacity: $displayOpacity;
   width: 100%;
 
   @media (min-width: $gtMidpoint) {

@@ -3,6 +3,7 @@
 @import "table2";
 
 .schedulePage {
+  opacity: $displayOpacity;
   display: flex;
   flex-flow: row;
 
