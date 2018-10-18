@@ -18,6 +18,7 @@
 
 	.standingsTable {
 		@extend %sharedTable2;
+		width: 110%;
 		border: 0;
 
 		thead {

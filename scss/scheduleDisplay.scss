@@ -5,7 +5,7 @@
 .schedulePage {
   opacity: $displayOpacity;
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
 
   .matchDisplay {
     margin-right: $scheduleMatchGap;
@@ -101,7 +101,7 @@
       }
 
       @media (min-width: $gtMidpoint) {
-        width: $tableWidth; 
+        width: $tableWidth;
         thead {
           width: $tableWidth;
           display: flex;
@@ -133,6 +133,9 @@
         }
       }
     }
+  }
+  @media (min-width: $gtMidpoint) {
+    flex-flow: row;
   }
 }
 

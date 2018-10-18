@@ -2,11 +2,13 @@
 @import "myVariables";
 
 .fantasySchedule {
+  display: flex;
+  flex-flow: column;
   opacity: $displayOpacity;
   width: 100%;
 
   @media (min-width: $gtMidpoint) {
-    display: flex;
+    flex-flow: row;
     justify-content: center;
     align-content: center;
     width: $tableWidth;
