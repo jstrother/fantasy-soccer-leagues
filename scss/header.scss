@@ -86,6 +86,7 @@ header {
 
 @media (min-width: $gtMidpoint) {
 	header {
+		width: 100%;
 		display: flex;
 		flex-flow: row nowrap;
 
