@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "90c0182e1a968306a08e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "76642b2607b39608072b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -37504,13 +37504,7 @@ function (_React$Component) {
       if (this.props.googleId && this.props.fantasyLeagueId) {
         return _react.default.createElement("main", null, _react.default.createElement("div", {
           className: _home.default.player
-        }, _react.default.createElement(_player.default, null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement("div", {
-          className: this.props.playerDataShow === false ? _home.default.welcome : _home.default.hidden
-        }, _react.default.createElement("p", {
-          className: _home.default.welcomeText
-        }, "Welcome to the Fantasy Soccer-Football Super League!"), _react.default.createElement("br", null), _react.default.createElement("p", {
-          className: _home.default.welcomeText
-        }, "You have selected ", this.props.fantasyLeagueName, ".")), _react.default.createElement("br", null), _react.default.createElement("div", {
+        }, _react.default.createElement(_player.default, null)), _react.default.createElement("div", {
           className: this.props.playerDataShow === false ? _home.default.club : _home.default.hidden
         }, _react.default.createElement(_fantasyClub.default, null)));
       }

@@ -89,23 +89,6 @@ export class Home extends React.Component {
 					<div className={styles.player}>
 						<Player />
 					</div>
-					<br />
-					<br />
-					<div
-						className={
-							this.props.playerDataShow === false
-								? styles.welcome
-								: styles.hidden
-						}>
-            <p 
-              className={styles.welcomeText}>
-							Welcome to the Fantasy Soccer-Football Super League!
-						</p>
-						<br />
-            <p 
-              className={styles.welcomeText}>You have selected {this.props.fantasyLeagueName}.</p>
-					</div>
-					<br />
 					<div
 						className={
 							this.props.playerDataShow === false ? styles.club : styles.hidden
