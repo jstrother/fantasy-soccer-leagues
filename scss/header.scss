@@ -3,7 +3,7 @@
 
 header {
 	max-width: 100%;
-	width: 100%;
+	width: $screenWidthMobile + 0.1vw;
 	margin: -0.5em -12em 0 -0.5em;
 	padding: 0.5em;
 	background: $headerColor url("/img/royal_blue.png") 100%;
