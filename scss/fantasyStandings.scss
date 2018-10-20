@@ -3,6 +3,7 @@
 @import 'table2';
 
 .fantasyStandings {
+	width: 90vw;
 	opacity: $displayOpacity;
 	.blankRow {
 		height: $blankRowHeight;
@@ -18,13 +19,13 @@
 
 	.standingsTable {
 		@extend %sharedTable2;
-		width: 110%;
+		width: 90vw;
 		border: 0;
 
 		thead {
 			position: absolute;
+			width: 90vw;
 			background: $trColorOdd;
-			width: 81.75vw;
 			th {
 				&:first-of-type {
 					//Club
@@ -75,6 +76,7 @@
 		}
 
 		tbody {
+			width: 90vw;
 			tr {
 				&:nth-of-type(odd) {
 					background: $trColorOdd;
@@ -205,6 +207,9 @@
 				}
 			}
 		}
+	}
+	@media (min-width: $gtMidpoint) {
+		width: 50vw;
 	}
 }
 
