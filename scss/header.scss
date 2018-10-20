@@ -2,7 +2,8 @@
 @import 'myVariables';
 
 header {
-	position: sticky;
+	position: fixed;
+	z-index: 77;
 	max-width: 100%;
 	width: $screenWidthMobile + 0.1vw;
 	margin: -0.5em -12em 0 -0.5em;
@@ -87,7 +88,8 @@ header {
 
 @media (min-width: $gtMidpoint) {
 	header {
-		width: 100%;
+		width: 99.25vw;
+		margin-top: -$headerAdjustMargin;
 		display: flex;
 		flex-flow: row nowrap;
 
