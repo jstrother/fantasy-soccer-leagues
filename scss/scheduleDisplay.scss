@@ -8,7 +8,7 @@
   flex-flow: column;
 
   .matchDisplay {
-    margin-right: $scheduleMatchGap;
+    align-self: center;    
     width: 20em;
 
     .matchHeader {
@@ -20,8 +20,8 @@
     }
   }
     
-  .scheduleDisplay {
-    margin-left: $scheduleMatchGap;
+  .scheduleDisplay { 
+    align-self: center;   
 
     .scheduleHeader {
       background-color: $trColorOdd;
@@ -32,6 +32,7 @@
     }
     .scheduleTable {
       @extend %sharedTable2;
+      width: 88vw;
       
       .blankRow {
         height: $blankRowHeight;
@@ -40,7 +41,7 @@
       thead {
         position: absolute;
         background: $trColorOdd;
-        width: 95%;
+        width: 82%;
         
         th {
           text-align: center;
@@ -62,6 +63,7 @@
       }
       
       tbody {
+        width: 100%;
         &:nth-of-type(odd) {
           tr {
             background: $trColorOdd;
@@ -136,6 +138,18 @@
   }
   @media (min-width: $gtMidpoint) {
     flex-flow: row;
+
+    .matchDisplay {
+      margin-right: $scheduleMatchGap;
+    }
+
+    .scheduleDisplay {
+      margin-left: $scheduleMatchGap;
+
+      // .scheduleTable {
+      //   width: 82vw;
+      // }
+    }
   }
 }
 
