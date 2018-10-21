@@ -151,6 +151,9 @@
 					&:nth-of-type(2) {
 						width: 10vw;
 					}
+					&:nth-of-type(3) {
+						width: 10vw;
+					}
 					&:nth-of-type(4) {
 						width: 10vw;
 					}
@@ -174,6 +177,7 @@
 
 			tbody {
 				margin-top: 0;
+				width: 50vw;
 				tr {
 					&:nth-of-type(odd) {
 						background-color: $trColorOdd;
@@ -183,6 +187,9 @@
 							width: 13vw;
 						}
 						&:nth-of-type(2) {
+							width: 10vw;
+						}
+						&:nth-of-type(3) {
 							width: 10vw;
 						}
 						&:nth-of-type(4) {
