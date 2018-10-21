@@ -6,7 +6,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 12em;
+  margin-top: 8em;
+  background: inherit;
+  background-attachment: inherit;
 }
 
 .hidden {
