@@ -2,6 +2,7 @@
 @import 'myVariables';
 
 main {
+	z-index: -77;
 	display: flex;
 	flex-flow: column nowrap;
 	width: $screenWidthMobile;
