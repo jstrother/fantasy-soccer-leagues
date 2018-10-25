@@ -39,9 +39,9 @@
       }
       
       thead {
-        position: absolute;
+        position: relative;
         background: $trColorOdd;
-        width: 82%;
+        // width: 82%;
         
         th {
           text-align: center;
@@ -57,7 +57,7 @@
           }
           &:last-of-type {
             width: 25%;
-            padding-right: 0;
+            padding-right: 0.25em;
           }
         }
       }

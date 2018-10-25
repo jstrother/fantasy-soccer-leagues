@@ -23,8 +23,9 @@
 		border: 0;
 
 		thead {
-			position: absolute;
-			width: 90vw;
+			position: relative;
+			width: 100%;
+			margin-bottom: 0;
 			background: $trColorOdd;
 			th {
 				&:first-of-type {
@@ -76,8 +77,13 @@
 		}
 
 		tbody {
-			width: 90vw;
+			width: 100%;
+			margin-top: 0;
+			.blankRow {
+				display: none;
+			}
 			tr {
+				margin-top: 0;
 				&:nth-of-type(odd) {
 					background: $trColorOdd;
 				}
