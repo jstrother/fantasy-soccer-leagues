@@ -11,6 +11,7 @@
 	background-color: $trColorOdd;
 	text-align: center;
 	height: 2em;
+	margin-top: 1em;
 	margin-bottom: 0;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
@@ -19,6 +20,7 @@
 .playerSelection {
 	@extend %sharedTable;
 	opacity: $displayOpacity;
+	margin-top: 40em;
 	.playerName {
 		cursor: pointer;
 	}

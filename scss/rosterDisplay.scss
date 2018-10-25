@@ -8,6 +8,8 @@
 
 .rosterDisplay {
   @extend %sharedTable;
+  padding-top: 1em;
+  padding-bottom: 1em;
   opacity: $displayOpacity;
 
   .clickable {
@@ -16,7 +18,7 @@
 
   .rosterHeader, .lineupHeader, .startersHeader, .benchHeader {
     background-color: $trColorOdd;
-    text-align: center;
+    text-align: center;  
     margin-bottom: 0;
     padding-top: 0.25em;
     padding-bottom: 0.25em;

@@ -6,7 +6,7 @@
   margin-top: 2em;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: space-around;
 
   @media (min-width: $gtMidpoint) {
     flex-flow: row nowrap;
