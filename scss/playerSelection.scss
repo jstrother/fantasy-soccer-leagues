@@ -77,6 +77,7 @@
 
 	@media (min-width: $gtMidpoint) {
 		width: $tableWidth;
+		margin-top: 1em;
 
 		.playerSelectionTable {
 			border: $tableBorderBlack;
