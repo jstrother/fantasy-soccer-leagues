@@ -5,7 +5,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import { addLeague } from '../flow/subActions/userActions.js';
+import { selectLeague } from '../flow/subActions/userActions.js';
 import { LEAGUE_IDS_NAMES } from '../server/league_ids_names.js';
 import FantasyClub from './fantasyClub.js';
 import Player from './player.js';
@@ -26,7 +26,7 @@ export class Home extends React.Component {
 		});
 
 		this.props.dispatch(
-			addLeague(this.props.accessToken, fantasyLeagueId, fantasyLeagueName)
+			selectLeague(this.props.accessToken, fantasyLeagueId, fantasyLeagueName)
 		);
 	}
 

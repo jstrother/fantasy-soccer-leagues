@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "505311ed8ee2ecc07200"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "245280fb073adab6090d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7071,7 +7071,7 @@ module.exports = toKey;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.clubOwner = exports.addLeague = exports.fetchUser = exports.hasClubFail = exports.HAS_CLUB_FAIL = exports.hasClubSuccess = exports.HAS_CLUB_SUCCESS = exports.setLeagueFail = exports.SET_LEAGUE_FAIL = exports.setLeagueSuccess = exports.SET_LEAGUE_SUCCESS = exports.setUserFail = exports.SET_USER_FAIL = exports.setUserSuccess = exports.SET_USER_SUCCESS = void 0;
+exports.clubOwner = exports.selectLeague = exports.fetchUser = exports.hasClubFail = exports.HAS_CLUB_FAIL = exports.hasClubSuccess = exports.HAS_CLUB_SUCCESS = exports.setLeagueFail = exports.SET_LEAGUE_FAIL = exports.setLeagueSuccess = exports.SET_LEAGUE_SUCCESS = exports.setUserFail = exports.SET_USER_FAIL = exports.setUserSuccess = exports.SET_USER_SUCCESS = void 0;
 
 var _isomorphicFetch = _interopRequireDefault(__webpack_require__(33));
 
@@ -7181,9 +7181,9 @@ var fetchUser = function fetchUser(accessToken) {
 
 exports.fetchUser = fetchUser;
 
-var addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
+var selectLeague = function selectLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
-    return (0, _isomorphicFetch.default)("".concat(thisURL, "/addLeague"), {
+    return (0, _isomorphicFetch.default)("".concat(thisURL, "/selectLeague"), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -7213,7 +7213,7 @@ var addLeague = function addLeague(accessToken, fantasyLeagueId, fantasyLeagueNa
   };
 };
 
-exports.addLeague = addLeague;
+exports.selectLeague = selectLeague;
 
 var clubOwner = function clubOwner(accessToken, hasClub) {
   return function (dispatch) {
@@ -37464,7 +37464,7 @@ function (_React$Component) {
         }
       });
 
-      this.props.dispatch((0, _userActions.addLeague)(this.props.accessToken, fantasyLeagueId, fantasyLeagueName));
+      this.props.dispatch((0, _userActions.selectLeague)(this.props.accessToken, fantasyLeagueId, fantasyLeagueName));
     }
   }, {
     key: "render",

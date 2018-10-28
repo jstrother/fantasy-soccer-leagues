@@ -71,8 +71,8 @@ export const fetchUser = accessToken => dispatch => {
   });
 };
 
-export const addLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
-  return fetch(`${thisURL}/addLeague`, {
+export const selectLeague = (accessToken, fantasyLeagueId, fantasyLeagueName) => dispatch => {
+  return fetch(`${thisURL}/selectLeague`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

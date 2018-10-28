@@ -22,7 +22,7 @@ describe('User Profile', () => {
 		.find()
 		.then(users => {
 			return chai.request(app)
-			.put(`/user/addLeague`)
+			.put(`/user/selectLeague`)
 			.set({'Authorization': `Bearer ${users[0].accessToken}`})
 			.send({
 				fantasyLeagueId,

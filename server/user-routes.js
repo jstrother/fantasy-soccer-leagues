@@ -24,7 +24,8 @@ passport.use(
 				},
 				{
 					$set: {
-						accessToken: accessToken,
+						accessToken,
+						refreshToken,
 						googleId: profile.id
 					}
 				},
@@ -104,7 +105,7 @@ userRouter.get(
 
 // adds user's selected league
 userRouter.put(
-	`/addLeague`,
+	`/selectLeague`,
 	passport.authenticate('bearer', { session: false }),
 	(req, res) =>
 		User.findOneAndUpdate(

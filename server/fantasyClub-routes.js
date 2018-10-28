@@ -45,7 +45,7 @@ fantasyClubRouter.post('/addGoalkeeper/:userId',
       {manager: req.params.userId},
       {$addToSet: {goalkeepers: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}  
@@ -70,7 +70,7 @@ fantasyClubRouter.post('/removeGoalkeeper/:userId',
       {manager: req.params.userId},
       {$pull: {goalkeepers: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}
@@ -95,7 +95,7 @@ fantasyClubRouter.post('/addDefender/:userId',
       {manager: req.params.userId},
       {$addToSet: {defenders: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}  
@@ -120,7 +120,7 @@ fantasyClubRouter.post('/removeDefender/:userId',
       {manager: req.params.userId},
       {$pull: {defenders: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}
@@ -145,7 +145,7 @@ fantasyClubRouter.post('/addForward/:userId',
       {manager: req.params.userId},
       {$addToSet: {forwards: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}  
@@ -170,7 +170,7 @@ fantasyClubRouter.post('/removeForward/:userId',
       {manager: req.params.userId},
       {$pull: {forwards: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}  
@@ -195,7 +195,7 @@ fantasyClubRouter.post('/addMidfielder/:userId',
       {manager: req.params.userId},
       {$addToSet: {midfielders: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}  
@@ -220,7 +220,7 @@ fantasyClubRouter.post('/removeMidfielder/:userId',
       {manager: req.params.userId},
       {$pull: {midfielders: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}
@@ -245,7 +245,7 @@ fantasyClubRouter.post('/addStarter/:userId',
       {manager: req.params.userId},
       {$addToSet: {starters: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}
@@ -270,7 +270,7 @@ fantasyClubRouter.post('/removeStarter/:userId',
       {manager: req.params.userId},
       {$pull: {starters: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}
@@ -295,7 +295,7 @@ fantasyClubRouter.post('/addBench/:userId',
       {manager: req.params.userId},
       {$addToSet: {benchwarmers: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}
@@ -320,7 +320,7 @@ fantasyClubRouter.post('/removeBench/:userId',
       {manager: req.params.userId},
       {$pull: {benchwarmers: req.body.player}}
     )
-    .then(data => {
+    .then(() => {
       FantasyClub
       .findOne(
         {manager: req.params.userId}

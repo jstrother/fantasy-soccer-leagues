@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import expect from 'expect';
 import nock from 'nock';
 
-import { setLeagueSuccess, addLeague } from '../../flow/subActions/userActions.js';
+import { setLeagueSuccess, selectLeague } from '../../flow/subActions/userActions.js';
 
 const middlewares = [thunk],
   mockStore = configureMockStore(middlewares),
@@ -24,20 +24,20 @@ describe('League Setting Actions', () => {
     });
   });
   
-  describe('addLeague async action', () => {
+  describe('selectLeague async action', () => {
     it('should add league id and name to store', () => {
       const leagueNock = nock('https://fantasy-soccer-leagues-jstrother.c9users.io', {
         reqheaders: {
           'Authorization': `Bearer ${testCurrentUser.accessToken}`
         }
       })
-      .put('/user/addLeague')
+      .put('/user/selectLeague')
       .reply(200, function(uri, body) {
         return body;
       }),
       store = mockStore({ testCurrentUser });
       
-      return store.dispatch(addLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName)).then((fantasyLeagueId, fantasyLeagueName) => {
+      return store.dispatch(selectLeague(testCurrentUser.accessToken, fantasyLeagueId, fantasyLeagueName)).then((fantasyLeagueId, fantasyLeagueName) => {
         expect(store.getState()).toHaveProperty('fantasyLeagueId', fantasyLeagueId);
         expect(store.getState()).toHaveProperty('fantasyLeagueName', fantasyLeagueName);
       });

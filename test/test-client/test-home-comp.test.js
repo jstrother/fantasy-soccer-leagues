@@ -4,7 +4,7 @@ import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { Home } from '../../components/home.js';
 import { LoginPage } from '../../components/loginPage.js';
-import { addLeague } from '../../flow/subActions/userActions.js';
+import { selectLeague } from '../../flow/subActions/userActions.js';
 import expect from 'expect';
 
 configure({ adapter: new Adapter() });
