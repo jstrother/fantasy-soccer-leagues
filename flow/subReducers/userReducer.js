@@ -23,6 +23,7 @@ export const userReducer = (state = {hasClub: false}, action) => {
     case SET_LEAGUE_SUCCESS:
       return Object.assign({}, state,
         {
+          userId: action.userId,
           fantasyLeagueId: action.fantasyLeagueId,
           fantasyLeagueName: action.fantasyLeagueName
         }
@@ -30,6 +31,7 @@ export const userReducer = (state = {hasClub: false}, action) => {
     case HAS_CLUB_SUCCESS:
       return Object.assign({}, state,
         {
+          userId: action.userId,
           hasClub: action.hasClub
         }
       );

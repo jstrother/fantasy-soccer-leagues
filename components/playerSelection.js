@@ -42,8 +42,7 @@ export class Selection extends React.Component {
 					}
 				},
 				roster = [],
-				clubCount = [],
-				scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length;
+				clubCount = [];
 			// we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 			roster.push.apply(roster, this.props.goalkeepers);
 			roster.push.apply(roster, this.props.defenders);

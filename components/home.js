@@ -26,7 +26,7 @@ export class Home extends React.Component {
 		});
 
 		this.props.dispatch(
-			selectLeague(this.props.accessToken, fantasyLeagueId, fantasyLeagueName)
+			selectLeague(this.props.userId, this.props.accessToken, fantasyLeagueId, fantasyLeagueName)
 		);
 	}
 
@@ -103,6 +103,7 @@ export class Home extends React.Component {
 
 const mapHomeStateToProps = state => ({
 	accessToken: state.userReducer.accessToken,
+	userId: state.userReducer.userId,
 	googleId: state.userReducer.googleId,
 	displayName: state.userReducer.displayName,
 	givenName: state.userReducer.givenName,

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "245280fb073adab6090d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bf97e41f2bb5d2651ecb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -2877,9 +2877,10 @@ var thisURL = "".concat(_config.DIRECTORY, "/fantasyClub");
 var GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
 exports.GET_CLUB_SUCCESS = GET_CLUB_SUCCESS;
 
-var getClubSuccess = function getClubSuccess(fantasyClub, statusCode) {
+var getClubSuccess = function getClubSuccess(userId, fantasyClub, statusCode) {
   return {
     type: GET_CLUB_SUCCESS,
+    userId: userId,
     fantasyClub: fantasyClub,
     clubFetched: true,
     statusCode: statusCode
@@ -2902,9 +2903,10 @@ exports.getClubFail = getClubFail;
 var NEW_CLUB_SUCCESS = 'NEW_CLUB_SUCCESS';
 exports.NEW_CLUB_SUCCESS = NEW_CLUB_SUCCESS;
 
-var newClubSuccess = function newClubSuccess(clubName, manager, statusCode) {
+var newClubSuccess = function newClubSuccess(userId, clubName, manager, statusCode) {
   return {
     type: NEW_CLUB_SUCCESS,
+    userId: userId,
     clubName: clubName,
     manager: manager,
     statusCode: statusCode
@@ -2926,9 +2928,10 @@ exports.newClubFail = newClubFail;
 var GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
 exports.GET_ROSTER_SUCCESS = GET_ROSTER_SUCCESS;
 
-var getRosterSuccess = function getRosterSuccess(roster, statusCode) {
+var getRosterSuccess = function getRosterSuccess(userId, roster, statusCode) {
   return {
     type: GET_ROSTER_SUCCESS,
+    userId: userId,
     roster: roster,
     statusCode: statusCode
   };
@@ -2949,9 +2952,10 @@ exports.getRosterFail = getRosterFail;
 var SET_GOALKEEPER_SUCCESS = 'SET_GOALKEEPER_SUCCESS';
 exports.SET_GOALKEEPER_SUCCESS = SET_GOALKEEPER_SUCCESS;
 
-var setGoalkeeperSuccess = function setGoalkeeperSuccess(goalkeeper, statusCode) {
+var setGoalkeeperSuccess = function setGoalkeeperSuccess(userId, goalkeeper, statusCode) {
   return {
     type: SET_GOALKEEPER_SUCCESS,
+    userId: userId,
     goalkeeper: goalkeeper,
     statusCode: statusCode
   };
@@ -2972,9 +2976,10 @@ exports.setGoalkeeperFail = setGoalkeeperFail;
 var REMOVE_GOALKEEPER_SUCCESS = 'REMOVE_GOALKEEPER_SUCCESS';
 exports.REMOVE_GOALKEEPER_SUCCESS = REMOVE_GOALKEEPER_SUCCESS;
 
-var removeGoalkeeperSuccess = function removeGoalkeeperSuccess(goalkeeper, statusCode) {
+var removeGoalkeeperSuccess = function removeGoalkeeperSuccess(userId, goalkeeper, statusCode) {
   return {
     type: REMOVE_GOALKEEPER_SUCCESS,
+    userId: userId,
     goalkeeper: goalkeeper,
     statusCode: statusCode
   };
@@ -2995,9 +3000,10 @@ exports.removeGoalkeeperFail = removeGoalkeeperFail;
 var SET_DEFENDER_SUCCESS = 'SET_DEFENDER_SUCCESS';
 exports.SET_DEFENDER_SUCCESS = SET_DEFENDER_SUCCESS;
 
-var setDefenderSuccess = function setDefenderSuccess(defender, statusCode) {
+var setDefenderSuccess = function setDefenderSuccess(userId, defender, statusCode) {
   return {
     type: SET_DEFENDER_SUCCESS,
+    userId: userId,
     defender: defender,
     statusCode: statusCode
   };
@@ -3018,9 +3024,10 @@ exports.setDefenderFail = setDefenderFail;
 var REMOVE_DEFENDER_SUCCESS = 'REMOVE_DEFENDER_SUCCESS';
 exports.REMOVE_DEFENDER_SUCCESS = REMOVE_DEFENDER_SUCCESS;
 
-var removeDefenderSuccess = function removeDefenderSuccess(defender, statusCode) {
+var removeDefenderSuccess = function removeDefenderSuccess(userId, defender, statusCode) {
   return {
     type: REMOVE_DEFENDER_SUCCESS,
+    userId: userId,
     defender: defender,
     statusCode: statusCode
   };
@@ -3041,9 +3048,10 @@ exports.removeDefenderFail = removeDefenderFail;
 var SET_MIDFIELDER_SUCCESS = 'SET_MIDFIELDER_SUCCESS';
 exports.SET_MIDFIELDER_SUCCESS = SET_MIDFIELDER_SUCCESS;
 
-var setMidfielderSuccess = function setMidfielderSuccess(midfielder, statusCode) {
+var setMidfielderSuccess = function setMidfielderSuccess(userId, midfielder, statusCode) {
   return {
     type: SET_MIDFIELDER_SUCCESS,
+    userId: userId,
     midfielder: midfielder,
     statusCode: statusCode
   };
@@ -3064,9 +3072,10 @@ exports.setMidfielderFail = setMidfielderFail;
 var REMOVE_MIDFIELDER_SUCCESS = 'REMOVE_MIDFIELDER_SUCCESS';
 exports.REMOVE_MIDFIELDER_SUCCESS = REMOVE_MIDFIELDER_SUCCESS;
 
-var removeMidfielderSuccess = function removeMidfielderSuccess(midfielder, statusCode) {
+var removeMidfielderSuccess = function removeMidfielderSuccess(userId, midfielder, statusCode) {
   return {
     type: REMOVE_MIDFIELDER_SUCCESS,
+    userId: userId,
     midfielder: midfielder,
     statusCode: statusCode
   };
@@ -3087,9 +3096,10 @@ exports.removeMidfielderFail = removeMidfielderFail;
 var SET_FORWARD_SUCCESS = 'SET_FORWARD_SUCCESS';
 exports.SET_FORWARD_SUCCESS = SET_FORWARD_SUCCESS;
 
-var setForwardSuccess = function setForwardSuccess(forward, statusCode) {
+var setForwardSuccess = function setForwardSuccess(userId, forward, statusCode) {
   return {
     type: SET_FORWARD_SUCCESS,
+    userId: userId,
     forward: forward,
     statusCode: statusCode
   };
@@ -3110,9 +3120,10 @@ exports.setForwardFail = setForwardFail;
 var REMOVE_FORWARD_SUCCESS = 'REMOVE_FORWARD_SUCCESS';
 exports.REMOVE_FORWARD_SUCCESS = REMOVE_FORWARD_SUCCESS;
 
-var removeForwardSuccess = function removeForwardSuccess(forward, statusCode) {
+var removeForwardSuccess = function removeForwardSuccess(userId, forward, statusCode) {
   return {
     type: REMOVE_FORWARD_SUCCESS,
+    userId: userId,
     forward: forward,
     statusCode: statusCode
   };
@@ -3133,9 +3144,10 @@ exports.removeForwardFail = removeForwardFail;
 var ADD_STARTER_SUCCESS = 'ADD_STARTER_SUCCESS';
 exports.ADD_STARTER_SUCCESS = ADD_STARTER_SUCCESS;
 
-var addStarterSuccess = function addStarterSuccess(starter, statusCode) {
+var addStarterSuccess = function addStarterSuccess(userId, starter, statusCode) {
   return {
     type: ADD_STARTER_SUCCESS,
+    userId: userId,
     starter: starter,
     statusCode: statusCode
   };
@@ -3156,9 +3168,10 @@ exports.addStarterFail = addStarterFail;
 var REMOVE_STARTER_SUCCESS = 'REMOVE_STARTER_SUCCESS';
 exports.REMOVE_STARTER_SUCCESS = REMOVE_STARTER_SUCCESS;
 
-var removeStarterSuccess = function removeStarterSuccess(starter, statusCode) {
+var removeStarterSuccess = function removeStarterSuccess(userId, starter, statusCode) {
   return {
     type: REMOVE_STARTER_SUCCESS,
+    userId: userId,
     starter: starter,
     statusCode: statusCode
   };
@@ -3179,9 +3192,10 @@ exports.removeStarterFail = removeStarterFail;
 var ADD_BENCHWARMER_SUCCESS = 'ADD_BENCHWARMER_SUCCESS';
 exports.ADD_BENCHWARMER_SUCCESS = ADD_BENCHWARMER_SUCCESS;
 
-var addBenchwarmerSuccess = function addBenchwarmerSuccess(benchwarmer, statusCode) {
+var addBenchwarmerSuccess = function addBenchwarmerSuccess(userId, benchwarmer, statusCode) {
   return {
     type: ADD_BENCHWARMER_SUCCESS,
+    userId: userId,
     benchwarmer: benchwarmer,
     statusCode: statusCode
   };
@@ -3202,9 +3216,10 @@ exports.addBenchwarmerFail = addBenchwarmerFail;
 var REMOVE_BENCHWARMER_SUCCESS = 'REMOVE_BENCHWARMER_SUCCESS';
 exports.REMOVE_BENCHWARMER_SUCCESS = REMOVE_BENCHWARMER_SUCCESS;
 
-var removeBenchwarmerSuccess = function removeBenchwarmerSuccess(benchwarmer, statusCode) {
+var removeBenchwarmerSuccess = function removeBenchwarmerSuccess(userId, benchwarmer, statusCode) {
   return {
     type: REMOVE_BENCHWARMER_SUCCESS,
+    userId: userId,
     benchwarmer: benchwarmer,
     statusCode: statusCode
   };
@@ -3228,7 +3243,7 @@ var getClub = function getClub(accessToken, userId) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/").concat(userId), {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       }
     }).then(function (res) {
       if (!res.ok) {
@@ -3243,7 +3258,7 @@ var getClub = function getClub(accessToken, userId) {
 
       return res.json();
     }).then(function (fantasyClub) {
-      dispatch(getClubSuccess(fantasyClub, 200));
+      dispatch(getClubSuccess(userId, fantasyClub, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3252,13 +3267,13 @@ var getClub = function getClub(accessToken, userId) {
 
 exports.getClub = getClub;
 
-var newClub = function newClub(accessToken, clubName, manager) {
+var newClub = function newClub(userId, accessToken, clubName, manager) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/newClub"), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         clubName: clubName,
@@ -3277,7 +3292,7 @@ var newClub = function newClub(accessToken, clubName, manager) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(newClubSuccess(data.clubName, data.manager, 200));
+      dispatch(newClubSuccess(userId, data.clubName, data.manager, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3292,7 +3307,7 @@ var addGoalkeeper = function addGoalkeeper(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3310,7 +3325,7 @@ var addGoalkeeper = function addGoalkeeper(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setGoalkeeperSuccess(data, 200));
+      dispatch(setGoalkeeperSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3325,7 +3340,7 @@ var removeGoalkeeper = function removeGoalkeeper(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3343,7 +3358,7 @@ var removeGoalkeeper = function removeGoalkeeper(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeGoalkeeperSuccess(data, 200));
+      dispatch(removeGoalkeeperSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3358,7 +3373,7 @@ var addDefender = function addDefender(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3376,7 +3391,7 @@ var addDefender = function addDefender(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setDefenderSuccess(data, 200));
+      dispatch(setDefenderSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3391,7 +3406,7 @@ var removeDefender = function removeDefender(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3409,7 +3424,7 @@ var removeDefender = function removeDefender(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeDefenderSuccess(data, 200));
+      dispatch(removeDefenderSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3424,7 +3439,7 @@ var addMidfielder = function addMidfielder(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3442,7 +3457,7 @@ var addMidfielder = function addMidfielder(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setMidfielderSuccess(data, 200));
+      dispatch(setMidfielderSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3457,7 +3472,7 @@ var removeMidfielder = function removeMidfielder(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3475,7 +3490,7 @@ var removeMidfielder = function removeMidfielder(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeMidfielderSuccess(data, 200));
+      dispatch(removeMidfielderSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3490,7 +3505,7 @@ var addForward = function addForward(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3508,7 +3523,7 @@ var addForward = function addForward(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setForwardSuccess(data, 200));
+      dispatch(setForwardSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3523,7 +3538,7 @@ var removeForward = function removeForward(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3541,7 +3556,7 @@ var removeForward = function removeForward(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeForwardSuccess(data, 200));
+      dispatch(removeForwardSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3556,7 +3571,7 @@ var addStarter = function addStarter(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3574,7 +3589,7 @@ var addStarter = function addStarter(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(addStarterSuccess(data, 200));
+      dispatch(addStarterSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3589,7 +3604,7 @@ var removeStarter = function removeStarter(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3607,7 +3622,7 @@ var removeStarter = function removeStarter(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeStarterSuccess(data, 200));
+      dispatch(removeStarterSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3622,7 +3637,7 @@ var addBench = function addBench(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3640,7 +3655,7 @@ var addBench = function addBench(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(addBenchwarmerSuccess(data, 200));
+      dispatch(addBenchwarmerSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3655,7 +3670,7 @@ var removeBench = function removeBench(accessToken, userId, player) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         player: player
@@ -3673,7 +3688,7 @@ var removeBench = function removeBench(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeBenchwarmerSuccess(data, 200));
+      dispatch(removeBenchwarmerSuccess(userId, data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -7080,7 +7095,6 @@ var _config = __webpack_require__(34);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* eslint-disable no-console */
-console.log('directory:', _config.DIRECTORY);
 var thisURL = "".concat(_config.DIRECTORY, "/user");
 var SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 exports.SET_USER_SUCCESS = SET_USER_SUCCESS;
@@ -7108,9 +7122,10 @@ exports.setUserFail = setUserFail;
 var SET_LEAGUE_SUCCESS = 'SET_LEAGUE_SUCCESS';
 exports.SET_LEAGUE_SUCCESS = SET_LEAGUE_SUCCESS;
 
-var setLeagueSuccess = function setLeagueSuccess(fantasyLeagueId, fantasyLeagueName, statusCode) {
+var setLeagueSuccess = function setLeagueSuccess(userId, fantasyLeagueId, fantasyLeagueName, statusCode) {
   return {
     type: SET_LEAGUE_SUCCESS,
+    userId: userId,
     fantasyLeagueId: fantasyLeagueId,
     fantasyLeagueName: fantasyLeagueName,
     statusCode: statusCode
@@ -7132,9 +7147,10 @@ exports.setLeagueFail = setLeagueFail;
 var HAS_CLUB_SUCCESS = 'HAS_CLUB_SUCCESS';
 exports.HAS_CLUB_SUCCESS = HAS_CLUB_SUCCESS;
 
-var hasClubSuccess = function hasClubSuccess(hasClub, statusCode) {
+var hasClubSuccess = function hasClubSuccess(userId, hasClub, statusCode) {
   return {
     type: HAS_CLUB_SUCCESS,
+    userId: userId,
     hasClub: hasClub,
     statusCode: statusCode
   };
@@ -7157,7 +7173,7 @@ var fetchUser = function fetchUser(accessToken) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL), {
       headers: {
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       }
     }).then(function (res) {
       if (!res.ok) {
@@ -7181,13 +7197,13 @@ var fetchUser = function fetchUser(accessToken) {
 
 exports.fetchUser = fetchUser;
 
-var selectLeague = function selectLeague(accessToken, fantasyLeagueId, fantasyLeagueName) {
+var selectLeague = function selectLeague(userId, accessToken, fantasyLeagueId, fantasyLeagueName) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/selectLeague"), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         fantasyLeagueId: fantasyLeagueId,
@@ -7206,7 +7222,7 @@ var selectLeague = function selectLeague(accessToken, fantasyLeagueId, fantasyLe
 
       return res.json();
     }).then(function (data) {
-      dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+      dispatch(setLeagueSuccess(userId, data.fantasyLeagueId, data.fantasyLeagueName, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -7215,13 +7231,13 @@ var selectLeague = function selectLeague(accessToken, fantasyLeagueId, fantasyLe
 
 exports.selectLeague = selectLeague;
 
-var clubOwner = function clubOwner(accessToken, hasClub) {
+var clubOwner = function clubOwner(userId, accessToken, hasClub) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/clubOwner"), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer ".concat(accessToken)
+        Authorization: "Bearer ".concat(accessToken)
       },
       body: JSON.stringify({
         hasClub: hasClub
@@ -7239,7 +7255,8 @@ var clubOwner = function clubOwner(accessToken, hasClub) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(hasClubSuccess(data.hasClub, 200));
+      console.log('data:', data);
+      dispatch(hasClubSuccess(userId, data.hasClub, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -37464,7 +37481,7 @@ function (_React$Component) {
         }
       });
 
-      this.props.dispatch((0, _userActions.selectLeague)(this.props.accessToken, fantasyLeagueId, fantasyLeagueName));
+      this.props.dispatch((0, _userActions.selectLeague)(this.props.userId, this.props.accessToken, fantasyLeagueId, fantasyLeagueName));
     }
   }, {
     key: "render",
@@ -37517,6 +37534,7 @@ exports.Home = Home;
 var mapHomeStateToProps = function mapHomeStateToProps(state) {
   return {
     accessToken: state.userReducer.accessToken,
+    userId: state.userReducer.userId,
     googleId: state.userReducer.googleId,
     displayName: state.userReducer.displayName,
     givenName: state.userReducer.givenName,
@@ -38318,8 +38336,7 @@ function (_React$Component) {
           }
         },
             roster = [],
-            clubCount = [],
-            scheduleLength = this.props.fantasySchedule === undefined ? 0 : this.props.fantasySchedule.length; // we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
+            clubCount = []; // we need a full list of players already selected to help check for number of times any particular clubName shows up (max 4 per clubName)
 
         roster.push.apply(roster, this.props.goalkeepers);
         roster.push.apply(roster, this.props.defenders);
@@ -39533,12 +39550,14 @@ var userReducer = function userReducer() {
 
     case _userActions.SET_LEAGUE_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         fantasyLeagueId: action.fantasyLeagueId,
         fantasyLeagueName: action.fantasyLeagueName
       });
 
     case _userActions.HAS_CLUB_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         hasClub: action.hasClub
       });
 
@@ -39684,6 +39703,7 @@ var fantasyClubReducer = function fantasyClubReducer() {
   switch (action.type) {
     case _fantasyClubActions.GET_CLUB_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         manager: action.fantasyClub.manager,
         clubName: action.fantasyClub.clubName,
         points: action.fantasyClub.points,
@@ -39706,67 +39726,80 @@ var fantasyClubReducer = function fantasyClubReducer() {
 
     case _fantasyClubActions.NEW_CLUB_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         clubName: action.clubName,
         manager: action.manager
       });
 
     case _fantasyClubActions.SET_GOALKEEPER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         goalkeepers: action.goalkeeper
       });
 
     case _fantasyClubActions.REMOVE_GOALKEEPER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         goalkeepers: action.goalkeeper
       });
 
     case _fantasyClubActions.SET_MIDFIELDER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         midfielders: action.midfielder
       });
 
     case _fantasyClubActions.REMOVE_MIDFIELDER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         midfielders: action.midfielder
       });
 
     case _fantasyClubActions.SET_DEFENDER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         defenders: action.defender
       });
 
     case _fantasyClubActions.REMOVE_DEFENDER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         defenders: action.defender
       });
 
     case _fantasyClubActions.SET_FORWARD_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         forwards: action.forward
       });
 
     case _fantasyClubActions.REMOVE_FORWARD_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         forwards: action.forward
       });
 
     case _fantasyClubActions.ADD_STARTER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         starters: action.starter
       });
 
     case _fantasyClubActions.REMOVE_STARTER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         starters: action.starter
       });
 
     case _fantasyClubActions.ADD_BENCHWARMER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         benchwarmers: action.benchwarmer
       });
 
     case _fantasyClubActions.REMOVE_BENCHWARMER_SUCCESS:
       return Object.assign({}, state, {
+        userId: action.userId,
         benchwarmers: action.benchwarmer
       });
 
