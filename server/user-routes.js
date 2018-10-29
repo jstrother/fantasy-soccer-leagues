@@ -111,6 +111,7 @@ userRouter.put(
 		User.findOneAndUpdate(
 			req.params.googleId,
 			{
+				userId: req.body.userId,
 				fantasyLeagueId: req.body.fantasyLeagueId,
 				fantasyLeagueName: req.body.fantasyLeagueName
 			},
@@ -135,6 +136,7 @@ userRouter.put(
 		User.findOneAndUpdate(
 			req.params.googleId,
 			{
+				userId: req.body.userId,
 				hasClub: req.body.hasClub
 			},
 			{

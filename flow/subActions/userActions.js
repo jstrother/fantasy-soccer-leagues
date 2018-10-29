@@ -20,13 +20,11 @@ export const setUserFail = statusCode => ({
 
 export const SET_LEAGUE_SUCCESS = 'SET_LEAGUE_SUCCESS';
 export const setLeagueSuccess = (
-	userId,
 	fantasyLeagueId,
 	fantasyLeagueName,
 	statusCode
 ) => ({
 	type: SET_LEAGUE_SUCCESS,
-	userId,
 	fantasyLeagueId,
 	fantasyLeagueName,
 	statusCode
@@ -39,9 +37,8 @@ export const setLeagueFail = statusCode => ({
 });
 
 export const HAS_CLUB_SUCCESS = 'HAS_CLUB_SUCCESS';
-export const hasClubSuccess = (userId, hasClub, statusCode) => ({
+export const hasClubSuccess = (hasClub, statusCode) => ({
 	type: HAS_CLUB_SUCCESS,
-	userId,
 	hasClub,
 	statusCode
 });
@@ -77,12 +74,7 @@ export const fetchUser = accessToken => dispatch => {
 		});
 };
 
-export const selectLeague = (
-	userId,
-	accessToken,
-	fantasyLeagueId,
-	fantasyLeagueName
-) => dispatch => {
+export const selectLeague = (userId, accessToken,	fantasyLeagueId, fantasyLeagueName) => dispatch => {
 	return fetch(`${thisURL}/selectLeague`, {
 		method: 'PUT',
 		headers: {
@@ -94,33 +86,33 @@ export const selectLeague = (
 			fantasyLeagueName
 		})
 	})
-		.then(res => {
-			if (!res.ok) {
-				if (res.status === 400) {
-					dispatch(setLeagueFail(res.status));
-					return;
-				}
-				dispatch(setLeagueFail(500));
-				throw new Error(res.statusText);
-			}
-			return res.json();
-		})
-		.then(data => {
-			dispatch(
-				setLeagueSuccess(
-					userId,
-					data.fantasyLeagueId,
-					data.fantasyLeagueName,
-					200
-				)
-			);
-		})
-		.catch(error => {
-			throw new Error(error);
-		});
+  .then(res => {
+    if (!res.ok) {
+      if (res.status === 400) {
+        dispatch(setLeagueFail(res.status));
+        return;
+      }
+      dispatch(setLeagueFail(500));
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  })
+  .then(data => {
+    if (data._id === userId) {
+      dispatch(
+        setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200)
+      );
+    } else {
+      console.error('Could not select a league. UserID mismatch.');
+    }
+  })
+  .catch(error => {
+    throw new Error(error);
+  });
 };
 
 export const clubOwner = (userId, accessToken, hasClub) => dispatch => {
+	console.log('first userId:', userId);
 	return fetch(`${thisURL}/clubOwner`, {
 		method: 'PUT',
 		headers: {
@@ -143,8 +135,13 @@ export const clubOwner = (userId, accessToken, hasClub) => dispatch => {
 			return res.json();
 		})
 		.then(data => {
-      console.log('data:', data);
-			dispatch(hasClubSuccess(userId, data.hasClub, 200));
+			console.log('hasClub data:', data);
+			console.log('second userId:', userId);
+			if (data._id === userId) {
+				dispatch(hasClubSuccess(data.hasClub, 200));
+			} else {
+				console.error('Could not determine if user has club. UserID mismatch');
+			}
 		})
 		.catch(error => {
 			throw new Error(error);

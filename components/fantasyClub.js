@@ -14,7 +14,7 @@ import styles from '../scss/fantasyClub.scss';
 
 export class FantasyTeam extends React.Component {
 	componentDidMount() {
-		if (this.props.hasClub === true) {
+		if (this.props.hasClub) {
 			this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 		}
 	}
@@ -33,19 +33,13 @@ export class FantasyTeam extends React.Component {
 
 	setClubName(event) {
 		event.preventDefault();
-		this.props.dispatch(
-			newClub(
-				this.props.accessToken,
-				this.clubNameInput.value,
-				this.props.userId
-			)
-		);
-		this.props.dispatch(clubOwner(this.props.accessToken, true));
+		this.props.dispatch(newClub(this.props.accessToken, this.clubNameInput.value, this.props.userId));
+		this.props.dispatch(clubOwner(this.props.userId, this.props.accessToken, true));
 		this.props.dispatch(getClub(this.props.accessToken, this.props.userId));
 	}
 
 	render() {
-		if (this.props.hasClub === false) {
+		if (!this.props.hasClub) {
 			return (
 				<div className={styles.fantasyClub}>
 					<form className={'clubNameForm'}>

@@ -26,7 +26,12 @@ export class Home extends React.Component {
 		});
 
 		this.props.dispatch(
-			selectLeague(this.props.userId, this.props.accessToken, fantasyLeagueId, fantasyLeagueName)
+			selectLeague(
+				this.props.userId,
+				this.props.accessToken, 
+				fantasyLeagueId, 
+				fantasyLeagueName
+			)
 		);
 	}
 

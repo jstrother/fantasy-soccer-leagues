@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bf97e41f2bb5d2651ecb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "beda14b6c75bbbf422f5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -2873,14 +2873,14 @@ var _config = __webpack_require__(34);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-console */
 var thisURL = "".concat(_config.DIRECTORY, "/fantasyClub");
 var GET_CLUB_SUCCESS = 'GET_CLUB_SUCCESS';
 exports.GET_CLUB_SUCCESS = GET_CLUB_SUCCESS;
 
-var getClubSuccess = function getClubSuccess(userId, fantasyClub, statusCode) {
+var getClubSuccess = function getClubSuccess(fantasyClub, statusCode) {
   return {
     type: GET_CLUB_SUCCESS,
-    userId: userId,
     fantasyClub: fantasyClub,
     clubFetched: true,
     statusCode: statusCode
@@ -2903,10 +2903,9 @@ exports.getClubFail = getClubFail;
 var NEW_CLUB_SUCCESS = 'NEW_CLUB_SUCCESS';
 exports.NEW_CLUB_SUCCESS = NEW_CLUB_SUCCESS;
 
-var newClubSuccess = function newClubSuccess(userId, clubName, manager, statusCode) {
+var newClubSuccess = function newClubSuccess(clubName, manager, statusCode) {
   return {
     type: NEW_CLUB_SUCCESS,
-    userId: userId,
     clubName: clubName,
     manager: manager,
     statusCode: statusCode
@@ -2928,10 +2927,9 @@ exports.newClubFail = newClubFail;
 var GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
 exports.GET_ROSTER_SUCCESS = GET_ROSTER_SUCCESS;
 
-var getRosterSuccess = function getRosterSuccess(userId, roster, statusCode) {
+var getRosterSuccess = function getRosterSuccess(roster, statusCode) {
   return {
     type: GET_ROSTER_SUCCESS,
-    userId: userId,
     roster: roster,
     statusCode: statusCode
   };
@@ -2952,10 +2950,9 @@ exports.getRosterFail = getRosterFail;
 var SET_GOALKEEPER_SUCCESS = 'SET_GOALKEEPER_SUCCESS';
 exports.SET_GOALKEEPER_SUCCESS = SET_GOALKEEPER_SUCCESS;
 
-var setGoalkeeperSuccess = function setGoalkeeperSuccess(userId, goalkeeper, statusCode) {
+var setGoalkeeperSuccess = function setGoalkeeperSuccess(goalkeeper, statusCode) {
   return {
     type: SET_GOALKEEPER_SUCCESS,
-    userId: userId,
     goalkeeper: goalkeeper,
     statusCode: statusCode
   };
@@ -2976,10 +2973,9 @@ exports.setGoalkeeperFail = setGoalkeeperFail;
 var REMOVE_GOALKEEPER_SUCCESS = 'REMOVE_GOALKEEPER_SUCCESS';
 exports.REMOVE_GOALKEEPER_SUCCESS = REMOVE_GOALKEEPER_SUCCESS;
 
-var removeGoalkeeperSuccess = function removeGoalkeeperSuccess(userId, goalkeeper, statusCode) {
+var removeGoalkeeperSuccess = function removeGoalkeeperSuccess(goalkeeper, statusCode) {
   return {
     type: REMOVE_GOALKEEPER_SUCCESS,
-    userId: userId,
     goalkeeper: goalkeeper,
     statusCode: statusCode
   };
@@ -3000,10 +2996,9 @@ exports.removeGoalkeeperFail = removeGoalkeeperFail;
 var SET_DEFENDER_SUCCESS = 'SET_DEFENDER_SUCCESS';
 exports.SET_DEFENDER_SUCCESS = SET_DEFENDER_SUCCESS;
 
-var setDefenderSuccess = function setDefenderSuccess(userId, defender, statusCode) {
+var setDefenderSuccess = function setDefenderSuccess(defender, statusCode) {
   return {
     type: SET_DEFENDER_SUCCESS,
-    userId: userId,
     defender: defender,
     statusCode: statusCode
   };
@@ -3024,10 +3019,9 @@ exports.setDefenderFail = setDefenderFail;
 var REMOVE_DEFENDER_SUCCESS = 'REMOVE_DEFENDER_SUCCESS';
 exports.REMOVE_DEFENDER_SUCCESS = REMOVE_DEFENDER_SUCCESS;
 
-var removeDefenderSuccess = function removeDefenderSuccess(userId, defender, statusCode) {
+var removeDefenderSuccess = function removeDefenderSuccess(defender, statusCode) {
   return {
     type: REMOVE_DEFENDER_SUCCESS,
-    userId: userId,
     defender: defender,
     statusCode: statusCode
   };
@@ -3048,10 +3042,9 @@ exports.removeDefenderFail = removeDefenderFail;
 var SET_MIDFIELDER_SUCCESS = 'SET_MIDFIELDER_SUCCESS';
 exports.SET_MIDFIELDER_SUCCESS = SET_MIDFIELDER_SUCCESS;
 
-var setMidfielderSuccess = function setMidfielderSuccess(userId, midfielder, statusCode) {
+var setMidfielderSuccess = function setMidfielderSuccess(midfielder, statusCode) {
   return {
     type: SET_MIDFIELDER_SUCCESS,
-    userId: userId,
     midfielder: midfielder,
     statusCode: statusCode
   };
@@ -3072,10 +3065,9 @@ exports.setMidfielderFail = setMidfielderFail;
 var REMOVE_MIDFIELDER_SUCCESS = 'REMOVE_MIDFIELDER_SUCCESS';
 exports.REMOVE_MIDFIELDER_SUCCESS = REMOVE_MIDFIELDER_SUCCESS;
 
-var removeMidfielderSuccess = function removeMidfielderSuccess(userId, midfielder, statusCode) {
+var removeMidfielderSuccess = function removeMidfielderSuccess(midfielder, statusCode) {
   return {
     type: REMOVE_MIDFIELDER_SUCCESS,
-    userId: userId,
     midfielder: midfielder,
     statusCode: statusCode
   };
@@ -3096,10 +3088,9 @@ exports.removeMidfielderFail = removeMidfielderFail;
 var SET_FORWARD_SUCCESS = 'SET_FORWARD_SUCCESS';
 exports.SET_FORWARD_SUCCESS = SET_FORWARD_SUCCESS;
 
-var setForwardSuccess = function setForwardSuccess(userId, forward, statusCode) {
+var setForwardSuccess = function setForwardSuccess(forward, statusCode) {
   return {
     type: SET_FORWARD_SUCCESS,
-    userId: userId,
     forward: forward,
     statusCode: statusCode
   };
@@ -3120,10 +3111,9 @@ exports.setForwardFail = setForwardFail;
 var REMOVE_FORWARD_SUCCESS = 'REMOVE_FORWARD_SUCCESS';
 exports.REMOVE_FORWARD_SUCCESS = REMOVE_FORWARD_SUCCESS;
 
-var removeForwardSuccess = function removeForwardSuccess(userId, forward, statusCode) {
+var removeForwardSuccess = function removeForwardSuccess(forward, statusCode) {
   return {
     type: REMOVE_FORWARD_SUCCESS,
-    userId: userId,
     forward: forward,
     statusCode: statusCode
   };
@@ -3144,10 +3134,9 @@ exports.removeForwardFail = removeForwardFail;
 var ADD_STARTER_SUCCESS = 'ADD_STARTER_SUCCESS';
 exports.ADD_STARTER_SUCCESS = ADD_STARTER_SUCCESS;
 
-var addStarterSuccess = function addStarterSuccess(userId, starter, statusCode) {
+var addStarterSuccess = function addStarterSuccess(starter, statusCode) {
   return {
     type: ADD_STARTER_SUCCESS,
-    userId: userId,
     starter: starter,
     statusCode: statusCode
   };
@@ -3168,10 +3157,9 @@ exports.addStarterFail = addStarterFail;
 var REMOVE_STARTER_SUCCESS = 'REMOVE_STARTER_SUCCESS';
 exports.REMOVE_STARTER_SUCCESS = REMOVE_STARTER_SUCCESS;
 
-var removeStarterSuccess = function removeStarterSuccess(userId, starter, statusCode) {
+var removeStarterSuccess = function removeStarterSuccess(starter, statusCode) {
   return {
     type: REMOVE_STARTER_SUCCESS,
-    userId: userId,
     starter: starter,
     statusCode: statusCode
   };
@@ -3192,10 +3180,9 @@ exports.removeStarterFail = removeStarterFail;
 var ADD_BENCHWARMER_SUCCESS = 'ADD_BENCHWARMER_SUCCESS';
 exports.ADD_BENCHWARMER_SUCCESS = ADD_BENCHWARMER_SUCCESS;
 
-var addBenchwarmerSuccess = function addBenchwarmerSuccess(userId, benchwarmer, statusCode) {
+var addBenchwarmerSuccess = function addBenchwarmerSuccess(benchwarmer, statusCode) {
   return {
     type: ADD_BENCHWARMER_SUCCESS,
-    userId: userId,
     benchwarmer: benchwarmer,
     statusCode: statusCode
   };
@@ -3216,10 +3203,9 @@ exports.addBenchwarmerFail = addBenchwarmerFail;
 var REMOVE_BENCHWARMER_SUCCESS = 'REMOVE_BENCHWARMER_SUCCESS';
 exports.REMOVE_BENCHWARMER_SUCCESS = REMOVE_BENCHWARMER_SUCCESS;
 
-var removeBenchwarmerSuccess = function removeBenchwarmerSuccess(userId, benchwarmer, statusCode) {
+var removeBenchwarmerSuccess = function removeBenchwarmerSuccess(benchwarmer, statusCode) {
   return {
     type: REMOVE_BENCHWARMER_SUCCESS,
-    userId: userId,
     benchwarmer: benchwarmer,
     statusCode: statusCode
   };
@@ -3258,7 +3244,11 @@ var getClub = function getClub(accessToken, userId) {
 
       return res.json();
     }).then(function (fantasyClub) {
-      dispatch(getClubSuccess(userId, fantasyClub, 200));
+      if (fantasyClub.manager._id === userId) {
+        dispatch(getClubSuccess(fantasyClub, 200));
+      } else {
+        console.error("Unable to get club. UserID mismatch.");
+      }
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3267,7 +3257,7 @@ var getClub = function getClub(accessToken, userId) {
 
 exports.getClub = getClub;
 
-var newClub = function newClub(userId, accessToken, clubName, manager) {
+var newClub = function newClub(accessToken, clubName, manager) {
   return function (dispatch) {
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/newClub"), {
       method: 'PUT',
@@ -3292,7 +3282,8 @@ var newClub = function newClub(userId, accessToken, clubName, manager) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(newClubSuccess(userId, data.clubName, data.manager, 200));
+      console.log('data:', data);
+      dispatch(newClubSuccess(data.clubName, data.manager, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3325,7 +3316,7 @@ var addGoalkeeper = function addGoalkeeper(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setGoalkeeperSuccess(userId, data, 200));
+      dispatch(setGoalkeeperSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3358,7 +3349,7 @@ var removeGoalkeeper = function removeGoalkeeper(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeGoalkeeperSuccess(userId, data, 200));
+      dispatch(removeGoalkeeperSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3391,7 +3382,7 @@ var addDefender = function addDefender(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setDefenderSuccess(userId, data, 200));
+      dispatch(setDefenderSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3424,7 +3415,7 @@ var removeDefender = function removeDefender(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeDefenderSuccess(userId, data, 200));
+      dispatch(removeDefenderSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3457,7 +3448,7 @@ var addMidfielder = function addMidfielder(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setMidfielderSuccess(userId, data, 200));
+      dispatch(setMidfielderSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3490,7 +3481,7 @@ var removeMidfielder = function removeMidfielder(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeMidfielderSuccess(userId, data, 200));
+      dispatch(removeMidfielderSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3523,7 +3514,7 @@ var addForward = function addForward(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(setForwardSuccess(userId, data, 200));
+      dispatch(setForwardSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3556,7 +3547,7 @@ var removeForward = function removeForward(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeForwardSuccess(userId, data, 200));
+      dispatch(removeForwardSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3589,7 +3580,7 @@ var addStarter = function addStarter(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(addStarterSuccess(userId, data, 200));
+      dispatch(addStarterSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3622,7 +3613,7 @@ var removeStarter = function removeStarter(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeStarterSuccess(userId, data, 200));
+      dispatch(removeStarterSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3655,7 +3646,7 @@ var addBench = function addBench(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(addBenchwarmerSuccess(userId, data, 200));
+      dispatch(addBenchwarmerSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -3688,7 +3679,7 @@ var removeBench = function removeBench(accessToken, userId, player) {
 
       return res.json();
     }).then(function (data) {
-      dispatch(removeBenchwarmerSuccess(userId, data, 200));
+      dispatch(removeBenchwarmerSuccess(data, 200));
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -7122,10 +7113,9 @@ exports.setUserFail = setUserFail;
 var SET_LEAGUE_SUCCESS = 'SET_LEAGUE_SUCCESS';
 exports.SET_LEAGUE_SUCCESS = SET_LEAGUE_SUCCESS;
 
-var setLeagueSuccess = function setLeagueSuccess(userId, fantasyLeagueId, fantasyLeagueName, statusCode) {
+var setLeagueSuccess = function setLeagueSuccess(fantasyLeagueId, fantasyLeagueName, statusCode) {
   return {
     type: SET_LEAGUE_SUCCESS,
-    userId: userId,
     fantasyLeagueId: fantasyLeagueId,
     fantasyLeagueName: fantasyLeagueName,
     statusCode: statusCode
@@ -7147,10 +7137,9 @@ exports.setLeagueFail = setLeagueFail;
 var HAS_CLUB_SUCCESS = 'HAS_CLUB_SUCCESS';
 exports.HAS_CLUB_SUCCESS = HAS_CLUB_SUCCESS;
 
-var hasClubSuccess = function hasClubSuccess(userId, hasClub, statusCode) {
+var hasClubSuccess = function hasClubSuccess(hasClub, statusCode) {
   return {
     type: HAS_CLUB_SUCCESS,
-    userId: userId,
     hasClub: hasClub,
     statusCode: statusCode
   };
@@ -7222,7 +7211,11 @@ var selectLeague = function selectLeague(userId, accessToken, fantasyLeagueId, f
 
       return res.json();
     }).then(function (data) {
-      dispatch(setLeagueSuccess(userId, data.fantasyLeagueId, data.fantasyLeagueName, 200));
+      if (data._id === userId) {
+        dispatch(setLeagueSuccess(data.fantasyLeagueId, data.fantasyLeagueName, 200));
+      } else {
+        console.error('Could not select a league. UserID mismatch.');
+      }
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -7233,6 +7226,7 @@ exports.selectLeague = selectLeague;
 
 var clubOwner = function clubOwner(userId, accessToken, hasClub) {
   return function (dispatch) {
+    console.log('first userId:', userId);
     return (0, _isomorphicFetch.default)("".concat(thisURL, "/clubOwner"), {
       method: 'PUT',
       headers: {
@@ -7255,8 +7249,14 @@ var clubOwner = function clubOwner(userId, accessToken, hasClub) {
 
       return res.json();
     }).then(function (data) {
-      console.log('data:', data);
-      dispatch(hasClubSuccess(userId, data.hasClub, 200));
+      console.log('hasClub data:', data);
+      console.log('second userId:', userId);
+
+      if (data._id === userId) {
+        dispatch(hasClubSuccess(data.hasClub, 200));
+      } else {
+        console.error('Could not determine if user has club. UserID mismatch');
+      }
     }).catch(function (error) {
       throw new Error(error);
     });
@@ -37616,7 +37616,7 @@ function (_React$Component) {
   _createClass(FantasyTeam, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.hasClub === true) {
+      if (this.props.hasClub) {
         this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
       }
     }
@@ -37639,7 +37639,7 @@ function (_React$Component) {
     value: function setClubName(event) {
       event.preventDefault();
       this.props.dispatch((0, _fantasyClubActions.newClub)(this.props.accessToken, this.clubNameInput.value, this.props.userId));
-      this.props.dispatch((0, _userActions.clubOwner)(this.props.accessToken, true));
+      this.props.dispatch((0, _userActions.clubOwner)(this.props.userId, this.props.accessToken, true));
       this.props.dispatch((0, _fantasyClubActions.getClub)(this.props.accessToken, this.props.userId));
     }
   }, {
@@ -37647,7 +37647,7 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      if (this.props.hasClub === false) {
+      if (!this.props.hasClub) {
         return _react.default.createElement("div", {
           className: _fantasyClub.default.fantasyClub
         }, _react.default.createElement("form", {
