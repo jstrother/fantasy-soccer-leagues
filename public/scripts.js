@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "beda14b6c75bbbf422f5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "01c8d3ab380b81d16f0a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -39550,14 +39550,12 @@ var userReducer = function userReducer() {
 
     case _userActions.SET_LEAGUE_SUCCESS:
       return Object.assign({}, state, {
-        userId: action.userId,
         fantasyLeagueId: action.fantasyLeagueId,
         fantasyLeagueName: action.fantasyLeagueName
       });
 
     case _userActions.HAS_CLUB_SUCCESS:
       return Object.assign({}, state, {
-        userId: action.userId,
         hasClub: action.hasClub
       });
 
