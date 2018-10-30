@@ -15,6 +15,6 @@ exports.CLIENT_ID =
 
 exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop should repeat; also helps limit continuous looping of playerIdArrays to once per league loop
 
-exports.DIRECTORY = 'http://127.0.0.1:8080';
+// exports.DIRECTORY = 'http://127.0.0.1:8080';
 
-// exports.DIRECTORY = 'https://the-fsfsl.herokuapp.com';
+exports.DIRECTORY = 'https://the-fsfsl.herokuapp.com';
