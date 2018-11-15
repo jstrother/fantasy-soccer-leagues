@@ -9,5 +9,5 @@ Simply go to the link above and sign up. Once you're in, select a league, name y
 Please note that player statistics are outdated as I couldn't afford to keep paying for the API as a student.
 
 Stretch Goals for this project include:
-1. using Google's AXE for accessibility
+1. using Google's aXe for accessibility
 2. since the heroku app auto-sleeps after 30 minutes of inactivity, need a way to give user a sense that commands are being acted upon without delay
