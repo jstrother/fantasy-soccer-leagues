@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3cb2389b10ef6192a752"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d44c51de8852cf033d5a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5214,8 +5214,9 @@ exports.API_KEY = '?api_token=2GWcdMDb3ppwcmdLrkD8JcXaaR5RmR91dHbgA6TnyCA8ik8kj3
 exports.CLIENT_SECRET = 'yIs-UYd9Rqqe8GVS1DRB5Aij';
 exports.CLIENT_ID = '37522725082-dlubl11l5pbgcibrtq5r40og5m1af9jd.apps.googleusercontent.com';
 exports.LEAGUE_LOOP_REPEAT_TIME = 30 * 60 * 1000; // # of minutes league loop should repeat; also helps limit continuous looping of playerIdArrays to once per league loop
+// exports.DIRECTORY = 'http://127.0.0.1:8080';
 
-exports.DIRECTORY = 'http://127.0.0.1:8080'; // exports.DIRECTORY = 'https://the-fsfsl.herokuapp.com';
+exports.DIRECTORY = 'https://the-fsfsl.herokuapp.com';
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
