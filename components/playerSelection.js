@@ -11,6 +11,7 @@ import { fetchLeague, playerPositionSelect, playerClubSelect } from '../flow/sub
 import { addGoalkeeper, addDefender, addMidfielder, addForward } from '../flow/subActions/fantasyClubActions.js';
 import { warning } from '../flow/subActions/warningActions.js';
 import { compare } from '../server/programFunctions/compare_function.js';
+import { MoonLoader } from 'react-spinners';
 import styles from '../scss/playerSelection.scss';
 
 export class Selection extends React.Component {
@@ -226,7 +227,9 @@ export class Selection extends React.Component {
     }
     else {
       return(
-        <h6 className={styles.somethingWrong}>We're sorry, but something went wrong.</h6>
+        <div className={styles.somethingWrong}>
+			<MoonLoader />
+		</div>
       );
     }
   }
