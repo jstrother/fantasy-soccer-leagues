@@ -111,7 +111,7 @@
 		"js-cookie": "^2.2.0",
 		"lodash": "^4.17.5",
 		"mongodb": "^3.1.0-beta4",
-		"mongoose": "^5.1.6",
+		"mongoose": "^5.7.5",
 		"mquery": "^2.3.3",
 		"node-sass": "^4.9.2",
 		"npm": "^6.3.0",
