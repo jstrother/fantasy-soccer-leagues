@@ -110,7 +110,7 @@
 		"isomorphic-fetch": "^2.2.1",
 		"js-cookie": "^2.2.0",
 		"lodash": "^4.17.5",
-		"mongodb": "^3.1.0-beta4",
+		"mongodb": "^3.1.13",
 		"mongoose": "^5.7.5",
 		"mquery": "^3.2.3",
 		"node-sass": "^4.9.2",
